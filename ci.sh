@@ -8,7 +8,7 @@ git_branch=${GIT_BRANCH}
 image_tag=${git_branch#*/}
 image_name="partup/partup:${image_tag}"
 
-echo "{\"version\": \"`git describe`\", \"deploydate\": \"`date +\"%Y-%m-%dT%H:%M:%SZ\"`\"}" > app/public/VERSION
+echo "{\"version\": \"`git describe`\"}" > app/public/VERSION
 
 docker_opts=""
 
