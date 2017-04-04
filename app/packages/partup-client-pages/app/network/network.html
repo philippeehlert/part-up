@@ -12,9 +12,7 @@
                             {{ name }}
                             {{#if archived_at}}<span class="pu-sub-archived"><i class="picon-warning"></i> {{_ 'pages-app-network-start-label-archived' }} <strong>{{ partupDateOnly archived_at }}</strong></span>{{/if}}
                         </h1>
-                    <!--<a href="{{ pathFor route='network' slug=slug query='show=true'}}">-->
                         <span class="pu-button pu-button-darktext"><i class="picon-show"></i><span>{{_ 'pages-app-network-tab-button-showstart' }}</span></span>
-                    <!--</a>-->
                     {{ else }}
                         {{> Spinner color='inverted'}}
                     {{/ with }}
