@@ -72,105 +72,17 @@ if (Meteor.isClient) {
         }
 
         function onFileChange(files, dropboxClient) {
-            var uploadPromises = [];
-            var shareSettingPromises = [];
-
+            
+            mediaUploader.uploadingDocuments.set(true);      
+            
             files.forEach(function (file) {
-                var mappedFile = file;
-
-                var path = file.link.match(/(\/view\/\w+\/)(.*)/);
-
-                if (path) {
-                    shareSettingPromises.push(new Promise(function (resolve, reject) {
-                        jQuery.ajax({
-                            url: 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings',
-                            method: "POST",
-                            contentType: "application/json; charset=utf-8",
-                            traditional: true,
-                            headers: {
-                                "Authorization": "Bearer " + dropboxClient.accessToken
-                            },
-                            data: JSON.stringify({
-                                path: '/' + decodeURI(path[2]),
-                                settings: {
-                                    "requested_visibility": "public"
-                                    // "expires": "2045-05-12T15:50:38Z" --> This is only allowed for paying dropbox users.
-                                }
-                            }),
-                        })
-                            .fail(function (response) {
-                                var dropboxError = response.responseJSON.error;
-                                if (dropboxError['.tag'] === 'shared_link_already_exists') {
-                                    mappedFile.previewLink = file.link;
-                                    resolve(mappedFile);
-                                } else {
-                                    reject(dropboxError.error_summary);
-                                }
-                            })
-                            .done(
-                                function (result) {
-                                    mappedFile.previewLink = result.url;
-                                    resolve(mappedFile);
-                                }
-                            )
-
-                    }));
-                }
-            });
-
-
-            Promise.all(shareSettingPromises).then(function (files) {
-                files.forEach(function (file) {
-                    var mappedFile = file;
-
-                    if (allowImageUpload(mediaUploader, mappedFile)) {
-
-                        mappedFile = _.omit(mappedFile, 'previewLink');
-
-                        uploadPromises.push(
-                            FileUploader.partupUploadPhoto(mediaUploader, mappedFile)
-                        );
-                    }
-                    else if (allowDocumentUpload(mediaUploader, mappedFile)) {
-                        mappedFile.link = mappedFile.previewLink;
-                        mappedFile._id = new Meteor.Collection.ObjectID()._str;
-
-                        mappedFile = _.omit(mappedFile, 'previewLink');
-
-                        uploadPromises.push(
-                            FileUploader.partupUploadDoc(mediaUploader, mappedFile)
-                        );
-                    }
-                });
-
-                Promise.all(uploadPromises).then(function (files) {
-
-                    files.forEach(function (file) {
-
-                        if (allowImageUpload(mediaUploader, file)) {
-                            var uploaded = mediaUploader.uploadedPhotos.get();
-                            uploaded.push(file._id);
-                            mediaUploader.uploadedPhotos.set(uploaded);
-                            mediaUploader.uploadingPhotos.set(false);
-                        }
-                        else if (allowDocumentUpload(mediaUploader, file)) {
-                            uploaded = mediaUploader.uploadedDocuments.get();
-                            uploaded.push(file);
-                            mediaUploader.uploadedDocuments.set(uploaded);
-                            mediaUploader.uploadingDocuments.set(false);
-                        }
-                    });
-
-                }).catch(function (error) {
-                    Partup.client.notify.error(TAPi18n.__(error.reason));
-                    mediaUploader.uploadingPhotos.set(false);
-                    mediaUploader.uploadingDocuments.set(false);
-                });
-
-            }).catch(function (error) {
-                var errorString = JSON.stringify(error, null, 4);
-                Partup.client.notify.error(TAPi18n.__(errorString));
-            });
+                uploaded = mediaUploader.uploadedDocuments.get();
+                file._id = new Meteor.Collection.ObjectID()._str; // Uploaded doc needs a new id
+                uploaded.push(file);
+                mediaUploader.uploadedDocuments.set(uploaded);
+            }); 
+            
+            mediaUploader.uploadingDocuments.set(false);       
         }
     });
 }

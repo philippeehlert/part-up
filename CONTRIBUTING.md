@@ -1,40 +1,45 @@
 # Contributing to part-up.com
 
-This guideline details the preferred way of making contributions to the part-up.com codebase. If you have any questions, please [join the conversation of the Platform Development tribe on Part-up] (https://part-up.com/tribes/development/chat).
+This guideline details the preferred way of making contributions to the part-up.com codebase. If you have any questions,
+please [join the conversation of the Platform Development tribe on Part-up](https://part-up.com/tribes/development/chat).
 
 ## Branches
-- `develop`: the main integration branch. All code committed to `develop` should be ready for a release branch.
-- `master`: points to the latest git commit that is deployed to production
-- `MD*.*.*`: points to a release branch, only fixes for that release should be pushed to that branch
-- all other branches are considered feature/fix branches
+- `master`: the main branch and the only one from which is deployed to acceptance, beta and production. Releases are
+  referenced using git tags. No direct commits on master are allowed. Instead, all commits are done on feature branches
+  and are peer reviewed before being merged into master.
+- all other branches are considered feature/fix branches.
 
-## Featurebranches
+## Feature branches
 
-- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing features. Push new commits to your branch only
-- Keep your branch up to date with the latest commits on the dev branch by occassionally merging in changes `git merge dev`
-- When you are finished with your functionality, rebase the branch onto the latest commit of `develop` using the command `git rebase origin/develop` and create a pull request.
-- When an integrator is satisfied with the branch and all feedback is processed, the integrator merges the featurebranch into `develop` using `git merge --no-ff feat-notifications`.
+- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing  
+  features. Push new commits to your branch only.
+- Keep your branch up to date with the latest commits on the master branch by occassionally merging in changes
+  `git merge master`.
+- When you are finished with your functionality, rebase the branch onto the latest commit of `master` using the command
+  `git rebase origin/master` and create a pull request.
+- When an integrator is satisfied with the branch and all feedback is processed, the integrator merges the feature
+  branch into `master` using `git merge --no-ff feat-notifications`.
 
 ## <a name="commit"></a> Git Commit Guidelines
 
-We have very precise rules over how our git commit messages can be formatted for maintenance of the changelog and semvar versioning.  This leads to **more
-readable messages** that are easy to follow when looking through the **project history**.  But also,
-we use the git commit messages to **generate the change log**.
+We have very precise rules over how our git commit messages can be formatted for maintenance of the change log and
+semantic versioning.  This leads to **more readable messages** that are easy to follow when looking through the
+**project history**.  But also, we use the git commit messages to **generate the change log**.
 
 
 ## Contributing workflow
 
 **Make sure you run `npm install`**  (part-up root folder).
 
-1. Create a **feature-** or **fix-** branch
+1. Create a **feature** (`feat-...` or `ft-`) or **fix** (`fix-...`) branch
 2. Complete a feature or bug
 3. Commit changes with `npm run commit` (part-up root folder) and choose one of the following options:
- 
+
 <div>
 <img src="https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png" />
 </div>
 
-*If you do not follow the convention you will not be able to commit your work! 
+*If you do not follow the convention you will not be able to commit your work!
 We have git-pre hooks built-in to ensure you're committing the code according to conventional format.*
 
 4. Push
@@ -59,7 +64,8 @@ Any line of the commit message cannot be longer 100 characters! This allows the 
 to read on GitHub as well as in various git tools.
 
 ### Revert
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit.
+In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
 
 ### Type
 Must be one of the following:
@@ -98,13 +104,13 @@ reference github issues that this commit **Closes**.
 
 #### Examples
 
-Appears under "Features" header, pencil subheader:
+Appears under "Features" header, pencil sub header:
 
 ```
 feat(pencil): add 'graphiteWidth' option
 ```
 
-Appears under "Bug Fixes" header, graphite subheader, with a link to issue #GSNP-28:
+Appears under "Bug Fixes" header, graphite sub header, with a link to issue #GSNP-28:
 
 ```
 fix(graphite): stop graphite breaking when width < 0.1
@@ -117,10 +123,12 @@ Appears under "Performance Improvements" header, and under "Breaking Changes" wi
 ```
 perf(pencil): remove graphiteWidth option
 
-BREAKING CHANGE: The graphiteWidth option has been removed. The default graphite width of 10mm is always used for performance reason.
+BREAKING CHANGE: The graphiteWidth option has been removed. The default graphite width of 10mm is always used for
+performance reason.
 ```
 
-The following commit and commit `667ecc1` do not appear in the changelog if they are under the same release. If not, the revert commit appears under the "Reverts" header.
+The following commit and commit `667ecc1` do not appear in the change log if they are under the same release. If not,
+the revert commit appears under the "Reverts" header.
 
 ```
 revert: feat(pencil): add 'graphiteWidth' option

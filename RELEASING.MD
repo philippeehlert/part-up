@@ -4,8 +4,9 @@
 For the release process we're using a gulp plugin for managing semver releases using conventional changelog.
 Check plugin: [gulp-conventional-release](https://github.com/aaronroberson/gulp-conventional-release)
 
- 1. Peer-review the code changes you've made.
- 1. Please check the [CHANGELOG.md](https://github.com/part-up/part-up/blob/develop/CHANGELOG.md) to understand the
+ 1. Peer-review the code changes that have been made on the master branch. Any changes on master will have gone through
+    a peer reviewed pull request, but think on what is in a release anyway :)
+ 1. Please check the [CHANGELOG](https://github.com/part-up/part-up/blob/master/RELEASING.MD) to understand the
     version management of this project.
     For more information about Semantic Versioning please take a look at: [semver.org](http://semver.org/)
  1. Run `npm run release` (this will stage and commit the changes, bump the version in package.json, run
@@ -20,7 +21,6 @@ Check plugin: [gulp-conventional-release](https://github.com/aaronroberson/gulp-
  1. If everything is OK, deploy your tag to production.
  1. Let the people of the part-up open source development community know that you've just made a new release by adding
     a new message on the part-up messages board.
- 1. Merge develop back into master.
  1. Generate GitHub release notes with    **(GitHub personal token is required)**.
 
   ``` lang=bash

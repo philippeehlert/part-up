@@ -1,3 +1,37 @@
+<a name="2.10.2"></a>
+## [2.10.2](https://github.com/part-up/part-up/compare/2.10.1...v2.10.2) (2017-04-03)
+
+
+### Bug Fixes
+
+* **release:** Don't include deploy date in VERSION ([1865efd](https://github.com/part-up/part-up/commit/1865efd))
+
+
+
+<a name="2.10.1"></a>
+## [2.10.1](https://github.com/part-up/part-up/compare/2.10.0...2.10.1) (2017-03-31)
+
+
+
+<a name="2.10.0"></a>
+# [2.10.0](https://github.com/part-up/part-up/compare/2.9.6...2.10.0) (2017-03-28)
+
+
+### Bug Fixes
+
+* **dropbox-chooser:** Set linkType to preview ([c4b7139](https://github.com/part-up/part-up/commit/c4b7139))
+
+
+### Features
+
+* **refresh:** Added i18n to reload bar ([0f30b90](https://github.com/part-up/part-up/commit/0f30b90))
+* **refresh:** Added more info link ([4ca21e4](https://github.com/part-up/part-up/commit/4ca21e4))
+* **refresh:** Don't trigger auto-reload after version upgrade ([4489551](https://github.com/part-up/part-up/commit/4489551))
+* **refresh:** Removed unused helper ([71fcff6](https://github.com/part-up/part-up/commit/71fcff6))
+* **refresh:** Shows message and reload button when new version is available ([dff8bbb](https://github.com/part-up/part-up/commit/dff8bbb))
+
+
+
 <a name="2.9.6"></a>
 ## [2.9.6](https://github.com/part-up/part-up/compare/2.9.5...2.9.6) (2017-03-23)
 

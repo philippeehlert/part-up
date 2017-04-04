@@ -139,7 +139,9 @@ GOOGLE_API_KEY
 `cd config/development && ansible-vault edit env.sh-encrypted`
 
 ## Phraseapp translation
-Add new keys using the i18n convention to the main locale [/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/develop/app/i18n/phraseapp.en.i18n.json) and commit them to your branch.
+Add new keys using the i18n convention to the main locale
+[/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/master/app/i18n/phraseapp.en.i18n.json)
+and commit them to your branch.
 
 After merging the PR for your branch, [Ralph Boeije](https://github.com/ralphboeije) will import the new keys to [Phraseapp](https://phraseapp.com/accounts/part-up-com/projects/part-up-webapp/locales) and add the translations to the other locales.
 
@@ -158,4 +160,5 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
-along with this program. You can find it at [/part-up/LICENSE](https://github.com/part-up/part-up/blob/develop/LICENSE) and the supplement at [/part-up/License supplement](https://github.com/part-up/part-up/blob/develop/License%20supplement)
+along with this program. You can find it at [/part-up/LICENSE](https://github.com/part-up/part-up/blob/master/LICENSE)
+and the supplement at [/part-up/License supplement](https://github.com/part-up/part-up/blob/master/License%20supplement)
