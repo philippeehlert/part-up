@@ -2,14 +2,14 @@ Meteor.startup(function () {
     if (process.env.NODE_ENV.match(/development|staging/)) {
 
         if (!Boards.find().count()) {
-
+            
             /* Organize Meteor board */
             Boards.insert({
                 '_id': '9TEcgO45TkVBizotA',
                 'partup_id': 'vGaxNojSerdizDPjb',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': ['WFcjbTeEDeiY5XC9N']
             });
             /* Incubator board */
             Boards.insert({
@@ -17,7 +17,7 @@ Meteor.startup(function () {
                 'partup_id': 'IGhBN2Z3mrA90j3g7',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': ['srPWJgxWcLhIlAuxA']
             });
             /* Partup developement board */
             Boards.insert({
@@ -39,7 +39,7 @@ Meteor.startup(function () {
                 'partup_id': 'gJngF65ZWyS9f3NDE',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': ['hUGKnG6VRqFfuXtch']
             });
 
             /* ING Super Secret */
@@ -48,7 +48,7 @@ Meteor.startup(function () {
                 'partup_id': 'CJETReuE6uo2eF7eW',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': []
+                'lanes': ['U6MgEtdp8uBESETTb']
             });
 
             /* ING Semi Secret */

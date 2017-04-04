@@ -147,7 +147,8 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQH'
+                    'q63Kii9wwJX3Q6rHS', //Admin
+                    'K5c5M4Pbdg3B82wQH'  //Default
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -156,6 +157,10 @@ Meteor.startup(function() {
                     'last_ip' : '127.0.0.1'
                 },
                 'upper_data' : [
+                    {
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        'new_updates' : []
+                    },
                     {
                         '_id' : 'K5c5M4Pbdg3B82wQH',
                         'new_updates' : []
