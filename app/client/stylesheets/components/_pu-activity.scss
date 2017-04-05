@@ -1,0 +1,311 @@
+.pu-activity {
+    .pu-sub-section {
+        position: relative;
+        padding: 15px;
+        border-top: 2px solid #eee;
+
+        &:first-child {
+            border-top: 0;
+        }
+
+        .pu-contribution + .pu-contribution {
+            border-top: 2px solid $color-border-light;
+        }
+
+        .pu-sub-description {
+            margin-bottom: 0;
+        }
+
+        .pu-block-meta-nocomment {
+            margin-top: 0;
+        }
+
+        .pu-sub-editbutton {
+            margin-top: -15px;
+        }
+
+        &-divided {
+            font-size: 0;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+
+            .pu-sub-section__main {
+                width: calc(100% - 240px);
+                position: relative;
+            }
+
+            .pu-sub-section__main,
+            .pu-sub-section__side {
+                display: table-cell;
+                vertical-align: top;
+                width: 100%;
+            }
+        }
+
+        &-comments {
+            background-color: #f9f9f9;
+            border-top: 2px solid #eee;
+        }
+
+        &__side {
+            position: relative;
+            width: 240px;
+
+            .pu-avatar-stack {
+                width: 100%;
+                display: block;
+                height: 40px;
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 5px;
+                bottom: 0;
+                display: block;
+                height: 100%;
+                width: 2px;
+                background-color: $color-border-light;
+            }
+        }
+    }
+
+    .pu-label {
+        font-size: 14px;
+    }
+
+    .pu-sub-editbutton {
+        margin-top: -10px;
+    }
+
+    .pu-sub-title {
+        font-size: 20px;
+        font-weight: 700;
+
+        &.pu-state-deleted {
+            text-decoration: line-through;
+        }
+
+        &:last-child {
+            margin-bottom: -3px;
+        }
+
+        .pu-tag {
+            margin-right: 10px;
+        }
+
+        &.pu-expander {
+            overflow: visible;
+        }
+    }
+
+    .pu-sub-description {
+        margin-bottom: 5px;
+        margin-top: 6px;
+        font-size: 16px;
+
+        &:last-child {
+            margin-bottom: -3px;
+        }
+    }
+
+    .pu-block-meta {
+        margin-top: 6px;
+        margin-bottom: -18px;
+        min-height: 34px;
+    }
+
+    .pu-sub-date {
+        margin-right: 6px;
+    }
+
+    .pu-sub-comments {
+        font-size: 12px;
+        color: $color-text-subtle;
+
+        i {
+            margin-right: 4px;
+
+            &.picon-chat:before {
+                vertical-align: middle;
+            }
+        }
+
+        &.pu-state-unread {
+            color: $color-secondary;
+        }
+    }
+
+    .pu-sub-contribute {
+        color: #aaa;
+        text-align: right;
+
+        .pu-button {
+            display: block;
+
+            &:last-child {
+                margin-left: 5px;
+            }
+        }
+
+        .pu-button, .pu-sub-or {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &-expandable {
+        // .pu-sub-editbutton
+        //     display: none
+
+        &.pu-activity-expanded {
+            .pu-sub-editbutton {
+                display: block;
+                background-color: #fff;
+                z-index: 9;
+
+                &:before {
+                    content: "";
+                    display: block;
+                    height: 35px;
+                    background-color: white;
+                    width: 25px;
+                    position: absolute;
+                    left: -25px;
+                    top: 0;
+                    bottom: 0;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 60%);
+                }
+            }
+
+            > .pu-avatar-stack {
+                display: none;
+            }
+        }
+    }
+
+    &-singlecontribution {
+        .pu-sub-title {
+            font-size: 14px;
+        }
+
+        .pu-avatar-stack {
+            display: none;
+        }
+    }
+
+    &-form {
+        padding: 20px;
+    }
+
+    &-create {
+        padding-left: 40px;
+        padding-right: 40px;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &-popup {
+            padding: $spacing-popup-padding;
+        }
+    }
+
+    &-archived {
+        .pu-sub-title {
+            color: lighten($color-text, 50%);
+        }
+    }
+
+    &-board-card {
+        .pu-sub-section {
+            max-width: none;
+
+            .pu-sub-title {
+                font-size: 16px;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                .picon-caret-down {
+                    font-size: 12px;
+                    float: right;
+                }
+            }
+
+            .pu-sub-description {
+                font-size: 14px;
+            }
+
+            .pu-avatar-stack {
+                background-color: transparent;
+                border-top: 2px solid #eee;
+                margin-left: -5px;
+                position: static;
+                margin-top: 15px;
+                text-align: left;
+                height: 40px;
+                padding-top: 10px;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        .pu-dropdownie {
+            position: absolute;
+            margin-top: 12px;
+            padding: 0;
+            right: -12px;
+
+            .pu-sub-arrow {
+                right: 19px;
+            }
+
+            ul {
+                position: relative;
+
+                li a {
+                    border-bottom: 2px solid #f9f9f9;
+                    padding: 20px 30px;
+                    text-decoration: none;
+                    color: $color-text;
+                    display: block;
+                    transition: background-color 0.2s;
+                    font-family: $font-primary;
+                    font-weight: 500;
+
+                    &:hover {
+                        background-color: #f9f9f9;
+                    }
+
+                    .picon-caret-slim-right,
+                    .picon-caret-slim-left {
+                        font-size: 12px;
+                    }
+                }
+
+                &:last-child {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        .pu-sub-contribute {
+            .pu-button {
+                display: inline-block;
+            }
+
+            .pu-button, .pu-sub-or {
+                width: auto;
+            }
+        }
+    }
+}
