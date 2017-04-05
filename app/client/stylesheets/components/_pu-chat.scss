@@ -1,0 +1,254 @@
+.pu-chat {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    [data-clear-context] {
+        pointer-events: all;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .pu-spinner {
+        margin: 0 auto;
+        display: block;
+        margin-top: 150px;
+    }
+
+    &-main {
+        position: absolute;
+        display: block;
+        width: calc(100% - 378px);
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        background-color: #fff;
+        border-right: 2px solid #eee;
+        border-left: 2px solid #eee;
+
+        > header {
+            padding: 33px 32px 19px 32px;
+            border: 2px solid #eee;
+            background: #fff;
+            border-top-left-radius: 4px;
+            position: relative;
+            margin: auto;
+            width: 100%;
+        }
+    }
+
+    &-wrapper {
+        border-top: 2px solid #eee;
+        position: absolute;
+        bottom: 68px;
+        right: 0;
+        left: 0;
+        top: 0;
+
+        > .pu-highlightbar {
+            position: absolute;
+            background-color: transparent;
+            padding: 5px 20px;
+            padding-bottom: 0px;
+            right: 0;
+            left: 0;
+            z-index: 9;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+
+            .pu-sub-highlight {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                text-align: center;
+                font-weight: bold;
+                padding: 20px;
+                color: $color-text;
+                line-height: 0;
+                background-color: #ddd;
+            }
+        }
+
+        > div {
+            height: 100%;
+            overflow: auto;
+            pointer-events: none;
+            padding: 10px 65px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            position: relative;
+
+            // padding-bottom dowsn't work for Firefox for some reason so I put a margin-bottom on it's last-child
+            // solution reference: http://stackoverflow.com/a/10723008/5189511
+            // padding-bottom: 18px
+            > *:last-child {
+                margin-bottom: 18px;
+            }
+        }
+
+        &.pu-state-active > div,
+        &.pu-state-active > .pu-highlightbar {
+            opacity: 1;
+        }
+
+        &.pu-state-active > div {
+            pointer-events: auto;
+        }
+
+        > .pu-textline-hover {
+            &:first-child {
+                top: 0;
+            }
+
+            &:last-child {
+                bottom: 0;
+            }
+        }
+
+        .pu-chat__placeholder {
+            font-size: 20px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            text-align: center;
+            color: #ccc;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url(/images/chat/placeholder.png);
+            background-size: initial;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 0px !important;
+
+            span {
+                margin-top: 50px;
+                background-color: #fff;
+                box-shadow: 0 0 5px rgba(#fff, 1);
+                line-height: 200px;
+            }
+
+            .pu-spinner {
+                position: absolute;
+                top: calc(50% - 30px);
+                left: calc(50% - 24px);
+                background-color: #fff;
+                outline: 10px solid #fff;
+                border-radius: 50%;
+                margin: 0;
+            }
+        }
+    }
+
+    footer {
+        min-height: 69px;
+        padding: 0px 20px 20px 20px;
+
+        // background: #fff
+        border-bottom: 2px solid #eee;
+        border-top: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        &:before {
+            content: "";
+            height: 10px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -10px;
+            display: block;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+    }
+
+    .pu-sidebar {
+        border-top: 2px solid #eee;
+        border-bottom: 2px solid #eee;
+        height: 100%;
+        position: absolute;
+        top: 0;
+
+        > section {
+            height: 100%;
+        }
+
+        .pu-sidebar-wrap {
+            overflow: auto;
+            height: 100%;
+            overflow-x: hidden;
+
+            section {
+                input.pu-input {
+                    margin-bottom: 20px;
+                }
+
+                .pu-list {
+                    min-width: 375px;
+                }
+            }
+
+            > section:after {
+                background-color: #eee;
+            }
+        }
+
+        .pu-avatar.pu-avatar-online {
+            &:after {
+                border-color: #F9F9F9;
+            }
+        }
+    }
+
+    .pu-sidebar-right {
+        right: 0;
+        border-right: 2px solid #eee;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .pu-sidebar-left {
+        left: 0;
+        border-left: 2px solid #eee;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    &-main-right {
+        right: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    &-main-left {
+        left: 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+}
+
+.pu-reversed-scroller {
+    position: relative;
+    overflow: scroll;
+    transform: rotate(180deg) scale(-1, 1);
+
+    > ul {
+        list-style: none;
+        padding: 0;
+
+        > li {
+            transform: rotate(180deg) scale(-1, 1);
+        }
+    }
+}

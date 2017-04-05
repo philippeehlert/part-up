@@ -1,0 +1,67 @@
+.pu-modalsidebar {
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+
+    li {
+        margin-bottom: 21px;
+        display: inline-block;
+        margin-right: 15px;
+        position: relative;
+
+        &:after,
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #eee;
+        }
+
+        &:after {
+            z-index: 1;
+        }
+
+        &:before {
+            z-index: 0;
+            left: -100vw;
+            right: -100vw;
+        }
+    }
+
+    a {
+        color: $color-text-secondary;
+        text-decoration: none;
+    }
+
+    .pu-state-active {
+        &:after {
+            background-color: $color-secondary;
+        }
+
+        > a {
+            color: $color-secondary;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        width: 154px;
+        padding-right: 40px;
+
+        li {
+            display: block;
+            margin-right: 0;
+            margin-bottom: 11px;
+
+            &:after,
+            &:before {
+                display: none;
+            }
+        }
+    }
+}

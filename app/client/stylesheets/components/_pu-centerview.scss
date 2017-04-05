@@ -1,0 +1,16 @@
+.pu-centerview {
+    width: 100%;
+    height: 100%;
+    display: table;
+
+    &__vertical-center {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &__horizontal-center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+}

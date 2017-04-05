@@ -1,0 +1,19 @@
+.pu-boardview-card {
+    white-space: normal;
+    cursor: move;
+
+    &--is-ghost {
+        border: 2px dashed #ccc;
+        border-radius: 4px;
+
+        .pu-activity {
+            visibility: hidden;
+        }
+    }
+
+    &--is-dragging {
+        .pu-activity {
+            background-color: #eee;
+        }
+    }
+}

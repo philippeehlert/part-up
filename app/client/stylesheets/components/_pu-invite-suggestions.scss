@@ -1,0 +1,47 @@
+.pu-invite-suggestions {
+    background: #F9F9F9;
+    border-radius: 5px;
+    margin-left: -40px;
+    margin-right: -40px;
+    padding: 10px 40px 35px 40px;
+
+    > p {
+        margin-bottom: 10px;
+
+        &.pu-sub-placeholder {
+            margin-bottom: 0;
+            padding: 40px;
+            font-family: $font-secondary;
+            color: #ccc;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+
+    > ul {
+        list-style: none;
+        padding-left: 0;
+
+        @include add-list-spacing(20px);
+
+        @extend %clearfix;
+
+        > li {
+            float: left;
+            line-height: 0;
+        }
+    }
+
+    &-tabbed {
+        padding-top: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &-label {
+        margin-top: 10px;
+        margin-bottom: 10px - 3px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}

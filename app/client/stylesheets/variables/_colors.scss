@@ -1,0 +1,50 @@
+// Application colors
+$color-primary: #57c0c9;
+$color-secondary: #ffa725;
+$color-primary-dark: #458d93;
+$color-primary-deepdark: #3E8388;
+
+// Text colors
+$color-text: #292929;
+$color-text-secondary: #494949;
+$color-text-subtle: #999;
+$color-text-subtle-active: lighten(#999, 20%);
+$color-text-inverted: #ffffff;
+$color-text-link: $color-secondary;
+$color-text-link-active: lighten($color-secondary, 20%);
+
+// Background colors
+$color-background: #ffffff;
+$color-background-secondary: #eeeeee;
+$color-background-tertiery: #f9f9f9;
+$color-background-transparent: rgba($color-background, 0.95);
+
+// Status colors
+$color-online: #5bb581;
+$color-offline: #ea7575;
+
+// Alert colors
+$color-alert-success: #76c16b;
+$color-alert-info: $color-primary;
+$color-alert-warning: #ffa725;
+$color-alert-error: #e87677;
+
+$color-green: #5ab581;
+$color-red: #ea7575;
+
+// Border colors
+$color-border: #cccccc;
+$color-border-light: #eee;
+
+// Social colors
+$color-facebook: #39579a;
+$color-linkedin: #007ab9;
+$color-twitter: #55acee;
+
+//.... why are all social media blue <(-_-)>
+
+// Component colors
+$color-header: $color-primary;
+$color-button-gray-background: #ccc;
+$color-button-darkblue: #4CA8B0;
+$color-footer-background: #292929;
