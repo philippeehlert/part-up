@@ -1,0 +1,21 @@
+.pu-inputcontainer {
+    &-select {
+        margin-left: 20px;
+        line-height: 1em;
+    }
+
+    &-currency {
+        .pu-input {
+            display: inline-block;
+
+            &:first-child {
+                width: 66%;
+            }
+
+            &:last-child {
+                width: 32%;
+                vertical-align: top;
+            }
+        }
+    }
+}

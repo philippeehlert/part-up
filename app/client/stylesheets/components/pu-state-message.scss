@@ -1,0 +1,16 @@
+.pu-state-message {
+    background: $color-footer-background;
+    color: #fff;
+    padding: 20px 20px 20px 40px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-border;
+
+        i {
+            margin-right: 10px;
+            color: $color-border;
+        }
+    }
+}

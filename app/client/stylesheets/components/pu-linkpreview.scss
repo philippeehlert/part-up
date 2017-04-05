@@ -1,0 +1,48 @@
+.pu-linkpreview {
+    position: relative;
+    border: 2px solid #fff;
+    background: #eee;
+    padding: 20px 28px 20px 145px;
+    border-radius: 4px;
+    display: block;
+
+    figure {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 120px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    &-description {
+        display: inline-block;
+        color: $color-text;
+
+        .pu-sub-title {
+            font-weight: bold;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .pu-sub-intro {
+            margin-top: 2px;
+            line-height: 1.3em;
+            font-size: 14px;
+        }
+    }
+
+    &-minimal {
+        padding: 0;
+
+        img {
+            width: auto;
+            max-width: 100%;
+            display: block;
+        }
+    }
+}

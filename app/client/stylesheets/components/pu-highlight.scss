@@ -1,0 +1,210 @@
+.pu-highlight {
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+
+    > figure.pu-avatar {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    > h1, > h2, > p {
+        text-align: center;
+    }
+
+    > h1 {
+        font-weight: 600;
+        font-size: 22px;
+        max-width: 85%;
+        margin-top: -5px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5px;
+
+        + h3 {
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0 auto;
+            width: 85%;
+            font-family: $font-primary;
+            line-height: 26px;
+        }
+    }
+
+    > h2 {
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 9px;
+    }
+
+    > p {
+        font-size: 14px;
+        line-height: 22px;
+        margin-bottom: -8px;
+        padding: 5px 10px;
+    }
+
+    > ul {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    &-subtle {
+        h1 {
+            font-weight: normal;
+        }
+    }
+
+    &-well {
+        background-color: $color-background-secondary;
+        border-radius: 5px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        > h1 {
+            font-weight: 700;
+            font-size: 30px;
+            color: lighten($color-text, 10%);
+            margin-bottom: 20px;
+        }
+
+        > p {
+            color: $color-text-subtle;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &-companies {
+        > h2 {
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        > p {
+            margin-bottom: 50px;
+        }
+    }
+
+    &-inverted {
+        color: #fff;
+    }
+
+    @media screen and (min-width: 600px) {
+        padding-left: 60px;
+        padding-right: 60px;
+
+        &-well {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        padding-left: $grid-column + $grid-gap;
+        padding-right: $grid-column + $grid-gap;
+
+        > h1 {
+            font-size: 24px;
+            max-width: 65%;
+        }
+
+        > h2 {
+            font-size: 22px;
+        }
+
+        &-well {
+            > h1 {
+                font-weight: 700;
+                font-size: 32px;
+            }
+
+            > p {
+                font-size: 18px;
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        padding-left: $grid-column * 2 + $grid-gap * 2;
+        padding-right: $grid-column * 2 + $grid-gap * 2;
+
+        > h1 {
+            max-width: 52%;
+
+            + h3 {
+                width: 65%;
+            }
+        }
+
+        > p {
+            padding: 0 95px;
+        }
+
+        &-companies {
+            > p {
+                padding-left: $grid-column + $grid-gap;
+                padding-right: $grid-column + $grid-gap;
+            }
+        }
+    }
+
+    &.pu-sub-fullwidth {
+        padding-right: 0;
+        padding-left: 0;
+        position: relative;
+
+        .pu-floatingbutton {
+            position: absolute;
+            z-index: 11;
+            top: 50%;
+
+            i {
+                &:after {
+                    background-color: rgba(#ccc, 0.8);
+                    border: 0;
+                }
+            }
+
+            &.left {
+                left: 50px;
+            }
+
+            &.right {
+                right: 50px;
+            }
+        }
+
+        h1, h3 {
+            position: relative;
+            z-index: 3;
+        }
+
+        &:after, &:before {
+            content: "";
+            display: none;
+            width: 80px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 2;
+        }
+
+        &:after {
+            background: linear-gradient(to right, rgba(249, 249, 249, 0) 0%, rgba(249, 249, 249, 1) 80%, rgba(249, 249, 249, 1) 100%);
+            right: 0;
+        }
+
+        &:before {
+            background: linear-gradient(to right, rgba(249, 249, 249, 1) 0%, rgba(249, 249, 249, 1) 20%, rgba(249, 249, 249, 0) 100%);
+            left: 0;
+        }
+
+        @media screen and (min-width: $breakpoint-desktop) and (min-height: $breakpoint-tablet + 1px) {
+            &:after, &:before {
+                display: block;
+            }
+        }
+    }
+}

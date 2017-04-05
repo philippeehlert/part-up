@@ -1,0 +1,59 @@
+.pu-app-link {
+    background-color: #f9f9f9;
+    font-size: 0;
+
+    > a {
+        padding: 14px 20px;
+        text-decoration: none;
+        display: block;
+        transition: background-color $animation-duration;
+
+        &:hover {
+            background-color: $color-background-tertiery;
+        }
+    }
+
+    .pu-avatar,
+    article {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+    }
+
+    .pu-avatar {
+        width: 32px;
+        height: 32px;
+        background-size: 125%;
+    }
+
+    article {
+        width: 100%;
+        padding: 2px 5px;
+
+        h8 {
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        p {
+            font-size: 12px;
+            line-height: 7px;
+            color: darken(#ccc, 10%);
+
+            // margin-top: -4px
+       
+        }
+
+        b {
+            font-size: 16px;
+            line-height: 16px;
+            position: absolute;
+            color: $color-primary;
+            text-transform: uppercase;
+            right: 30px;
+            top: 10px;
+        }
+    }
+}

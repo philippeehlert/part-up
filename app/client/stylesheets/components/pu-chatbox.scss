@@ -1,0 +1,251 @@
+$border-radius: 4px;
+
+@keyframes highlight-message {
+    0% {
+        background-color: transparent;
+    }
+
+    70% {
+        background-color: $color-secondary;
+    }
+
+    100% {
+        background-color: rgba($color-secondary, 0.5);
+    }
+}
+
+.pu-chatbox {
+    position: relative;
+    margin-bottom: 12px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .pu-avatar {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+
+        // top: 2px
+        z-index: 3;
+
+        &.stick {
+            margin-top: 0 !important;
+            position: absolute;
+            top: 0;
+            z-index: 10000;
+
+            // border-radius: 0 0 0.5em 0.5em
+       
+        }
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.4em;
+        word-break: break-word;
+    }
+
+    a {
+        color: $color-primary;
+    }
+
+    .pu-list {
+        li {
+            position: relative;
+            display: block;
+            margin-bottom: 2px;
+
+            &:first-child .pu-chatmessage .pu-sub-chatname {
+                display: block;
+            }
+
+            div {
+                z-index: 1;
+                position: relative;
+            }
+        }
+
+        &:after, &:before {
+            top: 18px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+    }
+
+    .pu-state-highlight::after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -65px;
+        right: -65px;
+        bottom: -5px;
+        z-index: 0;
+        background-color: rgba($color-secondary, 0.1);
+        animation-name: highlight-message;
+        animation-iteration-count: 1;
+        animation-duration: 750ms;
+    }
+
+    &-receive {
+        .pu-sub-chattime-outside {
+            right: calc(100% + 8px);
+        }
+
+        .pu-avatar {
+            left: -45px;
+        }
+
+        .pu-list {
+            li {
+                &:first-child .pu-chatmessage {
+                    border-top-left-radius: $border-radius;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                }
+
+                &:last-child .pu-chatmessage {
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                .pu-chatmessage {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    background: #eee;
+                    border: 2px solid #eee;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                }
+            }
+
+            &:after {
+                right: calc(100% - 1px);
+                border-color: rgba(255, 255, 255, 0);
+                border-right-color: #eee;
+                border-width: 5px;
+                margin-top: -5px;
+                z-index: 8;
+            }
+
+            &:before {
+                right: calc(100% - 1px);
+                border-color: rgba(238, 238, 238, 0);
+                border-right-color: #eee;
+                border-width: 7px;
+                margin-top: -7px;
+            }
+        }
+    }
+
+    &-send {
+        .pu-sub-chattime-outside {
+            left: calc(100% + 8px);
+        }
+
+        .pu-avatar {
+            right: -45px;
+        }
+
+        .pu-list {
+            text-align: right;
+
+            li {
+                &:first-child .pu-chatmessage {
+                    border-top-left-radius: $border-radius;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                &:last-child .pu-chatmessage {
+                    border-top-left-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                .pu-chatmessage {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    background: #fff;
+                    border: 2px solid #eee;
+                    border-top-left-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                    text-align: left;
+                }
+            }
+
+            &:after {
+                left: calc(100% - 2px);
+                border-color: rgba(255, 255, 255, 0);
+                border-left-color: #fff;
+                border-width: 5px;
+                margin-top: -5px;
+                z-index: 8;
+            }
+
+            &:before {
+                left: calc(100% - 2px);
+                border-color: rgba(238, 238, 238, 0);
+                border-left-color: #eee;
+                border-width: 8px;
+                margin-top: -8px;
+            }
+        }
+    }
+
+    &-noavatar {
+        .pu-avatar {
+            visibility: hidden;
+        }
+    }
+
+    &-avatar-top {
+        .pu-avatar {
+            top: 2px;
+        }
+    }
+
+    &-avatar-bottom {
+        .pu-avatar {
+            bottom: 0px;
+        }
+    }
+
+    .pu-mention-user {
+        color: $color-text;
+
+        &-current {
+            background-color: #ffedd3;
+        }
+    }
+}
+
+.pu-state-context .pu-chatbox .pu-list li {
+    cursor: pointer;
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -65px;
+        right: -65px;
+        bottom: -5px;
+        z-index: 0;
+        transition: background-color 0.2s;
+        background-color: transparent;
+    }
+
+    &:hover:after {
+        background-color: #f9f9f9;
+    }
+
+    &.pu-state-highlight::after {
+        background-color: rgba($color-secondary, 0.5);
+    }
+}
