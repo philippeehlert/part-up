@@ -220,3 +220,31 @@ Partup.schemas.forms.networkEdit = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id
     }
 });
+
+/**
+ * network content form schema
+ * @name networkContent
+ * @memberof Partup.schemas.forms
+ */
+Partup.schemas.forms.networkContent = new SimpleSchema({
+    video_url: {
+        type: String,
+        max: 255
+    },
+    why_title: {
+        type: String,
+        max: 255
+    },
+    why_body: {
+        type: String,
+        max: 999
+    },
+    about_title: {
+        type: String,
+        max: 255
+    },
+    about_body: {
+        type: String,
+        max: 999
+    }
+});
