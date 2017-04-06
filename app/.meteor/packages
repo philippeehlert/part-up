@@ -114,7 +114,6 @@ reywood-publish-composite
 sergeyt:typeahead
 service-configuration@1.0.11
 session@1.1.7
-simple:rest
 spacebars
 stevezhu:lodash@3.10.1
 tap:i18n
