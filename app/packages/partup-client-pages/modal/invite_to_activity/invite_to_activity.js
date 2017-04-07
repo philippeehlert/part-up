@@ -32,6 +32,7 @@ Template.modal_invite_to_activity.onCreated(function () {
 
     template.partupSubscription = template.subscribe('partups.one', partupId, preselectNetwork);
     template.activitiesSubscription = template.subscribe('activities.from_partup', partupId);
+    template.invitesSubsciption = template.subscribe('invites.for_activity_id', activityId);
 
     template.callIteration = 0;
     template.page = new ReactiveVar(false, loadSuggestedUsersToPage);
@@ -82,41 +83,45 @@ Template.modal_invite_to_activity.onCreated(function () {
         });
     };
     function loadSuggestedUsersToPage(prevPage, page) {
-
-        var query = template.query.searchQuery.get() || '';
-        var netw = template.selectedNetwork.curValue === 'all' ? undefined : template.selectedNetwork.curValue;
-        var options = {
-            query: query,
-            limit: PAGING_INCREMENT,
-            skip: page * PAGING_INCREMENT,
-            network: template.activeTab.curValue === 3 ? undefined : netw,
-            invited_in_activity: template.activeTab.curValue === 3 ? activityId : undefined
-        };
-
+        
         template.loading.set(true);
-        template.callIteration++;
-        var currentCallIteration = template.callIteration;
-        Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
-            if (query !== template.query.currentQuery | (currentCallIteration !== template.callIteration)) return;
-            template.loading.set(false);
+        var currentTab = template.activeTab.get();
+        
+        if (currentTab === 1) {
+            var query = template.query.searchQuery.get() || '';
+            var options = {
+                query: query,
+                limit: PAGING_INCREMENT,
+                skip: page * PAGING_INCREMENT,
+                network: template.selectedNetwork.curValue === 'all' ? undefined : template.selectedNetwork.curValue
+            };
 
-            if (error) {
-                return Partup.client.notify.error(TAPi18n.__('base-errors' + error.reason));
-            }
-            if (!userIds || userIds.length === 0) {
-                template.states.loading_infinite_scroll = false;
-                template.states.paging_end_reached.set(true);
-                return;
-            }
+            template.callIteration++;
+            var currentCallIteration = template.callIteration;
+            Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
+                if (currentCallIteration !== template.callIteration) return;
+                if (query !== template.query.currentQuery) return;
+                if (error) {
+                    return Partup.client.notify.error(TAPi18n.__('base-errors' + error.reason));
+                }
+                if (!userIds || userIds.length === 0) return;
 
-            template.states.paging_end_reached.set(userIds.length < PAGING_INCREMENT);
+                var existingUserIds = template.userIds.get();
+                //This prevents duplicates being put into the array.
+                var filtered = existingUserIds.length > 0 ? _.difference(existingUserIds, userIds) : userIds;
+                var newUserIds = existingUserIds.concat(filtered);
+                template.userIds.set(newUserIds);
+            });
+        } else if (currentTab === 3) {
+            var invites = Invites.find().fetch().map(function (invite) {
+                return invite.invitee_id;
+            });
+            template.userIds.set(invites);
+        }
 
-            var existingUserIds = template.userIds.get();
-            var newUserIds = existingUserIds.concat(userIds);
-            template.userIds.set(newUserIds);
-
-            template.states.loading_infinite_scroll = false;
-        });
+        template.loading.set(false);
+        template.states.loading_infinite_scroll = false;
+        template.states.paging_end_reached.set((template.userIds.curValue && template.userIds.curValue.length < PAGING_INCREMENT));
     };
 });
 
