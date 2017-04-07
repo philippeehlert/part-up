@@ -12,7 +12,7 @@ Template.InviteToActivity.onCreated(function() {
 Template.InviteToActivity.helpers({
     form: function() {
         var template = Template.instance();
-        var activity = Activities.findOne(this.activityId);
+        var activity = Activities.findOne(template.data.activityId);
         var partup = Partups.findOne(activity.partup_id);
         return {
             schema: Partup.schemas.forms.inviteUpper,
@@ -24,6 +24,11 @@ Template.InviteToActivity.helpers({
                         inviterName: Meteor.user().profile.name
                     })
                 };
+            },
+            classNames: function () {
+                var cNames = 'pu-form';
+                if (!template.data.nopopup) cName += ' pu-form-popup';
+                return cNames;
             }
         };
     },
