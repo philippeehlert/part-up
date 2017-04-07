@@ -1,0 +1,23 @@
+.pu-inputicon {
+    width: 100%;
+    position: relative;
+
+    i {
+        position: absolute;
+        width: 45px;
+        text-align: center;
+        line-height: 45px;
+    }
+
+    &-right {
+        i {
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    }
+
+    &-green i {
+        color: $color-alert-success;
+    }
+}

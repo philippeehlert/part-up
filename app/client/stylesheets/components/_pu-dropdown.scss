@@ -1,0 +1,519 @@
+.pu-dropdown {
+    opacity: 0;
+    position: absolute;
+    left: 11px;
+    background-color: $color-background;
+    border: 2px solid $color-header;
+    border-top: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-width: 150px;
+    z-index: 2;
+    top: 55px;
+    max-height: 546px;
+    padding-right: 0;
+    padding-left: 0;
+    display: block;
+    pointer-events: none;
+    transform: translateY(5px);
+    transition: opacity 0.1s, transform 0.2s;
+
+    .pu-notification-empty p {
+        white-space: normal;
+    }
+
+    [data-before] {
+        position: absolute;
+        display: block;
+        height: 60px;
+        top: -50px;
+        left: 2px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background-color: #fff;
+    }
+
+    > li {
+        width: 100%;
+    }
+
+    &-profile {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        max-height: 546px;
+        border: 0;
+        z-index: 1;
+
+        .background {
+            display: none;
+        }
+
+        section {
+            min-height: 25px;
+        }
+
+        header {
+            padding: 15px;
+            border-bottom: 2px solid $color-border-light;
+
+            a {
+                text-decoration: none;
+                color: $color-primary;
+
+                > i {
+                    font-size: 12px;
+                    vertical-align: baseline;
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .main {
+            ul {
+                border-left: 2px solid $color-header;
+                min-height: 242px;
+                overflow-x: hidden;
+                max-height: 387px;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .pu-dropdownitem {
+                    border-right: 2px solid $color-header;
+                    transition: none;
+
+                    a {
+                        margin-right: 0;
+                    }
+                }
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background-color: $color-header;
+                }
+            }
+
+            footer {
+                border-left: 2px solid $color-header;
+                border-right: 2px solid $color-header;
+                border-bottom: 2px solid $color-header;
+
+                a {
+                    border-top: 2px solid $color-border-light;
+                    padding: 24px;
+                    display: block;
+                    text-align: right;
+                    color: $color-text-subtle;
+                    transition: color 200ms;
+                    text-decoration: none;
+                    font-weight: bold;
+
+                    &:hover {
+                        color: darken($color-text-subtle, 10%);
+                    }
+                }
+            }
+        }
+
+        .aside {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: auto;
+            background-color: #fff;
+            border: 2px solid $color-header;
+            width: 100vw;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-left: 0;
+            border-top: 0;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            min-height: 100%;
+
+            div:before {
+                width: 2px;
+                content: "";
+                height: 100%;
+                background-color: $color-header;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+            }
+
+            &.active {
+                transform: translateX(0px);
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        .pu-dropdownitem a p {
+            max-width: 215px;
+        }
+
+        @media screen and (min-width: $breakpoint-dropdowns) {
+            min-width: 320px;
+            max-width: 320px;
+            width: 320px;
+            position: absolute;
+            right: -2px;
+            left: auto;
+
+            .aside {
+                width: 320px;
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-desktop) {
+            left: 11px;
+            right: auto;
+
+            .background {
+                display: block;
+            }
+
+            .aside {
+                left: calc(100% - 2px);
+                transition: opacity 200ms, transform 200ms;
+                transform: translateX(-10px);
+                z-index: 0;
+            }
+
+            .pu-sub-backbutton {
+                display: none;
+            }
+        }
+    }
+
+    &-notifications {
+        max-width: calc(100vw - 10px);
+        border: 0;
+        box-shadow: 0 2px 5px rgba(#000, 0.1);
+        border-radius: 4px;
+        padding-top: 0;
+        padding-bottom: 0;
+        right: 5px;
+        left: 5px;
+        position: fixed;
+
+        &::before {
+            content: "";
+            top: -5px;
+            right: 60px;
+            height: 10px;
+            width: 10px;
+            transform: rotate(45deg);
+            position: absolute;
+            background-color: inherit;
+            z-index: -1;
+        }
+
+        header {
+            padding: 15px;
+            border-bottom: 2px solid $color-border-light;
+        }
+
+        ul {
+            padding: 0;
+            margin-bottom: 56px;
+            overflow: auto;
+            max-height: 546px - 56px;
+            list-style: none;
+
+            li:first-child {
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+
+            li:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        &-nobutton {
+            ul {
+                margin-bottom: 0;
+            }
+        }
+
+        .pu-sub-loadmore {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .pu-app-link {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-top: 2px solid $color-border-light;
+        }
+
+        &-header {
+            ul {
+                max-height: 546px - 56px - 73px;
+            }
+        }
+
+        &-chats {
+            &::before {
+                right: 105px;
+            }
+
+            ul {
+                max-height: 300px;
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-dropdowns) {
+            min-width: 440px - 3px;
+            position: absolute;
+            left: auto;
+            width: auto;
+            right: -45px;
+
+            &:before {
+                right: 60px;
+            }
+
+            &.pu-dropdown-active {
+                right: -45px;
+            }
+
+            &-chats {
+                right: -90px;
+
+                &::before {
+                    right: 105px;
+                }
+
+                &.pu-dropdown-active {
+                    right: -90px;
+                }
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-tablet) {
+            &-chats {
+                ul {
+                    max-height: 546px - 56px;
+                }
+
+                .pu-app-link {
+                    display: none;
+                }
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-desktop) {
+            left: -192px;
+            right: 0px;
+
+            &:before {
+                right: auto;
+                left: 50%;
+            }
+
+            &-chats {
+                right: auto;
+
+                &::before {
+                    right: auto;
+                }
+            }
+        }
+    }
+
+    &-form {
+        position: relative;
+
+        // display: none
+        min-width: 230px;
+        border-color: $color-border;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        transform: none;
+        transition: opacity 0.1s, max-height 0.2s;
+        max-width: auto;
+        max-height: 0px;
+        padding-bottom: 0;
+        padding-top: 0;
+
+        &.pu-dropdown-active {
+            max-height: 500px;
+        }
+    }
+
+    &-simple {
+        top: 55px;
+        border: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 2px 5px rgba(#000, 0.1);
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+        bottom: -10px;
+        min-height: calc(100vh - 60px);
+        right: -100%;
+        width: 80vw;
+
+        &__tribe {
+            .pu-avatar {
+                vertical-align: bottom;
+                margin-right: 5px;
+            }
+        }
+
+        ul {
+            position: relative;
+
+            li a {
+                border-bottom: 2px solid #f9f9f9;
+                padding: 20px 30px;
+                text-decoration: none;
+                color: $color-text;
+                display: block;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: #f9f9f9;
+                }
+
+                .picon-caret-slim-right,
+                .picon-caret-slim-left {
+                    font-size: 12px;
+                }
+            }
+
+            &:last-child {
+                &:after {
+                    display: none;
+                }
+            }
+
+            @media screen and (min-width: $breakpoint-tablet + 1px) {
+                padding-top: 20px;
+                padding-bottom: 20px;
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    height: 2px;
+                    width: 60px;
+                    background-color: #eee;
+                    bottom: 0;
+                    left: 0;
+                }
+
+                li a {
+                    padding: 10px 30px;
+                    border-bottom: 0;
+                }
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-dropdowns) {
+            max-width: 400px;
+        }
+
+        @media screen and (min-width: $breakpoint-tablet + 1px) {
+            width: auto;
+            bottom: auto;
+            min-height: inherit;
+            right: auto;
+            transform: translateY(5px);
+        }
+    }
+
+    &-more {
+        left: auto;
+        right: -5px;
+
+        @media screen and (min-width: $breakpoint-desktop) {
+            right: 0px;
+        }
+    }
+
+    .pu-sub-morebutton {
+        @media screen and (min-width: $breakpoint-tablet + 1px) {
+            display: none;
+        }
+    }
+
+    &__more {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        display: none;
+        background-color: #fff;
+
+        &-active {
+            display: block;
+        }
+
+        @media screen and (min-width: $breakpoint-tablet + 1px) {
+            display: none;
+
+            &-active {
+                display: none;
+            }
+        }
+    }
+
+    &-active {
+        opacity: 1;
+        right: 0px;
+        pointer-events: all;
+        display: block;
+    }
+}
+
+@media screen and (max-height: 610px) {
+    .pu-dropdown {
+        &-profile {
+            // height: 346px
+       
+        }
+    }
+}
+
+.pu-no-pointer-events {
+    .pu-dropdown {
+        display: none;
+
+        &-active {
+            display: block;
+        }
+    }
+}

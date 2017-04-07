@@ -1,0 +1,133 @@
+.pu-discoverlayout {
+    // column width 294px
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+
+    .pu-discovermenu,
+    .pu-columnslayout,
+    .pu-discover-list {
+        display: inline-block;
+        vertical-align: top;
+        font-size: normal;
+        white-space: normal;
+        margin: 0;
+    }
+
+    .pu-discovermenu {
+        left: -20px;
+        right: -20px;
+        width: calc(100% + 40px);
+        margin-top: -27px;
+        display: none;
+        position: absolute;
+        z-index: 5;
+
+        > p {
+            display: none;
+        }
+
+        &--is-active {
+            display: block;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+    }
+
+    .pu-columnslayout,
+    .pu-discover-list {
+        width: 100%;
+    }
+
+    .pu-discover-list {
+        > li {
+            margin-bottom: 20px;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-dropdowns) {
+        .pu-discovermenu {
+            right: -20px;
+            left: auto;
+            width: 275px;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        .pu-discovermenu {
+            display: inline-block;
+            position: relative;
+            margin-top: 0;
+            margin-right: 19px;
+            right: auto;
+
+            > p {
+                display: block;
+            }
+
+            &--is-active {
+                border: 0;
+            }
+        }
+
+        .pu-columnslayout,
+        .pu-discover-list,
+        .pu-sub-loading-infinite-scroll {
+            max-width: 294px * 3;
+            width: calc(100% - 294px);
+        }
+
+        .pu-sub-loading-infinite-scroll {
+            margin-right: 0;
+        }
+    }
+}
+
+.pu-composition-discover {
+    .pu-title {
+        max-width: calc(100vw - 100px);
+    }
+
+    .pu-sub-responsive-sort, .pu-sub-pipe {
+        display: none;
+    }
+
+    .pu-sub-responsive-button {
+        .pu-button {
+            padding: 12px 10px;
+            font-weight: bold;
+            border-top: 2px solid $color-primary;
+            border-right: 2px solid $color-primary;
+            border-left: 2px solid $color-primary;
+
+            &.pu-button-grey {
+                border-top: 2px solid #ccc;
+                border-right: 2px solid #ccc;
+                border-left: 2px solid #ccc;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+                z-index: 6;
+            }
+
+            i {
+                font-size: 12px;
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        .pu-sub-responsive-sort, .pu-sub-pipe {
+            display: inline-block;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        .pu-sub-responsive-button {
+            display: none;
+        }
+
+        .pu-sub-pipe {
+            display: none;
+        }
+    }
+}

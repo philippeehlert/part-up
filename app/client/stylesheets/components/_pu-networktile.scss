@@ -1,0 +1,233 @@
+.pu-networktile {
+    $color-border: #eee;
+
+    // height: 565px
+    width: 100%;
+    border: 2px solid $color-border;
+    border-radius: 4px;
+    font-size: 0;
+    background-color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+
+    $image-width: 230px;
+    $extra-width: 200px;
+
+    &__image, &__meta, &__extra {
+        width: 100%;
+        display: block;
+        font-size: 16px;
+        vertical-align: top;
+        position: relative;
+    }
+
+    &__image {
+        height: 154px;
+        background-color: $color-border;
+        background-size: cover;
+        background-position: center;
+        background-image: url("images/tribestart-small.jpg");
+        border-bottom: 2px solid $color-border;
+
+        .pu-avatar {
+            position: absolute;
+            bottom: -20px;
+            left: 13px;
+            z-index: 1;
+            border: 2px solid $color-border;
+        }
+    }
+
+    &__meta {
+        padding: 30px 15px 15px 15px;
+
+        // height: 240px
+
+        h3 {
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            $font-size: 14px;
+            $line-height: 1.6;
+            $lines-to-show: 3;
+            $height: $font-size * $line-height * $lines-to-show;
+
+            display: block;
+            display: -webkit-box;
+            max-height: $height;
+            font-size: $font-size;
+            line-height: $line-height;
+            -webkit-line-clamp: $lines-to-show;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 20px;
+            position: relative;
+            width: 100%;
+            height: $height;
+
+            a {
+                background-color: #fff;
+                position: absolute;
+                right: 0;
+                bottom: 1px;
+                color: $color-secondary;
+                text-decoration: underline;
+
+                @extend %pre-gradient;
+            }
+        }
+
+        .pu-list-pipe-seperated {
+            font-size: 12px;
+            color: $color-text-subtle;
+            margin-bottom: 15px;
+
+            > li {
+                font-size: 12px;
+            }
+        }
+
+        .pu-list-tags {
+            > li {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    &__extra {
+        overflow: hidden;
+        padding: 15px;
+
+        // height: 168px
+
+        .pu-networktile__avatars {
+            margin-bottom: 25px;
+
+            li {
+                margin-right: -10px;
+                margin-bottom: -10px;
+
+                .pu-sub-count {
+                    background-color: $color-primary;
+
+                    span {
+                        color: #fff;
+                        vertical-align: middle;
+                        line-height: 46px;
+                        text-align: center;
+                        width: 46px;
+                        display: block;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        .pu-list-pipe-seperated {
+            li {
+                font-size: 14px;
+                color: $color-primary;
+                margin-bottom: 5px;
+
+                &:last-child {
+                    color: $color-secondary;
+                    text-decoration: underline;
+                }
+
+                &:after {
+                    color: $color-text-subtle;
+                }
+            }
+        }
+
+        .pu-avatar {
+            border: 2px solid #fff;
+            position: relative;
+
+            &:before, &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border-radius: 50%;
+            }
+
+            &:after {
+                top: -6px;
+                left: -6px;
+                bottom: -6px;
+                right: -6px;
+                border: 2px solid #fff;
+            }
+
+            &:before {
+                top: -4px;
+                left: -4px;
+                bottom: -4px;
+                right: -4px;
+                border: 2px solid $color-border;
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        height: 240px;
+
+        &__image, &__meta, &__extra {
+            display: inline-block;
+            height: 100%;
+        }
+
+        &__image {
+            width: 26%;
+            border-right: 2px solid $color-border;
+            border-bottom: 0;
+
+            .pu-avatar {
+                right: -20px;
+                top: 13px;
+                bottom: auto;
+                left: auto;
+            }
+        }
+
+        &__meta {
+            width: 51%;
+            padding: 15px 30px;
+
+            p {
+                max-width: 400px;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                bottom: 20px;
+                right: 0;
+                width: 2px;
+                background-color: $color-border;
+            }
+        }
+
+        &__extra {
+            padding: 20px 15px;
+            padding-right: 20px;
+            overflow: hidden;
+            width: 23%;
+
+            .pu-networktile__avatars {
+                height: 88px;
+            }
+        }
+    }
+}

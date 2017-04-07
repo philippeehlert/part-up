@@ -1,0 +1,11 @@
+.pu-layout--one-on-one {
+    .pu-sidebar-wrap {
+        > section {
+            padding: 0;
+        }
+    }
+
+    .pu-sub-pagecontent {
+        padding-top: 20px;
+    }
+}

@@ -1,0 +1,45 @@
+@import "../variables/colors";
+
+code {
+    display: block;
+    width: 100%;
+    overflow: scroll;
+    font-family: monospace;
+}
+
+.pu-paragraph {
+    img {
+        width: 100%;
+    }
+}
+
+.pu-block-message {
+    .pu-paragraph {
+        white-space: pre-wrap;
+    }
+
+    .pu-list-comment {
+        margin-bottom: 10px;
+    }
+}
+
+.markdown-support {
+    margin-top: 10px;
+
+    svg {
+        position: absolute;
+    }
+
+    a {
+        color: #999;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 0.8em;
+        margin-top: 4px;
+        display: inline-block;
+
+        &:hover {
+            color: $color-text-secondary;
+        }
+    }
+}

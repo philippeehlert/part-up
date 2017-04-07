@@ -1,0 +1,149 @@
+.pu-contentblock {
+    > h2 {
+        box-sizing: border-box;
+        color: rgb(41, 41, 41);
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        column-rule-color: rgb(41, 41, 41);
+        perspective-origin: 383px 15px;
+        transform-origin: 383px 15px;
+        border: 0px none rgb(41, 41, 41);
+        font: normal normal bold normal 22px / 30.8px open-sans, sans-serif;
+        margin: 0px 0px 10px;
+        outline: rgb(41, 41, 41) none 0px;
+    }
+
+    > p {
+        box-sizing: border-box;
+        color: rgb(41, 41, 41);
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        border: 0px none rgb(41, 41, 41);
+        font: normal normal normal normal 18px / 28.8px proxima-nova, sans-serif;
+        margin: 0px;
+        outline: rgb(41, 41, 41) none 0px;
+    }
+
+    > blockquote {
+        box-sizing: border-box;
+        color: rgb(87, 192, 201);
+        overflow-wrap: break-word;
+        text-align: center;
+        word-wrap: break-word;
+        border: 0px none rgb(87, 192, 201);
+        font: normal normal bold normal 21px / 29.4px open-sans, sans-serif;
+        margin: 32px 0px;
+        outline: rgb(87, 192, 201) none 0px;
+        padding: 0px 95px;
+
+        &:before, &:after {
+            content: '"';
+        }
+    }
+
+    > img {
+        box-sizing: border-box;
+        color: rgb(41, 41, 41);
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        border: 2px solid rgb(255, 255, 255);
+        font: normal normal normal normal 16px / 16px proxima-nova, sans-serif;
+        margin: 32px 0px 0px;
+        outline: rgb(41, 41, 41) none 0px;
+    }
+
+    > ul:not([class]) {
+        box-sizing: border-box;
+        color: rgb(41, 41, 41);
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        border: 0px none rgb(41, 41, 41);
+        font: normal normal normal normal 16px / 16px proxima-nova, sans-serif;
+        list-style: none outside none;
+        margin: 30px 0px;
+        outline: rgb(41, 41, 41) none 0px;
+        padding: 0px;
+
+        > li {
+            box-sizing: border-box;
+            color: rgb(41, 41, 41);
+            overflow-wrap: break-word;
+            position: relative;
+            width: 741px;
+            word-wrap: break-word;
+            column-rule-color: rgb(41, 41, 41);
+            perspective-origin: 370.5px 9px;
+            transform-origin: 370.5px 9px;
+            border: 0px none rgb(41, 41, 41);
+            font: normal normal normal normal 18px / 18px proxima-nova, sans-serif;
+            list-style: none outside none;
+            margin: 12px 0px 0px 25px;
+            outline: rgb(41, 41, 41) none 0px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:before {
+                color: rgb(255, 167, 37);
+                content: "";
+                display: block;
+                height: 10px;
+                overflow-wrap: break-word;
+                position: absolute;
+                right: 741px;
+                top: 3px;
+                width: 9px;
+                word-wrap: break-word;
+                column-rule-color: rgb(255, 167, 37);
+                perspective-origin: 4.5px 5px;
+                transform-origin: 4.5px 5px;
+                border: 0px none rgb(255, 167, 37);
+                font: normal normal normal normal (9px / normal) partup-icons;
+                list-style: none outside none;
+                margin: 0px 11px 0px 0px;
+                outline: rgb(255, 167, 37) none 0px;
+            }
+        }
+    }
+
+    &-intro {
+        > h1 {
+            box-sizing: border-box;
+            color: rgb(41, 41, 41);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            border: 0px none rgb(41, 41, 41);
+            font: normal normal 500 normal 30px / 42px open-sans, sans-serif;
+            margin: 0px 0px 17px;
+            outline: rgb(41, 41, 41) none 0px;
+
+            &:after {
+                color: rgb(41, 41, 41);
+                content: "";
+                display: block;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                background: rgb(87, 192, 201) none repeat scroll 0% (0% / auto) padding-box border-box;
+                border: 0px none rgb(41, 41, 41);
+                font: normal normal 500 normal 30px / 42px open-sans, sans-serif;
+                margin: 34px 0px 0px;
+                outline: rgb(41, 41, 41) none 0px;
+                height: 2px;
+                width: 60px;
+            }
+        }
+
+        > p {
+            max-width: 575px;
+            box-sizing: border-box;
+            color: rgb(41, 41, 41);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            border: 0px none rgb(41, 41, 41);
+            font: normal normal normal normal 20px / 28px proxima-nova, sans-serif;
+            margin: 0px 0px -8px;
+            outline: rgb(41, 41, 41) none 0px;
+        }
+    }
+}

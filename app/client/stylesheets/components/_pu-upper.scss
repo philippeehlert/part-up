@@ -1,0 +1,112 @@
+[data-usercard] {
+    cursor: pointer;
+}
+
+.pu-upper {
+    header {
+        min-height: 80px;
+        margin-bottom: 13px;
+        white-space: nowrap;
+
+        figure {
+            position: relative;
+            transition: opacity 0.2s;
+
+            .pu-score {
+                position: absolute;
+                bottom: -14px;
+                right: -14px;
+            }
+        }
+
+        .pu-sub-figure,
+        .pu-sub-title {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .pu-sub-title {
+            margin-top: 10px - 5px;
+            margin-left: 16px - 4px;
+            white-space: normal;
+            width: calc(100% - 104px);
+        }
+
+        a.pu-sub-figure {
+            &:hover {
+                figure {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        h4 {
+            font-size: 16px;
+            margin-bottom: 3px;
+
+            a {
+                text-decoration: none;
+                color: $color-text;
+                transition: color $animation-duration;
+
+                &:hover {
+                    color: lighten($color-text, 30%);
+                }
+            }
+        }
+
+        p {
+            font-size: 14px;
+            color: $color-text-subtle;
+        }
+    }
+
+    article {
+        margin-bottom: 14px;
+
+        p {
+            $font-size: 14px;
+            $line-height: 1.4;
+            $lines-to-show: 3;
+
+            display: block;
+            display: -webkit-box;
+            max-width: 400px;
+            max-height: $font-size * $line-height * $lines-to-show;
+            margin: 0 auto;
+            font-size: $font-size;
+            line-height: $line-height;
+            -webkit-line-clamp: $lines-to-show;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .pu-stats .pu-sub-button {
+        transition: opacity 0.2s;
+        opacity: 0;
+    }
+
+    &__label {
+        background-color: $color-border-light;
+        font-size: 14px;
+        font-family: $font-primary;
+        color: rgba(#494949, 0.5);
+        font-weight: 600;
+        display: block;
+        margin-top: 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: -20px;
+        padding: 20px;
+        text-align: right;
+    }
+
+    &:hover,
+    &.active {
+        .pu-stats .pu-sub-button {
+            opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.pu-layout--network {
+    .pu-navigation {
+        &-compact {
+            .pu-formdropdown {
+                width: calc(100vw - 180px);
+            }
+        }
+    }
+
+    header.pu-row {
+        margin-bottom: 20px;
+    }
+
+    .pu-sub-pagecontent {
+        padding-top: 20px;
+    }
+
+    @media screen and (max-width: $breakpoint-tablet) {
+        .pu-tribeheader {
+            .pu-button-darktext {
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+}

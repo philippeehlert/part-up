@@ -1,0 +1,39 @@
+.pu-app {
+    background-color: $color-background;
+
+    // min-width: 600px
+
+    &-responsive {
+        min-width: $breakpoint-min;
+    }
+
+    &-home {
+        .pu-page {
+            margin-top: -60px;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        padding-top: $spacing-app-headerheight;
+
+        // .pu-page
+        //     min-height: 100%
+
+        .pu-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 15;
+            transform: translateZ(0);
+        }
+
+        &-home {
+            padding-top: 0;
+
+            .pu-page {
+                margin-top: 0;
+            }
+        }
+    }
+}

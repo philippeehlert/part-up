@@ -1,0 +1,48 @@
+.pu-toggle {
+    display: block;
+    border: 2px solid #eee;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0;
+
+    button {
+        display: inline-block;
+        background-color: #eee;
+        border: 0;
+        width: calc(50%);
+        font-size: 14px;
+        padding: 10px 20px;
+        font-family: $font-primary;
+        outline: none;
+        font-weight: bold;
+        color: lighten($color-text, 10%);
+        position: relative;
+        margin-left: 1px;
+        margin-right: 1px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        &.pu-state-active {
+            color: $color-text;
+            background-color: #fff;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &:first-child {
+            margin-left: -1px;
+        }
+    }
+
+    &-three {
+        button {
+            $one-third: 100% / 3;
+
+            width: calc(#{$one-third});
+        }
+    }
+}
