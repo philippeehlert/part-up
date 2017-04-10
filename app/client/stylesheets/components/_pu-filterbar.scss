@@ -95,7 +95,9 @@
             .pu-input {
                 padding: 12px 43px;
             }
-
+            .no-icon {
+                padding: 12px 43px 12px 15px;
+            }
             .picon-search {
                 position: absolute;
                 top: 14px;
@@ -105,7 +107,6 @@
 
         .pu-sub-input-select {
             // width: 200px
-       
         }
 
         .pu-modal & {

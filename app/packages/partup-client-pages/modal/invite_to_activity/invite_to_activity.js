@@ -15,6 +15,7 @@ Template.modal_invite_to_activity.onCreated(function () {
     template.networksLoaded = false;
     
     template.states = {
+        isBusy: false,
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false)
     };
@@ -41,6 +42,7 @@ Template.modal_invite_to_activity.onCreated(function () {
     // Set networks for filtering users.
     setNetworks();
     // This will trigger a change in the ReactiveVar which in turn will run the assigned function and load the user tiles.
+    // See 'loadSuggestedUsersToPage' below.
     template.page.set(0);
 
     function resetPage() {
@@ -69,7 +71,7 @@ Template.modal_invite_to_activity.onCreated(function () {
             archived: false
         };
         HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function (error, response) {
-            
+            template.networksLoaded = true;
             if (error || !response.data.networks || response.data.networks.length === 0) return;
 
             var result = response.data;
@@ -83,10 +85,10 @@ Template.modal_invite_to_activity.onCreated(function () {
         });
     };
     function loadSuggestedUsersToPage(prevPage, page) {
-        
         template.loading.set(true);
         var currentTab = template.activeTab.get();
-        
+
+        // Tab 1, get the suggestions filtered by name and tribe.
         if (currentTab === 1) {
             var query = template.query.searchQuery.get() || '';
             var options = {
@@ -95,33 +97,35 @@ Template.modal_invite_to_activity.onCreated(function () {
                 skip: page * PAGING_INCREMENT,
                 network: template.selectedNetwork.curValue === 'all' ? undefined : template.selectedNetwork.curValue
             };
-
-            template.callIteration++;
-            var currentCallIteration = template.callIteration;
             Meteor.call('activities.user_suggestions', activityId, options, function(error, userIds) {
-                if (currentCallIteration !== template.callIteration) return;
-                if (query !== template.query.currentQuery) return;
                 if (error) {
                     return Partup.client.notify.error(TAPi18n.__('base-errors' + error.reason));
                 }
-                if (!userIds || userIds.length === 0) return;
-
-                var existingUserIds = template.userIds.get();
-                //This prevents duplicates being put into the array.
-                var filtered = existingUserIds.length > 0 ? _.difference(existingUserIds, userIds) : userIds;
-                var newUserIds = existingUserIds.concat(filtered);
-                template.userIds.set(newUserIds);
+                if (!userIds || userIds.length === 0) {
+                    template.states.loading_infinite_scroll = false;
+                    template.states.paging_end_reached.set(true);
+                    return;
+                }
+                template.states.paging_end_reached.set(userIds < PAGING_INCREMENT);
+                setUsers(userIds);
             });
-        } else if (currentTab === 3) {
-            var invites = Invites.find().fetch().map(function (invite) {
+        } 
+        // Tab 3, get a list of users already invited.
+        else if (currentTab === 3) {
+            var ids = Invites.find().fetch().map(function (invite) {
                 return invite.invitee_id;
             });
-            template.userIds.set(invites);
+            template.states.paging_end_reached.set(ids < PAGING_INCREMENT);
+            setUsers(ids);
         }
-
         template.loading.set(false);
         template.states.loading_infinite_scroll = false;
-        template.states.paging_end_reached.set((template.userIds.curValue && template.userIds.curValue.length < PAGING_INCREMENT));
+    };
+    function setUsers(userIds) {
+        var existingUserIds = template.userIds.get();
+        var filtered = existingUserIds.length > 0 ? _.difference(userIds, existingUserIds) : userIds;
+        var newUserIds = existingUserIds.concat(filtered);
+        template.userIds.set(newUserIds);
     };
 });
 
