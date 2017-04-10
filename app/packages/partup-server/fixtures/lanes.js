@@ -6,7 +6,7 @@ Meteor.startup(function () {
             /* Default Lanes */
             /* Meteor Board */
             Lanes.insert({
-                '_id': 'WFcjbTeEDeiY5XC9N',
+                '_id': 'M8yEL4e3zY7Ar4ze0',
                 'board_id': '9TEcgO45TkVBizotA',
                 'activities': [],
                 'created_at': new Date(),
@@ -14,7 +14,7 @@ Meteor.startup(function () {
             })
             /* Incubator Board */
             Lanes.insert({
-                '_id': 'srPWJgxWcLhIlAuxA',
+                '_id': 'M8yEL4e3zY7Ar4zr0',
                 'board_id': 'Gzmun04TtYiP8llQ1',
                 'activities': [],
                 'created_at': new Date(),
@@ -22,7 +22,7 @@ Meteor.startup(function () {
             })
             /* ING CrowdFunding */
             Lanes.insert({
-                '_id': 'hUGKnG6VRqFfuXtch',
+                '_id': 'M8yEL4e3zY7Ar4zt0',
                 'board_id': 'VItDJ3O3MpzeiPU5J',
                 'activities': [],
                 'created_at': new Date(),
@@ -30,7 +30,7 @@ Meteor.startup(function () {
             })
             /* ING Super Secret */
             Lanes.insert({
-                '_id': 'U6MgEtdp8uBESETTb',
+                '_id': 'M8yEL4e3zY7Ar4zy0',
                 'board_id': 'sGrp9AkRSDVwXNZnn',
                 'activities': [],
                 'created_at': new Date(),
@@ -41,7 +41,7 @@ Meteor.startup(function () {
             /* ING - Semi Secret */
             /* 1) Backlog */
             Lanes.insert({
-                '_id': 'OhElHekpR1I3PxUBt',
+                '_id': 'M8yEL4e3zY7Ar4zaq',
                 'board_id': 'jMU371tasWnf0RYUh',
                 'name': 'Backlog',
                 'activities': [],
@@ -50,7 +50,7 @@ Meteor.startup(function () {
             });
             /* ToDo */
             Lanes.insert({
-                '_id': '7I8qkr9jKLISr7GQC',
+                '_id': 'M8yEL4e3zY7Ar4za2',
                 'board_id': 'jMU371tasWnf0RYUh',
                 'name': 'ToDo',
                 'activities': [],
@@ -59,7 +59,7 @@ Meteor.startup(function () {
             });
             /* Doing */
             Lanes.insert({
-                '_id': '1c18TM9EhTUbIMGCy',
+                '_id': 'M8yEL4e3zY7Ar4za3',
                 'board_id': 'jMU371tasWnf0RYUh',
                 'name': 'Doing',
                 'activities': [],
@@ -68,7 +68,7 @@ Meteor.startup(function () {
             });
             /* Done */
             Lanes.insert({
-                '_id': 'MURSLchoBESuQJVpn',
+                '_id': 'M8yEL4e3zY7Ar4za4',
                 'board_id': 'jMU371tasWnf0RYUh',
                 'name': 'Done',
                 'activities': [],
@@ -77,11 +77,12 @@ Meteor.startup(function () {
             });
 
 
+// ABcmVsH93LfFJr83P
             /* Part-up developement */
             /* Backlog */
             Lanes.insert({
                 '_id': 'M8yEL4e3zY7Ar4zwq',
-                'board_id': 'ABcmVsH93LfFJr83P',
+                'board_id': 'vGaxNojSerdizDPj0',
                 'name': 'Backlog',
                 'activities': [],
                 'created_at': new Date(),
@@ -89,8 +90,8 @@ Meteor.startup(function () {
             });
             /* ToDo */
             Lanes.insert({
-                '_id': 'B17gCkMaSWtnKK4JZ',
-                'board_id': 'ABcmVsH93LfFJr83P',
+                '_id': 'M8yEL4e3zY7Ar4zw2',
+                'board_id': 'vGaxNojSerdizDPj0',
                 'name': 'ToDo',
                 'activities': [],
                 'created_at': new Date(),
@@ -98,8 +99,8 @@ Meteor.startup(function () {
             });
             /* Doing */
             Lanes.insert({
-                '_id': 'J023aUccH2gmRFWQn',
-                'board_id': 'ABcmVsH93LfFJr83P',
+                '_id': 'M8yEL4e3zY7Ar4zw3',
+                'board_id': 'vGaxNojSerdizDPj0',
                 'name': 'Doing',
                 'activities': [],
                 'created_at': new Date(),
@@ -107,8 +108,8 @@ Meteor.startup(function () {
             });
             /* Done */
             Lanes.insert({
-                '_id': '7tjMjDjMMSOS40zhu',
-                'board_id': 'ABcmVsH93LfFJr83P',
+                '_id': 'M8yEL4e3zY7Ar4zw4',
+                'board_id': 'vGaxNojSerdizDPj0',
                 'name': 'Done',
                 'activities': [],
                 'created_at': new Date(),

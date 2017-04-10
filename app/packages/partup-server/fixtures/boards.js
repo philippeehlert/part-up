@@ -9,27 +9,27 @@ Meteor.startup(function () {
                 'partup_id': 'vGaxNojSerdizDPjb',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': ['WFcjbTeEDeiY5XC9N']
+                'lanes': ['M8yEL4e3zY7Ar4ze0']
             });
             /* Incubator board */
             Boards.insert({
-                '_id': 'Gzmun04TtYiP8llQ1',
+                '_id': 'vGaxNojSerdizDPjc',
                 'partup_id': 'IGhBN2Z3mrA90j3g7',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': ['srPWJgxWcLhIlAuxA']
+                'lanes': ['M8yEL4e3zY7Ar4zr0']
             });
             /* Partup developement board */
             Boards.insert({
-                '_id': 'ABcmVsH93LfFJr83P',
-                'partup_id': '1csyxDMvVcBjb8tFM',
+                '_id': 'vGaxNojSerdizDPj0',
+                'partup_id': 'vGaxNojSerdizDPjd',
                 'created_at': new Date(),
                 'updated_at': new Date(),
                 'lanes': [
                     'M8yEL4e3zY7Ar4zwq',
-                    'B17gCkMaSWtnKK4JZ',
-                    'J023aUccH2gmRFWQn',
-                    '7tjMjDjMMSOS40zhu'
+                    'M8yEL4e3zY7Ar4zw2',
+                    'M8yEL4e3zY7Ar4zw3',
+                    'M8yEL4e3zY7Ar4zw4'
                 ]
             });
 
@@ -39,7 +39,7 @@ Meteor.startup(function () {
                 'partup_id': 'gJngF65ZWyS9f3NDE',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': ['hUGKnG6VRqFfuXtch']
+                'lanes': ['M8yEL4e3zY7Ar4zt0']
             });
 
             /* ING Super Secret */
@@ -48,7 +48,7 @@ Meteor.startup(function () {
                 'partup_id': 'CJETReuE6uo2eF7eW',
                 'created_at': new Date(),
                 'updated_at': new Date(),
-                'lanes': ['U6MgEtdp8uBESETTb']
+                'lanes': ['M8yEL4e3zY7Ar4zy0']
             });
 
             /* ING Semi Secret */
@@ -58,10 +58,10 @@ Meteor.startup(function () {
                 'created_at': new Date(),
                 'updated_at': new Date(),
                 'lanes': [
-                    'OhElHekpR1I3PxUBt',
-                    '7I8qkr9jKLISr7GQC',
-                    '1c18TM9EhTUbIMGCy',
-                    'MURSLchoBESuQJVpn'
+                    'M8yEL4e3zY7Ar4zaq',
+                    'M8yEL4e3zY7Ar4za2',
+                    'M8yEL4e3zY7Ar4za3',
+                    'M8yEL4e3zY7Ar4za4'
                 ]
             });
         }

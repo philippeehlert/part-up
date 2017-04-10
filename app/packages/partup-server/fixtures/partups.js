@@ -169,45 +169,46 @@ Meteor.startup(function() {
             });
 
             /* 5 */
-            // Partups.insert({
-            //     '_id' : 'WxrpPuJkhafJB3gfF',
-            //     'name' : 'Partup Premium Part-up',
-            //     'description' : 'private',
-            //     'type' : Partups.TYPE.ORGANIZATION,
-            //     'type_organization_budget' : 130,
-            //     'end_date' : new Date('2017-05-31T00:00:00.000Z'),
-            //     'image' : 'xfYreAouRFh4mnctk',
-            //     'tags' : [
-            //         'private'
-            //     ],
-            //     'location' : {
-            //         'city' : 'Amsterdam',
-            //         'lat' : 52.3702157000000028,
-            //         'lng' : 4.8951679000000006,
-            //         'place_id' : 'ChIJVXealLU_xkcRja_At0z9AGY',
-            //         'country' : 'Netherlands'
-            //     },
-            //     'privacy_type' : 2,
-            //     'uppers' : [
-            //         'K5c5M4Pbdg3B82wQH'
-            //     ],
-            //     'creator_id' : 'K5c5M4Pbdg3B82wQH',
-            //     'created_at' : new Date('2015-07-28T15:26:34.086Z'),
-            //     'slug' : 'partup-premium-part-up-WxrpPuJkhafJB3gfF',
-            //     'analytics' : {
-            //         'clicks_total' : 1,
-            //         'clicks_per_day' : 1,
-            //         'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            //         'last_ip' : '127.0.0.1'
-            //     },
-            //     'language' : 'en',
-            //     'upper_data' : [
-            //         {
-            //             '_id' : 'K5c5M4Pbdg3B82wQH',
-            //             'new_updates' : []
-            //         }
-            //     ]
-            // });
+            Partups.insert({
+                '_id' : 'WxrpPuJkhafJB3gfF',
+                'network_id' : 'ibn27M3ePaXhmKzWq',
+                'name' : 'Partup Premium Part-up',
+                'description' : 'private',
+                'type' : Partups.TYPE.ORGANIZATION,
+                'type_organization_budget' : 130,
+                'end_date' : new Date('2017-05-31T00:00:00.000Z'),
+                'image' : 'xfYreAouRFh4mnctk',
+                'tags' : [
+                    'private'
+                ],
+                'location' : {
+                    'city' : 'Amsterdam',
+                    'lat' : 52.3702157000000028,
+                    'lng' : 4.8951679000000006,
+                    'place_id' : 'ChIJVXealLU_xkcRja_At0z9AGY',
+                    'country' : 'Netherlands'
+                },
+                'privacy_type' : 3,
+                'uppers' : [
+                    'K5c5M4Pbdg3B82wQH'
+                ],
+                'creator_id' : 'K5c5M4Pbdg3B82wQH',
+                'created_at' : new Date('2015-07-28T15:26:34.086Z'),
+                'slug' : 'partup-premium-part-up-WxrpPuJkhafJB3gfF',
+                'analytics' : {
+                    'clicks_total' : 1,
+                    'clicks_per_day' : 1,
+                    'clicks_per_hour' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                    'last_ip' : '127.0.0.1'
+                },
+                'language' : 'en',
+                'upper_data' : [
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    }
+                ]
+            });
 
             /* Lifely (open) */
 
@@ -263,10 +264,10 @@ Meteor.startup(function() {
 
             /* 2 :: Incubator - public, lanes */
             Partups.insert({
-                '_id' : 'IGhBN2Z3mrA90j3g7',
+                '_id' : 'vGaxNojSerdizDPjc',
                 'network_id' : 'ibn27M3ePaXhmKzWq',
                 'name' : 'Incubator (list)',
-                'slug' : 'incubator-IGhBN2Z3mrA90j3g7',
+                'slug' : 'incubator-vGaxNojSerdizDPjbc',
                 'description' : 'Bring all your idea\'s here',
                 'language' : 'en',
                 'type' : Partups.TYPE.CHARITY,
@@ -320,16 +321,16 @@ Meteor.startup(function() {
                 ]
             });
 
-            /* 3 :: Partup Dev - invite, board */
+            /* 3 :: Partup Dev - Public */
             Partups.insert({
-                '_id' : '1csyxDMvVcBjb8tFM',
+                '_id' : 'vGaxNojSerdizDPjd',
                 'network_id' : 'ibn27M3ePaXhmKzWq',
                 'name' : 'Part-up developement (board)',
-                'slug' : 'part-up-developement-1csyxDMvVcBjb8tFM',
+                'slug' : 'part-up-developement-vGaxNojSerdizDPjd',
                 'description' : 'Developement of the Part-up platform',
                 'language' : 'en',
                 'type' : Partups.TYPE.CHARITY,
-                'privacy_type' : 2,
+                'privacy_type' : 3,
                 'currency' : null,
                 'type_commercial_budget' : null,
                 'type_organization_budget' : null,
@@ -338,7 +339,7 @@ Meteor.startup(function() {
                 'end_date' : new Date('2020-05-31T00:00:00.000Z'),
                 'phase' : null,
                 'progress' : 0,
-                'board_id' : 'ABcmVsH93LfFJr83P',
+                'board_id' : 'vGaxNojSerdizDPj0',
                 'board_view' : true,
                 'image' : 'xfYreAouRFh4mnctk',
                 'tags' : [
