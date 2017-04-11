@@ -6,16 +6,15 @@ Template.modal_invite_to_activity.onCreated(function () {
     var PAGING_INCREMENT = 10;
 
     template.activeTab = new ReactiveVar(1);
+    template.loading = new ReactiveVar(true);
 
     template.userIds = new ReactiveVar([]);
-    template.loading = new ReactiveVar(true);
-    
     template.networks = new ReactiveVar([]);
     template.selectedNetwork = new ReactiveVar('all', resetPage);
     template.networksLoaded = false;
+    template.page = new ReactiveVar(false, loadSuggestedUsersToPage);
     
     template.states = {
-        isBusy: false,
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false)
     };
@@ -34,9 +33,6 @@ Template.modal_invite_to_activity.onCreated(function () {
     template.partupSubscription = template.subscribe('partups.one', partupId, preselectNetwork);
     template.activitiesSubscription = template.subscribe('activities.from_partup', partupId);
     template.invitesSubsciption = template.subscribe('invites.for_activity_id', activityId);
-
-    template.callIteration = 0;
-    template.page = new ReactiveVar(false, loadSuggestedUsersToPage);
 
     /* Initializing the template */
     // Set networks for filtering users.
@@ -57,6 +53,8 @@ Template.modal_invite_to_activity.onCreated(function () {
             $(form).submit();
         });
     };
+
+    // Sets the network from the part-up that's navigated from
     function preselectNetwork() {
         var partup = Partups.findOne(partupId);
         if (!partup) return;
@@ -65,6 +63,7 @@ Template.modal_invite_to_activity.onCreated(function () {
         var network = lodash.find(networks, {_id: partup.network_id || undefined});
         template.selectedNetwork.set(network ? network.slug : 'all');
     };
+    // Fill the list of networks
     function setNetworks() {
         var query = {
             token: Accounts._storedLoginToken(),
@@ -121,6 +120,9 @@ Template.modal_invite_to_activity.onCreated(function () {
         template.loading.set(false);
         template.states.loading_infinite_scroll = false;
     };
+
+    // This method will be called multiple times (race condition).
+    // _.difference() is used to prevent duplicate userIds.
     function setUsers(userIds) {
         var filterSelf = _.without(userIds, user._id);
         var existingUserIds = template.userIds.get();
@@ -178,7 +180,7 @@ Template.modal_invite_to_activity.helpers({
     onToggleTab: function () {
         var template = Template.instance();
         return function (newActiveTab) {
-            template.resetPage();
+            template.resetPage(); // Reset all the variables used to represent the state of the page and user tiles before switching tabs.
             template.activeTab.set(newActiveTab);
             template.query.searchQuery.set(undefined);
         }
