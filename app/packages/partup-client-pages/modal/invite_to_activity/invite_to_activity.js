@@ -122,8 +122,9 @@ Template.modal_invite_to_activity.onCreated(function () {
         template.states.loading_infinite_scroll = false;
     };
     function setUsers(userIds) {
+        var filterSelf = _.without(userIds, user._id);
         var existingUserIds = template.userIds.get();
-        var filtered = existingUserIds.length > 0 ? _.difference(userIds, existingUserIds) : userIds;
+        var filtered = existingUserIds.length > 0 ? _.difference(filterSelf, existingUserIds) : filterSelf;
         var newUserIds = existingUserIds.concat(filtered);
         template.userIds.set(newUserIds);
     };
