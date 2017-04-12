@@ -1,0 +1,20 @@
+.pu-tribestart-nav {
+    background-color: #38a6af;
+    text-align: center;
+
+    &__listitem {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 12px 24px 12px 24px;
+        display: inline-block;
+        font-size: 14px;
+        font-family: $font-secondary;
+
+        &:hover {
+            text-decoration: none;
+            background-color: darken(#38a6af, 5%);
+            color: #fff;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+.pu-tribestart-chat {
+    padding-top: 27px;
+    padding-bottom: 40px;
+    background-color: #f9f9f9;
+    text-align: center;
+
+    &__paragraph {
+        max-width: 540px;
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        padding-top: 50px;
+        padding-bottom: 60px;
+    }
+}

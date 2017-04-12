@@ -246,17 +246,20 @@
 @import "components/home/home-subtitle";
 @import "components/home/home-textblock";
 @import "components/home/home-wrap";
-@import "components/tribestart/tribestart";
-@import "components/tribestart/tribestart-about";
-@import "components/tribestart/tribestart-chat";
-@import "components/tribestart/tribestart-header";
-@import "components/tribestart/tribestart-mostactive";
-@import "components/tribestart/tribestart-nav";
-@import "components/tribestart/tribestart-video";
-@import "components/tribestart/tribestart-wrap";
-@import "components/tribestart/tribestart-block";
-@import "components/tribestart/tribestart-textblock";
-@import "components/tribestart/tribestart-subtitle";
 @import "components/trumbowyg";
 @import "components/twitter-typeahead";
 @import "components/velocity-status-widget";
+
+// page specific stylings
+@import "pages/tribestart/tribestart";
+@import "pages/tribestart/tribestart-about";
+@import "pages/tribestart/tribestart-chat";
+@import "pages/tribestart/tribestart-header";
+@import "pages/tribestart/tribestart-mostactive";
+@import "pages/tribestart/tribestart-nav";
+@import "pages/tribestart/tribestart-video";
+@import "pages/tribestart/tribestart-wrap";
+@import "pages/tribestart/tribestart-block";
+@import "pages/tribestart/tribestart-textblock";
+@import "pages/tribestart/tribestart-subtitle";
+@import "pages/tribestart/tribestart-paragraph";

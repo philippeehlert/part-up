@@ -1,0 +1,10 @@
+.pu-tribestart {
+
+    &__block {
+        border-bottom: 2px solid #eee;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+}

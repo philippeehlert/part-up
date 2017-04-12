@@ -4,11 +4,21 @@
             {{> Spinner color='inverted' }}
         {{else}}
             {{> Start_Header networkSlug=networkSlug }}
+        <div class="pu-tribestart__block">
             {{> Start_Nav}}
+        </div>
+        <div class="pu-tribestart__block">
             {{> Start_Video }}
+        </div>
+        <div class="pu-tribestart__block">
             {{> Start_Chat }}
+        </div>
+        <div class="pu-tribestart__block">
             {{> Start_About }}
+        </div>
+        <div class="pu-tribestart__block">
             {{> Start_MostActive }}
+        </div>
         {{/unless}}
     </article>
 </template>
