@@ -1,5 +1,5 @@
-<a name="2.10.2"></a>
-## [2.10.2](https://github.com/part-up/part-up/compare/2.10.1...v2.10.2) (2017-04-03)
+<a name="2.10.3"></a>
+## [2.10.3](https://github.com/part-up/part-up/compare/2.10.1...2.10.3) (2017-04-03)
 
 
 ### Bug Fixes
