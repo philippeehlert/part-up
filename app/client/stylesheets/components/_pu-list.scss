@@ -23,8 +23,25 @@
             float: left;
             text-align: left;
 
+            &.pu-sub-button.pu-sub-align-right {
+                margin-right: 5px;
+            }
+            &.pu-sub-button-menu {
+                padding-right: 22px;
+            }
+
             &.pu-sub-align-right {
                 float: none;
+
+                button.pu-button-nav {
+                    // padding: 0px 10px;
+                    padding: 0px;
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 4px;
+                    // background-color: transparent;
+                    border-bottom: 0px;
+                }
             }
         }
     }

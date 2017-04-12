@@ -1,25 +1,49 @@
 Template.app_network.onCreated(function() {
-    var template = this;
-    var networkSlug = template.data.networkSlug;
+    var template = this
+    var networkSlug = template.data.networkSlug
+
     template.networkSlug = new ReactiveVar(networkSlug);
     template.networkLoaded = new ReactiveVar(false);
-    template.autorun(function() {
-        var data = Template.currentData();
-        var slug = data.networkSlug;
-
-        template.networkSlug.set(slug);
-        if (template.networkSubscription) template.networkSubscription.stop();
-        template.networkLoaded.set(false);
-        template.networkSubscription = template.subscribe('networks.one', slug, {
-            onReady: function() {
-                var network = Networks.findOne({slug: slug});
-                if (!network) Router.pageNotFound('network');
-                template.networkLoaded.set(true);
+    template.networkSubscription = template.subscribe('networks.one', networkSlug, {
+        onReady: function () {
+            if (!Networks.findOne({slug: networkSlug})) {
+                Router.pageNotFound('network')
+                template.networkLoaded.set(true)
             }
-        });
+        }
+    })
 
-    });
+    // template.autorun(function() {
+    //     var data = Template.currentData();
+    //     var slug = data.networkSlug;
+
+    //     template.networkSlug.set(slug);
+    //     if (template.networkSubscription) template.networkSubscription.stop();
+    //     template.networkLoaded.set(false);
+    //     template.networkSubscription = template.subscribe('networks.one', slug, {
+    //         onReady: function() {
+    //             var network = Networks.findOne({slug: slug});
+    //             if (!network) Router.pageNotFound('network');
+    //             template.networkLoaded.set(true);
+    //         }
+    //     });
+
+    // });
 });
+
+Template.app_network.onRendered(function () {
+    var template = this;
+    // ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=networksettings]');
+    // Router.onBeforeAction(function(req, res, next) {
+    //     template.dropdownOpen.set(false);
+    //     next();
+    // });
+});
+
+// Template.app_network.onDestroyed(function () {
+//     var template = this;
+//     ClientDropdowns.removeOutsideDropdownClickHandler(template);
+// });
 
 /*************************************************************/
 /* Page helpers */
@@ -82,6 +106,26 @@ Template.app_network.helpers({
     }
 });
 
+var leaveNetwork = function(template, network) {
+    Meteor.call('networks.leave', network._id, function(error) {
+        if (error) {
+            Partup.client.notify.error(error.reason);
+            return;
+        }
+        // template.joinToggle.set(!template.joinToggle.get());
+
+        Partup.client.notify.success(TAPi18n.__('pages-app-network-notification-left'));
+        Subs.reset();
+        if (network.isClosedForUpper(Meteor.user())) {
+            Router.go('discover');
+        }
+        analytics.track('left network', {
+            networkId: network._id
+        });
+    });
+};
+
+
 /*************************************************************/
 /* Page events */
 /*************************************************************/
@@ -109,5 +153,22 @@ Template.app_network.events({
     },
     'click [data-header-navigate]': function(event, template) {
         Router.go('network', {slug: template.networkSlug.get()}, {query: 'show=true'})
+    },
+    'click [data-leave-tribe]': function(event, template) {
+        event.preventDefault();
+        console.log(template.networkSlug.curValue)
+        var network = Networks.findOne({slug: template.networkSlug.get()});
+
+        Partup.client.prompt.confirm({
+            title: TAPi18n.__('pages-app-network-confirmation-title', {
+                tribe: network.name
+            }),
+            message: TAPi18n.__('pages-app-network-confirmation-message'),
+            confirmButton: TAPi18n.__('pages-app-network-confirmation-confirm-button'),
+            cancelButton: TAPi18n.__('pages-app-network-confirmation-cancel-button'),
+            onConfirm: function() {
+                leaveNetwork(template, network);
+            }
+        });
     }
 });

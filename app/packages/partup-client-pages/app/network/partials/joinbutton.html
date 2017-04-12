@@ -1,8 +1,12 @@
 <template name="app_network_joinbutton">
     {{# if network.hasMember currentUser._id }}
-        <a class="pu-button pu-button-gray" href="#" data-leave>
-            {{_ 'pages-app-network-actions-button-leave'}}
+        <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=network.slug }}">
+            <i class="picon-person-plus picon-large"></i>
+            {{_ 'pages-app-network-uppers-invite_button'}}
         </a>
+        <!--<a class="pu-button pu-button-gray" href="#" data-leave>
+            {{_ 'pages-app-network-actions-button-leave'}}
+        </a>-->
     {{ else }}
         {{# if network.canUpperJoin currentUser._id }}
             {{# if network.isUpperInvitePending currentUserId }}
