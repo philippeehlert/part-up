@@ -111,7 +111,6 @@ random@1.0.10
 reactive-var@1.0.11
 reload@1.1.11
 reywood-publish-composite
-sergeyt:typeahead
 service-configuration@1.0.11
 session@1.1.7
 spacebars
@@ -119,7 +118,6 @@ stevezhu:lodash@3.10.1
 tap:i18n
 tmeasday:publish-counts@0.7.1
 tracker@1.1.2
-yogiben:autoform-tags@0.1.3
 zimme:active-route
 partup-client-admin-partups
 blaze-html-templates
@@ -132,3 +130,5 @@ standard-minifier-js@1.2.3
 shell-server
 facebook-config-ui
 fourseven:scss
+yogiben:autoform-tags@0.1.3
+sergeyt:typeahead@0.11.1_8
