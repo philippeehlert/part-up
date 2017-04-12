@@ -2,8 +2,8 @@ Template.app_network.onCreated(function() {
     var template = this
     var networkSlug = template.data.networkSlug
 
-    template.networkSlug = new ReactiveVar(networkSlug);
-    template.networkLoaded = new ReactiveVar(false);
+    template.networkSlug = new ReactiveVar(networkSlug)
+    template.networkLoaded = new ReactiveVar(false)
     template.networkSubscription = template.subscribe('networks.one', networkSlug, {
         onReady: function () {
             if (!Networks.findOne({slug: networkSlug})) {
@@ -12,38 +12,7 @@ Template.app_network.onCreated(function() {
             }
         }
     })
-
-    // template.autorun(function() {
-    //     var data = Template.currentData();
-    //     var slug = data.networkSlug;
-
-    //     template.networkSlug.set(slug);
-    //     if (template.networkSubscription) template.networkSubscription.stop();
-    //     template.networkLoaded.set(false);
-    //     template.networkSubscription = template.subscribe('networks.one', slug, {
-    //         onReady: function() {
-    //             var network = Networks.findOne({slug: slug});
-    //             if (!network) Router.pageNotFound('network');
-    //             template.networkLoaded.set(true);
-    //         }
-    //     });
-
-    // });
-});
-
-Template.app_network.onRendered(function () {
-    var template = this;
-    // ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=networksettings]');
-    // Router.onBeforeAction(function(req, res, next) {
-    //     template.dropdownOpen.set(false);
-    //     next();
-    // });
-});
-
-// Template.app_network.onDestroyed(function () {
-//     var template = this;
-//     ClientDropdowns.removeOutsideDropdownClickHandler(template);
-// });
+})
 
 /*************************************************************/
 /* Page helpers */
@@ -106,14 +75,14 @@ Template.app_network.helpers({
     }
 });
 
+// This is copied from the 'joinbutton' template.
+// TODO: maybe move this functionality to the network collection?
 var leaveNetwork = function(template, network) {
     Meteor.call('networks.leave', network._id, function(error) {
         if (error) {
             Partup.client.notify.error(error.reason);
             return;
         }
-        // template.joinToggle.set(!template.joinToggle.get());
-
         Partup.client.notify.success(TAPi18n.__('pages-app-network-notification-left'));
         Subs.reset();
         if (network.isClosedForUpper(Meteor.user())) {
@@ -156,9 +125,7 @@ Template.app_network.events({
     },
     'click [data-leave-tribe]': function(event, template) {
         event.preventDefault();
-        console.log(template.networkSlug.curValue)
         var network = Networks.findOne({slug: template.networkSlug.get()});
-
         Partup.client.prompt.confirm({
             title: TAPi18n.__('pages-app-network-confirmation-title', {
                 tribe: network.name

@@ -20,9 +20,6 @@ Template.NetworkMenu.onDestroyed(function () {
 Template.NetworkMenu.helpers({
     menuOpen: function () {
         return Template.instance().dropdownOpen.get()
-    },
-    network: function () {
-        return Template.instance().data.network
     }
 })
 
