@@ -120,6 +120,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/swarms_service.js',
         'services/system_messages_service.js',
+        'services/files_service.js',
         'seo/routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
