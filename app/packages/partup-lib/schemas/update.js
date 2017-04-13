@@ -147,18 +147,11 @@ Partup.schemas.entities.update = new SimpleSchema([updateBaseSchema, {
 Partup.schemas.forms.updateComment = new SimpleSchema([updateCommentBaseSchema]);
 
 /**
- * New message Form
- * @name newMessage
- * @memberof Partup.schemas.forms
- */
-
-/**
  * Based on dropboxFile object response, but this is also the preferred
  * object file for every other services e.g. GoogleDrive
  * https://www.dropbox.com/developers/chooser
  * @type {SimpleSchema}
  */
-
 var DocumentSchema = new SimpleSchema({
     _id: {
         type: String
@@ -198,6 +191,11 @@ var DocumentSchema = new SimpleSchema({
 });
 
 
+/**
+ * New message Form
+ * @name newMessage
+ * @memberof Partup.schemas.forms
+ */
 Partup.schemas.forms.newMessage = new SimpleSchema({
     text: {
         type: String,
@@ -209,6 +207,10 @@ Partup.schemas.forms.newMessage = new SimpleSchema({
     },
     documents: {
         type: [DocumentSchema],
+        optional: true
+    },
+    files: {
+        type: [String],
         optional: true
     }
 });
