@@ -316,6 +316,58 @@
         }
     }
 
+    &-rimmed {
+        border: 2px solid #fff;
+        position: relative;
+
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 50%;
+        }
+
+        &:after {
+            top: -6px;
+            left: -6px;
+            bottom: -6px;
+            right: -6px;
+            border: 2px solid #fff;
+        }
+
+        &:before {
+            top: -4px;
+            left: -4px;
+            bottom: -4px;
+            right: -4px;
+            border: 2px solid $color-border;
+        }
+
+        &-thick {
+            border: 3px solid #fff;
+            position: relative;
+
+            &:after {
+                top: -8px;
+                left: -8px;
+                bottom: -8px;
+                right: -8px;
+                border: 3px solid #fff;
+            }
+
+            &:before {
+                top: -5px;
+                left: -5px;
+                bottom: -5px;
+                right: -5px;
+                border: 2px solid #eee;
+            }
+        }
+    }
+
     @media screen and (min-width: 1400px) {
         $label_position: translate3d(10px, -50%, 0);
 

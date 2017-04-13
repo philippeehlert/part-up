@@ -3,15 +3,38 @@
         <div class="pu-tribestart-wrap">
             <h2 class="pu-tribestart-subtitle pu-tribestart-chat__title">{{_ 'pages-app-home-products-title'}}</h2>
             <p class="pu-tribestart-paragraph pu-tribestart-chat__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero dicta, totam impedit, nobis dolorem magni sapiente laboriosam ratione inventore ex?</p>
-            <li class="pu-list-pu-list-horizontal pu-tribestart-chat__admins">
-                <li>user</li>
-                <li>user</li>
-                <li>user</li>
-            </li>
-            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__uppers-title">Lorem ipsum dolor sit amet.</h2>
-            <div class="pu-tribestart-chat__uppers">
-                <!-- {{> app_network_start_uppers uppers=data.activeUppers }} -->
-            </div>
+            <ul class="pu-list pu-list-horizontal pu-tribestart-chat__admins">
+                {{#each data.admins}}
+                    <li class="pu-tribestart-chat__admins__item">
+                        <div class="pu-tile pu-tile-upper">
+                            {{> UpperTile user=. }}
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__uppers-title">Or with one of our active members</h2>
+            <ul class="pu-list pu-list-horizontal pu-tribestart-chat__uppers">
+                {{#each data.uppers}}
+                    <li class="pu-tribestart-chat__uppers__item">
+                        {{> Start_Chat_UserAvatar user=.}}
+                    </li>
+                {{/each}}
+                {{#if data.remainingUppers }}
+                    <li class="pu-tribestart-chat__uppers__item">
+                        <div class="pu-count pu-count-large pu-count-light pu-count-rimmed pu-count-rimmed-thick"><a href="{{ pathFor route='network-uppers' slug=data.slug }}">+{{data.remainingUppers}}</a></div>
+                    </li>
+                {{/if}}
+            </ul>
         </div>
     </div>
+</template>
+
+<template name="Start_Chat_UserAvatar">
+    <a href="{{ pathFor 'profile' _id=user._id }}">
+        <figure class="pu-avatar pu-avatar-large pu-avatar-rimmed pu-avatar-rimmed-thick"
+            style="{{#with user.profile.image}}
+                background-image: url({{ partupImageUrl id=. store='360x360' }});
+            {{/with}}">
+        </figure>
+    </a>
 </template>

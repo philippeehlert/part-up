@@ -6,7 +6,7 @@
                     {{# if data.upper }}
                          <li data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ data.upper._id }}">
                             <a href="{{ pathFor 'profile' _id=data.upper._id }}" class="pu-avatar pu-avatar-partuptile">
-                                <figure class="pu-avatar pu-avatar-inactive pu-avatar-small" style="background-image: url({{ partupGetImageUrl data.upper.profile.imageObject '80x80' }});" ></figure>
+                                <figure class="pu-avatar pu-avatar-inactive pu-avatar-small" style="background-image: url({{ partupGetImageUrl data.upper.avatarObject '80x80' }});" ></figure>
                             </a>
                         </li>
                     {{ else }}

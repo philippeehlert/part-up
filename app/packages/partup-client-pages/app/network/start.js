@@ -1,23 +1,34 @@
 Template.app_network_start.onCreated(function() {
-    var template = this;
-    var networkSlug = template.data.networkSlug;
-    template.loaded = new ReactiveVar(false);
-    template.subscribe('networks.one', networkSlug, {
-        onReady: function() {
-            var network = Networks.findOne({slug: networkSlug});
+    const { networkSlug: slug } = this.data;
+    this.networkLoaded = new ReactiveVar(false);
+    this.partupsLoaded = new ReactiveVar(false);
+    this.uppersLoaded = new ReactiveVar(false);
+
+    this.subscribe('networks.one', slug, {
+        onReady: () => {
+            const network = Networks.findOne({slug});
             if (!network) Router.pageNotFound('network');
-            template.loaded.set(true);
+            this.networkLoaded.set(true);
         }
     });
-    template.subscribe('networks.one.partups', {slug: networkSlug});
+    this.subscribe('networks.one.partups', {slug}, {
+        onReady: () => this.partupsLoaded.set(true),
+    });
+    this.subscribe('networks.one.uppers', {slug}, {
+        onReady: () => this.uppersLoaded.set(true),
+    });
 });
 
 Template.app_network_start.helpers({
     state: function() {
-        var template = Template.instance();
+        const template = Template.instance();
         return {
-            loaded: function() {
-                return template.loaded.get();
+            loaded: () => {
+                return !!(
+                    template.networkLoaded.get() &&
+                    template.partupsLoaded.get() &&
+                    template.uppersLoaded.get()
+                );
             }
         };
     }

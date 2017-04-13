@@ -3,11 +3,19 @@
         <div class="pu-tribestart-wrap">
             <h2 class="pu-tribestart-subtitle pu-tribestart-mostactive__title">Lorem ipsum dolor sit amet.</h2>
             <ul class="pu-list pu-list-horizontal pu-tribestart-mostactive__partups">
-                <li>partup</li>
-                <li>partup</li>
-                <li>partup</li>
+                {{#each data.partups }}
+                    <li class="pu-tribestart-mostactive__partups__item">
+                        <div class="pu-tile pu-tile-partup">
+                            {{> PartupTile partup=. HIDE_NETWORKTILE=true}}
+                        </div>
+                    </li>
+                {{/each}}
             </ul>
-            <button class="pu-button-2 pu-tribestart-mostactive__button">Join the tribe</button>
+            {{#if data.network.hasMember currentUserId}}
+                <a href="{{ pathFor route='network-detail' slug=data.network.slug }}" class="pu-button-2">{{_ 'pages-app-network-start-button-gototribe'}}</a>
+            {{else}}
+                {{> app_network_joinbutton network=data.network }}
+            {{/if}}
         </div>
     </div>
 </template>

@@ -94,9 +94,11 @@ Package.onUse(function(api) {
             'app/network/start.js',
             'app/network/start/Start_About.html',
             'app/network/start/Start_Chat.html',
+            'app/network/start/Start_Chat.js',
             'app/network/start/Start_Header.html',
             'app/network/start/Start_Header.js',
             'app/network/start/Start_MostActive.html',
+            'app/network/start/Start_MostActive.js',
             'app/network/start/Start_Nav.html',
             'app/network/start/Start_Video.html',
 

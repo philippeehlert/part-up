@@ -9,28 +9,28 @@
  */
 // jscs:enable
 
-var MAX_AVATARS = 5;
-var AVATAR_DEFAULT_RADIUS = 100;
-var AVATAR_HOVERING_RADIUS = 125;
-var AVATAR_DEFAULT_DISTANCE = 24;
-var AVATAR_HOVERING_DISTANCE = 18;
+const MAX_AVATARS = 5;
+const AVATAR_DEFAULT_RADIUS = 100;
+const AVATAR_HOVERING_RADIUS = 125;
+const AVATAR_DEFAULT_DISTANCE = 24;
+const AVATAR_HOVERING_DISTANCE = 18;
+
+const { getAvatarCoordinates } = Partup.client.partuptile;
 
 Template.PartupTile.onCreated(function() {
-    var template = this;
-
-    // Partup image reactive hover state
+    const template = this;
 
     // Transform partup
-    var partup = template.data.partup;
-    template.data.partup.hovering = new ReactiveVar(false);
+    const { partup } = template.data;
+    partup.hovering = new ReactiveVar(false);
 
     // -- Partup details
     partup.name = Partup.helpers.url.capitalizeFirstLetter(partup.name);
     partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
-    partup.mappedTags = partup.tags.map(function(tag, index) {
+    partup.mappedTags = partup.tags.map((tag, index) => {
         return {
-            tag: tag,
+            tag,
             delay: .05 * index
         };
     });
@@ -52,12 +52,12 @@ Template.PartupTile.onCreated(function() {
     // -- Partup uppers
     partup.avatars = partup.uppers
         .slice(0, MAX_AVATARS)
-        .map(function(avatar, index, arr) {
+        .map((avatar, index, arr) => {
 
             // Avatar position
-            var default_coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_DEFAULT_DISTANCE, AVATAR_DEFAULT_RADIUS);
-            var hovering_coords = Partup.client.partuptile.getAvatarCoordinates(arr.length, index, 0, AVATAR_HOVERING_DISTANCE, AVATAR_HOVERING_RADIUS);
-            var position = {
+            const default_coords = getAvatarCoordinates(arr.length, index, 0, AVATAR_DEFAULT_DISTANCE, AVATAR_DEFAULT_RADIUS);
+            const hovering_coords = getAvatarCoordinates(arr.length, index, 0, AVATAR_HOVERING_DISTANCE, AVATAR_HOVERING_RADIUS);
+            const position = {
                 default: {
                     delay: .03 * index,
                     x: Math.round(default_coords.x + 95),
@@ -73,7 +73,7 @@ Template.PartupTile.onCreated(function() {
             // Blue avatar, for example: (5+)
             if (partup.uppers.length > arr.length && index + 1 === MAX_AVATARS) {
                 return {
-                    position: position,
+                    position,
                     data: {
                         remainingUppers: partup.uppers.length - MAX_AVATARS + 1
                     }
@@ -81,28 +81,27 @@ Template.PartupTile.onCreated(function() {
             }
 
             // Default avatar
-            var upper = mout.object.find(partup.upperObjects, {_id: avatar}) || Meteor.users.findOne({_id: avatar});
-            upper.profile.imageObject = upper.profile.imageObject || Images.findOne({_id: upper.profile.image});
+            const uppers = lodash.get(partup, 'upperObjects');
+            const upper = lodash.find(uppers, {_id: avatar}) || Meteor.users.findOne({_id: avatar});
+            upper.avatarObject = lodash.get(upper, 'profile.imageObject', Images.findOne({_id: lodash.get(upper, 'profile.image')}));
 
             return {
-                position: position,
-                data: {
-                    upper: upper
-                }
+                position,
+                data: { upper },
             };
         });
 });
 
 Template.PartupTile.onRendered(function() {
-    var template = this;
+    const template = this;
 
     // Bind tag positioner
-    var tagsElement = template.find('.pu-sub-partup-tags');
+    const tagsElement = template.find('.pu-sub-partup-tags');
     if (tagsElement) {
-        template.autorun(function() {
+        template.autorun(() => {
             Partup.client.screen.size.get();
-            var br = document.body.getBoundingClientRect();
-            var rect = tagsElement.getBoundingClientRect();
+            const br = document.body.getBoundingClientRect();
+            const rect = tagsElement.getBoundingClientRect();
 
             if (rect.right > br.right) {
                 tagsElement.classList.add('pu-state-right');
@@ -110,12 +109,13 @@ Template.PartupTile.onRendered(function() {
         });
     }
 
+    const { partup } = template.data;
     // Focuspoint in discover image
-    if (template.data.partup.image && !template.data.partup.archived_at) {
-        var image = template.data.partup.imageObject || Images.findOne({_id: template.data.partup.image});
+    if (partup.image && !partup.archived_at) {
+        const { imageObject: image = Images.findOne({_id: partup.image})} = partup;
 
         if (image && image.focuspoint) {
-            var focuspointElm = template.find('[data-partup-tile-focuspoint]');
+            const focuspointElm = template.find('[data-partup-tile-focuspoint]');
             template.focuspoint = new Focuspoint.View(focuspointElm, {
                 x: image.focuspoint.x,
                 y: image.focuspoint.y
@@ -123,7 +123,7 @@ Template.PartupTile.onRendered(function() {
         }
     }
 
-    var canvasElm = template.find('canvas.pu-sub-radial');
+    const canvasElm = template.find('canvas.pu-sub-radial');
     if (canvasElm) Partup.client.partuptile.drawCircle(canvasElm);
 });
 
@@ -141,7 +141,7 @@ Template.PartupTile.helpers({
         return partup.privacy_type === Partups.privacy_types.NETWORK_COLLEAGUES;
     },
     shortLabel: function(partup) {
-        var privacyTypeLabels = partup.networkObject.privacy_type_labels;
+        const privacyTypeLabels = partup.networkObject.privacy_type_labels;
         if (privacyTypeLabels && privacyTypeLabels[partup.privacy_type]) {
             if (partup.privacy_type === 6) {
                 return privacyTypeLabels[partup.privacy_type];
@@ -155,7 +155,7 @@ Template.PartupTile.helpers({
         return undefined;
     },
     longLabel: function(partup) {
-        var privacyTypeLabels = partup.networkObject.privacy_type_labels;
+        const privacyTypeLabels = partup.networkObject.privacy_type_labels;
         if (privacyTypeLabels && privacyTypeLabels[partup.privacy_type]) {
             if (partup.privacy_type === 6) {
                 return TAPi18n.__('partup-tile-label-admin-custom', { name: privacyTypeLabels[partup.privacy_type]});
