@@ -189,6 +189,7 @@ Package.onUse(function(api) {
         'routes/partups/partups_routes.js',
         'routes/networks/networks_routes.js',
         'routes/users/users_routes.js',
+        'routes/files/files_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
