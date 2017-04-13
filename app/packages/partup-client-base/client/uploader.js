@@ -121,12 +121,79 @@ Partup.client.uploader = {
     },
 
     /**
+     * Upload single file
+     *
+     * @memberOf Partup.client
+     * @param {Object} file
+     * @param {Function} callback
+     */
+    uploadFile: function(file, callback) {
+        var IE = this.isIE();
+        var SAFARI = this.isSafari();
+        var newFile = null;
+        var xhr = null;
+        var formData = null;
+
+        if (IE || SAFARI) {
+            newFile = new mOxie.File(null, file);
+        } else {
+            newFile = new File([file], file.name);
+        }
+
+        var token = Accounts._storedLoginToken();
+        if (IE || SAFARI) {
+            xhr = new mOxie.XMLHttpRequest();
+        } else {
+            xhr = new XMLHttpRequest();
+        }
+        var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        var url = location + '/files/upload?token=' + token;
+        xhr.open('POST', url, true);
+
+        if (IE || SAFARI) {
+            formData = new mOxie.FormData();
+        } else {
+            formData = new FormData();
+        }
+        formData.append('file', newFile);
+
+        var loadHandler = function(e) {
+            var data = JSON.parse(xhr.responseText);
+            if (data.error) {
+                callback(data.error);
+                return;
+            }
+            Meteor.subscribe('files.one', data.file);
+            Meteor.autorun(function(computation) {
+                var file = Files.findOne({_id: data.file});
+                if (file) {
+                    computation.stop();
+                    Tracker.nonreactive(function() {
+                        callback(null, file);
+                    });
+                }
+            });
+            xhr.removeEventListener('load', loadHandler);
+            xhr.removeEventListener('error', errorHandler);
+        };
+
+        var errorHandler = function(e) {
+            xhr.removeEventListener('load', loadHandler);
+            xhr.removeEventListener('error', errorHandler);
+        };
+
+        xhr.addEventListener('load', loadHandler);
+        xhr.addEventListener('error', errorHandler);
+
+        xhr.send(formData);
+    },
+
+    /**
      * Return a blob from dataurl
      *
      * @memberOf Partup.client
-     * @param {DataUrl} canvas dataurl
+     * @param {DataUrl} dataURL dataurl
      */
-
     dataURLToBlob: function(dataURL) {
         var BASE64_MARKER = ';base64,';
         if (dataURL.indexOf(BASE64_MARKER) == -1) {
