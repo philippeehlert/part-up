@@ -99,6 +99,14 @@ Meteor.methods({
                 // Don't remove when message has comments
                 if (message.comments && message.comments.length > 0) throw new Meteor.Error(400, 'partup_message_already_has_comments');
 
+                // Check for attachments
+                var files = message.type_data.files || [];
+                if (files.length > 0) {
+                    files.forEach(function(fileId) {
+                        Partup.server.services.files.remove(fileId);
+                    });
+                }
+
                 Updates.remove({_id: message._id});
             }
         } catch (error) {

@@ -42,13 +42,14 @@ Partup.server.services.files = {
      * Remove a file
      *
      * @param {String} id
-     * @param {String} filename
      */
-    remove: function(id, filename) {
+    remove: function(id) {
         var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
-        var filekey = id + '-' + filename;
+        var file = Files.findOne({_id: id});
+        if (!file) return;
 
         // Remove from S3
+        var filekey = file._id + '-' + file.name;
         s3.deleteObjectSync({Key: 'files/' + filekey});
 
         // Remove from DB
