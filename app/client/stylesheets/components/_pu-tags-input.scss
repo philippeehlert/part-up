@@ -7,6 +7,10 @@
     min-height: 46px;
     white-space: nowrap;
 
+    .js-input {
+        display: none;
+    }
+
     .bootstrap-tagsinput {
         font-size: 14px;
         overflow: hidden;
