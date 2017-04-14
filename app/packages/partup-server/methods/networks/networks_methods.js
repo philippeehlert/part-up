@@ -1043,6 +1043,11 @@ Meteor.methods({
 
         if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
 
+        // Validate video url
+        if (fields.video_url && !Partup.services.validators.isVideoUrl(fields.video_url)) {
+            throw new Meteor.Error(400, 'video_url_invalid');
+        }
+
         try {
             Networks.update(network._id, {
                 $set: {

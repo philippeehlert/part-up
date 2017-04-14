@@ -13,7 +13,6 @@ Package.onUse(function(api, where) {
     api.use([
         'templating',
         'underscore',
-        'ecmascript',
     ], 'client');
 
     api.addFiles([

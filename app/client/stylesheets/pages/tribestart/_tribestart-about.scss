@@ -2,6 +2,14 @@
     padding-top: 27px;
     padding-bottom: 40px;
 
+    &__title {
+        margin-bottom: 16px;
+    }
+
+    &__content {
+        margin-bottom: 40px;
+    }
+
     &__container.pu-tribestart-wrap {
         max-width: 630px;
     }

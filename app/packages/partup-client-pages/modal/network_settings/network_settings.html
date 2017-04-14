@@ -15,6 +15,9 @@
                         <li class="{{# if isActiveRoute name='network-settings' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'network-settings' slug=network.slug }}">{{_ 'pages-modal-network_settings-network_info' }}</a>
                         </li>
+                        <li class="{{# if isActiveRoute name='network-settings-landing' }}pu-state-active{{/ if }}">
+                            <a href="{{ pathFor 'network-settings-landing' slug=network.slug }}">{{_ 'pages-modal-network_settings-network_landing' }}</a>
+                        </li>
                         <li class="{{# if isActiveRoute name='network-settings-access' }}pu-state-active{{/ if }}">
                             <a href="{{ pathFor 'network-settings-access' slug=network.slug }}">{{_ 'pages-modal-network_settings-access' }}</a>
                         </li>

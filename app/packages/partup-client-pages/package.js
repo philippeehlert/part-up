@@ -93,6 +93,7 @@ Package.onUse(function(api) {
             'app/network/start.html',
             'app/network/start.js',
             'app/network/start/Start_About.html',
+            'app/network/start/Start_About.js',
             'app/network/start/Start_Chat.html',
             'app/network/start/Start_Chat.js',
             'app/network/start/Start_Header.html',
@@ -101,6 +102,7 @@ Package.onUse(function(api) {
             'app/network/start/Start_MostActive.js',
             'app/network/start/Start_Nav.html',
             'app/network/start/Start_Video.html',
+            'app/network/start/Start_Video.js',
 
             'app/network/partials/joinbutton.html',
             'app/network/partials/joinbutton.js',

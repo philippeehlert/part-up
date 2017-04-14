@@ -9,12 +9,10 @@ Package.onUse(function(api) {
     api.use([
         'partup-lib',
         'meteorhacks:subs-manager',
-        'ecmascript'
-    ], ['client', 'server']);
-
-    api.use([
-        'templating'
-    ], 'client');
+        'ecmascript',
+        'templating',
+        'aldeed:autoform',
+    ], ['client']);
 
     api.addFiles([
 

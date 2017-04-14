@@ -2,12 +2,13 @@
     <div id="video" class="pu-tribestart-intro">
         <div class="pu-tribestart-wrap">
             <div class="pu-tribestart-block pu-tribestart-intro__video">
-                {{> Video url=video_url poster=video_placeholder}}
+                {{> Video url=data.video_url poster=data.video_url}}
             </div>
             <div class="pu-tribestart-block pu-tribestart-textblock">
-                <h2 class="pu-tribestart-subtitle pu-tribestart-textblock__title"><span>Lorem ipsum dolor sit.</span></h2>
-                <p class="pu-tribestart-textblock__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam hic officiis perspiciatis, laboriosam provident perferendis, nihil laborum facere distinctio. Fugiat.</p>
-                <p class="pu-tribestart-textblock__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur beatae, reprehenderit fugiat quaerat nobis, omnis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque numquam dignissimos asperiores nulla tempora dolore, nobis enim, aperiam sed voluptatibus.</p>
+                <h2 class="pu-tribestart-subtitle pu-tribestart-textblock__title"><span>{{data.why_title}}</span></h2>
+                <div class="pu-contentblock pu-tribestart-intro__content">
+                    {{{data.why_body}}}
+                </div>
             </div>
         </div>
     </div>
