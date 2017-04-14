@@ -24,13 +24,13 @@ Template.NetworkNavigationSelector.onCreated(function() {
         slug: networkSlug,
     }];
 
-    if (network.isAdmin(Meteor.userId())) {
-        template.options.push({
-            name: TAPi18n.__('pages-app-network-tab-button-settings'),
-            route: 'network-settings',
-            slug: networkSlug,
-        });
-    }
+    // if (network.isAdmin(Meteor.userId())) {
+    //     template.options.push({
+    //         name: TAPi18n.__('pages-app-network-tab-button-settings'),
+    //         route: 'network-settings',
+    //         slug: networkSlug,
+    //     });
+    // }
 
     var defaultOption = template.options[0];
 

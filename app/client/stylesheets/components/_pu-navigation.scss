@@ -49,6 +49,13 @@
         li {
             margin-right: 25px;
 
+            &.pu-sub-button.pu-sub-align-right {
+                margin-right: 5px;
+            }
+            &.pu-sub-button-menu {
+                padding-right: 22px;
+            }
+
             &:last-child {
                 margin-right: 0;
             }
@@ -76,6 +83,19 @@
 
         .pu-list-horizontal {
             float: none;
+        }
+    }
+
+    .pu-button-cog {
+        padding: 0px;
+        height: 40px;
+        width: 40px;
+        border-radius: 4px;
+        background-color: transparent;
+        border-bottom: 0px;
+
+        &:hover {
+            background-color: transparent;
         }
     }
 
@@ -161,6 +181,11 @@
             }
         }
 
+        .pu-button-cog {
+            height: 40px;
+            padding: 0px;
+        }
+
         .pu-sub-smallscreen-navigation {
             padding-top: 10px;
 
@@ -170,6 +195,11 @@
 
             .pu-formdropdown {
                 width: calc(100vw - 65px);
+            }
+
+            .pu-sub-button-menu {
+                padding-top: 0px;
+                padding-right: 15px;
             }
         }
     }

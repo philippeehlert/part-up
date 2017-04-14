@@ -52,22 +52,17 @@
                                 </a>
                             </li>
                             {{# with data.network }}
-                                {{# if isAdmin currentUser._id }}
-                                    <li>
-                                        <a href="{{pathFor 'network-settings' slug=slug}}" data-open-networksettings
-                                            class="pu-button pu-button-nav pu-button-nav-secondary pu-button-nav-secondary-subtle">
-                                            {{_ 'pages-app-network-tab-button-settings'}}
-                                        </a>
-                                    </li>
-                                {{/ if}}
-                            {{/with}}
-                            {{# with data.network }}
                                 {{#unless archived_at}}
-                                    {{#unless data.network.isClosedForUpper currentUserId}}
-                                        <!-- join or leave button -->
-                                        <li class="pu-sub-button pu-sub-align-right">
-                                            {{> app_network_joinbutton network=. }}
+                                    {{#unless isClosedForUpper currentUserId}}
+                                    {{#if hasMember currentUserId}}
+                                        <li class="pu-sub-button pu-sub-align-right pu-sub-button-menu">
+                                            {{> NetworkMenu network=. }}
                                         </li>
+                                    {{/if}}
+                                    <!--request, pending, accept or invite button -->
+                                    <li class="pu-sub-button pu-sub-align-right">
+                                        {{> app_network_joinbutton network=. }}
+                                    </li>
                                     {{/unless}}
                                 {{/unless}}
                             {{/with}}
@@ -83,14 +78,36 @@
                                 </li>
                                 {{# with data.network }}
                                     {{#unless archived_at}}
-                                        {{#unless data.network.isClosedForUpper currentUserId}}
-                                            <!-- join or leave button -->
+                                        {{#unless isClosedForUpper currentUserId}}
+                                            {{#if hasMember currentUserId}}
+                                                <li class="pu-sub-button pu-sub-align-right pu-sub-button-menu">
+                                                    {{> NetworkMenu network=. }}
+                                                </li>
+                                            {{/if}}
                                             <li class="pu-sub-align-right">
-                                                {{> app_network_joinbutton network=. }}
+                                                <a class="pu-button pu-button-icon" href="{{ pathFor route='network-invite' slug=slug }}">
+                                                    <i class="picon-person-plus picon-large"></i>
+                                                </a>
                                             </li>
                                         {{/unless}}
                                     {{/unless}}
                                 {{/with}}
+
+
+
+                                <!--{{# with data.network }}
+                                    {{#unless archived_at}}
+                                        {{#unless data.network.isClosedForUpper currentUserId}}
+                                        <li class="pu-sub-button pu-sub-align-right pu-sub-button-menu">
+                                            {{> NetworkMenu network=. }}
+                                        </li>-->
+                                            <!--request, pending, accept or invite button -->
+                                            <!--<li class="pu-sub-align-right">
+                                                {{> app_network_joinbutton network=. }}
+                                            </li>
+                                        {{/unless}}
+                                    {{/unless}}
+                                {{/with}}-->
                             </ul>
                         </nav>
                     {{/if}}

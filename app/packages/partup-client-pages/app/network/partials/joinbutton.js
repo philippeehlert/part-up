@@ -1,3 +1,7 @@
+/* 
+ * 12-04-2017, Noel Heesen: Moved the leave network functionality to /partup-client-dropdowns/network-header/network-header.*
+ */
+
 Template.app_network_joinbutton.onCreated(function() {
     var template = this;
     template.joinToggle = new ReactiveVar(false);
@@ -22,25 +26,6 @@ var joinNetworkOrAcceptInvitation = function(slug) {
                 networkId: network._id
             });
         }
-    });
-};
-
-var leaveNetwork = function(template, network) {
-    Meteor.call('networks.leave', network._id, function(error) {
-        if (error) {
-            Partup.client.notify.error(error.reason);
-            return;
-        }
-        template.joinToggle.set(!template.joinToggle.get());
-
-        Partup.client.notify.success(TAPi18n.__('pages-app-network-notification-left'));
-        Subs.reset();
-        if (network.isClosedForUpper(Meteor.user())) {
-            Router.go('discover');
-        }
-        analytics.track('left network', {
-            networkId: network._id
-        });
     });
 };
 
@@ -96,23 +81,6 @@ Template.app_network_joinbutton.events({
             return
         }
         proceedAccept(user);
-    },
-    'click [data-leave]': function(event, template) {
-        event.preventDefault();
-        var network = template.data.network;
-
-        Partup.client.prompt.confirm({
-            title: TAPi18n.__('pages-app-network-confirmation-title', {
-                tribe: network.name
-            }),
-            message: TAPi18n.__('pages-app-network-confirmation-message'),
-            confirmButton: TAPi18n.__('pages-app-network-confirmation-confirm-button'),
-            cancelButton: TAPi18n.__('pages-app-network-confirmation-cancel-button'),
-            onConfirm: function() {
-                leaveNetwork(template, network);
-            }
-        });
-
     },
     'click [data-request-invite]': function(event, template) {
         event.preventDefault();

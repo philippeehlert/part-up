@@ -72,6 +72,9 @@ Package.onUse(function(api) {
         'tribes/tribes.html',
         'tribes/tribes.js',
 
+        'network-header/network-header.html',
+        'network-header/network-header.js',
+
         'profile/profile.html',
         'profile/profile.js',
 

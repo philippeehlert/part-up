@@ -2,7 +2,13 @@
     .pu-navigation {
         &-compact {
             .pu-formdropdown {
-                width: calc(100vw - 180px);
+                width: calc(100vw - 165px);
+            }
+        }
+
+        .pu-sub-smallscreen-navigation {
+            .pu-formdropdown {
+                width: calc(100vw - 165px);
             }
         }
     }
