@@ -8,7 +8,8 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'partup-lib',
-        'meteorhacks:subs-manager'
+        'meteorhacks:subs-manager',
+        'ecmascript',
     ], ['client', 'server']);
 
     api.use([

@@ -286,6 +286,7 @@ Package.onUse(function(api) {
             'modal/network_settings/network_settings.html',
             'modal/network_settings/network_settings.js',
             'modal/network_settings/details/details.html',
+            'modal/network_settings/landing/landing.html',
             'modal/network_settings/requests/requests.html',
             'modal/network_settings/uppers/uppers.html',
             'modal/network_settings/partups/partups.html',

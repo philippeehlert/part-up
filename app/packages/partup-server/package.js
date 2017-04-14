@@ -31,7 +31,8 @@ Package.onUse(function(api) {
         'simple:rest',
         'simple:json-routes',
         'anonyfox:scrape',
-        '3stack:accounts-logout-hook'
+        '3stack:accounts-logout-hook',
+        'ecmascript'
     ], ['server']);
 
     api.addFiles([

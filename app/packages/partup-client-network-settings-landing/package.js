@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'partup-client-admin-sectors',
+    name: 'partup-client-network-settings-landing',
     version: '0.0.1',
     summary: '',
     documentation: null
@@ -8,19 +8,18 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'partup-lib',
-        'ecmascript',
+        'meteorhacks:subs-manager',
+        'ecmascript'
     ], ['client', 'server']);
 
     api.use([
-        'templating',
-        'aldeed:autoform',
-        'reactive-dict'
+        'templating'
     ], 'client');
 
     api.addFiles([
 
-        'AdminSectors.html',
-        'AdminSectors.js'
+        'NetworkSettingsLanding.html',
+        'NetworkSettingsLanding.js'
 
     ], 'client');
 

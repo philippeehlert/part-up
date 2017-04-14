@@ -8,7 +8,8 @@ Package.describe({
 Package.onUse(function(api) {
     api.use([
         'templating',
-        'lifelynl:focuspoint'
+        'lifelynl:focuspoint',
+        'ecmascript',
     ], ['client']);
 
     api.addFiles([
