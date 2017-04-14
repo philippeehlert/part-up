@@ -13,7 +13,7 @@
         {{_ 'invite-to-activity-popup-placeholder-explaination'}}
     </p>
 
-    {{#autoForm schema=form.schema id="inviteToActivityForm" class="pu-form pu-form-popup" validation="submitThenBlur" doc=form.doc}}
+    {{#autoForm schema=form.schema id="inviteToActivityForm" class=form.classNames validation="submitThenBlur" doc=form.doc}}
         {{#MultiInviteInput formId="inviteToActivityForm" fieldName="invitees"}}
             {{#afEachArrayItem name='invitees'}}
                 <div data-inputrow="{{ afArrayFieldIsLastVisible }}" class="pu-row pu-inputrow">
@@ -62,17 +62,27 @@
                 <span class="pu-sub-error">{{ afFieldMessage name='message' }}</span>
             </div>
         </label>
-
-        <footer class="pu-sub-formfooter pu-row pu-row-scalable">
-            <div class="cell stretch">
-                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
-                    <span>{{_ 'invite-to-activity-popup-form-copy-confirm'}}</span>
-                    {{> Spinner color='inverted' type='small' }}
-                </button>
-            </div>
-            <div class="cell">
-                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-activity-popup-close'}}</a>
-            </div>
-        </footer>
+        {{#if nopopup}}
+            <footer class="pu-sub-formfooter">
+                <div class="cell stretch">
+                    <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                        <span>{{_ 'invite-to-activity-popup-form-copy-confirm'}}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </div>
+            </footer>
+        {{else}}
+            <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+                <div class="cell stretch">
+                    <button type="submit" class="pu-button {{# if state.submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+                        <span>{{_ 'invite-to-partup-popup-form-copy-confirm'}}</span>
+                        {{> Spinner color='inverted' type='small' }}
+                    </button>
+                </div>
+                <div class="cell">
+                    <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>{{_ 'invite-to-partup-popup-close'}}</a>
+                </div>
+            </footer>
+        {{/if}}
     {{/autoForm}}
 </template>

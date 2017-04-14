@@ -110,11 +110,13 @@ Template.InviteTile.helpers({
     },
     state: function() {
         var template = Template.instance();
+        var activity = Activities.findOne(template.data.activityId);
         var partup = Partups.findOne(template.data.partupId);
         var network = Networks.findOne({slug: template.data.networkSlug});
         var user = Meteor.users.findOne({_id: template.data.userId});
         return {
             inviteSent: function() {
+                if (activity) return activity.isUpperInvited(user._id);
                 if (partup) return partup.hasInvitedUpper(user._id);
                 if (network) return network.isUpperInvited(user._id);
                 return false;
