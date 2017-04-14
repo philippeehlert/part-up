@@ -1,0 +1,144 @@
+.pu-textline {
+    position: relative;
+    display: block;
+    font-size: 12px !important;
+    font-family: $font-primary;
+    letter-spacing: 0.6px;
+    text-align: center;
+    z-index: 0;
+
+    span {
+        display: inline-block;
+        background-color: $color-background;
+        padding: 0 10px;
+        border-radius: 2px;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        border-top: 1px dotted #ccc;
+        z-index: -1;
+    }
+
+    &-subtle {
+        width: 35%;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 600;
+        color: #cacaca;
+        text-transform: uppercase;
+
+        span {
+            background-color: $color-background-tertiery;
+            padding: 0 15px;
+        }
+
+        &:after {
+            border-top: 2px solid #eee;
+            top: 40%;
+        }
+    }
+
+    &:first-child {
+        margin-top: 40px;
+    }
+
+    &-divider {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 600;
+        color: #cacaca;
+        text-transform: uppercase;
+
+        span {
+            background-color: #fff;
+            padding: 0 15px;
+        }
+
+        &:after {
+            border-top: 2px solid #eee;
+            top: 40%;
+        }
+    }
+
+    &-light {
+        color: #cacaca;
+        margin: 10px 0;
+        font-size: 14px !important;
+
+        span {
+            background-color: $color-background;
+        }
+
+        &:after {
+            border-top: 1px solid #eee;
+            top: 45%;
+        }
+
+        &-nostripe:after {
+            display: none;
+        }
+    }
+
+    &-colour {
+        color: $color-primary;
+        margin: 10px 0;
+        font-size: 14px !important;
+        font-weight: bold;
+        height: 23px;
+        transition: height 0.2s, margin 0.2s, opacity 0.2s;
+
+        span {
+            background-color: $color-background;
+        }
+
+        &:after {
+            border-top: 2px solid $color-primary;
+            top: 50%;
+        }
+
+        + .pu-textline-light {
+            display: none;
+        }
+
+        &.hide {
+            height: 0px;
+            margin: 0px;
+            opacity: 0;
+        }
+
+        &.invisible {
+            visibility: hidden;
+        }
+    }
+
+    &-hover {
+        position: absolute;
+        right: 80px;
+        left: 80px;
+        z-index: 10000;
+
+        > span {
+            color: #fff;
+            background-color: lighten(#57c0c9, 10%);
+            padding: 7px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: -7px;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: #57c0c9;
+            }
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+}

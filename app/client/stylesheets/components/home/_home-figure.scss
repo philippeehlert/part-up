@@ -1,0 +1,39 @@
+.pu-home-figure {
+    width: 100%;
+    max-width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+
+    &:after {
+        content: "";
+        display: block;
+        padding-top: 67.5%;
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        width: 560px;
+    }
+}
+
+.pu-video figure,
+.pu-video-active {
+    &:after {
+        content: "";
+        display: block;
+        padding-top: 56.25%;
+    }
+}
+
+.pu-video-active {
+    position: relative;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+}

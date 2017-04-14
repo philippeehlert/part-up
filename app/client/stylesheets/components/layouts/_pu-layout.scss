@@ -1,0 +1,7 @@
+.pu-layout {
+    &__hide-max-phablet {
+        @media screen and (max-width: $breakpoint-phablet) {
+            display: none !important;
+        }
+    }
+}

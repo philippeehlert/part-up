@@ -106,5 +106,8 @@ Template.app_network.events({
     },
     'click [data-blank]': function(event, template) {
         event.preventDefault();
+    },
+    'click [data-header-navigate]': function(event, template) {
+        Router.go('network', {slug: template.networkSlug.get()}, {query: 'show=true'})
     }
 });

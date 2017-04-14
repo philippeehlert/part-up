@@ -1,0 +1,43 @@
+.pu-boardswitch {
+    font-size: 0;
+
+    &__figure {
+        width: 100%;
+        height: 170px;
+        border: 2px solid #eee;
+        transition: border-color 150ms;
+        border-radius: 4px;
+
+        &-list {
+            background-image: url("/images/board/list.png");
+        }
+
+        &-board {
+            background-image: url("/images/board/board.png");
+        }
+    }
+
+    &__label {
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    &__check {
+        display: inline-block;
+        vertical-align: top;
+        width: calc(50% - 10px);
+        font-size: 16px;
+
+        &:first-child {
+            margin-right: 20px;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            .pu-boardswitch__figure {
+                border-color: darken(#eee, 10%);
+            }
+        }
+    }
+}

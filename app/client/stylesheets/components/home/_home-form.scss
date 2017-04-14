@@ -1,0 +1,95 @@
+.pu-home-form {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: $color-primary;
+
+    &__title {
+        text-align: center;
+        margin-bottom: 40px;
+
+        span {
+            border-bottom: 3px solid #3aaab3;
+        }
+    }
+
+    &__form {
+        font-size: 0;
+
+        &__button {
+            width: 100%;
+
+            // min-width: 252px
+       
+        }
+
+        &__input {
+            background-color: #fff;
+            color: #000;
+            border: 0;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        &__input,
+        &__button {
+            font-size: 16px;
+            display: inline-block;
+            vertical-align: top;
+            height: 48px;
+            font-size: normal;
+        }
+
+        @media screen and (min-width: 600px) {
+            text-align: center;
+
+            &__button, &__input {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            &__button {
+                width: 50%;
+                min-width: 252px;
+            }
+
+            &__input {
+                // margin-right: 10px
+                width: 50%;
+            }
+        }
+
+        @media screen and (min-width: $breakpoint-tablet) {
+            &__button, &__input {
+                display: inline-block;
+                margin: 0;
+                margin-bottom: 0;
+            }
+
+            &__input, &__button {
+                width: calc(33% - 10px);
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media screen and (min-width: 850px) {
+            &__button, &__input {
+                display: inline-block;
+                margin: 0;
+                margin-bottom: 0;
+            }
+
+            &__button {
+                width: 22%;
+                min-width: 252px;
+                max-width: 252px;
+            }
+
+            &__input {
+                margin-right: 10px;
+                width: calc(25% - #{292px / 4});
+            }
+        }
+    }
+}

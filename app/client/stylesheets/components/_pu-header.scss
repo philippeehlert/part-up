@@ -1,0 +1,190 @@
+$modal-bar-height: 70px;
+
+@mixin seperator {
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 20px;
+        width: 2px;
+        background-color: rgba(#fff, 0.2);
+    }
+}
+
+.pu-header {
+    width: 100vw;
+    position: relative;
+    z-index: 5;
+    background-color: $color-primary;
+    height: 60px;
+    transition: background-color 150ms;
+
+    .pu-sub-hidesmallscreen {
+        display: none;
+    }
+
+    .pu-sub-logo {
+        text-align: center;
+        padding: 0 15px;
+
+        @include seperator;
+
+        h1 span {
+            display: none;
+        }
+
+        .pu-brand {
+            display: inline-block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+
+            @media screen and (min-width: 400px) {
+                margin-top: 17px;
+            }
+        }
+    }
+
+    .pu-button-header {
+        margin-top: 10px;
+
+        span {
+            display: none;
+        }
+    }
+
+    .pu-sub-tribes,
+    .pu-sub-more {
+        float: none;
+    }
+
+    .pu-sub-more-loggedout .pu-dropdown-more {
+        @media screen and (max-width: $breakpoint-tablet) {
+            right: -98px;
+        }
+    }
+
+    > .pu-list:not(.pu-progresspager) {
+        padding-right: 8px;
+        white-space: nowrap;
+        height: 100%;
+
+        > li {
+            margin-right: 5px;
+        }
+    }
+
+    &-modal {
+        background-color: $color-background-tertiery;
+        text-align: center;
+        height: $modal-bar-height;
+
+        .pu-button-header {
+            transition: background-color 150ms;
+            margin-top: 0;
+        }
+
+        &.pu-header-progress {
+            height: $modal-bar-height + 50px;
+
+            background-color: $color-background;
+
+            .pu-button-header-modal {
+                background-color: $color-background;
+                height: 50px;
+
+                &:hover, &:active, &:focus, &:visited {
+                    color: $color-background-secondary;
+                }
+            }
+
+            .pu-progresspager {
+                padding-top: $modal-bar-height;
+                top: 0;
+            }
+        }
+    }
+
+    &-progress {
+        font-family: $font-secondary;
+        font-size: 15px;
+        font-weight: 600;
+        position: relative;
+
+        .pu-progresspager {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: -1px;
+            z-index: 1;
+        }
+
+        .pu-button {
+            margin-top: 9px;
+        }
+    }
+
+    &--is-transparent {
+        background-color: transparent;
+
+        .pu-button-header {
+            .pu-avatar, .pu-badge::after {
+                border: 0;
+                transition: border 150ms;
+            }
+
+            @media screen and (max-width: #{$breakpoint-desktop - 1px}) {
+                background-color: rgba(#000, 0.3);
+
+                &.pu-button-header-profiledropdown-active {
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-dropdowns) {
+        .pu-sub-more i {
+            transform: none;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet + 1px) {
+        .pu-sub-hidesmallscreen {
+            display: inline-block;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        .pu-sub-logo {
+            padding: 0 30px;
+        }
+
+        .pu-button-header {
+            margin-top: 0;
+
+            span {
+                display: inline;
+            }
+        }
+
+        .pu-sub-tribes,
+        .pu-sub-more {
+            float: left;
+        }
+
+        > .pu-list:not(.pu-progresspager) > li {
+            @include seperator;
+
+            &:last-child::after {
+                display: none;
+            }
+        }
+
+        &-modal {
+            background-color: $color-background-tertiery;
+            height: $modal-bar-height;
+        }
+    }
+}

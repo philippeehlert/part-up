@@ -1,0 +1,55 @@
+.pu-composition-chat {
+    $sidebar-width: 378px;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    main {
+        vertical-align: top;
+
+        .pu-linkpreview {
+            margin-top: 8px;
+            margin-bottom: 8px;
+
+            &-description {
+                width: 287px;
+            }
+        }
+
+        footer {
+            .pu-formfield {
+                display: table;
+                width: 100%;
+
+                .pu-sub-tablecell-input {
+                    display: table-cell;
+                    width: 100%;
+                    vertical-align: bottom;
+                }
+
+                .pu-sub-tablecell-button {
+                    display: table-cell;
+                    vertical-align: bottom;
+                }
+
+                .pu-sub-tablecell-button button {
+                    height: 44px;
+                    width: 94px;
+                    margin-left: 12px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    aside {
+        display: table-cell;
+        vertical-align: top;
+        width: $sidebar-width;
+    }
+
+    .pu-sidebar .pu-sidebar-wrap {
+        width: $sidebar-width;
+    }
+}

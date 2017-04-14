@@ -1,0 +1,55 @@
+$height-adjust: 60px + 73px;
+
+.pu-profilemenu {
+    section {
+        // height: 546px - $height-adjust
+        min-height: 200px;
+        max-height: 455px;
+        overflow: auto;
+        transform: translateZ(0px);
+        position: relative;
+        z-index: 1;
+        background-color: #fff;
+        border-bottom-left-radius: 4px;
+
+        > div {
+            position: relative;
+        }
+
+        > div > p {
+            color: $color-text-secondary;
+            font-weight: 600;
+            padding: 14px 19px 5px;
+            font-family: $font-secondary;
+            font-size: 14px;
+        }
+    }
+
+    > footer {
+        background-color: $color-header;
+
+        li {
+            min-width: 33%;
+            max-width: 33%;
+
+            a {
+                display: block;
+                text-align: center;
+            }
+        }
+    }
+
+    section > ul {
+        // margin-bottom: 10px
+   
+    }
+}
+
+@media screen and (max-height: 610px) {
+    .pu-profilemenu {
+        section {
+            // height: 346px - $height-adjust
+       
+        }
+    }
+}

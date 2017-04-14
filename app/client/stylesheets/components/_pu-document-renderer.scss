@@ -1,0 +1,97 @@
+$outerMargin: 10px;
+$iconWidth: 36px;
+$iconHeight: 48px;
+
+.icons-2-layout {
+    a:last-child {
+        margin-left: 5px;
+    }
+
+    a {
+        width: 49.13%;
+    }
+}
+
+.icons-1-layout {
+    a {
+        width: 100%;
+    }
+}
+
+.icons-1-layout {
+    a {
+        width: 100%;
+    }
+}
+
+ul.document-icons {
+    padding: 0;
+    margin: 10px 0;
+    list-style-type: none;
+
+    a {
+        border-radius: 4px;
+        background: #eeeeee;
+        display: inline-block;
+        text-decoration: none;
+        padding: $outerMargin;
+        color: black;
+    }
+
+    li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+
+        figure {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            line-height: 1.3em;
+            font-size: 16px;
+            padding: 0;
+            margin: 0;
+
+            &.file-name {
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 50%;
+            }
+
+            &.file-bytes {
+                color: gray;
+            }
+        }
+    }
+}
+
+.file-download {
+    float: right;
+    margin-right: $outerMargin;
+}
+
+.file-icon {
+    float: left;
+    margin-right: $outerMargin;
+}
+
+.pu-doc-icon {
+    width: $iconWidth;
+    height: $iconHeight;
+}
+
+.pu-download-icon {
+    width: 14px;
+    height: 20px;
+    margin-top: 15px !important;
+}
+
+.file-information {
+    margin-top: 5px;
+}

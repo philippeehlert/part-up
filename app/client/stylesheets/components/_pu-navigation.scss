@@ -1,0 +1,229 @@
+.pu-navigation {
+    position: relative;
+    background-color: $color-background-secondary;
+    height: $spacing-app-partupnavheight;
+    font-family: $font-secondary;
+    font-weight: 600;
+    padding-left: 40px;
+    z-index: 11;
+
+    .pu-dropdownie {
+        position: absolute;
+
+        p {
+            font-size: 16px;
+            font-weight: 600;
+            color: $color-text;
+            margin-bottom: 10px;
+        }
+
+        ul.pu-list li {
+            margin-right: 10px;
+            margin-left: 0;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    > .pu-sub-background {
+        background-color: $color-background-secondary;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .pu-button-header-secondary {
+        margin-right: 50px - 4px;
+    }
+
+    .pu-list-horizontal {
+        float: left;
+        position: relative;
+        z-index: 1;
+
+        // transform: translateZ(0px) // to fix render bug
+
+        li {
+            margin-right: 25px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        &.pu-sub-right {
+            float: right;
+            margin-right: 20px;
+
+            li {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    &-header {
+        background-color: transparent;
+        padding-left: 0;
+
+        .pu-list-horizontal {
+            float: none;
+        }
+    }
+
+    &-tabs {
+        height: auto;
+        white-space: normal;
+        position: relative;
+        overflow: hidden;
+
+        .pu-button {
+            padding-bottom: 20px;
+
+            &.pu-state-active {
+                color: $color-primary;
+                border-color: $color-primary;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                height: 2px;
+                background-color: #eee;
+                width: 100vw;
+                left: -20px;
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            @media screen and (max-width: $breakpoint-tablet) {
+                height: 50px;
+                padding-top: 10px;
+                padding-bottom: 0;
+            }
+        }
+
+        &:after {
+            content: "";
+            height: 2px;
+            background-color: #eee;
+            position: absolute;
+            left: -40px;
+            right: -40px;
+            bottom: 0;
+        }
+    }
+
+    .pu-sub-button {
+        padding-top: 15px;
+    }
+
+    &-full {
+        .pu-list-horizontal {
+            &.pu-sub-right {
+                float: right;
+                margin-right: 0;
+
+                li {
+                    margin-left: 20px;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    &-compact {
+        height: 60px;
+        padding-left: 0;
+
+        .pu-list-horizontal {
+            li {
+                margin-right: 20px;
+            }
+        }
+
+        .pu-button-nav {
+            height: 60px;
+            padding: 25px 0 0;
+            font-size: 14px;
+
+            i {
+                font-size: 14px;
+            }
+        }
+
+        .pu-sub-smallscreen-navigation {
+            padding-top: 10px;
+
+            li {
+                margin-right: 10px;
+            }
+
+            .pu-formdropdown {
+                width: calc(100vw - 65px);
+            }
+        }
+    }
+
+    &-discover {
+        .pu-button {
+            &.pu-state-active {
+                color: $color-primary;
+                border-color: $color-primary;
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-partup-medium) {
+        .pu-sticky-button {
+            margin-top: 10px;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        .pu-list-horizontal {
+            li {
+                margin-right: 50px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &-compact {
+            padding-left: 40px;
+
+            .pu-list-horizontal {
+                li {
+                    margin-right: 20px;
+                }
+
+                &.pu-sub-compact-list {
+                    li {
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop + 60px) {
+        &-compact {
+            .pu-list-horizontal {
+                li {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+}

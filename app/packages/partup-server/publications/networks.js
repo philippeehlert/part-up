@@ -124,7 +124,7 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  */
 Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
-
+    const userId = parameters.userId;
     check(urlParams, {
         slug: Match.Optional(String)
     });
@@ -141,34 +141,31 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
         textSearch: Match.Optional(String)
     });
 
-    var options = {};
+    const options = {};
     if (parameters.limit) options.limit = parameters.limit;
     if (parameters.skip) options.skip = parameters.skip;
 
-    var selector = {
+    const selector = {
         archived: (parameters.archived) ? JSON.parse(parameters.archived) : false,
         textSearch: (parameters.textSearch) ? parameters.textSearch : undefined
     };
 
     return {
-        find: function() {
-            var network = Networks.guardedFind(this.userId, {slug: urlParams.slug}).fetch().pop();
-            if (!network) return;
-
-            return Partups.findForNetwork(network, selector, options, this.userId);
-        },
-        children: [
-            {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]},
-            {find: function(partup) {
-                return Networks.findForPartup(partup, this.userId);
-            },
+        find: () => Networks.guardedFind(userId, {slug: urlParams.slug}),
+        children: [{
+            find: (network) => Partups.findForNetwork(network, selector, options, userId),
             children: [
-                {find: Images.findForNetwork}
-            ]}
-        ]
+                {find: Images.findForPartup},
+                {find: Meteor.users.findUppersForPartup,
+                children: [
+                    {find: Images.findForUser}
+                ]},
+                {find: (partup) => Networks.findForPartup(partup, userId),
+                children: [
+                    {find: Images.findForNetwork}
+                ]}
+            ]
+        }],
     };
 }, {url: 'networks/:slug/partups', getArgsFromRequest: function(request) {
     return [request.params, request.query];
