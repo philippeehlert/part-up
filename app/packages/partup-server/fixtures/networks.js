@@ -117,10 +117,10 @@ Meteor.startup(function() {
             });
 
             // Networks.insert({
-            //     '_id' : '...',
+            //     '_id' : '',
             //     'name' : '',
             //     'slug' : '',
-            //     'sector_id' : '...',
+            //     'sector_id' : '',
             //     'privacy_type' : 1,
             //     'image': 'raaNx9aqA6okiqaS4',
             //     'icon': 'SEswZsYiTTKTTdnN5',
@@ -131,14 +131,13 @@ Meteor.startup(function() {
             //         ''
             //     ],
             //     'uppers' : [
-            //         'q63Kii9wwJX3Q6rHS',
-            //         'K5c5M4Pbdg3B82wQH',
-            //         'a7qcp5RHnh5rfaeW9'
+            //         '',
+            //         ''
             //     ],
-            //     'upper_count' : 3,
-            //     'admins' : ['q63Kii9wwJX3Q6rHS'],
-            //     'created_at' : new Date('2015-07-21T15:52:04.548Z'),
-            //     'updated_at' : new Date('2015-07-21T15:52:04.548Z'),
+            //     'upper_count' : 2,
+            //     'admins' : [''],
+            //     'created_at' : new Date(),
+            //     'updated_at' : new Date(),
             //     'language': 'nl',
             //     'stats': {},
             //     'location': {
