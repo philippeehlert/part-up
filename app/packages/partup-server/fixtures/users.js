@@ -127,8 +127,9 @@ Meteor.startup(function () {
                 'participation_score': 2,
                 'upperOf': [
                     'ASfRYBAzo2ayYk5si',
-                    'WxrpPuJkhafJB3gfF',
-                    'gJngF65ZWyS9f3NDE'
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjc',
+                    'vGaxNojSerdizDPjd'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -241,9 +242,13 @@ Meteor.startup(function () {
                 'networks': [
                     'wfCv4ZdPe5WNT4xfg'
                 ],
+                'supporterOf' : [
+                    'vGaxNojSerdizDPjb'
+                ],
                 'upperOf': [
                     'CJETReuE6uo2eF7eW',
-                    'gJngF65ZWyS9f3NDE'
+                    'gJngF65ZWyS9f3NDE',
+                    'vGaxNojSerdizDPjc'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -377,6 +382,12 @@ Meteor.startup(function () {
                     'wfCv4ZdPe5WNT4xfg',
                     'ibn27M3ePaXhmKzWq'
                 ],
+                'upperOf' : [
+                    'gJngF65ZWyS9f3NDE',
+                    'ASfRYBAzo2ayYk5si',
+                    'vGaxNojSerdizDPjc',
+                    'vGaxNojSerdizDPjd'
+                ],
                 'participation_score': 2,
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -502,9 +513,6 @@ Meteor.startup(function () {
                 'logins': [
                     new Date('2015-07-21T14:11:01.103Z')
                 ],
-                'supporterOf': [
-                    'gJngF65ZWyS9f3NDE'
-                ],
                 'participation_score': 3,
                 'pending_networks': [
                     'wfCv4ZdPe5WNT4xfg'
@@ -513,7 +521,11 @@ Meteor.startup(function () {
                     'ibn27M3ePaXhmKzWq'
                 ],
                 'upperOf': [
-                    'vGaxNojSerdizDPjb'
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjd'
+                ],
+                'supporterOf': [
+                    'gJngF65ZWyS9f3NDE'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false

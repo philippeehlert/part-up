@@ -39,8 +39,8 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQH',
-                    'K5c5M4Pbdg3B82wQI'
+                    'K5c5M4Pbdg3B82wQH', // Admin
+                    'K5c5M4Pbdg3B82wQI'  // John
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -49,7 +49,7 @@ Meteor.startup(function() {
                     'last_ip' : '127.0.0.1'
                 },
                 'supporters' : [
-                    'a7qcp5RHnh5rfaeW9'
+                    'a7qcp5RHnh5rfaeW9' // Judy
                 ],
                 'upper_data' : [
                     {
@@ -154,7 +154,7 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQI'
+                    'K5c5M4Pbdg3B82wQI' // John
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -249,7 +249,11 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'a7qcp5RHnh5rfaeW9'
+                    'a7qcp5RHnh5rfaeW9', // Judy
+                    'K5c5M4Pbdg3B82wQH' // Default
+                ],
+                'supporters' : [
+                    'K5c5M4Pbdg3B82wQI'  // John
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -261,6 +265,14 @@ Meteor.startup(function() {
                     {
                         '_id' : 'a7qcp5RHnh5rfaeW9',
                         'new_updates' : []
+                    },
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQH',
+                        'new_updates' : []
+                    },
+                    {
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        'new_updates' : []
                     }
                 ]
             });
@@ -270,7 +282,7 @@ Meteor.startup(function() {
                 '_id' : 'vGaxNojSerdizDPjc',
                 'network_id' : 'ibn27M3ePaXhmKzWq',
                 'name' : 'Incubator (list)',
-                'slug' : 'incubator-vGaxNojSerdizDPjbc',
+                'slug' : 'incubator-vGaxNojSerdizDPjc',
                 'description' : 'Bring all your idea\'s here',
                 'language' : 'en',
                 'type' : Partups.TYPE.CHARITY,
@@ -298,9 +310,9 @@ Meteor.startup(function() {
                     'country' : 'Netherlands'
                 },
                 'uppers' : [
-                    'K5c5M4Pbdg3B82wQH', //Default - creator
-                    'K5c5M4Pbdg3B82wQI', //John
-                    'q63Kii9wwJX3Q6rHS'  //Admin
+                    'K5c5M4Pbdg3B82wQH', //Default
+                    'q63Kii9wwJX3Q6rHS', //Admin
+                    'K5c5M4Pbdg3B82wQI' //John
                 ],
                 'analytics' : {
                     'clicks_total' : 1,
@@ -314,11 +326,11 @@ Meteor.startup(function() {
                         'new_updates' : []
                     },
                     {
-                        '_id' : 'K5c5M4Pbdg3B82wQI',
+                        '_id' : 'q63Kii9wwJX3Q6rHS',
                         'new_updates' : []
                     },
                     {
-                        '_id' : 'q63Kii9wwJX3Q6rHS',
+                        '_id' : 'K5c5M4Pbdg3B82wQI',
                         'new_updates' : []
                     }
                 ]

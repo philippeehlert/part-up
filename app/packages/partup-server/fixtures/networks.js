@@ -14,7 +14,7 @@ Meteor.startup(function() {
                 'image': 'T8pfWebTJmvbBNJ2g',
                 'icon': 'f7yzkqh9J9JvxCCqN',
                 'uppers' : [
-                    'q63Kii9wwJX3Q6rHS'
+                    'q63Kii9wwJX3Q6rHS' // Admin
                 ],
                 'admins' : ['q63Kii9wwJX3Q6rHS'],
                 'privacy_type' : 1,
@@ -37,8 +37,8 @@ Meteor.startup(function() {
                 'icon': 'fReGXG4qkNXb4K8wp',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi architecto consequatur unde dolorem fuga laboriosam non alias blanditiis odit vero!',
                 'uppers' : [
-                    'q63Kii9wwJX3Q6rHS',
-                    'K5c5M4Pbdg3B82wQH'
+                    'q63Kii9wwJX3Q6rHS', // Admin
+                    'K5c5M4Pbdg3B82wQH' // Default
                 ],
                 'admins' : ['q63Kii9wwJX3Q6rHS'],
                 'created_at' : new Date('2015-07-21T15:51:48.825Z'),
@@ -66,8 +66,8 @@ Meteor.startup(function() {
                 'icon': '4rymNTA3jFfTRKtFJ',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo nesciunt tempora accusamus temporibus ipsam modi.',
                 'uppers' : [
-                    'q63Kii9wwJX3Q6rHS',
-                    'K5c5M4Pbdg3B82wQI'
+                    'q63Kii9wwJX3Q6rHS', // Admin
+                    'K5c5M4Pbdg3B82wQI' // John
                 ],
                 'admins' : ['q63Kii9wwJX3Q6rHS'],
                 'created_at' : new Date('2015-07-21T15:51:56.562Z'),
@@ -79,13 +79,13 @@ Meteor.startup(function() {
                         'invited_by_id' : 'q63Kii9wwJX3Q6rHS'
                     },
                     {
-                        '_id' : 'a7qcp5RHnh5rfaeW9',
+                        '_id' : 'a7qcp5RHnh5rfaeW9', // Judy
                         'invited_at' : new Date('2015-07-22T09:31:48.358Z'),
-                        'invited_by_id' : 'q63Kii9wwJX3Q6rHS'
+                        'invited_by_id' : 'q63Kii9wwJX3Q6rHS' // Admin
                     }
                 ],
                 'pending_uppers' : [
-                    'a7qcp5RHnh5rfaeW9'
+                    'a7qcp5RHnh5rfaeW9' // Judy
                 ],
                 'stats': {},
                 'chat_id': '9nTogbMy6Ddjfh6NP'
@@ -105,11 +105,11 @@ Meteor.startup(function() {
                 'image': 'raaNx9aqA6okiqaS4',
                 'icon': 'SEswZsYiTTKTTdnN5',
                 'uppers' : [
-                    'q63Kii9wwJX3Q6rHS',
-                    'K5c5M4Pbdg3B82wQH',
-                    'a7qcp5RHnh5rfaeW9'
+                    'q63Kii9wwJX3Q6rHS', // Admin
+                    'K5c5M4Pbdg3B82wQH', // Default
+                    'a7qcp5RHnh5rfaeW9'  // Judy
                 ],
-                'admins' : ['q63Kii9wwJX3Q6rHS'],
+                'admins' : ['q63Kii9wwJX3Q6rHS'], // Admin
                 'created_at' : new Date('2015-07-21T15:52:04.548Z'),
                 'updated_at' : new Date('2015-07-21T15:52:04.548Z'),
                 'stats': {},
