@@ -1,4 +1,4 @@
-Meteor.startup(function() {
+Meteor.startup(function () {
     if (process.env.NODE_ENV.match(/development|staging/)) {
 
         if (!Meteor.users.find().count()) {
@@ -127,8 +127,9 @@ Meteor.startup(function() {
                 'participation_score': 2,
                 'upperOf': [
                     'ASfRYBAzo2ayYk5si',
-                    'WxrpPuJkhafJB3gfF',
-                    'gJngF65ZWyS9f3NDE'
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjc',
+                    'vGaxNojSerdizDPjd'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -241,9 +242,13 @@ Meteor.startup(function() {
                 'networks': [
                     'wfCv4ZdPe5WNT4xfg'
                 ],
+                'supporterOf' : [
+                    'vGaxNojSerdizDPjb'
+                ],
                 'upperOf': [
                     'CJETReuE6uo2eF7eW',
-                    'gJngF65ZWyS9f3NDE'
+                    'gJngF65ZWyS9f3NDE',
+                    'vGaxNojSerdizDPjc'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -377,6 +382,12 @@ Meteor.startup(function() {
                     'wfCv4ZdPe5WNT4xfg',
                     'ibn27M3ePaXhmKzWq'
                 ],
+                'upperOf' : [
+                    'gJngF65ZWyS9f3NDE',
+                    'ASfRYBAzo2ayYk5si',
+                    'vGaxNojSerdizDPjc',
+                    'vGaxNojSerdizDPjd'
+                ],
                 'participation_score': 2,
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
@@ -502,9 +513,6 @@ Meteor.startup(function() {
                 'logins': [
                     new Date('2015-07-21T14:11:01.103Z')
                 ],
-                'supporterOf': [
-                    'gJngF65ZWyS9f3NDE'
-                ],
                 'participation_score': 3,
                 'pending_networks': [
                     'wfCv4ZdPe5WNT4xfg'
@@ -513,12 +521,147 @@ Meteor.startup(function() {
                     'ibn27M3ePaXhmKzWq'
                 ],
                 'upperOf': [
-                    'vGaxNojSerdizDPjb'
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjd'
+                ],
+                'supporterOf': [
+                    'gJngF65ZWyS9f3NDE'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
                 }
             });
+
+            for (var i = 0; i < 15; i++) {
+                var email = Fake.word() +'@example.com';
+                Meteor.users.insert({
+                    'createdAt': new Date(),
+                    'services': {
+                        'password': {
+                            'bcrypt': '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
+                        },
+                        'resume': {
+                            'loginTokens': [
+                                {
+                                    'when': new Date('2015-07-21T13:48:03.566Z'),
+                                    'hashedToken': 'vctK9ULMl4Gdegbr+73LED8So83rPz67Xi6KnnNQCV' + i + '='
+                                }
+                            ]
+                        },
+                        'email': {
+                            'verificationTokens': [
+                                {
+                                    'token': '8crlkpFefwhO_RdgJbnV-8q4S-_M0yfjFsn--YYh4Y' + i,
+                                    'address': email,
+                                    'when': new Date('2015-07-21T13:48:08.563Z')
+                                }
+                            ]
+                        }
+                    },
+                    'emails': [
+                        {
+                            'address': email,
+                            'verified': false
+                        }
+                    ],
+                    'completeness': 27,
+                    'profile': {
+                        'name': Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]),
+                        'normalized_name': Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]),
+                        'settings': {
+                            'locale': 'en',
+                            'optionalDetailsCompleted': true,
+                            'email': {
+                                'dailydigest': true,
+                                'upper_mentioned_in_partup': true,
+                                'upper_mentioned_in_network_chat': true,
+                                'invite_upper_to_partup_activity': true,
+                                'invite_upper_to_network': true,
+                                'partup_created_in_network': true,
+                                'partups_networks_new_pending_upper': true,
+                                'partups_networks_accepted': true,
+                                'partups_new_comment_in_involved_conversation': true,
+                                'partups_networks_new_upper': true,
+                                'partups_networks_upper_left': true
+                            },
+                            'unsubscribe_email_token': 'Xr_FQVj16IQRwpoMxQOWgHMVr5z6Jd04wpvF00n6rK' + i
+                        },
+                        'image': 'CxEprGKNWo6HdrTdq',
+                        'description': null,
+                        'tags': [
+                            'administration',
+                            'finance'
+                        ],
+                        'location': {
+                            'city': 'Utrecht',
+                            'lat': 52.0907373999999876,
+                            'lng': 5.1214200999999999,
+                            'place_id': 'ChIJNy3TOUNvxkcR6UqvGUz8yNY',
+                            'country': 'Netherlands'
+                        },
+                        'facebook_url': null,
+                        'twitter_url': null,
+                        'instagram_url': null,
+                        'linkedin_url': null,
+                        'phonenumber': null,
+                        'website': '',
+                        'skype': null,
+                        'meurs': {
+                            'portal': 'en',
+                            'nl_id': '44e74f98-fd0f-4c9a-82e1-82e1528409f5',
+                            'en_id': 'b7b44c5b-36f9-4c88-a2a7-3b3aa8709255',
+                            'program_session_id': 32724,
+                            'fetched_results': true,
+                            'results': [
+                                {
+                                    'code': 103405,
+                                    'name': 'Persoonlijke kracht',
+                                    'score': 8,
+                                    'zscore': 0.8000400000000001,
+                                    'dscore': 7,
+                                    'highIndex': 1
+                                },
+                                {
+                                    'code': 103402,
+                                    'name': 'Stuurkracht',
+                                    'score': 7,
+                                    'zscore': 0.7000500000000001,
+                                    'dscore': 6,
+                                    'highIndex': 1
+                                }
+                            ]
+                        }
+                    },
+                    'status': {
+                        'online': true,
+                        'lastLogin': {
+                            'date': new Date('2015-07-21T13:48:03.623Z'),
+                            'ipAddr': '127.0.0.1',
+                            'userAgent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'
+                        },
+                        'idle': false
+                    },
+                    'registered_emails': [
+                        {
+                            'address': 'test@example.com',
+                            'verified': false
+                        }
+                    ],
+                    'logins': [
+                        new Date('2015-07-21T13:48:03.641Z')
+                    ],
+                    'networks': [
+                        'nqBnE8nSLasaapXXS',
+                        'kRCjWDBkKru3KfsjW',
+                        'wfCv4ZdPe5WNT4xfg',
+                        'ibn27M3ePaXhmKzWq'
+                    ],
+                    'participation_score': 2,
+                    'flags': {
+                        'dailyDigestEmailHasBeenSent': false
+                    }
+                });
+            }
         }
 
     }
