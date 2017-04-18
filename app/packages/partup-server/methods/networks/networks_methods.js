@@ -1055,6 +1055,8 @@ Meteor.methods({
                         video_url: fields.video_url,
                         why_title: fields.why_title,
                         why_body: fields.why_body,
+                        chat_title: fields.chat_title,
+                        chat_body: fields.chat_body,
                         about_title: fields.about_title,
                         about_body: fields.about_body
                     }

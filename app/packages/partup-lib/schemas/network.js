@@ -35,7 +35,31 @@ var networkBaseSchema = new SimpleSchema({
         max: 255,
         optional: true,
         regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
-    }
+    },
+    facebook_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.facebookUrl
+    },
+    instagram_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.instagramUrl
+    },
+    linkedin_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.linkedinUrl
+    },
+    twitter_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.twitterUrl
+    },
 });
 
 /**
@@ -236,6 +260,14 @@ Partup.schemas.forms.networkContent = new SimpleSchema({
         max: 255
     },
     why_body: {
+        type: String,
+        max: 999
+    },
+    chat_title: {
+        type: String,
+        max: 255
+    },
+    chat_body: {
         type: String,
         max: 999
     },
