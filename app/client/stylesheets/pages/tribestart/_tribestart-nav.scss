@@ -17,6 +17,11 @@
         }
     }
 
+    &__list {
+        white-space: nowrap;
+        overflow-x: scroll;
+    }
+
     &__listitem {
         color: #fff;
         font-weight: bold;
