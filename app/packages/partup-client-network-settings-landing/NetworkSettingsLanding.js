@@ -72,8 +72,8 @@ Template.NetworkSettingsLanding.helpers({
         return {
             video_url: () => TAPi18n.__('network-settings-landing-form-video-url-placeholder'),
             why_title: () => TAPi18n.__('network-settings-landing-form-why-title-placeholder', {tribename: name}),
-            chat_title: () => TAPi18n.__('network-settings-landing-form-chat-title-placeholder'),
-            chat_subtitle: () => TAPi18n.__('network-settings-landing-form-chat-subtitle-placeholder'),
+            chat_title: () => TAPi18n.__('network-settings-landing-form-chat-title-placeholder', {tribename: name}),
+            chat_subtitle: () => TAPi18n.__('network-settings-landing-form-chat-subtitle-placeholder', {tribename: name}),
             about_title: () => TAPi18n.__('network-settings-landing-form-about-title-placeholder', {tribename: name}),
         };
     }
