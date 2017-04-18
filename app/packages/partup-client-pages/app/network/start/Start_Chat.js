@@ -25,7 +25,7 @@ Template.Start_Chat.helpers({
                 return Meteor.users.find({_id: {$nin: admins, $in: most_active_uppers}});
             },
             remainingUppers: () => {
-                return uppers.length - (most_active_uppers.length + admins.length);
+                return lodash.size(uppers) - lodash.size(lodash.union(most_active_uppers, admins));
             },
             slug: slug,
             chat_title: () => chat_title || TAPi18n.__('pages-app-network-landing-chat-title-fallback', {tribename}),
