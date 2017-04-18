@@ -4,6 +4,7 @@ Template.NetworkSettingsLanding.onCreated(function() {
 
     this.editingBlocks = new ReactiveVar([]);
     this.whyCharacterCount = new ReactiveVar(0);
+    this.chatCharacterCount = new ReactiveVar(0);
     this.aboutCharacterCount = new ReactiveVar(0);
     this.submitting = new ReactiveVar(false);
 
@@ -21,13 +22,14 @@ Template.NetworkSettingsLanding.helpers({
         const template = Template.instance();
         const { networkSlug: slug } = this;
         const network = Networks.findOne({slug});
-        const { content: { why_body, about_body, ...restContent } = {} } = network || {};
+        const { content: { why_body, chat_body, about_body, ...restContent } = {} } = network || {};
 
         return {
             schema: () => Partup.schemas.forms.networkContent,
             doc: () => ({
                 why_body,
                 about_body,
+                chat_body,
                 ...restContent,
             }),
             whyBodyInput: {
@@ -37,6 +39,14 @@ Template.NetworkSettingsLanding.helpers({
                 prefill: why_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.why_body.max,
                 characterCountVar: template.whyCharacterCount
+            },
+            chatBodyInput: {
+                input: 'data-chat-body',
+                className: 'pu-textarea pu-wysiwyg',
+                placeholder: 'chat',
+                prefill: chat_body,
+                maxCharacters: Partup.schemas.forms.networkContent._schema.chat_body.max,
+                characterCountVar: template.chatCharacterCount
             },
             aboutBodyInput: {
                 input: 'data-about-body',
@@ -51,8 +61,9 @@ Template.NetworkSettingsLanding.helpers({
     state(...args) {
         const template = Template.instance();
         return {
-            aboutCharacterCount: () => template.aboutCharacterCount.get(),
             whyCharacterCount: () => template.whyCharacterCount.get(),
+            chatCharacterCount: () => template.chatCharacterCount.get(),
+            aboutCharacterCount: () => template.aboutCharacterCount.get(),
         };
     }
 });

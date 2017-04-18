@@ -279,7 +279,6 @@ AutoForm.addHooks('networkEditForm', {
         var self = this;
         var template = self.template.parent();
         var network = Networks.findOne({slug: template.data.networkSlug});
-
         template.submitting.set(true);
 
         Meteor.call('networks.update', network._id, doc, function(err) {

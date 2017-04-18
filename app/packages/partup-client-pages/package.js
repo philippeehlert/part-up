@@ -103,6 +103,8 @@ Package.onUse(function(api) {
             'app/network/start/Start_Nav.html',
             'app/network/start/Start_Video.html',
             'app/network/start/Start_Video.js',
+            'app/network/start/Start_JoinButton.html',
+            'app/network/start/Start_JoinButton.js',
 
             'app/network/partials/joinbutton.html',
             'app/network/partials/joinbutton.js',

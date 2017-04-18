@@ -5,7 +5,16 @@ Template.Start_Chat.onCreated(function() {
 Template.Start_Chat.helpers({
     data: function() {
         const { networkSlug: slug } = this;
-        const { admins = [], _id, uppers = [], most_active_uppers = [] } = Networks.findOne({slug});
+        const {
+            _id,
+            content: {
+                chat_title,
+                chat_body,
+            } = {},
+            admins = [],
+            uppers = [],
+            most_active_uppers = []
+        } = Networks.findOne({slug});
         return {
             admins: () => {
                 return Meteor.users.find({_id: {$in: admins}});
@@ -17,6 +26,8 @@ Template.Start_Chat.helpers({
                 return uppers.length - (most_active_uppers.length + admins.length);
             },
             slug: slug,
+            chat_title: () => chat_title,
+            chat_body: () => chat_body,
         }
     }
 });

@@ -25,11 +25,7 @@
             {{#if data.network.archived_at}}
                 <a href="#" class="pu-button pu-button-gray pu-button-disabled">{{_ 'pages-app-network-start-button-gototribe-disabled'}}</a>
             {{else}}
-                {{#if data.network.hasMember currentUserId}}
-                    <a href="{{ pathFor route='network-detail' slug=data.network.slug }}" class="pu-button">{{_ 'pages-app-network-start-button-gototribe'}}</a>
-                {{else}}
-                    {{> app_network_joinbutton network=data.network }}
-                {{/if}}
+                {{> Start_JoinButton }}
             {{/if}}
         </header>
         <div class="pu-tribebackground {{#if state.loaded}}pu-state-loaded{{/if}}" style="{{#if data.network.background_image}}{{#with data.network.background_image }}background-image:url('{{ partupImageUrl id=. store='1200x520'}}');{{/with }}{{/if}}"></div>

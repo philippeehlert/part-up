@@ -9,16 +9,16 @@
     }
 
     &__partups {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
+        margin-left: -10px;
+        margin-right: -10px;
 
         &__item {
             max-width: 275px;
             text-align: left;
-            margin-right: 20px;
-
-            &:last-child {
-                margin-right: 0;
-            }
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-bottom: 20px;
         }
     }
 

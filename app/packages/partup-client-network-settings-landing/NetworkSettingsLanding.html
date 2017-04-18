@@ -74,6 +74,49 @@
                 </div>
             </label>
 
+            <!-- chat_title -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    Chat title
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_title' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='chat_title'
+                            placeholder=placeholders.chat_title
+                            class='pu-input'
+                            maxlength=form.schema._schema.chat_title.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_title' }}</span>
+                </div>
+            </label>
+
+            <!-- chat_body -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    Chat body
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_body' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+
+                        {{# Wysiwyg inputSettings=form.chatBodyInput }}
+                            {{> afFieldInput
+                                name='chat_body'
+                                class='pu-input'
+                                type="hidden"
+                                data-chat-body=""
+                            }}
+                        {{/ Wysiwyg}}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_body' }}</span>
+                </div>
+            </label>
+
             <!-- about_title -->
             <label class="pu-formfield">
                 <span class="pu-label">

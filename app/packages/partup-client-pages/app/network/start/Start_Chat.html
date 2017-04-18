@@ -1,8 +1,10 @@
 <template name="Start_Chat">
     <div id="chat" class="pu-tribestart-chat">
         <div class="pu-tribestart-wrap">
-            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__title">{{_ 'pages-app-home-products-title'}}</h2>
-            <p class="pu-tribestart-paragraph pu-tribestart-chat__paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero dicta, totam impedit, nobis dolorem magni sapiente laboriosam ratione inventore ex?</p>
+            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__title">{{data.chat_title}}</h2>
+            <div class="pu-contentblock pu-tribestart-chat__paragraph">
+                {{{data.chat_body}}}
+            </div>
             <ul class="pu-list pu-list-horizontal pu-tribestart-chat__admins">
                 {{#each data.admins}}
                     <li class="pu-tribestart-chat__admins__item">
