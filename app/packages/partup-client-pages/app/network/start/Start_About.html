@@ -5,7 +5,7 @@
             <div class="pu-contentblock pu-tribestart-about__content">
                 {{{data.about_body}}}
             </div>
-            {{#with data.links}}
+            {{#with data.links}}{{#unless isEmpty}}
                 <div class="pu-tribestart-about__footer">
                     <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-tribestart-about__footer__links">
                         {{#with website}}
@@ -35,7 +35,7 @@
                         {{/with}}
                     </ul>
                 </div>
-            {{/with}}
+            {{/unless}}{{/with}}
         </div>
     </div>
 </template>
