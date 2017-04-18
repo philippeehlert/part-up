@@ -36,7 +36,10 @@
         <figure class="pu-avatar pu-avatar-large pu-avatar-rimmed pu-avatar-rimmed-thick"
             style="{{#with user.profile.image}}
                 background-image: url({{ partupImageUrl id=. store='360x360' }});
-            {{/with}}">
+            {{/with}}"
+            data-hovercontainer="HoverContainer_upper"
+            data-hovercontainer-context="{{ user._id }}"
+        >
         </figure>
     </a>
 </template>
