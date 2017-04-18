@@ -35,7 +35,7 @@ Template.NetworkSettingsLanding.helpers({
             whyBodyInput: {
                 input: 'data-why-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'why',
+                placeholder: TAPi18n.__('network-settings-landing-form-why-body-placeholder'),
                 prefill: why_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.why_body.max,
                 characterCountVar: template.whyCharacterCount
@@ -43,7 +43,7 @@ Template.NetworkSettingsLanding.helpers({
             chatBodyInput: {
                 input: 'data-chat-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'chat',
+                placeholder: TAPi18n.__('network-settings-landing-form-chat-body-placeholder'),
                 prefill: chat_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.chat_body.max,
                 characterCountVar: template.chatCharacterCount
@@ -51,7 +51,7 @@ Template.NetworkSettingsLanding.helpers({
             aboutBodyInput: {
                 input: 'data-about-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: 'about',
+                placeholder: TAPi18n.__('network-settings-landing-form-about-body-placeholder'),
                 prefill: about_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.about_body.max,
                 characterCountVar: template.aboutCharacterCount
@@ -64,6 +64,14 @@ Template.NetworkSettingsLanding.helpers({
             whyCharacterCount: () => template.whyCharacterCount.get(),
             chatCharacterCount: () => template.chatCharacterCount.get(),
             aboutCharacterCount: () => template.aboutCharacterCount.get(),
+        };
+    },
+    placeholders(...args) {
+        return {
+            video_url: () => TAPi18n.__('network-settings-landing-form-video-url-placeholder'),
+            why_title: () => TAPi18n.__('network-settings-landing-form-why-title-placeholder'),
+            chat_title: () => TAPi18n.__('network-settings-landing-form-chat-title-placeholder'),
+            about_title: () => TAPi18n.__('network-settings-landing-form-about-title-placeholder'),
         };
     }
 });

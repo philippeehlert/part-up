@@ -1,0 +1,27 @@
+{
+    "network-settings-form-socials-label": "Social media",
+    "network-settings-form-socials-tooltip": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, facere.",
+    "network-settings-form-facebook_url-placeholder": "Facebook",
+    "network-settings-form-twitter_url-placeholder": "Twitter",
+    "network-settings-form-instagram_url-placeholder": "Instagram",
+    "network-settings-form-linkedin_url-placeholder": "Linkedin",
+
+    "network-settings-landing-intro-title": "Tribe Landing",
+    "network-settings-landing-intro-paragraph": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat cum ex id voluptates ut doloribus, et dolorum amet eveniet atque delectus libero saepe fuga eaque.",
+    "network-settings-landing-form-video-url-label": "Intro video",
+    "network-settings-landing-form-why-title-label": "Why join?",
+    "network-settings-landing-form-why-body-label": "Lorem ipsum dolor sit amet.",
+    "network-settings-landing-form-chat-title-label": "Who are we",
+    "network-settings-landing-form-chat-body-label": "Lorem ipsum dolor sit amet, consectetur.",
+    "network-settings-landing-form-about-title-label": "About us",
+    "network-settings-landing-form-about-body-label": "Lorem ipsum dolor sit.",
+    "network-settings-landing-form-save-button": "Save",
+
+    "pages-app-network-landing-nav-why": "Why join?",
+    "pages-app-network-landing-nav-who": "Who are we?",
+    "pages-app-network-landing-nav-about": "About us",
+    "pages-app-network-landing-nav-partups": "Our partups",
+
+    "pages-app-network-landing-most-active-title": "Most active part-ups"
+
+}
