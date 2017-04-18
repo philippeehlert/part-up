@@ -1,6 +1,21 @@
 .pu-tribestart-nav {
     background-color: #38a6af;
     text-align: center;
+    height: 40px;
+
+    &__container {
+        background-color: #38a6af;
+        text-align: center;
+        height: 40px;
+
+        &-attached {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9;
+        }
+    }
 
     &__listitem {
         color: #fff;
@@ -15,6 +30,14 @@
             text-decoration: none;
             background-color: darken(#38a6af, 5%);
             color: #fff;
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-desktop) {
+        &__container {
+            &-attached {
+                top: 60px;
+            }
         }
     }
 }

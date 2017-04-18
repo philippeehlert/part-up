@@ -17,10 +17,14 @@ Template.app_network_start.onCreated(function() {
     this.subscribe('networks.one.uppers', {slug}, {
         onReady: () => this.uppersLoaded.set(true),
     });
+
+    this.getHeaderHeight = () => {
+        return this.$('[data-header]').height();
+    };
 });
 
 Template.app_network_start.helpers({
-    state: function() {
+    state(...args) {
         const template = Template.instance();
         return {
             loaded: () => {
@@ -29,7 +33,8 @@ Template.app_network_start.helpers({
                     template.partupsLoaded.get() &&
                     template.uppersLoaded.get()
                 );
-            }
+            },
+            getHeaderHeight: () => template.getHeaderHeight,
         };
     }
 });
