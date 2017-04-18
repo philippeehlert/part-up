@@ -42,6 +42,8 @@
     "pages-app-network-landing-about-title-fallback": "About __tribename__",
     "pages-app-network-landing-about-body-fallback": "<p>__tribename__ is a lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, ipsum explicabo laborum soluta impedit officiis ipsa libero ad minus debitis.</p>",
 
-    "pages-app-network-landing-most-active-title": "Most active part-ups"
+    "pages-app-network-landing-most-active-title": "Most active part-ups",
+
+    "pages-modal-network_settings-network_landing": "Landingpage"
 
 }
