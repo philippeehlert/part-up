@@ -1,12 +1,12 @@
 Template.Start_Nav.onCreated(function() {
     this.attached = new ReactiveVar(false);
-    console.log(this)
 
     this.calculateAttached = () => {
         const { getHeaderHeight } = this.data;
         const headerHeight = getHeaderHeight();
 
-        const diff = window.innerWidth < 768 ? 60 : 0;
+        // compensate for different navbar styling on small screens
+        const diff = window.innerWidth < 992 ? 60 : 0;
 
         this.attached.set(!!(
             Partup.client.scroll.pos.get() > (headerHeight + diff)
