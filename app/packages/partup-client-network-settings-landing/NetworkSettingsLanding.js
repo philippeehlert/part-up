@@ -22,7 +22,7 @@ Template.NetworkSettingsLanding.helpers({
         const template = Template.instance();
         const { networkSlug: slug } = this;
         const network = Networks.findOne({slug});
-        const { content: { why_body, chat_body, about_body, ...restContent } = {} } = network || {};
+        const { name, content: { why_body, chat_body, about_body, ...restContent } = {} } = network || {};
 
         return {
             schema: () => Partup.schemas.forms.networkContent,
@@ -35,7 +35,7 @@ Template.NetworkSettingsLanding.helpers({
             whyBodyInput: {
                 input: 'data-why-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: TAPi18n.__('network-settings-landing-form-why-body-placeholder'),
+                placeholder: TAPi18n.__('network-settings-landing-form-why-body-placeholder', {tribename: name}),
                 prefill: why_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.why_body.max,
                 characterCountVar: template.whyCharacterCount
@@ -43,7 +43,7 @@ Template.NetworkSettingsLanding.helpers({
             chatBodyInput: {
                 input: 'data-chat-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: TAPi18n.__('network-settings-landing-form-chat-body-placeholder'),
+                placeholder: TAPi18n.__('network-settings-landing-form-chat-body-placeholder', {tribename: name}),
                 prefill: chat_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.chat_body.max,
                 characterCountVar: template.chatCharacterCount
@@ -51,7 +51,7 @@ Template.NetworkSettingsLanding.helpers({
             aboutBodyInput: {
                 input: 'data-about-body',
                 className: 'pu-textarea pu-wysiwyg',
-                placeholder: TAPi18n.__('network-settings-landing-form-about-body-placeholder'),
+                placeholder: TAPi18n.__('network-settings-landing-form-about-body-placeholder', {tribename: name}),
                 prefill: about_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.about_body.max,
                 characterCountVar: template.aboutCharacterCount
@@ -67,11 +67,14 @@ Template.NetworkSettingsLanding.helpers({
         };
     },
     placeholders(...args) {
+        const { networkSlug: slug } = this;
+        const { name } = Networks.findOne({slug});
         return {
             video_url: () => TAPi18n.__('network-settings-landing-form-video-url-placeholder'),
-            why_title: () => TAPi18n.__('network-settings-landing-form-why-title-placeholder'),
+            why_title: () => TAPi18n.__('network-settings-landing-form-why-title-placeholder', {tribename: name}),
             chat_title: () => TAPi18n.__('network-settings-landing-form-chat-title-placeholder'),
-            about_title: () => TAPi18n.__('network-settings-landing-form-about-title-placeholder'),
+            chat_subtitle: () => TAPi18n.__('network-settings-landing-form-chat-subtitle-placeholder'),
+            about_title: () => TAPi18n.__('network-settings-landing-form-about-title-placeholder', {tribename: name}),
         };
     }
 });

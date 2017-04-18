@@ -6,22 +6,42 @@
     "network-settings-form-instagram_url-placeholder": "Instagram",
     "network-settings-form-linkedin_url-placeholder": "Linkedin",
 
-    "network-settings-landing-intro-title": "Tribe Landing",
+    "network-settings-landing-intro-title": "Tribe Startpagina",
     "network-settings-landing-intro-paragraph": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat cum ex id voluptates ut doloribus, et dolorum amet eveniet atque delectus libero saepe fuga eaque.",
-    "network-settings-landing-form-video-url-label": "Intro video",
-    "network-settings-landing-form-why-title-label": "Why join?",
-    "network-settings-landing-form-why-body-label": "Lorem ipsum dolor sit amet.",
-    "network-settings-landing-form-chat-title-label": "Who are we",
-    "network-settings-landing-form-chat-body-label": "Lorem ipsum dolor sit amet, consectetur.",
-    "network-settings-landing-form-about-title-label": "About us",
-    "network-settings-landing-form-about-body-label": "Lorem ipsum dolor sit.",
+    "network-settings-landing-form-video-url-label": "Intro video url",
+    "network-settings-landing-form-video-url-placeholder": "https://www.youtube.com/embed/LNpMI5gpNuQ",
+    "network-settings-landing-form-why-title-label": "Intro titel (Waarom lid worden?)",
+    "network-settings-landing-form-why-title-placeholder": "Waarom zou je lid worden van __tribename__?",
+    "network-settings-landing-form-why-body-label": "Intro tekst",
+    "network-settings-landing-form-why-body-placeholder": "__tribename__ is een ...",
+    "network-settings-landing-form-chat-title-label": "Chat admins (Wie zijn wij?)",
+    "network-settings-landing-form-chat-title-placeholder": "Chat met een van onze tribe ambassadeurs",
+    "network-settings-landing-form-chat-body-label": "Chat tekst",
+    "network-settings-landing-form-chat-body-placeholder": "Spreek iemand van __tribename__ aan over lid worden van onze tribe...",
+    "network-settings-landing-form-chat-subtitle-label": "Chat (alle leden)",
+    "network-settings-landing-form-chat-subtitle-placeholder": "Alle leden van __tribename__",
+    "network-settings-landing-form-about-title-label": "Over titel",
+    "network-settings-landing-form-about-title-placeholder": "Over __tribename__",
+    "network-settings-landing-form-about-body-label": "Over beschrijving",
+    "network-settings-landing-form-about-body-placeholder": "__tribename__ is een ...",
     "network-settings-landing-form-save-button": "Save",
 
-    "pages-app-network-landing-nav-why": "Why join?",
-    "pages-app-network-landing-nav-who": "Who are we?",
-    "pages-app-network-landing-nav-about": "About us",
-    "pages-app-network-landing-nav-partups": "Our partups",
+    "pages-app-network-landing-nav-why": "Waarom lid worden?",
+    "pages-app-network-landing-nav-who": "Wie zijn wij?",
+    "pages-app-network-landing-nav-about": "Over ons",
+    "pages-app-network-landing-nav-partups": "Onze partups",
 
-    "pages-app-network-landing-most-active-title": "Most active part-ups"
+    "pages-app-network-landing-intro-video-fallback": "https://www.youtube.com/embed/LNpMI5gpNuQ",
+    "pages-app-network-landing-intro-why-title-fallback": "Waarom zou je lid worden van __tribename__?",
+    "pages-app-network-landing-intro-why-body-fallback": "<p>__tribename__ is a lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam laborum harum nesciunt error fuga accusamus. Magnam veniam suscipit ex consequatur.</p>",
+
+    "pages-app-network-landing-chat-title-fallback": "Chat with one of our Tribe ambassadors",
+    "pages-app-network-landing-chat-body-fallback": "<p>Spreek iemand van __tribename__ aan over lid worden van onze tribe...</p>",
+    "pages-app-network-landing-chat-subtitle-fallback": "Alle leden van __tribename__",
+
+    "pages-app-network-landing-about-title-fallback": "Over __tribename__",
+    "pages-app-network-landing-about-body-fallback": "<p>__tribename__ is a lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, ipsum explicabo laborum soluta impedit officiis ipsa libero ad minus debitis.</p>",
+
+    "pages-app-network-landing-most-active-title": "Meest actieve part-ups"
 
 }

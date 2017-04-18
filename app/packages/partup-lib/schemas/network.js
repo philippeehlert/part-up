@@ -271,6 +271,10 @@ Partup.schemas.forms.networkContent = new SimpleSchema({
         type: String,
         max: 999
     },
+    chat_subtitle: {
+        type: String,
+        max: 255
+    },
     about_title: {
         type: String,
         max: 255

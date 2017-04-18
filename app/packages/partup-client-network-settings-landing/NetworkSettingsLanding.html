@@ -117,6 +117,26 @@
                 </div>
             </label>
 
+            <!-- chat_subtitle -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-chat-subtitle-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_subtitle' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='chat_subtitle'
+                            placeholder=placeholders.chat_subtitle
+                            class='pu-input'
+                            maxlength=form.schema._schema.chat_subtitle.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_subtitle' }}</span>
+                </div>
+            </label>
+
             <!-- about_title -->
             <label class="pu-formfield">
                 <span class="pu-label">
