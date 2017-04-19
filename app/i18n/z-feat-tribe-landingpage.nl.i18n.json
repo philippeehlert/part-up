@@ -35,7 +35,7 @@
     "pages-app-network-landing-intro-why-title-fallback": "Waarom zou je lid worden van __tribename__?",
     "pages-app-network-landing-intro-why-body-fallback": "<p>__tribename__ is a lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam laborum harum nesciunt error fuga accusamus. Magnam veniam suscipit ex consequatur.</p>",
 
-    "pages-app-network-landing-chat-title-fallback": "Chat with one of our Tribe ambassadors",
+    "pages-app-network-landing-chat-title-fallback": "Chat met een van onze Tribe ambasadeurs",
     "pages-app-network-landing-chat-body-fallback": "<p>Spreek iemand van __tribename__ aan over lid worden van onze tribe...</p>",
     "pages-app-network-landing-chat-subtitle-fallback": "Alle leden van __tribename__",
 
@@ -44,6 +44,8 @@
 
     "pages-app-network-landing-most-active-title": "Meest actieve part-ups",
 
-    "pages-modal-network_settings-network_landing": "Startpagina"
+    "pages-modal-network_settings-network_landing": "Startpagina",
+
+    "pages-app-network-landing-about-link-readmore": "Lees meer"
 
 }

@@ -30,6 +30,7 @@ Template.Start_About.helpers({
                 linkedin_url,
                 instagram_url,
             }),
+            slug,
         };
     }
 });
