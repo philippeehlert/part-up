@@ -16,6 +16,11 @@
                 position: absolute;
                 bottom: -14px;
                 right: -14px;
+
+                &-tiny {
+                    bottom: 0;
+                    right: 0;
+                }
             }
         }
 

@@ -12,6 +12,12 @@
     font-weight: 700;
     font-size: 18px;
 
+    &-tiny {
+        border: 4px solid #ffffff;
+        width: 20px;
+        height: 20px;
+    }
+
     &-small {
         border: 2px solid #ffffff;
         width: 30px;
@@ -30,5 +36,9 @@
 
     &-green {
         background-color: $color-online;
+    }
+
+    &-red {
+        background-color: $color-offline;
     }
 }

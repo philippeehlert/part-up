@@ -7,9 +7,14 @@
                         background-image: url('{{ . }}');
                     {{/ with }}
                 ">
-                    {{# if user.participation_scoreReadable }}
-                        <span class="pu-score {{#if user.status.online}}pu-score-green{{/if}}">{{ user.participation_scoreReadable }}</span>
-                    {{/ if }}
+                    {{#if hide_stats}}
+                        <span class="
+                            pu-score pu-score-tiny{{#if user.status.online}} pu-score-green{{else}} pu-score-red{{/if}}"></span>
+                    {{else}}
+                        {{# if user.participation_scoreReadable }}
+                            <span class="pu-score {{#if user.status.online}}pu-score-green{{/if}}">{{ user.participation_scoreReadable }}</span>
+                        {{/ if }}
+                    {{/if}}
                 </figure>
             </a>
 
