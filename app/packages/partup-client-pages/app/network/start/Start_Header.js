@@ -1,52 +1,37 @@
-Template.Start_Header.onCreated(function() {
-    var template = this;
-    template.maxTags = 5;
-});
-
 Template.Start_Header.helpers({
-    data: function() {
-        var template = Template.instance();
-        var self = this;
-        var network = Networks.findOne({slug: self.networkSlug});
+    data(...args) {
+        const network = Networks.findOne({slug: this.networkSlug});
         if (!network) return;
 
-        Partup.client.windowTitle.setContextName(network.name);
+        const {
+            _id: networkId,
+            slug: networkSlug,
+            name: networkName,
+            most_active_uppers: uppers,
+            most_active_partups: partups,
+            stats: {
+                upper_count: totalUppers,
+                partup_count: totalPartups,
+            } = {},
+        } = network;
+
+        Partup.client.windowTitle.setContextName(networkName);
 
         return {
-            network: function() {
-                return network;
-            },
-            partups: function() {
-                return Partups.findForNetwork(network);
-            },
-            activeUppers: function() {
-                return {
-                    uppers: network.most_active_uppers,
-                    totalUppers: network.stats.upper_count,
-                    networkSlug: self.networkSlug,
-                    networkId: network._id
-                };
-            },
-            activePartups: function() {
-                return {
-                    partups: network.most_active_partups,
-                    totalPartups: network.stats.partup_count,
-                    networkSlug: self.networkSlug,
-                    networkId: network._id
-                };
-            }
+            network: () => network,
+            partups: () => Partups.findForNetwork(network),
+            activeUppers: () => ({ networkId, networkSlug, totalUppers, uppers }),
+            activePartups: () => ({ networkId, networkSlug, totalPartups, partups }),
         };
     },
 });
+
 Template.Start_Header.events({
-    'click [data-open-networksettings]': function(event, template) {
+    'click [data-open-networksettings]': function(event, { data: { networkSlug: slug } }) {
         event.preventDefault();
-        var networkSlug = template.data.networkSlug;
         Intent.go({
             route: 'network-settings',
-            params: {
-                slug: networkSlug
-            }
+            params: { slug },
         });
     }
 });

@@ -2,6 +2,8 @@
     background-color: #38a6af;
     text-align: center;
     height: 40px;
+    opacity: 0;
+    transition: opacity 150ms;
 
     &__container {
         background-color: #38a6af;
@@ -36,6 +38,10 @@
             background-color: darken(#38a6af, 5%);
             color: #fff;
         }
+    }
+
+    &--fade-in {
+        opacity: 1;
     }
 
     @media screen and (min-width: $breakpoint-desktop) {

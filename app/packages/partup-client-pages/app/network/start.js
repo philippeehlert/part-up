@@ -27,6 +27,7 @@ Template.app_network_start.helpers({
     state(...args) {
         const template = Template.instance();
         return {
+            networkLoaded: () => template.networkLoaded.get(),
             loaded: () => {
                 return !!(
                     template.networkLoaded.get() &&

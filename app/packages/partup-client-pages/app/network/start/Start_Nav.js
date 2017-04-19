@@ -1,5 +1,6 @@
 Template.Start_Nav.onCreated(function() {
     this.attached = new ReactiveVar(false);
+    this.fadeIn = new ReactiveVar(false);
 
     this.calculateAttached = () => {
         const { getHeaderHeight } = this.data;
@@ -17,16 +18,21 @@ Template.Start_Nav.onCreated(function() {
     $(window).on('resize', this.calculateAttached);
 });
 
+Template.Start_Nav.onRendered(function() {
+    lodash.defer(() => this.fadeIn.set(true));
+});
+
 Template.Start_Nav.onDestroyed(function() {
     $(window).off('resize', this.calculateAttached);
 })
 
 Template.Start_Nav.helpers({
     state(...args) {
-        const { attached } = Template.instance();
+        const { attached, fadeIn } = Template.instance();
 
         return {
             attached: () => attached.get(),
+            fadeIn: () => fadeIn.get(),
         };
     },
 });

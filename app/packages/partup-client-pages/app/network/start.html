@@ -1,12 +1,12 @@
 <template name="app_network_start">
     <article class="pu-page pu-tribestart">
+        <div data-header>
+            {{> Start_Header networkSlug=networkSlug }}
+        </div>
         {{#unless state.loaded}}
             {{> Spinner color='inverted' }}
         {{else}}
-            <div data-header>
-                {{> Start_Header networkSlug=networkSlug }}
-            </div>
-            <div class="pu-tribestart__block">
+            <div>
                 {{> Start_Nav getHeaderHeight=state.getHeaderHeight }}
             </div>
             <div class="pu-tribestart__block">
