@@ -1,3 +1,19 @@
+var DROPDOWN_TRIGGER = '.dropdown__trigger'
+var DROPDOWN = '.dropdown'
+
+var directions = Object.freeze({
+    NORTH: 'N',
+    EAST: 'E',
+    SOUTH: 'S',
+    WEST: 'W'
+})
+
+var options = {
+    key: "",
+    position: "",
+    direction: ""
+}
+
 /**
  * Render dropdowns
  *

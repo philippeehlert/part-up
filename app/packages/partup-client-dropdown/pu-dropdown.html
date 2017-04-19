@@ -1,0 +1,18 @@
+<template name="pu-dropdown">
+    <section role="menu" class="{{this.classes}}" {{attributes}}>
+        <span class="pu-sub-arrow"><span></span></span>
+        {{#if UI.contentBlock }} 
+            {{> UI.contentBlock ..}} 
+        {{else}} 
+            {{> Template.dynamic template=templateOrName data=..}} 
+        {{/if}}
+    </section>
+</template>
+
+<template name="pu-dropdownTrigger">
+    {{#if UI.contentBlock }} 
+        {{> UI.contentBlock ..}} 
+    {{else}} 
+        {{> Template.dynamic template=this.template data=..}} 
+    {{/if}}
+</template>

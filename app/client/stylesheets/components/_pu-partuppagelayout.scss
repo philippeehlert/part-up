@@ -89,6 +89,25 @@ $sidebar-min-width: 420px;
     &__only-mediumscreen,
     &__only-largescreen {
         display: none;
+
+        .pu-dropdownie-left {
+            right: -34px;
+        }
+    }
+
+    .pu-sub-smallscreen-navigation {
+        .pu-formdropdown-small {
+            .pu-formdropdown {
+                width: calc(100vw - 100px);
+            }
+        }
+        .pu-button-nav {
+            height:40px;
+            padding: 13px 0px 0px 10px;
+        }
+        .pu-dropdownie-left {
+            right: -34px;
+        }
     }
 
     @media screen and (min-width: #{$sidebar-min-width + 20px}) {

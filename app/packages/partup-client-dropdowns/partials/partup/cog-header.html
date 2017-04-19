@@ -1,0 +1,20 @@
+<template name="PartupCogWheel">
+    <a href="#" class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning" data-toggle-menu="partupsettings">
+        <i class="picon-cog"></i>
+    </a>
+    <div class="pu-dropdownie pu-dropdownie-left {{#if menuOpen}}pu-state-active{{/if}}" data-clickoutside-close>
+        <span class="pu-sub-arrow"><span></span></span>
+        <ul class="pu-list">
+            <li class="pu-dropdownitem pu-dropdownitem-small">
+                <button data-openpartupsettings>
+                    {{_ 'pages-app-profile-tab-button-settings'}}
+                </button>
+            </li>
+            <li class="pu-dropdownitem pu-dropdownitem-small">
+                <button data-endpartnership>
+                    {{_ 'pages-app-partup-menu-endpartnership'}}
+                </button>
+            </li>
+        </ul>
+    </div>
+</template>

@@ -14,5 +14,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'dropdown.html',
         'dropdown.js',
+        'pu-dropdown.html',
+        'pu-dropdown.js'
     ], 'client');
 });
