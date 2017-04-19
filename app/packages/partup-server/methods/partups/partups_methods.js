@@ -712,5 +712,22 @@ Meteor.methods({
         var options = {fields: {privacy_type: 1}};
 
         return Partups.guardedFind(user._id, selector, options).fetch();
+    },
+
+   /**
+    * Makes the partner a supporter
+    */
+    'partups.unpartner': function(partupId) {
+        var user = Meteor.user();
+        var partup = Partups.findOneOrFail(partupId);
+
+        if (!user || !partup.hasUpper(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+       try {
+           partup.makePartnerSupporter(user._id);
+       } catch (error) {
+           Log.error(error);
+           throw new Meteor.Error(400, 'partner_could_not_be_made_supporter');
+       }
     }
 });
