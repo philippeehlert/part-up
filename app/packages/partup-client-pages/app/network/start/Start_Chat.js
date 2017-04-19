@@ -1,7 +1,3 @@
-Template.Start_Chat.onCreated(function() {
-    this.MAX_UPPERS = 7;
-})
-
 Template.Start_Chat.helpers({
     data: function() {
         const { networkSlug: slug } = this;

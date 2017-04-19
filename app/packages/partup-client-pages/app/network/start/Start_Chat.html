@@ -9,7 +9,7 @@
                 {{#each data.admins}}
                     <li class="pu-tribestart-chat__admins__item">
                         <div class="pu-tile pu-tile-upper">
-                            {{> UpperTile user=. }}
+                            {{> UpperTile user=. show_similarities=true hide_stats=true chat_always_visible=true }}
                         </div>
                     </li>
                 {{/each}}
