@@ -19,3 +19,29 @@ Template.Start_Video.helpers({
         };
     }
 });
+
+Template.Start_Video_Embed.onCreated(function() {
+    this.play = new ReactiveVar(false);
+});
+
+Template.Start_Video_Embed.events({
+    'click [data-play]': function(event, template) {
+        template.play.set(true);
+    }
+});
+
+Template.Start_Video_Embed.helpers({
+    play() {
+        return Template.instance().play.get();
+    },
+    isYoutube(url) {
+        if (url.indexOf('vimeo') > -1) return false;
+        return true;
+    },
+    youtubeId(url) {
+        return Partup.helpers.url.getYoutubeIdFromUrl(url);
+    },
+    vimeoId(url) {
+        return Partup.helpers.url.getVimeoIdFromUrl(url);
+    }
+});
