@@ -1,5 +1,5 @@
-import {FileUploader} from 'meteor/partup-lib';
-import {MediaUploader} from 'meteor/partup-client-media-uploader-button';
+import { FileUploader } from 'meteor/partup-lib';
+import { MediaUploader } from 'meteor/partup-client-media-uploader-button';
 
 let mediaUploader;
 
@@ -91,7 +91,10 @@ Template.app_partup_updates_newmessage.helpers({
             documents: this.type_data.documents || []
         };
     },
-    getSvgIcon: FileUploader.getSvgIcon
+    getSvgIcon: function(file) {
+        console.log(file)
+        return FileUploader.getSvgIcon(file)
+    }
 });
 
 // events
@@ -188,7 +191,6 @@ AutoForm.hooks({
 
             Meteor.call('updates.messages.insert', partupId, insertDoc, function (error, result) {
                 parent.submitting.set(false);
-                Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(result._id);
                 Partup.client.updates.setWaitForUpdate(false);
 
                 // Error
@@ -198,6 +200,7 @@ AutoForm.hooks({
 
                     return;
                 }
+                Partup.client.updates.addUpdateToUpdatesCausedByCurrentuser(result._id);
                 if (result.warning) {
                     Partup.client.notify.warning(TAPi18n.__('warning-' + result.warning));
                 }

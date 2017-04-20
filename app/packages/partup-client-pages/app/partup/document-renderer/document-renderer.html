@@ -12,7 +12,9 @@
                     </div>
                     <div class="file-information">
                         <p class="file-name">{{name}}</p>
-                        <p class="file-bytes">{{{bytesToSize bytes}}}</p>
+                        {{#if bytes}}
+                            <p class="file-bytes">{{{bytesToSize bytes}}}</p>
+                        {{/if}}
                     </div>
                 </li>
             </a>

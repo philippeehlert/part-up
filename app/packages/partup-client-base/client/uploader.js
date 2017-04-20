@@ -1,5 +1,5 @@
+import {FileUploader} from 'meteor/partup-lib';
 // Settings
-//
 var MAX_IMAGE_WIDTH = 1500;
 var MAX_IMAGE_HEIGHT = 1500;
 
@@ -189,6 +189,21 @@ Partup.client.uploader = {
     },
 
     /**
+     * Generic upload
+     * determines if it's a file or image and acts accordingly
+     * @memberOf Partup.client
+     * @param {Object} file
+     * @param {Function} callback
+     */
+    upload: function(file, callback) {
+        FileUploader.on(file, {
+            image: () => Partup.client.uploader.uploadImage(file, (err, f) => callback(err, f, 'image')),
+            file: () => Partup.client.uploader.uploadFile(file, (err, f) => callback(err, f, 'file')),
+            error: (err) => callback(err),
+        })
+    },
+
+    /**
      * Return a blob from dataurl
      *
      * @memberOf Partup.client
@@ -234,7 +249,7 @@ Partup.client.uploader = {
         }
 
         for (var i = 0; i < files.length; i++) {
-            callBack(files[i]);
+            callBack(files[i], i, FileUploader.getFileType(files[i]));
         }
     },
 

@@ -187,6 +187,10 @@ var DocumentSchema = new SimpleSchema({
     isDir: {
         type: Boolean,
         optional: true
+    },
+    isPartupFile: {
+        type: Boolean,
+        optional: true
     }
 });
 
