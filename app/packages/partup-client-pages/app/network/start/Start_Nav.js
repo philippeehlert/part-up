@@ -16,6 +16,7 @@ Template.Start_Nav.onCreated(function() {
 
     this.autorun(this.calculateAttached);
     $(window).on('resize', this.calculateAttached);
+
 });
 
 Template.Start_Nav.onRendered(function() {
@@ -24,6 +25,13 @@ Template.Start_Nav.onRendered(function() {
 
 Template.Start_Nav.onDestroyed(function() {
     $(window).off('resize', this.calculateAttached);
+})
+
+Template.Start_Nav.events({
+    'click [data-anchor]': function(event, template) {
+        const { pathname, search } = window.location;
+        lodash.defer(() => Router.go(`${pathname}${search}`));
+    }
 })
 
 Template.Start_Nav.helpers({

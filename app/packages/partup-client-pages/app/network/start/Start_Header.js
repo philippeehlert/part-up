@@ -1,3 +1,14 @@
+Template.Start_Header.onCreated(function() {
+    this.fadeIn = new ReactiveVar(false);
+    this.autorun((c) => {
+        const network = Networks.findOne({slug: this.data.networkSlug});
+        if (network) {
+            setTimeout(() => this.fadeIn.set(true), 200);
+            c.stop();
+        }
+    });
+});
+
 Template.Start_Header.helpers({
     data(...args) {
         const network = Networks.findOne({slug: this.networkSlug});
@@ -25,8 +36,10 @@ Template.Start_Header.helpers({
         };
     },
     state(...args) {
+        const { fadeIn } = Template.instance();
         return {
             showLock: (privacyType) => privacyType > 1,
+            fadeIn: () => fadeIn.get(),
         };
     }
 });
