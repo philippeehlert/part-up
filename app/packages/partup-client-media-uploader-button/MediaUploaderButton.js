@@ -126,6 +126,7 @@ Template.MediaUploaderButton.helpers({
                             uploaded.push({
                                 _id,
                                 name,
+                                bytes: file.size,
                                 isPartupFile: true,
                             });
                             mediaUploader.uploadedDocuments.set(uploaded);

@@ -91,10 +91,7 @@ Template.app_partup_updates_newmessage.helpers({
             documents: this.type_data.documents || []
         };
     },
-    getSvgIcon: function(file) {
-        console.log(file)
-        return FileUploader.getSvgIcon(file)
-    }
+    getSvgIcon: FileUploader.getSvgIcon
 });
 
 // events

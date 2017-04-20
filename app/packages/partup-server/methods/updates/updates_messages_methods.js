@@ -52,15 +52,21 @@ Meteor.methods({
 
         this.unblock();
 
-        var upper = Meteor.user();
+        const upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var message = Updates.findOne({_id: updateId, upper_id: upper._id});
+            const message = Updates.findOne({_id: updateId, upper_id: upper._id});
             if (message) {
-                var hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
+                let hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
                 hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
-                var hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+                const hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+
+                // delete any removed files
+                const newDocuments = lodash.get(fields, 'documents', []);
+                const removeFiles = lodash.get(message, 'type_data.documents', [])
+                    .filter(({_id}) => !lodash.find(newDocuments, {_id}))
+                    .forEach(({_id}) => Partup.server.services.files.remove(_id));
 
                 Updates.update({_id: message._id}, {$set: {
                     type_data: {
