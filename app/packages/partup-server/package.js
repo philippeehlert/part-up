@@ -221,6 +221,7 @@ Package.onUse(function(api) {
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
         'cron/set_network_updated_at.js',
+        'cron/update_sitemap.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
