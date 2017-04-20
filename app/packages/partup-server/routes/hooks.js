@@ -46,4 +46,8 @@ Router.onBeforeAction(function(request, response, next) {
     'users.:id.networks',
     'users.:id.partners',
     'users.:id.partners.count',
+    'sitemap.xml',
+    'tribes.xml',
+    'part-ups.xml',
+    'profiles.xml'
 ]});
