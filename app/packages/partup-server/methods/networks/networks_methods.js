@@ -1057,6 +1057,7 @@ Meteor.methods({
                         why_body: fields.why_body,
                         chat_title: fields.chat_title,
                         chat_body: fields.chat_body,
+                        chat_subtitle: fields.chat_subtitle,
                         about_title: fields.about_title,
                         about_body: fields.about_body
                     }
