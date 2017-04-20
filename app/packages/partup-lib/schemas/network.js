@@ -253,34 +253,42 @@ Partup.schemas.forms.networkEdit = new SimpleSchema({
 Partup.schemas.forms.networkContent = new SimpleSchema({
     video_url: {
         type: String,
-        max: 255
+        max: 255,
+        optional: true
     },
     why_title: {
         type: String,
-        max: 255
+        max: 255,
+        optional: true
     },
     why_body: {
         type: String,
-        max: 999
+        max: 999,
+        optional: true
     },
     chat_title: {
         type: String,
-        max: 255
+        max: 255,
+        optional: true
     },
     chat_body: {
         type: String,
-        max: 999
+        max: 999,
+        optional: true
     },
     chat_subtitle: {
         type: String,
-        max: 255
+        max: 255,
+        optional: true
     },
     about_title: {
         type: String,
-        max: 255
+        max: 255,
+        optional: true
     },
     about_body: {
         type: String,
-        max: 999
+        max: 999,
+        optional: true
     }
 });
