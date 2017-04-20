@@ -24,6 +24,11 @@ Template.Start_Header.helpers({
             activePartups: () => ({ networkId, networkSlug, totalPartups, partups }),
         };
     },
+    state(...args) {
+        return {
+            showLock: (privacyType) => privacyType > 1,
+        };
+    }
 });
 
 Template.Start_Header.events({
