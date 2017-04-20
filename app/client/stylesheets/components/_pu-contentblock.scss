@@ -69,7 +69,7 @@
             color: rgb(41, 41, 41);
             overflow-wrap: break-word;
             position: relative;
-            width: 741px;
+            // width: 741px;
             word-wrap: break-word;
             column-rule-color: rgb(41, 41, 41);
             perspective-origin: 370.5px 9px;
@@ -99,7 +99,10 @@
                 perspective-origin: 4.5px 5px;
                 transform-origin: 4.5px 5px;
                 border: 0px none rgb(255, 167, 37);
-                font: normal normal normal normal (9px / normal) partup-icons;
+                // font: normal normal normal normal 9px / 18px partup-icons;
+                font-size: 9px;
+                line-height: 18px;
+                font-family: partup-icons;
                 list-style: none outside none;
                 margin: 0px 11px 0px 0px;
                 outline: rgb(255, 167, 37) none 0px;
