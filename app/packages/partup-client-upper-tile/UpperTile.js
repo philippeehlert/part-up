@@ -35,7 +35,7 @@ Template.UpperTile.helpers({
         const {
             upperOf: currentUserPartups = [],
             networks: currentUserNetworks = [],
-        } = currentUser;
+        } = currentUser || {};
 
         return {
             partnerInSamePartupsCount: () => {
