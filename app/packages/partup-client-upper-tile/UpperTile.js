@@ -13,7 +13,9 @@ Template.UpperTile.events({
 
         if (!userId) {
             event.preventDefault();
-            Intent.go({route: 'login'});
+            Intent.go({route: 'login'}, function() {
+                this.back();
+            });
         }
     },
 })
