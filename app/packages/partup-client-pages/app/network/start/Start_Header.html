@@ -10,7 +10,7 @@
                 {{/if}}
             </nav>
             <figure class="pu-avatar pu-avatar-square pu-avatar-extralarge" style="{{#with data.network.image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}"></figure>
-            <h1>{{data.network.name}} {{#if state.showLock data.network.privacyType}}<i class="picon-lock-closed"></i>{{else}}<i class="picon-lock-open"></i>{{/if}}</h1>
+            <h1>{{data.network.name}} {{#if state.showLock data.network.privacy_type}}<i class="picon-lock-closed"></i>{{else}}<i class="picon-lock-open"></i>{{/if}}</h1>
             <h3>
                 {{data.network.description}}
             </h3>
