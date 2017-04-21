@@ -27,6 +27,10 @@ Router.route('/sitemap.xml', {where: 'server'}).get(function() {
     xml += '<loc>' + baseUrl + 'profiles.xml</loc>';
     xml += '</sitemap>';
 
+    xml += '<sitemap>';
+    xml += '<loc>' + baseUrl + 'swarms.xml</loc>';
+    xml += '</sitemap>';
+
     xml += '</sitemapindex>';
 
     // We are going to respond in XML format
@@ -40,13 +44,8 @@ Router.route('/sitemap.xml', {where: 'server'}).get(function() {
  */
 Router.route('/tribes.xml', {where: 'server'}).get(function() {
     var response = this.response;
-    var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
-
-    // Retrieve sitemap from S3
-    var xml = s3.getObjectSync({Key: 'tribes.xml'});
-
-    // We are going to respond in XML format
     response.setHeader('Content-Type', 'application/xml');
+    var xml = getSitemap('tribes.xml');
 
     return response.end(xml.Body.toString());
 });
@@ -56,13 +55,8 @@ Router.route('/tribes.xml', {where: 'server'}).get(function() {
  */
 Router.route('/part-ups.xml', {where: 'server'}).get(function() {
     var response = this.response;
-    var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
-
-    // Retrieve sitemap from S3
-    var xml = s3.getObjectSync({Key: 'part-ups.xml'});
-
-    // We are going to respond in XML format
     response.setHeader('Content-Type', 'application/xml');
+    var xml = getSitemap('part-ups.xml');
 
     return response.end(xml.Body.toString());
 });
@@ -72,13 +66,27 @@ Router.route('/part-ups.xml', {where: 'server'}).get(function() {
  */
 Router.route('/profiles.xml', {where: 'server'}).get(function() {
     var response = this.response;
-    var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
-
-    // Retrieve sitemap from S3
-    var xml = s3.getObjectSync({Key: 'profiles.xml'});
-
-    // We are going to respond in XML format
     response.setHeader('Content-Type', 'application/xml');
+    var xml = getSitemap('profiles.xml');
 
     return response.end(xml.Body.toString());
 });
+
+/*
+ * Swarms sitemap route
+ */
+Router.route('/swarms.xml', {where: 'server'}).get(function() {
+    var response = this.response;
+    response.setHeader('Content-Type', 'application/xml');
+    var xml = getSitemap('swarms.xml');
+
+    return response.end(xml.Body.toString());
+});
+
+/*
+ * Retrieve sitemap from S3
+ */
+function getSitemap(key) {
+    var s3 = new AWS.S3({params: {Bucket: process.env.AWS_BUCKET_NAME}});
+    return s3.getObjectSync({Key: key});
+}

@@ -49,5 +49,6 @@ Router.onBeforeAction(function(request, response, next) {
     'sitemap.xml',
     'tribes.xml',
     'part-ups.xml',
-    'profiles.xml'
+    'profiles.xml',
+    'swarms.xml'
 ]});

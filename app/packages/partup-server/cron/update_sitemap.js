@@ -48,7 +48,7 @@ if (process.env.PARTUP_CRON_ENABLED) {
 
                 // Create profiles sitemap
                 var profilesXml = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-                Meteor.users.find({deactivatedAt: {$exists: false}}, {fields: {_id: 1}}, {limit: 2}).forEach(function(user) {
+                Meteor.users.find({deactivatedAt: {$exists: false}}, {fields: {_id: 1}}).forEach(function(user) {
                     profilesXml += '<url>';
                     profilesXml += '<loc>' + baseUrl + 'profile/' + user._id + '</loc>';
                     profilesXml += '<changefreq>monthly</changefreq>';
@@ -59,6 +59,21 @@ if (process.env.PARTUP_CRON_ENABLED) {
 
                 // Upload to S3
                 s3.putObjectSync({Key: 'profiles.xml', Body: profilesXml, ContentType: 'application/xml'});
+
+                // Create swarms sitemap
+                var swarmsXml = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+                Swarms.find({}, {fields: {slug: 1, updated_at: 1}}).forEach(function(swarm) {
+                    swarmsXml += '<url>';
+                    swarmsXml += '<loc>' + baseUrl + swarm.slug + '</loc>';
+                    swarmsXml += '<lastmod>' + swarm.updated_at.toISOString() + '</lastmod>';
+                    swarmsXml += '<changefreq>monthly</changefreq>';
+                    swarmsXml += '<priority>0.7</priority>';
+                    swarmsXml += '</url>';
+                });
+                swarmsXml += '</urlset>';
+
+                // Upload to S3
+                s3.putObjectSync({Key: 'swarms.xml', Body: swarmsXml, ContentType: 'application/xml'});
             }
         }
     });
