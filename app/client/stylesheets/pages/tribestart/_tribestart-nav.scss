@@ -21,7 +21,8 @@
 
     &__list {
         white-space: nowrap;
-        overflow-x: scroll;
+        overflow-x: auto;
+        -ms-overflow-style: none;
     }
 
     &__listitem {
