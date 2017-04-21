@@ -5,13 +5,16 @@ Template.Start_Video.helpers({
             name: tribename,
             content: {
                 video_url,
+                video_placeholder_image,
                 why_title,
                 why_body
             } = {},
         } = Networks.findOne({slug});
         return {
             video_url: () => video_url || TAPi18n.__('pages-app-network-landing-intro-video-fallback'),
-            video_placeholder: function() {
+            video_placeholder: () => {
+                const image = Images.findOne({_id: video_placeholder_image});
+                if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
                 return TAPi18n.__('pages-app-home-intro-video-placeholder');
             },
             why_title: () => why_title || TAPi18n.__('pages-app-network-landing-intro-why-title-fallback', {tribename}),

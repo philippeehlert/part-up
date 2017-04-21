@@ -3,10 +3,12 @@ Template.NetworkSettingsLanding.onCreated(function() {
     const { networkSlug: slug } = this.data;
 
     this.editingBlocks = new ReactiveVar([]);
+    this.imageUploading = new ReactiveVar(false);
     this.whyCharacterCount = new ReactiveVar(0);
     this.chatCharacterCount = new ReactiveVar(0);
     this.aboutCharacterCount = new ReactiveVar(0);
     this.submitting = new ReactiveVar(false);
+    this.imagePreviewId = new ReactiveVar();
 
     this.subscribe('networks.one', slug, {
         onReady: () => {
@@ -15,14 +17,41 @@ Template.NetworkSettingsLanding.onCreated(function() {
             if (network.isClosedForUpper(userId)) Router.pageNotFound('network');
         }
     });
+
+    this.onFileChange = (fileChangeEvent) => {
+        Partup.client.uploader.eachFile(fileChangeEvent, (file) => {
+            this.imageUploading.set(true);
+
+            Partup.client.uploader.uploadImage(file, (error, image) => {
+                this.imageUploading.set(false);
+                if (error) return Partup.client.notify.error(TAPi18n.__(error.reason));
+
+                this.find('[name=video_placeholder_image]').value = image._id;
+                this.imagePreviewId.set(image._id);
+            });
+        });
+    }
 });
 
 Template.NetworkSettingsLanding.helpers({
     form(...args) {
-        const template = Template.instance();
         const { networkSlug: slug } = this;
         const network = Networks.findOne({slug});
-        const { name, content: { why_body, chat_body, about_body, ...restContent } = {} } = network || {};
+        const {
+            whyCharacterCount,
+            chatCharacterCount,
+            aboutCharacterCount,
+            onFileChange,
+        } = Template.instance();
+        const {
+            name,
+            content: {
+                why_body,
+                chat_body,
+                about_body,
+                ...restContent
+            } = {}
+        } = network || {};
 
         return {
             schema: () => Partup.schemas.forms.networkContent,
@@ -32,13 +61,20 @@ Template.NetworkSettingsLanding.helpers({
                 chat_body,
                 ...restContent,
             }),
+            imageInput: () => {
+                return {
+                    button: 'data-image-browse',
+                    input: 'data-image-input',
+                    onFileChange: (event) => onFileChange(event),
+                };
+            },
             whyBodyInput: {
                 input: 'data-why-body',
                 className: 'pu-textarea pu-wysiwyg',
                 placeholder: TAPi18n.__('network-settings-landing-form-why-body-placeholder', {tribename: name}),
                 prefill: why_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.why_body.max,
-                characterCountVar: template.whyCharacterCount
+                characterCountVar: whyCharacterCount
             },
             chatBodyInput: {
                 input: 'data-chat-body',
@@ -46,7 +82,7 @@ Template.NetworkSettingsLanding.helpers({
                 placeholder: TAPi18n.__('network-settings-landing-form-chat-body-placeholder', {tribename: name}),
                 prefill: chat_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.chat_body.max,
-                characterCountVar: template.chatCharacterCount
+                characterCountVar: chatCharacterCount
             },
             aboutBodyInput: {
                 input: 'data-about-body',
@@ -54,16 +90,37 @@ Template.NetworkSettingsLanding.helpers({
                 placeholder: TAPi18n.__('network-settings-landing-form-about-body-placeholder', {tribename: name}),
                 prefill: about_body,
                 maxCharacters: Partup.schemas.forms.networkContent._schema.about_body.max,
-                characterCountVar: template.aboutCharacterCount
+                characterCountVar: aboutCharacterCount
             },
         };
     },
     state(...args) {
-        const template = Template.instance();
+        const {
+            whyCharacterCount,
+            chatCharacterCount,
+            aboutCharacterCount,
+            imageUploading,
+        } = Template.instance();
         return {
-            whyCharacterCount: () => template.whyCharacterCount.get(),
-            chatCharacterCount: () => template.chatCharacterCount.get(),
-            aboutCharacterCount: () => template.aboutCharacterCount.get(),
+            whyCharacterCount: () => whyCharacterCount.get(),
+            chatCharacterCount: () => chatCharacterCount.get(),
+            aboutCharacterCount: () => aboutCharacterCount.get(),
+            imageUploading: () => imageUploading.get(),
+        };
+    },
+    data(...args) {
+        const { networkSlug: slug } = this;
+        const network = Networks.findOne({slug});
+        const { imagePreviewId } = Template.instance();
+        return {
+            previewImage: () => {
+                const imageId = lodash.get(network, 'content.video_placeholder_image', imagePreviewId.get());
+                if (imageId) {
+                    const image = Images.findOne({_id: imageId});
+                    if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
+                }
+                return '/images/closed_network_video.png';
+            },
         };
     },
     placeholders(...args) {

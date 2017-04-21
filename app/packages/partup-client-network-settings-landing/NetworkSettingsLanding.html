@@ -31,6 +31,25 @@
                 </div>
             </label>
 
+            <!-- video_placeholder_image -->
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'network-settings-landing-form-video-placeholder-label' }}</span>
+                <div class="pu-upload">
+                    <figure style="background-image:url('{{ data.previewImage }}')" class="pu-imagepreview"></figure>
+                    {{# FileInput inputSettings=form.imageInput }}
+                        <button type="button" class="pu-button pu-button-secondary {{# if state.imageUploading }}pu-state-loading{{/ if }}" data-image-browse>
+                            <span>{{_ 'network-settings-landing-form-video-placeholder-button' }}</span>
+                            {{> Spinner color='inverted' type='small' }}
+                        </button>
+
+                        <span class="pu-hint">{{_ 'network-settings-landing-form-video-placeholder-info' }}</span>
+
+                        <input type="file" class="pu-fileinput" data-image-input>
+                    {{/FileInput}}
+                    {{> afFieldInput name="video_placeholder_image" type="hidden" }}
+                </div>
+            </div>
+
             <!-- why_title -->
             <label class="pu-formfield">
                 <span class="pu-label">

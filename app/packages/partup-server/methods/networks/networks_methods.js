@@ -1053,6 +1053,7 @@ Meteor.methods({
                 $set: {
                     content: {
                         video_url: fields.video_url,
+                        video_placeholder_image: fields.video_placeholder_image,
                         why_title: fields.why_title,
                         why_body: fields.why_body,
                         chat_title: fields.chat_title,

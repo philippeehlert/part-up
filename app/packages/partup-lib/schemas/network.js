@@ -256,6 +256,10 @@ Partup.schemas.forms.networkContent = new SimpleSchema({
         max: 255,
         optional: true
     },
+    video_placeholder_image: {
+        type: String,
+        optional: true
+    },
     why_title: {
         type: String,
         max: 255,

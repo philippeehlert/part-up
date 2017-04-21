@@ -36,7 +36,7 @@ Images.findForUser = function(user) {
  * @return {Mongo.Cursor}
  */
 Images.findForNetwork = function(network) {
-    return Images.find({_id: {'$in': [network.background_image, network.image, network.icon]}}, {limit: 4});
+    return Images.find({_id: {'$in': [network.background_image, network.image, network.icon, lodash.get(network, 'content.video_placeholder_image')]}}, {limit: 4});
 };
 
 /**
