@@ -48,7 +48,7 @@
                             {{_ 'partup-uppertile-open-existing-chat' }}
                         </a>
                     {{else}}
-                        <a href="{{ pathFor route='chats' query=chat.startChatUrlQueryParameters }}" class="pu-button pu-button-compact">
+                        <a data-start-chat href="{{ pathFor route='chats' query=chat.startChatUrlQueryParameters }}" class="pu-button pu-button-compact">
                             <i class="picon-chat"></i>
                             {{_ 'partup-uppertile-start-new-chat' }}
                         </a>
@@ -59,6 +59,7 @@
         </footer>
     </article>
     {{#if show_similarities}}{{# unless partupEquals currentUserId user._id }}
+        {{#if currentUserId }}
         <span class="pu-upper__similarities">
             {{#if similarities.partnerInSamePartupsCount }}
                 <span>{{_ 'invitetile-relevance-partups-count' count=similarities.partnerInSamePartupsCount }}</span>
@@ -72,6 +73,7 @@
                 {{/if}}
             {{/if}}
         </span>
+        {{/if}}
     {{/unless}}{{/if}}
     {{#if network}}
         {{#if network.isNetworkAdmin user._id}}<span class="pu-upper__label">{{ roleLabel.admin }}</span>{{/if}}

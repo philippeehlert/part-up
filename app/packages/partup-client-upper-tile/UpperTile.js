@@ -7,6 +7,17 @@ Template.UpperTile.onCreated(function() {
     user.profile.imageObject = user.profile.imageObject || Images.findOne({_id: user.profile.image});
 });
 
+Template.UpperTile.events({
+    'click [data-start-chat]': function(event, template) {
+        const userId = Meteor.userId();
+
+        if (!userId) {
+            event.preventDefault();
+            Intent.go({route: 'login'});
+        }
+    },
+})
+
 Template.UpperTile.helpers({
     chat(...args) {
         const {
