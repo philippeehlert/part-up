@@ -29,8 +29,9 @@ Template.Start_Nav.onDestroyed(function() {
 
 Template.Start_Nav.events({
     'click [data-anchor]': function(event, template) {
-        const { pathname, search } = window.location;
-        lodash.defer(() => Router.go(`${pathname}${search}`));
+        event.preventDefault();
+        const href = $(event.target).data('anchor');
+        $('html,body').scrollTop($(href).offset().top);
     }
 })
 
