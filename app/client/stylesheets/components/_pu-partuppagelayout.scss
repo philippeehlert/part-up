@@ -67,6 +67,14 @@ $sidebar-min-width: 420px;
         .pu-button-nav.pu-state-active {
             border-color: $color-primary;
         }
+
+        .pu-list-with-right-items {
+            width: calc(100% - 100px);
+
+            .pu-dropdownie-left-moveright {
+                right: -34px;
+            }
+        }
     }
 
     &--section-is-active {
@@ -105,9 +113,7 @@ $sidebar-min-width: 420px;
             height:40px;
             padding: 13px 0px 0px 10px;
         }
-        .pu-dropdownie-left {
-            right: -34px;
-        }
+        
     }
 
     @media screen and (min-width: #{$sidebar-min-width + 20px}) {
