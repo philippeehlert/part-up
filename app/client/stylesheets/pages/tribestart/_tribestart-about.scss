@@ -21,13 +21,14 @@
 
     &__footer {
         background-color: #f9f9f9;
-        padding: 24px 36px;
+        padding: 24px 24px 0px 24px;
         border-radius: 4px;
         min-height: 67px;
 
         &__links {
             &__item {
                 margin-right: 12px;
+                margin-bottom: 12px;
 
                 &:last-child {
                     margin-right: 0;
@@ -55,5 +56,9 @@
     @media screen and (min-width: $breakpoint-tablet) {
         padding-top: 50px;
         padding-bottom: 60px;
+
+        &__footer {
+            padding: 24px 36px 0px 36px;
+        }
     }
 }
