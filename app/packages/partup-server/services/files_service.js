@@ -22,6 +22,11 @@ Partup.server.services.files = {
         var meta = options.meta || {};
         var id = options.id || Random.id();
 
+        var extension = path.extname(filename);
+        var basename = path.basename(filename, extension);
+
+        filename = basename.replace(/[^a-zA-Z0-9 ]/g, '').replace(/ /g, '.') + '-' + id + extension;
+
         var file = {
             _id: id,
             name: filename,
@@ -30,8 +35,7 @@ Partup.server.services.files = {
             meta: meta
         };
 
-        var filekey = id + '-' + filename;
-        s3.putObjectSync({Key: 'files/' + filekey, Body: body, ContentType: mimetype});
+        s3.putObjectSync({Key: 'files/' + filename, Body: body, ContentType: mimetype});
 
         Files.insert(file);
 
@@ -49,8 +53,7 @@ Partup.server.services.files = {
         if (!file) return;
 
         // Remove from S3
-        var filekey = file._id + '-' + file.name;
-        s3.deleteObjectSync({Key: 'files/' + filekey});
+        s3.deleteObjectSync({Key: 'files/' + file.name});
 
         // Remove from DB
         Files.remove(id);
