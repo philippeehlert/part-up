@@ -88,9 +88,9 @@ Template.app_partup_navigation.events({
         var partup = Partups.findOne(template.data.partupId)
 
         Partup.client.prompt.confirm({
-            title: 'Are you sure you want to stop being a partner on' + partup.name,
-            confirmButton: TAPi18n.__('pages-app-network-confirmation-confirm-button'),
-            cancelButton: TAPi18n.__('pages-app-network-confirmation-cancel-button'),
+            title: TAPi18n.__('pages-app-partup-popup-title-unpartner') + ' ' + partup.name,
+            confirmButton: TAPi18n.__('pages-app-popup-confirmation-confirm-button'),
+            cancelButton: TAPi18n.__('pages-app-popup-confirmation-cancel-button'),
             onConfirm: function () {
                 Meteor.call('partups.unpartner', partup)
             }
