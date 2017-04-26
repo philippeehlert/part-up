@@ -1,3 +1,64 @@
+<a name="2.11.0"></a>
+# [2.11.0](https://github.com/part-up/part-up/compare/2.11.1...v2.11.0) (2017-04-21)
+
+
+### Features
+
+* **fixtures:**  Add comments to fixtures ([ad8d81e](https://github.com/part-up/part-up/commit/ad8d81e))
+* **fixtures:** fix readme ([6dd1a0a](https://github.com/part-up/part-up/commit/6dd1a0a))
+* **fixtures:** Prepare fixtures for random _ids ([1dd9d64](https://github.com/part-up/part-up/commit/1dd9d64))
+* **fixtures:** Update README ([9aad5a4](https://github.com/part-up/part-up/commit/9aad5a4))
+* **tribe-menu:** Change margin small screens ([9c604db](https://github.com/part-up/part-up/commit/9c604db))
+
+
+
+<a name="2.11.1"></a>
+## [2.11.1](https://github.com/part-up/part-up/compare/2.11.0...2.11.1) (2017-04-13)
+
+
+### Bug Fixes
+
+* **babel:** added babel preset meteor ([6080ef9](https://github.com/part-up/part-up/commit/6080ef9))
+* **tribes:** fixed tribe partups, the userId was undefined ([bdfc16f](https://github.com/part-up/part-up/commit/bdfc16f))
+* **tribes:** partups page visible for non-loggedin users ([aee5bfe](https://github.com/part-up/part-up/commit/aee5bfe))
+
+
+
+<a name="2.11.0"></a>
+# [2.11.0](https://github.com/part-up/part-up/compare/2.10.3...2.11.0) (2017-04-12)
+
+
+### Bug Fixes
+
+* **activity-invite:** Add reinvite tab ([049bb09](https://github.com/part-up/part-up/commit/049bb09)), closes [#733](https://github.com/part-up/part-up/issues/733)
+* **css:** downgraded autoform-tags to 0.1.3 so it won’t add  bootstrap css and fixed css imports ([18bcad3](https://github.com/part-up/part-up/commit/18bcad3))
+* **home:** fixed home.scss ([394921c](https://github.com/part-up/part-up/commit/394921c))
+* **meteor:** Added bcrypt as root level npm dependency ([84a751f](https://github.com/part-up/part-up/commit/84a751f))
+* **navigation:** fixed last remaining css bug ([667a11a](https://github.com/part-up/part-up/commit/667a11a))
+* **npm:** upgraded to 1.4 and fixed npm depenencies, now we need to wait for the refactor-sass-scss branch ([74c253d](https://github.com/part-up/part-up/commit/74c253d))
+* **sass:** removed all sass files and renamed all files with _ prefix ([692e0b5](https://github.com/part-up/part-up/commit/692e0b5))
+* **scss:** fixed duplicate imports ([7bb6dfa](https://github.com/part-up/part-up/commit/7bb6dfa))
+* **server:** updated simple:json-routes to fix some issues with Meteor.publishComposite ([62ba2c7](https://github.com/part-up/part-up/commit/62ba2c7))
+
+
+### Features
+
+* **acitivt-invite:** Change activity invite ([4a75664](https://github.com/part-up/part-up/commit/4a75664)), closes [#733](https://github.com/part-up/part-up/issues/733)
+* **activity-invite:** Add comments and cleanup ([c168a78](https://github.com/part-up/part-up/commit/c168a78))
+* **activity-invite:** Improve invite status ([bbbb632](https://github.com/part-up/part-up/commit/bbbb632)), closes [#733](https://github.com/part-up/part-up/issues/733)
+* **activity-invites:** added publication for activity invited users [#733](https://github.com/part-up/part-up/issues/733) ([9a4324c](https://github.com/part-up/part-up/commit/9a4324c))
+* **fixtures:** Add random users loop ([dbd86b6](https://github.com/part-up/part-up/commit/dbd86b6))
+* **fixtures:** Add users to part-ups and lanes to boards ([f9f6540](https://github.com/part-up/part-up/commit/f9f6540))
+* **fixtures:** Update _ids to fix match error ([d78c45e](https://github.com/part-up/part-up/commit/d78c45e))
+* **invite-activity:** Change pagination and race condition ([ae0228e](https://github.com/part-up/part-up/commit/ae0228e))
+* **tribe-header:** Add hover color to button icon ([8bf1d38](https://github.com/part-up/part-up/commit/8bf1d38))
+* **tribe-header:** Change tribe-header is clickable ([ea447a5](https://github.com/part-up/part-up/commit/ea447a5))
+* **tribe-header:** Clean commented link ([fbd1ee8](https://github.com/part-up/part-up/commit/fbd1ee8))
+* **tribe-menu:** Add menu to tribe header ([d63505c](https://github.com/part-up/part-up/commit/d63505c))
+* **tribe-menu:** Add support for small screen sizes ([b62fe20](https://github.com/part-up/part-up/commit/b62fe20))
+
+
+
 <a name="2.10.3"></a>
 ## [2.10.3](https://github.com/part-up/part-up/compare/2.10.1...2.10.3) (2017-04-03)
 
@@ -12,6 +73,17 @@
 ## [2.10.1](https://github.com/part-up/part-up/compare/2.10.0...2.10.1) (2017-03-31)
 
 
+### Bug Fixes
+
+* **fixture:** Update fixtures ([d994376](https://github.com/part-up/part-up/commit/d994376))
+* **fixtures:** Add fixtures to package ([e4cc718](https://github.com/part-up/part-up/commit/e4cc718))
+
+
+### Features
+
+* **fixtures:** Add users to partups ([0795390](https://github.com/part-up/part-up/commit/0795390))
+
+
 
 <a name="2.10.0"></a>
 # [2.10.0](https://github.com/part-up/part-up/compare/2.9.6...2.10.0) (2017-03-28)
@@ -20,10 +92,12 @@
 ### Bug Fixes
 
 * **dropbox-chooser:** Set linkType to preview ([c4b7139](https://github.com/part-up/part-up/commit/c4b7139))
+* **fixtures:** Add fixtures to package ([c333ece](https://github.com/part-up/part-up/commit/c333ece))
 
 
 ### Features
 
+* **fixtures:** Add users to partups ([fa2be9d](https://github.com/part-up/part-up/commit/fa2be9d))
 * **refresh:** Added i18n to reload bar ([0f30b90](https://github.com/part-up/part-up/commit/0f30b90))
 * **refresh:** Added more info link ([4ca21e4](https://github.com/part-up/part-up/commit/4ca21e4))
 * **refresh:** Don't trigger auto-reload after version upgrade ([4489551](https://github.com/part-up/part-up/commit/4489551))
@@ -39,6 +113,7 @@
 ### Bug Fixes
 
 * **dropbox-chooser:** Remove link expiration ([ad90e0e](https://github.com/part-up/part-up/commit/ad90e0e)), closes [#964](https://github.com/part-up/part-up/issues/964)
+* **fixture:** Update fixtures ([aa65ea9](https://github.com/part-up/part-up/commit/aa65ea9))
 
 
 
@@ -1120,8 +1195,8 @@
 
 ### BREAKING CHANGES
 
-* package.json: npm run commit instead of npm run cz
-* CHANGELOG.md: convential commit messages max to 1.16.4 version
+* **package.json:** npm run commit instead of npm run cz
+* **CHANGELOG.md:** convential commit messages max to 1.16.4 version
 
 
 
