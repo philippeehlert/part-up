@@ -43,8 +43,6 @@ Partup.helpers.url = {
             '.amazonaws.com/',
             mout.object.get(Meteor, 'settings.public.aws.bucket'),
             '/files/',
-            file._id,
-            '-',
             file.name
         ].join('');
     }
