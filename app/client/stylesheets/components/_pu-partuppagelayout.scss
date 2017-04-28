@@ -68,12 +68,32 @@ $sidebar-min-width: 420px;
             border-color: $color-primary;
         }
 
-        .pu-list-with-right-items {
-            width: calc(100% - 100px);
+        .pu-button-nav-icon {
+            margin-right:2px;
+            padding: 25px 0px 5px 5px;
+        }
+        
+        .pu-dropdownie-left-moveright {
+            right: -34px;
+        }
 
-            .pu-dropdownie-left-moveright {
-                right: -34px;
-            }
+        .small-margin {
+            margin-right:15px;
+        }
+    }
+
+    .pu-sub-smallscreen-navigation {
+        .pu-sub-dropdown-list {
+            padding-top:10px;
+        }
+        .pu-formdropdown-large {
+            width: calc(100% - 150px);
+        }
+        .pu-formdropdown-small {
+            width: calc(100% - 180px);
+        }
+        .pu-sticky-button {
+            margin-top:10px;
         }
     }
 
@@ -97,23 +117,6 @@ $sidebar-min-width: 420px;
     &__only-mediumscreen,
     &__only-largescreen {
         display: none;
-
-        .pu-dropdownie-left {
-            right: -34px;
-        }
-    }
-
-    .pu-sub-smallscreen-navigation {
-        .pu-formdropdown-small {
-            .pu-formdropdown {
-                width: calc(100vw - 100px);
-            }
-        }
-        .pu-button-nav {
-            height:40px;
-            padding: 13px 0px 0px 10px;
-        }
-        
     }
 
     @media screen and (min-width: #{$sidebar-min-width + 20px}) {
@@ -127,6 +130,22 @@ $sidebar-min-width: 420px;
         }
     }
 
+    @media screen and (min-width:1135px) {
+        .pu-list-with-right-items {
+            width:calc(100% - 98px);
+        }
+    }
+    @media screen and (max-width:1134px) {
+        .pu-list-with-right-items {
+            width:calc(100% - 35px);
+        }
+    }
+    @media screen and (min-width:767px) and (max-width:990px) {
+        .pu-list-with-right-items {
+            padding-left: 25px;
+        }
+    }
+
     @media screen and (min-width: $breakpoint-partup-medium) {
         &__only-smallscreen {
             display: none;
@@ -136,6 +155,7 @@ $sidebar-min-width: 420px;
         &__only-largescreen {
             display: block;
         }
+
     }
 
     @media screen and (min-width: $breakpoint-tablet + 1px) {

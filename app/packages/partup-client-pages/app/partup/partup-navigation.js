@@ -67,7 +67,7 @@ Template.app_partup_navigation.helpers({
 });
 
 Template.app_partup_navigation.events({
-    'click [data-toggle-menu]': function (event, template) {
+    'click [data-toggle-cog]': function (event, template) {
         event.preventDefault()
         template.cogToggle.set(!template.cogToggle.curValue)
     },

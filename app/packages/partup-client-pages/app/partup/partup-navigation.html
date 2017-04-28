@@ -1,7 +1,7 @@
 <template name="app_partup_navigation">
     <nav class="pu-navigation pu-navigation-compact">
-        <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
-        <ul class="pu-list pu-list-horizontal pu-list-with-right-items">
+        <!--<div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>-->
+        <ul class="pu-list pu-list-horizontal pu-list-with-right-items {{#if screenSizeIsMaximumWidth 'tablet'}}pu-sub-smallscreen-navigation{{/if}}">
             {{#if screenSizeIsMinimalWidth 'tablet'}}
                 <li>
                     <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
@@ -27,27 +27,30 @@
                         <i class="picon-info-2"></i>
                     </button>
                 </li>
-                <li class="{{#if partup.isEditableBy currentUser}}pu-formdropdown-small{{/if}}">
+                <li class="pu-sub-dropdown-list pu-formdropdown{{#if partup.isEditableBy currentUser}}-small{{else}}-large{{/if}}">
                 {{# with selectorSettings }}
                     {{> PartupNavigationSelector slug=slug partup=data default=currentRoute }}
                 {{/ with }}
                 </li>
             {{/if}}
-            
-            {{# if partup.isEditableBy currentUser}}
             <li class="pu-sub-align-right">
-                <a href="#" class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning" data-toggle-menu>
-                    <i class="picon-cog"></i>
-                </a>
-                {{> Dropdown toggle=cogToggle template="partup_cog" data=. position='left' classes='pu-dropdownie-left-moveright' }}
-            </li>
-            {{/if}}
-            <li class="pu-sub-align-right">
-                <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
-                    <i class="picon-share"></i>
-                    {{_ 'pages-app-partup-menu_share-button'}}
-                </a>
-                {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
+                <ul class="pu-list pu-list-horizontal">            
+                    {{# if partup.isEditableBy currentUser}}
+                    <li class="small-margin">
+                        <a href="#" class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning" data-toggle-cog>
+                            <i class="picon-cog"></i>
+                        </a>
+                        {{> Dropdown toggle=cogToggle template="partup_cog" data=. position='left' classes='pu-dropdownie-left-moveright' }}
+                    </li>
+                    {{/if}}
+                    <li>
+                        <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
+                            <i class="picon-share"></i>
+                            {{_ 'pages-app-partup-menu_share-button'}}
+                        </a>
+                        {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>
