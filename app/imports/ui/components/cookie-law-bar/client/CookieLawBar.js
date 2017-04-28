@@ -26,6 +26,7 @@ Template.CookieLawBar.onRendered(function () {
   });
 
 });
+
 Template.CookieLawBar.events({
   'click .cb-enable': function (event) {
     var $cookiebar = jQuery(event.currentTarget).parent();

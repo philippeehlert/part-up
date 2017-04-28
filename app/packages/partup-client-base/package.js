@@ -115,7 +115,8 @@ Package.onUse(function (api) {
         'views/CenterView.html',
 
         'bootstrap.js',
-        'analytics.js'
+        'analytics.js',
+        'marketto.js'
 
     ], ['client']);
 
