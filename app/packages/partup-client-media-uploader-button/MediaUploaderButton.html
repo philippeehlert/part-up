@@ -12,6 +12,7 @@
                     <i class="picon-caret-down"></i>
                 </button>
                 <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
+                    {{#if screenSizeIsMinimalWidth 'desktop' }}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         <a data-browse-photos href="#"
                            class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
@@ -20,6 +21,7 @@
                                     'dropdowns-updatesactions-computer-types' }}</span>
                         </a>
                     </li>
+                    {{/if}}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         {{> DropboxChooser mediaUploader=mediaUploader }}
                     </li>
