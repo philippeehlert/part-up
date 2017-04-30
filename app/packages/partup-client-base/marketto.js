@@ -1,37 +1,38 @@
+import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
+import { _ } from 'meteor/underscore';
 import { $ } from 'meteor/jquery';
 
-const mk = {
+// * as Cookies from
+
+const marketto = {
     didInit: false,
-    loadMarketto() {
+    loadScript() {
         function initMunchkin() {
             if (didInit === false) {
-                didInit = true;
-                Munchkin.init('449-VWG-450');
+                didInit = true
+                Munchkin.init('449-VWG-450')
             }
         }
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = '//munchkin.marketo.net/munchkin.js';
+        var s = document.createElement('script')
+        s.type = 'text/javascript'
+        s.async = true
+        s.src = '//munchkin.marketo.net/munchkin.js'
         s.onreadystatechange = function () {
             if (this.readyState == 'complete' || this.readyState == 'loaded') {
-                initMunchkin();
+                initMunchkin()
             }
         };
-        s.onload = initMunchkin;
-        document.getElementsByTagName('body')[0].appendChild(s);
+        s.onload = initMunchkin
+        document.getElementsByTagName('body')[0].appendChild(s)
     }
 }
 
-Meteor.startup(function () {
-    $(window).load(function () {
-        if (Cookies.get('cb-enabled') === 'enabled') {
-            mk.loadMarketto();
-        } else {
-            $(document).on('click', '.cb-enable', function () {
-                if (mk.didInit) return;
-                mk.loadMarketto();
-            });
-        }
-    });
+Tracker.autorun((computation) => {
+    if ((Cookies.get('cb-enabled') === 'enabled' || Session.get('cookiesEnabled') === 'enabled') && !marketto.didInit) {
+        $(document).ready(() => { 
+            marketto.loadScript()
+        })
+        computation.stop()
+    }
 })
