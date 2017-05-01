@@ -71,7 +71,7 @@
                     {{else}}
                         <nav class="pu-navigation pu-navigation-header pu-navigation-compact">
                             <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap pu-sub-smallscreen-navigation">
-                                <li>
+                                <li class="{{#unless data.network.isClosedForupper currentUserId}}{{#if data.network.hasMember currentUserId}}pu-sub-shrinkforcog{{/if}}{{/unless}}">
                                     {{#with data.selectorSettings}}
                                         {{> NetworkNavigationSelector default=currentRoute slug=slug network=network }}
                                     {{/with}}
