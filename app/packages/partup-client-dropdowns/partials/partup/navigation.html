@@ -9,7 +9,7 @@
                 {{#each options}}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         <a href="#" data-select-option data-toggle-menu>
-                            <i class="picon-{{ icon }}" icon></i> {{ name }} {{#if selected .}}<i class="picon-check"></i>{{/if}}
+                            {{#if selected .}}<i class="picon-check"></i>{{/if}}<i class="picon-{{ icon }}" icon></i> {{ name }}
                         </a>
                     </li>
                 {{/each}}

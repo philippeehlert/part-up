@@ -23,14 +23,14 @@ Template.PartupNavigationSelector.onCreated(function() {
         icon: 'documents'
     }];
 
-    if (partup.isEditableBy(Meteor.user())) {
-        template.options.push({
-            name: TAPi18n.__('pages-app-partup-menu_settings'),
-            route: 'partup-settings',
-            slug: partupSlug,
-            icon: 'cog'
-        });
-    }
+    // if (partup.isEditableBy(Meteor.user())) {
+    //     template.options.push({
+    //         name: TAPi18n.__('pages-app-partup-menu_settings'),
+    //         route: 'partup-settings',
+    //         slug: partupSlug,
+    //         icon: 'cog'
+    //     });
+    // }
 
     var defaultOption = template.options[0];
 
