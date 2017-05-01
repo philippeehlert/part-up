@@ -3,8 +3,6 @@ import { Tracker } from 'meteor/tracker';
 import { _ } from 'meteor/underscore';
 import { $ } from 'meteor/jquery';
 
-// * as Cookies from
-
 const marketto = {
     didInit: false,
     loadScript() {
@@ -30,9 +28,7 @@ const marketto = {
 
 Tracker.autorun((computation) => {
     if ((Cookies.get('cb-enabled') === 'enabled' || Session.get('cookiesEnabled') === 'enabled') && !marketto.didInit) {
-        $(document).ready(() => { 
-            marketto.loadScript()
-        })
+        $(window).on('load', marketto.loadScript)
         computation.stop()
     }
 })
