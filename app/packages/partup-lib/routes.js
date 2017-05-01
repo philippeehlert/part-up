@@ -458,6 +458,22 @@ Router.route('/partups/:slug/documents', {
     }
 });
 
+Router.route('/partups/:slug/conversations', {
+    name: 'partup-conversations',
+    where: 'client',
+    yieldRegions: {
+        'app':                {to: 'main'},
+        'app_partup':         {to: 'app'},
+        'app_partup_updates': {to: 'app_partup'}
+    },
+    data: function() {
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+            defaultFilter: 'conversations'
+        };
+    }
+});
+
 Router.route('/partups/:slug/invite', {
     name: 'partup-invite',
     where: 'client',
