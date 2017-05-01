@@ -224,7 +224,7 @@ Updates.findForPartup = function(partup, parameters, userId) {
             selector.has_documents = true;
         } else if (filter === 'links') {
             selector.has_links = true;
-        } else if (filter === 'discussions') {
+        } else if (filter === 'conversations') {
             selector.$or = [{type: {$regex: '.*message.*'}}, {comments_count: {$gt: 0}}];
         }
     }
