@@ -6,7 +6,8 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
-        'tap:i18n'
+        'tap:i18n',
+        'ecmascript',
     ], ['client', 'server']);
 
     api.use([

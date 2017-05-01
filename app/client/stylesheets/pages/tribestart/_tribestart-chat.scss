@@ -1,0 +1,53 @@
+.pu-tribestart-chat {
+    padding-top: 27px;
+    padding-bottom: 40px;
+    background-color: #f9f9f9;
+    text-align: center;
+
+    &__title {
+        margin-bottom: 16px;
+    }
+
+    &__paragraph {
+        max-width: 540px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    &__admins {
+        margin-bottom: 40px;
+        margin-left: -10px;
+        margin-right: -10px;
+
+        &__item {
+            max-width: 275px;
+            text-align: left;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__uppers-title {
+        margin-bottom: 50px;
+        font-weight: 400;
+    }
+
+    &__uppers {
+
+        &__item {
+            margin-left: -10px;
+            background-color: #fff;
+            border-radius: 50%;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        padding-top: 50px;
+        padding-bottom: 60px;
+    }
+}

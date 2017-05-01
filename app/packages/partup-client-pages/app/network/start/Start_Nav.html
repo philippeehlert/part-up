@@ -1,0 +1,18 @@
+<template name="Start_Nav">
+    <div class="
+        pu-tribestart-nav
+        {{#if state.fadeIn}} pu-tribestart-nav--fade-in{{/if}}">
+        <div class="
+            pu-tribestart-nav__container
+            {{#if state.attached}} pu-tribestart-nav__container-attached{{/if}}">
+            <div class="pu-tribestart-wrap">
+                <ul class="pu-list pu-list-horizontal pu-tribestart-nav__list">
+                    <li><a class="pu-tribestart-nav__listitem" href="#" data-anchor="#video">{{_ 'pages-app-network-landing-nav-why' }}</a></li>
+                    <li><a class="pu-tribestart-nav__listitem" href="#" data-anchor="#chat">{{_ 'pages-app-network-landing-nav-who' }}</a></li>
+                    <li><a class="pu-tribestart-nav__listitem" href="#" data-anchor="#about">{{_ 'pages-app-network-landing-nav-about' }}</a></li>
+                    <li><a class="pu-tribestart-nav__listitem" href="#" data-anchor="#most-active">{{_ 'pages-app-network-landing-nav-partups' }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

@@ -33,7 +33,8 @@ Package.onUse(function(api) {
         'simple:rest-bearer-token-parser',
         'simple:authenticate-user-by-token',
         'anonyfox:scrape',
-        '3stack:accounts-logout-hook'
+        '3stack:accounts-logout-hook',
+        'ecmascript'
     ], ['server']);
 
     api.addFiles([

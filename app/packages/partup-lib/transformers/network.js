@@ -22,7 +22,11 @@ Partup.transformers.network = {
             background_image: network.background_image,
             image: network.image,
             icon: network.icon,
-            sector: network.sector
+            sector: network.sector,
+            facebook_url: lodash.get(network, 'facebook_url', ''),
+            twitter_url: lodash.get(network, 'twitter_url', ''),
+            instagram_url: lodash.get(network, 'instagram_url', ''),
+            linkedin_url: lodash.get(network, 'linkedin_url', ''),
         };
     },
 
@@ -53,8 +57,13 @@ Partup.transformers.network = {
             language: Partup.server.services.google.detectLanguage(fields.description),
             background_image: fields.background_image,
             image: fields.image,
-            icon: fields.icon
+            icon: fields.icon,
+            facebook_url: lodash.get(fields, 'facebook_url', ''),
+            twitter_url: lodash.get(fields, 'twitter_url', ''),
+            instagram_url: lodash.get(fields, 'instagram_url', ''),
+            linkedin_url: lodash.get(fields, 'linkedin_url', ''),
         };
+
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) network.location = newLocation;

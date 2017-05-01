@@ -35,7 +35,7 @@ Template.TribeTile.events({
         if (!preventOpen) {
             event.preventDefault();
             var networkSlug = $(event.currentTarget).data('open-network');
-            Router.go('network-detail', {slug: networkSlug});
+            Router.go('network', {slug: networkSlug});
         }
     }
 });

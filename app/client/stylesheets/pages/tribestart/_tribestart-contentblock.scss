@@ -1,0 +1,31 @@
+.pu-tribestart-contentblock {
+    > h2 {
+        color: #999999;
+        font-size: 19px;
+    }
+
+    > p {
+        color: #999999;
+        font-size: 16px;
+    }
+
+    > blockquote {
+        color: rgb(87, 192, 201);
+        fon-size: 18px;
+
+        &:before, &:after {
+            content: '"';
+        }
+    }
+
+    > ul:not([class]) {
+        color: #999999;
+        font-size: 16px;
+
+        > li {
+            color: #999999;
+            font-size: 16px;
+        }
+    }
+
+}

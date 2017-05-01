@@ -11,7 +11,8 @@ Package.onUse(function(api) {
         'templating',
         'aldeed:autoform',
         'reactive-var',
-        'reactive-dict'
+        'reactive-dict',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

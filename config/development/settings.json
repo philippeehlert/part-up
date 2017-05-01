@@ -1,6 +1,6 @@
 {
     "public": {
-        "development": true,
+        "development": false,
         "aws": {
             "bucket": "partup-development",
             "region": "eu-west-1"

@@ -128,7 +128,11 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  */
 Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
+<<<<<<< HEAD
     const userId = this.userId;
+=======
+
+>>>>>>> 795ba51fc40058373542054f099256e645d354c2
     check(urlParams, {
         slug: Match.Optional(String)
     });
@@ -144,6 +148,8 @@ Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) 
         archived: Match.Optional(String),
         textSearch: Match.Optional(String)
     });
+
+    const userId = this.userId || parameters && parameters.userId;
 
     const options = {};
     if (parameters.limit) options.limit = parameters.limit;

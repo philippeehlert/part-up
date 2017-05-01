@@ -9,7 +9,8 @@ Package.onUse(function(api) {
 
     api.use([
         'ecmascript',
-        'templating'
+        'templating',
+        'ecmascript',
     ], 'client');
 
 

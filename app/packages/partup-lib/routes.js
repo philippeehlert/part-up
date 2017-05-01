@@ -815,6 +815,21 @@ Router.route('/tribes/:slug/settings', {
     }
 });
 
+Router.route('/tribes/:slug/settings/landing', {
+    name: 'network-settings-landing',
+    where: 'client',
+    yieldRegions: {
+        'modal':                         {to: 'main'},
+        'modal_network_settings':        {to: 'modal'},
+        'modal_network_settings_landing': {to: 'modal_network_settings'}
+    },
+    data: function() {
+        return {
+            networkSlug: this.params.slug
+        };
+    }
+});
+
 Router.route('/tribes/:slug/settings/uppers', {
     name: 'network-settings-uppers',
     where: 'client',

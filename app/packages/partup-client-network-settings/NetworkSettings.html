@@ -188,6 +188,53 @@
             </div>
         </label>
 
+        <!-- Socials -->
+        <fieldset class="pu-formfield">
+            <label class="pu-label" for="pu-sub-facebookfield">
+                {{_ 'network-settings-form-socials-label' }}
+                <a class="pu-hint pu-tooltip">
+                    <i class="picon-question"></i>
+                    <span class="pu-tooltip-wrapper"><p class="pu-paragraph">{{_ 'network-settings-form-socials-tooltip' }}</p></span>
+                </a>
+            </label>
+
+            <!-- Facebook -->
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='facebook_url' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                    {{> afFieldInput class='pu-input' name='facebook_url' placeholder=placeholders.facebook_url }}
+                    <span class="pu-icon"><i class="picon-facebook"></i></span>
+                </div>
+                <span class="pu-sub-error">{{ afFieldMessage name='facebook_url' }}</span>
+            </div>
+
+            <!-- Twitter -->
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='twitter_url' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                    {{> afFieldInput class='pu-input' name='twitter_url' placeholder=placeholders.twitter_url }}
+                    <span class="pu-icon"><i class="picon-twitter"></i></span>
+                </div>
+                <span class="pu-sub-error">{{ afFieldMessage name='twitter_url' }}</span>
+            </div>
+
+            <!-- Instagram -->
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='instagram_url' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                    {{> afFieldInput class='pu-input' name='instagram_url' placeholder=placeholders.instagram_url }}
+                    <span class="pu-icon"><i class="picon-instagram"></i></span>
+                </div>
+                <span class="pu-sub-error">{{ afFieldMessage name='instagram_url' }}</span>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='linkedin_url' }}pu-state-invalid{{/if}}">
+                <div class="pu-sub-input pu-inputholder pu-inputholder-lefticon">
+                    {{> afFieldInput class='pu-input' name='linkedin_url' placeholder=placeholders.linkedin_url }}
+                    <span class="pu-icon"><i class="picon-linkedin"></i></span>
+                </div>
+                <span class="pu-sub-error">{{ afFieldMessage name='linkedin_url' }}</span>
+            </div>
+        </fieldset>
+
         <!-- background_image -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'network-settings-form-backgroundimage-label' }}</span>

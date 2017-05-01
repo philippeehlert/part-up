@@ -1,0 +1,47 @@
+<template name="Start_About">
+    <div class="pu-tribestart-about">
+        <div class="pu-tribestart-wrap pu-tribestart-about__container">
+            <h2 class="pu-tribestart-subtitle pu-tribestart-about__title"><span>{{data.about_title}}</span></h2>
+            <div class="pu-contentblock pu-tribestart-about__content pu-tribestart-contentblock">
+                {{{data.about_body}}}
+                <a class="pu-link pu-tribestart-about__readmore" href="{{ pathFor route='network-about' slug=data.slug }}">{{_ 'pages-app-network-landing-about-link-readmore'}}</a>
+            </div>
+            {{#with data.links}}{{#unless isEmpty}}
+                <div class="pu-tribestart-about__footer">
+                    <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-tribestart-about__footer__links">
+                        {{#with website}}
+                            <li class="pu-tribestart-about__footer__links__item">
+                                <a class="pu-tribestart-about__footer__link" href="{{ partupHTTP . }}" target="_blank"><i class="picon-monitor"></i><span>{{ partupCleanUrl . }}</span></a>
+                            </li>
+                        {{/with}}
+                        <li class="pu-sub-align-right pu-tribestart-about__footer__links__item">
+                            <ul class="pu-list pu-list-horizontal">
+                                {{#with facebook_url}}
+                                    <li class="pu-tribestart-about__footer__links__item">
+                                        <a class="pu-tribestart-about__footer__link" href="{{.}}" target="_blank"><i class="picon-facebook"></i></a>
+                                    </li>
+                                {{/with}}
+                                {{#with twitter_url}}
+                                    <li class="pu-tribestart-about__footer__links__item">
+                                        <a class="pu-tribestart-about__footer__link" href="{{.}}" target="_blank"><i class="picon-twitter"></i></a>
+                                    </li>
+                                {{/with}}
+                                {{#with linkedin_url}}
+                                    <li class="pu-tribestart-about__footer__links__item">
+                                        <a class="pu-tribestart-about__footer__link" href="{{.}}" target="_blank"><i class="picon-linkedin"></i></a>
+                                    </li>
+                                {{/with}}
+                                {{#with instagram_url}}
+                                    <li class="pu-tribestart-about__footer__links__item">
+                                        <a class="pu-tribestart-about__footer__link" href="{{.}}" target="_blank"><i class="picon-instagram"></i></a>
+                                    </li>
+                                {{/with}}
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            {{/unless}}{{/with}}
+        </div>
+    </div>
+</template>

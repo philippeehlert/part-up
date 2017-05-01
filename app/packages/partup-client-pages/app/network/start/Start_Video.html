@@ -1,0 +1,29 @@
+<template name="Start_Video">
+    <div class="pu-tribestart-intro">
+        <div class="pu-tribestart-wrap">
+            <div class="pu-tribestart-block pu-tribestart-intro__video">
+                {{> Start_Video_Embed url=data.video_url poster=data.video_placeholder}}
+            </div>
+            <div class="pu-tribestart-block pu-tribestart-textblock">
+                <h2 class="pu-tribestart-subtitle pu-tribestart-textblock__title"><span>{{data.why_title}}</span></h2>
+                <div class="pu-contentblock pu-tribestart-intro__content pu-tribestart-contentblock">
+                    {{{data.why_body}}}
+                </div>
+                {{> Start_JoinButton }}
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="Start_Video_Embed">
+    <div class="pu-video {{#if play}}pu-video-active{{/if}}">
+        {{#unless play}}<figure style="background-image:url({{poster}});" alt="" data-play></figure>{{/unless}}
+        {{#if play}}
+            {{#if isYoutube url}}
+                <iframe src="https://www.youtube.com/embed/{{youtubeId url}}?rel=0&showinfo=0&autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {{ else }}
+                <iframe src="https://player.vimeo.com/video/{{vimeoId url}}?color=ffffff&title=0&byline=0&portrait=0&badge=0&autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {{/if}}
+        {{/if}}
+    </div>
+</template>

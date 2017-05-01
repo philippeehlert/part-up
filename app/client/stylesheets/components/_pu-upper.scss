@@ -16,6 +16,11 @@
                 position: absolute;
                 bottom: -14px;
                 right: -14px;
+
+                &-tiny {
+                    bottom: 0;
+                    right: 0;
+                }
             }
         }
 
@@ -86,6 +91,10 @@
     .pu-stats .pu-sub-button {
         transition: opacity 0.2s;
         opacity: 0;
+
+        &--always-visible {
+            opacity: 1;
+        }
     }
 
     &__label {
@@ -101,6 +110,23 @@
         margin-bottom: -20px;
         padding: 20px;
         text-align: right;
+    }
+
+    &__similarities {
+        display: block;
+        padding: 12px 20px;
+        background-color: #f9f9f9;
+        font-family: $font-primary;
+        border-top: solid 2px #eeeeee;
+        color: $color-primary;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.14;
+        margin-top: 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: -20px;
     }
 
     &:hover,
