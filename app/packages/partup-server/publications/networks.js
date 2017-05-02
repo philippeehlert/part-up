@@ -128,7 +128,6 @@ Meteor.publishComposite('networks.one', function(networkSlug) {
  */
 Meteor.publishComposite('networks.one.partups', function(urlParams, parameters) {
     if (this.unblock) this.unblock();
-    const userId = this.userId;
 
     check(urlParams, {
         slug: Match.Optional(String)
