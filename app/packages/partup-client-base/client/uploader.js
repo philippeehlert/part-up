@@ -296,7 +296,7 @@ Partup.client.uploader = {
             fileInput = new mOxie.FileInput({
                 browse_button: buttonElement, // or document.getElementById('file-picker')
                 accept: [
-                    {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
+                    {title: 'Custom filetype', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join() }
                 ],
                 multiple: multiple, // allow multiple file selection
                 runtime_order: 'flash,silverlight,html4,html5',

@@ -25,9 +25,16 @@ Partup.helpers.fileUploader.allowedExtensions = {
         Partup.helpers.fileUploader.spreadSheetExtensions
     ])
 };
+
 Partup.helpers.fileUploader.allowedExtensions.all = lodash.flatten([
     Partup.helpers.fileUploader.allowedExtensions.images,
     Partup.helpers.fileUploader.allowedExtensions.docs
+]);
+
+// IE requires the filetypes without "."
+Partup.helpers.fileUploader.allowedExtensions.ie = lodash.flatten([
+    Partup.helpers.fileUploader.allowedExtensions.images.map(filetype => filetype.replace(/\./g, "")),
+    Partup.helpers.fileUploader.allowedExtensions.docs.map(filetype => filetype.replace(/\./g, "")),
 ]);
 
 Partup.helpers.fileUploader.getAllExtensions = function() {
@@ -35,6 +42,8 @@ Partup.helpers.fileUploader.getAllExtensions = function() {
         return Partup.helpers.fileUploader.allowedExtensions[type];
     }).flatten().value();
 };
+
+
 
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
