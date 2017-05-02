@@ -116,7 +116,7 @@ Package.onUse(function (api) {
 
         'bootstrap.js',
         'analytics.js',
-        'marketto.js'
+        'marketo.js'
 
     ], ['client']);
 
