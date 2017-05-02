@@ -391,7 +391,8 @@ Router.route('/partups/:slug', {
     data: function() {
         return {
             partupId: Partup.client.strings.partupSlugToId(this.params.slug),
-            accessToken: this.params.query.token
+            accessToken: this.params.query.token,
+            defaultFilter: 'conversations'
         };
     },
     onRun: function() {
@@ -458,8 +459,8 @@ Router.route('/partups/:slug/documents', {
     }
 });
 
-Router.route('/partups/:slug/conversations', {
-    name: 'partup-conversations',
+Router.route('/partups/:slug/updates', {
+    name: 'partup-updates',
     where: 'client',
     yieldRegions: {
         'app':                {to: 'main'},
@@ -468,8 +469,7 @@ Router.route('/partups/:slug/conversations', {
     },
     data: function() {
         return {
-            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
-            defaultFilter: 'conversations'
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug)
         };
     }
 });
