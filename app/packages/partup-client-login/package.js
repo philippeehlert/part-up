@@ -13,7 +13,8 @@ Package.onUse(function(api) {
         'accounts-password',
         'partup-lib',
         'reactive-var',
-        'reactive-dict'
+        'reactive-dict',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

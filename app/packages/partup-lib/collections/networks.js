@@ -658,7 +658,8 @@ Networks.guardedMetaFind = function(selector, options) {
         'collegues',
         'collegues_custom_a',
         'collegues_custom_b',
-        'sector'
+        'sector',
+        'content'
     ];
 
     unguardedFields.forEach(function(unguardedField) {

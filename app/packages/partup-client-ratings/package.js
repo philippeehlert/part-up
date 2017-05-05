@@ -10,7 +10,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup-lib',
-        'reactive-dict'
+        'reactive-dict',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

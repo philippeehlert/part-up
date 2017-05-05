@@ -1,12 +1,11 @@
 <template name="app_partup_navigation">
     <nav class="pu-navigation pu-navigation-compact">
-        <!--<div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>-->
         <ul class="pu-list pu-list-horizontal pu-list-with-right-items {{#if screenSizeIsMaximumWidth 'tablet'}}pu-sub-smallscreen-navigation{{/if}}">
             {{#if screenSizeIsMinimalWidth 'tablet'}}
                 <li>
                     <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
-                        <i class="picon-globe"></i>
-                        {{_ 'pages-app-partup-menu_updates'}}
+                        <i class="picon-message"></i>
+                        {{_ 'pages-app-partup-menu_conversations'}}
                     </a>
                 </li>
                 <li>
@@ -18,7 +17,23 @@
                 <li>
                     <a href="{{pathFor 'partup-documents' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-documents' class='pu-state-active'}}">
                         <i class="picon-documents"></i>
-                        {{_ 'pages-app-partup-menu_documents'}}
+                        <span class="onlylarge">
+                            {{_ 'pages-app-partup-menu_documents'}}
+                        </span>
+                        <span class="notlarge">
+                            {{_ 'pages-app-partup-menu_documents_abbr_small'}}
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{pathFor 'partup-updates' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-updates' class='pu-state-active'}}">
+                        <i class="picon-globe"></i>
+                        <span class="onlylarge">
+                            {{_ 'pages-app-partup-menu_updates'}}
+                        </span>
+                        <span class="notlarge">
+                            {{_ 'pages-app-partup-menu_updates_abbr'}}
+                        </span>
                     </a>
                 </li>
             {{else}}

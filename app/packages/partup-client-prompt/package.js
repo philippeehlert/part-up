@@ -9,7 +9,8 @@ Package.onUse(function(api) {
 
     api.use([
         'templating',
-        'reactive-var'
+        'reactive-var',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

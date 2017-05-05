@@ -259,7 +259,19 @@ Template.NetworkSettings.helpers({
             },
             website: function() {
                 return TAPi18n.__('network-settings-form-website-placeholder');
-            }
+            },
+            'facebook_url': function() {
+                return TAPi18n.__('network-settings-form-facebook_url-placeholder');
+            },
+            'twitter_url': function() {
+                return TAPi18n.__('network-settings-form-twitter_url-placeholder');
+            },
+            'instagram_url': function() {
+                return TAPi18n.__('network-settings-form-instagram_url-placeholder');
+            },
+            'linkedin_url': function() {
+                return TAPi18n.__('network-settings-form-linkedin_url-placeholder');
+            },
         };
     }
 
@@ -279,7 +291,6 @@ AutoForm.addHooks('networkEditForm', {
         var self = this;
         var template = self.template.parent();
         var network = Networks.findOne({slug: template.data.networkSlug});
-
         template.submitting.set(true);
 
         Meteor.call('networks.update', network._id, doc, function(err) {

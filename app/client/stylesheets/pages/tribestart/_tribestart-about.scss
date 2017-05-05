@@ -1,0 +1,64 @@
+.pu-tribestart-about {
+    padding-top: 27px;
+    padding-bottom: 40px;
+
+    &__title {
+        margin-bottom: 16px;
+    }
+
+    &__content {
+        margin-bottom: 40px;
+    }
+
+    &__container.pu-tribestart-wrap {
+        max-width: 630px;
+    }
+
+    &__readmore {
+        font-size: 16px;
+        line-height: 28.8px;
+    }
+
+    &__footer {
+        background-color: #f9f9f9;
+        padding: 24px 24px 0px 24px;
+        border-radius: 4px;
+        min-height: 67px;
+
+        &__links {
+            &__item {
+                margin-right: 12px;
+                margin-bottom: 12px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &__link {
+            color: #999;
+            text-decoration: none;
+            font-size: 16px;
+
+            i + span {
+                margin-left: 12px;
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                color: darken(#999, 10%);
+            }
+        }
+    }
+
+    @media screen and (min-width: $breakpoint-tablet) {
+        padding-top: 50px;
+        padding-bottom: 60px;
+
+        &__footer {
+            padding: 24px 36px 0px 36px;
+        }
+    }
+}

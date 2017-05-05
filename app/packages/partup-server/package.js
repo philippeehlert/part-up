@@ -30,8 +30,11 @@ Package.onUse(function(api) {
         'peerlibrary:aws-sdk',
         'simple:rest',
         'simple:json-routes',
+        'simple:rest-bearer-token-parser',
+        'simple:authenticate-user-by-token',
         'anonyfox:scrape',
-        '3stack:accounts-logout-hook'
+        '3stack:accounts-logout-hook',
+        'ecmascript'
     ], ['server']);
 
     api.addFiles([
@@ -120,6 +123,7 @@ Package.onUse(function(api) {
         'services/slugify_service.js',
         'services/swarms_service.js',
         'services/system_messages_service.js',
+        'services/files_service.js',
         'seo/routes.js',
         'event_handlers/any_handler.js',
         'event_handlers/partups/partups_handler.js',
@@ -180,6 +184,7 @@ Package.onUse(function(api) {
         'publications/sectors.js',
         'publications/boards.js',
         'publications/invites.js',
+        'publications/files.js',
         'routes/hooks.js',
         'routes/middleware.js',
         'routes/csv/csv_routes.js',
@@ -187,6 +192,8 @@ Package.onUse(function(api) {
         'routes/partups/partups_routes.js',
         'routes/networks/networks_routes.js',
         'routes/users/users_routes.js',
+        'routes/sitemap/sitemap_routes.js',
+        'routes/files/files_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
         'methods/activities/activities_methods.js',
@@ -226,6 +233,7 @@ Package.onUse(function(api) {
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
         'cron/set_network_updated_at.js',
+        'cron/update_sitemap.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);

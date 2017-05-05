@@ -1,70 +1,41 @@
 Template.app_network_start.onCreated(function() {
-    var template = this;
-    var networkSlug = template.data.networkSlug;
-    template.loaded = new ReactiveVar(false);
-    template.subscribe('networks.one', networkSlug, {
-        onReady: function() {
-            var network = Networks.findOne({slug: networkSlug});
+    const { networkSlug: slug } = this.data;
+    this.networkLoaded = new ReactiveVar(false);
+    this.partupsLoaded = new ReactiveVar(false);
+    this.uppersLoaded = new ReactiveVar(false);
+
+    this.subscribe('networks.one', slug, {
+        onReady: () => {
+            const network = Networks.findOne({slug});
             if (!network) Router.pageNotFound('network');
-            template.loaded.set(true);
+            this.networkLoaded.set(true);
         }
     });
-    template.subscribe('networks.one.partups', {slug: networkSlug});
-    template.maxTags = 5;
+    this.subscribe('networks.one.partups', {slug}, {
+        onReady: () => this.partupsLoaded.set(true),
+    });
+    this.subscribe('networks.one.uppers', {slug}, {
+        onReady: () => this.uppersLoaded.set(true),
+    });
+
+    this.getHeaderHeight = () => {
+        return this.$('[data-header]').height();
+    };
 });
 
 Template.app_network_start.helpers({
-    data: function() {
-        var template = Template.instance();
-        var self = this;
-        var network = Networks.findOne({slug: self.networkSlug});
-        if (!network) return;
-
-        Partup.client.windowTitle.setContextName(network.name);
-
+    state(...args) {
+        const template = Template.instance();
         return {
-            network: function() {
-                return network;
+            networkLoaded: () => template.networkLoaded.get(),
+            loaded: () => {
+                return !!(
+                    template.networkLoaded.get() &&
+                    template.partupsLoaded.get() &&
+                    template.uppersLoaded.get()
+                );
             },
-            partups: function() {
-                return Partups.findForNetwork(network);
-            },
-            activeUppers: function() {
-                return {
-                    uppers: network.most_active_uppers,
-                    totalUppers: network.stats.upper_count,
-                    networkSlug: self.networkSlug,
-                    networkId: network._id
-                };
-            },
-            activePartups: function() {
-                return {
-                    partups: network.most_active_partups,
-                    totalPartups: network.stats.partup_count,
-                    networkSlug: self.networkSlug,
-                    networkId: network._id
-                };
-            }
+            getHeaderHeight: () => template.getHeaderHeight,
         };
-    },
-    state: function() {
-        var template = Template.instance();
-        return {
-            loaded: function() {
-                return template.loaded.get();
-            }
-        };
-    }
-});
-Template.app_network_start.events({
-    'click [data-open-networksettings]': function(event, template) {
-        event.preventDefault();
-        var networkSlug = template.data.networkSlug;
-        Intent.go({
-            route: 'network-settings',
-            params: {
-                slug: networkSlug
-            }
-        });
     }
 });

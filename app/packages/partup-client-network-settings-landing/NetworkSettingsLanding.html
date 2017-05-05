@@ -1,0 +1,211 @@
+<template name="NetworkSettingsLanding">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-networksettings-landing">
+        <h2 class="pu-title pu-title-modal">{{_ 'network-settings-landing-intro-title' }}</h2>
+        <p>{{_ 'network-settings-landing-intro-paragraph' }}</p>
+
+        {{#
+            autoForm
+            id='networkEditLandingForm'
+            schema=form.schema
+            doc=form.doc
+            validation="submitThenKeyup"
+            class="pu-form"
+        }}
+            <!-- video_url -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-video-url-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='video_url' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='video_url'
+                            placeholder=placeholders.video_url
+                            class='pu-input'
+                            maxlength=form.schema._schema.video_url.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='video_url' }}</span>
+                </div>
+            </label>
+
+            <!-- video_placeholder_image -->
+            <div class="pu-formfield">
+                <span class="pu-label">{{_ 'network-settings-landing-form-video-placeholder-label' }}</span>
+                <div class="pu-upload">
+                    <figure style="background-image:url('{{ data.previewImage }}')" class="pu-imagepreview"></figure>
+                    {{# FileInput inputSettings=form.imageInput }}
+                        <button type="button" class="pu-button pu-button-secondary {{# if state.imageUploading }}pu-state-loading{{/ if }}" data-image-browse>
+                            <span>{{_ 'network-settings-landing-form-video-placeholder-button' }}</span>
+                            {{> Spinner color='inverted' type='small' }}
+                        </button>
+
+                        <span class="pu-hint">{{_ 'network-settings-landing-form-video-placeholder-info' }}</span>
+
+                        <input type="file" class="pu-fileinput" data-image-input>
+                    {{/FileInput}}
+                    {{> afFieldInput name="video_placeholder_image" type="hidden" }}
+                </div>
+            </div>
+
+            <!-- why_title -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-why-title-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='why_title' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='why_title'
+                            placeholder=placeholders.why_title
+                            class='pu-input'
+                            maxlength=form.schema._schema.why_title.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='why_title' }}</span>
+                </div>
+            </label>
+
+            <!-- why_body -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-why-body-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='why_body' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+
+                        {{# Wysiwyg inputSettings=form.whyBodyInput }}
+                            {{> afFieldInput
+                                name='why_body'
+                                class='pu-input'
+                                type="hidden"
+                                data-why-body=""
+                            }}
+                        {{/ Wysiwyg}}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='why_body' }}</span>
+                </div>
+            </label>
+
+            <!-- chat_title -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-chat-title-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_title' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='chat_title'
+                            placeholder=placeholders.chat_title
+                            class='pu-input'
+                            maxlength=form.schema._schema.chat_title.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_title' }}</span>
+                </div>
+            </label>
+
+            <!-- chat_body -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-chat-body-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_body' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+
+                        {{# Wysiwyg inputSettings=form.chatBodyInput }}
+                            {{> afFieldInput
+                                name='chat_body'
+                                class='pu-input'
+                                type="hidden"
+                                data-chat-body=""
+                            }}
+                        {{/ Wysiwyg}}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_body' }}</span>
+                </div>
+            </label>
+
+            <!-- chat_subtitle -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-chat-subtitle-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='chat_subtitle' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='chat_subtitle'
+                            placeholder=placeholders.chat_subtitle
+                            class='pu-input'
+                            maxlength=form.schema._schema.chat_subtitle.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='chat_subtitle' }}</span>
+                </div>
+            </label>
+
+            <!-- about_title -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-about-title-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='about_title' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput
+                            name='about_title'
+                            placeholder=placeholders.about_title
+                            class='pu-input'
+                            maxlength=form.schema._schema.about_title.max
+                        }}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='about_title' }}</span>
+                </div>
+            </label>
+
+            <!-- about_body -->
+            <label class="pu-formfield">
+                <span class="pu-label">
+                    {{_ 'network-settings-landing-form-about-body-label' }}
+                </span>
+
+                <div class="pu-sub-validations {{# if afFieldIsInvalid name='about_body' }}pu-state-invalid{{/ if }}">
+                    <span class="pu-sub-input">
+
+                        {{# Wysiwyg inputSettings=form.aboutBodyInput }}
+                            {{> afFieldInput
+                                name='about_body'
+                                class='pu-input'
+                                type="hidden"
+                                data-about-body=""
+                            }}
+                        {{/ Wysiwyg}}
+
+                    </span>
+                    <span class="pu-sub-error">{{ afFieldMessage name='about_body' }}</span>
+                </div>
+            </label>
+
+            <div class="pu-formfield">
+                <button type="submit" class="pu-button {{# if state.submitting }}pu-state-disabled pu-state-loading{{/ if }}">
+                    <span>{{_ 'network-settings-landing-form-save-button'}}</span>
+                    {{> Spinner color='inverted' type='small' }}
+                </button>
+            </div>
+
+        {{/autoForm}}
+    </div>
+</template>

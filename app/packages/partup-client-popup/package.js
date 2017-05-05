@@ -9,7 +9,8 @@ Package.onUse(function(api) {
 
     api.use([
         'templating',
-        'aldeed:autoform'
+        'aldeed:autoform',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

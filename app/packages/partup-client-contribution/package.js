@@ -11,7 +11,8 @@ Package.onUse(function(api) {
         'templating',
         'aldeed:autoform',
         'partup-lib',
-        'reactive-var'
+        'reactive-var',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

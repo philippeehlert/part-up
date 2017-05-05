@@ -6,7 +6,7 @@
         <div class="pu-networktile__meta">
             <h3>{{ data.tribe.name }}</h3>
             {{> TribeTile_Metadata partups=data.activePartups privacyType=data.tribe.privacy_type }}
-            <p>{{ data.tribe.description }}<a href="{{ pathFor route='network-about' slug=data.tribe.slug }}" data-prevent-open>{{_ 'discover-tribe-tile-read-more'}}</a></p>
+            <p>{{ data.tribe.description }}<a href="{{ pathFor route='network' slug=data.tribe.slug }}" data-prevent-open>{{_ 'discover-tribe-tile-read-more'}}</a></p>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
                 <!-- TODO use displayTags (partup-based) -->
                 {{#with data.displayTags}}

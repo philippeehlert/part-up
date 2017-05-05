@@ -6,13 +6,12 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-    api.use([
-    ], ['client', 'server']);
 
     api.use([
         'templating',
         'partup-lib',
-        'reactive-var'
+        'reactive-var',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

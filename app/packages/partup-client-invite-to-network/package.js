@@ -10,7 +10,8 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup-lib',
-        'aldeed:autoform'
+        'aldeed:autoform',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

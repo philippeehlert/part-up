@@ -12,7 +12,7 @@ Npm.depends({
 Package.onUse(function(api, where) {
     api.use([
         'templating',
-        'underscore'
+        'underscore',
     ], 'client');
 
     api.addFiles([

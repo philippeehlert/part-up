@@ -9,6 +9,7 @@ Package.onUse(function(api) {
     api.use([
         'templating',
         'partup-lib',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

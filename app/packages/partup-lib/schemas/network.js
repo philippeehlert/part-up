@@ -35,7 +35,31 @@ var networkBaseSchema = new SimpleSchema({
         max: 255,
         optional: true,
         regEx: Partup.services.validators.simpleSchemaUrlWithoutProtocol
-    }
+    },
+    facebook_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.facebookUrl
+    },
+    instagram_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.instagramUrl
+    },
+    linkedin_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.linkedinUrl
+    },
+    twitter_url: {
+        type: String,
+        max: 2000,
+        optional: true,
+        regEx: Partup.services.validators.twitterUrl
+    },
 });
 
 /**
@@ -218,5 +242,57 @@ Partup.schemas.forms.networkEdit = new SimpleSchema({
     admins: {
         type: [String],
         regEx: SimpleSchema.RegEx.Id
+    }
+});
+
+/**
+ * network content form schema
+ * @name networkContent
+ * @memberof Partup.schemas.forms
+ */
+Partup.schemas.forms.networkContent = new SimpleSchema({
+    video_url: {
+        type: String,
+        max: 255,
+        optional: true
+    },
+    video_placeholder_image: {
+        type: String,
+        optional: true
+    },
+    why_title: {
+        type: String,
+        max: 255,
+        optional: true
+    },
+    why_body: {
+        type: String,
+        max: 999,
+        optional: true
+    },
+    chat_title: {
+        type: String,
+        max: 255,
+        optional: true
+    },
+    chat_body: {
+        type: String,
+        max: 999,
+        optional: true
+    },
+    chat_subtitle: {
+        type: String,
+        max: 255,
+        optional: true
+    },
+    about_title: {
+        type: String,
+        max: 255,
+        optional: true
+    },
+    about_body: {
+        type: String,
+        max: 999,
+        optional: true
     }
 });

@@ -10,7 +10,8 @@ Package.onUse(function(api) {
 
   api.use([
     'percolate:velocityjs@1.0.0',
-    'partup-lib'
+    'partup-lib',
+    'ecmascript',
   ], 'client');
 
   api.addFiles([
