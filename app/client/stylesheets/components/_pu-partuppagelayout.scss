@@ -67,6 +67,34 @@ $sidebar-min-width: 420px;
         .pu-button-nav.pu-state-active {
             border-color: $color-primary;
         }
+
+        .pu-button-nav-icon {
+            margin-right:2px;
+            padding: 25px 0px 5px 5px;
+        }
+        
+        .pu-dropdownie-left-moveright {
+            right: -22px;
+        }
+
+        .small-margin {
+            margin-right:18px;
+        }
+    }
+
+    .pu-sub-smallscreen-navigation {
+        .pu-sub-dropdown-list {
+            padding-top:10px;
+        }
+        .pu-formdropdown-large {
+            width: calc(100% - 155px);
+        }
+        .pu-formdropdown-small {
+            width: calc(100% - 185px);
+        }
+        .pu-sticky-button {
+            margin-top:10px;
+        }
     }
 
     &--section-is-active {
@@ -102,6 +130,34 @@ $sidebar-min-width: 420px;
         }
     }
 
+    @media screen and (min-width:1250px) {
+        .pu-list-with-right-items {
+            width:calc(100% - 98px);
+        }
+        .onlylarge {
+            display: inline;
+        }
+        .notlarge {
+            display: none;
+        }
+    }
+    @media screen and (max-width:1249px) {
+        .pu-list-with-right-items {
+            width:calc(100% - 35px);
+        }
+        .onlylarge {
+            display: none;
+        }
+        .notlarge {
+            display: inline;
+        }
+    }
+    @media screen and (min-width:767px) and (max-width:990px) {
+        .pu-list-with-right-items {
+            padding-left: 25px;
+        }
+    }
+
     @media screen and (min-width: $breakpoint-partup-medium) {
         &__only-smallscreen {
             display: none;
@@ -111,6 +167,7 @@ $sidebar-min-width: 420px;
         &__only-largescreen {
             display: block;
         }
+
     }
 
     @media screen and (min-width: $breakpoint-tablet + 1px) {

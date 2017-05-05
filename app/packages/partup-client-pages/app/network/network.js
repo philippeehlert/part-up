@@ -84,6 +84,7 @@ var leaveNetwork = function(template, network) {
             return;
         }
         Partup.client.notify.success(TAPi18n.__('pages-app-network-notification-left'));
+
         Subs.reset();
         if (network.isClosedForUpper(Meteor.user())) {
             Router.go('discover');

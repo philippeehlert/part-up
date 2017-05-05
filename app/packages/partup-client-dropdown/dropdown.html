@@ -1,8 +1,6 @@
 <template name="Dropdown">
-
-    <section class="pu-dropdownie {{#if isActive }}pu-state-active{{/if }} {{#if partupEquals position 'left'}}pu-dropdownie-left{{/if}}" data-dropdown>
+    <section class="pu-dropdownie {{#if isActive }}pu-state-active{{/if }} {{#if partupEquals position 'left'}}pu-dropdownie-left{{/if}} {{classes}}" data-dropdown>
         <span class="pu-sub-arrow"><span></span></span>
         {{> Template.dynamic template=template data=templateData }}
     </section>
-
 </template>

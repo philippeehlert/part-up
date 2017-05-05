@@ -4,6 +4,7 @@
 
 Template.app_partup_navigation.onCreated(function() {
     var template = this;
+    template.cogToggle = new ReactiveVar(false);
     template.shareDropdownState = new ReactiveVar(false);
 });
 Template.app_partup_navigation.onRendered(function() {
@@ -49,6 +50,9 @@ Template.app_partup_navigation.helpers({
     shareDropdownState: function() {
         return Template.instance().shareDropdownState;
     },
+    cogToggle: function () {
+        return Template.instance().cogToggle
+    },
     selectorSettings: function() {
         var partupId = this.partupId;
         var partup = Partups.findOne({_id: this.partupId});
@@ -63,9 +67,9 @@ Template.app_partup_navigation.helpers({
 });
 
 Template.app_partup_navigation.events({
-    'click [data-open-share-dropdown]': function(event, template) {
-        event.preventDefault();
-        template.shareDropdownState.set(!template.shareDropdownState.curValue);
+    'click [data-toggle-cog]': function (event, template) {
+        event.preventDefault()
+        template.cogToggle.set(!template.cogToggle.curValue)
     },
     'click [data-openpartupsettings]': function(event, template) {
         event.preventDefault();
@@ -78,6 +82,24 @@ Template.app_partup_navigation.events({
                 slug: partup.slug
             }
         });
+    },
+    'click [data-endpartnership]': function (event, template) {
+        event.preventDefault()
+        var partup = Partups.findOne(template.data.partupId)
+
+        Partup.client.prompt.confirm({
+            title: TAPi18n.__('pages-app-partup-popup-title-unpartner', {partup: partup.name}),
+            message: TAPi18n.__('pages-app-partup-popup-message-unpartner'),
+            confirmButton: TAPi18n.__('pages-app-popup-confirmation-confirm-button'),
+            cancelButton: TAPi18n.__('pages-app-popup-confirmation-cancel-button'),
+            onConfirm: function () {
+                Meteor.call('partups.unpartner', partup)
+            }
+        })
+    },
+    'click [data-open-share-dropdown]': function(event, template) {
+        event.preventDefault();
+        template.shareDropdownState.set(!template.shareDropdownState.curValue);
     },
     'click [data-share-facebook]': function(event, template) {
         var partup = Partups.findOne(template.data.partupId);

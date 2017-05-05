@@ -71,7 +71,7 @@
                     {{else}}
                         <nav class="pu-navigation pu-navigation-header pu-navigation-compact">
                             <ul class="pu-list pu-list-horizontal pu-list-with-right-items pu-list-nowrap pu-sub-smallscreen-navigation">
-                                <li>
+                                <li class="{{#unless data.network.isClosedForupper currentUserId}}{{#if data.network.hasMember currentUserId}}pu-sub-shrinkforcog{{/if}}{{/unless}}">
                                     {{#with data.selectorSettings}}
                                         {{> NetworkNavigationSelector default=currentRoute slug=slug network=network }}
                                     {{/with}}
@@ -92,22 +92,6 @@
                                         {{/unless}}
                                     {{/unless}}
                                 {{/with}}
-
-
-
-                                <!--{{# with data.network }}
-                                    {{#unless archived_at}}
-                                        {{#unless data.network.isClosedForUpper currentUserId}}
-                                        <li class="pu-sub-button pu-sub-align-right pu-sub-button-menu">
-                                            {{> NetworkMenu network=. }}
-                                        </li>-->
-                                            <!--request, pending, accept or invite button -->
-                                            <!--<li class="pu-sub-align-right">
-                                                {{> app_network_joinbutton network=. }}
-                                            </li>
-                                        {{/unless}}
-                                    {{/unless}}
-                                {{/with}}-->
                             </ul>
                         </nav>
                     {{/if}}

@@ -17,7 +17,7 @@ Template.PartupNavigationSelector.onCreated(function() {
         slug: partupSlug,
         icon: 'chart'
     },{
-        name: TAPi18n.__('pages-app-partup-menu_documents'),
+        name: TAPi18n.__('pages-app-partup-menu_documents_abbr'),
         route: 'partup-documents',
         slug: partupSlug,
         icon: 'documents'
@@ -28,14 +28,14 @@ Template.PartupNavigationSelector.onCreated(function() {
         icon: 'globe'
     }];
 
-    if (partup.isEditableBy(Meteor.user())) {
-        template.options.push({
-            name: TAPi18n.__('pages-app-partup-menu_settings'),
-            route: 'partup-settings',
-            slug: partupSlug,
-            icon: 'cog'
-        });
-    }
+    // if (partup.isEditableBy(Meteor.user())) {
+    //     template.options.push({
+    //         name: TAPi18n.__('pages-app-partup-menu_settings'),
+    //         route: 'partup-settings',
+    //         slug: partupSlug,
+    //         icon: 'cog'
+    //     });
+    // }
 
     var defaultOption = template.options[0];
 

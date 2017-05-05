@@ -36,5 +36,9 @@ Template.Dropdown.helpers({
     // To be able to toggle a class when the dropdown is active
     isActive: function() {
         return this.toggle.get();
+    },
+
+    classes: function () {
+        return this.classes
     }
 });

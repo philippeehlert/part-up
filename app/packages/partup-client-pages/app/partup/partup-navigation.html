@@ -1,13 +1,7 @@
 <template name="app_partup_navigation">
     <nav class="pu-navigation pu-navigation-compact">
-        <div class="pu-sub-background" style="width: {{ backgroundWidth }}px;"></div>
-        <!-- start navigation large screens -->
-            <ul class="pu-list pu-list-horizontal pu-partuppagelayout__only-largescreen">
-                <li class="pu-partuppagelayout__only-mediumscreen">
-                    <button class="pu-sticky-button pu-sticky-button-left" data-open-section-button>
-                        <i class="picon-info-2"></i>
-                    </button>
-                </li>
+        <ul class="pu-list pu-list-horizontal pu-list-with-right-items {{#if screenSizeIsMaximumWidth 'tablet'}}pu-sub-smallscreen-navigation{{/if}}">
+            {{#if screenSizeIsMinimalWidth 'tablet'}}
                 <li>
                     <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
                         <i class="picon-message"></i>
@@ -23,48 +17,73 @@
                 <li>
                     <a href="{{pathFor 'partup-documents' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-documents' class='pu-state-active'}}">
                         <i class="picon-documents"></i>
-                        {{_ 'pages-app-partup-menu_documents'}}
+                        <span class="onlylarge">
+                            {{_ 'pages-app-partup-menu_documents'}}
+                        </span>
+                        <span class="notlarge">
+                            {{_ 'pages-app-partup-menu_documents_abbr_small'}}
+                        </span>
                     </a>
                 </li>
                 <li>
                     <a href="{{pathFor 'partup-updates' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-updates' class='pu-state-active'}}">
                         <i class="picon-globe"></i>
-                        {{_ 'pages-app-partup-menu_updates'}}
+                        <span class="onlylarge">
+                            {{_ 'pages-app-partup-menu_updates'}}
+                        </span>
+                        <span class="notlarge">
+                            {{_ 'pages-app-partup-menu_updates_abbr'}}
+                        </span>
                     </a>
                 </li>
-            </ul>
-            <ul class="pu-list pu-list-horizontal pu-sub-right pu-sub-compact-list pu-partuppagelayout__only-largescreen">
-                {{# with partup }}
-                    {{# if isEditableBy currentUser }}
-                        <li>
-                            <a href="{{ pathFor 'partup-settings' slug=slug }}" data-openpartupsettings class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning">
-                                <i class="picon-cog"></i>
-                            </a>
-                        </li>
-                    {{/ if }}
-                {{/ with }}
+            {{else}}
                 <li>
-                    <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
-                        <i class="picon-share"></i>
-                        {{_ 'pages-app-partup-menu_share-button'}}
-                    </a>
-                    {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
-                </li>
-            </ul>
-        <!-- end navigation large screens -->
-        <!-- start navigation small screens -->
-            <ul class="pu-list pu-list-horizontal pu-sub-smallscreen-navigation pu-partuppagelayout__only-smallscreen">
-                <li class="pu-sub-section-button">
                     <button class="pu-sticky-button pu-sticky-button-left" data-open-section-button>
                         <i class="picon-info-2"></i>
                     </button>
                 </li>
+                <li class="pu-sub-dropdown-list pu-formdropdown{{#if partup.isEditableBy currentUser}}-small{{else}}-large{{/if}}">
                 {{# with selectorSettings }}
-                    <li class="pu-partuppagelayout__only-smallscreen">{{> PartupNavigationSelector slug=slug partup=data default=currentRoute }}</li>
+                    {{> PartupNavigationSelector slug=slug partup=data default=currentRoute }}
                 {{/ with }}
-            </ul>
-        <!-- end navigation small screens -->
+                </li>
+            {{/if}}
+            <li class="pu-sub-align-right">
+                <ul class="pu-list pu-list-horizontal">            
+                    {{# if partup.isEditableBy currentUser}}
+                    <li class="small-margin">
+                        <a href="#" class="pu-button pu-button-nav pu-button-nav-icon pu-button-spinning" data-toggle-cog>
+                            <i class="picon-cog"></i>
+                        </a>
+                        {{> Dropdown toggle=cogToggle template="partup_cog" data=. position='left' classes='pu-dropdownie-left-moveright' }}
+                    </li>
+                    {{/if}}
+                    <li>
+                        <a href="#" data-open-share-dropdown class="pu-button pu-button-nav">
+                            <i class="picon-share"></i>
+                            {{_ 'pages-app-partup-menu_share-button'}}
+                        </a>
+                        {{> Dropdown toggle=shareDropdownState template="partup_share_dropdown" data=. position='left' }}
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </nav>
+</template>
+
+<template name="partup_cog">
+    <ul class="pu-list">
+        <li class="pu-dropdownitem pu-dropdownitem-small">
+            <button data-openpartupsettings>
+                {{_ 'pages-app-profile-tab-button-settings'}} 
+            </button>
+        </li>
+        <li class="pu-dropdownitem pu-dropdownitem-small">
+            <button data-endpartnership>
+                {{_ 'pages-app-partup-menu-endpartnership'}}
+            </button>
+        </li>
+    </ul>
 </template>
 
 <template name="partup_share_dropdown">

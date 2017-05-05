@@ -185,23 +185,6 @@
             height: 40px;
             padding: 0px;
         }
-
-        .pu-sub-smallscreen-navigation {
-            padding-top: 10px;
-
-            li {
-                margin-right: 10px;
-            }
-
-            .pu-formdropdown {
-                width: calc(100vw - 65px);
-            }
-
-            .pu-sub-button-menu {
-                padding-top: 0px;
-                padding-right: 15px;
-            }
-        }
     }
 
     &-discover {
@@ -210,12 +193,6 @@
                 color: $color-primary;
                 border-color: $color-primary;
             }
-        }
-    }
-
-    @media screen and (min-width: $breakpoint-partup-medium) {
-        .pu-sticky-button {
-            margin-top: 10px;
         }
     }
 
