@@ -3,7 +3,7 @@
  */
 Template.app_partup_updates.onCreated(function() {
     var tpl = this;
-    var defaultFilter = tpl.data.defaultFilter || 'messages';
+    var defaultFilter = tpl.data.defaultFilter || 'default';
 
     tpl.partup = Partups.findOne(tpl.data.partupId);
 
@@ -268,7 +268,14 @@ Template.app_partup_updates.helpers({
     pageIsUpdates: function() {
         return !Template.instance().data.defaultFilter;
     },
+    showNewMessageButton: function () {
+        let filter = Template.instance().data.defaultFilter 
+        let filtertypes = ['messages', 'conversations']
 
+        return filtertypes.find((type) => {
+            return type === filter
+        }) || !filter
+    },
     // New updates separator
     showNewUpdatesSeparator: function() {
         var update = this;

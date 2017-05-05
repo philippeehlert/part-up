@@ -15,14 +15,15 @@ Partup.transformers.update = {
     'fromFormNewMessage': function(fields, upper, partupId) {
         var hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
         hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
-        var hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+        var hasDocuments = (fields.documents && fields.documents.length > 0) || (fields.files && fields.files.length > 0) ? true : false;
 
         return {
             partup_id: partupId,
             type_data: {
                 new_value: fields.text,
                 images: fields.images,
-                documents: fields.documents
+                documents: fields.documents,
+                files: fields.files
             },
             comments_count: 0,
             upper_id: upper._id,

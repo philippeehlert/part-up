@@ -7,10 +7,10 @@ Template.PartupNavigationSelector.onCreated(function() {
     var partup = template.data.partup;
 
     template.options = [{
-        name: TAPi18n.__('pages-app-partup-menu_updates'),
+        name: TAPi18n.__('pages-app-partup-menu_conversations'),
         route: 'partup',
         slug: partupSlug,
-        icon: 'globe'
+        icon: 'message'
     },{
         name: TAPi18n.__('pages-app-partup-menu_activities'),
         route: 'partup-activities',
@@ -21,6 +21,11 @@ Template.PartupNavigationSelector.onCreated(function() {
         route: 'partup-documents',
         slug: partupSlug,
         icon: 'documents'
+    },{
+        name: TAPi18n.__('pages-app-partup-menu_updates'),
+        route: 'partup-updates',
+        slug: partupSlug,
+        icon: 'globe'
     }];
 
     if (partup.isEditableBy(Meteor.user())) {
