@@ -4,6 +4,9 @@ Template.DocumentRenderer.helpers({
     getSvgIcon: FileUploader.getSvgIcon,
     bytesToSize: FileUploader.bytesToSize,
     previewLink: function(file) {
+        if (file.isPartupFile) {
+            return Partup.helpers.url.getFileUrl(file);
+        }
         // TODO Refactor to not use new URL() anymore, this requires a polyfill for IE
         var client = new URL(file.link).host;
 

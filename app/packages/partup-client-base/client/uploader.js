@@ -1,5 +1,5 @@
+import {FileUploader} from 'meteor/partup-lib';
 // Settings
-//
 var MAX_IMAGE_WIDTH = 1500;
 var MAX_IMAGE_HEIGHT = 1500;
 
@@ -121,12 +121,94 @@ Partup.client.uploader = {
     },
 
     /**
+     * Upload single file
+     *
+     * @memberOf Partup.client
+     * @param {Object} file
+     * @param {Function} callback
+     */
+    uploadFile: function(file, callback) {
+        var IE = this.isIE();
+        var SAFARI = this.isSafari();
+        var newFile = null;
+        var xhr = null;
+        var formData = null;
+
+        if (IE || SAFARI) {
+            newFile = new mOxie.File(null, file);
+        } else {
+            newFile = new File([file], file.name);
+        }
+
+        var token = Accounts._storedLoginToken();
+        if (IE || SAFARI) {
+            xhr = new mOxie.XMLHttpRequest();
+        } else {
+            xhr = new XMLHttpRequest();
+        }
+        var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        var url = location + '/files/upload?token=' + token;
+        xhr.open('POST', url, true);
+
+        if (IE || SAFARI) {
+            formData = new mOxie.FormData();
+        } else {
+            formData = new FormData();
+        }
+        formData.append('file', newFile);
+
+        var loadHandler = function(e) {
+            var data = JSON.parse(xhr.responseText);
+            if (data.error) {
+                callback(data.error);
+                return;
+            }
+            Meteor.subscribe('files.one', data.file);
+            Meteor.autorun(function(computation) {
+                var file = Files.findOne({_id: data.file});
+                if (file) {
+                    computation.stop();
+                    Tracker.nonreactive(function() {
+                        callback(null, file);
+                    });
+                }
+            });
+            xhr.removeEventListener('load', loadHandler);
+            xhr.removeEventListener('error', errorHandler);
+        };
+
+        var errorHandler = function(e) {
+            xhr.removeEventListener('load', loadHandler);
+            xhr.removeEventListener('error', errorHandler);
+        };
+
+        xhr.addEventListener('load', loadHandler);
+        xhr.addEventListener('error', errorHandler);
+
+        xhr.send(formData);
+    },
+
+    /**
+     * Generic upload
+     * determines if it's a file or image and acts accordingly
+     * @memberOf Partup.client
+     * @param {Object} file
+     * @param {Function} callback
+     */
+    upload: function(file, callback) {
+        FileUploader.on(file, {
+            image: () => Partup.client.uploader.uploadImage(file, (err, f) => callback(err, f, 'image')),
+            file: () => Partup.client.uploader.uploadFile(file, (err, f) => callback(err, f, 'file')),
+            error: (err) => callback(err),
+        })
+    },
+
+    /**
      * Return a blob from dataurl
      *
      * @memberOf Partup.client
-     * @param {DataUrl} canvas dataurl
+     * @param {DataUrl} dataURL dataurl
      */
-
     dataURLToBlob: function(dataURL) {
         var BASE64_MARKER = ';base64,';
         if (dataURL.indexOf(BASE64_MARKER) == -1) {
@@ -167,7 +249,7 @@ Partup.client.uploader = {
         }
 
         for (var i = 0; i < files.length; i++) {
-            callBack(files[i]);
+            callBack(files[i], i, FileUploader.getFileType(files[i]));
         }
     },
 
@@ -214,7 +296,7 @@ Partup.client.uploader = {
             fileInput = new mOxie.FileInput({
                 browse_button: buttonElement, // or document.getElementById('file-picker')
                 accept: [
-                    {title: 'Image files', extensions: 'jpg,gif,png'} // accept only images
+                    {title: 'Custom filetype', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join() }
                 ],
                 multiple: multiple, // allow multiple file selection
                 runtime_order: 'flash,silverlight,html4,html5',

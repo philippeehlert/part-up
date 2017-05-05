@@ -61,6 +61,7 @@ Package.onUse(function(api) {
         'collections/sectors.js',
         'collections/boards.js',
         'collections/lanes.js',
+        'collections/files.js',
         'schemas/activity.js',
         'schemas/update.js',
         'schemas/contribution.js',
@@ -151,6 +152,7 @@ Package.onUse(function(api) {
     api.export('Sectors');
     api.export('Boards');
     api.export('Lanes');
+    api.export('Files');
 
     // Globals
     api.export('get');

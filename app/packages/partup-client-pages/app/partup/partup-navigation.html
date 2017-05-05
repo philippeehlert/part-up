@@ -10,8 +10,8 @@
                 </li>
                 <li>
                     <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
-                        <i class="picon-globe"></i>
-                        {{_ 'pages-app-partup-menu_updates'}}
+                        <i class="picon-message"></i>
+                        {{_ 'pages-app-partup-menu_conversations'}}
                     </a>
                 </li>
                 <li>
@@ -24,6 +24,12 @@
                     <a href="{{pathFor 'partup-documents' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-documents' class='pu-state-active'}}">
                         <i class="picon-documents"></i>
                         {{_ 'pages-app-partup-menu_documents'}}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{pathFor 'partup-updates' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-updates' class='pu-state-active'}}">
+                        <i class="picon-globe"></i>
+                        {{_ 'pages-app-partup-menu_updates'}}
                     </a>
                 </li>
             </ul>

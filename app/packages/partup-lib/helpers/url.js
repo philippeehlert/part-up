@@ -36,6 +36,7 @@ Partup.helpers.url = {
             image.copies[store].key
         ].join('');
     },
+
     /*
         supported formats are
         http://www.youtube.com/watch?v=0zM3nApSvMg&feature=feedrec_grec_index
@@ -79,5 +80,17 @@ Partup.helpers.url = {
         } else {
             return false;
         }
+    },
+
+    getFileUrl: function(file) {
+        // staging acceptance production aws image url
+        return ['https://s3-',
+            mout.object.get(Meteor, 'settings.public.aws.region'),
+            '.amazonaws.com/',
+            mout.object.get(Meteor, 'settings.public.aws.bucket'),
+            '/files/',
+            file.name
+        ].join('');
+
     }
 };
