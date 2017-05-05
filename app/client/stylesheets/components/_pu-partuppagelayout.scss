@@ -130,14 +130,26 @@ $sidebar-min-width: 420px;
         }
     }
 
-    @media screen and (min-width:1135px) {
+    @media screen and (min-width:1250px) {
         .pu-list-with-right-items {
             width:calc(100% - 98px);
         }
+        .onlylarge {
+            display: inline;
+        }
+        .notlarge {
+            display: none;
+        }
     }
-    @media screen and (max-width:1134px) {
+    @media screen and (max-width:1249px) {
         .pu-list-with-right-items {
             width:calc(100% - 35px);
+        }
+        .onlylarge {
+            display: none;
+        }
+        .notlarge {
+            display: inline;
         }
     }
     @media screen and (min-width:767px) and (max-width:990px) {

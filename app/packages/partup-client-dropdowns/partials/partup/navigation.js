@@ -17,7 +17,7 @@ Template.PartupNavigationSelector.onCreated(function() {
         slug: partupSlug,
         icon: 'chart'
     },{
-        name: TAPi18n.__('pages-app-partup-menu_documents'),
+        name: TAPi18n.__('pages-app-partup-menu_documents_abbr'),
         route: 'partup-documents',
         slug: partupSlug,
         icon: 'documents'
