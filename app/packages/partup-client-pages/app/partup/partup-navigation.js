@@ -88,7 +88,8 @@ Template.app_partup_navigation.events({
         var partup = Partups.findOne(template.data.partupId)
 
         Partup.client.prompt.confirm({
-            title: TAPi18n.__('pages-app-partup-popup-title-unpartner') + ' ' + partup.name,
+            title: TAPi18n.__('pages-app-partup-popup-title-unpartner', {partup: partup.name}),
+            message: TAPi18n.__('pages-app-partup-popup-message-unpartner'),
             confirmButton: TAPi18n.__('pages-app-popup-confirmation-confirm-button'),
             cancelButton: TAPi18n.__('pages-app-popup-confirmation-cancel-button'),
             onConfirm: function () {
