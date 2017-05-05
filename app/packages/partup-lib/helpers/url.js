@@ -35,5 +35,15 @@ Partup.helpers.url = {
             '/',
             image.copies[store].key
         ].join('');
+    },
+    getFileUrl: function(file) {
+        // staging acceptance production aws image url
+        return ['https://s3-',
+            mout.object.get(Meteor, 'settings.public.aws.region'),
+            '.amazonaws.com/',
+            mout.object.get(Meteor, 'settings.public.aws.bucket'),
+            '/files/',
+            file.name
+        ].join('');
     }
 };

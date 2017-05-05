@@ -512,7 +512,7 @@ Partups.guardedFind = function(userId, selector, options, accessToken) {
     }
 
     // Some extra rules that are only applicable to users that are logged in
-    if (userId) {
+    if (!!userId && userId !== 'null') {
         var user = Meteor.users.findOneOrFail(userId);
         var networks = user.networks || [];
 

@@ -6,72 +6,119 @@
         </a>
     </nav>
 
-    <article class="pu-page pu-page-invitemodal pu-composition-activity-invite">
+    <article class="pu-page pu-page-invitemodal pu-composition-activity-invite pu-layout pu-layout--partup-invite" data-infinitescroll-container>
         <div class="pu-sub-pagecontent">
             <div class="pu-wrap pu-wrap-modal">
 
                 <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_activity-title'}}</h2>
                 <p class="pu-description-modal">{{_ 'pages-modal-invite_to_activity-explanation'}}</p>
-                <a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_activity-button_invite' }}</a>
 
-                <div class="pu-invite-suggestions">
-                    <form id="suggestionsQuery" class="pu-filterbar-wrap">
-                        <div class="pu-filterbar pu-filterbar-large">
-                            <div class="pu-row">
-                                <div class="cell">
-                                    <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-search-label'}}</p>
-                                </div>
-                                <div class="cell">
-                                    <div class="pu-sub-input pu-sub-input-large">
-                                        <input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Designer" data-search-query-input>
-                                        {{# if data.textsearch }}
-                                            <i class="pu-sub-reset picon-times" data-reset-search-query-input></i>
-                                        {{/ if }}
-                                        <i class="picon-search"></i>
-                                    </div>
-                                </div>
-                                <div class="cell">
-                                    <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-filter-label'}}</p>
-                                </div>
-                                <div class="cell">
-                                    <div class="pu-sub-input pu-sub-input-large pu-sub-input-select">
-                                        <select name="" id="" class="pu-input pu-input-filter" data-filter-tribe>
-                                            <option value="all-users">{{_ 'pages-modal-invite_to_activity-filter-option-all-users'}}</option>
-                                            <option value="all">{{_ 'pages-modal-invite_to_activity-filter-option-all-tribes'}}</option>
-                                            {{#each data.userTribes}}
-                                                <option value="{{slug}}" selected="{{ partupEquals data.partup.network_id _id }}">{{name}}</option>
-                                            {{/each}}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <p class='pu-invite-suggestions-label'>{{_ 'pages-modal-activity_invite-suggestions-label' }}</p>
-                    {{#if data.suggestionIds.length}}
-                        <ul>
-                            {{# each data.suggestionIds }}
-                                <li>
-                                    {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
-                                </li>
-                            {{/ each }}
+                {{#TabView onToggleTab=onToggleTab defaultActiveTab=1 }}
+                    <nav class="pu-navigation pu-navigation-header pu-navigation-tabs"> 
+                        <ul class="pu-list pu-list-horizontal">
+                            <li>
+                                <button {{ tabButton 1 }} class="pu-button pu-button-nav pu-button-nav-secondary {{#if activeTab 1}}pu-state-active{{/if}}">
+                                    {{_ 'pages-modal-invite_to_partup-tab-label-invite' }}
+                                </button>
+                            </li>
+                            <li>
+                                <button {{ tabButton 2 }} class="pu-button pu-button-nav pu-button-nav-secondary {{#if activeTab 2}}pu-state-active{{/if}}">
+                                    {{_ 'pages-modal-invite_to_partup-tab-label-email' }}
+                                </button>
+                            </li>
+                            <li>
+                                <button {{ tabButton 3 }} class="pu-button pu-button-nav pu-button-nav-secondary {{#if activeTab 3}}pu-state-active{{/if}}">
+                                    {{_ 'pages-modal-invite_to_partup-tab-label-pending' }}
+                                </button>
+                            </li>
                         </ul>
+                    </nav>
+                    <div class="pu-invite-suggestions pu-invite-suggestions-tabbed">
+                    {{#if activeTab 1}}
+                            <form id="suggestionsQuery" class="pu-filterbar-wrap">
+                                <div class="pu-filterbar pu-filterbar-large">
+                                    <div class="pu-row">
+                                        <div class="cell">
+                                            <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-search-label'}}</p>
+                                        </div>
+                                        <div class="cell">
+                                            <div class="pu-sub-input pu-sub-input-large">
+                                                <input type="text" class="pu-input pu-input-filter" name="search_query" placeholder="Designer" data-search-query-input>
+                                                {{# if data.textsearch }}
+                                                    <i class="pu-sub-reset picon-times" data-reset-search-query-input></i>
+                                                {{/ if }}
+                                                <i class="picon-search"></i>
+                                            </div>
+                                        </div>
+                                        <div class="cell">
+                                            <p class="pu-sub-label">{{_ 'pages-modal-invite_to_activity-filter-label'}}</p>
+                                        </div>
+                                        <div class="cell">
+                                            <div class="pu-sub-input pu-sub-input-large pu-sub-input-select">
+                                                <select name="" id="" class="pu-input pu-input-filter no-icon" data-filter-tribe>
+                                                    <option value="all-users">{{_ 'pages-modal-invite_to_activity-filter-option-all-users'}}</option>
+                                                    <option value="all">{{_ 'pages-modal-invite_to_activity-filter-option-all-tribes'}}</option>
+                                                    {{#each data.userTribes}}
+                                                        <option value="{{slug}}" selected="{{ partupEquals data.partup.network_id _id }}">{{name}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class='pu-invite-suggestions-label'>{{_ 'pages-modal-activity_invite-suggestions-label' }}</p>
+                            {{#if data.suggestionIds.length}}
+                                <ul>
+                                    {{# each data.suggestionIds }}
+                                        <li>
+                                            {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
+                                        </li>
+                                    {{/ each }}
+                                </ul>
+                            {{/if}}
+                            {{#unless data.suggestionIds.length}}
+                                {{#if state.loading}}
+                                    {{> Spinner}}
+                                {{else}}
+                                    <p class="pu-sub-placeholder">{{_ 'pages-modal-activity_invite-suggestions-placeholder'}}</p>
+                                {{/if}}
+                            {{/unless}}
                     {{/if}}
-                    {{#unless data.suggestionIds.length}}
-                        {{#if state.loading}}
-                            {{> Spinner}}
-                        {{else}}
-                            <p class="pu-sub-placeholder">{{_ 'pages-modal-activity_invite-suggestions-placeholder'}}</p>
+                    {{#if activeTab 2}}
+                        {{#if data.activityId}}
+                            {{> InviteToActivity activityId=data.activityId nopopup=true }}                            
                         {{/if}}
-                    {{/unless}}
-                </div>
-            </div>
+                    {{/if}}
+                    {{#if activeTab 3}}
+                        <p class='pu-invite-suggestions-label'>{{_ 'pages-modal-partup_invite-reinvite-suggestions-label' }}</p>
+                            {{#if data.suggestionIds.length}}
+                                <ul>
+                                    {{# each data.suggestionIds }}
+                                        <li>
+                                            {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch reinvite=true }}
+                                        </li>
+                                    {{/ each }}
+                                </ul>
+                            {{/if}}
+                            {{#unless data.suggestionIds.length}}
+                                {{#if state.loading}}
+                                    {{> Spinner}}
+                                {{else}}
+                                    <p class="pu-sub-placeholder">{{_ 'pages-modal-partup_invite-reinvite-suggestions-placeholder'}}</p>
+                                {{/if}}
+                            {{/unless}}
+                    {{/if}}
+                    </div>
+                {{/TabView}}
+                <!--<a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_activity-button_invite' }}</a>-->
+            </div>    
         </div>
     </article>
 
-    {{#if partupIsPopupActive 'popup.invite-to-partup' }}
+    <!--{{#if partupIsPopupActive 'popup.invite-to-partup' }}
         {{#contentFor region="PopupContent" data=. }}
             {{> InviteToActivity activityId=activityId }}
         {{/contentFor}}
-    {{/if}}
+    {{/if}}-->
 </template>

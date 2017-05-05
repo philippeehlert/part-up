@@ -75,8 +75,6 @@
 
         .pu-centerview__horizontal-center {
             padding-top: 60px;
-
-            // width: 600px
             padding-bottom: 0;
         }
 
@@ -88,8 +86,4 @@
     &--is-collapsed {
         height: 50vh;
     }
-
-    // @media screen and (min-width: $breakpoint-desktop)
-    //     .pu-centerview__horizontal-center
-    //         width: 600px
 }

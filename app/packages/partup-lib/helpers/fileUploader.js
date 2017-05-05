@@ -26,11 +26,24 @@ Partup.helpers.fileUploader.allowedExtensions = {
     ])
 };
 
+Partup.helpers.fileUploader.allowedExtensions.all = lodash.flatten([
+    Partup.helpers.fileUploader.allowedExtensions.images,
+    Partup.helpers.fileUploader.allowedExtensions.docs
+]);
+
+// IE requires the filetypes without "."
+Partup.helpers.fileUploader.allowedExtensions.ie = lodash.flatten([
+    Partup.helpers.fileUploader.allowedExtensions.images.map(filetype => filetype.replace(/\./g, "")),
+    Partup.helpers.fileUploader.allowedExtensions.docs.map(filetype => filetype.replace(/\./g, "")),
+]);
+
 Partup.helpers.fileUploader.getAllExtensions = function() {
     return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function(type) {
         return Partup.helpers.fileUploader.allowedExtensions[type];
     }).flatten().value();
 };
+
+
 
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
@@ -147,6 +160,27 @@ Partup.helpers.fileUploader.partupUploadDoc = function(mediaUploader, mappedFile
     return new Promise(function(resolve, reject) {
         resolve(mappedFile);
     });
+};
+
+Partup.helpers.fileUploader.getFileType = function(file) {
+    let type = 'none';
+    Partup.helpers.fileUploader.on(file, {
+        image: () => type = 'image',
+        file: () => type = 'file',
+    });
+    return type;
+};
+
+Partup.helpers.fileUploader.on = function(file, {
+        image: imageCallback = lodash.noop,
+        file: fileCallback = lodash.noop,
+        error: errorCallback = lodash.noop }) {
+
+    if (!file) return errorCallback(new Error('File not found'));
+
+    if (Partup.helpers.fileUploader.fileNameIsImage(file.name)) return imageCallback();
+
+    return fileCallback();
 };
 
 FileUploader = Partup.helpers.fileUploader;
