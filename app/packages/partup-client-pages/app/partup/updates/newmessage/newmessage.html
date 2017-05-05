@@ -22,7 +22,7 @@
                                     </li>
                                 {{/each}}
                                 <li>
-                                    {{> MediaUploaderButton mediaUploader=mediaUploader }}
+                                    {{> MediaUploaderButton mediaUploader=mediaUploader allow_all_files=true }}
                                 </li>
                                 {{#if mediaLimitReached}}{{else}}
                                     <li class="pu-media-counter">

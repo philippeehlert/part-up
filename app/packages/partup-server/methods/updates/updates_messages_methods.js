@@ -52,15 +52,21 @@ Meteor.methods({
 
         this.unblock();
 
-        var upper = Meteor.user();
+        const upper = Meteor.user();
         if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            var message = Updates.findOne({_id: updateId, upper_id: upper._id});
+            const message = Updates.findOne({_id: updateId, upper_id: upper._id});
             if (message) {
-                var hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
+                let hasUrl = fields.text.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/);
                 hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
-                var hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+                const hasDocuments = fields.documents && fields.documents.length > 0 ? true : false;
+
+                // delete any removed files
+                const newDocuments = lodash.get(fields, 'documents', []);
+                const removeFiles = lodash.get(message, 'type_data.documents', [])
+                    .filter(({_id}) => !lodash.find(newDocuments, {_id}))
+                    .forEach(({_id}) => Partup.server.services.files.remove(_id));
 
                 Updates.update({_id: message._id}, {$set: {
                     type_data: {
@@ -98,6 +104,14 @@ Meteor.methods({
             if (message) {
                 // Don't remove when message has comments
                 if (message.comments && message.comments.length > 0) throw new Meteor.Error(400, 'partup_message_already_has_comments');
+
+                // Check for attachments
+                var files = message.type_data.files || [];
+                if (files.length > 0) {
+                    files.forEach(function(fileId) {
+                        Partup.server.services.files.remove(fileId);
+                    });
+                }
 
                 Updates.remove({_id: message._id});
             }

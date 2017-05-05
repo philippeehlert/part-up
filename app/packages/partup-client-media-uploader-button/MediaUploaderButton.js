@@ -58,7 +58,8 @@ Template.MediaUploaderButton.events({
 
 Template.MediaUploaderButton.helpers({
     mediaLimitReached: mediaLimitReached,
-    imageExtensions: function () {
+    fileExtensions: function(allowAllFiles) {
+        if (allowAllFiles) return FileUploader.allowedExtensions.all.join(', ');
         return FileUploader.imageExtensions.join(', ');
     },
     uploadingMedia: function () {
@@ -79,7 +80,7 @@ Template.MediaUploaderButton.helpers({
     documentLimitReached: function () {
         let mediaUploader = Template.instance().data.mediaUploader;
 
-        return mediaUploader.uplodedDocuments.get().length
+        return mediaUploader.uploadedDocuments.get().length
             === mediaUploader.maxDocuments;
     },
     disabledImageUploadFile: function () {
@@ -101,22 +102,37 @@ Template.MediaUploaderButton.helpers({
                 // simulate click event to toggle "open/close" the media choose dropdown
                 $('[data-toggle-add-media-menu]').trigger('click');
 
-                var total = Math.max(mediaUploader.totalPhotos.get(), mediaUploader.uploadedPhotos.get().length);
-                Partup.client.uploader.eachFile(event, function (file) {
-                    if (total === mediaUploader.maxPhotos) return;
-
-                    Partup.client.uploader.uploadImage(file, function (error, image) {
+                let totalPhotos = Math.max(mediaUploader.totalPhotos.get(), mediaUploader.uploadedPhotos.get().length);
+                Partup.client.uploader.eachFile(event, (file, index, type) => {
+                    if (type === 'image') {
+                        if (totalPhotos === mediaUploader.maxPhotos) return;
+                        totalPhotos++;
+                        mediaUploader.totalPhotos.set(totalPhotos);
+                    } else if (type === 'file') {
+                        if (mediaUploader.uploadedDocuments.get().length === mediaUploader.maxDocuments) return;
+                    }
+                    Partup.client.uploader.upload(file, (error, {_id, name}) => {
                         mediaUploader.uploadingPhotos.set(false);
                         if (error) {
                             Partup.client.notify.error(TAPi18n.__(error.reason));
                             return;
                         }
-                        var uploaded = mediaUploader.uploadedPhotos.get();
-                        uploaded.push(image._id);
-                        mediaUploader.uploadedPhotos.set(uploaded);
+                        if (type === 'image') {
+                            const uploaded = mediaUploader.uploadedPhotos.get();
+                            uploaded.push(_id);
+                            mediaUploader.uploadedPhotos.set(uploaded);
+                        } else if (type === 'file') {
+                            const uploaded = mediaUploader.uploadedDocuments.get();
+                            uploaded.push({
+                                _id,
+                                name,
+                                bytes: file.size,
+                                isPartupFile: true,
+                            });
+                            mediaUploader.uploadedDocuments.set(uploaded);
+                        }
                     });
-                    total++;
-                    mediaUploader.totalPhotos.set(total);
+
                 });
             }
         };
