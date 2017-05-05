@@ -192,6 +192,7 @@ Package.onUse(function(api) {
         'routes/partups/partups_routes.js',
         'routes/networks/networks_routes.js',
         'routes/users/users_routes.js',
+        'routes/sitemap/sitemap_routes.js',
         'routes/files/files_routes.js',
         'methods/updates/updates_comments_methods.js',
         'methods/updates/updates_messages_methods.js',
@@ -232,6 +233,7 @@ Package.onUse(function(api) {
         'cron/calculate_active_network_uppers_partups.js',
         'cron/get_common_network_tags.js',
         'cron/set_network_updated_at.js',
+        'cron/update_sitemap.js',
         'migrations.js',
         'package-tap.i18n'
     ], ['server']);
