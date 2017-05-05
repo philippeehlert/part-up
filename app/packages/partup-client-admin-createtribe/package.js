@@ -7,7 +7,8 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
-        'partup-lib'
+        'partup-lib',
+        'ecmascript',
     ], ['client', 'server']);
 
     api.use([

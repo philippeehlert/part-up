@@ -34,7 +34,7 @@ Package.onUse(function(api) {
         'simple:authenticate-user-by-token',
         'anonyfox:scrape',
         '3stack:accounts-logout-hook',
-        'ecmascript',
+        'ecmascript'
     ], ['server']);
 
     api.addFiles([

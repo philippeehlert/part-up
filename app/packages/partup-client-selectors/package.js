@@ -7,7 +7,8 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
-        'meteorhacks:subs-manager'
+        'meteorhacks:subs-manager',
+        'ecmascript',
     ], ['client', 'server']);
 
     api.use([

@@ -1026,5 +1026,51 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'network_user_could_not_be_removed_as_colleague');
         }
+    },
+
+    /**
+     * Update the contents on the network frontpage
+     *
+     * @param {String} networkSlug
+     * @param {mixed[]} fields
+     * */
+    'networks.update_content': function(networkSlug, fields) {
+        check(networkSlug, String);
+        check(fields, Partup.schemas.forms.networkContent);
+
+        var user = Meteor.user();
+        var network = Networks.findOne({slug: networkSlug});
+
+        if (!user || !network.isAdmin(user._id)) throw new Meteor.Error(401, 'unauthorized');
+
+        // Validate video url
+        if (fields.video_url && !Partup.services.validators.isVideoUrl(fields.video_url)) {
+            throw new Meteor.Error(400, 'video_url_invalid');
+        }
+
+        try {
+            Networks.update(network._id, {
+                $set: {
+                    content: {
+                        video_url: fields.video_url,
+                        video_placeholder_image: fields.video_placeholder_image,
+                        why_title: fields.why_title,
+                        why_body: fields.why_body,
+                        chat_title: fields.chat_title,
+                        chat_body: fields.chat_body,
+                        chat_subtitle: fields.chat_subtitle,
+                        about_title: fields.about_title,
+                        about_body: fields.about_body
+                    }
+                }
+            });
+
+            return {
+                _id: network._id
+            };
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'network_content_could_not_be_updated');
+        }
     }
 });

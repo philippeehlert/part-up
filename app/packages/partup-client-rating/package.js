@@ -12,7 +12,8 @@ Package.onUse(function(api) {
         'aldeed:autoform',
         'partup-lib',
         'reactive-var',
-        'lifely:mout'
+        'lifely:mout',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([

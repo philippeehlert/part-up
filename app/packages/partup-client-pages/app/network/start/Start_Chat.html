@@ -1,0 +1,45 @@
+<template name="Start_Chat">
+    <div class="pu-tribestart-chat">
+        <div class="pu-tribestart-wrap">
+            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__title">{{data.chat_title}}</h2>
+            <div class="pu-contentblock pu-tribestart-chat__paragraph pu-tribestart-contentblock">
+                {{{data.chat_body}}}
+            </div>
+            <ul class="pu-list pu-list-horizontal pu-tribestart-chat__admins">
+                {{#each data.admins}}
+                    <li class="pu-tribestart-chat__admins__item">
+                        <div class="pu-tile pu-tile-upper">
+                            {{> UpperTile user=. show_similarities=true hide_stats=true chat_always_visible=true }}
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+            <h2 class="pu-tribestart-subtitle pu-tribestart-chat__uppers-title">{{ data.chat_subtitle }}</h2>
+            <ul class="pu-list pu-list-horizontal pu-tribestart-chat__uppers">
+                {{#each data.uppers}}
+                    <li class="pu-tribestart-chat__uppers__item">
+                        {{> Start_Chat_UserAvatar user=.}}
+                    </li>
+                {{/each}}
+                {{#if data.remainingUppers }}
+                    <li class="pu-tribestart-chat__uppers__item">
+                        <div class="pu-count pu-count-large pu-count-light pu-count-rimmed pu-count-rimmed-thick"><a href="{{ pathFor route='network-uppers' slug=data.slug }}">+{{data.remainingUppers}}</a></div>
+                    </li>
+                {{/if}}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="Start_Chat_UserAvatar">
+    <a href="{{ pathFor 'profile' _id=user._id }}">
+        <figure class="pu-avatar pu-avatar-large pu-avatar-rimmed pu-avatar-rimmed-thick"
+            style="{{#with user.profile.image}}
+                background-image: url({{ partupImageUrl id=. store='360x360' }});
+            {{/with}}"
+            data-hovercontainer="HoverContainer_upper"
+            data-hovercontainer-context="{{ user._id }}"
+        >
+        </figure>
+    </a>
+</template>

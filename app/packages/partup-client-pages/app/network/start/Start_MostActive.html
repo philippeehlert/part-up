@@ -1,0 +1,17 @@
+<template name="Start_MostActive">
+    <div class="pu-tribestart-mostactive">
+        <div class="pu-tribestart-wrap">
+            <h2 class="pu-tribestart-subtitle pu-tribestart-mostactive__title">{{_ 'pages-app-network-landing-most-active-title' }}</h2>
+            <ul class="pu-list pu-list-horizontal pu-tribestart-mostactive__partups">
+                {{#each data.partups }}
+                    <li class="pu-tribestart-mostactive__partups__item">
+                        <div class="pu-tile pu-tile-partup">
+                            {{> PartupTile partup=. HIDE_NETWORKTILE=true}}
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+            {{> Start_JoinButton }}
+        </div>
+    </div>
+</template>

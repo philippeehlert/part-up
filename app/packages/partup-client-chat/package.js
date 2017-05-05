@@ -7,10 +7,10 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.use([
+        'ecmascript',
     ], ['client', 'server']);
 
     api.use([
-        'ecmascript',
         'templating',
         'partup-lib',
         'reactive-var'

@@ -12,7 +12,8 @@ Package.onUse(function(api) {
         'aldeed:autoform',
         'yogiben:autoform-tags',
         'reactive-var',
-        'reactive-dict'
+        'reactive-dict',
+        'ecmascript',
     ], 'client');
 
     api.addFiles([
