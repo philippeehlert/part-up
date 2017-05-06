@@ -1,14 +1,107 @@
-<a name="2.12.0"></a>
-# [2.12.0](https://github.com/part-up/part-up/compare/2.11.1...2.12.0) (2017-04-21)
+<a name="2.12.1"></a>
+## [2.12.1](https://github.com/part-up/part-up/compare/2.12.0...2.12.1) (2017-04-30)
+
+
+### Bug Fixes
+
+* **document-upload:** Changed getFileUrl not to include fileId ([2dd5938](https://github.com/part-up/part-up/commit/2dd5938))
+* **file-upload:** fixed illegal characters in filename and put the ID at the end ([d362656](https://github.com/part-up/part-up/commit/d362656))
+* **rest:** rest routes now have userId exposed to publications ([014be6a](https://github.com/part-up/part-up/commit/014be6a))
+* **tribelanding:** added placeholder image for video [#699](https://github.com/part-up/part-up/issues/699) ([ee9faf6](https://github.com/part-up/part-up/commit/ee9faf6))
+* **tribelanding:** autoplay vimeo video [#699](https://github.com/part-up/part-up/issues/699) ([0ef963d](https://github.com/part-up/part-up/commit/0ef963d))
+* **tribelanding:** fixed alignment of socials [#699](https://github.com/part-up/part-up/issues/699) ([3a40e92](https://github.com/part-up/part-up/commit/3a40e92))
+* **tribelanding:** fixed anchor links for ie [#699](https://github.com/part-up/part-up/issues/699) ([187ede4](https://github.com/part-up/part-up/commit/187ede4))
+* **tribelanding:** fixed type wich caused the lock to alway be open [#699](https://github.com/part-up/part-up/issues/699) ([83904be](https://github.com/part-up/part-up/commit/83904be))
+* **tribelanding:** fixed website link [#699](https://github.com/part-up/part-up/issues/699) ([d956af3](https://github.com/part-up/part-up/commit/d956af3))
+* **tribelanding:** redirect to login if non-loggedin user clicks on chat [#699](https://github.com/part-up/part-up/issues/699) ([8553db8](https://github.com/part-up/part-up/commit/8553db8))
+* **tribelanding:** remove scrollbar on IE ([40d451a](https://github.com/part-up/part-up/commit/40d451a))
+* **tribelanding:** tile click goed to landingpage [#699](https://github.com/part-up/part-up/issues/699) ([b0242e2](https://github.com/part-up/part-up/commit/b0242e2))
+* **tribelanding:** updated dutch translations [#699](https://github.com/part-up/part-up/issues/699) ([c17d8b6](https://github.com/part-up/part-up/commit/c17d8b6))
+* **tribelanding): after login (via chat:** go back to landingpage [#699](https://github.com/part-up/part-up/issues/699) ([0c8431b](https://github.com/part-up/part-up/commit/0c8431b))
 
 
 ### Features
 
+* **discussions:** added conversations filter with frontend dropdown test implementation [#921](https://github.com/part-up/part-up/issues/921) ([77be359](https://github.com/part-up/part-up/commit/77be359))
+* **document-upload:** Hiding the document upload button on mobile and tablet viewports ([408768f](https://github.com/part-up/part-up/commit/408768f))
+* **marketto:** Add marketto script to head ([1b112d4](https://github.com/part-up/part-up/commit/1b112d4))
+* **marketto:** Move loading code ([f844fd2](https://github.com/part-up/part-up/commit/f844fd2))
+* **partup-cog:** Change dropdown to existing template ([9c1bfa5](https://github.com/part-up/part-up/commit/9c1bfa5)), closes [#711](https://github.com/part-up/part-up/issues/711)
+* **partup-navigation:** Change styling to work on all screen sizes ([dd3e1d2](https://github.com/part-up/part-up/commit/dd3e1d2))
+* **sitemap:** added swarms to sitemap ([9e91251](https://github.com/part-up/part-up/commit/9e91251))
+* **unpartner:** Change phraseApp keys ([bef74b0](https://github.com/part-up/part-up/commit/bef74b0))
+* **unpartner:** Merge master into feat-change-role-in-partup ([7232b5b](https://github.com/part-up/part-up/commit/7232b5b))
+
+
+
+<a name="2.12.0"></a>
+# [2.12.0](https://github.com/part-up/part-up/compare/2.11.1...2.12.0) (2017-04-21)
+
+
+### Bug Fixes
+
+* **babel:** added babel meteor preset ([716bcb6](https://github.com/part-up/part-up/commit/716bcb6))
+* **copy:** align copy of invite emails to uppers with emails to non-users ([5a2c93f](https://github.com/part-up/part-up/commit/5a2c93f))
+* **es6:** enabled ecmascript in all packages so all es6 features are compiled to es5 (LORD REEKUS) ([453a9b5](https://github.com/part-up/part-up/commit/453a9b5))
+* **network:** added socials to tribe-profile page and added chat content for landing page ([7c06c38](https://github.com/part-up/part-up/commit/7c06c38))
+* **scss:** converted sass to scss ([ff2c90f](https://github.com/part-up/part-up/commit/ff2c90f))
+* **tribelanding:** ‘read more’ links to the about page, also did some minor refactoring of the tribe-about page so it loads better ([e191800](https://github.com/part-up/part-up/commit/e191800))
+* **tribelanding:** about footer, hide if no about footer content (socials & website) ([155f198](https://github.com/part-up/part-up/commit/155f198))
+* **tribelanding:** added hovercards to tribe upper faces ([7f3526c](https://github.com/part-up/part-up/commit/7f3526c))
+* **tribelanding:** added lock icon to landingpage header [#699](https://github.com/part-up/part-up/issues/699) ([ae833c0](https://github.com/part-up/part-up/commit/ae833c0))
+* **tribelanding:** added new footers to chat tiles ([afde64d](https://github.com/part-up/part-up/commit/afde64d))
+* **tribelanding:** button fix ([957b564](https://github.com/part-up/part-up/commit/957b564))
+* **tribelanding:** fixed “+-1” uppers count ([4b9df90](https://github.com/part-up/part-up/commit/4b9df90))
+* **tribelanding:** fixed anchorscroll offset ([ef2e310](https://github.com/part-up/part-up/commit/ef2e310))
+* **tribelanding:** fixed contentblock styling ([45645da](https://github.com/part-up/part-up/commit/45645da))
+* **tribelanding:** fixed online status indicator ([dec19d3](https://github.com/part-up/part-up/commit/dec19d3))
+* **tribelanding:** fixed the embed code for youtube and vimeo links [#699](https://github.com/part-up/part-up/issues/699) ([0c39167](https://github.com/part-up/part-up/commit/0c39167))
+* **tribelanding:** fixed the horizontal scrolling bug on ios for the most part. the remaining horizontal scrolling bug is caused by the menu [#699](https://github.com/part-up/part-up/issues/699) ([6749f4c](https://github.com/part-up/part-up/commit/6749f4c))
+* **tribelanding:** implemented fadein for tribe landing header ([dc31f52](https://github.com/part-up/part-up/commit/dc31f52))
+* **tribelanding:** made fields optional so placeholders can persist [#699](https://github.com/part-up/part-up/issues/699) ([dcc786e](https://github.com/part-up/part-up/commit/dcc786e))
+* **tribelanding:** non-loggedin users can view the tribe landing page [#699](https://github.com/part-up/part-up/issues/699) ([0777312](https://github.com/part-up/part-up/commit/0777312))
+* **tribelanding:** removed read more in header [#699](https://github.com/part-up/part-up/issues/699) ([090ee9d](https://github.com/part-up/part-up/commit/090ee9d))
+* **tribelanding:** reset hash on anchor click [#699](https://github.com/part-up/part-up/issues/699) ([80df17d](https://github.com/part-up/part-up/commit/80df17d))
+* **tribelanding:** save chat_subtitle field [#699](https://github.com/part-up/part-up/issues/699) ([3403cff](https://github.com/part-up/part-up/commit/3403cff))
+* **tribelanding:** temporary fix for small screen tribelanding navigation ([63b062f](https://github.com/part-up/part-up/commit/63b062f))
+* **tribelanding:** translations ([641a6a9](https://github.com/part-up/part-up/commit/641a6a9))
+* **tribesettings:**  added tab translation ([5bf2929](https://github.com/part-up/part-up/commit/5bf2929))
+* **tribesettings:** fixed placeholder for chat subtitle ([698e7c0](https://github.com/part-up/part-up/commit/698e7c0))
+* **tribestart:** fixed attaching threshold ([e54802a](https://github.com/part-up/part-up/commit/e54802a))
+* **tribestart:** tried to copy some styling from partup-homepage ([3bf0814](https://github.com/part-up/part-up/commit/3bf0814))
+
+
+### Features
+
+* **file-upload:** added file upload functionality to client uploader ([7645493](https://github.com/part-up/part-up/commit/7645493))
+* **file-upload:** added files collection ([6d9dcee](https://github.com/part-up/part-up/commit/6d9dcee))
+* **file-upload:** added files publication ([46bd87d](https://github.com/part-up/part-up/commit/46bd87d))
+* **file-upload:** added files service ([dbdd07d](https://github.com/part-up/part-up/commit/dbdd07d))
+* **file-upload:** added files upload route ([e2ad758](https://github.com/part-up/part-up/commit/e2ad758))
+* **file-upload:** added remove functionality for files service ([06d80bb](https://github.com/part-up/part-up/commit/06d80bb))
+* **file-upload:** all files that are allowed in the dropbox+google drive uploader are now allowed in the normal file/image upload ([b30b335](https://github.com/part-up/part-up/commit/b30b335))
+* **file-upload:** publish files for update ([555e79e](https://github.com/part-up/part-up/commit/555e79e))
+* **file-upload:** remove files implementation on message removal ([174ed10](https://github.com/part-up/part-up/commit/174ed10))
+* **file-upload:** store file ids in message update ([424c3fb](https://github.com/part-up/part-up/commit/424c3fb))
+* **fileupload:** implemented delete from S3 in message edit ([2abaa47](https://github.com/part-up/part-up/commit/2abaa47))
 * **fixtures:**  Add comments to fixtures ([ad8d81e](https://github.com/part-up/part-up/commit/ad8d81e))
 * **fixtures:** fix readme ([6dd1a0a](https://github.com/part-up/part-up/commit/6dd1a0a))
 * **fixtures:** Prepare fixtures for random _ids ([1dd9d64](https://github.com/part-up/part-up/commit/1dd9d64))
 * **fixtures:** Update README ([9aad5a4](https://github.com/part-up/part-up/commit/9aad5a4))
+* **network-content:** added network content method and form schema ([12f3eb1](https://github.com/part-up/part-up/commit/12f3eb1))
+* **network-content:** added network property to network publication ([3b88756](https://github.com/part-up/part-up/commit/3b88756))
+* **partup-menu:** Add cog-wheel to partup header (unfinished) ([b8fa45e](https://github.com/part-up/part-up/commit/b8fa45e))
+* **sitemap:** added cron to generate sitemaps ([1260527](https://github.com/part-up/part-up/commit/1260527))
+* **sitemap:** added sitemap endpoints ([5d96ddd](https://github.com/part-up/part-up/commit/5d96ddd))
 * **tribe-menu:** Change margin small screens ([9c604db](https://github.com/part-up/part-up/commit/9c604db))
+* **tribelanding:** fallbacks for all content ([7550249](https://github.com/part-up/part-up/commit/7550249))
+* **tribelanding:** implemented all configurable tribe-landing content ([2610101](https://github.com/part-up/part-up/commit/2610101))
+* **tribelanding:** navbar attaches and detaches based on scroll position ([893415b](https://github.com/part-up/part-up/commit/893415b))
+* **tribelanding:** tribe landingpage settings page and contentn implementation ([f4ba1ff](https://github.com/part-up/part-up/commit/f4ba1ff))
+* **tribestart:** most of the frontend for tribestartpage ([7b7319a](https://github.com/part-up/part-up/commit/7b7319a))
+* **tribestart:** moved the tribestart layout style to /layouts folder and continued on with the styling of the page ([9762870](https://github.com/part-up/part-up/commit/9762870))
+* **tribestart:** WIP ([4e39381](https://github.com/part-up/part-up/commit/4e39381))
+* **unpartner:** added method to unpartner a partner ([6792060](https://github.com/part-up/part-up/commit/6792060))
 
 
 
