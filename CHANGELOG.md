@@ -1,3 +1,39 @@
+<a name="2.13.0"></a>
+# [2.13.0](https://github.com/part-up/part-up/compare/2.12.1...2.13.0) (2017-05-06)
+
+
+### Bug Fixes
+
+* Git merge origin/feat-tribe-landingpage into feat-tribe-landingpage ([456886f](https://github.com/part-up/part-up/commit/456886f))
+* **marketo:** fixed script loading ([f5abc87](https://github.com/part-up/part-up/commit/f5abc87))
+* **tribe-landingpage:** Change background-image opacity tribe menu header ([a56303d](https://github.com/part-up/part-up/commit/a56303d))
+* **tribe-landingpage:** Fix duplicate decleration by merge ([9418217](https://github.com/part-up/part-up/commit/9418217))
+* **tribe-landingpage:** Fix merge conflict in networks.js ([85b1f82](https://github.com/part-up/part-up/commit/85b1f82))
+
+
+### Features
+
+* **change-partup-role:** Add phrase keys for popup message ([efffc19](https://github.com/part-up/part-up/commit/efffc19))
+* **change-partup-role:** Change styling for merge ([5476db0](https://github.com/part-up/part-up/commit/5476db0))
+* **change-partup-role:** Fix merge conflicts with master ([72184aa](https://github.com/part-up/part-up/commit/72184aa))
+* **discussions-tab:** Add discussions to navigationselector used for small screens ([961fa27](https://github.com/part-up/part-up/commit/961fa27))
+* **discussions-tab:** Change conversations tab as main tab in partup ([84935a4](https://github.com/part-up/part-up/commit/84935a4))
+* **document-upload:** Support for document and images in IE ([b0a920e](https://github.com/part-up/part-up/commit/b0a920e))
+* **marketo-script:** Renamed marketto to marketo ([acb2571](https://github.com/part-up/part-up/commit/acb2571))
+* **marketto:** Change doc.ready to window.load for performance ([147afb6](https://github.com/part-up/part-up/commit/147afb6))
+* **marketto:** Only activate when cookies accepted ([99c14a2](https://github.com/part-up/part-up/commit/99c14a2))
+* **partup-cog:** Change styling and remove settings from old dropdown ([0ab58e7](https://github.com/part-up/part-up/commit/0ab58e7))
+* **partup-cog:** Fix styling for network cog caused declaring styles in a generic place ([569bbe5](https://github.com/part-up/part-up/commit/569bbe5))
+* **partup-conversations:** Add conversations route ([b0aa960](https://github.com/part-up/part-up/commit/b0aa960))
+* **partup-conversations:** Add conversations tab ([32d7750](https://github.com/part-up/part-up/commit/32d7750))
+* **partup-conversations:** Add phrase keys ([f693017](https://github.com/part-up/part-up/commit/f693017))
+* **partup-conversations:** Change name discussion to conversation ([84ff23d](https://github.com/part-up/part-up/commit/84ff23d))
+* **partup-conversations-tab:** Change picon to message ([1fb2b06](https://github.com/part-up/part-up/commit/1fb2b06))
+* **tribe-landingpage:** Change phrase keys ([991efec](https://github.com/part-up/part-up/commit/991efec))
+* **tribe-landingpage:** Merge locales to new format ([9194b88](https://github.com/part-up/part-up/commit/9194b88))
+
+
+
 <a name="2.12.1"></a>
 ## [2.12.1](https://github.com/part-up/part-up/compare/2.12.0...2.12.1) (2017-04-30)
 
