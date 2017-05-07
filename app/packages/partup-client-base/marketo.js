@@ -28,8 +28,12 @@ const marketo = {
 };
 
 Tracker.autorun((computation) => {
-    if ((Cookies.get('cb-enabled') === 'enabled' || Session.get('cookiesEnabled') === 'enabled') && !marketo.loaded) {
+    if (Cookies.get('cb-enabled') === 'enabled' && !marketo.loaded) {
         $(window).on('load', marketo.loadScript);
+        computation.stop();
+    }
+    if (Session.get('cookiesEnabled') === 'enabled' && !marketo.loaded) {
+        marketo.loadScript()
         computation.stop();
     }
 });
