@@ -10,11 +10,14 @@
             > li {
                 padding-top:10px;
             }
-            .pu-sub-shrinkforcog {
-                width: calc(100vw - 165px);
+
+            .pu-formdropdown-large {
+                margin-right:10px;
+                width: calc(100% - 75px);
             }
-            .pu-formdropdown {
-                width: calc(100vw - 115px);
+            .pu-formdropdown-small {
+                margin-right:10px;
+                width: calc(100% - 125px);
             }
         }
     }
