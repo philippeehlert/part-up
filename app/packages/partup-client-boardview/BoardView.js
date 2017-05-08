@@ -1,3 +1,5 @@
+import Sortable from 'sortablejs'; //'./node_modules/sortablejs/Sortable.min'
+
 Template.BoardView.onCreated(function() {
     var template = this;
     var partupId = template.data.partupId;
