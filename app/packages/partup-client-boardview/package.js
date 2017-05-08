@@ -20,5 +20,5 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
-    "sortablejs": "1.5.0-rc1",
+    "sortablejs": "1.5.1"//"1.5.0-rc1",
 });
