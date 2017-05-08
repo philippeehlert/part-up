@@ -1,3 +1,13 @@
+<a name="2.13.1"></a>
+## [2.13.1](https://github.com/part-up/part-up/compare/2.13.0...2.13.1) (2017-05-07)
+
+
+### Bug Fixes
+
+* **release:** Removed meteor stuff from root of repo babelrc ([d426cfd](https://github.com/part-up/part-up/commit/d426cfd))
+
+
+
 <a name="2.13.0"></a>
 # [2.13.0](https://github.com/part-up/part-up/compare/2.12.1...2.13.0) (2017-05-06)
 
