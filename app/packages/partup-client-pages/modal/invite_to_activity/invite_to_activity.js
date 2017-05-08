@@ -111,9 +111,10 @@ Template.modal_invite_to_activity.onCreated(function () {
         } 
         // Tab 3, get a list of users already invited.
         else if (currentTab === 3) {
-            var ids = Invites.find().fetch().map(function (invite) {
-                return invite.invitee_id;
-            });
+            var ids = Invites.find().fetch()
+                .filter(invite => invite.invitee_id)
+                .map(invite => invite.invitee_id);
+            
             template.states.paging_end_reached.set(ids < PAGING_INCREMENT);
             setUsers(ids);
         }
