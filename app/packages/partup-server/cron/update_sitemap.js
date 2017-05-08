@@ -13,7 +13,6 @@ if (process.env.PARTUP_CRON_ENABLED) {
                 // Create networks sitemap
                 var networkXml = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
                 Networks.find({
-                    privacy_type: Networks.privacy_types.NETWORK_PUBLIC,
                     archived_at: {$exists: false}
                 }, {fields: {slug: 1, updated_at: 1}}).forEach(function(network) {
                     networkXml += '<url>';
@@ -31,7 +30,6 @@ if (process.env.PARTUP_CRON_ENABLED) {
                 // Create Part-ups sitemap
                 var partupXml = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
                 Partups.find({
-                    privacy_type: Networks.privacy_types.NETWORK_PUBLIC,
                     archived_at: {$exists: false},
                     deleted_at: {$exists: false}
                 }, {fields: {slug: 1}}).forEach(function(partup) {
