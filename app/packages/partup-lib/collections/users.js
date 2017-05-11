@@ -412,11 +412,41 @@ User = function(user) {
             }
         },
 
+        /**
+         * Check if the user is a partner in a partup
+         * @name isPartnerInPartup
+         * @member {Function}
+         * @return {Boolean}
+         */
         isPartnerInPartup: function(partupId) {
             var upperOf = user.upperOf || [];
             return upperOf.indexOf(partupId) > -1;
         },
 
+        /**
+         * Check if the user is a supporter in a partup
+         * @name isSupporterInPartup
+         * @member {Function}
+         * @param {Integer} partupId
+         * @return {Boolean}
+         */
+        isSupporterInPartup: partupId => (user.supporterOf || []).indexOf(partupId) > -1,
+
+        /**
+         * Check if the user is partner or supporter in a partup
+         * @name isPartnerOrSupporterInPartup
+         * @member {Function}
+         * @param {Integer} partupId
+         * @return {Boolean}
+         */
+        isPartnerOrSupporterInPartup: partupId => isPartnerInPartup(partupId) | isSupporterInPartup(partupId),
+    
+        /**
+         * Check if the user is member of any partup
+         * @name isMemberOfAnyPartup
+         * @member {Function}
+         * @return {Boolean}
+         */
         isMemberOfAnyPartup: function() {
             if (!user) return false;
             var upperOf = user.upperOf || [];
@@ -426,6 +456,11 @@ User = function(user) {
             return isSupporter || isPartner;
         },
 
+        /**
+         * Check if the user is member of any network
+         * @member {Function}
+         * @return {Boolean}
+         */
         isMemberOfAnyNetwork: function() {
             if (!user) return false;
 

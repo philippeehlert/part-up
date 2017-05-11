@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 var sortPartups = function(partups, user) {
     return lodash.sortByOrder(partups, function(partup) {
         var upper_data = lodash.find(partup.upper_data, '_id', user._id);
@@ -11,66 +13,57 @@ var sortPartups = function(partups, user) {
 
 Template.DropdownTribes.onCreated(function() {
     var template = this;
-
-    // Current user
     var user = Meteor.user();
 
-    template.showPartups = new ReactiveVar(false);
-
-    // Placeholder for states (such as loading states)
+    // states & results change every time the dropdown opens, see 'template.DropdownOpen' below
+    // because the network array gets filled by two calls, both the loading states need to check if the process is complete
     template.states = {
-        loadingUpperpartups: new ReactiveVar(false),
-        loadingSupporterpartups: new ReactiveVar(false),
+        loadingUpperpartups: new ReactiveVar(false, (oldValue, newValue) => {
+            if (newValue === false && template.states.loadingSupporterpartups.curValue === false) { template.states.loadingNetworks.set(false) }
+            else { template.states.loadingNetworks.set(true) }
+        }),
+        loadingSupporterpartups: new ReactiveVar(false, (oldValue, newValue) => {
+            if (newValue === false && template.states.loadingUpperpartups.curValue === false) { template.states.loadingNetworks.set(false) }
+            else { template.states.loadingNetworks.set(true) }
+        }),
         loadingNetworks: new ReactiveVar(false)
     };
-
-    // Placeholder for results
     template.results = {
         upperpartups: new ReactiveVar([]),
         supporterpartups: new ReactiveVar([]),
         networks: new ReactiveVar([])
     };
 
-    var query = {
+    // The tribe used to decide which part-ups to load in the extended menu
+    template.activeTribe = new ReactiveVar(undefined);
+    template.showPartups = new ReactiveVar(false);
+
+    const query = {
         token: Accounts._storedLoginToken(),
         archived: false
     };
-    template.activeTribe = new ReactiveVar(undefined);
 
     template.dropdownOpen = new ReactiveVar(false, function(a, hasBeenOpened) {
         if (!hasBeenOpened) return;
-
-        // (Re)load networks
-        template.states.loadingNetworks.set(true);
-        HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
-            if (error || !response.data.networks || response.data.networks.length === 0) {
-                template.states.loadingNetworks.set(false);
-                return;
-            }
-
-            var result = response.data;
-
-            template.results.networks.set(result.networks.map(function(network) {
-                Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users);
-
-                return network;
-            }).sort(Partup.client.sort.alphabeticallyASC.bind(null, 'name')));
-        });
-
+        
         // (Re)load upper partups
         template.states.loadingUpperpartups.set(true);
         HTTP.get('/users/' + user._id + '/upperpartups' + mout.queryString.encode(query), function(error, response) {
             template.states.loadingUpperpartups.set(false);
-            if (error || !response.data.partups || response.data.partups.length === 0) {
+            let result = response.data;
+            if (error || !result.partups || result.partups.length === 0) {
                 return;
             }
 
-            var result = response.data;
+            // Both the HTTP requests obtain the networks the partups belong to so
+            // the result is merged with possibly existing networks from the other request below
+            template.results.networks.set(
+                _.unionBy(template.results.networks.get(), result.networks || [], network => network._id))
 
-            template.results.upperpartups.set(result.partups.map(function(partup) {
-                Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
-
-                return partup;
+            template.results.upperpartups.set(
+                result.partups.map(partup => {
+                    Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
+                    return partup;
             }));
         });
 
@@ -78,16 +71,18 @@ Template.DropdownTribes.onCreated(function() {
         template.states.loadingSupporterpartups.set(true);
         HTTP.get('/users/' + user._id + '/supporterpartups' + mout.queryString.encode(query), function(error, response) {
             template.states.loadingSupporterpartups.set(false);
+            let result = response.data;
             if (error || !response.data.partups || response.data.partups.length === 0) {
                 return;
             }
 
-            var result = response.data;
+            template.results.networks.set(
+                _.unionBy(template.results.networks.get(), result.networks || [], network => network._id))
 
-            template.results.supporterpartups.set(result.partups.map(function(partup) {
-                Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
-
-                return partup;
+            template.results.supporterpartups.set(
+                result.partups.map(partup => {
+                    Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
+                    return partup;
             }));
         });
     });
@@ -102,7 +97,7 @@ Template.DropdownTribes.onCreated(function() {
 });
 
 Template.DropdownTribes.onRendered(function() {
-    var template = this;
+    var template = this
     ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=tribes]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
@@ -179,81 +174,53 @@ Template.DropdownTribes.events({
 });
 
 Template.DropdownTribes.helpers({
-    menuOpen: function() {
-        return Template.instance().dropdownOpen.get();
-    },
-
-    showPartups: function() {
-        return Template.instance().showPartups.get();
-    },
-
-    currentTribe: function() {
-        return Template.instance().activeTribe.get();
-    },
-
-    currentTribeFull: function() {
+    menuOpen: () => Template.instance().dropdownOpen.get(),
+    showPartups: () => Template.instance().showPartups.get(),
+    currentTribe: () =>  Template.instance().activeTribe.get(),
+    currentTribeFull: () => {
         var template = Template.instance();
         var networks = template.results.networks.get();
         var networkId = template.activeTribe.get();
         return lodash.find(networks, {_id: networkId});
     },
 
-    loadingUpperpartups: function() {
-        return Template.instance().states.loadingUpperpartups.get();
+    loadingUpperpartups: () => Template.instance().states.loadingUpperpartups.get(),
+    loadingSupporterpartups: () => Template.instance().states.loadingSupporterpartups.get(),
+
+    networks: () => Template.instance().results.networks.get(),
+    isMemberOfNetwork: network => network.uppers.find(user => user._id === Meteor.userId()),
+
+    upperPartups: () => {
+        let user = Meteor.user()
+        if (!user) return []
+
+        let tribeId = Template.instance().activeTribe.get()
+        let upperpartups = Template.instance().results.upperpartups.get()
+
+        return sortPartups(_.filter(upperpartups, partup => partup.network_id === tribeId), user)
     },
+    supporterPartups: () => {
+        let user = Meteor.user()
+        if (!user) return []
 
-    loadingSupporterpartups: function() {
-        return Template.instance().states.loadingSupporterpartups.get();
+        let tribeId = Template.instance().activeTribe.get()
+        let supporterpartups = Template.instance().results.supporterpartups.get()
+
+        return sortPartups(_.filter(supporterpartups, partup => partup.network_id === tribeId), user)
     },
+    newUpdates: () => {
+        return _.reduce(_.map(_.filter(
+                this.upper_data || [], upperdata => upperdata._id === Meteor.userId())
+                , upperdata => upperdata.new_updates.length)
+                , (count, n) => count = count + n, null)
 
-    networks: function() {
-        return Template.instance().results.networks.get();
-    },
-
-    hasPartupsWithoutNetwork: function() {
-        var upperPartups = Template.instance().results.upperpartups.get().filter(function(item) {
-            return !item.network_id;
-        });
-        var supporterPartups = Template.instance().results.supporterpartups.get().filter(function(item) {
-            return !item.network_id;
-        });
-        return (upperPartups.length || supporterPartups.length);
-    },
-
-    upperPartups: function() {
-        var tribeId = Template.instance().activeTribe.get();
-        var user = Meteor.user();
-        if (!user) return [];
-
-        var allPartups = Template.instance().results.upperpartups.get().filter(function(item) {
-            if (tribeId === 'none') return !item.network_id;
-            return item.network_id === tribeId;
-        });
-
-        return sortPartups(allPartups, user);
-    },
-
-    supporterPartups: function() {
-        var tribeId = Template.instance().activeTribe.get();
-        var user = Meteor.user();
-        if (!user) return [];
-
-        var allPartups = Template.instance().results.supporterpartups.get().filter(function(item) {
-            if (tribeId === 'none') return !item.network_id;
-            return item.network_id === tribeId;
-        });
-
-        return sortPartups(allPartups, user);
-    },
-
-    newUpdates: function() {
-        if (!this.upper_data) return;
-        var count = null;
-        this.upper_data.forEach(function(upperData) {
-            if (upperData._id === Meteor.userId()) {
-                count = upperData.new_updates.length;
-            }
-        });
-        return count;
+        // if (!this.upper_data) return;
+        // let count = null;
+        // this.upper_data.forEach(upperData => {
+        //     if (upperData._id === Meteor.userId()) {
+        //         count = upperData.new_updates.length;
+        //     }
+        // });
+        // return count;
     }
 });
