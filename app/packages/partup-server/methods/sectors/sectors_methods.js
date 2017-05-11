@@ -14,8 +14,8 @@ Meteor.methods({
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            if (!Sectors.findOne({_id: fields._id})) {
-                Sectors.insert({_id: fields._id});
+            if (!Sectors.findOne({name: fields.name})) {
+                Sectors.insert({name: fields.name, phrase_key: fields.phrase_key});
             } else {
                 throw new Meteor.Error('sector_already_exists');
             }
@@ -40,11 +40,32 @@ Meteor.methods({
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            Networks.update({sector: sectorId}, {$unset: {'sector': ''}});
+            Networks.update({sector_id: sectorId}, {$unset: {'sector_id': ''}});
             Sectors.remove({_id: sectorId});
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'sector_could_not_be_removed');
         }
-    }
+    },
+
+    /**
+     * Update an existing sector
+     * @name sectors.update
+     * @param {String} sectorId
+     * @param {Mixed[]} fields
+     */
+     'sectors.update': function (sectorId, fields) {
+         check(sectorId, String)
+         check(fields, Partup.schemas.forms.sector)
+
+         if (!User(Meteor.user()).isAdmin()) throw new Meteor.Error(401, 'unauthorized')
+
+         let sector = Sectors.findOneOrFail({_id:sectorId})
+         try {
+             Sectors.update(sector._id, {$set: fields})
+         } catch(error) {
+             Log.error(error)
+             throw new Meteor.Error(400, 'sector_could_not_be_updated')
+         }
+     }
 });

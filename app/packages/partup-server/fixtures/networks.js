@@ -6,8 +6,7 @@ Meteor.startup(function() {
             /* 1 */
             Networks.insert({
                 '_id' : 'nqBnE8nSLasaapXXS',
-                'sector': 'Finance',
-                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (public)',
                 'slug' : 'ing-public',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus veniam illo inventore excepturi architecto ut, numquam enim est assumenda ex doloremque quos ratione. Repellendus blanditiis, tempora fugit velit est deleniti.',
@@ -28,8 +27,7 @@ Meteor.startup(function() {
             /* 2 */
             Networks.insert({
                 '_id' : 'kRCjWDBkKru3KfsjW',
-                'sector': 'Finance',
-                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (invite)',
                 'slug' : 'ing-invite',
                 'privacy_type' : 2,
@@ -57,8 +55,7 @@ Meteor.startup(function() {
             /* 3 */
             Networks.insert({
                 '_id' : 'wfCv4ZdPe5WNT4xfg',
-                'sector': 'Finance',
-                // 'sector_id' : 'FhapMhLSOHcCCbPfO',
+                'sector_id' : 'FhapMhLSOHcCCbPfO',
                 'name' : 'ING (closed)',
                 'slug' : 'ing-closed',
                 'privacy_type' : 3,
@@ -95,8 +92,7 @@ Meteor.startup(function() {
             /* 4 */
             Networks.insert({
                 '_id' : 'ibn27M3ePaXhmKzWq',
-                'sector': 'IT',
-                // 'sector_id' : 'xPqmVC0HXZSonoTXB',
+                'sector_id' : 'xPqmVC0HXZSonoTXB',
                 'name' : 'Lifely (open)',
                 'slug' : 'lifely-open',
                 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, delectus.',

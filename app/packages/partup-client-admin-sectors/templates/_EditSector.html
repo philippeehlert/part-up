@@ -1,0 +1,37 @@
+<template name="_EditSector">
+    {{#contentFor "PopupTitle"}}
+        Edit Sector
+    {{/contentFor}}
+
+    {{#autoForm id="editSectorForm" schema=formSchema doc=currentSectorFields class="pu-form pu-form-popup" validation="submitThenBlur" }}
+        <div class="pu-row">
+            <label class="pu-formfield">
+                <span class="pu-label">Name</span>
+                <div class="pu-sub-validations">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput name='name' class="pu-input" }}
+                    </span>
+                </div>
+            </label>
+            <label class="pu-formfield">
+                <span class="pu-label">PhraseApp Key</span>
+                <div class="pu-sub-validations">
+                    <span class="pu-sub-input">
+                        {{> afFieldInput name='phrase_key' class="pu-input" }}
+                    </span>
+                </div>
+            </label>            
+        </div>
+        <footer class="pu-sub-formfooter pu-row pu-row-scalable">
+            <div class="cell-stretch">
+                <button type="submit" class="pu-button {{#if submitting}}pu-state-loading pu-state-disabled{{/if}}">
+                <span>Save</span>
+                {{> Spinner color='inverted' type='small' }}
+                </button>
+            </div>
+            <div class="cell">
+                <a class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>Cancel</a>
+            </div>
+        </footer>
+    {{/autoForm}}
+</template>
