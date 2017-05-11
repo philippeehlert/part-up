@@ -188,7 +188,7 @@ Template.DropdownTribes.helpers({
     loadingSupporterpartups: () => Template.instance().states.loadingSupporterpartups.get(),
 
     networks: () => Template.instance().results.networks.get(),
-    isMemberOfNetwork: network => network.uppers.find(user => user._id === Meteor.userId()),
+    isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
 
     upperPartups: () => {
         let user = Meteor.user()
