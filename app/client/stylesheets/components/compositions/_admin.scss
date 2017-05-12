@@ -50,8 +50,7 @@
             float: left;
             margin: 0 0 0 10px;
             line-height: 40px;
-            // width: calc(100% - 50px);
-            width: 35%;
+            width: calc(100% - 50px);
             font-size: 0;
 
             &-header {
@@ -59,6 +58,13 @@
                 min-height: 20px;
                 line-height: 11px;
             }
+        }
+
+        .pu-sub-info-small {
+            width:35%;
+            .pu-sub-name {
+                width:100%;
+            }            
         }
 
         .pu-sub-info > span, .pu-sub-info > a {
@@ -87,9 +93,9 @@
             }
         }
 
-        // .pu-sub-name {
-        //     width: 20%;
-        // }
+        .pu-sub-name {
+            width: 20%;
+        }
 
         .pu-sub-content {
             width: 30%;
