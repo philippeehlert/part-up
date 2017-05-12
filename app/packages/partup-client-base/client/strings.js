@@ -1,6 +1,7 @@
 import partupAutolinker from '../helpers/autolink';
 import * as Autolinker from '../helpers/Autolinkjs';
 import marked from 'marked';
+import HTMLString from 'HTMLString';
 
 Partup.client.strings = {
 
@@ -67,9 +68,24 @@ Partup.client.strings = {
         return slug.split('-').pop();
     },
 
+    truncateHtmlString: (str, len) => {
+        let htmlstr = new HTMLString.String(str)
+        if (htmlstr.length() <= len) {
+            return str
+        }
+
+        let substr = htmlstr.slice(0, len)
+        let endchar = substr.characters[substr.characters.length - 1]
+        let dots = endchar.copy()
+        dots._c = '...'
+        substr.characters.push(dots)
+        return substr.html()
+    },
+
     shortenLeft: function (string, maxCharacters) {
         if (!string) return '';
         if (string.length <= maxCharacters) return string;
+
         var removeCount = string.length - maxCharacters;
         return '...' + string.substr(removeCount);
     },

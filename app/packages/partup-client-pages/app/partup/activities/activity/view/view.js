@@ -23,8 +23,10 @@ Template.ActivityView.helpers({
     activityDropdownOpen: function() {
         return Template.instance().activityDropdownOpen;
     },
-    renderWithMarkdown: function(text) {
-        return strings.renderToMarkdownWithEmoji(text, 'pu-sub-description');
+    renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text, 'pu-sub-description'),
+    truncateDescription: text => {
+        let t = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
+        return strings.truncateHtmlString(t, 55)
     },
     partup: function() {
         if (!this.activity) return;
