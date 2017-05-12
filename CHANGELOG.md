@@ -1,3 +1,22 @@
+<a name="2.14.0"></a>
+# [2.14.0](https://github.com/part-up/part-up/compare/2.13.1...2.14.0) (2017-05-08)
+
+
+### Bug Fixes
+
+* **board:** import sortable to boardview.js ([8ef9d0b](https://github.com/part-up/part-up/commit/8ef9d0b))
+* **invite-activity:** Filter email invites ([dfffb83](https://github.com/part-up/part-up/commit/dfffb83))
+* **marketo:** Change handle accept event ([fee542d](https://github.com/part-up/part-up/commit/fee542d))
+* **sitemap:** removed filtering of partup/network privacy types [#1041](https://github.com/part-up/part-up/issues/1041) ([e7a6df7](https://github.com/part-up/part-up/commit/e7a6df7))
+* **tribe-navigation:** Change spacing navigation dropdown ([a73ba66](https://github.com/part-up/part-up/commit/a73ba66)), closes [#1038](https://github.com/part-up/part-up/issues/1038)
+
+
+### Features
+
+* **sitemap:** Add meta tags to head for sitemap ([d85d80e](https://github.com/part-up/part-up/commit/d85d80e))
+
+
+
 <a name="2.13.1"></a>
 ## [2.13.1](https://github.com/part-up/part-up/compare/2.13.0...2.13.1) (2017-05-07)
 
