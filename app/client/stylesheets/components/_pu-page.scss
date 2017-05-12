@@ -179,7 +179,8 @@
 
     &-invitemodal {
         .pu-sub-pagecontent {
-            padding: 36px 0;
+            // padding: 36px 0;
+            padding-top:15px;
         }
 
         .pu-title-modal {
@@ -211,7 +212,8 @@
 
     @media screen and (min-width: $breakpoint-desktop) {
         .pu-sub-pagecontent {
-            padding-top: 70px;
+            // padding-top: 70px;
+            padding-top:20px;
         }
 
         &-error {
