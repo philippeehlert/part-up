@@ -22,7 +22,7 @@ Partup.transformers.network = {
             background_image: network.background_image,
             image: network.image,
             icon: network.icon,
-            sector: network.sector,
+            sector_id: network.sector_id,
             facebook_url: lodash.get(network, 'facebook_url', ''),
             twitter_url: lodash.get(network, 'twitter_url', ''),
             instagram_url: lodash.get(network, 'instagram_url', ''),
@@ -68,8 +68,8 @@ Partup.transformers.network = {
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) network.location = newLocation;
 
-        var validSector = Sectors.findOne(fields.sector);
-        if (validSector) network.sector = fields.sector;
+        var validSector = Sectors.findOne(fields.sector_id);
+        if (validSector) network.sector_id = fields.sector_id;
 
         return network;
     }

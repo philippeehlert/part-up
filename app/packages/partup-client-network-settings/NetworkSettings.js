@@ -98,7 +98,7 @@ Template.NetworkSettings.helpers({
                 return Sectors.find();
             },
             isNetworkSector: function(sector) {
-                return (network && network.sector) ? (network.sector === sector) : false;
+                return (network && network.sector_id) ? (network.sector_id === sector_id) : false;
             }
         };
     },
