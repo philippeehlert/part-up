@@ -1,15 +1,10 @@
 import _ from 'lodash';
 
-var sortPartups = function(partups, user) {
-    return lodash.sortByOrder(partups, function(partup) {
-        var upper_data = lodash.find(partup.upper_data, '_id', user._id);
-        if (upper_data && upper_data.new_updates) {
-            return upper_data.new_updates.length;
-        } else {
-            return 0;
-        }
-    }, ['desc']);
-};
+const sortPartups = (partups, user) => lodash.sortByOrder(partups, partup => {
+    let upper_data = lodash.find(partup.upper_data, '_id', user._id)
+    return (upper_data && upper_data.new_updates) ? upper_data.new_updates.length : 0
+}, ['desc'])
+const sortNetworks = networks => lodash.sortByOrder(networks, network => network.name, ['asc'])
 
 Template.DropdownTribes.onCreated(function() {
     var template = this;
@@ -187,7 +182,7 @@ Template.DropdownTribes.helpers({
     loadingUpperpartups: () => Template.instance().states.loadingUpperpartups.get(),
     loadingSupporterpartups: () => Template.instance().states.loadingSupporterpartups.get(),
 
-    networks: () => Template.instance().results.networks.get(),
+    networks: () => sortNetworks(Template.instance().results.networks.get()),
     isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
 
     upperPartups: () => {
@@ -208,19 +203,10 @@ Template.DropdownTribes.helpers({
 
         return sortPartups(_.filter(supporterpartups, partup => partup.network_id === tribeId), user)
     },
-    newUpdates: () => {
+    newUpdates: function () {
         return _.reduce(_.map(_.filter(
                 this.upper_data || [], upperdata => upperdata._id === Meteor.userId())
                 , upperdata => upperdata.new_updates.length)
                 , (count, n) => count = count + n, null)
-
-        // if (!this.upper_data) return;
-        // let count = null;
-        // this.upper_data.forEach(upperData => {
-        //     if (upperData._id === Meteor.userId()) {
-        //         count = upperData.new_updates.length;
-        //     }
-        // });
-        // return count;
     }
 });
