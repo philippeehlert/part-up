@@ -162,7 +162,11 @@
                 <a href="#" data-invite>{{_ 'activity-invite'}}</a>
             </li>
             <li>
-                <a href="#" data-activity-archive>{{_ 'activity-button-archive'}}</a>
+                {{#if activity.archived}}
+                    <a href="#" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
+                {{else}}
+                    <a href="#" data-activity-archive>{{_ 'activity-button-archive'}}</a>
+                {{/if}}
             </li>
         </ul>
     {{/ if }}

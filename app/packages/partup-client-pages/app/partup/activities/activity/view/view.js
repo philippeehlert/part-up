@@ -217,14 +217,16 @@ Template.ActivityView.events({
         });
     },
     'click [data-activity-archive]': (event, template) => {
-
-        Partup.client.prompt.confirm({
-            onConfirm: function() {
-                Meteor.call('activities.archive', template.data.activity._id, function(error) {
-                    if (error) {
-                        Partup.client.notify.error(error.reason)
-                    }
-                })
+        Meteor.call('activities.archive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
+            }
+        })
+    },
+    'click [data-activity-unarchive]': (event, template) => {
+        Meteor.call('activities.unarchive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
             }
         })
     }
