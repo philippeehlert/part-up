@@ -179,20 +179,24 @@
 
     &-invitemodal {
         .pu-sub-pagecontent {
-            // padding: 36px 0;
             padding-top:15px;
         }
 
-        .pu-title-modal {
-            margin-bottom: 0;
+        .pu-wrap-modal {
+            .pu-title-modal {
+                margin-bottom: 0;
+            }
+            .pu-description-modal {
+                margin-bottom: 0px;
+            }
         }
 
-        .pu-description-modal {
-            margin-bottom: 0px + 3px;
+        .pu-invite-suggestions-label {
+            margin-top:0px;
         }
 
         .pu-filterbar {
-            margin-bottom: 20px - 2px;
+            margin-bottom: 12px;
         }
     }
 
@@ -212,7 +216,6 @@
 
     @media screen and (min-width: $breakpoint-desktop) {
         .pu-sub-pagecontent {
-            // padding-top: 70px;
             padding-top:20px;
         }
 
