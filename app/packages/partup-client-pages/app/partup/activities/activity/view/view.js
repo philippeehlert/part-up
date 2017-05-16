@@ -221,6 +221,22 @@ Template.ActivityView.events({
             }
         });
     },
+    'click [data-activity-archive]': (event, template) => {
+        Meteor.call('activities.archive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
+            }
+            template.activityDropdownOpen.set(false)
+        })
+    },
+    'click [data-activity-unarchive]': (event, template) => {
+        Meteor.call('activities.unarchive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
+            }
+            template.activityDropdownOpen.set(false)
+        })
+    }
 });
 
 Template.activityActionsDropdown.helpers({
