@@ -10,7 +10,9 @@
         <div class="pu-sub-pagecontent">
             <div class="pu-wrap pu-wrap-modal">
                 <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_partup-title'}}</h2>
-                <p class="pu-description-modal">{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
+                {{#if screenSizeIsMinimalWidth 'desktop'}}
+                    <p class="pu-description-modal">{{_ 'pages-modal-invite_to_partup-explanation'}}</p>
+                {{/if}}
                 {{#TabView onToggleTab=hooks.onToggleTab defaultActiveTab=1 }}
                     <nav class="pu-navigation pu-navigation-header pu-navigation-tabs">
                         <ul class="pu-list pu-list-horizontal">
