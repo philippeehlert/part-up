@@ -25,10 +25,11 @@ Template.ActivityView.helpers({
     },
     renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text, 'pu-sub-description'),
     truncateDescription: text => {
-        // Becuse truncateHtmlString accepts only html we first need to process the description.
+        // Because truncateHtmlString accepts only html we first need to process the description.
         // This is not an elegant solution but it works for now.
-        let t = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
-        return strings.truncateHtmlString(t, 55)
+        let htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
+        let maxDescriptionLength = 55
+        return strings.truncateHtmlString(htmlText, maxDescriptionLength)
     },
     partup: function() {
         if (!this.activity) return;
