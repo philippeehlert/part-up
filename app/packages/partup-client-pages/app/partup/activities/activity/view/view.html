@@ -68,7 +68,11 @@
                     <!-- If multiple contributions were found, show the activity description and metadata -->
                     {{# unless COMPACT }}
                         {{# if activity.description }}
-                            {{{ renderWithMarkdown activity.description }}}
+                            {{#if BOARDVIEW }}
+                                {{{ truncateDescription activity.description }}}
+                            {{else}}
+                                {{{ renderWithMarkdown activity.description }}}
+                            {{/if}}
                         {{/ if }}
 
                         {{# if showMetaData }}
