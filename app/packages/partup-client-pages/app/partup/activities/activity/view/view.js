@@ -221,6 +221,7 @@ Template.ActivityView.events({
             if (error) {
                 Partup.client.notify.error(error.reason)
             }
+            template.activityDropdownOpen.set(false)
         })
     },
     'click [data-activity-unarchive]': (event, template) => {
@@ -228,6 +229,7 @@ Template.ActivityView.events({
             if (error) {
                 Partup.client.notify.error(error.reason)
             }
+            template.activityDropdownOpen.set(false)
         })
     }
 });
