@@ -58,8 +58,10 @@ Template.DropdownTribes.onCreated(function() {
             // Both the HTTP requests obtain the networks the partups belong to so
             // the result is merged with possibly existing networks from the other request below
             template.results.networks.set(
-                _.unionBy(template.results.networks.get(), result.networks || [], network => network._id))
-
+                _.unionBy(template.results.networks.get()
+                    , _.filter(result.networks, network => !network.archived_at)
+                    , network => network._id))
+                    
             template.results.upperpartups.set(
                 result.partups.map(partup => {
                     Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users);
@@ -77,7 +79,9 @@ Template.DropdownTribes.onCreated(function() {
             }
 
             template.results.networks.set(
-                _.unionBy(template.results.networks.get(), result.networks || [], network => network._id))
+                _.unionBy(template.results.networks.get()
+                    , _.filter(result.networks, network => !network.archived_at)
+                    , network => network._id))
 
             template.results.supporterpartups.set(
                 result.partups.map(partup => {
