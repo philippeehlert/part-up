@@ -1,5 +1,5 @@
-<a name="2.15.1"></a>
-## [2.15.1](https://github.com/part-up/part-up/compare/2.15.0...v2.15.1) (2017-05-19)
+<a name="2.16.0"></a>
+# [2.16.0](https://github.com/part-up/part-up/compare/2.15.0...2.16.0) (2017-05-19)
 
 
 ### Bug Fixes
