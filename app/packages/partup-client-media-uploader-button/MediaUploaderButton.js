@@ -46,6 +46,57 @@ function toggleMenu($toggleContainer) {
     }
 }
 
+Template.MediaUploaderButton.onRendered(function() {
+
+        var mediaUploader = Template.instance().data.mediaUploader
+        var token = Accounts._storedLoginToken();
+        var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        var url = location + '/files/upload?token=' + token;
+
+            var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles',
+            container: document.getElementById('container'),
+            url: url,
+            flash_swf_url: '../public/files/flash/Moxie.swf',
+            silverlight_xap_url: '../public/files/silverlight/Moxie.xap',
+
+            filters: {
+                max_file_size: '5mb',
+                mime_types: [
+                    {title: 'Custom', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join(',')}
+                ]
+            },
+
+            init: {
+                PostInit: function() {
+                    document.getElementById('uploadfiles').onclick = function() {
+                        uploader.start();
+                        return false;
+                    };
+                },
+                FilesAdded: function (up, files) {
+                    plupload.each(files, function(file) {
+                        uploader.start()
+                    });
+                },
+                FileUploaded: function (up, file) {
+                    const uploaded = mediaUploader.uploadedDocuments.get()
+                    uploaded.push({
+                        _id: file.id,
+                        name: file.name,
+                        bytes: file.size,
+                        isPartupFile: true,
+                    })
+                    mediaUploader.uploadedDocuments.set(uploaded)
+                }
+            }
+
+        })
+
+        uploader.init()
+})
+
 Template.MediaUploaderButton.events({
     'click [data-toggle-add-media-menu]': function (event) {
         event.stopImmediatePropagation();
@@ -91,6 +142,7 @@ Template.MediaUploaderButton.helpers({
     },
     imageInput: function () {
         let mediaUploader = Template.instance().data.mediaUploader;
+
         return {
             button: 'data-browse-photos',
             input: 'data-photo-input',

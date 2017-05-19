@@ -134,18 +134,25 @@ Partup.client.uploader = {
         var xhr = null;
         var formData = null;
 
+        console.log('file: ', file)
+        console.log('callback: ', callback)
+
         if (IE || SAFARI) {
             newFile = new mOxie.File(null, file);
         } else {
             newFile = new File([file], file.name);
         }
 
+        // console.log('newFile: ', newFile)
+
         var token = Accounts._storedLoginToken();
         if (IE || SAFARI) {
             xhr = new mOxie.XMLHttpRequest();
+            // xhr.setRequestHeader('Accept', "application/json; charset=utf-8;")
         } else {
             xhr = new XMLHttpRequest();
         }
+
         var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
         var url = location + '/files/upload?token=' + token;
         xhr.open('POST', url, true);
@@ -155,7 +162,10 @@ Partup.client.uploader = {
         } else {
             formData = new FormData();
         }
+
         formData.append('file', newFile);
+
+        console.log('formData: ', formData)
 
         var loadHandler = function(e) {
             var data = JSON.parse(xhr.responseText);
@@ -185,6 +195,7 @@ Partup.client.uploader = {
         xhr.addEventListener('load', loadHandler);
         xhr.addEventListener('error', errorHandler);
 
+        console.log('xhr: ', xhr)
         xhr.send(formData);
     },
 
@@ -298,8 +309,9 @@ Partup.client.uploader = {
                 accept: [
                     {title: 'Custom filetype', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join() }
                 ],
+                
                 multiple: multiple, // allow multiple file selection
-                runtime_order: 'flash,silverlight,html4,html5',
+                runtime_order: 'silverlight,flash,html4,html5',
             });
             fileInput.onchange = function(event) {
                 options.onFileChange(event);
