@@ -1,3 +1,15 @@
+<a name="2.15.0"></a>
+# [2.15.0](https://github.com/part-up/part-up/compare/2.14.0...2.15.0) (2017-05-12)
+
+
+### Features
+
+* **mytribes-menu:** Add tribes the user is not a member of ([390662e](https://github.com/part-up/part-up/commit/390662e))
+* **mytribes-menu:** Fix check user is a member of the network ([50435fe](https://github.com/part-up/part-up/commit/50435fe))
+* **sitemap:** added baseurl to separate sitemap file ([994af9e](https://github.com/part-up/part-up/commit/994af9e))
+
+
+
 <a name="2.14.0"></a>
 # [2.14.0](https://github.com/part-up/part-up/compare/2.13.1...2.14.0) (2017-05-08)
 
