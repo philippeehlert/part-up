@@ -34,6 +34,8 @@ Partup.client.embed = {
                 embed.network(partup.networkObject, images, users);
             }
         }
+
+        return partup
     },
     network: function(network, images, users) {
         var embed = this;
@@ -69,6 +71,7 @@ Partup.client.embed = {
             network.imageObject = mout.object.find(images, {_id: network.image});
         }
 
+        return network
     },
     user: function(user, images) {
 
