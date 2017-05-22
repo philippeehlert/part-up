@@ -97,7 +97,7 @@ Template.NetworkSettings.helpers({
             sectors: function() {
                 return Sectors.find();
             },
-            isNetworkSector: function(sector) {
+            isNetworkSector: function(sector_id) {
                 return (network && network.sector_id) ? (network.sector_id === sector_id) : false;
             }
         };
@@ -282,6 +282,8 @@ Template.NetworkSettings.events({
         template.charactersLeft.set(this.name, this.max - e.target.value.length);
     },
     'change [data-select-sector]': function(event, template) {
+        console.log('event current target:', $(event.currentTarget).val())
+        console.log('form input val: ', $('[data-sector-input]').val())
         $('[data-sector-input]').val($(event.currentTarget).val());
     }
 });
@@ -292,6 +294,8 @@ AutoForm.addHooks('networkEditForm', {
         var template = self.template.parent();
         var network = Networks.findOne({slug: template.data.networkSlug});
         template.submitting.set(true);
+
+        console.log('network doc:', doc)
 
         Meteor.call('networks.update', network._id, doc, function(err) {
             template.submitting.set(false);
