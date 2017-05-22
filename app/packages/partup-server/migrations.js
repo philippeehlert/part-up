@@ -1057,4 +1057,28 @@ Migrations.add({
     }
 });
 
+Migrations.add({
+    version: 41,
+    name: 'Change sector schema and update networks to allow phrase key',
+    up: function () {
+        Sectors.find().fetch().forEach(s => {
+            let id = Random.id()
+
+            //There are two names with special characters and whitespaces.
+            let phrase = s._id.toLowerCase().replace(' ', '').replace(/[^a-zA-Z0-9]+/, '_')
+
+            //Remove the old entry because _id is immutable!
+            Sectors.remove(s._id)
+            Sectors.insert({_id: id, name: s._id, phrase_key: 'network-settings-sector-' + phrase })
+
+            Networks.find({sector: s._id}).fetch().forEach(n => {
+                Networks.update({_id: n._id}, { $unset:{ sector: '' }, $set:{ sector_id: id } })    
+            })
+        })
+    },
+    down: function () {
+        // ...
+    }
+})
+
 // DO NOT ADD Migrations.migrateTo() here!!! This is controlled by the ENV_VAR 'MIGRATE'
