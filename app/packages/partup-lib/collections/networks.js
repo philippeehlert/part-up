@@ -673,13 +673,13 @@ Networks.guardedMetaFind = function(selector, options) {
  * Find the networks used in the discover page
  *
  * @memberOf Networks
- * @param userId
+ * @param userId - deprecated
  * @param {Object} options
  * @param parameters
  * @return {Cursor}
  */
 Networks.findForDiscover = function(
-    /** Deprecated, will always be passed as null */userId, options, parameters) {
+    /** userId argument is deprectated */userId, options, parameters) {
     var selector = {};
 
     options = options || {};

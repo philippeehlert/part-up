@@ -44,13 +44,7 @@ Template.AdminSectors.events({
     },
     'click [data-sector-remove]': function(event, template) {
         let sectorId = $(event.currentTarget).data('sector-remove')
-
-        let affectedCount = _.reduce(_.filter(
-            Networks.find().fetch(), network => network.sector_id === sectorId)
-            , (total, current) => total = total++, 0)
-
         Partup.client.prompt.confirm({
-            message: `This will affect ${affectedCount} tribes, are you sure?`,
             onConfirm: () => {
                 Meteor.call('sectors.remove', sectorId, error => {
                     if (error) {
