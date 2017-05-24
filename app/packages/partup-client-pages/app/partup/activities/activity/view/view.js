@@ -23,8 +23,13 @@ Template.ActivityView.helpers({
     activityDropdownOpen: function() {
         return Template.instance().activityDropdownOpen;
     },
-    renderWithMarkdown: function(text) {
-        return strings.renderToMarkdownWithEmoji(text, 'pu-sub-description');
+    renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text, 'pu-sub-description'),
+    truncateDescription: text => {
+        // Because truncateHtmlString accepts only html we first need to process the description.
+        // This is not an elegant solution but it works for now.
+        let htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
+        let maxDescriptionLength = 55
+        return strings.truncateHtmlString(htmlText, maxDescriptionLength)
     },
     partup: function() {
         if (!this.activity) return;
@@ -216,6 +221,22 @@ Template.ActivityView.events({
             }
         });
     },
+    'click [data-activity-archive]': (event, template) => {
+        Meteor.call('activities.archive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
+            }
+            template.activityDropdownOpen.set(false)
+        })
+    },
+    'click [data-activity-unarchive]': (event, template) => {
+        Meteor.call('activities.unarchive', template.data.activity._id, function(error) {
+            if (error) {
+                Partup.client.notify.error(error.reason)
+            }
+            template.activityDropdownOpen.set(false)
+        })
+    }
 });
 
 Template.activityActionsDropdown.helpers({

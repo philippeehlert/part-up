@@ -1,6 +1,7 @@
 import partupAutolinker from '../helpers/autolink';
 import * as Autolinker from '../helpers/Autolinkjs';
 import marked from 'marked';
+import HTMLString from 'HTMLString';
 
 Partup.client.strings = {
 
@@ -67,9 +68,36 @@ Partup.client.strings = {
         return slug.split('-').pop();
     },
 
+    /**
+     * Takes HTML and output's a substring without counting the HTML syntax
+     * @name truncateHtmlString
+     * @member {Function}
+     * @param {String} html
+     * @param {Integer} length
+     * @returns {String} returns the substring at 'len' while preserving the original HTML
+     */
+    truncateHtmlString: (/** html as string */html, /** the index to slice */length) => {
+
+        let htmlString = new HTMLString.String(html)
+        if (htmlString.length() <= length) {
+            return html
+        }
+
+        let substr = htmlString.slice(0, length)
+
+        // Every character holds information about the tag it belongs to,
+        // therefore the last char is copied and changed to make sure it is within the last closing HTML tag
+        let dots = substr.characters[substr.characters.length - 1].copy()
+        dots._c = '...'
+        substr.characters.push(dots)
+
+        return substr.html()
+    },
+
     shortenLeft: function (string, maxCharacters) {
         if (!string) return '';
         if (string.length <= maxCharacters) return string;
+
         var removeCount = string.length - maxCharacters;
         return '...' + string.substr(removeCount);
     },

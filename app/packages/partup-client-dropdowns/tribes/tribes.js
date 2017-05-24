@@ -68,9 +68,15 @@ Template.DropdownTribes.onCreated(function() {
             // the result is merged with possibly existing networks from the other request below
             template.results.networks.set(
                 _.unionBy(template.results.networks.get()
+<<<<<<< HEAD
                     , result.networks || []
                     , network => network._id))
 
+=======
+                    , _.filter(result.networks, network => !network.archived_at)
+                    , network => network._id))
+                    
+>>>>>>> master
             template.results.upperpartups.set(
                 _.map(result.partups, partup => Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users)))
         });
@@ -86,9 +92,15 @@ Template.DropdownTribes.onCreated(function() {
 
             template.results.networks.set(
                 _.unionBy(template.results.networks.get()
+<<<<<<< HEAD
                     , result.networks || []
                     , network => network._id))
             
+=======
+                    , _.filter(result.networks, network => !network.archived_at)
+                    , network => network._id))
+
+>>>>>>> master
             template.results.supporterpartups.set(
                 _.map(result.partups, partup => Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users)))
         });

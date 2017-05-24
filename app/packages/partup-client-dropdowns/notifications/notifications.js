@@ -1,5 +1,6 @@
 Template.DropdownNotifications.onCreated(function() {
     var template = this;
+    
     template.dropdownOpen = new ReactiveVar(false, function(a, b) {
         if (a === b || b) return;
 

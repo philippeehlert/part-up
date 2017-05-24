@@ -1,3 +1,39 @@
+<a name="2.16.0"></a>
+# [2.16.0](https://github.com/part-up/part-up/compare/2.15.0...2.16.0) (2017-05-19)
+
+
+### Bug Fixes
+
+* **mytribes-menu:** Add archived_at filter to tribes ([78f658e](https://github.com/part-up/part-up/commit/78f658e)), closes [#1060](https://github.com/part-up/part-up/issues/1060)
+* **mytribes-menu:** Add tribe sort and restore updates visible ([fc11cb4](https://github.com/part-up/part-up/commit/fc11cb4))
+* **notifications:** trigger jenkins ([fb43ecf](https://github.com/part-up/part-up/commit/fb43ecf))
+* **toggle-notifications:** Change wrapper from button to div ([fa9cb13](https://github.com/part-up/part-up/commit/fa9cb13)), closes [#838](https://github.com/part-up/part-up/issues/838)
+
+
+### Features
+
+* **activity-archive:** Change menu entry based on archive status and remove prompt to confirm ([ee91707](https://github.com/part-up/part-up/commit/ee91707)), closes [#1022](https://github.com/part-up/part-up/issues/1022)
+* **activity-archive:** Now close dropdown when (un)archive is clicked ([0e5e938](https://github.com/part-up/part-up/commit/0e5e938))
+* **activity-description:** Add comments to document code ([86e9086](https://github.com/part-up/part-up/commit/86e9086))
+* **activity-description:** Add truncate activity description in boardview ([0c8c960](https://github.com/part-up/part-up/commit/0c8c960))
+* **archive-activity-card:** Add mark as complete to the dropdown of an activity card ([811e662](https://github.com/part-up/part-up/commit/811e662))
+* **invite-modal:** Remove extra spacing to header ([5ef73f0](https://github.com/part-up/part-up/commit/5ef73f0))
+
+
+
+<a name="2.15.0"></a>
+# [2.15.0](https://github.com/part-up/part-up/compare/2.14.0...2.15.0) (2017-05-12)
+
+
+### Features
+
+* **invite-modal:** Make invite button visible for first tiles ([b54b7e1](https://github.com/part-up/part-up/commit/b54b7e1))
+* **mytribes-menu:** Add tribes the user is not a member of ([390662e](https://github.com/part-up/part-up/commit/390662e))
+* **mytribes-menu:** Fix check user is a member of the network ([50435fe](https://github.com/part-up/part-up/commit/50435fe))
+* **sitemap:** added baseurl to separate sitemap file ([994af9e](https://github.com/part-up/part-up/commit/994af9e))
+
+
+
 <a name="2.14.0"></a>
 # [2.14.0](https://github.com/part-up/part-up/compare/2.13.1...2.14.0) (2017-05-08)
 

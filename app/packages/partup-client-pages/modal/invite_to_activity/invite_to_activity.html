@@ -11,7 +11,9 @@
             <div class="pu-wrap pu-wrap-modal">
 
                 <h2 class="pu-title pu-title-modal">{{_ 'pages-modal-invite_to_activity-title'}}</h2>
-                <p class="pu-description-modal">{{_ 'pages-modal-invite_to_activity-explanation'}}</p>
+                {{#if screenSizeIsMinimalWidth 'desktop'}}
+                    <p class="pu-description-modal">{{_ 'pages-modal-invite_to_activity-explanation'}}</p>
+                {{/if}}
 
                 {{#TabView onToggleTab=onToggleTab defaultActiveTab=1 }}
                     <nav class="pu-navigation pu-navigation-header pu-navigation-tabs"> 

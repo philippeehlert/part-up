@@ -68,7 +68,11 @@
                     <!-- If multiple contributions were found, show the activity description and metadata -->
                     {{# unless COMPACT }}
                         {{# if activity.description }}
-                            {{{ renderWithMarkdown activity.description }}}
+                            {{#if BOARDVIEW }}
+                                {{{ truncateDescription activity.description }}}
+                            {{else}}
+                                {{{ renderWithMarkdown activity.description }}}
+                            {{/if}}
                         {{/ if }}
 
                         {{# if showMetaData }}
@@ -160,6 +164,13 @@
             {{/ if }}
             <li>
                 <a href="#" data-invite>{{_ 'activity-invite'}}</a>
+            </li>
+            <li>
+                {{#if activity.archived}}
+                    <a href="#" data-activity-unarchive>{{_ 'activity-button-unarchive'}}</a>
+                {{else}}
+                    <a href="#" data-activity-archive>{{_ 'activity-button-archive'}}</a>
+                {{/if}}
             </li>
         </ul>
     {{/ if }}
