@@ -71,7 +71,9 @@
                             {{#if BOARDVIEW }}
                                 {{{ truncateDescription activity.description }}}
                             {{else}}
-                                {{{ renderWithMarkdown activity.description }}}
+                                <p class="pu-paragraph pu-sub-description">
+                                    {{{ renderWithMarkdown activity.description }}}
+                                </p>
                             {{/if}}
                         {{/ if }}
 
@@ -101,6 +103,7 @@
 
                 <!-- Contributors -->
                 {{# unless COMPACT }}{{# unless BOARDVIEW }}
+                <!--{{#if EXPANDABLE}}-->
                 <div class="pu-sub-section__side">
                     {{#with contributions }}
                         <ul class="pu-avatar-stack pu-avatar-stack-tiny">
@@ -109,7 +112,8 @@
                             {{/ each }}
                         </ul>
                     {{/with}}
-                    {{# unless CREATE_PARTUP }}{{# unless BOARDVIEW}}{{# if expanded }}
+                    {{# unless CREATE_PARTUP }}{{# unless BOARDVIEW}}
+                    <!--{{# if expanded }}-->
                     {{# if showInviteButton }}
                         <p class="pu-sub-contribute">
                             {{# if showContributeButton }}
@@ -123,8 +127,10 @@
                             </button>
                         </p>
                     {{/ if }}
-                    {{/if}}{{/unless}}{{/unless}}
+                    <!--{{/if}}-->
+                    {{/unless}}{{/unless}}
                 </div>
+                <!--{{/if}}-->
                 {{/ unless }}{{/ unless}}
             </section>
 

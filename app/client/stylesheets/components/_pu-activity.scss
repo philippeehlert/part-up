@@ -12,16 +12,15 @@
             border-top: 2px solid $color-border-light;
         }
 
-        .pu-sub-description {
-            margin-bottom: 0;
-        }
-
         .pu-block-meta-nocomment {
             margin-top: 0;
         }
 
         .pu-sub-editbutton {
             margin-top: -15px;
+            float:right;
+            z-index:10;
+            position:relative;
         }
 
         &-divided {
@@ -30,27 +29,20 @@
             table-layout: fixed;
             width: 100%;
 
-            // .pu-sub-section__main {
-            //     width: calc(100% - 240px);
-            //     position: relative;
-            // }
-
             .pu-sub-section__main {
-                width:62%;
+                width:70%;
             }
             .pu-sub-section__side {
-                // max-width:335px;
-                width:38%;
-                // min-width:160px;
-                // max-width:350px;
-                // text-align:right;
+                position:absolute;
+                height:80%;
+                width:30%;
+                min-width:180px;
+                max-width:350px;
             }
             .pu-sub-section__main,
             .pu-sub-section__side {
-                // display: table-cell;
-                display:inline-block;
+                display: inline-block;
                 vertical-align: top;
-                // width: 100%;
             }
         }
 
@@ -61,12 +53,12 @@
 
         &__side {
             position: relative;
-            // width: 240px;
 
             .pu-avatar-stack {
                 width: 100%;
                 display: block;
                 height: 40px;
+                padding-right:10px;
             }
 
             &:before {
@@ -85,10 +77,6 @@
 
     .pu-label {
         font-size: 14px;
-    }
-
-    .pu-sub-editbutton {
-        margin-top: -10px;
     }
 
     .pu-sub-title {
@@ -113,9 +101,11 @@
     }
 
     .pu-sub-description {
-        margin-bottom: 5px;
-        margin-top: 6px;
+        margin-bottom: 0px;
         font-size: 16px;
+        margin-top:10px;
+        max-height:80px;
+        overflow:hidden;
 
         &:last-child {
             margin-bottom: -3px;
@@ -151,20 +141,13 @@
 
     .pu-sub-contribute {
         color: #aaa;
-        // text-align: right;
-        width:95%;
-        float:right;
+        position:absolute;
+        left:15px;
+        bottom:5px;
 
         .pu-button {
-            display: block;
+            display:inline-block;
             margin:5px 5px 0px 5px;
-
-            // &:first-child {
-            //     margin-left:15px;
-            // }
-            // &:last-child {
-            //     margin-left: 5px;
-            // }
         }
 
         .pu-button, .pu-sub-or {
@@ -174,14 +157,27 @@
     }
 
     &-expandable {
-        // .pu-sub-editbutton
-        //     display: none
+
+        .pu-button {
+            opacity: 0;
+            transition: opacity .25s;
+        }
+        &:hover {
+            .pu-button {
+                opacity: 1;
+            }
+        }
+
+        .pu-sub-description {
+            overflow: auto;
+            max-height: none;
+        }
 
         &.pu-activity-expanded {
             .pu-sub-editbutton {
                 display: block;
                 background-color: #fff;
-                z-index: 9;
+                z-index: 10;
                 position:relative;
                 float:right;
 
@@ -201,6 +197,10 @@
 
             > .pu-avatar-stack {
                 display: none;
+            }
+
+            .pu-button {
+                display:inline-block;
             }
         }
     }
@@ -233,6 +233,11 @@
     &-archived {
         .pu-sub-title {
             color: lighten($color-text, 50%);
+        }
+        .pu-sub-section {
+            .pu-sub-title.pu-expander:hover {
+                    color: lighten($color-text, 40%)
+            }
         }
     }
 
@@ -318,10 +323,6 @@
 
     @media screen and (min-width: $breakpoint-tablet) {
         .pu-sub-contribute {
-            .pu-button {
-                display: inline-block;
-            }
-
             .pu-button, .pu-sub-or {
                 width: auto;
             }
