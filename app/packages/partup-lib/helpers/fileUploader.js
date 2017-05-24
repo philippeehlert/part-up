@@ -1,4 +1,3 @@
-// Ensure Partup exists.
 if (!Partup) {
     Partup = {
         helpers: {
@@ -6,85 +5,6 @@ if (!Partup) {
         }
     };
 }
-
-/**
- * The Part-up fileUploader provides an API to the UI containing logic about uploading files.
- * 
- */
-// function FileUploader() {
-
-//     const fu = {}
-
-//     function create(config) {
-//         const uploader = new plupload.Uploader({
-//             runtimes: 'html5,flash,silverlight,html4',
-//             url: '',
-//             flash_swf_url: '',
-//             silverlight_xap_url: '',
-
-//             filters: {
-//                 max_file_size: '5mb',
-//                 mime_types: [
-//                     { title: '', extensions: 'svg,png' }
-//                 ]
-//             },
-
-//             init: {
-//                 PostInit: function () {
-//                     //assign handler
-//                 },
-//                 OptionChanged: function () {
-//                     //triggered whenever .SetOption() is used
-//                 },
-//                 Refresh: function () {
-
-//                 },
-//                 Error: function () {
-
-//                 }
-//             }
-//         })
-
-//         uploader.init()
-//         return uploader
-//     }
-
-//     function getFileType(fileName) {
-
-//     }
-//     function getFileExtension(fileName) {
-
-//     }
-//     function getAllExtensions() {
-
-//     }
-// }
-
-// /**
-//  * All the allowed extensions
-//  * @memberof {FileUploader}
-//  */
-// FileUploader.prototype.extensions = {
-
-//     image: ['.gif', '.jpg', '.jpeg', '.png', '.GIF', '.JPG', '.JPEG', '.PNG'],
-//     document: ['.doc', '.docx', '.rtf', '.pages', '.txt', '.DOC', '.DOCX', '.RTF', '.PAGES', '.TXT'],
-//     pdf: ['.pdf', '.PDF'],
-//     presentation: ['.pps', '.ppsx', '.ppt', '.pptx', '.PPS', '.PPSX', '.PPT', '.PPTX'],
-//     spreadsheet: ['.xls', '.xlsx', '.numbers', '.csv', '.XLS', '.XLSX', '.NUMBERS', '.CSV'],
-
-//     fallback: ['.ai', '.bmp', '.eps', '.psd', '.tiff', '.tif', '.svg', '.key', '.keynote', '.AI', '.BMP', '.EPS', '.PSD', '.TIFF', '.TIF', '.SVG', '.KEY', '.KEYNOTE'],
-
-//     all: lodash.flatten([
-//         image, document, pdf, presentation, spreadsheet, fallback
-//     ]),
-
-//     ie: all.map(ext => ext.replace(/\./g, '')),
-
-//     isAllowed: function (ext) {
-
-//     }
-// }
-
 
 Partup.helpers.fileUploader = {};
 
@@ -123,11 +43,10 @@ Partup.helpers.fileUploader.getAllExtensions = function () {
     }).flatten().value();
 };
 
-
-
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
 }
+
 /**
  * Get the extension from filename
  *

@@ -134,21 +134,15 @@ Partup.client.uploader = {
         var xhr = null;
         var formData = null;
 
-        console.log('file: ', file)
-        console.log('callback: ', callback)
-
         if (IE || SAFARI) {
             newFile = new mOxie.File(null, file);
         } else {
             newFile = new File([file], file.name);
         }
 
-        // console.log('newFile: ', newFile)
-
         var token = Accounts._storedLoginToken();
         if (IE || SAFARI) {
             xhr = new mOxie.XMLHttpRequest();
-            // xhr.setRequestHeader('Accept', "application/json; charset=utf-8;")
         } else {
             xhr = new XMLHttpRequest();
         }
@@ -164,8 +158,6 @@ Partup.client.uploader = {
         }
 
         formData.append('file', newFile);
-
-        console.log('formData: ', formData)
 
         var loadHandler = function(e) {
             var data = JSON.parse(xhr.responseText);
@@ -195,7 +187,6 @@ Partup.client.uploader = {
         xhr.addEventListener('load', loadHandler);
         xhr.addEventListener('error', errorHandler);
 
-        console.log('xhr: ', xhr)
         xhr.send(formData);
     },
 
@@ -303,15 +294,25 @@ Partup.client.uploader = {
         var fileInput = options.fileInput || null;
         var multiple = options.multiple || false;
         var isIE = this.isIE();
+
+        // Temporary solution for the 'MediaUploaderButton' to upload files from the mediauploaderbutton, this works in every browser!
+        if (options.onFilesAdded && options.onUploadFile && options.onFileUploaded) {
+            
+            fileInput = createPlupload(buttonElement, document.getElementById('uploadwrapper'), options.onFilesAdded, options.onUploadFile, options.onFileUploaded)
+            fileInput.init()
+            return
+        }
+
+        // Old implementation left untouched so I won't break anything.
         if (isIE) {
             fileInput = new mOxie.FileInput({
                 browse_button: buttonElement, // or document.getElementById('file-picker')
                 accept: [
-                    {title: 'Custom filetype', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join() }
+                    {title: 'Custom filetype', extensions: 'jpg,jpeg,png' }
                 ],
                 
                 multiple: multiple, // allow multiple file selection
-                runtime_order: 'silverlight,flash,html4,html5',
+                runtime_order: 'flash,silverlight,html4,html5',
             });
             fileInput.onchange = function(event) {
                 options.onFileChange(event);
@@ -326,9 +327,7 @@ Partup.client.uploader = {
                 options.onFileChange(event);
             });
         }
-
     },
-
     isIE: function() {
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf('MSIE ');
@@ -344,7 +343,6 @@ Partup.client.uploader = {
 
         return false;
     },
-
     isSafari: function() {
         var ua = window.navigator.userAgent;
 
@@ -359,5 +357,42 @@ Partup.client.uploader = {
 
         return is_safari;
     }
-
 };
+
+const createPlupload = function (browseButton, container, filesAddedHandler, uploadFileHandler, fileUploadedHandler) {
+    const uploader = new plupload.Uploader({
+        runtimes: 'html5,silverlight,flash,html4',
+        browse_button: browseButton,
+        container: container,
+        url: '/', //plupload requires the url to be set when initialized, the url gets set dynamically for each file based on file-type in the BeforeUpload handler
+        flash_swf_url: '../../../public/files/flash/Moxie.swf',
+        silverlight_xap_url: '../../../public/files/silverlight/Moxie.xap',
+
+        filters: {
+            max_file_size: '5mb',
+            prevent_duplicates: true,
+            mime_types: [
+                {title: 'Custom', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join(',')}
+            ]
+        },
+        init: {
+            PostInit: function () {
+                browseButton.addEventListener('click', function () {
+                    $('ieInput').click()
+                })
+                //This is hardcoded for now since it's only used in the mediapuloaderbutton.
+                document.getElementById('ieInput').onclick = function () {
+                    uploader.start()
+                    return false
+                }
+            },
+            FilesAdded: filesAddedHandler,
+            BeforeUpload: uploadFileHandler,
+            FileUploaded: fileUploadedHandler,
+            Error: function (up, error) {
+                Partup.client.notify.error(error.message)
+            }
+        }
+    })
+    return uploader
+}

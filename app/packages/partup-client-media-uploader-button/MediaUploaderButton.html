@@ -1,10 +1,6 @@
 <template name="MediaUploaderButton">
-    <div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
-                <div id="container">
-    <a id="pickfiles" href="javascript:;">[Select files]</a> 
-    <a id="uploadfiles" href="javascript:;">[Upload files]</a>
-</div>
-    <!--{{#FileInput inputSettings=imageInput}}
+    
+    {{#FileInput inputSettings=imageInput}}
         <div class="pu-dropdown-add-media  pu-formdropdown" data-toggle-add-media-menu>
             <div class="pu-sub-container">
                 <button class="pu-button pu-button-input pu-button-input-keepbuttonheight {{#if
@@ -38,5 +34,8 @@
             </div>
         </div>
         <input {{ disabledImageUploadFile }} accept="{{ fileExtensions allow_all_files }}" type="file" class="pu-fileinput" multiple data-photo-input style="visibility: hidden;">
-    {{/FileInput}}-->
+    {{/FileInput}}
+    <div id="uploadwrapper" style="visibility:hidden;">
+        <a id="ieInput" href="javascript:;" class="pu-fileinput" style="visibility:hidden;"></a>
+    </div>
 </template>

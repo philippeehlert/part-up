@@ -46,57 +46,6 @@ function toggleMenu($toggleContainer) {
     }
 }
 
-Template.MediaUploaderButton.onRendered(function() {
-
-        var mediaUploader = Template.instance().data.mediaUploader
-        var token = Accounts._storedLoginToken();
-        var location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        var url = location + '/files/upload?token=' + token;
-
-            var uploader = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
-            browse_button: 'pickfiles',
-            container: document.getElementById('container'),
-            url: url,
-            flash_swf_url: '../public/files/flash/Moxie.swf',
-            silverlight_xap_url: '../public/files/silverlight/Moxie.xap',
-
-            filters: {
-                max_file_size: '5mb',
-                mime_types: [
-                    {title: 'Custom', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join(',')}
-                ]
-            },
-
-            init: {
-                PostInit: function() {
-                    document.getElementById('uploadfiles').onclick = function() {
-                        uploader.start();
-                        return false;
-                    };
-                },
-                FilesAdded: function (up, files) {
-                    plupload.each(files, function(file) {
-                        uploader.start()
-                    });
-                },
-                FileUploaded: function (up, file) {
-                    const uploaded = mediaUploader.uploadedDocuments.get()
-                    uploaded.push({
-                        _id: file.id,
-                        name: file.name,
-                        bytes: file.size,
-                        isPartupFile: true,
-                    })
-                    mediaUploader.uploadedDocuments.set(uploaded)
-                }
-            }
-
-        })
-
-        uploader.init()
-})
-
 Template.MediaUploaderButton.events({
     'click [data-toggle-add-media-menu]': function (event) {
         event.stopImmediatePropagation();
@@ -143,6 +92,46 @@ Template.MediaUploaderButton.helpers({
     imageInput: function () {
         let mediaUploader = Template.instance().data.mediaUploader;
 
+        let token = Accounts._storedLoginToken();
+        let location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+
+        let imageCount = mediaUploader.uploadedPhotos.get().length
+        let fileCount = mediaUploader.uploadedDocuments.get().length
+
+        function processImage(fileId) {
+            Meteor.subscribe('images.one', fileId)
+            Meteor.autorun(function(computation) {
+                let file = Images.findOne({_id: fileId})
+                if (file) {
+                    computation.stop()
+                    mediaUploader.uploadingPhotos.set(false)
+                    
+                    let uploaded = mediaUploader.uploadedPhotos.get()
+                    uploaded.push(file._id)
+                    mediaUploader.uploadedPhotos.set(uploaded)
+                }
+            })
+        }
+        function processFile(fileId) {
+            Meteor.subscribe('files.one', fileId)
+            Meteor.autorun(function(computation) {
+                let file = Files.findOne({_id: fileId})
+                if (file) {
+                    computation.stop()
+                    mediaUploader.uploadingDocuments.set(false)
+                    
+                    let uploaded = mediaUploader.uploadedDocuments.get()
+                    uploaded.push({
+                        _id: file._id,
+                        name: file.name,
+                        bytes: file.bytes,
+                        isPartupFile: true
+                    })
+                    mediaUploader.uploadedDocuments.set(uploaded)
+                }
+            })
+        }
+
         return {
             button: 'data-browse-photos',
             input: 'data-photo-input',
@@ -155,6 +144,7 @@ Template.MediaUploaderButton.helpers({
                 $('[data-toggle-add-media-menu]').trigger('click');
 
                 let totalPhotos = Math.max(mediaUploader.totalPhotos.get(), mediaUploader.uploadedPhotos.get().length);
+
                 Partup.client.uploader.eachFile(event, (file, index, type) => {
                     if (type === 'image') {
                         if (totalPhotos === mediaUploader.maxPhotos) return;
@@ -184,8 +174,67 @@ Template.MediaUploaderButton.helpers({
                             mediaUploader.uploadedDocuments.set(uploaded);
                         }
                     });
-
                 });
+            },
+            onFilesAdded: function (up, files) {
+                $('[data-toggle-add-media-menu]').trigger('click')
+                
+                imageCount = mediaUploader.uploadedPhotos.get().length
+                fileCount = mediaUploader.uploadedDocuments.get().length
+
+                plupload.each(files, file => {
+                    let fileType = Partup.helpers.fileUploader.getFileType(file)
+
+                    switch (fileType) {
+                        case 'image':
+                            if (imageCount >= mediaUploader.maxPhotos) {
+                                Partup.client.notify.info(`Maximum number of images reached, ${file.name} is removed`)
+                                up.removeFile(file)
+                            } else {
+                                imageCount++
+                            }
+                            break;
+                        case 'file':
+                            if (fileCount >= mediaUploader.maxDocuments) {
+                                Partup.client.notify.info(`Maximum number of documents reached, ${file.name} is removed`)
+                                up.removeFile(file)
+                            } else {
+                                fileCount++
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                up.start()
+            },
+            onUploadFile: function (up, file) {
+                let fileType = Partup.helpers.fileUploader.getFileType(file)
+                fileType === 'image' ? mediaUploader.uploadingPhotos.set(true) : mediaUploader.uploadingDocuments.set(true)
+                up.setOption({
+                    url: `${location}/${fileType}s/upload?token=${token}`
+                })
+            },
+            onFileUploaded: function (up, file, result) {
+
+                let fileType = Partup.helpers.fileUploader.getFileType(file)
+                let response = JSON.parse(result.response)
+
+                if (response.error) {
+                    return Partup.client.notify.error(response.error)
+                }
+
+                switch (fileType) {
+                    case 'image':
+                        processImage(response.image)
+                        break;
+                    case 'file':
+                        processFile(response.file)
+                        break;
+                    default:
+                        Partup.client.notify.error('Could not process file, unknown file type')
+                        break;
+                }
             }
         };
     }

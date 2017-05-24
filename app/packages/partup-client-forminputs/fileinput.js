@@ -1,10 +1,3 @@
-// import { FileUploader } from ''
-
-/**
- * The FileInput template provides an interface to parent template for handling files.
- * 
- */
-
 Template.FileInput.onRendered(function () {
     const template = this
     const settings = this.data.inputSettings
@@ -19,7 +12,9 @@ Template.FileInput.onRendered(function () {
         multiple: multiple,
         onFileChange: function(fileInputEvent) {
             template.data.inputSettings.onFileChange(fileInputEvent);
-        }
+        },
+        onFilesAdded: settings.onFilesAdded,
+        onUploadFile: settings.onUploadFile,
+        onFileUploaded: settings.onFileUploaded
     });
 });
-
