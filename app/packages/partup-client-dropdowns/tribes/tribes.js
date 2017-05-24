@@ -68,7 +68,7 @@ Template.DropdownTribes.onCreated(function() {
             // the result is merged with possibly existing networks from the other request below
             template.results.networks.set(
                 _.unionBy(template.results.networks.get()
-                    , _.map(result.networks || [], network => Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users))
+                    , result.networks || []
                     , network => network._id))
 
             template.results.upperpartups.set(
@@ -86,7 +86,7 @@ Template.DropdownTribes.onCreated(function() {
 
             template.results.networks.set(
                 _.unionBy(template.results.networks.get()
-                    , _.map(result.networks || [], network => Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users))
+                    , result.networks || []
                     , network => network._id))
             
             template.results.supporterpartups.set(
