@@ -1,3 +1,13 @@
+<a name="2.17.0"></a>
+# [2.17.0](https://github.com/part-up/part-up/compare/2.16.2...2.17.0) (2017-05-26)
+
+
+### Features
+
+* **oauth:** Don't leak client info ([3a0c823](https://github.com/part-up/part-up/commit/3a0c823))
+
+
+
 <a name="2.16.2"></a>
 ## [2.16.2](https://github.com/part-up/part-up/compare/2.16.1...2.16.2) (2017-05-26)
 
