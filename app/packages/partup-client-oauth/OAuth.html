@@ -1,0 +1,16 @@
+<template name="OAuth">
+    <div class="pu-composition pu-composition-defaultmodal pu-composition-login">
+
+        <h2 class="pu-title pu-title-modal">Authorize Application</h2>
+        {{# if app }}
+        <p>{{app.name}} would like access to your Part-up profile.<br/><br/></p>
+
+        <button {{ attrs }} id="authButton" autofocus="true" type="button" class="pu-button {{# if submitting }}pu-state-loading pu-state-disabled{{/ if }}">
+            <span>Authorize</span>
+            {{> Spinner color='inverted' type='small' }}
+        </button>
+        {{ else }}
+        <p>Loading...</p>
+        {{/ if }}
+    </div>
+</template>

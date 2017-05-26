@@ -245,6 +245,10 @@ Package.onUse(function(api) {
             'modal/login/login.html',
             'modal/login/login.js',
 
+            // Modal:oauth
+            'modal/oauth/oauth.html',
+            'modal/oauth/oauth.js',
+
             // Modal:register
             'modal/register/register.html',
             'modal/register/register.js',

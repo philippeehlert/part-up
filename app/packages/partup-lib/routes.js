@@ -26,8 +26,8 @@ Router.route('', {
     name: 'home',
     where: 'client',
     yieldRegions: {
-        'app':      {to: 'main'},
-        'app_home': {to: 'app'}
+        'app': { to: 'main' },
+        'app_home': { to: 'app' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Home");
@@ -42,9 +42,9 @@ Router.route('/discover', {
     name: 'discover',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_discover':         {to: 'app'},
-        'app_discover_tribes':  {to: 'app_discover'}
+        'app': { to: 'main' },
+        'app_discover': { to: 'app' },
+        'app_discover_tribes': { to: 'app_discover' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName('Discover');
@@ -59,9 +59,9 @@ Router.route('/discover/partups', {
     name: 'discover-partups',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_discover':         {to: 'app'},
-        'app_discover_partups': {to: 'app_discover'}
+        'app': { to: 'main' },
+        'app_discover': { to: 'app' },
+        'app_discover_partups': { to: 'app_discover' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName('Discover Partups');
@@ -73,9 +73,9 @@ Router.route('/discover/recommendations', {
     name: 'discover-recommendations',
     where: 'client',
     yieldRegions: {
-        'app':                          {to: 'main'},
-        'app_discover':                 {to: 'app'},
-        'app_discover_recommendations': {to: 'app_discover'},
+        'app': { to: 'main' },
+        'app_discover': { to: 'app' },
+        'app_discover_recommendations': { to: 'app_discover' },
         // 'modal_recommendations': {to: 'modal'},
 
     },
@@ -93,9 +93,9 @@ Router.route('/profile', {
     name: 'profile-fallback',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_about': {to: 'app_profile'}
+        'app': { to: 'main' },
+        'app_profile': { to: 'app' },
+        'app_profile_about': { to: 'app_profile' }
     },
     onBeforeAction: function() {
         if (!this.params._id) {
@@ -114,9 +114,9 @@ Router.route('/profile/:_id', {
     name: 'profile',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_about': {to: 'app_profile'}
+        'app': { to: 'main' },
+        'app_profile': { to: 'app' },
+        'app_profile_about': { to: 'app_profile' }
     },
     data: function() {
         return {
@@ -136,9 +136,9 @@ Router.route('/profile/:_id/partner', {
     name: 'profile-upper-partups',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_upper_partups': {to: 'app_profile'}
+        'app': { to: 'main' },
+        'app_profile': { to: 'app' },
+        'app_profile_upper_partups': { to: 'app_profile' }
     },
     data: function() {
         return {
@@ -151,9 +151,9 @@ Router.route('/profile/:_id/supporter', {
     name: 'profile-supporter-partups',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_supporter_partups': {to: 'app_profile'}
+        'app': { to: 'main' },
+        'app_profile': { to: 'app' },
+        'app_profile_supporter_partups': { to: 'app_profile' }
     },
     data: function() {
         return {
@@ -166,9 +166,9 @@ Router.route('/profile/:_id/partners', {
     name: 'profile-partners',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'},
-        'app_profile': {to: 'app'},
-        'app_profile_partners': {to: 'app_profile'}
+        'app': { to: 'main' },
+        'app_profile': { to: 'app' },
+        'app_profile_partners': { to: 'app_profile' }
     },
     data: function() {
         return {
@@ -184,9 +184,9 @@ Router.route('/profile/:_id/settings', {
     name: 'profile-settings',
     where: 'client',
     yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_profile_settings': {to: 'modal'},
-        'modal_profile_settings_details': {to: 'modal_profile_settings'}
+        'modal': { to: 'main' },
+        'modal_profile_settings': { to: 'modal' },
+        'modal_profile_settings_details': { to: 'modal_profile_settings' }
     },
     data: function() {
         return {
@@ -199,9 +199,9 @@ Router.route('/profile/:_id/settings/general', {
     name: 'profile-settings-account',
     where: 'client',
     yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_profile_settings': {to: 'modal'},
-        'modal_profile_settings_account': {to: 'modal_profile_settings'}
+        'modal': { to: 'main' },
+        'modal_profile_settings': { to: 'modal' },
+        'modal_profile_settings_account': { to: 'modal_profile_settings' }
     },
     data: function() {
         return {
@@ -214,9 +214,9 @@ Router.route('/profile/:_id/settings/email', {
     name: 'profile-settings-email',
     where: 'client',
     yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_profile_settings': {to: 'modal'},
-        'modal_profile_settings_email': {to: 'modal_profile_settings'}
+        'modal': { to: 'main' },
+        'modal_profile_settings': { to: 'modal' },
+        'modal_profile_settings_email': { to: 'modal_profile_settings' }
     },
     data: function() {
         return {
@@ -229,9 +229,9 @@ Router.route('/profile/:_id/settings/notifications', {
     name: 'profile-settings-notifications',
     where: 'client',
     yieldRegions: {
-        'modal':              {to: 'main'},
-        'modal_profile_settings': {to: 'modal'},
-        'modal_profile_settings_notifications': {to: 'modal_profile_settings'}
+        'modal': { to: 'main' },
+        'modal_profile_settings': { to: 'modal' },
+        'modal_profile_settings_notifications': { to: 'modal_profile_settings' }
     },
     data: function() {
         return {
@@ -247,11 +247,35 @@ Router.route('/login', {
     name: 'login',
     where: 'client',
     yieldRegions: {
-        'modal':       {to: 'main'},
-        'modal_login': {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_login': { to: 'modal' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Log in");
+        this.next();
+    }
+});
+
+/*************************************************************/
+/* OAuth grant */
+/*************************************************************/
+Router.route('/oauth/authorize', {
+    name: 'oauth',
+    where: 'client',
+    yieldRegions: {
+        'modal': { to: 'main' },
+        'modal_oauth': { to: 'modal' }
+    },
+    data: function() {
+        var query = this.params.query;
+        return {
+            clientId: query.client_id,
+            responseType: query.response_type,
+            scope: query.scope
+        };
+    },
+    onBeforeAction: function() {
+        Partup.client.windowTitle.setContextName("Authorize Application");
         this.next();
     }
 });
@@ -263,8 +287,8 @@ Router.route('/forgot-password', {
     name: 'forgot-password',
     where: 'client',
     yieldRegions: {
-        'modal':                {to: 'main'},
-        'modal_forgotpassword': {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_forgotpassword': { to: 'modal' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Forgot password");
@@ -276,8 +300,8 @@ Router.route('/reset-password/:token', {
     name: 'reset-password',
     where: 'client',
     yieldRegions: {
-        'modal':               {to: 'main'},
-        'modal_resetpassword': {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_resetpassword': { to: 'modal' }
     },
     data: function() {
         return {
@@ -293,7 +317,7 @@ Router.route('/verify-email/:token', {
     name: 'verify-email',
     where: 'client',
     yieldRegions: {
-        'app': {to: 'main'}
+        'app': { to: 'main' }
     },
     data: function() {
         return {
@@ -320,8 +344,8 @@ Router.route('/unsubscribe-email-all/:token', {
     name: 'unsubscribe-email-all',
     where: 'client',
     yieldRegions: {
-        'modal': {to: 'main'},
-        'modal_profile_settings_email_unsubscribe_all': {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_profile_settings_email_unsubscribe_all': { to: 'modal' }
     },
     data: function() {
         return {
@@ -334,8 +358,8 @@ Router.route('/unsubscribe-email-one/:subscriptionKey/:token', {
     name: 'unsubscribe-email-one',
     where: 'client',
     yieldRegions: {
-        'modal': {to: 'main'},
-        'modal_profile_settings_email_unsubscribe_one': {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_profile_settings_email_unsubscribe_one': { to: 'modal' }
     },
     data: function() {
         return {
@@ -352,9 +376,9 @@ Router.route('/register', {
     name: 'register',
     where: 'client',
     yieldRegions: {
-        'modal':                 {to: 'main'},
-        'modal_register':        {to: 'modal'},
-        'modal_register_signup': {to: 'modal_register'}
+        'modal': { to: 'main' },
+        'modal_register': { to: 'modal' },
+        'modal_register_signup': { to: 'modal_register' }
     },
     data: function() {
         return {
@@ -371,9 +395,9 @@ Router.route('/register/details', {
     name: 'register-details',
     where: 'client',
     yieldRegions: {
-        'modal':                  {to: 'main'},
-        'modal_register':         {to: 'modal'},
-        'modal_register_details': {to: 'modal_register'}
+        'modal': { to: 'main' },
+        'modal_register': { to: 'modal' },
+        'modal_register_details': { to: 'modal_register' }
     }
 });
 
@@ -384,9 +408,9 @@ Router.route('/partups/:slug', {
     name: 'partup',
     where: 'client',
     yieldRegions: {
-        'app':                {to: 'main'},
-        'app_partup':         {to: 'app'},
-        'app_partup_updates': {to: 'app_partup'}
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_updates': { to: 'app_partup' }
     },
     data: function() {
         return {
@@ -416,9 +440,9 @@ Router.route('/partups/:slug/updates/:update_id', {
     name: 'partup-update',
     where: 'client',
     yieldRegions: {
-        'app':               {to: 'main'},
-        'app_partup':        {to: 'app'},
-        'app_partup_update': {to: 'app_partup'}
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_update': { to: 'app_partup' }
     },
     data: function() {
         return {
@@ -432,9 +456,9 @@ Router.route('/partups/:slug/activities', {
     name: 'partup-activities',
     where: 'client',
     yieldRegions: {
-        'app':                   {to: 'main'},
-        'app_partup':            {to: 'app'},
-        'app_partup_activities': {to: 'app_partup'}
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_activities': { to: 'app_partup' }
     },
     data: function() {
         return {
@@ -447,9 +471,9 @@ Router.route('/partups/:slug/documents', {
     name: 'partup-documents',
     where: 'client',
     yieldRegions: {
-        'app':                {to: 'main'},
-        'app_partup':         {to: 'app'},
-        'app_partup_updates': {to: 'app_partup'}
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_updates': { to: 'app_partup' }
     },
     data: function() {
         return {
@@ -478,8 +502,8 @@ Router.route('/partups/:slug/invite', {
     name: 'partup-invite',
     where: 'client',
     yieldRegions: {
-        'modal':                    {to: 'main'},
-        'modal_invite_to_partup': {to: 'modal'},
+        'modal': { to: 'main' },
+        'modal_invite_to_partup': { to: 'modal' },
     },
     data: function() {
         return {
@@ -492,8 +516,8 @@ Router.route('/partups/:slug/invite-for-activity/:activity_id', {
     name: 'partup-activity-invite',
     where: 'client',
     yieldRegions: {
-        'modal':                    {to: 'main'},
-        'modal_invite_to_activity': {to: 'modal'},
+        'modal': { to: 'main' },
+        'modal_invite_to_activity': { to: 'modal' },
     },
     data: function() {
         return {
@@ -507,8 +531,8 @@ Router.route('/partups/:slug/settings', {
     name: 'partup-settings',
     where: 'client',
     yieldRegions: {
-        'modal':                  {to: 'main'},
-        'modal_partup_settings': {to: 'modal'},
+        'modal': { to: 'main' },
+        'modal_partup_settings': { to: 'modal' },
     },
     data: function() {
         return {
@@ -535,9 +559,9 @@ Router.route('/admin', {
     name: 'admin-overview',
     where: 'client',
     yieldRegions: {
-        'modal':                    {to: 'main'},
-        'modal_admin':              {to: 'modal'},
-        'modal_admin_overview':     {to: 'modal_admin'}
+        'modal': { to: 'main' },
+        'modal_admin': { to: 'modal' },
+        'modal_admin_overview': { to: 'modal_admin' }
     }
 });
 
@@ -545,9 +569,9 @@ Router.route('/admin/partups', {
     name: 'admin-partups',
     where: 'client',
     yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_admin':                      {to: 'modal'},
-        'modal_admin_partups':              {to: 'modal_admin'}
+        'modal': { to: 'main' },
+        'modal_admin': { to: 'modal' },
+        'modal_admin_partups': { to: 'modal_admin' }
     }
 });
 
@@ -555,9 +579,9 @@ Router.route('/admin/tribes', {
     name: 'admin-createtribe',
     where: 'client',
     yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_admin':             {to: 'modal'},
-        'modal_create_tribe':      {to: 'modal_admin'}
+        'modal': { to: 'main' },
+        'modal_admin': { to: 'modal' },
+        'modal_create_tribe': { to: 'modal_admin' }
     }
 });
 
@@ -565,9 +589,9 @@ Router.route('/admin/swarms', {
     name: 'admin-createswarm',
     where: 'client',
     yieldRegions: {
-        'modal':                 {to: 'main'},
-        'modal_admin':           {to: 'modal'},
-        'modal_create_swarm':    {to: 'modal_admin'}
+        'modal': { to: 'main' },
+        'modal_admin': { to: 'modal' },
+        'modal_create_swarm': { to: 'modal_admin' }
     }
 });
 
@@ -575,9 +599,9 @@ Router.route('/admin/sectors', {
     name: 'admin-sectors',
     where: 'client',
     yieldRegions: {
-        'modal':                 {to: 'main'},
-        'modal_admin':           {to: 'modal'},
-        'modal_sectors':    {to: 'modal_admin'}
+        'modal': { to: 'main' },
+        'modal_admin': { to: 'modal' },
+        'modal_sectors': { to: 'modal_admin' }
     }
 });
 
@@ -588,8 +612,8 @@ Router.route('/about', {
     name: 'about',
     where: 'client',
     yieldRegions: {
-        'app':      {to: 'main'},
-        'app_about': {to: 'app'}
+        'app': { to: 'main' },
+        'app_about': { to: 'app' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("About");
@@ -601,8 +625,8 @@ Router.route('/pricing', {
     name: 'pricing',
     where: 'client',
     yieldRegions: {
-        'app':      {to: 'main'},
-        'app_pricing': {to: 'app'}
+        'app': { to: 'main' },
+        'app_pricing': { to: 'app' }
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName("Pricing");
@@ -617,8 +641,8 @@ Router.route('/tribes/:slug', {
     name: 'network',
     where: 'client',
     yieldRegions: {
-        'app':                      {to: 'main'},
-        'app_network_start':        {to: 'app'}
+        'app': { to: 'main' },
+        'app_network_start': { to: 'app' }
     },
     data: function() {
         return {
@@ -664,9 +688,9 @@ Router.route('/tribes/:slug/partups', {
     name: 'network-detail',
     where: 'client',
     yieldRegions: {
-        'app':                      {to: 'main'},
-        'app_network':              {to: 'app'},
-        'app_network_partups':      {to: 'app_network'}
+        'app': { to: 'main' },
+        'app_network': { to: 'app' },
+        'app_network_partups': { to: 'app_network' }
     },
     data: function() {
         return {
@@ -682,9 +706,9 @@ Router.route('/tribes/:slug/partups/create', {
     name: 'create-details',
     where: 'client',
     yieldRegions: {
-        'modal':                {to: 'main'},
-        'modal_create':         {to: 'modal'},
-        'modal_create_details': {to: 'modal_create'}
+        'modal': { to: 'main' },
+        'modal_create': { to: 'modal' },
+        'modal_create_details': { to: 'modal_create' }
     },
     data: function() {
         return {
@@ -697,9 +721,9 @@ Router.route('/tribes/:slug/partups/create/:_id/activities', {
     name: 'create-activities',
     where: 'client',
     yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_create':            {to: 'modal'},
-        'modal_create_activities': {to: 'modal_create'}
+        'modal': { to: 'main' },
+        'modal_create': { to: 'modal' },
+        'modal_create_activities': { to: 'modal_create' }
     },
     data: function() {
         return {
@@ -719,9 +743,9 @@ Router.route('/tribes/:slug/partups/create/:_id/promote', {
     name: 'create-promote',
     where: 'client',
     yieldRegions: {
-        'modal':                {to: 'main'},
-        'modal_create':         {to: 'modal'},
-        'modal_create_promote': {to: 'modal_create'}
+        'modal': { to: 'main' },
+        'modal_create': { to: 'modal' },
+        'modal_create_promote': { to: 'modal_create' }
     },
     data: function() {
         return {
@@ -741,9 +765,9 @@ Router.route('/tribes/:slug/uppers', {
     name: 'network-uppers',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_network':          {to: 'app'},
-        'app_network_uppers':   {to: 'app_network'}
+        'app': { to: 'main' },
+        'app_network': { to: 'app' },
+        'app_network_uppers': { to: 'app_network' }
     },
     data: function() {
         return {
@@ -756,9 +780,9 @@ Router.route('/tribes/:slug/about', {
     name: 'network-about',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_network':          {to: 'app'},
-        'app_network_about':   {to: 'app_network'}
+        'app': { to: 'main' },
+        'app_network': { to: 'app' },
+        'app_network_about': { to: 'app_network' }
     },
     data: function() {
         return {
@@ -772,9 +796,9 @@ Router.route('/tribes/:slug/chat', {
     name: 'network-chat',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_network':          {to: 'app'},
-        'app_network_chat':   {to: 'app_network'}
+        'app': { to: 'main' },
+        'app_network': { to: 'app' },
+        'app_network_chat': { to: 'app_network' }
     },
     data: function() {
         return {
@@ -787,9 +811,9 @@ Router.route('/tribes/:slug/chat#:chat_message_id', {
     name: 'network-chat-message',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_network':          {to: 'app'},
-        'app_network_chat':     {to: 'app_network'}
+        'app': { to: 'main' },
+        'app_network': { to: 'app' },
+        'app_network_chat': { to: 'app_network' }
     },
     data: function() {
         return {
@@ -803,8 +827,8 @@ Router.route('/tribes/:slug/invite', {
     name: 'network-invite',
     where: 'client',
     yieldRegions: {
-        'modal':                   {to: 'main'},
-        'modal_network_invite':    {to: 'modal'}
+        'modal': { to: 'main' },
+        'modal_network_invite': { to: 'modal' }
     },
     data: function() {
         return {
@@ -820,9 +844,9 @@ Router.route('/tribes/:slug/settings', {
     name: 'network-settings',
     where: 'client',
     yieldRegions: {
-        'modal':                          {to: 'main'},
-        'modal_network_settings':         {to: 'modal'},
-        'modal_network_settings_details': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_details': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -850,9 +874,9 @@ Router.route('/tribes/:slug/settings/uppers', {
     name: 'network-settings-uppers',
     where: 'client',
     yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_uppers': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_uppers': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -865,9 +889,9 @@ Router.route('/tribes/:slug/settings/partups', {
     name: 'network-settings-partups',
     where: 'client',
     yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_network_settings':           {to: 'modal'},
-        'modal_network_settings_partups':   {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_partups': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -880,9 +904,9 @@ Router.route('/tribes/:slug/settings/bulk-invite', {
     name: 'network-settings-bulkinvite',
     where: 'client',
     yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_bulkinvite': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_bulkinvite': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -895,9 +919,9 @@ Router.route('/tribes/:slug/settings/requests', {
     name: 'network-settings-requests',
     where: 'client',
     yieldRegions: {
-        'modal':                           {to: 'main'},
-        'modal_network_settings':          {to: 'modal'},
-        'modal_network_settings_requests': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_requests': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -910,9 +934,9 @@ Router.route('/tribes/:slug/settings/about', {
     name: 'network-settings-about',
     where: 'client',
     yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_about': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_about': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -925,9 +949,9 @@ Router.route('/tribes/:slug/settings/access', {
     name: 'network-settings-access',
     where: 'client',
     yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_access': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_access': { to: 'modal_network_settings' }
     },
     data: function() {
         return {
@@ -944,8 +968,8 @@ Router.route('/chats', {
     name: 'chats',
     where: 'client',
     yieldRegions: {
-        'app':                  {to: 'main'},
-        'app_chat':             {to: 'app'}
+        'app': { to: 'main' },
+        'app_chat': { to: 'app' }
     },
     data: function() {
         var route = this;
@@ -965,7 +989,7 @@ Router.route('/:slug', {
     name: 'swarm',
     where: 'client',
     yieldRegions: {
-        'swarm':            {to: 'main'}
+        'swarm': { to: 'main' }
     },
     data: function() {
         return {
@@ -991,7 +1015,7 @@ Router.route('/:slug', {
             if (result.is_swarm) {
                 self.render();
 
-            // redirect to the network detail if it isn't a swarm but is a network
+                // redirect to the network detail if it isn't a swarm but is a network
             } else if (result.is_network) {
                 self.redirect('network', {
                     slug: self.params.slug
@@ -1020,9 +1044,9 @@ Router.route('/:slug/settings', {
     name: 'swarm-settings-details',
     where: 'client',
     yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_swarm_settings':             {to: 'modal'},
-        'modal_swarm_settings_details':  {to: 'modal_swarm_settings'}
+        'modal': { to: 'main' },
+        'modal_swarm_settings': { to: 'modal' },
+        'modal_swarm_settings_details': { to: 'modal_swarm_settings' }
     },
     data: function() {
         return {
@@ -1034,9 +1058,9 @@ Router.route('/:slug/tribes', {
     name: 'swarm-settings-tribes',
     where: 'client',
     yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_swarm_settings':             {to: 'modal'},
-        'modal_swarm_settings_tribes':  {to: 'modal_swarm_settings'}
+        'modal': { to: 'main' },
+        'modal_swarm_settings': { to: 'modal' },
+        'modal_swarm_settings_tribes': { to: 'modal_swarm_settings' }
     },
     data: function() {
         return {
@@ -1048,9 +1072,9 @@ Router.route('/:slug/quotes', {
     name: 'swarm-settings-quotes',
     where: 'client',
     yieldRegions: {
-        'modal':                            {to: 'main'},
-        'modal_swarm_settings':             {to: 'modal'},
-        'modal_swarm_settings_quotes':      {to: 'modal_swarm_settings'}
+        'modal': { to: 'main' },
+        'modal_swarm_settings': { to: 'modal' },
+        'modal_swarm_settings_quotes': { to: 'modal_swarm_settings' }
     },
     data: function() {
         return {
@@ -1065,8 +1089,8 @@ Router.route('/:slug/quotes', {
 Router.route('/(.*)', {
     where: 'client',
     yieldRegions: {
-        'app':          {to: 'main'},
-        'app_notfound': {to: 'app'}
+        'app': { to: 'main' },
+        'app_notfound': { to: 'app' }
     },
     action: function() {
         Partup.client.windowTitle.setContextName("404 Not found");
@@ -1080,7 +1104,7 @@ Router.route('/(.*)', {
 // Shield pages for non-users
 Router.onBeforeAction(function(req, res, next) {
     if (!Meteor.userId()) {
-        Intent.go({route: 'login'}, function(user) {
+        Intent.go({ route: 'login' }, function(user) {
             if (user) next();
             else this.back();
         });
@@ -1096,6 +1120,7 @@ Router.onBeforeAction(function(req, res, next) {
         'create-promote',
         'register-details',
         'network-invite',
+        'oauth',
         'profile-settings',
         'profile-settings-account',
         'profile-settings-email',
@@ -1175,8 +1200,8 @@ if (Meteor.isClient) {
         var currentRoute = this.current();
         if (type) currentRoute.state.set('type', type);
         if (data) currentRoute.state.set('data', data);
-        currentRoute.render('app', {to: 'main'}); // this is so it also works for modals
-        currentRoute.render('app_notfound', {to: 'app'});
+        currentRoute.render('app', { to: 'main' }); // this is so it also works for modals
+        currentRoute.render('app_notfound', { to: 'app' });
     };
 
     // renders the yield regions of a different route
@@ -1194,14 +1219,14 @@ if (Meteor.isClient) {
 
     Router.replaceYieldTemplate = function(newTemplate, target) {
         var currentRoute = this.current();
-        currentRoute.render(newTemplate, {to: target});
+        currentRoute.render(newTemplate, { to: target });
     };
 } else {
     Router.route('/dreams/:path(.*)', {
         where: 'server',
         action: function() {
             var url = 'http://blog.partup.com/dreams/' + this.params.path;
-            this.response.writeHead(301, {Location: url});
+            this.response.writeHead(301, { Location: url });
             return this.response.end();
         }
     });
@@ -1210,7 +1235,7 @@ if (Meteor.isClient) {
         where: 'server',
         action: function() {
             var url = 'http://blog.partup.com/blogs/' + this.params.path;
-            this.response.writeHead(301, {Location: url});
+            this.response.writeHead(301, { Location: url });
             return this.response.end();
         }
     });

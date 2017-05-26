@@ -221,6 +221,7 @@ Package.onUse(function(api) {
         'methods/sectors/sectors_methods.js',
         'methods/boards/boards_methods.js',
         'methods/lanes/lanes_methods.js',
+        'methods/oauth/oauth_methods.js',
         'cron/reset_clicks_per_hour.js',
         'cron/calculate_partup_participation_score_for_users.js',
         'cron/calculate_partup_progress_score_for_partups.js',
