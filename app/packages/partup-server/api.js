@@ -3,7 +3,7 @@ var url = Npm.require('url');
 var apiRoot = process.env.API_ROOT_URL;
 var apiKey = process.env.API_KEY;
 var apiOpts = { headers: { apikey: apiKey } };
-var apiSecure = url.parse(apiRoot).protocol === 'https';
+var apiSecure = apiRoot && url.parse(apiRoot).protocol === 'https';
 
 // Check event endpoint config
 if (!apiRoot || !apiKey) {
