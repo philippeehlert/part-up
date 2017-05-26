@@ -14,14 +14,22 @@ function obtainProvisionKeyFromKongAdminApi() {
 
 Meteor.methods({
     'oauth.applications.find': function(clientId) {
+        if (!clientId) {
+            throw new Meteor.Error(400, 'Client Id is required.');
+        }
         this.unblock();
         try {
             var response = Api.get('/kong/oauth2', { params: { client_id: clientId } });
             var data = response.data.data;
             if (data && data.length > 0) {
-                return {
-                    name: data[0].name
-                };
+                let consumer = _.find(data, { client_id: clientId });
+                if (consumer) {
+                    return {
+                        name: consumer.name
+                    };
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
