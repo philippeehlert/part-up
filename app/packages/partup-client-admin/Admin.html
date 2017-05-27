@@ -1,36 +1,5 @@
 <template name="Admin">
     <div class="pu-composition pu-composition-defaultmodal pu-composition-admin-overview">
-        <h2>Stats</h2>
-        <div class="pu-block pu-block-highlighted pu-columnslayout pu-columnslayout-three">
-            <div class="pu-sub-column">
-                <h2>Partups ({{partupStats.total}})</h2>
-                <ul>
-                    <li>Open: {{partupStats.open}}</li>
-                    <li>Private: {{partupStats.private}}</li>
-                    <li>Network Open: {{partupStats.networkopen}}</li>
-                    <li>Network Private: {{partupStats.networkinvite}}</li>
-                    <li>Network Closed: {{partupStats.networkclosed}}</li>
-                </ul>
-            </div>
-            <div class="pu-sub-column">
-                <h2>Logins</h2>
-                <ul>
-                    <li>password: {{userStats.servicecounts.password}}</li>
-                    <li>linkedin: {{userStats.servicecounts.linkedin}}</li>
-                    <li>facebook: {{userStats.servicecounts.facebook}}</li>
-                </ul>
-            </div>
-            <div class="pu-sub-column">
-                <h2>Other</h2>
-                <ul>
-                    <li>users: {{userStats.counts.users}}</li>
-                    <li>notifications: {{userStats.counts.notifications}}</li>
-                    <li>activities: {{userStats.counts.activities}}</li>
-                    <li>contributions: {{userStats.counts.contributions}}</li>
-                    <li>ratings: {{userStats.counts.ratings}}</li>
-                </ul>
-            </div>
-        </div>
         <h2>Users (<a target="_blank" href="/csv/admin/users?token={{getToken}}">csv export</a>)</h2>
         <form class="pu-row usersearch">
             <div class="cell stretch"><input class="pu-input" data-usersearchfield placeholder="Search for user name"/></div>
