@@ -23,7 +23,7 @@ Template.ActivityView.helpers({
     activityDropdownOpen: function() {
         return Template.instance().activityDropdownOpen;
     },
-    renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text, 'pu-sub-description'),
+    renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text),
     truncateDescription: text => {
         // Because truncateHtmlString accepts only html we first need to process the description.
         // This is not an elegant solution but it works for now.
