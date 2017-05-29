@@ -1,4 +1,5 @@
 <template name="MediaUploaderButton">
+    
     {{#FileInput inputSettings=imageInput}}
         <div class="pu-dropdown-add-media  pu-formdropdown" data-toggle-add-media-menu>
             <div class="pu-sub-container">
@@ -11,6 +12,7 @@
                     {{/if}}
                     <i class="picon-caret-down"></i>
                 </button>
+                
                 <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
                     {{#if screenSizeIsMinimalWidth 'desktop' }}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
@@ -33,4 +35,7 @@
         </div>
         <input {{ disabledImageUploadFile }} accept="{{ fileExtensions allow_all_files }}" type="file" class="pu-fileinput" multiple data-photo-input style="visibility: hidden;">
     {{/FileInput}}
+    <div id="uploadwrapper" style="visibility:hidden;">
+        <a id="ieInput" href="javascript:;" class="pu-fileinput" style="visibility:hidden;"></a>
+    </div>
 </template>

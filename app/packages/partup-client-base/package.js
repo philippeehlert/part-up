@@ -27,6 +27,7 @@ Package.onUse(function (api) {
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
         'client/console-shim.js',
+        'client/plupload.full.min.js',
 
         'namespace.js',
         'client/sanitize.js',

@@ -37,24 +37,23 @@ Partup.helpers.fileUploader.allowedExtensions.ie = lodash.flatten([
     Partup.helpers.fileUploader.allowedExtensions.docs.map(filetype => filetype.replace(/\./g, "")),
 ]);
 
-Partup.helpers.fileUploader.getAllExtensions = function() {
-    return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function(type) {
+Partup.helpers.fileUploader.getAllExtensions = function () {
+    return _.chain(Partup.helpers.fileUploader.allowedExtensions).keys().map(function (type) {
         return Partup.helpers.fileUploader.allowedExtensions[type];
     }).flatten().value();
 };
 
-
-
 function matchExtension(fileName) {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
 }
+
 /**
  * Get the extension from filename
  *
  * @param {string} fileName filename.ext (e.g. filename.docx)
  * @returns {string} extension like .docx
  */
-Partup.helpers.fileUploader.getExtensionFromFileName = function(fileName) {
+Partup.helpers.fileUploader.getExtensionFromFileName = function (fileName) {
     var match = matchExtension(fileName);
     if (match) {
         return match[0];
@@ -69,7 +68,7 @@ Partup.helpers.fileUploader.getExtensionFromFileName = function(fileName) {
  * @param {string} fileName
  * @returns {boolean}
  */
-Partup.helpers.fileUploader.fileNameIsDoc = function(fileName) {
+Partup.helpers.fileUploader.fileNameIsDoc = function (fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.docs,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
@@ -81,7 +80,7 @@ Partup.helpers.fileUploader.fileNameIsDoc = function(fileName) {
  * @param {string} fileName
  * @returns {boolean}
  */
-Partup.helpers.fileUploader.fileNameIsImage = function(fileName) {
+Partup.helpers.fileUploader.fileNameIsImage = function (fileName) {
     return _.include(Partup.helpers.fileUploader.allowedExtensions.images,
         Partup.helpers.fileUploader.getExtensionFromFileName(fileName)
     );
@@ -91,7 +90,7 @@ Partup.helpers.fileUploader.fileNameIsImage = function(fileName) {
  * @param {object} file - DocumentSchema in /packages/partup-lib/schemas/update.js
  * @returns {string} filename - The svg icon [file.svg | ppt.svg | doc.svg | pdf.svg | xls.svg]
  */
-Partup.helpers.fileUploader.getSvgIcon = function(file) {
+Partup.helpers.fileUploader.getSvgIcon = function (file) {
     var svgFileName = 'file.svg';
 
     // if there's extension in the file name
@@ -134,7 +133,7 @@ Partup.helpers.fileUploader.getSvgIcon = function(file) {
 };
 
 // from http://scratch99.com/web-development/javascript/convert-bytes-to-mb-kb/
-Partup.helpers.fileUploader.bytesToSize = function(bytes) {
+Partup.helpers.fileUploader.bytesToSize = function (bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '&nbsp;';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
@@ -142,10 +141,10 @@ Partup.helpers.fileUploader.bytesToSize = function(bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
 
-Partup.helpers.fileUploader.partupUploadPhoto = function(mediaUploader, mappedFile) {
+Partup.helpers.fileUploader.partupUploadPhoto = function (mediaUploader, mappedFile) {
     mediaUploader.uploadingPhotos.set(true);
-    return new Promise(function(resolve, reject) {
-        Partup.client.uploader.uploadImageByUrl(mappedFile.link, function(error, image) {
+    return new Promise(function (resolve, reject) {
+        Partup.client.uploader.uploadImageByUrl(mappedFile.link, function (error, image) {
             if (error) {
                 return reject(error);
             }
@@ -155,14 +154,14 @@ Partup.helpers.fileUploader.partupUploadPhoto = function(mediaUploader, mappedFi
     });
 };
 
-Partup.helpers.fileUploader.partupUploadDoc = function(mediaUploader, mappedFile) {
+Partup.helpers.fileUploader.partupUploadDoc = function (mediaUploader, mappedFile) {
     mediaUploader.uploadingDocuments.set(true);
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         resolve(mappedFile);
     });
 };
 
-Partup.helpers.fileUploader.getFileType = function(file) {
+Partup.helpers.fileUploader.getFileType = function (file) {
     let type = 'none';
     Partup.helpers.fileUploader.on(file, {
         image: () => type = 'image',
@@ -171,10 +170,10 @@ Partup.helpers.fileUploader.getFileType = function(file) {
     return type;
 };
 
-Partup.helpers.fileUploader.on = function(file, {
+Partup.helpers.fileUploader.on = function (file, {
         image: imageCallback = lodash.noop,
-        file: fileCallback = lodash.noop,
-        error: errorCallback = lodash.noop }) {
+    file: fileCallback = lodash.noop,
+    error: errorCallback = lodash.noop }) {
 
     if (!file) return errorCallback(new Error('File not found'));
 

@@ -1,5 +1,7 @@
-Template.FileInput.onRendered(function() {
-    var template = this;
+Template.FileInput.onRendered(function () {
+    const template = this
+    const settings = this.data.inputSettings
+
     var button = template.find('[' + template.data.inputSettings.button + ']');
     var input = template.find('[' + template.data.inputSettings.input + ']');
     var multiple = template.data.inputSettings.multiple;
@@ -10,7 +12,9 @@ Template.FileInput.onRendered(function() {
         multiple: multiple,
         onFileChange: function(fileInputEvent) {
             template.data.inputSettings.onFileChange(fileInputEvent);
-        }
+        },
+        onFilesAdded: settings.onFilesAdded,
+        onUploadFile: settings.onUploadFile,
+        onFileUploaded: settings.onFileUploaded
     });
 });
-
