@@ -129,7 +129,8 @@ Meteor.startup(function () {
                     'ASfRYBAzo2ayYk5si',
                     'vGaxNojSerdizDPjb',
                     'vGaxNojSerdizDPjc',
-                    'vGaxNojSerdizDPjd'
+                    'vGaxNojSerdizDPjd',
+                    'gJngF65ZWyS9f3NDE'
                 ],
                 'flags': {
                     'dailyDigestEmailHasBeenSent': false
