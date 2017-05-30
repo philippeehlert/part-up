@@ -1,3 +1,13 @@
+<a name="2.17.1"></a>
+## [2.17.1](https://github.com/part-up/part-up/compare/2.17.0...2.17.1) (2017-05-26)
+
+
+### Bug Fixes
+
+* **api:** Suppress error when api root not defined ([095a7e6](https://github.com/part-up/part-up/commit/095a7e6))
+
+
+
 <a name="2.17.0"></a>
 # [2.17.0](https://github.com/part-up/part-up/compare/2.16.2...2.17.0) (2017-05-26)
 
@@ -10,6 +20,23 @@
 
 <a name="2.16.2"></a>
 ## [2.16.2](https://github.com/part-up/part-up/compare/2.16.1...2.16.2) (2017-05-26)
+
+
+### Bug Fixes
+
+* **file-upload:** Increase file size to 10mb ([090aa91](https://github.com/part-up/part-up/commit/090aa91))
+* **file-upload:** Make plupload default handler for MediaUploadButton ([700d687](https://github.com/part-up/part-up/commit/700d687))
+* **my-tribes:** Add tribe not involved in partup ([a774ee7](https://github.com/part-up/part-up/commit/a774ee7))
+* **mytribes:** Add tribes where user is not involved in part-ups ([7420d84](https://github.com/part-up/part-up/commit/7420d84))
+* **mytribes:** Fix merge conflict and fixtures for mytribes ([91acb49](https://github.com/part-up/part-up/commit/91acb49))
+* **mytribes:** Merge 'master' into 'fix-mytribes-menu' ([06f67c7](https://github.com/part-up/part-up/commit/06f67c7))
+* **style:** Remove underline from hyperlink hover ([703b1eb](https://github.com/part-up/part-up/commit/703b1eb))
+
+
+### Features
+
+* **activity:** Improve activity design ([6d77f31](https://github.com/part-up/part-up/commit/6d77f31))
+* **admin-panel:** Remove stats from admin overview ([687ab1c](https://github.com/part-up/part-up/commit/687ab1c))
 
 
 
@@ -29,6 +56,7 @@
 
 ### Bug Fixes
 
+* **doc-upload:** Temp commit- Add PoC for IE ([fcf3c43](https://github.com/part-up/part-up/commit/fcf3c43))
 * **mytribes-menu:** Add archived_at filter to tribes ([78f658e](https://github.com/part-up/part-up/commit/78f658e)), closes [#1060](https://github.com/part-up/part-up/issues/1060)
 * **mytribes-menu:** Add tribe sort and restore updates visible ([fc11cb4](https://github.com/part-up/part-up/commit/fc11cb4))
 * **notifications:** trigger jenkins ([fb43ecf](https://github.com/part-up/part-up/commit/fb43ecf))
