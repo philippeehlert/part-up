@@ -38,10 +38,14 @@ AutoForm.hooks({
             var token = parentTemplate.data.token;
             Accounts.resetPassword(token, insertDoc.password, function(error) {
                 if (error && error.message) {
+                    console.log(error)
                     switch (error.message) {
                         // case 'User not found [403]':
                         //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                         //     break;
+                        case 'Token expired [403]':
+                            Partup.client.notify.error(TAPi18n.__('resetpassword-form-token-expired'));
+                            break;
                         default:
                             Partup.client.notify.error(error.reason);
                     }
