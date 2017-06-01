@@ -145,16 +145,16 @@ Template.app_partup_sidebar.helpers({
                 privacy.open = false;
                 privacy.text = TAPi18n.__('pages-app-partup-privacy-label-private');
             } else if (type === Partups.privacy_types.NETWORK_PUBLIC) {
-                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-public', {network: network.name});
+                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-public', {network: lodash.get(network, 'name', '-')});
             } else if (type === Partups.privacy_types.NETWORK_INVITE) {
                 privacy.open = false;
-                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-invite', {network: network.name});
+                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-invite', {network: lodash.get(network, 'name', '-')});
             } else if (type === Partups.privacy_types.NETWORK_CLOSED) {
                 privacy.open = false;
-                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-closed', {network: network.name});
+                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-closed', {network: lodash.get(network, 'name', '-')});
             } else if (type >= Partups.privacy_types.NETWORK_ADMINS) {
                 privacy.open = false;
-                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-custom', {network: network.name, label: getTypeLabel(type, network.privacy_type_labels)});
+                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-custom', {network: lodash.get(network, 'name', '-'), label: getTypeLabel(type, network.privacy_type_labels)});
             }
             return privacy;
         };

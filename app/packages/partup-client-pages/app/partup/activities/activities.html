@@ -7,7 +7,6 @@
                 {{#contentFor "PopupTitle"}}
                     {{_ "pages-app-partup-activities-newactivity_title"}}
                 {{/contentFor}}
-
                 {{# if isUpper }}
                     {{> Activity CREATE=true POPUP=true partupId=partupId createCallback=createCallback }}
                 {{ else }}
