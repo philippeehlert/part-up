@@ -225,8 +225,9 @@ Updates.findForPartup = function(partup, parameters, userId) {
         } else if (filter === 'links') {
             selector.has_links = true;
         } else if (filter === 'conversations') {
-            selector.$or = [{type: {$regex: '.*message.*'}}, {comments_count: {$gt: 0}}];
-        }
+           selector.$or = [{type: 'partups_message_added'}, {type: 'partups_activities_comments_added'}];
+           selector.$and = [{archived_at: {$exists: false}}, {deleted_at: {$exists: false}}];
+       }
     }
 
     return this.find(selector, options);
