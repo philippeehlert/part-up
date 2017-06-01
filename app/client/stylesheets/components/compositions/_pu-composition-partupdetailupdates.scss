@@ -3,6 +3,10 @@
 
     position: relative;
 
+    > div {
+        transform: translateZ(0);
+    }
+
     > header {
         margin-bottom: 40px;
 
