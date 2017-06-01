@@ -23,10 +23,11 @@ Template.OneOnOneChatSidebar.onCreated(function() {
 Template.OneOnOneChatSidebar.helpers({
     data: function() {
         var template = Template.instance();
-        var user = Meteor.user();
+        var user = Meteor.user() || {};
         return {
             chats: function() {
-                if (!user.chats || !user.chats.length) return [];
+                var hasChats = !!lodash.size(user.chats);
+                if (!hasChats) return [];
 
                 return Chats.find({_id: {$in: user.chats}}, {sort: {updated_at: -1}})
                     .map(function(chat) {
