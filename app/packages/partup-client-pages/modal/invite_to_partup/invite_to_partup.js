@@ -46,14 +46,14 @@ Template.modal_invite_to_partup.onCreated(function() {
 
     template.partupSubscription = template.subscribe('partups.one', template.data.partupId, preselectNetwork);
 
-    var user = Meteor.user();
+    var userId = Meteor.userId();
     var query = {
         token: Accounts._storedLoginToken(),
         archived: false
     };
 
     template.networksLoaded = false;
-    HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
+    HTTP.get('/users/' + userId + '/networks' + mout.queryString.encode(query), function(error, response) {
         template.networksLoaded = true;
         if (error || !response.data.networks || response.data.networks.length === 0) return;
 

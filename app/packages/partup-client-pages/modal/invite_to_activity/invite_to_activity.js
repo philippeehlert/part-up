@@ -1,6 +1,7 @@
 Template.modal_invite_to_activity.onCreated(function () {
     var template = this;
     var user = Meteor.user();
+    var userId = Meteor.userId();
     var partupId = template.data.partupId;
     var activityId = template.data.activityId;
     var PAGING_INCREMENT = 10;
@@ -13,7 +14,7 @@ Template.modal_invite_to_activity.onCreated(function () {
     template.selectedNetwork = new ReactiveVar('all', resetPage);
     template.networksLoaded = false;
     template.page = new ReactiveVar(false, loadSuggestedUsersToPage);
-    
+
     template.states = {
         loading_infinite_scroll: false,
         paging_end_reached: new ReactiveVar(false)
@@ -69,7 +70,7 @@ Template.modal_invite_to_activity.onCreated(function () {
             token: Accounts._storedLoginToken(),
             archived: false
         };
-        HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function (error, response) {
+        HTTP.get('/users/' + userId + '/networks' + mout.queryString.encode(query), function (error, response) {
             template.networksLoaded = true;
             if (error || !response.data.networks || response.data.networks.length === 0) return;
 
@@ -108,13 +109,13 @@ Template.modal_invite_to_activity.onCreated(function () {
                 template.states.paging_end_reached.set(userIds < PAGING_INCREMENT);
                 setUsers(userIds);
             });
-        } 
+        }
         // Tab 3, get a list of users already invited.
         else if (currentTab === 3) {
             var ids = Invites.find().fetch()
                 .filter(invite => invite.invitee_id)
                 .map(invite => invite.invitee_id);
-            
+
             template.states.paging_end_reached.set(ids < PAGING_INCREMENT);
             setUsers(ids);
         }
