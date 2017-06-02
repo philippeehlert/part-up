@@ -1752,6 +1752,7 @@
   "resetpassword-form-password-placeholder": "Kies een sterk Wachtw00rd",
   "resetpassword-form-password-tooltip": "Je weet dat de datadieven steeds slimmer worden. Kies daarom een wachtwoord dat niet te makkelijk is. Gebruik minimaal 8 karakters, 1 getal en 1 hoofdletter",
   "resetpassword-form-password-validation": "tips",
+  "resetpassword-form-token-expired": "De reset link is verlopen",
   "resetpassword-form-submit": "Wachtwoord opslaan",
   "resetpassword-heading": "Wachtwoord reset",
   "resetpassword-introparagraph": "We zijn klaar voor jouw nieuwe wachtwoord. Kies een goede en je kunt snel weer bij jouw part-ups!",

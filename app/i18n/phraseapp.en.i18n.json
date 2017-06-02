@@ -1747,6 +1747,7 @@
   "resetpassword-form-password-placeholder": "Enter a strong Passw0rd",
   "resetpassword-form-password-tooltip": "You know that hackers get smarter every day. Pick a password that is not too easy to guess. Use at least 8 characters, 1 number en 1 capital.",
   "resetpassword-form-password-validation": "tips",
+  "resetpassword-form-token-expired": "The reset link is expired",
   "resetpassword-form-submit": "Save password",
   "resetpassword-heading": "Reset your password",
   "resetpassword-introparagraph": "We are ready for your new password. Please fill it in so you can part-up again!",
