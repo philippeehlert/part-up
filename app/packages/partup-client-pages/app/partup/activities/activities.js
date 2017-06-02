@@ -76,7 +76,9 @@ Template.app_partup_activities.helpers({
         return Template.instance().activities.all({archived: true});
     },
     isUpper: function() {
-        var partup = Template.instance().partup;
+        var partupId = Template.instance().data.partupId;
+        var partup = Partups.findOne({_id: partupId});
+
         if (!partup || !partup.uppers) return false;
 
         var user = Meteor.user();

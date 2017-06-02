@@ -44,7 +44,7 @@ Event.on('partups.inserted', function(userId, partup) {
             }
         }
 
-        recipients.forEach(function(upperId) {
+        lodash.uniq(recipients || []).forEach(function(upperId) {
             // Don't send a notification to the creator of the partup
             if (upperId === creator._id) return;
             var upper = Meteor.users.findOne(upperId);

@@ -118,9 +118,9 @@ Meteor.methods({
         check(networkId, String);
 
         var user = Meteor.user();
-        if (!User(user).isSwarmAdmin(swarmId) || !User(user).isAdmin()) {
-            throw new Meteor.Error(401, 'unauthorized');
-        }
+
+        var hasAccess = User(user).isSwarmAdmin(swarmId) || User(user).isAdmin();
+        if (!hasAccess) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Make sure the swarm and network exist
@@ -149,9 +149,8 @@ Meteor.methods({
         check(networkId, String);
 
         var user = Meteor.user();
-        if (!User(user).isSwarmAdmin(swarmId) || !User(user).isAdmin()) {
-            throw new Meteor.Error(401, 'unauthorized');
-        }
+        var hasAccess = User(user).isSwarmAdmin(swarmId) || User(user).isAdmin();
+        if (!hasAccess) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             // Make sure the swarm and network exist

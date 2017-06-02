@@ -58,9 +58,10 @@ Template.OneOnOneChat.onCreated(function() {
     });
 
     template.autorun(function() {
-        var chat = Chats.findOne({_id: chatId});
-        if (chatId) {
-            Meteor.call('chats.reset_counter', chatId);
+        var cid = template.activeChat.get() || chatId;
+        var chat = Chats.findOne({_id: cid});
+        if (cid) {
+            Meteor.call('chats.reset_counter', cid);
         }
     });
 
