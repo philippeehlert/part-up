@@ -5,7 +5,7 @@
             data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ notification.type_data.archiver._id }}">
         </figure>
         <article>
-            <p>{{_ 'dropdown-notification-partup_archived' partup=notification.type_data.partup.name archiver=notification.type_data.archiver.name }}</p>
+            <p>{{_ 'dropdown-notification-partup_archived_by_upper' partup=notification.type_data.partup.name archiver=notification.type_data.archiver.name }}</p>
             <time>{{ partupDateNotification notification.created_at }}</time>
         </article>
     </a>

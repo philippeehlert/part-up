@@ -42,6 +42,9 @@ AutoForm.hooks({
                         // case 'User not found [403]':
                         //     Partup.client.forms.addStickyFieldError(self, 'email', 'emailNotFound');
                         //     break;
+                        case 'Token expired [403]':
+                            Partup.client.notify.error(TAPi18n.__('resetpassword-form-token-expired'));
+                            break;
                         default:
                             Partup.client.notify.error(error.reason);
                     }
