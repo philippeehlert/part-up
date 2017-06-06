@@ -42,20 +42,26 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
 
             var body = Buffer.concat(buffers);
 
+            var delimiter = (body.indexOf(",") === -1) ? ";" : ','
+
             CSV()
                 .from.string(body, {
-                        delimiter: ';', // Set the field delimiter. One character only, defaults to comma.
+                        delimiter: delimiter, // Set the field delimiter. One character only, defaults to comma.
                         skip_empty_lines: true, // Don't generate empty values for empty lines.
                         trim: true // Ignore whitespace immediately around the delimiter.
                     })
                 .to.array(Meteor.bindEnvironment(function(array) {
                     var list = lodash.chain(array)
                         .map(function(row) {
-                            if (!Partup.services.validators.email.test(row[1])) return false;
+
+                            var name = row[0].trim()
+                            var email = row[1].toLowerCase()
+
+                            if (!Partup.services.validators.email.test(email)) return false;
 
                             return {
-                                name: row[0],
-                                email: row[1]
+                                name: name,
+                                email: email
                             };
                         })
                         .compact()
