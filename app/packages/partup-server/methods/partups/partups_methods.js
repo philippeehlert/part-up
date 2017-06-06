@@ -41,6 +41,11 @@ Meteor.methods({
             if (newPartup.network_id) {
                 var network = Networks.findOneOrFail(newPartup.network_id);
                 network.createPartupName(newPartup._id, newPartup.name);
+
+                if (!network.hasMember(user._id) && network.isPublic()) {
+                    network.addUpper(user._id);
+                    Event.emit('networks.uppers.inserted', user, network);
+                }
             }
 
             return {
