@@ -96,7 +96,6 @@ partup-client-update
 partup-client-upper-tile
 partup-lib
 partup-meteor-bender
-partup-newrelic
 partup-server
 pauli:accounts-linkedin
 peerlibrary:aws-sdk
