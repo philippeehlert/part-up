@@ -4,7 +4,7 @@ Meteor.methods({
      *
      * @param {string} fields
      */
-    'sectors.insert': function(fields) {
+    'sectors.insert': function (fields) {
         check(fields, Partup.schemas.forms.sector);
 
         this.unblock();
@@ -14,8 +14,8 @@ Meteor.methods({
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            if (!Sectors.findOne({name: fields.name})) {
-                Sectors.insert({name: fields.name, phrase_key: fields.phrase_key});
+            if (!Sectors.findOne({ name: fields.name })) {
+                Sectors.insert({ name: fields.name, phrase_key: fields.phrase_key });
             } else {
                 throw new Meteor.Error('sector_already_exists');
             }
@@ -33,15 +33,15 @@ Meteor.methods({
      *
      * @param {String} sectorId
      */
-    'sectors.remove': function(sectorId) {
+    'sectors.remove': function (sectorId) {
         check(sectorId, String);
 
         var user = Meteor.user();
         if (!User(user).isAdmin()) throw new Meteor.Error(401, 'unauthorized');
 
         try {
-            Networks.update({sector_id: sectorId}, {$unset: {'sector_id': ''}});
-            Sectors.remove({_id: sectorId});
+            Networks.update({ sector_id: sectorId }, { $unset: { 'sector_id': '' } });
+            Sectors.remove({ _id: sectorId });
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(400, 'sector_could_not_be_removed');
@@ -54,18 +54,21 @@ Meteor.methods({
      * @param {String} sectorId
      * @param {Mixed[]} fields
      */
-     'sectors.update': function (sectorId, fields) {
-         check(sectorId, String)
-         check(fields, Partup.schemas.forms.sector)
+    'sectors.update': function (sectorId, fields) {
+        check(sectorId, String)
+        check(fields, Partup.schemas.forms.sector)
 
-         if (!User(Meteor.user()).isAdmin()) throw new Meteor.Error(401, 'unauthorized')
+        if (!User(Meteor.user()).isAdmin()) throw new Meteor.Error(401, 'unauthorized')
 
-         let sector = Sectors.findOneOrFail({_id:sectorId})
-         try {
-             Sectors.update(sector._id, {$set: fields})
-         } catch(error) {
-             Log.error(error)
-             throw new Meteor.Error(400, 'sector_could_not_be_updated')
-         }
-     }
+        try {
+            let sector = Sectors.findOneOrFail({ _id: sectorId })
+            Sectors.update(sector._id, { $set: fields })
+        } catch (error) {
+            if (error.reason.search(/could_not_be_found/) !== -1) {
+                throw error;
+            }
+            Log.error(error)
+            throw new Meteor.Error(400, 'sector_could_not_be_updated')
+        }
+    }
 });
