@@ -1,3 +1,20 @@
+<a name="2.18.0"></a>
+# [2.18.0](https://github.com/part-up/part-up/compare/2.17.1...2.18.0) (2017-05-30)
+
+
+### Bug Fixes
+
+* **release:** Added babel-preset-es2015 ([be81ab0](https://github.com/part-up/part-up/commit/be81ab0))
+* **release:** Moved imports to requires ([427d9d0](https://github.com/part-up/part-up/commit/427d9d0))
+* **release:** Moved imports to requires for gulp tasks ([7b26160](https://github.com/part-up/part-up/commit/7b26160))
+
+
+### Features
+
+* **reset-password:** Phraseapp key for invalid password reset token ([5a70861](https://github.com/part-up/part-up/commit/5a70861))
+
+
+
 <a name="2.17.1"></a>
 ## [2.17.1](https://github.com/part-up/part-up/compare/2.17.0...2.17.1) (2017-05-26)
 
