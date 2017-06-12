@@ -1105,9 +1105,7 @@ Migrations.add({
                 Sectors.remove(s._id)
             }
         })
-        Networks.find().fetch().forEach(n => {
-            Networks.update({ _id: n._id }, { $unset: { sector: '' } })
-        })
+        Networks.update({}, { $unset: { sector: '' } }, { multi: true })
     },
     down: function () {
         //...
