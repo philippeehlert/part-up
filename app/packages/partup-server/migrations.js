@@ -1074,20 +1074,12 @@ Migrations.add({
     version: 41,
     name: 'Add translatable sectors and update networks with new sector id',
     up: function () {
-        Sectors.find().fetch().forEach(s => {
+        Sectors.find({ name: { $exists:false } }).fetch().forEach(s => {
             let id = Random.id()
-            
-            // Sector is already migrated (for running on dev env where the fixtures are set manually)
-            if (s.name | s.phrase_key) return;
-
-            //There are two names with special characters and whitespaces.
             let phrase = s._id.toLowerCase().replace(' ', '').replace(/[^a-zA-Z0-9]+/, '_')
 
             Sectors.insert({ _id: id, name: s._id, phrase_key: 'network-settings-sector-' + phrase })
-
-            Networks.find({ sector: s._id }).fetch().forEach(n => {
-                Networks.update({ _id: n._id }, { $set: { sector_id: id } })
-            })
+            Networks.update({ sector: s._id }, { $set: { sector_id: id } }, { multi:true })
         })
     },
     down: function () {
@@ -1100,11 +1092,7 @@ Migrations.add({
     version: 42,
     name: 'Remove old sectors and network.sector key from database',
     up: function () {
-        Sectors.find().fetch().forEach(s => {
-            if (!s.phrase_key) {
-                Sectors.remove(s._id)
-            }
-        })
+        Sectors.remove({ phrase_key: { $exists:false } })
         Networks.update({}, { $unset: { sector: '' } }, { multi: true })
     },
     down: function () {
