@@ -97,8 +97,8 @@ Template.NetworkSettings.helpers({
             sectors: function() {
                 return Sectors.find();
             },
-            isNetworkSector: function(sector) {
-                return (network && network.sector) ? (network.sector === sector) : false;
+            isNetworkSector: function(sector_id) {
+                return (network && network.sector_id) ? (network.sector_id === sector_id) : false;
             }
         };
     },

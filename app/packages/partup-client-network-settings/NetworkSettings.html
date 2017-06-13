@@ -126,18 +126,18 @@
                 {{_ 'network-settings-form-sector-label'}}
             </span>
 
-            <div class="pu-sub-validations {{# if afFieldIsInvalid name='sector' }}pu-state-invalid{{/ if }}">
+            <div class="pu-sub-validations {{# if afFieldIsInvalid name='sector_id' }}pu-state-invalid{{/ if }}">
                 <div class="pu-sub-input">
                     <select class="pu-input" data-select-sector>
                         <option>{{_ 'network-settings-form-sector-placeholder'}}</option>
                         {{#each data.sectors}}
                             <!-- selected="{{  }}" -->
-                            <option value="{{ _id }}" selected="{{ data.isNetworkSector _id }}">{{ _id }}</option>
+                            <option value="{{ _id }}" selected="{{ data.isNetworkSector _id }}">{{_ phrase_key }}</option>
                         {{/each}}
                     </select>
-                    {{> afFieldInput name='sector' type="hidden" data-sector-input="" }}
+                    {{> afFieldInput name='sector_id' type="hidden" data-sector-input="" }}
                 </div>
-                <span class="pu-sub-error">{{ afFieldMessage name='sector' }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='sector_id' }}</span>
             </div>
         </label>
 

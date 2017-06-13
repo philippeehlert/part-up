@@ -13,7 +13,7 @@ Router.route('/networks/discover/count', {where: 'server'}).get(function() {
         locationId: request.query.locationId,
         language: (request.query.language === 'all') ? undefined : request.query.language,
         type: request.query.type,
-        sector: request.query.sector,
+        sector_id: request.query.sector_id,
         sort: request.query.sort,
         limit: request.query.limit,
         skip: request.query.skip,

@@ -2,7 +2,7 @@
     <div class="pu-formdropdown {{#if menuOpen}}pu-formdropdown-active{{/if}}">
         <div class="pu-sub-container" data-container>
             <button type="button" class="pu-button pu-button-input pu-button-input-keepbuttonheight" data-toggle-menu>
-                {{ selectedOption.name }}
+                {{_ selectedOption.phrase_key }}
                 <i class="{{#if menuOpen}} picon-caret-up {{else}} picon-caret-down {{/if}}"></i>
             </button>
             <ul class="pu-dropdown pu-dropdown-form {{#if menuOpen}}pu-dropdown-active{{/if}}" data-clickoutside-close>
@@ -10,7 +10,7 @@
                     {{#unless selected . }}
                         <li class="pu-dropdownitem pu-dropdownitem-small">
                             <a href="#" data-select-option data-toggle-menu>
-                                {{ name }}
+                                {{_ phrase_key }}
                             </a>
                         </li>
                     {{/unless}}

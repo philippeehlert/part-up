@@ -658,7 +658,7 @@ Networks.guardedMetaFind = function(selector, options) {
         'collegues',
         'collegues_custom_a',
         'collegues_custom_b',
-        'sector',
+        'sector_id',
         'content'
     ];
 
@@ -673,12 +673,13 @@ Networks.guardedMetaFind = function(selector, options) {
  * Find the networks used in the discover page
  *
  * @memberOf Networks
- * @param userId
+ * @param userId - deprecated
  * @param {Object} options
  * @param parameters
  * @return {Cursor}
  */
-Networks.findForDiscover = function(userId, options, parameters) {
+Networks.findForDiscover = function(
+    /** userId argument is deprectated */userId, options, parameters) {
     var selector = {};
 
     options = options || {};
@@ -693,7 +694,7 @@ Networks.findForDiscover = function(userId, options, parameters) {
     var locationId = parameters.locationId || undefined;
     var language = parameters.language || undefined;
     var type = parameters.type || undefined;
-    var sector = parameters.sector || undefined;
+    var sector_id = parameters.sector_id || undefined;
     var notArchived = parameters.notArchived || undefined;
 
     if (sort) {
@@ -741,8 +742,8 @@ Networks.findForDiscover = function(userId, options, parameters) {
     }
 
     // Filter the networks on sector
-    if (sector) {
-        selector['sector'] = sector;
+    if (sector_id) {
+        selector['sector_id'] = sector_id;
     }
 
     if (notArchived) {
@@ -752,7 +753,9 @@ Networks.findForDiscover = function(userId, options, parameters) {
     // Limit uppers array to 7 to remove excessive data
     options.fields['uppers'] = {$slice: 7};
 
-    return this.guardedFind(userId, selector, options);
+    // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
+    // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
+    return this.guardedFind(null, selector, options);
 };
 
 /**
@@ -871,14 +874,17 @@ Networks.findUnarchivedForUser = function(user, userId, options) {
  * @param {Object} options - mongo query options
  * @return {Mongo.Cursor}
  */
-Networks.findForDiscoverFilter = function(loggedInUserId, options) {
+Networks.findForDiscoverFilter = function(
+    /** Deprecated, always passed as null */loggedInUserId, options) {
     options = options || {};
 
     options.sort = options.sort || {};
     //TODO: add sort rule for loggedInUserId existance in network.uppers
     options.sort.upper_count = -1;
 
-    return Networks.guardedFind(loggedInUserId, {}, options);
+    // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
+    // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
+    return Networks.guardedFind(null, {}, options);
 };
 
 /**

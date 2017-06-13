@@ -1,22 +1,24 @@
 Template.DiscoverTribesSectorSelector.onCreated(function() {
     var template = this;
     var options = [{
-        name: TAPi18n.__('pages-app-discover-tribes-filter-sector-all'),
-        value: undefined
+        _id: undefined,
+        name: undefined,
+        phrase_key: TAPi18n.__('pages-app-discover-tribes-filter-sector-all') 
     }];
     template.options = new ReactiveVar(options);
     template.subscribe('sectors.all', {
         onReady: function() {
             var sectors = Sectors.find().fetch();
 
-            var selectableSectors = (sectors || []).map(function(sector, index) {
-                return {
-                    name: sector._id,
-                    value: sector._id
-                };
-            });
+            // var selectableSectors = (sectors || []).map(function(sector, index) {
+            //     return {
+            //         _id: sector._id
+            //         name: sector.name,
+            //         phrase_key: sector.phrase_key
+            //     };
+            // });
 
-            var newOptions = options.concat(selectableSectors);
+            var newOptions = options.concat(sectors || []);
 
             template.options.set(newOptions);
             template.selectedOption.set(newOptions[0]);

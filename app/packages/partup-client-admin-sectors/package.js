@@ -20,7 +20,10 @@ Package.onUse(function(api) {
     api.addFiles([
 
         'AdminSectors.html',
-        'AdminSectors.js'
+        'AdminSectors.js',
+
+        'templates/_EditSector.html',
+        'templates/_EditSector.js'
 
     ], 'client');
 

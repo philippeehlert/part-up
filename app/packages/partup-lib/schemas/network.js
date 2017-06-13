@@ -138,7 +138,7 @@ Partup.schemas.entities.network = new SimpleSchema([networkBaseSchema, {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     },
-    sector: {
+    sector_id: {
         type: String,
         optional: true
     },
@@ -214,7 +214,7 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
             afFieldInput: tagsConfiguration
         }
     },
-    sector: {
+    sector_id: {
         type: String,
         optional: true
     }

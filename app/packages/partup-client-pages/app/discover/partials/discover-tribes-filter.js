@@ -19,7 +19,7 @@ Template.app_discover_tribes_filter.onCreated(function() {
         updateQuery();
     });
     template.selectedSector = new ReactiveVar(undefined, function(a, b) {
-        Partup.client.discover.current_tribe_query.sector = (b && b.value) || undefined;
+        Partup.client.discover.current_tribe_query.sector_id = (b && b._id) || undefined;
         updateQuery();
     });
     template.searchQuery = new ReactiveVar(undefined, function(a, b) {

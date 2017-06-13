@@ -1,25 +1,31 @@
 Template.AdminSectors.onCreated(function() {
-    this.subscribe('sectors.all');
+    this.subscribe('sectors.all')
+    this.currentSectorId = new ReactiveVar(undefined)
+    this.currentToggleTarget = new ReactiveVar(undefined)
+    this.toggleMenu = () => {
+        let target = Template.instance().currentToggleTarget.get()
+        $(target).next('[data-toggle-target').toggleClass('pu-state-active')
+        $('[data-toggle-target]').not($(target).next('[data-toggle-target]')[0]).removeClass('pu-state-active')
+    }
 });
 
 Template.AdminSectors.helpers({
-    sectors: function() {
-        return Sectors.find();
-    }
+    sectors: () => Sectors.find(),
+    currentSector: () => Template.instance().currentSectorId.get(),
+    newSector: () => { return { _id: undefined, name: undefined, phrase_key: 'network-settings-sector-' } },
+    toggleMenu: () => Template.instance().toggleMenu
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
 Template.AdminSectors.events({
-    'click [data-toggle]': function(event) {
-        event.preventDefault();
-        $(event.currentTarget).next('[data-toggle-target]').toggleClass('pu-state-active');
-        $('[data-toggle-target]').not($(event.currentTarget).next('[data-toggle-target]')[0]).removeClass('pu-state-active');
+    'click [data-toggle]': (event, template) => {
+        event.preventDefault()
+        template.currentToggleTarget.set(event.currentTarget)
+        template.toggleMenu()
     },
-    'click [data-expand]': function(event) {
-        $(event.currentTarget).addClass('pu-state-expanded');
-    },
+    'click [data-expand]': (event) => $(event.currentTarget).addClass('pu-state-expanded'),
     'click [data-closepage]': function(event, template) {
         event.preventDefault();
         Intent.return('admin-sectors', {
@@ -28,11 +34,19 @@ Template.AdminSectors.events({
             }
         });
     },
+    'click [data-sector-edit]': (event, template) => {
+        let sectorId = $(event.currentTarget).data('sector-edit')
+        template.currentSectorId.set(sectorId)
+        Partup.client.popup.open({
+            id: 'popup.sector-edit'
+        })
+        template.toggleMenu()
+    },
     'click [data-sector-remove]': function(event, template) {
+        let sectorId = $(event.currentTarget).data('sector-remove')
         Partup.client.prompt.confirm({
-            onConfirm: function() {
-                var sectorId = $(event.currentTarget).data('sector-remove');
-                Meteor.call('sectors.remove', sectorId, function(error) {
+            onConfirm: () => {
+                Meteor.call('sectors.remove', sectorId, error => {
                     if (error) {
                         Partup.client.notify.error(TAPi18n.__('pages-modal-admin-createsector-error-' + error.reason));
                         return;
@@ -41,6 +55,7 @@ Template.AdminSectors.events({
                 });
             }
         });
+        template.toggleMenu()
     }
 });
 

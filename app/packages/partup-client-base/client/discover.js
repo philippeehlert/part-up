@@ -33,7 +33,7 @@ Partup.client.discover = {
         locationId: undefined,
         sort: 'popular',
         type: undefined,
-        sector: undefined,
+        sector_id: undefined,
         language: undefined
     },
 
@@ -42,7 +42,7 @@ Partup.client.discover = {
         locationId: undefined,
         sort: 'popular',
         type: undefined,
-        sector: undefined,
+        sector_id: undefined,
         language: undefined
     },
 

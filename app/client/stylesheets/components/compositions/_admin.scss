@@ -60,6 +60,13 @@
             }
         }
 
+        .pu-sub-info-small {
+            width:35%;
+            .pu-sub-name {
+                width:100%;
+            }            
+        }
+
         .pu-sub-info > span, .pu-sub-info > a {
             display: inline-block;
             vertical-align: top;
