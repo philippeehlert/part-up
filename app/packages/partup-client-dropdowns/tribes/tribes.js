@@ -4,7 +4,7 @@ const sortPartups = (partups, user) => lodash.sortByOrder(partups, partup => {
     let upper_data = lodash.find(partup.upper_data, '_id', user._id)
     return (upper_data && upper_data.new_updates) ? upper_data.new_updates.length : 0
 }, ['desc'])
-const sortNetworks = networks => lodash.sortByOrder(networks, network => network.name, ['asc'])
+const sortNetworks = networks => lodash.sortByOrder(networks, network => network.name.toLowerCase(), ['asc'])
 
 Template.DropdownTribes.onCreated(function() {
     var template = this;
