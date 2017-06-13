@@ -18,7 +18,11 @@ var MentionsInput = function(input, options) {
     this._setEvents();
 };
 
-var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
+// The first regex is old but useful to check for special characters later.
+// var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
+
+// link to regex: https://regex101.com/r/QeDMR4/2
+var mentionRegex = /(?:^|[\s])@(([\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]{2,}[\s]?[\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]*)([\s]?[\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]*))$/i
 
 /**
  * Build required elements
@@ -118,10 +122,13 @@ MentionsInput.prototype.select = function(index) {
     var start = substr.length - match[1].length;
     var pre = value.substring(0, start);
     var post = value.substring(this.input.selectionStart, value.length);
+    if (post.length < 1) {
+        post = ' '
+    }
 
-    this.input.value = pre + suggestionName + ' ' + post;
+    this.input.value = pre + suggestionName + post;
 
-    this.input.selectionStart = this.input.selectionEnd = (pre + suggestionName).length;
+    this.input.selectionStart = this.input.selectionEnd = (pre + suggestionName).length + 1;
     this.input.focus();
     this.hideSuggestions();
 };
@@ -170,9 +177,12 @@ MentionsInput.prototype.checkCaretPosition = function() {
         return;
     }
 
-    this.showSuggestions();
-
     var query = match[1];
+
+    if (match[3] === ' ') {
+        return;
+    }
+
     if (/\s$/.test(query)) return; // check for endspace
     if (query === this.lastQuery) return; // check for same query
 
@@ -197,6 +207,11 @@ MentionsInput.prototype.checkCaretPosition = function() {
         self.btns = [];
 
         if (!self.suggestions.length) {
+            if (match[3] !== undefined) {
+                self.hideSuggestions();
+            }
+
+            // empty el telling the user there's nothing found is impossible with 3+ words in name
             var emptyEl = document.createElement('span');
             emptyEl.classList.add('pu-input-mentions-suggestions-empty');
             emptyEl.textContent = TAPi18n.__('base-client-language-mention-input-empty');
@@ -204,6 +219,7 @@ MentionsInput.prototype.checkCaretPosition = function() {
             return;
         }
 
+        self.showSuggestions();
         var suggestion;
         var btn;
         for (var i = 0; i < self.suggestions.length; i++) {

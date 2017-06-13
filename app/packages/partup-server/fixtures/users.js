@@ -533,8 +533,286 @@ Meteor.startup(function () {
                 }
             });
 
+            Meteor.users.insert({
+                '_id': 'efh2F9LHJwNPqvzKs',
+                'createdAt': new Date('2017-05-21T14:11:01.053Z'),
+                'services': {
+                    'password': {
+                        'bcrypt': '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
+                    },
+                    'resume': {
+                        'loginTokens': [
+                            {
+                                'when': new Date('2015-07-21T14:11:01.061Z'),
+                                'hashedToken': 'QR5jRUOgOYNkrUZNjPdYicokC8hggzWimey9ccMMSG9='
+                            }
+                        ]
+                    },
+                    'email': {
+                        'verificationTokens': [
+                            {
+                                'token': 'X0BHuAeVNCWozOenCCTdXltEXE1kPB0VZBriz39Src5',
+                                'address': 'threewords@example.com',
+                                'when': new Date('2015-07-21T14:11:06.055Z')
+                            }
+                        ]
+                    }
+                },
+                'emails': [
+                    {
+                        'address': 'threewords@example.com',
+                        'verified': false
+                    }
+                ],
+                'completeness': 27,
+                'profile': {
+                    'name': 'Adilet Jocelyn Noguerra',
+                    'normalized_name': 'adilet jocelyn noguerra',
+                    'settings': {
+                        'locale': 'en',
+                        'optionalDetailsCompleted': true,
+                        'email': {
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true,
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true,
+                            'partups_new_comment_in_involved_conversation': true,
+                            'partups_networks_new_upper': true,
+                            'partups_networks_upper_left': true
+                        },
+                        'unsubscribe_email_token': 'WiYdZ-AoYintHgYofjIlOyWTsP8f2oNKLhh3jhhpIdN'
+                    },
+                    'image': 'bMTGT9oSDGzxCL3r4',
+                    'description': null,
+                    'tags': [
+                        'design',
+                        'ux',
+                        'photography',
+                        'nonprofit'
+                    ],
+                    'location': {
+                        'city': 'Maastricht',
+                        'lat': 50.8513682000000031,
+                        'lng': 5.6909725000000000,
+                        'place_id': 'ChIJnwZBWOzpwEcRbqi-zHuV61M',
+                        'country': 'Netherlands'
+                    },
+                    'facebook_url': null,
+                    'twitter_url': null,
+                    'instagram_url': null,
+                    'linkedin_url': null,
+                    'phonenumber': null,
+                    'website': '',
+                    'skype': null,
+                    'meurs': {
+                        'portal': 'en',
+                        'nl_id': 'f8cb5c45-bdb5-4a98-9f98-a7d5fdcd7115',
+                        'en_id': '503a6931-4a68-4595-83fa-4e77098727cc',
+                        'program_session_id': 32698,
+                        'fetched_results': true,
+                        'results': [
+                            {
+                                'code': 103401,
+                                'name': 'Denkkracht',
+                                'score': 9,
+                                'zscore': 0.90003,
+                                'dscore': 8,
+                                'highIndex': 1
+                            },
+                            {
+                                'code': 103405,
+                                'name': 'Persoonlijke kracht',
+                                'score': 7,
+                                'zscore': 0.7000400000000001,
+                                'dscore': 6,
+                                'highIndex': 1
+                            }
+                        ]
+                    }
+                },
+                'status': {
+                    'online': true,
+                    'lastLogin': {
+                        'date': new Date('2015-07-21T14:11:01.089Z'),
+                        'ipAddr': '127.0.0.1',
+                        'userAgent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'
+                    },
+                    'idle': false
+                },
+                'registered_emails': [
+                    {
+                        'address': 'threewords@example.com',
+                        'verified': false
+                    }
+                ],
+                'logins': [
+                    new Date('2015-07-21T14:11:01.103Z')
+                ],
+                'participation_score': 3,
+                'pending_networks': [
+                    'wfCv4ZdPe5WNT4xfg'
+                ],
+                'networks': [
+                    'ibn27M3ePaXhmKzWq'
+                ],
+                'upperOf': [
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjd'
+                ],
+                'supporterOf': [
+                    'gJngF65ZWyS9f3NDE'
+                ],
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
+            });
+
+            Meteor.users.insert({
+                '_id': 'efh2F9LHJwNPqvzKU',
+                'createdAt': new Date('2017-05-21T14:11:01.053Z'),
+                'services': {
+                    'password': {
+                        'bcrypt': '$2a$10$nytjhtAbBUXe1Td8LrVJ4.jJa/lE62riuDM/dm79f3fqfeuZo2xNG'
+                    },
+                    'resume': {
+                        'loginTokens': [
+                            {
+                                'when': new Date('2015-07-21T14:11:01.061Z'),
+                                'hashedToken': 'QR5jRUOgOYNkrUZNjPdYicokC8hggzWimey9ccMMSG0='
+                            }
+                        ]
+                    },
+                    'email': {
+                        'verificationTokens': [
+                            {
+                                'token': 'X0BHuAeVNCWozOenCRTdXltEXE1kPB0VZBriz39Src6',
+                                'address': 'veryspecial@example.com',
+                                'when': new Date('2015-07-21T14:11:06.055Z')
+                            }
+                        ]
+                    }
+                },
+                'emails': [
+                    {
+                        'address': 'veryspecial@example.com',
+                        'verified': false
+                    }
+                ],
+                'completeness': 27,
+                'profile': {
+                    'name': 'àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ',
+                    'normalized_name': 'àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ',
+                    'settings': {
+                        'locale': 'en',
+                        'optionalDetailsCompleted': true,
+                        'email': {
+                            'dailydigest': true,
+                            'upper_mentioned_in_partup': true,
+                            'upper_mentioned_in_network_chat': true,
+                            'invite_upper_to_partup_activity': true,
+                            'invite_upper_to_network': true,
+                            'partup_created_in_network': true,
+                            'partups_networks_new_pending_upper': true,
+                            'partups_networks_accepted': true,
+                            'partups_new_comment_in_involved_conversation': true,
+                            'partups_networks_new_upper': true,
+                            'partups_networks_upper_left': true
+                        },
+                        'unsubscribe_email_token': 'WiYdZ-AoYintHgYofjIlOyWTsP8f2oNKLhh3jhhpIdX'
+                    },
+                    'image': 'bMTGT9oSDGzxCL3r4',
+                    'description': null,
+                    'tags': [
+                        'design',
+                        'ux',
+                        'photography',
+                        'nonprofit'
+                    ],
+                    'location': {
+                        'city': 'Maastricht',
+                        'lat': 50.8513682000000031,
+                        'lng': 5.6909725000000000,
+                        'place_id': 'ChIJnwZBWOzpwEcRbqi-zHuV61M',
+                        'country': 'Netherlands'
+                    },
+                    'facebook_url': null,
+                    'twitter_url': null,
+                    'instagram_url': null,
+                    'linkedin_url': null,
+                    'phonenumber': null,
+                    'website': '',
+                    'skype': null,
+                    'meurs': {
+                        'portal': 'en',
+                        'nl_id': 'f8cb5c45-bdb5-4a98-9f98-a7d5fdcd7115',
+                        'en_id': '503a6931-4a68-4595-83fa-4e77098727cc',
+                        'program_session_id': 32698,
+                        'fetched_results': true,
+                        'results': [
+                            {
+                                'code': 103401,
+                                'name': 'Denkkracht',
+                                'score': 9,
+                                'zscore': 0.90003,
+                                'dscore': 8,
+                                'highIndex': 1
+                            },
+                            {
+                                'code': 103405,
+                                'name': 'Persoonlijke kracht',
+                                'score': 7,
+                                'zscore': 0.7000400000000001,
+                                'dscore': 6,
+                                'highIndex': 1
+                            }
+                        ]
+                    }
+                },
+                'status': {
+                    'online': true,
+                    'lastLogin': {
+                        'date': new Date('2015-07-21T14:11:01.089Z'),
+                        'ipAddr': '127.0.0.1',
+                        'userAgent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'
+                    },
+                    'idle': false
+                },
+                'registered_emails': [
+                    {
+                        'address': 'specialchars@example.com',
+                        'verified': false
+                    }
+                ],
+                'logins': [
+                    new Date('2015-07-21T14:11:01.103Z')
+                ],
+                'participation_score': 3,
+                'pending_networks': [
+                    'wfCv4ZdPe5WNT4xfg'
+                ],
+                'networks': [
+                    'ibn27M3ePaXhmKzWq'
+                ],
+                'upperOf': [
+                    'vGaxNojSerdizDPjb',
+                    'vGaxNojSerdizDPjd'
+                ],
+                'supporterOf': [
+                    'gJngF65ZWyS9f3NDE'
+                ],
+                'flags': {
+                    'dailyDigestEmailHasBeenSent': false
+                }
+            });
+
+
             for (var i = 0; i < 15; i++) {
-                var email = Fake.word() +'@example.com';
+                var name = Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + Math.random(100) > 50 ? Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) : Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()])
+                var email = name +'@example.com';
                 Meteor.users.insert({
                     'createdAt': new Date(),
                     'services': {
@@ -567,8 +845,8 @@ Meteor.startup(function () {
                     ],
                     'completeness': 27,
                     'profile': {
-                        'name': Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]),
-                        'normalized_name': Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]),
+                        'name': name,
+                        'normalized_name': name.toLowerCase(),
                         'settings': {
                             'locale': 'en',
                             'optionalDetailsCompleted': true,
