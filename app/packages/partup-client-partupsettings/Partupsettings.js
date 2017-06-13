@@ -603,20 +603,6 @@ var ImageSystem = function(template) {
             self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
             Session.set('partials.create-partup.current-suggestion', 0);
         };
-
-        template.loading.set('suggesting-images', true);
-        Meteor.call('partups.services.splashbase.search', tags, function(error, result) {
-            if (!error) addSuggestions(result);
-
-            if (newSuggestionsArray.length >= 5) {
-                setAvailableSuggestions();
-            } else {
-                Meteor.call('partups.services.flickr.search', tags, function(error, result) {
-                    if (!error) addSuggestions(result);
-                    setAvailableSuggestions();
-                });
-            }
-        });
     };
 
     this.unsetUploadedPicture = function(tags) {
