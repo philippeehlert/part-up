@@ -21,8 +21,8 @@ var MentionsInput = function(input, options) {
 // The first regex is old but useful to check for special characters later.
 // var mentionRegex = /(?:^|[\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]+)@([^\s@]{3,}[^\s]{0,}[\s]?[^\s\[\]\^\$\.\|\?\*\+\(\)\\~`\!@#%&\-_+={}'""<>:;,]{0,})$/i;
 
-// link to regex: https://regex101.com/r/QeDMR4/1
-var mentionRegex = /(?:^|[\s])@(([\w\'\,\.]{2,}[\s]?[\w\'\,\.]*)([\s]?[\w\'\,\.]*))$/i
+// link to regex: https://regex101.com/r/QeDMR4/2
+var mentionRegex = /(?:^|[\s])@(([\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]{2,}[\s]?[\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]*)([\s]?[\w\'\,\.\u00C0-\u017F\u2E00-\u2E7F]*))$/i
 
 /**
  * Build required elements
