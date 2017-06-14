@@ -332,7 +332,6 @@
                     {{/FileInput}}
                 </div>
 
-                <p class="pu-textline"><span>{{_ 'partupsettings-suggestion-label'}}</span></p>
                 {{#if partupImage.availableSuggestions.get }}
                     {{> Gallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter fp_update=onFocuspointUpdate }}
                 {{ else }}

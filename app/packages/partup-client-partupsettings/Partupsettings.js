@@ -580,29 +580,32 @@ var ImageSystem = function(template) {
     this.focuspoint.set('y', 0.5);
 
     this.getSuggestions = function(tags) {
-        if (!tags || !tags.length) {
-            this.availableSuggestions.set([]);
-            return;
-        }
+        this.availableSuggestions.set([])
+        return;
 
-        var newSuggestionsArray = [];
+        // if (!tags || !tags.length) {
+        //     this.availableSuggestions.set([]);
+        //     return;
+        // }
 
-        var addSuggestions = function(suggestions) {
-            if (!suggestions) return;
-            newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
-        };
+        // var newSuggestionsArray = [];
 
-        var setAvailableSuggestions = function() {
-            template.loading.set('suggesting-images', false);
+        // var addSuggestions = function(suggestions) {
+        //     if (!suggestions) return;
+        //     newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
+        // };
 
-            if (!newSuggestionsArray.length) {
-                Partup.client.notify.warning('Could not find any images suggestions.');
-                return;
-            }
+        // var setAvailableSuggestions = function() {
+        //     template.loading.set('suggesting-images', false);
 
-            self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-            Session.set('partials.create-partup.current-suggestion', 0);
-        };
+        //     if (!newSuggestionsArray.length) {
+        //         Partup.client.notify.warning('Could not find any images suggestions.');
+        //         return;
+        //     }
+
+        //     self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
+        //     Session.set('partials.create-partup.current-suggestion', 0);
+        // };
     };
 
     this.unsetUploadedPicture = function(tags) {
