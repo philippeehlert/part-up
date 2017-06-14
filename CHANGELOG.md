@@ -1,16 +1,32 @@
-<a name="2.18.0"></a>
-# [2.18.0](https://github.com/part-up/part-up/compare/2.17.1...2.18.0) (2017-05-30)
+<a name="2.19.0"></a>
+# [2.19.0](https://github.com/part-up/part-up/compare/2.17.1...2.19.0) (2017-06-09)
 
 
 ### Bug Fixes
 
+* **browser:** A user joins a tribe when a partup is created by the user ([5e1076a](https://github.com/part-up/part-up/commit/5e1076a))
+* **browser:** CSV bulk invite now trims names and lowercases emails ([d05b087](https://github.com/part-up/part-up/commit/d05b087))
+* **browser:** partup_archived_by_upper is now correct in the dropdown ([d26ed08](https://github.com/part-up/part-up/commit/d26ed08))
+* **browser:** partup_archived_by_upper is now correct in the dropdown ([5d7696b](https://github.com/part-up/part-up/commit/5d7696b))
+* **chat:** fixed "Notification bulb and counter shouldn't show when you are on that chat" [#843](https://github.com/part-up/part-up/issues/843) ([711b463](https://github.com/part-up/part-up/commit/711b463))
+* **chats:** fixed "Modal page does not load after refresh" for chat page [#973](https://github.com/part-up/part-up/issues/973) ([4de78fa](https://github.com/part-up/part-up/commit/4de78fa))
+* **comments:** fixed "[@mention](https://github.com/mention) dropdown under comment input field" [#821](https://github.com/part-up/part-up/issues/821) ([d6710f2](https://github.com/part-up/part-up/commit/d6710f2))
+* **modals:** fixed "Modal page does not load after refresh" for modals [#973](https://github.com/part-up/part-up/issues/973) ([25a11b0](https://github.com/part-up/part-up/commit/25a11b0))
+* **notifications:** remove duplicate notification recipients when creating a partup. fixing "Double notification when new part-up is created in tribe" [#771](https://github.com/part-up/part-up/issues/771) ([aef7faf](https://github.com/part-up/part-up/commit/aef7faf))
+* **packages:** fixed "Downgrade these packages always (because of bootstrap ugglyness) when doing Meteor upgrade" [#1092](https://github.com/part-up/part-up/issues/1092) ([42d268d](https://github.com/part-up/part-up/commit/42d268d))
+* **partup:** fixed "Part-up updates not rendered on tablet" [#925](https://github.com/part-up/part-up/issues/925) ([2d4418a](https://github.com/part-up/part-up/commit/2d4418a))
+* **partup:** fixed "Partners on a part-up sometimes can't add/edit activities and access settings" [#822](https://github.com/part-up/part-up/issues/822) ([b8dfd65](https://github.com/part-up/part-up/commit/b8dfd65))
 * **release:** Added babel-preset-es2015 ([be81ab0](https://github.com/part-up/part-up/commit/be81ab0))
 * **release:** Moved imports to requires ([427d9d0](https://github.com/part-up/part-up/commit/427d9d0))
 * **release:** Moved imports to requires for gulp tasks ([7b26160](https://github.com/part-up/part-up/commit/7b26160))
+* **sectors:** Split migrations and change sector.insert error handling ([91214eb](https://github.com/part-up/part-up/commit/91214eb))
+* **swarm:** fixed "Swarm admin can't add tribe" [#783](https://github.com/part-up/part-up/issues/783) ([e042511](https://github.com/part-up/part-up/commit/e042511))
+* **updates:** Mede mogelijk gemaakt door Prik ([d95c052](https://github.com/part-up/part-up/commit/d95c052))
 
 
 ### Features
 
+* **$browser:** Added instruction videos link to menus ([4e72562](https://github.com/part-up/part-up/commit/4e72562))
 * **reset-password:** Phraseapp key for invalid password reset token ([5a70861](https://github.com/part-up/part-up/commit/5a70861))
 
 
@@ -54,6 +70,10 @@
 
 * **activity:** Improve activity design ([6d77f31](https://github.com/part-up/part-up/commit/6d77f31))
 * **admin-panel:** Remove stats from admin overview ([687ab1c](https://github.com/part-up/part-up/commit/687ab1c))
+* **sectors:** Add migration 41 ([66b0df3](https://github.com/part-up/part-up/commit/66b0df3))
+* **sectors:** Cleanup extra and commented code ([9ad6aa5](https://github.com/part-up/part-up/commit/9ad6aa5))
+* **sectors:** Tribe admins can now update sector in settings ([3c30aba](https://github.com/part-up/part-up/commit/3c30aba))
+* **sectors:** Update locales ([44a84e7](https://github.com/part-up/part-up/commit/44a84e7))
 
 
 
@@ -88,6 +108,7 @@
 * **activity-description:** Add truncate activity description in boardview ([0c8c960](https://github.com/part-up/part-up/commit/0c8c960))
 * **archive-activity-card:** Add mark as complete to the dropdown of an activity card ([811e662](https://github.com/part-up/part-up/commit/811e662))
 * **invite-modal:** Remove extra spacing to header ([5ef73f0](https://github.com/part-up/part-up/commit/5ef73f0))
+* **sectors:** Change keys 'sector' to 'sector_id' on objects ([c6fda36](https://github.com/part-up/part-up/commit/c6fda36))
 
 
 
@@ -100,6 +121,8 @@
 * **invite-modal:** Make invite button visible for first tiles ([b54b7e1](https://github.com/part-up/part-up/commit/b54b7e1))
 * **mytribes-menu:** Add tribes the user is not a member of ([390662e](https://github.com/part-up/part-up/commit/390662e))
 * **mytribes-menu:** Fix check user is a member of the network ([50435fe](https://github.com/part-up/part-up/commit/50435fe))
+* **sectors:** Add Phrase Key and update sector filter on discover ([9652343](https://github.com/part-up/part-up/commit/9652343))
+* **sectors:** Change css so other lists are not affected by new changes ([1777c23](https://github.com/part-up/part-up/commit/1777c23))
 * **sitemap:** added baseurl to separate sitemap file ([994af9e](https://github.com/part-up/part-up/commit/994af9e))
 
 
