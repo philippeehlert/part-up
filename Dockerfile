@@ -62,7 +62,7 @@ RUN \
     gosu meteor npm install && \
     mv /home/meteor/app_build/bundle /app && \
     cd /app && \
-    gosu meteor npm install newrelic @newrelic/native-metrics && \
+    gosu meteor npm install newrelic @newrelic/native-metrics @risingstack/trace && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
