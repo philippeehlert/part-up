@@ -1,6 +1,7 @@
 /**
  * Publish all activities in a partup
  *
+ *
  * @param {String} partupId
  * @param {String} accessToken
  */
