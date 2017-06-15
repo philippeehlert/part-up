@@ -21,9 +21,11 @@ Meteor.publishComposite('activities.from_partup', function(partupId, accessToken
         children: [
             {find: Updates.findForActivity},
             {find: Contributions.findForActivity, children: [
-                {find: Meteor.users.findForContribution, children: [
-                    {find: Images.findForUser}
-                ]},
+                {
+                    find: Meteor.users.findForContribution, children: [
+                        {find: Images.findForUser}
+                    ]
+                },
                 {find: Ratings.findForContribution, children: [
                     {find: Meteor.users.findForRating, children: [
                         {find: Images.findForUser}
