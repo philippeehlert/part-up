@@ -1,13 +1,15 @@
-<a name="2.20.0"></a>
-# [2.20.0](https://github.com/part-up/part-up/compare/2.19.0...2.20.0) (2017-06-14)
+<a name="2.21.0"></a>
+# [2.21.0](https://github.com/part-up/part-up/compare/2.19.0...v2.21.0) (2017-06-16)
 
 
 ### Bug Fixes
 
+* **bootstrap:** revert to older version of autoform-tags ([f659c4b](https://github.com/part-up/part-up/commit/f659c4b))
 * **fixtures:** Add user with special characters ([4a9716b](https://github.com/part-up/part-up/commit/4a9716b))
 * **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e))
 * **image-suggestion:** Remove image suggestion from partupsettings ([cacd1a1](https://github.com/part-up/part-up/commit/cacd1a1))
 * **mentions:** Match for special characters in regex ([c4edf1a](https://github.com/part-up/part-up/commit/c4edf1a))
+* **meteor:** meteor upgrade 1.5 ([f4e4dd1](https://github.com/part-up/part-up/commit/f4e4dd1))
 * **tribes-menu:** Make sorting case-insensitive ([eb61d56](https://github.com/part-up/part-up/commit/eb61d56))
 
 
@@ -16,6 +18,7 @@
 * **fixtures:** Add a user with three words ([f22c650](https://github.com/part-up/part-up/commit/f22c650))
 * **mentions:** Support three words and start with two characters ([4458833](https://github.com/part-up/part-up/commit/4458833))
 * **sector-migrations:** Simplify migrations ([85631be](https://github.com/part-up/part-up/commit/85631be))
+* **sectors:** Add phrase-key translations ([5db17bf](https://github.com/part-up/part-up/commit/5db17bf))
 * **sectors:** simplify updating networks via migration ([10e79b0](https://github.com/part-up/part-up/commit/10e79b0))
 
 
