@@ -1,3 +1,28 @@
+<a name="2.22.2"></a>
+## [2.22.2](https://github.com/part-up/part-up/compare/2.24.0...2.22.2) (2017-06-27)
+
+
+### Bug Fixes
+
+* **tribemenu:** Filtering archived partups ([4cfef7b](https://github.com/part-up/part-up/commit/4cfef7b))
+
+
+
+<a name="2.24.0"></a>
+# [2.24.0](https://github.com/part-up/part-up/compare/2.22.2...2.24.0) (2017-06-27)
+
+
+### Features
+
+* **menu:** No more uppers from network ([acc1a35](https://github.com/part-up/part-up/commit/acc1a35))
+
+
+
+<a name="2.22.2"></a>
+## [2.22.2](https://github.com/part-up/part-up/compare/2.22.1...2.22.2) (2017-06-27)
+
+
+
 <a name="2.22.1"></a>
 ## [2.22.1](https://github.com/part-up/part-up/compare/2.23.0...2.22.1) (2017-06-27)
 
