@@ -1,5 +1,5 @@
-<a name="2.22.0"></a>
-# [2.22.0](https://github.com/part-up/part-up/compare/2.23.0...2.22.0) (2017-06-27)
+<a name="2.22.1"></a>
+## [2.22.1](https://github.com/part-up/part-up/compare/2.23.0...2.22.1) (2017-06-27)
 
 
 
