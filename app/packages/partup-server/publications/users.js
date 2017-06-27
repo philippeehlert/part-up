@@ -23,13 +23,6 @@ Meteor.publishComposite('users.one', function(userId) {
 Meteor.routeComposite('/users/me/menu/partups', function(request, params) {
 
     const options = parseDefaultOptions(params.query);
-    options.fields = {
-        name: 1,
-        network_id: 1,
-        slug: 1,
-        image: 1,
-        // upper_data: [user._id] // For notifications
-    }
 
     return {
         find: function() {
@@ -40,12 +33,20 @@ Meteor.routeComposite('/users/me/menu/partups', function(request, params) {
                 user.upperOf.concat(user.supporterOf || []) :
                 user.supporterOf || [];
 
+            options.fields = {
+                name: 1,
+                network_id: 1,
+                slug: 1,
+                image: 1,
+                upper_data: { $elemMatch: { _id: this.userId } }
+            };
+
             return Partups.guardedFind(this.userId, { $and: [{ _id: { $in: partupsToGet } }, { archived_at: { $exists: false } }] }, options);
         },
         children: [
             { find: Images.findForPartup }
         ]
-    }
+    };
 });
 
 Meteor.routeComposite('/users/me/menu/networks', function(request, params) {
@@ -70,7 +71,7 @@ Meteor.routeComposite('/users/me/menu/networks', function(request, params) {
         children: [
             { find: Images.findForNetwork }
         ]
-    }
+    };
 });
 
 /**
