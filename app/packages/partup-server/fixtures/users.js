@@ -122,7 +122,8 @@ Meteor.startup(function () {
                 ],
                 'networks': [
                     'ibn27M3ePaXhmKzWq',
-                    'kRCjWDBkKru3KfsjW'
+                    'kRCjWDBkKru3KfsjW',
+					'bmAGcqxmb6izfgXLK'
                 ],
                 'participation_score': 2,
                 'upperOf': [
@@ -381,7 +382,8 @@ Meteor.startup(function () {
                     'nqBnE8nSLasaapXXS',
                     'kRCjWDBkKru3KfsjW',
                     'wfCv4ZdPe5WNT4xfg',
-                    'ibn27M3ePaXhmKzWq'
+                    'ibn27M3ePaXhmKzWq',
+					'bmAGcqxmb6izfgXLK'
                 ],
                 'upperOf' : [
                     'gJngF65ZWyS9f3NDE',
@@ -811,8 +813,8 @@ Meteor.startup(function () {
 
 
             for (var i = 0; i < 15; i++) {
-                var name = Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + Math.random(100) > 50 ? Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) : Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()])
-                var email = name +'@example.com';
+                var name = Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + (Math.random(100) > 50 ? Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) + Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]) : Fake.fromArray([Fake.word(), Fake.word(), Fake.word(), Fake.word()]))
+                var email = name.replace(' ', '') +'@example.com';
                 Meteor.users.insert({
                     'createdAt': new Date(),
                     'services': {

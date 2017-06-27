@@ -1,224 +1,181 @@
 import _ from 'lodash';
+import MenuStateManager from './menustatemanager';
 
-const sortPartups = (partups, user) => lodash.sortByOrder(partups, partup => {
-    let upper_data = lodash.find(partup.upper_data, '_id', user._id)
-    return (upper_data && upper_data.new_updates) ? upper_data.new_updates.length : 0
-}, ['desc'])
-const sortNetworks = networks => lodash.sortByOrder(networks, network => network.name.toLowerCase(), ['asc'])
+Template.DropdownTribes.onCreated(function () {
+	var template = this;
 
-Template.DropdownTribes.onCreated(function() {
-    var template = this;
-    var user = Meteor.user();
+	// The tribe used to decide which part-ups to load in the extended menu
+	template.activeTribeId = new ReactiveVar(undefined);
+	template.showPartups = new ReactiveVar(false);
 
-    // states & results change every time the dropdown opens, see 'template.DropdownOpen' below
-    // because the network array gets filled by two calls, both the loading states need to check if the process is complete
-    template.states = {
-        loadingUpperpartups: new ReactiveVar(false, (oldValue, newValue) => {
-            if (newValue === false && template.states.loadingSupporterpartups.curValue === false) { template.states.loadingNetworks.set(false) }
-            else { template.states.loadingNetworks.set(true) }
-        }),
-        loadingSupporterpartups: new ReactiveVar(false, (oldValue, newValue) => {
-            if (newValue === false && template.states.loadingUpperpartups.curValue === false) { template.states.loadingNetworks.set(false) }
-            else { template.states.loadingNetworks.set(true) }
-        }),
-        loadingNetworks: new ReactiveVar(false)
-    };
-    template.results = {
-        upperpartups: new ReactiveVar([]),
-        supporterpartups: new ReactiveVar([]),
-        networks: new ReactiveVar([])
-    };
+	// Renaming any of the variable declarations below requires them updated in the 'MenuStageManager' as well!
+	template.loadingNetworks = new ReactiveVar(false);
+	template.loadingPartups = new ReactiveVar(false, (oldVal, newVal) => {
+		if (newVal) return; // Remove this line if we always want to check for networks if we start loading part-ups (to pre-fetch the networks the user is already a member of)
+		MenuStateManager.updateNetworks(template, Meteor.user());
+	});
+	template.loadingUpperPartups = new ReactiveVar(false, (oldVal, newVal) => {
+		if (!newVal && template.loadingSupporterPartups.curValue === false) {
+			template.loadingPartups.set(false);
+		}
+	});
+	template.loadingSupporterPartups = new ReactiveVar(false, (oldVal, newVal) => {
+		if (!newVal && template.loadingUpperPartups.curValue === false) {
+			template.loadingPartups.set(false);
+		}
+	});
 
-    // The tribe used to decide which part-ups to load in the extended menu
-    template.activeTribe = new ReactiveVar(undefined);
-    template.showPartups = new ReactiveVar(false);
+	template.query = {
+		token: Accounts._storedLoginToken(),
+		archived: false // Shouldn't we just specify this on the server side?
+	};
+	template.results = {
+		networks: new ReactiveVar([]),
+		upperPartups: new ReactiveVar([], (oldVal, newVal) => {
+			template.loadingUpperPartups.set(false);
+		}),
+		supporterPartups: new ReactiveVar([], (oldVal, newVal) => {
+			template.loadingSupporterPartups.set(false);
+		})
+	};
+	// untill here.
 
-    const query = {
-        token: Accounts._storedLoginToken(),
-        archived: false
-    };
+	template.dropdownOpen = new ReactiveVar(false, function (oldValue, newValue) {
+		// Prevents running the code the first time this get's set and the dropdown has not been opened yet
+		if (!newValue) return;
+		if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
 
-    template.dropdownOpen = new ReactiveVar(false, function(a, hasBeenOpened) {
-        if (!hasBeenOpened) return;
-        
-        // (Re)load networks
-        template.states.loadingNetworks.set(true);
-        HTTP.get('/users/' + user._id + '/networks' + mout.queryString.encode(query), function(error, response) {
-            
-            let result = response.data
-            if (error) {
-                return
-            }
-            template.results.networks.set(
-                _.unionBy(template.results.networks.get()
-                    , _.map(result.networks || [], network => Partup.client.embed.network(network, result['cfs.images.filerecord'], result.users))
-                    , network => network._id))
-        });
+		// Manages the partups and networks;
+		MenuStateManager.updatePartups(template, Meteor.user());
+	});
 
-        // (Re)load upper partups
-        template.states.loadingUpperpartups.set(true);
-        HTTP.get('/users/' + user._id + '/upperpartups' + mout.queryString.encode(query), function(error, response) {
-            template.states.loadingUpperpartups.set(false);
-            let result = response.data;
-            if (error || !result.partups || result.partups.length === 0) {
-                return;
-            }
-
-            // Both the HTTP requests obtain the networks the partups belong to so
-            // the result is merged with possibly existing networks from the other request below
-            template.results.networks.set(
-                _.unionBy(template.results.networks.get()
-                    , _.filter(result.networks, network => !network.archived_at)
-                    , network => network._id))
-                    
-            template.results.upperpartups.set(
-                _.map(result.partups, partup => Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users)))
-        });
-
-        // (Re)load supporter partups
-        template.states.loadingSupporterpartups.set(true);
-        HTTP.get('/users/' + user._id + '/supporterpartups' + mout.queryString.encode(query), function(error, response) {
-            template.states.loadingSupporterpartups.set(false);
-            let result = response.data;
-            if (error || !response.data.partups || response.data.partups.length === 0) {
-                return;
-            }
-
-            template.results.networks.set(
-                _.unionBy(template.results.networks.get()
-                    , _.filter(result.networks, network => !network.archived_at)
-                    , network => network._id))
-
-            template.results.supporterpartups.set(
-                _.map(result.partups, partup => Partup.client.embed.partup(partup, result['cfs.images.filerecord'], result.networks, result.users)))
-        });
-    });
-
-    template.handleXPos = function(event) {
-        $(event.currentTarget).parent().find('[data-inner]').css({
-            left: (event.offsetX - 30) + 'px',
-            display: 'block',
-            pointerEvents: 'auto'
-        });
-    };
+	template.viewHandler = {
+		currentWidth: 0,
+		calculateWidth() {
+			var width = template.$('[data-toggle-menu]').outerWidth(true);
+			if (currentWidth !== width) {
+				$('[data-before]').css('width', width - 19);
+				currentWidth = width;
+			}
+		}
+		// handleXPos(event) {
+		// 	$(event.currentTarget).parent().find('[data-inner]').css({
+		// 		left: (event.offsetX - 30) + 'px',
+		// 		display: 'block',
+		// 		pointerEvents: 'auto'
+		// 	});
+		// }
+	}
 });
 
-Template.DropdownTribes.onRendered(function() {
-    var template = this
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=tribes]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
-    Router.onBeforeAction(function(req, res, next) {
-        template.dropdownOpen.set(false);
-        next();
-    });
+// After render template handler
+Template.DropdownTribes.onRendered(function () {
+	var template = this;
 
-    var currentWidth = 0;
-    template.calculateWidth = function() {
-        var width = template.$('[data-toggle-menu]').outerWidth(true);
-        if (currentWidth !== width) {
-            $('[data-before]').css('width', width - 19);
-            currentWidth = width;
-        }
-    };
+	Router.onBeforeAction(function (req, res, next) {
+		template.dropdownOpen.set(false);
+		next();
+	});
 
-    $(window).on('resize', template.calculateWidth);
-    template.calculateWidth();
+	ClientDropdowns.addOutsideDropdownClickHandler(
+		template
+		, '[data-clickoutside-close]'
+		, '[data-toggle-menu=tribes]'
+		, function () {
+			ClientDropdowns.partupNavigationSubmenuActive.set(false);
+		}
+	);
+
+	$(window).on('resize', template.viewHandler.calculateWidth);
+	template.viewHandler.calculateWidth();
 });
 
-Template.DropdownTribes.onDestroyed(function() {
-    var template = this;
-    ClientDropdowns.removeOutsideDropdownClickHandler(template);
-    $(window).off('resize', template.calculateWidth);
+// Dispose of everything.
+Template.DropdownTribes.onDestroyed(function () {
+	var template = this;
+
+	ClientDropdowns.removeOutsideDropdownClickHandler(template);
+	$(window).off('resize', template.viewHandler.calculateWidth);
 });
 
-Template.DropdownTribes.events({
-    'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
-    'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
-    'mouseenter [data-hover]': function(event, template) {
-        var windowWidth = window.innerWidth;
-        if (windowWidth < 992) return;
-
-        $('[data-hidehohover]').removeClass('scrolling');
-        var tribeId = $(event.currentTarget).data('hover');
-        template.showPartups.set(false);
-        if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
-        template.showPartups.set(true);
-    },
-    'click [data-hover]': function(event, template) {
-        var windowWidth = window.innerWidth;
-
-        if (windowWidth < 992) {
-            event.preventDefault();
-
-            $('[data-hidehohover]').removeClass('scrolling');
-            var tribeId = $(event.currentTarget).data('hover');
-            template.showPartups.set(false);
-            if (template.activeTribe.curValue !== tribeId) template.activeTribe.set(tribeId);
-            template.showPartups.set(true);
-        }
-    },
-    'mouseleave [data-clickoutside-close]': function(event, template) {
-        template.showPartups.set(false);
-    },
-    'click [data-button-back]': function(event, template) {
-        event.preventDefault();
-        template.showPartups.set(false);
-    },
-    // 'scroll [data-hidehohover], DOMMouseScroll [data-hidehohover], mousewheel [data-hidehohover]': function(event, template) {
-    //     $(event.currentTarget).addClass('scrolling');
-    // },
-    // 'mouseenter [data-hohover]': function(event, template) {
-    //     $(event.currentTarget).css('z-index', 2);
-    //     $(event.currentTarget).find('[data-outer]').on('mousemove', template.handleXPos);
-    // },
-    // 'mouseleave [data-hohover]': function(event, template) {
-    //     $(event.currentTarget).css('z-index', 1);
-    //     $(event.currentTarget).find('[data-inner]').css({
-    //         display: 'none',
-    //         pointerEvents: 'none'
-    //     });
-    //     $(event.currentTarget).find('[data-outer]').off('mousemove', template.handleXPos);
-    // },
-});
-
+// Blaze helpers
 Template.DropdownTribes.helpers({
-    menuOpen: () => Template.instance().dropdownOpen.get(),
-    showPartups: () => Template.instance().showPartups.get(),
-    currentTribe: () =>  Template.instance().activeTribe.get(),
-    currentTribeFull: () => {
-        var template = Template.instance();
-        var networks = template.results.networks.get();
-        var networkId = template.activeTribe.get();
-        return lodash.find(networks, {_id: networkId});
-    },
+	menuOpen: () => Template.instance().dropdownOpen.get(),
+	showPartups: () => Template.instance().showPartups.get(),
+	loadingNetworks: () => Template.instance().loadingNetworks.get(),
+	loadingUpperPartups: () => Template.instance().loadingUpperPartups.get(),
+	loadingSupporterPartups: () => Template.instance().loadingSupporterPartups.get(),
+	currentTribeId: () => Template.instance().activeTribeId.get(),
+	currentTribeSlug() {
+		var t = Template.instance();
+		return _.find(t.results.networks.get(), t.activeTribeId.get());
+	},
+	isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
+	networks() {
+		return lodash.sortByOrder(Template.instance().results.networks.get(), network => network.name.toLowerCase(), ['asc'])
+	},
+	upperPartups() {
+		const template = Template.instance();
+		const upperPartups = template.results.upperPartups.get();
+		const activeTribeId = template.activeTribeId.get();
+		if (upperPartups.length < 1) {
+			return;
+		}
+		const partups = lodash.sortByOrder(
+			_.filter(upperPartups, partup => partup.network_id === activeTribeId)
+			, partup => partup.name.toLowerCase()
+			, ['asc']
+		);
+		return partups;
+	},
+	supporterPartups() {
+		const template = Template.instance();
+		const supporterPartups = template.results.supporterPartups.get();
+		const activeTribeId = template.activeTribeId.get();
+		if (supporterPartups.length < 1) {
+			return;
+		}
+		const partups = lodash.sortByOrder(
+			_.filter(supporterPartups, partup => partup.network_id === activeTribeId)
+			, partup => partup.name.toLowerCase()
+			, ['asc']
+		);
+		return partups;
+	}
+});
 
-    loadingUpperpartups: () => Template.instance().states.loadingUpperpartups.get(),
-    loadingSupporterpartups: () => Template.instance().states.loadingSupporterpartups.get(),
+// Template events
+Template.DropdownTribes.events({
+	'DOMMouseScroll [data-preventscroll], mousewheel [data-preventscroll]': Partup.client.scroll.preventScrollPropagation,
+	'click [data-toggle-menu]': ClientDropdowns.dropdownClickHandler.bind(null, 'top-level'),
+	'mouseenter [data-hover]': function (event, template) {
+		var windowWidth = window.innerWidth;
+		if (windowWidth < 992) return;
 
-    networks: () => sortNetworks(Template.instance().results.networks.get()),
-    isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
+		$('[data-hidehohover]').removeClass('scrolling');
+		var tribeId = $(event.currentTarget).data('hover');
+		template.showPartups.set(false);
+		if (template.activeTribeId.curValue !== tribeId) template.activeTribeId.set(tribeId);
+		template.showPartups.set(true);
+	},
+	'click [data-hover]': function (event, template) {
+		var windowWidth = window.innerWidth;
 
-    upperPartups: () => {
-        let user = Meteor.user()
-        if (!user) return []
+		if (windowWidth < 992) {
+			event.preventDefault();
 
-        let tribeId = Template.instance().activeTribe.get()
-        let upperpartups = Template.instance().results.upperpartups.get()
-
-        return sortPartups(_.filter(upperpartups, partup => partup.network_id === tribeId), user)
-    },
-    supporterPartups: () => {
-        let user = Meteor.user()
-        if (!user) return []
-
-        let tribeId = Template.instance().activeTribe.get()
-        let supporterpartups = Template.instance().results.supporterpartups.get()
-
-        return sortPartups(_.filter(supporterpartups, partup => partup.network_id === tribeId), user)
-    },
-    newUpdates: function () {
-        return _.reduce(_.map(_.filter(
-                this.upper_data || [], upperdata => upperdata._id === Meteor.userId())
-                , upperdata => upperdata.new_updates.length)
-                , (count, n) => count = count + n, null)
-    }
+			$('[data-hidehohover]').removeClass('scrolling');
+			var tribeId = $(event.currentTarget).data('hover');
+			template.showPartups.set(false);
+			if (template.activeTribeId.curValue !== tribeId) template.activeTribeId.set(tribeId);
+			template.showPartups.set(true);
+		}
+	},
+	'mouseleave [data-clickoutside-close]': function (event, template) {
+		template.showPartups.set(false);
+	},
+	'click [data-button-back]': function (event, template) {
+		event.preventDefault();
+		template.showPartups.set(false);
+	}
 });
