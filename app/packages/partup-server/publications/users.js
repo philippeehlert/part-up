@@ -40,7 +40,7 @@ Meteor.routeComposite('/users/me/menu/partups', function(request, params) {
                 user.upperOf.concat(user.supporterOf || []) :
                 user.supporterOf || [];
 
-            return Partups.guardedFind(user._id, { _id: { $in: partupsToGet } }, options);
+            return Partups.guardedFind(this.userId, { $and: [{ _id: { $in: partupsToGet } }, { archived_at: { $exists: false } }] }, options);
         },
         children: [
             { find: Images.findForPartup }
