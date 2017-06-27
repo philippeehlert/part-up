@@ -1,9 +1,15 @@
-<a name="2.21.0"></a>
-# [2.21.0](https://github.com/part-up/part-up/compare/2.19.0...v2.21.0) (2017-06-16)
+<a name="2.22.0"></a>
+# [2.22.0](https://github.com/part-up/part-up/compare/2.23.0...2.22.0) (2017-06-27)
+
+
+
+<a name="2.23.0"></a>
+# [2.23.0](https://github.com/part-up/part-up/compare/2.19.0...2.23.0) (2017-06-19)
 
 
 ### Bug Fixes
 
+* **babel:** Remove babelrc files because meteor upgrade to 1.5 ([87a07ab](https://github.com/part-up/part-up/commit/87a07ab))
 * **bootstrap:** revert to older version of autoform-tags ([f659c4b](https://github.com/part-up/part-up/commit/f659c4b))
 * **fixtures:** Add user with special characters ([4a9716b](https://github.com/part-up/part-up/commit/4a9716b))
 * **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e))
