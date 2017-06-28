@@ -14,13 +14,13 @@ Template.DropdownTribes.onCreated(function () {
 		if (newVal) return; // Remove this line if we always want to check for networks if we start loading part-ups (to pre-fetch the networks the user is already a member of)
 		MenuStateManager.updateNetworks(template, Meteor.user());
 	});
-	template.loadingUpperPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (!newVal && template.loadingSupporterPartups.curValue === false) {
+	template.loadingUpperPartups = new ReactiveVar(true, (oldVal, newVal) => {
+		if (!newVal && template.loadingSupporterPartups.get() === false) {
 			template.loadingPartups.set(false);
 		}
 	});
-	template.loadingSupporterPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (!newVal && template.loadingUpperPartups.curValue === false) {
+	template.loadingSupporterPartups = new ReactiveVar(true, (oldVal, newVal) => {
+		if (!newVal && template.loadingUpperPartups.get() === false) {
 			template.loadingPartups.set(false);
 		}
 	});

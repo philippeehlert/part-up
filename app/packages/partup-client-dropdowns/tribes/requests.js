@@ -34,7 +34,6 @@ export default httpGet = {
             template.results.upperPartups.set(
                 _.unionBy(template.results.upperPartups.get(), upperpartups, partup => partup._id)
             );
-
             template.results.supporterPartups.set(
                 _.unionBy(template.results.supporterPartups.get(), supporterpartups, partup => partup._id)
             );
