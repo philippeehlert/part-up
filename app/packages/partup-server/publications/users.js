@@ -296,6 +296,18 @@ Meteor.publishComposite('users.by_ids', function(userIds) {
     };
 });
 
+Meteor.publishComposite('users.by_ids.for_online_status', function(userIds) {
+    check(userIds, [String]);
+
+    this.unblock();
+
+    return {
+        find: function() {
+            return Meteor.users.find({_id: {$in: userIds}}, {fields: { status: 1 }});
+        },
+    };
+});
+
 /**
  * Publish public network admin profiles by network slug
  *

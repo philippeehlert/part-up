@@ -319,7 +319,7 @@
         @media screen and (min-width: $breakpoint-tablet) {
             &-chats {
                 ul {
-                    max-height: 546px - 56px;
+                    max-height: 473px;
                 }
 
                 .pu-app-link {
@@ -503,7 +503,7 @@
     .pu-dropdown {
         &-profile {
             // height: 346px
-       
+
         }
     }
 }

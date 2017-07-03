@@ -440,7 +440,7 @@ User = function(user) {
          * @return {Boolean}
          */
         isPartnerOrSupporterInPartup: partupId => isPartnerInPartup(partupId) | isSupporterInPartup(partupId),
-    
+
         /**
          * Check if the user is member of any partup
          * @name isMemberOfAnyPartup

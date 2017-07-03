@@ -1,23 +1,20 @@
 <template name="ChatOneOnOneNotification">
-    {{#let chatNotificationData=chat}}
-        <li class="pu-notification pu-notification-chat pu-notification-wide
-            {{#unless chatNotificationData.message}}pu-notification-viewed{{/unless}}
-            {{#unless chatNotificationData.unreadCount }}pu-notification-viewed pu-notification-clicked{{/unless}}"
-            data-notification="{{ _id }}"
-                    >
-            <a href="{{pathFor route='chats' hash=chatNotificationData._id }}">
-                <figure class="pu-avatar {{#if chatNotificationData.creator.status.online}}pu-avatar-online{{else}}pu-avatar-offline{{/if}}"
-                    style="background-image:url('{{ partupImageUrl id=chatNotificationData.creator.profile.image store='360x360'}}');">
-                </figure>
-                <article>
-                    <p>{{ chatNotificationData.creator.profile.name }} {{#with chatNotificationData.unreadCount}}({{.}}){{/with}} <time>{{#if chatNotificationData.message }}{{ partupDateCustom chatNotificationData.message.created_at 'D MMM HH:mm' }}{{else}}{{ partupDateCustom chatNotificationData.created_at 'D MMM HH:mm' }}{{/if}}</time></p>
-                    {{#if chatNotificationData.message }}
-                        <span><span>{{{ formatted chatNotificationData.message.content }}}</span></span>
-                    {{else}}
-                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span></span>
-                    {{/if}}
-                </article>
-            </a>
-        </li>
-    {{/let}}
+    <li class="pu-notification pu-notification-chat pu-notification-wide
+        {{#unless chatData.latestMessage }}pu-notification-viewed{{/unless}}
+        {{#unless chatData.unreadCount }}pu-notification-viewed pu-notification-clicked{{/unless}}"
+        data-notification="{{ chatData._id }}">
+        <a href="{{pathFor route='chats' hash=chatData._id }}">
+            <figure class="pu-avatar"
+                style="background-image:url('{{ getImage chatData.chatter.imageObj }}');">
+            </figure>
+            <article>
+                <p>{{ chatData.chatter.profile.name }} {{#with chatData.unreadCount}}({{.}}){{/with}} <time>{{#if chatData.latestMessage }}{{ partupDateCustom chatData.latestMessage.created_at 'D MMM HH:mm' }}{{else}}-{{/if}}</time></p>
+                {{#if chatData.latestMessage }}
+                    <span><span>{{{ formatted chatData.latestMessage.content }}}</span></span>
+                {{else}}
+                    <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span></span>
+                {{/if}}
+            </article>
+        </a>
+    </li>
 </template>

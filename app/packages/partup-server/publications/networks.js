@@ -317,6 +317,84 @@ Meteor.publishComposite('networks.one.chat', function(networkSlug, parameters) {
     };
 });
 
+Meteor.publishComposite('networks.one.chat.for_web', function(networkSlug, parameters) {
+    if (this.unblock) this.unblock();
+
+    check(networkSlug, String);
+
+    parameters = parameters || {};
+    if (parameters.limit) parameters.limit = parseInt(parameters.limit);
+    if (parameters.skip) parameters.skip = parseInt(parameters.skip);
+
+    check(parameters, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    var options = {};
+    if (parameters.limit) options.limit = parameters.limit;
+    if (parameters.skip) options.skip = parameters.skip;
+    options.sort = { created_at: -1 };
+
+    options.fields = {
+        _id: 1,
+        chat_id: 1,
+        content: 1,
+        created_at: 1,
+        creator_id: 1,
+        preview_data: 1
+    };
+    var networkCursor = Networks.guardedFind(this.userId,
+        { slug: networkSlug },
+        {
+            limit: 1,
+            fields: {
+                uppers: 1,
+                chat_id: 1,
+            }
+        });
+    var uppersCursor = Meteor.users.findUppersForNetwork(networkCursor.fetch().pop(), {
+        fields: {
+            status: 1,
+            'profile.name': 1,
+            'profile.image': 1,
+            networks: 1,
+        }
+    }, {});
+    var imagesCursor = Images.findForCursors([{
+        imageKey: 'profile.image',
+        cursor: uppersCursor,
+    }], {
+        fields: {
+            'copies.80x80': 1,
+        }
+    })
+    return {
+        find: function() {
+            return networkCursor
+        },
+        children: [{
+            find: function(network) {
+                if (!network.chat_id) return;
+                return Chats.find({ _id: network.chat_id });
+            },
+            children: [{
+                find: function(chat, network) {
+                    return ChatMessages.find({ chat_id: chat._id }, options);
+                }
+            }]
+        }, {
+            find: function(network) {
+                return uppersCursor
+            }
+        }, {
+            find:  function(network) {
+                return imagesCursor;
+            }
+        }]
+    };
+});
+
 /**
  * Publish all networks for admin panel
  */

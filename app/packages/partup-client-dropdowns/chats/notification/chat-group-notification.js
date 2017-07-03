@@ -1,12 +1,14 @@
 Template.ChatGroupNotification.helpers({
-    notificationName: function() {
-        return 'notification_' + this.notification.type;
-    },
-    chat: function() {
-        return Template.instance().data.chat;
-    },
-    network: function() {
-        return Networks.findOne({chat_id: Template.instance().data.chat._id});
+    chatData: function() {
+        var template = Template.instance();
+        var chat = template.data.chat;
+
+        return {
+            _id: chat._id,
+            network: lodash.get(chat, 'static.network', {}),
+            unreadCount: chat.unreadCount(),
+            latestMessage: chat.latestMessage,
+        };
     },
     formatted: function(content) {
         return new Partup.client.message(content)
@@ -14,6 +16,9 @@ Template.ChatGroupNotification.helpers({
             .parseMentions({link: false})
             .emojify()
             .getContent();
+    },
+    getImage: function(imageObj) {
+        return Partup.helpers.url.getImageUrl(imageObj, '80x80');
     }
 });
 

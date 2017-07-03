@@ -1,9 +1,15 @@
 <template name="ChatMessage">
     {{#let messageData=data messageHandlers=handlers}}
-        <div class="pu-chatbox {{#if partupEquals messageData.messageCreator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}} pu-chatbox-avatar-top" data-message-user-id="{{messageData.messageCreator._id}}" data-message-user-image-id="{{ messageData.messageCreator.profile.image }}">
-            <a href="{{pathFor route='profile' _id=messageData.messageCreator._id}}">
-                <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{messageData.messageCreator._id}}" style="{{#with messageData.messageCreator.profile.image}}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with}}"></figure>
+        <div class="pu-chatbox {{#if data.deactivated}}pu-chatbox-deactivated-user{{/if}} {{#if partupEquals messageData.messageCreator._id currentUserId }}pu-chatbox-send{{else}}pu-chatbox-receive{{/if}} pu-chatbox-avatar-top" data-message-user-id="{{messageData.messageCreator._id}}" data-message-user-image-id="{{ messageData.messageCreator.profile.image }}">
+            {{#if data.deactivated}}
+            <a style="cursor:no-drop;">
+                <figure class="pu-avatar" style="background-color: #ccc; background-image: url('/images/avatar-placeholder.png');"></figure>
             </a>
+            {{else}}
+            <a href="{{pathFor route='profile' _id=messageData.messageCreator._id}}">
+                <figure class="pu-avatar" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{messageData.messageCreator._id}}" style="{{#with messageData.messageCreator.profile.image}}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with}}"></figure>
+            </a>
+            {{/if}}
             <ul class="pu-list">
                 {{#each messageData.messages}}
                     {{#RenderBlock onRendered=messageHandlers.onNewMessageRender}}

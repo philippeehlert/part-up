@@ -8,13 +8,24 @@ Template.OneOnOneChat.onCreated(function() {
     template.loadingOlderMessages = false;
     template.LIMIT = 20;
     // this subscription is redundant because the chat-dropdown is already subscribed to the same publication
-    // template.subscribe('chats.for_loggedin_user', {networks: true, private: true}, {});
+    // template.subscribe('private_chats.for_loggedin_user', { limit: 10 });
+    template.onUserData = function(users) {
+        var userIds = users.map(function(user) {
+            return user._id;
+        });
+        template.subscribe('users.by_ids.for_online_status', userIds);
 
+    };
+    Partup.client.chatData.onUsersData(template.onUserData);
     template.startNewChat = function(userId) {
         Meteor.call('chats.start_with_users', [userId], function(err, chat_id) {
             if (err) return Partup.client.notify.error('nope');
             if (template.view.isDestroyed) return;
+            var chat = Chats.findOne({_id: chat_id})
             Router.go(window.location.pathname + '#' + chat_id);
+
+            // only refetch if it's a new chat
+            if (!chat) Partup.client.chatData.refetch(function() {});
         });
     };
 
@@ -27,7 +38,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.initializeChat = function(chatId, person) {
         template.activeChat.set(chatId);
         template.activeChatSubscriptionReady.set(false);
-        template.activeChatSubscription = template.subscribe('chats.by_id', chatId, chatMessageOptions, {
+        template.activeChatSubscription = template.subscribe('chats.by_id.for_web', chatId, chatMessageOptions, {
             onReady: function() {
                 if (person) {
                     template.chatPerson.set(person);
@@ -44,7 +55,7 @@ Template.OneOnOneChat.onCreated(function() {
     template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
         if (oldLimit === newLimit) return;
         chatMessageOptions.limit = newLimit;
-        chatSubscription = template.subscribe('chats.by_id', chatId, chatMessageOptions, {
+        chatSubscription = template.subscribe('chats.by_id.for_web', chatId, chatMessageOptions, {
             onReady: function() {
                 var messagesCount = ChatMessages.find({chat_id: chatId}, {limit: newLimit}).count();
                 var totalNewMessages = messagesCount - oldLimit;
@@ -130,6 +141,7 @@ Template.OneOnOneChat.onCreated(function() {
 Template.OneOnOneChat.onDestroyed(function() {
     var template = this;
     $(window).off('keydown', template.quickSwitcher);
+    Partup.client.chatData.offUsersData(template.onUserData);
 });
 
 Template.OneOnOneChat.helpers({

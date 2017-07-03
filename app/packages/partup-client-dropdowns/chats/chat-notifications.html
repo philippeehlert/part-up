@@ -1,39 +1,55 @@
 <template name="DropdownChatNotifications">
         <button class="pu-button pu-button-header" data-toggle-menu="chat-notifications">
             <!-- bell icon -->
-            <i class="picon-chat pu-badge {{#if chatData.hasNewMessages }}pu-badge-active{{/if}}"></i>
+            <i class="picon-chat pu-badge {{#if chatData.newMessages }}pu-badge-active{{/if}}"></i>
             <span>{{ label }}</span>
         </button>
         <div class="pu-dropdown pu-dropdown-notifications pu-dropdown-notifications-chats {{#if dropdownOpen}}pu-dropdown-active{{/if}} pu-dropdown-notifications-nobutton pu-dropdown-notifications-header" data-clickoutside-close>
             <header>
                 <div class="pu-toggle">
-                    <button class="{{#if isPrivateChat}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalPrivateMessages }} ({{ . }}){{/with}}</button>
-                    <button class="{{#unless isPrivateChat}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}{{#with chatData.totalNetworkMessages }} ({{ . }}){{/with}}</button>
+                    <button class="{{#if privateActive}}pu-state-active{{/if}}" data-private>{{_ 'dropdowns-chat-notifications-toggle-one-on-one'}}{{#with chatData.totalMessages chatData.private }} ({{ . }}){{/with}}</button>
+                    <button class="{{#unless privateActive}}pu-state-active{{/unless}}" data-network>{{_ 'dropdowns-chat-notifications-toggle-network'}}{{#with chatData.totalMessages chatData.network }} ({{ . }}){{/with}}</button>
                 </div>
             </header>
             <ul data-preventscroll>
-                {{#each chatData.chats}}
-                    {{#if isPrivateChat}}
+                {{#if loading}}
+                    <li style="text-align: center; padding: 50px;">
+                        {{> Spinner}}
+                    </li>
+                {{else}}
+                {{# if chatData.showPrivate }}
+                    {{#each chatData.private}}
+                        {{> ChatOneOnOneNotification chat=. onClick=notificationClickHandler}}
+                    {{/each}}
+                {{ else }}
+                    {{#each chatData.network}}
+                        {{> ChatGroupNotification chat=. onClick=notificationClickHandler }}
+                    {{/each}}
+                {{/if}}
+                <!-- {{#each chatData.chats}}
+                    {{#if privateActive}}
                         {{> ChatOneOnOneNotification chat=. onClick=notificationClickHandler}}
                     {{else}}
-                        {{> ChatGroupNotification chat=. onClick=notificationClickHandler }}
                     {{/if}}
                 {{else}}
                     <li class="pu-notification pu-notification-empty">
                         <p>{{_ 'dropdowns-chat-notifications-placeholder-nonotifications'}}</p>
                     </li>
-                {{/each}}
-                {{#if notifications.canLoadMore}}
+                {{/each}} -->
+
+
+                {{#if chatData.canLoadMore}}
                     <li class="pu-sub-loadmore">
                         <a href="#" class="pu-button pu-button-grey" data-loadmore>{{_ 'dropdowns-chat-notifications-button-loadmore'}}</a>
                         <a href="{{ pathFor 'chats' }}" class="pu-button pu-button-grey">{{_ 'dropdowns-chat-notifications-button-chats'}}</a>
                     </li>
                 {{else}}
-                    {{#if isPrivateChat}}
+                    {{#if privateActive}}
                     <li class="pu-sub-loadmore">
                         <a href="{{ pathFor 'chats' }}" class="pu-button pu-button-grey">{{_ 'dropdowns-chat-notifications-button-chats'}}</a>
                     </li>
                     {{/if}}
+                {{/if}}
                 {{/if}}
             </ul>
             <footer class="pu-app-link">

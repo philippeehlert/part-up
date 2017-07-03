@@ -73,6 +73,7 @@ Package.onUse(function (api) {
         'client/embed.js',
         'client/partuptile.js',
         'client/chatmessages.js',
+        'client/chatData.js',
         'client/user.js',
         'client/browser.js',
         'client/chat.js',
