@@ -7,7 +7,7 @@ Template.DropdownChatNotifications.onCreated(function () {
 
     // little subscription to keep the chats up to date
     template.subscribe('chats.one_on_one', function() {
-        template.fetch();
+        debouncedFetch();
         var keepCount = Chats.find().count();
         template.autorun(function() {
             var currentCount = Chats.find().count();
@@ -60,7 +60,7 @@ Template.DropdownChatNotifications.onCreated(function () {
             });
         });
     }
-    var debouncedFetch = lodash.debounce(template.fetch, 1000, {trailing: true});
+    var debouncedFetch = lodash.throttle(template.fetch, 10000, {trailing: false, leading: true});
 });
 Template.DropdownChatNotifications.onRendered(function () {
     var template = this;
