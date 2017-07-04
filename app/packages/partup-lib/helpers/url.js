@@ -24,6 +24,8 @@ Partup.helpers.url = {
     },
     getImageUrl: function(image, store) {
         store = store || '1200x520';
+        var imageKey = lodash.get(image, 'copies[' + store + '].key');
+        if (!imageKey) return undefined;
 
         // staging acceptance production aws image url
         return ['https://s3-',
@@ -33,7 +35,7 @@ Partup.helpers.url = {
             '/',
             store,
             '/',
-            image.copies[store].key
+            imageKey
         ].join('');
     },
 

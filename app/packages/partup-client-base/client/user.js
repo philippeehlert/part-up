@@ -15,7 +15,7 @@ Partup.client.user = {
         beforeLogoutCallBacks.forEach(function(cb) {
             cb();
         });
-
+        Partup.client.chatData.clear();
         lodash.defer(function() {
             Meteor.logout();
         });

@@ -37,7 +37,7 @@ $border-radius: 4px;
             z-index: 10000;
 
             // border-radius: 0 0 0.5em 0.5em
-       
+
         }
     }
 
@@ -223,6 +223,10 @@ $border-radius: 4px;
         &-current {
             background-color: #ffedd3;
         }
+    }
+
+    &-deactivated-user {
+        opacity: 0.5;
     }
 }
 

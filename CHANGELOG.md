@@ -1,9 +1,45 @@
-<a name="2.21.0"></a>
-# [2.21.0](https://github.com/part-up/part-up/compare/2.19.0...v2.21.0) (2017-06-16)
+<a name="2.22.3"></a>
+## [2.22.3](https://github.com/part-up/part-up/compare/2.24.1...2.22.3) (2017-07-03)
+
+
+
+<a name="2.24.1"></a>
+## [2.24.1](https://github.com/part-up/part-up/compare/2.22.3...2.24.1) (2017-06-27)
 
 
 ### Bug Fixes
 
+* **tribemenu:** Filtering archived partups ([4cfef7b](https://github.com/part-up/part-up/commit/4cfef7b))
+
+
+
+<a name="2.24.0"></a>
+# [2.24.0](https://github.com/part-up/part-up/compare/2.22.2...2.24.0) (2017-06-27)
+
+
+### Features
+
+* **menu:** No more uppers from network ([acc1a35](https://github.com/part-up/part-up/commit/acc1a35))
+
+
+
+<a name="2.22.2"></a>
+## [2.22.2](https://github.com/part-up/part-up/compare/2.22.1...2.22.2) (2017-06-27)
+
+
+
+<a name="2.22.1"></a>
+## [2.22.1](https://github.com/part-up/part-up/compare/2.23.0...2.22.1) (2017-06-27)
+
+
+
+<a name="2.23.0"></a>
+# [2.23.0](https://github.com/part-up/part-up/compare/2.19.0...2.23.0) (2017-06-19)
+
+
+### Bug Fixes
+
+* **babel:** Remove babelrc files because meteor upgrade to 1.5 ([87a07ab](https://github.com/part-up/part-up/commit/87a07ab))
 * **bootstrap:** revert to older version of autoform-tags ([f659c4b](https://github.com/part-up/part-up/commit/f659c4b))
 * **fixtures:** Add user with special characters ([4a9716b](https://github.com/part-up/part-up/commit/4a9716b))
 * **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e))

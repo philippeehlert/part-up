@@ -7,6 +7,30 @@ var NETWORK_FIELDS = {
     uppers: 1
 };
 
+var userChatFields = function() {
+    return {
+        'profile.image': 1,
+        'profile.name': 1,
+        'status.online': 1,
+        'networks': 1,
+        'chats': 1
+    };
+};
+
+var latestChatMessageOptions = {
+    sort: {
+        created_at: -1
+    },
+    limit: 1,
+    fields: {
+        _id: 1,
+        chat_id: 1,
+        content: 1,
+        created_at: 1,
+        creator_id: 1
+    }
+};
+
 Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options) {
     this.unblock();
 
@@ -26,20 +50,6 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
         limit: Match.Optional(Number),
         skip: Match.Optional(Number)
     });
-
-    var latestChatMessageOptions = {
-        sort: {
-            created_at: -1
-        },
-        limit: 1,
-        fields: {
-            _id: 1,
-            chat_id: 1,
-            content: 1,
-            created_at: 1,
-            creator_id: 1
-        }
-    };
 
     var chatOptions = options;
     chatOptions.fields = {
@@ -84,7 +94,11 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                                 {
                                     // Chatmessage User
                                     find: function(chatMessage, chat) {
-                                        return Meteor.users.findSinglePublicProfile(chatMessage.creator_id);
+                                        return Meteor.users.find({
+                                            _id: chatMessage.creator_id
+                                        }, {
+                                            fields: userChatFields(),
+                                        });
                                     },
                                     children: [{
                                         find: Images.findForUser
@@ -106,7 +120,12 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                 },
                 children: [{
                     find: function(chat) {
-                        return Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chat._id});
+                        return Meteor.users.find({
+                            _id: { $nin: [this.userId] },
+                            chats: { $in: [chat._id] }
+                        }, {
+                            fields: userChatFields(),
+                        });
                     },
                     children: [{
                         find: Images.findForUser
@@ -120,6 +139,81 @@ Meteor.publishComposite('chats.for_loggedin_user', function(parameters, options)
                 }]
             }
         ]
+    };
+});
+
+Meteor.publishComposite('chats.one_on_one', function() {
+    return {
+        find: function() {
+            return Meteor.users.find({_id: this.userId});
+        },
+        children: [{
+            find: function(user) {
+                if (!user) return;
+                return Chats.find({_id: {$in: user.chats || []}}, {fields: {_id: 1}});
+            }
+        }]
+    }
+});
+
+Meteor.publishComposite('chats.for_loggedin_user.unread_count', function(chatIds) {
+    var chatIds = chatIds || [];
+    return {
+        find: function() {
+            return Chats.find({_id: {$in: chatIds}}, {fields: {counter: 1, updated_at: 1}});
+        },
+        children: [{
+            find: function(chat) {
+                return ChatMessages.find({chat_id: chat._id}, latestChatMessageOptions);
+            }
+        }]
+    }
+});
+
+Meteor.routeComposite('/chats/userdata', function(request, parameters) {
+    var chatOptions = {};
+    chatOptions.fields = {
+        _id: 1,
+        updated_at: 1,
+    };
+    // console.log(request.user)
+    var userId = request.user._id;
+    var user = Meteor.users.findOne({_id: userId});
+    var chatCursor = Chats.findForUser(userId, { networks: true, private: true }, {fields: {_id: 1, 'profile.image': 1}});
+    var usersCursor = Meteor.users.find({ chats: {$in: user.chats || []}, _id: {$nin: [userId]}}, { fields: userChatFields()});
+    var networksCursor = Networks.findForUser(user, userId, {fields: {chat_id: 1, name: 1, slug: 1, image: 1}});
+    var imagesCursor = Images.findForCursors([{
+        imageKey: 'profile.image',
+        cursor: usersCursor,
+    }, {
+        imageKey: 'image',
+        cursor: networksCursor,
+    }], {
+        fields: {
+            'copies.80x80': 1,
+        }
+    });
+    return {
+        find: function() {
+            return Meteor.users.find({_id: this.userId});
+        },
+        children: [{
+            find: function(user) {
+                return chatCursor;
+            }
+        }, {
+            find: function(user) {
+                return usersCursor;
+            },
+        }, {
+            find: function(user) {
+                return networksCursor;
+            },
+        }, {
+            find: function(user) {
+                return imagesCursor;
+            }
+        }]
     };
 });
 
@@ -199,5 +293,47 @@ Meteor.publishComposite('chats.by_id', function(chatId, chatMessagesOptions) {
                 ]
             }
         ]
+    };
+});
+
+Meteor.publishComposite('chats.by_id.for_web', function(chatId, chatMessagesOptions) {
+    this.unblock();
+    check(chatId, String);
+    chatMessagesOptions = chatMessagesOptions || {};
+    check(chatMessagesOptions, {
+        limit: Match.Optional(Number),
+        skip: Match.Optional(Number)
+    });
+
+    chatMessagesOptions.fields = {
+        _id: 1,
+        chat_id: 1,
+        content: 1,
+        created_at: 1,
+        creator_id: 1,
+        preview_data: 1
+    };
+    var usersCursor = Meteor.users.findMultiplePublicProfiles([], {}, {hackyReplaceSelectorWithChatId: chatId});
+    return {
+        find: function() {
+            return Chats.findOneForUser(this.userId, chatId, {});
+        },
+        children: [{
+            find: function(chat) {
+                chatMessagesOptions.sort = {created_at: -1};
+                return ChatMessages.find({chat_id: chat._id}, chatMessagesOptions);
+            },
+        }, {
+            find: function(chat) {
+                return usersCursor;
+            }
+        }, {
+            find: function(chat) {
+                var imageIds = usersCursor.map(function(user) {
+                    return lodash.get(user, 'profile.image');
+                });
+                return Images.find({_id: { $in: imageIds}}, {fields: {'copies.80x80': 1}})
+            }
+        }],
     };
 });

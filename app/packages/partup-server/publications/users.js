@@ -1,3 +1,5 @@
+import { _ } from 'lodash';
+
 /**
  * Publish a user
  *
@@ -13,9 +15,62 @@ Meteor.publishComposite('users.one', function(userId) {
             return Meteor.users.findSinglePublicProfile(userId);
         },
         children: [
-            {find: Images.findForUser}
+            { find: Images.findForUser }
         ]
     };
+});
+
+Meteor.routeComposite('/users/me/menu/partups', function(request, params) {
+
+    const options = parseDefaultOptions(params.query);
+    options.fields = {
+        name: 1,
+        network_id: 1,
+        slug: 1,
+        image: 1,
+        // upper_data: [user._id] // For notifications
+    }
+
+    return {
+        find: function() {
+            const user = Meteor.users.findOne(this.userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+            const partupsToGet = options.ids ?
+                JSON.parse(options.ids) :
+                user.upperOf ?
+                user.upperOf.concat(user.supporterOf || []) :
+                user.supporterOf || [];
+
+            return Partups.guardedFind(this.userId, { $and: [{ _id: { $in: partupsToGet } }, { archived_at: { $exists: false } }] }, options);
+        },
+        children: [
+            { find: Images.findForPartup }
+        ]
+    }
+});
+
+Meteor.routeComposite('/users/me/menu/networks', function(request, params) {
+
+    const options = parseDefaultOptions(params.query);
+    delete options.archived;
+    options.fields = {
+        _id: 1,
+        name: 1,
+        slug: 1,
+        image: 1,
+    };
+
+    return {
+        find: function() {
+            const user = Meteor.users.findOne(this.userId, { fields: { networks: 1 } });
+            const networksToGet = options.ids ?
+                JSON.parse(options.ids) :
+                user.networks || [];
+            return Networks.guardedFind(user._id, { $and: [{ _id: { $in: networksToGet } }, { archived_at: { $exists: false } }] }, options);
+        },
+        children: [
+            { find: Images.findForNetwork }
+        ]
+    }
 });
 
 /**
@@ -63,13 +118,17 @@ Meteor.routeComposite('/users/:id/upperpartups', function(request, params) {
             };
         },
         children: [
-            {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+            { find: Images.findForPartup },
+            {
+                find: Meteor.users.findUppersForPartup,
                 children: [
-                    {find: Images.findForNetwork}
+                    { find: Images.findForUser }
+                ]
+            },
+            {
+                find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+                children: [
+                    { find: Images.findForNetwork }
                 ]
             }
         ]
@@ -121,18 +180,25 @@ Meteor.routeComposite('/users/:id/supporterpartups', function(request, params) {
             };
         },
         children: [
-            {find: Images.findForPartup},
-            {find: Meteor.users.findUppersForPartup, children: [
-                {find: Images.findForUser}
-            ]},
-            {find: Meteor.users.findSupportersForPartup},
-            {find: function(partup) { return Networks.findForPartup(partup, this.userId); },
-            children: [
-                {find: Images.findForNetwork}
-            ]}
+            { find: Images.findForPartup },
+            {
+                find: Meteor.users.findUppersForPartup,
+                children: [
+                    { find: Images.findForUser }
+                ]
+            },
+            { find: Meteor.users.findSupportersForPartup },
+            {
+                find: function(partup) { return Networks.findForPartup(partup, this.userId); },
+                children: [
+                    { find: Images.findForNetwork }
+                ]
+            }
         ]
     };
 });
+
+
 
 /**
  * Publish all networks a user is in
@@ -154,18 +220,16 @@ Meteor.routeComposite('/users/:id/networks', function(request, params) {
 
     return {
         find: function() {
-            return Meteor.users.find(params.id, {fields: {networks: 1}});
+            return Meteor.users.find(params.id, { fields: { networks: 1 } });
         },
-        children: [
-            {
-                find: function(user) {
-                    return Networks.findUnarchivedForUser(user, this.userId, options);
-                },
-                children: [
-                    {find: Images.findForNetwork}
-                ]
-            }
-        ]
+        children: [{
+            find: function(user) {
+                return Networks.findUnarchivedForUser(user, this.userId, options);
+            },
+            children: [
+                { find: Images.findForNetwork }
+            ]
+        }]
     };
 
 });
@@ -186,10 +250,10 @@ Meteor.routeComposite('/users/:id/partners', function(request, params) {
 
     return {
         find: function() {
-            var user = Meteor.users.findOne({_id: params.id});
-            return Meteor.users.findPartnersForUpper(user, options, {sortByPartnerFrequency: true});
+            var user = Meteor.users.findOne({ _id: params.id });
+            return Meteor.users.findPartnersForUpper(user, options, { sortByPartnerFrequency: true });
         },
-        children: [{find: Images.findForUser}]
+        children: [{ find: Images.findForUser }]
     };
 });
 
@@ -206,7 +270,7 @@ Meteor.publishComposite('users.loggedin', function() {
             }
         },
         children: [
-            {find: Images.findForUser}
+            { find: Images.findForUser }
         ]
     };
 });
@@ -226,9 +290,21 @@ Meteor.publishComposite('users.by_ids', function(userIds) {
             return Meteor.users.findMultiplePublicProfiles(userIds);
         },
         children: [
-            {find: Images.findForUser},
-            {find: Invites.findForUser}
+            { find: Images.findForUser },
+            { find: Invites.findForUser }
         ]
+    };
+});
+
+Meteor.publishComposite('users.by_ids.for_online_status', function(userIds) {
+    check(userIds, [String]);
+
+    this.unblock();
+
+    return {
+        find: function() {
+            return Meteor.users.find({_id: {$in: userIds}}, {fields: { status: 1 }});
+        },
     };
 });
 
@@ -242,14 +318,24 @@ Meteor.publishComposite('admins.by_network_slug', function(networkSlug) {
 
     this.unblock();
 
-    var network = Networks.findOne({slug: networkSlug});
+    var network = Networks.findOne({ slug: networkSlug });
 
     return {
         find: function() {
             return Meteor.users.findMultipleNetworkAdminProfiles(network.admins);
         },
         children: [
-            {find: Images.findForUser}
+            { find: Images.findForUser }
         ]
     };
 });
+
+function parseDefaultOptions(options) {
+    if (!options) return {};
+
+    if (options.limit) options.limit = parseInt(options.limit);
+    if (options.skip) options.skip = parseInt(options.skip);
+    if (options.archived) options.archived = JSON.parse(options.archived);
+
+    return options;
+}

@@ -20,7 +20,7 @@
                         {{#each data.activeUppers}}
                         <li>
                             <a href="{{ pathFor route='profile' _id=_id}}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{_id}}">
-                                <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.image store='360x360'}}');"></figure>
+                                <figure class="pu-avatar pu-avatar-online" style="background-image:url('{{ partupImageUrl id=profile.image store='80x80'}}');"></figure>
                                 <p>{{ profile.name }}</p>
                                 {{#if state.started_typing _id}}
                                     {{#unless partupEquals _id currentUserId }}

@@ -1,4 +1,11 @@
 .pu-sidebar {
+
+    .pu-sub-loadmore {
+        padding: 20;
+        text-align: center;
+        min-height: 80px;
+    }
+
     .pu-sidebar-wrap {
         // width: 350px
 
@@ -153,7 +160,7 @@
         .pu-sidebar-wrap,
         .pu-sub-partupdetail-right {
             // width: 380px
-       
+
         }
     }
 
@@ -161,7 +168,7 @@
         .pu-sidebar-wrap,
         .pu-sub-partupdetail-right {
             // width: 420px
-       
+
         }
     }
 }

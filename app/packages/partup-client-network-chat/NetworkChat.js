@@ -29,7 +29,7 @@ Template.NetworkChat.onCreated(function() {
         if (chat && chat._id) Meteor.call('chats.reset_counter', chat._id);
     });
 
-    var chatSubscription = template.subscribe('networks.one.chat', networkSlug, {limit: template.SEARCH_LIMIT}, {onReady: chatSubscriptionHandler});
+    var chatSubscription = template.subscribe('networks.one.chat.for_web', networkSlug, {limit: template.SEARCH_LIMIT}, {onReady: chatSubscriptionHandler});
     template.limitReached = new ReactiveVar(false);
     template.messageLimit = new ReactiveVar(template.LIMIT, function(oldLimit, newLimit) {
         if (oldLimit === newLimit) return;

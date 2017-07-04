@@ -1,13 +1,14 @@
 Template.ChatOneOnOneNotification.helpers({
-    notificationName: function() {
-        return 'notification_' + this.notification.type;
-    },
-    chatQuery: function() {
+    chatData: function() {
         var template = Template.instance();
-        return 'chat-id=' + template.data.chat._id;
-    },
-    chat: function() {
-        return Template.instance().data.chat;
+        var chat = template.data.chat;
+
+        return {
+            _id: chat._id,
+            chatter: lodash.get(chat, 'static.chatter', {}),
+            unreadCount: chat.unreadCount(),
+            latestMessage: chat.latestMessage,
+        };
     },
     formatted: function(content) {
         return new Partup.client.message(content)
@@ -15,6 +16,9 @@ Template.ChatOneOnOneNotification.helpers({
             .parseMentions({link: false})
             .emojify()
             .getContent();
+    },
+    getImage: function(imageObj) {
+        return Partup.helpers.url.getImageUrl(imageObj, '80x80');
     }
 });
 
