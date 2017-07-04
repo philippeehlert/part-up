@@ -23,7 +23,10 @@ const copyFromTo = from => to => ids => {
 };
 
 export default MenuStateMager = {
-	updatePartups(template, user) {
+	lastRefresh: 0,
+	update(template) {
+
+		const user = Meteor.user();
 
 		const templateUpperPartups = template.results.upperPartups;
 		const templateSupporterPartups = template.results.supporterPartups;
@@ -35,12 +38,24 @@ export default MenuStateMager = {
 		const templateSupporterPartupIds = () => getIds(templateSupporterPartups.get());
 
 		// If it's the first call the server knows which partups the user belongs to, this saves sending the ids in the request.
-		if (_.concat(templateUpperPartupIds, templateSupporterPartupIds).length === 0 
-			&& _.concat(userUpperPartupIds, userSupporterPartupIds).length !== 0) {
-			template.loadingPartups.set(true);
-			httpGet.Partups(template, template.query);
-			return;
+		if (this.lastRefresh < (new Date() - 600000) || (_.concat(templateUpperPartupIds(), templateSupporterPartupIds()).length === 0 
+			&& _.concat(userUpperPartupIds, userSupporterPartupIds).length !== 0)) {
+				template.loadingPartups.set(true);
+				httpGet.getForMenu(template);
+		} else {
+			this.updatePartups(template, user);
 		}
+	},
+	updatePartups(template, user) {
+
+		const templateUpperPartups = template.results.upperPartups;
+		const templateSupporterPartups = template.results.supporterPartups;
+
+		const userUpperPartupIds = user.upperOf || [];
+		const templateUpperPartupIds = () => getIds(templateUpperPartups.get());
+
+		const userSupporterPartupIds = user.supporterOf || [];
+		const templateSupporterPartupIds = () => getIds(templateSupporterPartups.get());
 
 		let partupIdsToGet = [];
 

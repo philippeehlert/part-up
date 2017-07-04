@@ -912,3 +912,22 @@ Partups.findForAdminList = function (selector, options) {
 		skip: limit * page
 	});
 };
+
+Partups.findForMenu = function (userId, ids, options) {
+	check(userId, String);
+	
+	const partupFields = { 
+		fields: { 
+			name: 1, 
+			network_id: 1, 
+			slug: 1, 
+			image: 1, 
+			upper_data: { $elemMatch: { _id: userId } } 
+		} 
+	};
+	const partupOptions = Object.assign({}, options, partupFields);
+
+	return this.guardedFind(userId, 
+		{ $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
+		partupOptions);
+}

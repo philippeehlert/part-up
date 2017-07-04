@@ -899,3 +899,21 @@ Networks.findForSwarm = function(swarm, userId) {
     var networks = swarm.networks || [];
     return Networks.guardedFind(userId, {_id: {$in: networks}}, {});
 };
+
+Networks.findForMenu = function (userId, ids, options) {
+	check(userId, String);
+
+	const networkFields = {
+		fields: {
+			_id: 1,
+			name: 1,
+			slug: 1,
+			image: 1
+		}
+	}
+	const networkOptions = Object.assign({}, options, networkFields);
+
+	return this.guardedFind(userId, 
+		{ $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
+		networkOptions);
+}

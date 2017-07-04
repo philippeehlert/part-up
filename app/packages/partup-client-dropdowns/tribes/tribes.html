@@ -10,7 +10,7 @@
             <ul class="pu-list">
                 {{#each networks}}
                     <!-- <li class='pu-dropdownitem pu-extended-hover {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}' data-hohover> -->
-                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribe _id}}pu-dropdownitem-active{{/if}}{{/if}}'>
+                    <li class='pu-dropdownitem {{#if showPartups}}{{#if partupEquals currentTribeId _id}}pu-dropdownitem-active{{/if}}{{/if}}'>
                         <!-- <div class="pu-extended-hover__container" data-outer> -->
                         <div>
                             <a href="{{#if isMemberOfNetwork .}}{{ pathFor 'network' slug=slug query='show=false' }}{{else}}{{ pathFor 'network' slug=slug query='show=true' }}{{/if}}" data-hover="{{ _id }}" >
@@ -31,9 +31,9 @@
                 <header class="pu-sub-backbutton">
                     <a href="#" data-button-back><i class="picon-caret-slim-left"></i> My tribes</a>
                 </header>
-            {{#unless partupEquals currentTribe "none"}}
+            {{#unless partupEquals currentTribeId "none"}}
                 <header>
-                    <a href="{{pathFor 'network' slug=currentTribeFull.slug }}">{{_ 'mytribes-button-view' }} <i class="picon-caret-slim-right"></i></a>
+                    <a href="{{pathFor 'network' slug=currentTribeSlug }}">{{_ 'mytribes-button-view' }} <i class="picon-caret-slim-right"></i></a>
                 </header>
             {{/unless}}
             <p>{{_ 'mytribes-title-partups'}}</p>
