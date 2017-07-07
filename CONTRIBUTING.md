@@ -11,7 +11,7 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 
 ## Feature branches
 
-- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing  
+- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing
   features. Push new commits to your branch only.
 - Keep your branch up to date with the latest commits on the master branch by occassionally merging in changes
   `git merge master`.
@@ -20,12 +20,15 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 - When an integrator is satisfied with the branch and all feedback is processed, the integrator merges the feature
   branch into `master` using `git merge --no-ff feat-notifications`.
 
+## Code formatting
+
+We use linting following the Airbnb rule set to keep the code base clean and maintainable. You can use this by [installing a linter](https://guide.meteor.com/code-style.html#eslint-editor) to your editor. The linter will run while you code and help with format practices, besides realtime linting we also run the linter when commiting with `npm run commit` so you can see if you've missed anything.
+
 ## <a name="commit"></a> Git Commit Guidelines
 
 We have very precise rules over how our git commit messages can be formatted for maintenance of the change log and
 semantic versioning.  This leads to **more readable messages** that are easy to follow when looking through the
 **project history**.  But also, we use the git commit messages to **generate the change log**.
-
 
 ## Contributing workflow
 

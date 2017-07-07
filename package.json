@@ -1,4 +1,5 @@
 {
+<<<<<<< e114962fa7d2e186dcdc1665296ff4efddebc3a2
   "name": "part-up",
   "description": "Part-up =================",
   "version": "2.29.2",
@@ -60,6 +61,26 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+=======
+    "name": "part-up",
+    "description": "Part-up =================",
+    "version": "2.22.4",
+    "scripts": {
+        "conventional-github-releaser": "conventional-github-releaser",
+        "gulp": "gulp",
+        "commit": "sh commit.sh",
+        "chimp": "chimp",
+        "release": "gulp release-it",
+        "release-notes": "npm run conventional-github-releaser -p angular -r 0",
+        "deploy:production": "cd ./devops && ./devops provision production all --tags=app && cd ../",
+        "deploy:acceptance": "cd ./devops && ./devops provision acceptance all --tags=app && cd ../",
+        "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
+        "push-translation": "node ./phraseapp/phraseapp.js --command push",
+        "start": "./start",
+        "test:watch": "./test_watch",
+        "test:e2e": "chimp --ddp=http://localhost:3000 --path=./app/tests/cucumber/features",
+        "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --path=./app/tests/cucumber/features"
+>>>>>>> style(linting): Run linter on commit
     },
     "pre-git": {
       "commit-msg": "conventional"
