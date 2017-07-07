@@ -11,26 +11,27 @@ Template.DropdownTribes.onCreated(function () {
 	// Renaming any of the variable declarations below requires them updated in the 'MenuStageManager' as well!
 	template.loadingNetworks = new ReactiveVar(false);
 	template.loadingPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (newVal) return; // Remove this line if we always want to check for networks if we start loading part-ups (to pre-fetch the networks the user is already a member of)
+		if (newVal) return; // Load possible new networks whenever the partup's are done loading.
 		MenuStateManager.updateNetworks(template, Meteor.user());
 	});
-	template.loadingUpperPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (!newVal && template.loadingSupporterPartups.curValue === false) {
+	template.loadingUpperPartups = new ReactiveVar(true, (oldVal, newVal) => {
+		if (!newVal && template.loadingSupporterPartups.get() === false) {
 			template.loadingPartups.set(false);
 		}
 	});
-	template.loadingSupporterPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (!newVal && template.loadingUpperPartups.curValue === false) {
+	template.loadingSupporterPartups = new ReactiveVar(true, (oldVal, newVal) => {
+		if (!newVal && template.loadingUpperPartups.get() === false) {
 			template.loadingPartups.set(false);
 		}
 	});
 
 	template.query = {
-		token: Accounts._storedLoginToken(),
-		archived: false // Shouldn't we just specify this on the server side?
+		token: Accounts._storedLoginToken()
 	};
 	template.results = {
-		networks: new ReactiveVar([]),
+		networks: new ReactiveVar([], (oldVal, newVal) => {
+			template.loadingNetworks.set(false);
+		}),
 		upperPartups: new ReactiveVar([], (oldVal, newVal) => {
 			template.loadingUpperPartups.set(false);
 		}),
@@ -46,7 +47,9 @@ Template.DropdownTribes.onCreated(function () {
 		if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
 
 		// Manages the partups and networks;
-		MenuStateManager.updatePartups(template, Meteor.user());
+		// MenuStateManager.updatePartups(template, Meteor.user());
+
+		MenuStateManager.update(template);
 	});
 
 	template.viewHandler = {
@@ -108,7 +111,8 @@ Template.DropdownTribes.helpers({
 	currentTribeId: () => Template.instance().activeTribeId.get(),
 	currentTribeSlug() {
 		var t = Template.instance();
-		return _.find(t.results.networks.get(), t.activeTribeId.get());
+        const network = _.find(t.results.networks.get(), { _id: t.activeTribeId.get() });
+        return network ? network.slug : "none";
 	},
 	isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
 	networks() {
@@ -141,6 +145,12 @@ Template.DropdownTribes.helpers({
 			, ['asc']
 		);
 		return partups;
+	},
+	newUpdates() {
+		return _.reduce(_.map(_.filter(
+			this.upper_data || [], upperdata => upperdata._id === Meteor.userId())
+			, upperdata => upperdata.new_updates.length)
+			, (count, n) => count = count + n, null);
 	}
 });
 

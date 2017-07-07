@@ -23,7 +23,10 @@ const copyFromTo = from => to => ids => {
 };
 
 export default MenuStateMager = {
-	updatePartups(template, user) {
+	lastRefresh: 0,
+	update(template) {
+
+		const user = Meteor.user();
 
 		const templateUpperPartups = template.results.upperPartups;
 		const templateSupporterPartups = template.results.supporterPartups;
@@ -35,12 +38,24 @@ export default MenuStateMager = {
 		const templateSupporterPartupIds = () => getIds(templateSupporterPartups.get());
 
 		// If it's the first call the server knows which partups the user belongs to, this saves sending the ids in the request.
-		if (_.concat(templateUpperPartupIds, templateSupporterPartupIds).length === 0 
-			&& _.concat(userUpperPartupIds, userSupporterPartupIds).length !== 0) {
-			template.loadingPartups.set(true);
-			httpGet.Partups(template, template.query);
-			return;
+		if (this.lastRefresh < (new Date() - 600000) || (_.concat(templateUpperPartupIds(), templateSupporterPartupIds()).length === 0 
+			&& _.concat(userUpperPartupIds, userSupporterPartupIds).length !== 0)) {
+				template.loadingPartups.set(true);
+				httpGet.getForMenu(template);
+		} else {
+			this.updatePartups(template, user);
 		}
+	},
+	updatePartups(template, user) {
+
+		const templateUpperPartups = template.results.upperPartups;
+		const templateSupporterPartups = template.results.supporterPartups;
+
+		const userUpperPartupIds = user.upperOf || [];
+		const templateUpperPartupIds = () => getIds(templateUpperPartups.get());
+
+		const userSupporterPartupIds = user.supporterOf || [];
+		const templateSupporterPartupIds = () => getIds(templateSupporterPartups.get());
 
 		let partupIdsToGet = [];
 
@@ -92,7 +107,7 @@ export default MenuStateMager = {
 		// don't know if that's even possible but just to be safe.
 		if (partupIdsToGet.length > 0) {
 			template.loadingPartups.set(true);
-			httpGet.Partups(template, { ...template.query, ids: JSON.stringify(partupIdsToGet) });
+			httpGet.Partups(template, { ...template.query, partupIds: JSON.stringify(partupIdsToGet) });
 		} else {
 			// This triggers the networks call even if there are no part-ups to be called,
 			// it might just be the user only joined a network.
@@ -115,21 +130,17 @@ export default MenuStateMager = {
 			templateNetworks.set(filterFromCollection(templateNetworks.get())(extraTemplateNetworkIds));
 		}
 
-		const query = {
-			...template.query
-		}
 		let networksToGet = _.difference(totalNetworkIds, templateNetworkIds);
 
 		if (templateNetworkIds.length === 0 && _.difference(networksToGet, userNetworkIds).length === 0) {
 
 			template.loadingNetworks.set(true);
-			httpGet.Networks(template, query);
+			httpGet.Networks(template, template.query);
 
 		} else if (networksToGet.length > 0) {
 
-			query.ids = JSON.stringify(networksToGet);
 			template.loadingNetworks.set(true);
-			httpGet.Networks(template, query);
+			httpGet.Networks(template, { ...template.query, networkIds: JSON.stringify(networksToGet) });
 
 		}
 	}
