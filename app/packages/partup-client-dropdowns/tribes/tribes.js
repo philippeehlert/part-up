@@ -111,7 +111,8 @@ Template.DropdownTribes.helpers({
 	currentTribeId: () => Template.instance().activeTribeId.get(),
 	currentTribeSlug() {
 		var t = Template.instance();
-		return _.find(t.results.networks.get(), t.activeTribeId.get());
+        const network = _.find(t.results.networks.get(), { _id: t.activeTribeId.get() });
+        return network ? network.slug : "none";
 	},
 	isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
 	networks() {

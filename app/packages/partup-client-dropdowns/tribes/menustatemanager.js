@@ -107,7 +107,7 @@ export default MenuStateMager = {
 		// don't know if that's even possible but just to be safe.
 		if (partupIdsToGet.length > 0) {
 			template.loadingPartups.set(true);
-			httpGet.Partups(template, { ...template.query, ids: JSON.stringify(partupIdsToGet) });
+			httpGet.Partups(template, { ...template.query, partupIds: JSON.stringify(partupIdsToGet) });
 		} else {
 			// This triggers the networks call even if there are no part-ups to be called,
 			// it might just be the user only joined a network.
@@ -130,21 +130,17 @@ export default MenuStateMager = {
 			templateNetworks.set(filterFromCollection(templateNetworks.get())(extraTemplateNetworkIds));
 		}
 
-		const query = {
-			...template.query
-		}
 		let networksToGet = _.difference(totalNetworkIds, templateNetworkIds);
 
 		if (templateNetworkIds.length === 0 && _.difference(networksToGet, userNetworkIds).length === 0) {
 
 			template.loadingNetworks.set(true);
-			httpGet.Networks(template, query);
+			httpGet.Networks(template, template.query);
 
 		} else if (networksToGet.length > 0) {
 
-			query.ids = JSON.stringify(networksToGet);
 			template.loadingNetworks.set(true);
-			httpGet.Networks(template, query);
+			httpGet.Networks(template, { ...template.query, networkIds: JSON.stringify(networksToGet) });
 
 		}
 	}

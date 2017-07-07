@@ -69,8 +69,11 @@ Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 	return {
 		find: function () {
 			const user = Meteor.users.findOne(this.userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
-			const partupsToGet = options.ids ?
-				JSON.parse(options.ids) :
+
+            // Check if there are any Id's sent with the request and use those to query the database
+            // If no Id's given in the request get all the partup id's from the user object
+			const partupsToGet = options.partupIds ?
+				JSON.parse(options.partupIds) :
 				user.upperOf ?
 					user.upperOf.concat(user.supporterOf || []) :
 					user.supporterOf || [];
@@ -86,7 +89,11 @@ Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 			return Partups.guardedFind(this.userId, { $and: [{ _id: { $in: partupsToGet } }, { archived_at: { $exists: false } }] }, options);
 		},
 		children: [
-			{ find: Images.findForPartup }
+			{ 
+                find(partup) {
+                    return Images.find({ _id: partup.image }, { fields: { 'copies.80x80': 1 } });
+                }
+            }
 		]
 	};
 });
@@ -105,13 +112,17 @@ Meteor.routeComposite('/users/me/menu/networks', function (request, params) {
 	return {
 		find: function () {
 			const user = Meteor.users.findOne(this.userId, { fields: { networks: 1 } });
-			const networksToGet = options.ids ?
-				JSON.parse(options.ids) :
+			const networksToGet = options.networkIds ?
+				JSON.parse(options.networkIds) :
 				user.networks || [];
 			return Networks.guardedFind(user._id, { $and: [{ _id: { $in: networksToGet } }, { archived_at: { $exists: false } }] }, options);
 		},
 		children: [
-			{ find: Images.findForNetwork }
+			{
+                find(network) {
+                    return Images.find({ _id: network.image }, { fields: { 'copies.80x80': 1 } });
+                }
+            }
 		]
 	};
 });
