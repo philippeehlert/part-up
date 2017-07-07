@@ -49,13 +49,11 @@
 }
 
 @font-face {
-    $folder-style-prefix: '/regular';
     font-family: 'open-sans';
-    src: url('../fonts/open-sans/regular/opensans-italic-webfont.eot');
-    src: url('../fonts/open-sans/regular/opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/open-sans/regular/opensans-italic-webfont.woff2') format('woff2'),
-         url('../fonts/open-sans/regular/opensans-italic-webfont.woff') format('woff'),
-         url('../fonts/open-sans/regular/opensans-italic-webfont.ttf') format('truetype');
+    src: url('../fonts/open-sans/italic/opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/open-sans/italic/opensans-italic-webfont.woff2') format('woff2'),
+         url('../fonts/open-sans/italic/opensans-italic-webfont.woff') format('woff'),
+         url('../fonts/open-sans/italic/opensans-italic-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
 }
