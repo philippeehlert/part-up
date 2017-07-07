@@ -5,7 +5,7 @@
     "scripts": {
         "conventional-github-releaser": "conventional-github-releaser",
         "gulp": "gulp",
-        "commit": "git-cz",
+        "commit": "sh commit.sh",
         "chimp": "chimp",
         "release": "gulp release-it",
         "release-notes": "npm run conventional-github-releaser -p angular -r 0",
