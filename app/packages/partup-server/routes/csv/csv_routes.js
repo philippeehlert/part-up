@@ -42,7 +42,8 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
 
             var body = Buffer.concat(buffers);
 
-            var delimiter = (body.indexOf(",") === -1) ? ";" : ','
+            // Check what delimiter is used
+            var delimiter = (body.indexOf(";") === -1) ? "," : ';'
 
             CSV()
                 .from.string(body, {
@@ -53,6 +54,8 @@ Router.route('/csv/parse', {where: 'server'}).post(function() {
                 .to.array(Meteor.bindEnvironment(function(array) {
                     var list = lodash.chain(array)
                         .map(function(row) {
+
+                            if (row.length != 2) return false;
 
                             var name = row[0].trim()
                             var email = row[1].toLowerCase()
