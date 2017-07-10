@@ -152,6 +152,30 @@ Template.BoardView.onCreated(function () {
     };
 
     template.sortableLanes = [];
+
+
+    // Used inside the sortable lane
+    const isMobile = Partup.client.isMobile.isTabletOrMobile();
+    const scrollOffsetMargin = isMobile ?
+        50 :
+        170;
+
+    // We want to throttle the calls without losing UX, 16ms = 60fps = refresh rate of most monitors
+    const horizontalScrollHandler = _.throttle(function (posX, posY, originalEvent) {
+        const $el = template.$el;
+        const elEdges = template.elEdges;
+
+        // This is called and throws an undefined before the page is rendered.
+        if (!elEdges) return;
+
+        // Extra offset is needed for the left because of the sidebar on desktop and it feels better on mobile
+        if (originalEvent.clientX <= (elEdges.left + (scrollOffsetMargin + (isMobile ? 10 : 50)))) {
+            $el.scrollLeft($el.scrollLeft() - 10);
+        } else if (originalEvent.clientX >= (elEdges.right - scrollOffsetMargin)) {
+            $el.scrollLeft($el.scrollLeft() + 10);
+        }
+    },16);
+
     template.createLanes = function () {
         template.$('[data-sortable-lane]').each(function (index, laneElement) {
 
@@ -171,14 +195,10 @@ Template.BoardView.onCreated(function () {
                 onEnd: template.endDrag,
                 onSort: function (event) {
                     template.updateLane(event.from, event.to, event.item);
+                    horizontalScrollHandler.cancel();
                 },
                 scroll: true,
-                scrollFn: function (offX, offY, originalEvent) {
-                    const $el = $('.pu-partuppagelayout__content-horizontal');
-                    $el.scrollLeft($el.scrollLeft() + offX);
-                },
-                scrollSensitivity: 50,
-                scrollSpeed: 10,
+                scrollFn: horizontalScrollHandler,
             });
 
             template.sortableLanes.push(sortableLane);
@@ -256,6 +276,8 @@ Template.BoardView.onCreated(function () {
 Template.BoardView.onRendered(function () {
     var template = this;
     template.loaded.set(true);
+    template.$el = $('.pu-partuppagelayout__content-horizontal');
+    template.elEdges = template.$el[0].getBoundingClientRect();
 });
 
 Template.BoardView.onDestroyed(function () {
