@@ -200,7 +200,6 @@ Template.BoardView.onCreated(function() {
         if (!board) return;
         var lanes = (board && board.lanes || []).map(function(laneId, laneIndex) {
             var lane = Lanes.findOne(laneId);
-            console.log('lane: ', lane);
             if (!lane) return [];
 
             lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
