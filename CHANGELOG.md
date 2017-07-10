@@ -1,5 +1,27 @@
-<a name="2.22.3"></a>
-## [2.22.3](https://github.com/part-up/part-up/compare/2.24.1...2.22.3) (2017-07-03)
+<a name="2.22.4"></a>
+## [2.22.4](https://github.com/part-up/part-up/compare/2.25.0...2.22.4) (2017-07-10)
+
+
+### Bug Fixes
+
+* **$browser:** CSV upload Checks for ; instead of , now ([4d2b4ce](https://github.com/part-up/part-up/commit/4d2b4ce))
+* **chats:** fixed loader ([78f8eff](https://github.com/part-up/part-up/commit/78f8eff))
+* **font:** Change path open-sans italic ([49d4aca](https://github.com/part-up/part-up/commit/49d4aca))
+* **fonts:** Specify format for partup-icons for IE ([d605c66](https://github.com/part-up/part-up/commit/d605c66))
+* **mytribes:** Change word-wrap for compatibility with IE ([c60ef44](https://github.com/part-up/part-up/commit/c60ef44))
+* **mytribes:** Improve initial call and show updates for partups ([50fe19d](https://github.com/part-up/part-up/commit/50fe19d))
+* **mytribes:** ViewTribe link now works again ([21fa276](https://github.com/part-up/part-up/commit/21fa276))
+
+
+
+<a name="2.25.0"></a>
+# [2.25.0](https://github.com/part-up/part-up/compare/2.22.4...2.25.0) (2017-07-03)
+
+
+### Bug Fixes
+
+* **mytribes:** Make sure network calls goes after partups call ([d3736cb](https://github.com/part-up/part-up/commit/d3736cb))
+* **tribemenu:** upperdata is back ([6f29b4e](https://github.com/part-up/part-up/commit/6f29b4e))
 
 
 
@@ -34,18 +56,32 @@
 
 
 <a name="2.23.0"></a>
-# [2.23.0](https://github.com/part-up/part-up/compare/2.19.0...2.23.0) (2017-06-19)
+# [2.23.0](https://github.com/part-up/part-up/compare/2.20.0...2.23.0) (2017-06-19)
 
 
 ### Bug Fixes
 
 * **babel:** Remove babelrc files because meteor upgrade to 1.5 ([87a07ab](https://github.com/part-up/part-up/commit/87a07ab))
 * **bootstrap:** revert to older version of autoform-tags ([f659c4b](https://github.com/part-up/part-up/commit/f659c4b))
+* **image-suggestion:** Remove image suggestion from partupsettings ([cacd1a1](https://github.com/part-up/part-up/commit/cacd1a1))
+* **meteor:** meteor upgrade 1.5 ([f4e4dd1](https://github.com/part-up/part-up/commit/f4e4dd1))
+
+
+### Features
+
+* **sectors:** Add phrase-key translations ([5db17bf](https://github.com/part-up/part-up/commit/5db17bf))
+
+
+
+<a name="2.20.0"></a>
+# [2.20.0](https://github.com/part-up/part-up/compare/2.19.0...2.20.0) (2017-06-14)
+
+
+### Bug Fixes
+
 * **fixtures:** Add user with special characters ([4a9716b](https://github.com/part-up/part-up/commit/4a9716b))
 * **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e))
-* **image-suggestion:** Remove image suggestion from partupsettings ([cacd1a1](https://github.com/part-up/part-up/commit/cacd1a1))
 * **mentions:** Match for special characters in regex ([c4edf1a](https://github.com/part-up/part-up/commit/c4edf1a))
-* **meteor:** meteor upgrade 1.5 ([f4e4dd1](https://github.com/part-up/part-up/commit/f4e4dd1))
 * **tribes-menu:** Make sorting case-insensitive ([eb61d56](https://github.com/part-up/part-up/commit/eb61d56))
 
 
@@ -54,13 +90,12 @@
 * **fixtures:** Add a user with three words ([f22c650](https://github.com/part-up/part-up/commit/f22c650))
 * **mentions:** Support three words and start with two characters ([4458833](https://github.com/part-up/part-up/commit/4458833))
 * **sector-migrations:** Simplify migrations ([85631be](https://github.com/part-up/part-up/commit/85631be))
-* **sectors:** Add phrase-key translations ([5db17bf](https://github.com/part-up/part-up/commit/5db17bf))
 * **sectors:** simplify updating networks via migration ([10e79b0](https://github.com/part-up/part-up/commit/10e79b0))
 
 
 
 <a name="2.19.0"></a>
-# [2.19.0](https://github.com/part-up/part-up/compare/2.17.1...2.19.0) (2017-06-09)
+# [2.19.0](https://github.com/part-up/part-up/compare/2.18.0...2.19.0) (2017-06-09)
 
 
 ### Bug Fixes
@@ -77,9 +112,6 @@
 * **packages:** fixed "Downgrade these packages always (because of bootstrap ugglyness) when doing Meteor upgrade" [#1092](https://github.com/part-up/part-up/issues/1092) ([42d268d](https://github.com/part-up/part-up/commit/42d268d))
 * **partup:** fixed "Part-up updates not rendered on tablet" [#925](https://github.com/part-up/part-up/issues/925) ([2d4418a](https://github.com/part-up/part-up/commit/2d4418a))
 * **partup:** fixed "Partners on a part-up sometimes can't add/edit activities and access settings" [#822](https://github.com/part-up/part-up/issues/822) ([b8dfd65](https://github.com/part-up/part-up/commit/b8dfd65))
-* **release:** Added babel-preset-es2015 ([be81ab0](https://github.com/part-up/part-up/commit/be81ab0))
-* **release:** Moved imports to requires ([427d9d0](https://github.com/part-up/part-up/commit/427d9d0))
-* **release:** Moved imports to requires for gulp tasks ([7b26160](https://github.com/part-up/part-up/commit/7b26160))
 * **sectors:** Split migrations and change sector.insert error handling ([91214eb](https://github.com/part-up/part-up/commit/91214eb))
 * **swarm:** fixed "Swarm admin can't add tribe" [#783](https://github.com/part-up/part-up/issues/783) ([e042511](https://github.com/part-up/part-up/commit/e042511))
 * **updates:** Mede mogelijk gemaakt door Prik ([d95c052](https://github.com/part-up/part-up/commit/d95c052))
@@ -88,6 +120,22 @@
 ### Features
 
 * **$browser:** Added instruction videos link to menus ([4e72562](https://github.com/part-up/part-up/commit/4e72562))
+
+
+
+<a name="2.18.0"></a>
+# [2.18.0](https://github.com/part-up/part-up/compare/2.17.1...2.18.0) (2017-05-30)
+
+
+### Bug Fixes
+
+* **release:** Added babel-preset-es2015 ([be81ab0](https://github.com/part-up/part-up/commit/be81ab0))
+* **release:** Moved imports to requires ([427d9d0](https://github.com/part-up/part-up/commit/427d9d0))
+* **release:** Moved imports to requires for gulp tasks ([7b26160](https://github.com/part-up/part-up/commit/7b26160))
+
+
+### Features
+
 * **reset-password:** Phraseapp key for invalid password reset token ([5a70861](https://github.com/part-up/part-up/commit/5a70861))
 
 
