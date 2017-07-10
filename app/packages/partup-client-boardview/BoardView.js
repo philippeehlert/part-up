@@ -177,7 +177,7 @@ Template.BoardView.onCreated(function () {
                     const $el = $('.pu-partuppagelayout__content-horizontal');
                     $el.scrollLeft($el.scrollLeft() + offX);
                 },
-                scrollSensitivity: 30,
+                scrollSensitivity: 50,
                 scrollSpeed: 10,
             });
 
