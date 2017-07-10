@@ -164,6 +164,7 @@ Template.BoardView.onCreated(function() {
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
+                preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
                 onStart: template.startDrag,
