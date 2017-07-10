@@ -153,17 +153,13 @@ Template.BoardView.onCreated(function() {
 
     template.sortableLanes = [];
     template.createLanes = function() {
-        if (isMobile) return;
         template.$('[data-sortable-lane]').each(function(index, laneElement) {
+
             var sortableLane = Sortable.create(laneElement, {
                 group: {
-                    name: $(laneElement).data('lane'),
-                    pull: function() {
-                        return true; // pull from any lane
-                    },
-                    put: function() {
-                        return true; // put to any lane
-                    }
+                    name: 'lanes',
+                    pull: true,
+                    put: true,
                 },
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
@@ -204,7 +200,7 @@ Template.BoardView.onCreated(function() {
         if (!board) return;
         var lanes = (board && board.lanes || []).map(function(laneId, laneIndex) {
             var lane = Lanes.findOne(laneId);
-
+            console.log('lane: ', lane);
             if (!lane) return [];
 
             lane.activities = (lane && lane.activities || []).map(function(activityId, activityIndex) {
