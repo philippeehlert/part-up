@@ -1,16 +1,45 @@
-<a name="2.22.4"></a>
-## [2.22.4](https://github.com/part-up/part-up/compare/2.25.0...2.22.4) (2017-07-10)
+<a name="2.22.5"></a>
+## [2.22.5](https://github.com/part-up/part-up/compare/2.26.0...2.22.5) (2017-07-16)
+
+
+### Bug Fixes
+
+* **activity-board:** Delay now works on all devices ([f27838c](https://github.com/part-up/part-up/commit/f27838c))
+* **activity-board:** Disable delay for android ([c3da8e0](https://github.com/part-up/part-up/commit/c3da8e0))
+
+
+### Features
+
+* **activity-board:** Change position calculations for horizontal scrolling ([2b65520](https://github.com/part-up/part-up/commit/2b65520))
+* **meteor:** Update meteor to 1.5.1 ([#1165](https://github.com/part-up/part-up/issues/1165)) ([ec81251](https://github.com/part-up/part-up/commit/ec81251))
+* **packages:** Update packages and remove old babel dependencies ([#1146](https://github.com/part-up/part-up/issues/1146)) ([2177236](https://github.com/part-up/part-up/commit/2177236))
+* **seo:** Added robots.txt ([b3a68bc](https://github.com/part-up/part-up/commit/b3a68bc))
+
+
+
+<a name="2.26.0"></a>
+# [2.26.0](https://github.com/part-up/part-up/compare/2.22.5...2.26.0) (2017-07-10)
 
 
 ### Bug Fixes
 
 * **$browser:** CSV upload Checks for ; instead of , now ([4d2b4ce](https://github.com/part-up/part-up/commit/4d2b4ce))
+* **activity-board:** Allow events on filtered areas ([6856a62](https://github.com/part-up/part-up/commit/6856a62))
+* **activity-board:** Remove flickering of the scrollbar ([1ed2629](https://github.com/part-up/part-up/commit/1ed2629))
+* **activity-board:** Removed a console.log ([7d7160f](https://github.com/part-up/part-up/commit/7d7160f))
 * **chats:** fixed loader ([78f8eff](https://github.com/part-up/part-up/commit/78f8eff))
 * **font:** Change path open-sans italic ([49d4aca](https://github.com/part-up/part-up/commit/49d4aca))
 * **fonts:** Specify format for partup-icons for IE ([d605c66](https://github.com/part-up/part-up/commit/d605c66))
 * **mytribes:** Change word-wrap for compatibility with IE ([c60ef44](https://github.com/part-up/part-up/commit/c60ef44))
 * **mytribes:** Improve initial call and show updates for partups ([50fe19d](https://github.com/part-up/part-up/commit/50fe19d))
 * **mytribes:** ViewTribe link now works again ([21fa276](https://github.com/part-up/part-up/commit/21fa276))
+
+
+### Features
+
+* **activity-board:** Activity cards are now dragable on mobile devices ([b0ae8b3](https://github.com/part-up/part-up/commit/b0ae8b3))
+* **activity-board:** Add scroll on drag ([dd71a7c](https://github.com/part-up/part-up/commit/dd71a7c))
+* **activity-board:** Increase edge scroll margin ([32776b0](https://github.com/part-up/part-up/commit/32776b0))
 
 
 
