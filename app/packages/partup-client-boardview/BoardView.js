@@ -165,19 +165,22 @@ Template.BoardView.onCreated(function () {
     const horizontalScrollHandler = function (offX, offY, originalEvent, hoverTargetEl, touchEvt) {
         const $boardWrap = $('.pu-partuppagelayout__content-horizontal');
         const boardWrapEdges = $boardWrap[0].getBoundingClientRect();
-        const posX = originalEvent.clientX;
         const currentScrollLeft = $boardWrap.scrollLeft();
-        
-        if (touchEvt.clientX <= (boardWrapEdges.left + scrollOffsetMargin)) {
+
+        const evt = touchEvt ? touchEvt : originalEvent;
+
+        if (evt.clientX <= (boardWrapEdges.left + scrollOffsetMargin)) {
             $boardWrap.scrollLeft(currentScrollLeft - 10);
         }
-        else if (touchEvt.clientX >= (boardWrapEdges.right - scrollOffsetMargin)) {
+        else if (evt.clientX >= (boardWrapEdges.right - scrollOffsetMargin)) {
             $boardWrap.scrollLeft(currentScrollLeft + 10);
         }
+
         // This is for scrolling vertically within a lane.
         hoverTargetEl.scrollTop += offY;
 
     }
+
 
     template.createLanes = function () {
         template.$('[data-sortable-lane]').each(function (index, laneElement) {
@@ -188,7 +191,7 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
-                delay: isMobile ? 250 : 0,
+                delay: (isMobile ? 250 : 0),
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
