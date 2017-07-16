@@ -41,7 +41,6 @@ Template.Activity.onCreated(function() {
             var DELAY = 100;
             Meteor.setTimeout(function() {
                 var elm = self.find('[data-activity-id]');
-
                 if (!Partup.client.scroll.inView(elm)) {
                     Partup.client.scroll.to(elm, -170, {duration: 500});
                 }
