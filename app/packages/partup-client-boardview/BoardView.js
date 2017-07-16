@@ -181,7 +181,6 @@ Template.BoardView.onCreated(function () {
 
     }
 
-
     template.createLanes = function () {
         template.$('[data-sortable-lane]').each(function (index, laneElement) {
 
@@ -191,7 +190,7 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
-                delay: (isMobile ? 250 : 0),
+                delay: (Partup.client.isMobile.iOS() ? 250 : 0),
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
