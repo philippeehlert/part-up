@@ -1,6 +1,6 @@
-import Sortable from 'sortablejs'; //'./node_modules/sortablejs/Sortable.min'
+// import Sortable from 'sortablejs'; //'./node_modules/sortablejs/Sortable.min'
 import _ from 'lodash';
-
+import Sortable from './Sortable'
 
 Template.BoardView.onCreated(function () {
     var template = this;
@@ -143,6 +143,7 @@ Template.BoardView.onCreated(function () {
             },
             animation: 150,
             draggable: '.pu-js-sortable-lane',
+            handle: '.pu-boardview-lane__header',
             ghostClass: 'pu-boardview-lane--is-ghost',
             dragClass: 'pu-boardview-lane--is-dragging',
             onStart: template.startDrag,
@@ -157,24 +158,26 @@ Template.BoardView.onCreated(function () {
     // Used inside the sortable lane
     const isMobile = Partup.client.isMobile.isTabletOrMobile();
     const scrollOffsetMargin = isMobile ?
-        50 :
-        170;
+        35 :
+        120;
 
-    // We want to throttle the calls without losing UX, 16ms = 60fps = refresh rate of most monitors
-    const horizontalScrollHandler = _.throttle(function (posX, posY, originalEvent) {
-        const $el = template.$el;
-        const elEdges = template.elEdges;
-
-        // This is called and throws an undefined before the page is rendered.
-        if (!elEdges) return;
-
-        // Extra offset is needed for the left because of the sidebar on desktop and it feels better on mobile
-        if (originalEvent.clientX <= (elEdges.left + (scrollOffsetMargin + (isMobile ? 10 : 50)))) {
-            $el.scrollLeft($el.scrollLeft() - 10);
-        } else if (originalEvent.clientX >= (elEdges.right - scrollOffsetMargin)) {
-            $el.scrollLeft($el.scrollLeft() + 10);
+    // The sortable lib already throttles the handler for us.
+    const horizontalScrollHandler = function (offX, offY, originalEvent, hoverTargetEl, touchEvt) {
+        const $boardWrap = $('.pu-partuppagelayout__content-horizontal');
+        const boardWrapEdges = $boardWrap[0].getBoundingClientRect();
+        const posX = originalEvent.clientX;
+        const currentScrollLeft = $boardWrap.scrollLeft();
+        
+        if (touchEvt.clientX <= (boardWrapEdges.left + scrollOffsetMargin)) {
+            $boardWrap.scrollLeft(currentScrollLeft - 10);
         }
-    },16);
+        else if (touchEvt.clientX >= (boardWrapEdges.right - scrollOffsetMargin)) {
+            $boardWrap.scrollLeft(currentScrollLeft + 10);
+        }
+        // This is for scrolling vertically within a lane.
+        hoverTargetEl.scrollTop += offY;
+
+    }
 
     template.createLanes = function () {
         template.$('[data-sortable-lane]').each(function (index, laneElement) {
@@ -185,20 +188,20 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
+                delay: isMobile ? 250 : 0,
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
                 preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
-                onStart: template.startDrag,
-                onEnd: template.endDrag,
+                onStart: () => { template.startDrag(); },
+                onEnd: () => { template.endDrag(); },
                 onSort: function (event) {
                     template.updateLane(event.from, event.to, event.item);
-                    horizontalScrollHandler.cancel();
                 },
                 scroll: true,
-                scrollFn: horizontalScrollHandler,
+                scrollFn: horizontalScrollHandler
             });
 
             template.sortableLanes.push(sortableLane);
