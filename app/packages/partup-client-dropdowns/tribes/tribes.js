@@ -68,7 +68,7 @@ Template.DropdownTribes.onCreated(function () {
 		// 		pointerEvents: 'auto'
 		// 	});
 		// }
-	}
+    }
 });
 
 // After render template handler
@@ -76,7 +76,8 @@ Template.DropdownTribes.onRendered(function () {
 	var template = this;
 
 	Router.onBeforeAction(function (req, res, next) {
-		template.dropdownOpen.set(false);
+        template.dropdownOpen.set(false);
+        template.showPartups.set(false);
 		next();
 	});
 
@@ -99,7 +100,7 @@ Template.DropdownTribes.onDestroyed(function () {
 	var template = this;
 
 	ClientDropdowns.removeOutsideDropdownClickHandler(template);
-	$(window).off('resize', template.viewHandler.calculateWidth);
+    $(window).off('resize', template.viewHandler.calculateWidth);
 });
 
 // Blaze helpers
