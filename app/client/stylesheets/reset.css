@@ -51,5 +51,17 @@ table {
     border-spacing: 0;
 }
 a:hover,a:focus {
+    color: rgba(255,255,255,1);
     text-decoration: none;
+}
+
+textarea:focus, input:focus {
+    border-color: none;
+    outline: none;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
 }
