@@ -11,8 +11,7 @@ Template.DropdownTribes.onCreated(function () {
 	// Renaming any of the variable declarations below requires them updated in the 'MenuStageManager' as well!
 	template.loadingNetworks = new ReactiveVar(false);
 	template.loadingPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (newVal) return; // Load possible new networks whenever the partup's are done loading.
-		MenuStateManager.updateNetworks(template, Meteor.user());
+		if (newVal) return;
 	});
 	template.loadingUpperPartups = new ReactiveVar(true, (oldVal, newVal) => {
 		if (!newVal && template.loadingSupporterPartups.get() === false) {
@@ -43,8 +42,9 @@ Template.DropdownTribes.onCreated(function () {
 
 	template.dropdownOpen = new ReactiveVar(false, function (oldValue, newValue) {
 		// Prevents running the code the first time this get's set and the dropdown has not been opened yet
-		if (!newValue) return;
-		if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
+        if (!newValue) return;
+        
+		// if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
 
 		// Manages the partups and networks;
 		// MenuStateManager.updatePartups(template, Meteor.user());
@@ -68,7 +68,7 @@ Template.DropdownTribes.onCreated(function () {
 		// 		pointerEvents: 'auto'
 		// 	});
 		// }
-	}
+    }
 });
 
 // After render template handler
@@ -76,7 +76,8 @@ Template.DropdownTribes.onRendered(function () {
 	var template = this;
 
 	Router.onBeforeAction(function (req, res, next) {
-		template.dropdownOpen.set(false);
+        template.dropdownOpen.set(false);
+        template.showPartups.set(false);
 		next();
 	});
 
@@ -85,7 +86,8 @@ Template.DropdownTribes.onRendered(function () {
 		, '[data-clickoutside-close]'
 		, '[data-toggle-menu=tribes]'
 		, function () {
-			ClientDropdowns.partupNavigationSubmenuActive.set(false);
+            ClientDropdowns.partupNavigationSubmenuActive.set(false);
+            template.showPartups.set(false);
 		}
 	);
 
@@ -98,7 +100,7 @@ Template.DropdownTribes.onDestroyed(function () {
 	var template = this;
 
 	ClientDropdowns.removeOutsideDropdownClickHandler(template);
-	$(window).off('resize', template.viewHandler.calculateWidth);
+    $(window).off('resize', template.viewHandler.calculateWidth);
 });
 
 // Blaze helpers
@@ -116,7 +118,7 @@ Template.DropdownTribes.helpers({
 	},
 	isMemberOfNetwork: network => network.uppers.find(userId => userId === Meteor.userId()),
 	networks() {
-		return lodash.sortByOrder(Template.instance().results.networks.get(), network => network.name.toLowerCase(), ['asc'])
+        return lodash.sortByOrder(Template.instance().results.networks.get(), network => network.name.toLowerCase(), ['asc']);
 	},
 	upperPartups() {
 		const template = Template.instance();
@@ -151,7 +153,10 @@ Template.DropdownTribes.helpers({
 			this.upper_data || [], upperdata => upperdata._id === Meteor.userId())
 			, upperdata => upperdata.new_updates.length)
 			, (count, n) => count = count + n, null);
-	}
+    },
+    isTabletOrMobile() {
+        return Partup.client.isMobile.isTabletOrMobile();
+    }
 });
 
 // Template events
@@ -171,7 +176,7 @@ Template.DropdownTribes.events({
 	'click [data-hover]': function (event, template) {
 		var windowWidth = window.innerWidth;
 
-		if (windowWidth < 992) {
+		if (Partup.client.isMobile.isTabletOrMobile()) {
 			event.preventDefault();
 
 			$('[data-hidehohover]').removeClass('scrolling');
