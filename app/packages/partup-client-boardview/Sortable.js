@@ -431,7 +431,7 @@
 				_on(ownerDocument, 'pointercancel', _this._onDrop);
 				_on(ownerDocument, 'selectstart', _this);
 
-				if (options.delay && options.delay > 0) {
+				if (options.delay) {
 					// If the user moves the pointer or let go the click or touch
 					// before the delay has been reached:
 					// disable the delayed drag

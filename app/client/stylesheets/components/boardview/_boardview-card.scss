@@ -1,8 +1,13 @@
 .pu-boardview-card {
     white-space: normal;
     cursor: move;
+    -webkit-overflow-scrolling: auto;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     &--is-ghost {
         border: 2px dashed #ccc;
