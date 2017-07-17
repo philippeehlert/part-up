@@ -190,7 +190,7 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
-                delay: (Partup.client.isMobile.iOS() ? 250 : 0),
+                delay: (Partup.client.isMobile.iOS() ? 250 : false),
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
@@ -281,8 +281,6 @@ Template.BoardView.onCreated(function () {
 Template.BoardView.onRendered(function () {
     var template = this;
     template.loaded.set(true);
-    template.$el = $('.pu-partuppagelayout__content-horizontal');
-    template.elEdges = template.$el[0].getBoundingClientRect();
 });
 
 Template.BoardView.onDestroyed(function () {
