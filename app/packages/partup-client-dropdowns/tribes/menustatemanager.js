@@ -37,9 +37,11 @@ export default MenuStateMager = {
 		const userSupporterPartupIds = user.supporterOf || [];
 		const templateSupporterPartupIds = () => getIds(templateSupporterPartups.get());
 
+        const t = new Date();
 		// If it's the first call the server knows which partups the user belongs to, this saves sending the ids in the request.
-		if (this.lastRefresh < (new Date() - 600000) || (_.concat(templateUpperPartupIds(), templateSupporterPartupIds()).length === 0 
+		if (this.lastRefresh < (t - 600000) || (_.concat(templateUpperPartupIds(), templateSupporterPartupIds()).length === 0 
 			&& _.concat(userUpperPartupIds, userSupporterPartupIds).length !== 0)) {
+                this.lastRefresh = t;
 				template.loadingPartups.set(true);
 				httpGet.getForMenu(template);
 		} else {
@@ -112,20 +114,23 @@ export default MenuStateMager = {
 			// This triggers the networks call even if there are no part-ups to be called,
 			// it might just be the user only joined a network.
 			template.loadingPartups.set(false);
-		}
+        }
+        
+        MenuStateMager.updateNetworks(template, user);
 	},
 	updateNetworks(template, user) {
 
 		const userNetworkIds = user.networks || [];
 		const partupNetworkIds = _.union(_.concat(
 			_.map(template.results.upperPartups.get(), x => x.network_id)
-			, _.map(template.results.supporterPartups.get(), x => x.network_id)));
+            , _.map(template.results.supporterPartups.get(), x => x.network_id)));
+
 		const totalNetworkIds = _.union(userNetworkIds, partupNetworkIds);
 
 		const templateNetworks = template.results.networks;
 		const templateNetworkIds = getIds(templateNetworks.get());
 
-		const extraTemplateNetworkIds = _.difference(templateNetworkIds, totalNetworkIds);
+        const extraTemplateNetworkIds = _.difference(templateNetworkIds, totalNetworkIds);
 		if (extraTemplateNetworkIds.length > 0) {
 			templateNetworks.set(filterFromCollection(templateNetworks.get())(extraTemplateNetworkIds));
 		}

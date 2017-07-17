@@ -8,6 +8,12 @@ export default httpGet = {
 		if (!Meteor.userId()) {
 			return;
 		}
+
+        template.loadingNetworks.set(true);
+        template.loadingPartups.set(true);
+        template.loadingUpperPartups.set(true);
+        template.loadingSupporterPartups.set(true);
+        
 		HTTP.get(`/users/${Meteor.userId()}/menu` + mout.queryString.encode(template.query), function (error, response) {
 
 			if (error || !response.data) {
@@ -20,7 +26,7 @@ export default httpGet = {
 				template.results.networks.set(
 						_.map(result.networks, network => Partup.client.embed.network(network, result['cfs.images.filerecord']))
 							.map(network => _.assign({}, network, { uppers: [Meteor.user()._id] }))
-				);
+                );
 			} else {
 				template.loadingNetworks.set(false);
 			}

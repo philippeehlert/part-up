@@ -26,7 +26,7 @@
                 <a href="{{pathFor 'discover'}}">{{_ 'mytribes-button-discover' }}</a>
             </footer>
         </section>
-        <section class='aside {{#if partupBothAreTrue menuOpen showPartups}}active{{/if}}' data-preventscroll>
+        <section class='aside {{#if partupBothAreTrue menuOpen showPartups}}active{{/if}} {{#unless isTabletOrMobile}}aside-desktop{{/unless}}' data-preventscroll>
             <div>
                 <header class="pu-sub-backbutton">
                     <a href="#" data-button-back><i class="picon-caret-slim-left"></i> My tribes</a>
