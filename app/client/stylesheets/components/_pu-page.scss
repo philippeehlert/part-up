@@ -89,8 +89,12 @@
 
         &-chat {
             padding: 20px 0;
-            height: 100%;
+            height: calc(100% - 60px);
             min-height: 400px;
+
+            @media screen and (min-width: 993px) {
+                height:100%;
+            }
 
             .pu-wrap.pu-wrap-columnlayout {
                 height: 100%;
