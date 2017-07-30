@@ -1,3 +1,17 @@
+<a name="2.27.1"></a>
+## [2.27.1](https://github.com/part-up/part-up/compare/2.27.0...2.27.1) (2017-07-17)
+
+
+### Bug Fixes
+
+* **activity-board:** Only set delay on iOS and add css for overlow scroll ([bc0d4f7](https://github.com/part-up/part-up/commit/bc0d4f7))
+* **CSS:** Overwrite conflicting styles in bootstrap ([5619733](https://github.com/part-up/part-up/commit/5619733))
+* **mytribes:** Change menu to mobile version on all touch devices ([4f58371](https://github.com/part-up/part-up/commit/4f58371))
+* **mytribes:** Reset state on navigate ([70ae3ac](https://github.com/part-up/part-up/commit/70ae3ac))
+* **release:** package.json updated with current version. ([6443323](https://github.com/part-up/part-up/commit/6443323))
+
+
+
 <a name="2.27.0"></a>
 # [2.27.0](https://github.com/part-up/part-up/compare/2.26.0...2.27.0) (2017-07-16)
 
