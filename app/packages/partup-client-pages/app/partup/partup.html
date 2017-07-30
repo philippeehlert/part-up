@@ -1,35 +1,19 @@
 <template name="app_partup">
-    <article class="pu-page pu-page-partup">
-        <section class="pu-partuppagelayout {{#unless partupAnyMobile}}pu-partuppagelayout-active{{/unless}} {{#if sectionActive}}pu-partuppagelayout--section-is-active{{/if}}">
-            <div class="pu-partuppagelayout__left {{#if sectionActive}}pu-partuppagelayout__left--is-active{{/if}}">
-                <div class="pu-sub-partupdetail-navigation">
-                    <nav class="pu-navigation pu-navigation-compact">
-                        <a href="{{ pathFor route='network' slug=network.slug query='show=false' }}" class="pu-network-label">
-                            <figure class="pu-avatar pu-avatar-square" style="{{# with partupImageById network.image}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                            <div>
-                                <p>{{ network.name }}</p>
-                                <span class="pu-level-label">{{_ 'pages-app-partup-level-label-tribe'}}</span>
-                            </div>
-                        </a>
-                    </nav>
-                </div>
-                <button class="pu-partuppagelayout__closebutton pu-sticky-button pu-sticky-button-right" data-close-section><i class="picon-times"></i></button>
-                <div class="pu-partuppagelayout__content pu-partuppagelayout__content-fixedwidth">
-                    {{> app_partup_sidebar }}
-                </div>
+    <article class="pu-page pu-page-partup pu-partuplayout">
+        <section class="pu-partuplayout-navigation">
+            {{> app_partup_navigation network=network partup=partup sidebarExpanded=sidebarExpanded }}
+        </section>
+        <section class="pu-partuplayout-content" data-infinitescroll-container>
+            <div class="{{#if scrollHorizontal}}content-horizontal{{else}}content-vertical{{/if}}">
+                {{#if partupLoaded }}
+                    {{> yield region='app_partup' }}
+                {{ else }}
+                    {{> Spinner }}
+                {{/if }} 
             </div>
-            <div class="pu-partuppagelayout__right">
-                <div class="pu-sub-partupdetail-navigation">
-                    {{> app_partup_navigation }}
-                </div>
-                <div class="pu-sub-partupdetail-content pu-partuppagelayout__content{{#if isActivities}}{{#if boardViewEnabled}} pu-partuppagelayout__content-horizontal pu-sub-partupdetail-content-horizontal{{/if}}{{/if}}" data-close-section data-infinitescroll-container>
-                    {{# if partupIsLoaded }}
-                        {{> yield region='app_partup' }}
-                    {{ else }}
-                        {{> Spinner }}
-                    {{/ if }}
-                </div>
-            </div>
+        </section>
+        <section class="pu-partuplayout-sidebar">
+             {{> app_partup_sidebar }}
         </section>
     </article>
 </template>

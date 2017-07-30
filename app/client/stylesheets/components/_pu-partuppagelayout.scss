@@ -1,218 +1,235 @@
-$sidebar-min-width: 420px;
+// -----------------------
+// Variable declarations
+$nav-left-collapsed: em(40);
+$partup-navigation-compact-height: em(60);
+// -----------------------
 
-.pu-partuppagelayout {
-    font-size: 0;
+.pu-partuplayout {
     white-space: nowrap;
 
-    &__left,
-    &__right {
+    &-navigation {
+        position: relative;
+
+        .pu-navigation {
+            margin: 0;
+            padding: 0;
+
+            &-compact {
+                .no-margin {
+                    > li {
+                        margin: 0;
+                        padding: 0;
+
+                        &:last-child {
+                            margin-right: em(30);
+                        }
+
+                        .picon-cog {
+                            margin-right:em(0);
+                        }
+                    }
+                }
+            }
+
+            .pu-nav-left,
+            .pu-nav-right {
+                height:100%;
+                display: inline-block;
+                position: relative;
+                vertical-align: top;
+            }
+            .pu-nav-left {
+                @include goingLarge(980) {
+                    width: $sidebar-width;
+                }
+
+                .pu-nav-group-title {
+                    margin-top: em(10);
+                    margin-left: em(40);
+                    overflow: hidden;
+
+                    a {
+                        overflow: hidden;
+                        text-decoration: none;
+
+                        .pu-avatar {
+                            display: inline-block;
+                            margin-right: em(10);
+                        }
+                    }
+                    div {
+                        display: inline-block;
+                    }
+
+                    p {
+                        color: $color-text;
+                    }
+                }
+                .pu-sticky-button {
+                    height:100%;
+                    padding-right: 20px;
+                    background-color: #eee;
+                }
+                
+                .pu-sticky-button::after {
+                    content: "";
+                    width: 2px;
+                    display: block;
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
+                    bottom: 10px;
+                    background-color: #ccc;
+                }
+                #sidebar-info {
+                    display: block;
+
+                    @include goingLarge(810) {
+                        display: none;
+                    }
+                }
+                #sidebar-chevron {
+                    display: none;
+                    margin-left:5px;
+                    @include transition-duration(.3s);
+
+                    @include goingLarge(810) {
+                        display: block;
+                    }
+                }
+                .chevron-rotated {
+                    margin-left: 0px;
+                    @include transform(rotate(180deg));
+                    @include transform-origin(5px);
+                }
+            }
+            
+            .pu-nav-right {
+                width: calc(100% - #{$nav-left-collapsed});
+                padding: 0em em(25);
+                // white-space: nowrap;
+
+                @include goingLarge(980) {
+                    width: calc(100% - #{$sidebar-width});
+                }
+
+                // The rest of these sub classes are ugly work-arounds of default styling.
+                .pu-dropdown-expand {
+                    width: calc(100% - #{em(150)});
+                    padding: em(10) 0 0 0;
+                    display:inline-block;
+                }
+                .pu-button-nav.middle {
+                    border: none;
+                    box-shadow: none;
+                    padding: 12px 15px;
+
+                    &:hover {
+                        border: none;
+                        box-shadow: none;
+                    }
+                }
+                .pu-button-nav.pu-state-active {
+                    border-color: $color-primary;
+                }
+                .pu-list-horizontal-right {
+                    display: block;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                }
+
+                .pu-dropdownie {
+                    .pu-list-horizontal {
+                        float: none;
+                    }
+
+                    &-cog {
+                        @include transform(translateX(-39%));
+                    }
+                    &-share {
+                        @include transform-origin(100% 0);
+                        @include transform(translateX(-63%));
+                    }
+                }
+
+                .arrow-right {
+                    .pu-sub-arrow {
+                        left: auto;
+                        right: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    &-sidebar,
+    &-content {
+        height: calc(100vh - #{em(120)});
         display: inline-block;
-        font-size: 16px;
         vertical-align: top;
-        height: 100%;
-        overflow: hidden;
         white-space: normal;
+        overflow: hidden;
     }
 
-    &__left {
-        width: calc(100vw - 15px);
+    &-sidebar {
+        width: $sidebar-width;
+        height: calc(100vh - #{$partup-navigation-compact-height});
         position: absolute;
-        left: 0;
-        z-index: 1;
-        transition: transform 200ms;
-        transform: translateX(-100vw);
-        background-color: #eee;
+        left: em(0);
+        top:em(0);
+        z-index:11;
+        overflow-y: scroll;
+        @include transform(translateX(-100%));
+        @include transition(transform .3s);
 
-        &--is-active {
-            transform: translateX(0px);
-        }
-    }
-
-    &__right {
-        width: 100%;
-        position: relative;
-        z-index: 0;
-        transition: filter 200ms;
-        background-color: #fff;
-
-        // min-width: 600px
-   
-    }
-
-    &__content {
-        -webkit-overflow-scrolling: touch;
-        overflow: scroll;
-        position: relative;
-        height: calc(100% - 60px);
-
-        &-fixedwidth {
-            overflow-x: hidden;
+        @include goingLarge(810) {
+            height: calc(100vh - #{em(120)}); // find solution for -> // calc(#{$page-header} - #{$partup-navigation-compact-height}));
+            top: $partup-navigation-compact-height;
         }
 
-        &-horizontal {
-            overflow-x: scroll;
-            overflow-y: hidden;
-            height: calc(100vh - 120px);
-        }
-    }
-
-    .pu-partuppagelayout__closebutton {
-        position: absolute;
-        top: 10px;
-        right: 0px;
-        z-index: 12;
-    }
-
-    .pu-navigation {
-        .pu-button-nav.pu-state-active {
-            border-color: $color-primary;
+        &-expanded {
+            @include transform(translateX(0%));
+            @include transition(transform .3s);
         }
 
-        .pu-button-nav-icon {
-            margin-right:2px;
-            padding: 25px 0px 5px 5px;
-        }
-        
-        .pu-dropdownie-left-moveright {
-            right: -22px;
-        }
-
-        .small-margin {
-            margin-right:18px;
-        }
-    }
-
-    .pu-sub-smallscreen-navigation {
-        .pu-sub-dropdown-list {
-            padding-top:10px;
-        }
-        .pu-formdropdown-large {
-            width: calc(100% - 155px);
-        }
-        .pu-formdropdown-small {
-            width: calc(100% - 185px);
-        }
         .pu-sticky-button {
             margin-top:10px;
         }
     }
 
-    &--section-is-active {
-        overflow: hidden;
+    &-content {
+        width: 100vw;
+        position:relative;
+        z-index:0;
 
-        .pu-partuppagelayout__right {
-            filter: brightness(89%);
+        @include transition(all .3s);
 
-            .pu-partuppagelayout__content {
-                -webkit-overflow-scrolling: auto;
-                overflow: hidden;
+        &-reduced {
+            @include goingLarge(810) {
+                width: calc(100vw - #{$sidebar-width});
+                margin-left: $sidebar-width;
+                @include transition(all .3s);
             }
         }
     }
 
-    &__only-smallscreen {
-        display: block;
+    .content-vertical,
+    .content-horizontal {
+        width: 100%;
+        height: 100%;
+        padding: em(40);
+        position: relative;
+        z-index: 0;
     }
 
-    &__only-mediumscreen,
-    &__only-largescreen {
-        display: none;
+    .content-vertical {
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
-    @media screen and (min-width: #{$sidebar-min-width + 20px}) {
-        &__left {
-            width: $sidebar-min-width;
-            transform: translateX(-$sidebar-min-width);
-
-            &--is-active {
-                transform: translateX(0px);
-            }
-        }
-    }
-
-    @media screen and (min-width:1250px) {
-        .pu-list-with-right-items {
-            width:calc(100% - 98px);
-        }
-        .onlylarge {
-            display: inline;
-        }
-        .notlarge {
-            display: none;
-        }
-    }
-    @media screen and (max-width:1249px) {
-        .pu-list-with-right-items {
-            width:calc(100% - 35px);
-        }
-        .onlylarge {
-            display: none;
-        }
-        .notlarge {
-            display: inline;
-        }
-    }
-    @media screen and (min-width:767px) and (max-width:990px) {
-        .pu-list-with-right-items {
-            padding-left: 25px;
-        }
-    }
-
-    @media screen and (min-width: $breakpoint-partup-medium) {
-        &__only-smallscreen {
-            display: none;
-        }
-
-        &__only-mediumscreen,
-        &__only-largescreen {
-            display: block;
-        }
-
-    }
-
-    @media screen and (min-width: $breakpoint-tablet + 1px) {
-        height: calc(100vh - 60px);
-        -webkit-overflow-scrolling: touch;
-    }
-
-    @media screen and (min-width: $breakpoint-desktop) {
-        .pu-partuppagelayout__closebutton {
-            display: none;
-        }
-
-        &__only-mediumscreen {
-            display: none !important;
-        }
-
-        &__left {
-            position: relative;
-            width: $sidebar-min-width;
-            display: inline-block;
-            transform: none;
-        }
-
-        &__right {
-            width: calc(100% - #{$sidebar-min-width});
-
-            .pu-sub-section-button {
-                display: none;
-            }
-        }
-
-        &--section-is-active {
-            .pu-partuppagelayout__right {
-                filter: none;
-            }
-        }
-    }
-
-    @media screen and (min-width: #{$sidebar-min-width * 4}) {
-        &__left {
-            width: 25%;
-        }
-
-        &__right {
-            width: 75%;
-        }
+    .content-horizontal {
+        overflow-x: scroll;
+        overflow-y: hidden;
     }
 }

@@ -1,6 +1,11 @@
 <template name="app_partup_sidebar">
 
     <header class="pu-partupheader {{#if partup.archived_at}}pu-partupheader-archived{{/if}}">
+        {{#if screenWidthEqualOrBelow '810'}}
+            <button class="pu-sticky-button float-right" data-toggle-sidebar>
+                <i class="picon-times"></i>
+            </button>
+        {{/if }}
         <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
         {{#if partup.archived_at}}
             <div class="pu-state-message">

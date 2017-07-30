@@ -1,0 +1,35 @@
+$browser-context: 16;
+
+// Transform pixels to em
+// @param {pixels} $pixels - Pixels to convert
+// @return {em} - the equivalent of pixels in em
+@function em($pixels, $context: $browser-context) {
+    @if (unitless($pixels)) {
+        $pixels: $pixels * 1px;
+    }
+
+    @if (unitless($context)) {
+        $context: $context * 1px;
+    }
+
+    @return $pixels/$context * 1em;
+}
+
+@function strip-unit($number) {
+    @if typeof($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+}
+
+$page-header: em(60);
+$partup-navigation: em(60);
+$sidebar-width: em(400);
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+

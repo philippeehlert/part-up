@@ -3,149 +3,103 @@
 /*************************************************************/
 
 Template.app_partup_navigation.onCreated(function() {
-    var template = this;
-    template.cogToggle = new ReactiveVar(false);
-    template.shareDropdownState = new ReactiveVar(false);
-});
-Template.app_partup_navigation.onRendered(function() {
-    var template = this;
-    // Offset to improve window resizing behaviour
-    var OFFSET = 100;
-
-    // Find page element
-    var pageElm = $('.pu-partuppagelayout');
-    if (!pageElm) return;
-
-    // Find left side element
-    var leftElm = $('> .pu-sub-partupdetail-left', pageElm);
-    if (!leftElm) return;
-
-    // Calculate navigation background width
-    template.calculateBackgroundWidth = function() {
-        var backgroundWidth = (window.innerWidth - pageElm.width()) / 2 + leftElm.width() + OFFSET;
-        Session.set('partials.partup-detail-navigation.background-width', backgroundWidth);
-    };
-
-    // Trigger calculations
-    window.addEventListener('resize', template.calculateBackgroundWidth);
-    template.calculateBackgroundWidth();
-    Meteor.defer(template.calculateBackgroundWidth);
-});
-
-Template.app_partup_navigation.onDestroyed(function() {
-    var template = this;
-    window.removeEventListener('resize', template.calculateBackgroundWidth);
+    const template = this;
+    template.toggle = {
+        settings: new ReactiveVar(false),
+        share: new ReactiveVar(false),
+    }
 });
 
 /*************************************************************/
 /* Partial helpers */
 /*************************************************************/
 Template.app_partup_navigation.helpers({
-    partup: function() {
-        return Partups.findOne(this.partupId);
+    settingsToggled() {
+        return Template.instance().toggle.settings;
     },
-    backgroundWidth: function() {
-        return Session.get('partials.partup-detail-navigation.background-width') || 0;
+    shareToggled() {
+        return Template.instance().toggle.share;
     },
-    shareDropdownState: function() {
-        return Template.instance().shareDropdownState;
+    selectorSettings() {
+        if (this.partup && this.partup.slug) {
+            return {
+                slug: this.partup.slug,
+                data: this.partup,
+                currentRoute: Router.current().route.getName()
+            }
+        }
     },
-    cogToggle: function () {
-        return Template.instance().cogToggle
-    },
-    selectorSettings: function() {
-        var partupId = this.partupId;
-        var partup = Partups.findOne({_id: this.partupId});
-        if (!partup || !partup.slug) return false;
-
-        return {
-            slug: partup.slug,
-            data: partup,
-            currentRoute: Router.current().route.getName()
-        };
-    }
 });
 
 Template.app_partup_navigation.events({
-    'click [data-toggle-cog]': function (event, template) {
+    'click [data-toggle-partup-settings-dropdown]': function (event, template) {
         event.preventDefault()
-        template.cogToggle.set(!template.cogToggle.curValue)
+        template.toggle.settings.set(!template.toggle.settings.curValue);
     },
-    'click [data-openpartupsettings]': function(event, template) {
+    'click [data-open-partup-settings]': function(event, template) {
         event.preventDefault();
-
-        var partup = Partups.findOne(template.data.partupId);
-
         Intent.go({
             route: 'partup-settings',
             params: {
-                slug: partup.slug
+                slug: template.data.partup.slug
             }
         });
     },
-    'click [data-endpartnership]': function (event, template) {
+    'click [data-end-partup-partnership]': function (event, template) {
         event.preventDefault()
-        var partup = Partups.findOne(template.data.partupId)
-
         Partup.client.prompt.confirm({
-            title: TAPi18n.__('pages-app-partup-popup-title-unpartner', {partup: partup.name}),
+            title: TAPi18n.__('pages-app-partup-popup-title-unpartner', {partup: template.data.partup.name}),
             message: TAPi18n.__('pages-app-partup-popup-message-unpartner'),
             confirmButton: TAPi18n.__('pages-app-popup-confirmation-confirm-button'),
             cancelButton: TAPi18n.__('pages-app-popup-confirmation-cancel-button'),
             onConfirm: function () {
-                Meteor.call('partups.unpartner', partup)
+                Meteor.call('partups.unpartner', template.data.partup)
             }
-        })
+        });
     },
-    'click [data-open-share-dropdown]': function(event, template) {
+    'click [data-toggle-partup-share-dropdown]': function(event, template) {
         event.preventDefault();
-        template.shareDropdownState.set(!template.shareDropdownState.curValue);
+        template.toggle.share.set(!template.toggle.share.curValue);
     },
     'click [data-share-facebook]': function(event, template) {
-        var partup = Partups.findOne(template.data.partupId);
-        var currentUrl = Router.url('partup', {slug: partup.slug});
-        var shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
+        const currentUrl = Router.url('partup', {slug: template.data.partup.slug});
+        const shareUrl = Partup.client.socials.generateFacebookShareUrl(currentUrl);
+
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
 
         analytics.track('partup share facebook', {
-            partupId: partup._id,
+            partupId: template.data.partup._id,
         });
     },
-
     'click [data-share-twitter]': function(event, template) {
-        var partup = Partups.findOne(template.data.partupId);
-        var currentUrl = Router.url('partup', {slug: partup.slug});
-        var message = partup.name;
-        var shareUrl = Partup.client.socials.generateTwitterShareUrl(message, currentUrl);
+        const currentUrl = Router.url('partup', {slug: template.data.partup.slug});
+        const shareUrl = Partup.client.socials.generateTwitterShareUrl(template.data.partup.name, currentUrl);
+
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
 
         analytics.track('partup share twitter', {
-            partupId: partup._id,
+            partupId: template.data.partup._id,
         });
     },
-
     'click [data-share-linkedin]': function(event, template) {
-        var partup = Partups.findOne(template.data.partupId);
-        var currentUrl = Router.url('partup', {slug: partup.slug});
-        var shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
+        const currentUrl = Router.url('partup', {slug: template.data.partup.slug});
+        const shareUrl = Partup.client.socials.generateLinkedInShareUrl(currentUrl);
+
         window.open(shareUrl, 'pop', 'width=600, height=400, scrollbars=no');
 
         analytics.track('partup share linkedin', {
-            partupId: partup._id,
+            partupId: template.data.partup._id,
         });
     },
-
     'click [data-share-mail]': function(event, template) {
-        var partup = Partups.findOne(template.data.partupId);
-        var user = Meteor.user();
-        var currentUrl = Router.url('partup', {slug: partup.slug});
-        if (!user) {
-            var body = TAPi18n.__('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name: partup.name});
-        } else {
-            var body = TAPi18n.__('pages-app-partup-share_mail', {url: currentUrl, partup_name: partup.name, user_name: user.profile.name});
-        }
-        var subject = '';
-        var shareUrl = Partup.client.socials.generateMailShareUrl(subject, body);
+        const user = Meteor.user();
+        const currentUrl = Router.url('partup', {slug: template.data.partup.slug});
+
+        const body = user
+            ? TAPi18n.__('pages-app-partup-share_mail', {url: currentUrl, partup_name: template.data.partup.name, user_name: user.profile.name})
+            : TAPi18n.__('pages-app-partup-share_mail_anonymous', {url: currentUrl, partup_name: template.data.partup.name});
+
+        const shareUrl = Partup.client.socials.generateMailShareUrl('', body);
         window.location.href = shareUrl;
     },
 });

@@ -1,3 +1,95 @@
+import Enum from 'enum';
+
+/**
+ * Template helpers for screen sizes
+ */
+
+/**
+ * screen helper to use locally
+ * @ignore
+ */
+const screenHelper = {
+    breakpoints: new Enum({
+        small: 500,
+        medium_portrait: 600,
+        medium_landscape: 900,
+        large: 1200,
+        extra_large: 1800
+    }),
+    extractValue(templateInput) {
+        return this.isNumber(Number(templateInput)) ?
+            Number(templateInput) :
+            this.breakpoints.get(templateInput).value;
+    },
+    checkExpression(expressionFunc, ...args) {
+        _.each(args, (i) => {
+            if (!this.isNumber(i)) {
+                throw new Error('input is not a number or enum value');
+            }
+        });
+        return expressionFunc() ?
+            true :
+            false;
+    },
+    isNumber(templateInput) {
+        return typeof templateInput === 'number';
+    },
+    getScreenSize() {
+        return Partup.client.screen.size.get('width');
+    },
+}
+
+/**
+ * Template helpers
+ */
+
+/**
+ * Check if the screen width is above the given value
+ * @name screenWidthEqualOrBelow
+ * @param size Enum see number or breakpoint value
+ * @return Boolean true if the @param size is equal or higher than the screen size
+ */
+Template.registerHelper('screenWidthEqualOrBelow', function (size) {
+    const input = screenHelper.extractValue(size);
+
+    return screenHelper.checkExpression(() => {
+        return screenHelper.getScreenSize() <= input
+    }, input);
+});
+
+/**
+ * Check if the screen width is above the given value
+ * @name screenWidthEqualOrAbove
+ * @param size Enum number or breakpoint value
+ * @return Boolean true if the @param size is equal or less than the screen size
+ */
+Template.registerHelper('screenWidthEqualOrAbove', function (size) {
+    const input = screenHelper.extractValue(size);
+    
+    return screenHelper.checkExpression(() => {
+        return screenHelper.getScreenSize() >= input
+    }, input);
+});
+
+/**
+ * Check if the screen width is above the given value
+ * @name inRange
+ * @param min number
+ * @param max number
+ * @return Boolean true if the screen sie is in range of @param min and @param max
+ */
+Template.registerHelper('inRange', function (min, max) {
+    const minVal = screenHelper.extractValue(min);
+    const maxVal = screenHelper.extractValue(max);
+
+    return screenHelper.checkExpression(() => {
+         return getScreenSize() >= minVal && getScreenSize() <= maxVal
+    }, minVal, maxVal);
+});
+
+//////////
+// LEGACY
+//////////
 var mobile = 320;
 var phablet = 500;
 var tablet = 768;

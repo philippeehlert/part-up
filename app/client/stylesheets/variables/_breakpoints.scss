@@ -1,3 +1,39 @@
+// We believe you should let the design decide the breakpoint,
+// for this we use mixins. Finally, no more media queries.
+// You can read more about these mixins here: https://codepen.io/ricardozea/pen/WboymY
+// With this we are taking a mobile-first approach.
+// By expanding your design it forces you to work it out small first.
+
+@mixin goingLarge($width) {
+    @if (unit($width) == 'px' or unitless($width)) {
+        $width: em($width);
+    }
+
+    @media (min-width: $width) { 
+        @content;
+    }
+}
+
+// Try avoid using this
+@mixin goingSmall($width) {
+    @if (unit($width) == 'px' or unitless($width)) {
+        $width: em($width);
+    }
+
+    @media (max-width: $width) {
+        @content;
+    }
+}
+
+// If you change these, also change them in 'screenSize.js'
+// 16px = 1em = 100% = 14pt;
+$breakpoint-small: 37.438em; // 599px;
+$breakpoint-medium-portrait: 37.5em; // 600px;
+$breakpoint-medium-landscape: 56.25em; // 900px;
+$breakpoint-large: 75em; // 1200px;
+$breakpoint-extra-large: 112.5em; // 1800px;
+
+// Legacy breakpoints, do not touch.
 $breakpoint-min: 320px;
 $breakpoint-dropdowns: 500px;
 $breakpoint-partup-medium: 600px;

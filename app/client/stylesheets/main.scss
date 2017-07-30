@@ -3,6 +3,7 @@
 @import "font-faces/proxima-nova";
 @import "font-faces/merriweather";
 
+@import "variables/globals";
 @import "variables/animations";
 @import "variables/breakpoints";
 @import "variables/colors";
@@ -18,6 +19,8 @@
 @import "extends/pre-gradient";
 
 @import "mixins/animations";
+@import "mixins/transitions";
+@import "mixins/transformations";
 @import "mixins/add-list-spacing";
 @import "mixins/input";
 @import "mixins/keyframes";

@@ -163,7 +163,7 @@ Template.BoardView.onCreated(function () {
 
     // The sortable lib already throttles the handler for us.
     const horizontalScrollHandler = function (offX, offY, originalEvent, hoverTargetEl, touchEvt) {
-        const $boardWrap = $('.pu-partuppagelayout__content-horizontal');
+        const $boardWrap = $('.content-horizontal');
         const boardWrapEdges = $boardWrap[0].getBoundingClientRect();
         const currentScrollLeft = $boardWrap.scrollLeft();
 

@@ -2,13 +2,13 @@
  * Updates created
  */
 Template.app_partup_updates.onCreated(function() {
-    var tpl = this;
-    var defaultFilter = tpl.data.defaultFilter || 'default';
+    const template = this;
+    const defaultFilter = template.data.defaultFilter || 'default';
 
-    tpl.partup = Partups.findOne(tpl.data.partupId);
+    template.partup = Partups.findOne(template.data.partupId);
 
     // Updates model
-    tpl.updates = {
+    template.updates = {
 
         // Constants
         STARTING_LIMIT: 5,
@@ -24,23 +24,23 @@ Template.app_partup_updates.onCreated(function() {
         refreshDate_remembered: new ReactiveVar(),
 
         // The data model
-        model: Updates.findForPartup(tpl.partup),
+        model: Updates.findForPartup(template.partup),
         updateModel: function() {
-            if (!tpl.partup) return;
+            if (!template.partup) return;
             Tracker.nonreactive(function() {
-                var options = tpl.updates.options.get();
-                tpl.updates.model = Updates.findForPartup(tpl.partup, options);
+                var options = template.updates.options.get();
+                template.updates.model = Updates.findForPartup(template.partup, options);
             });
-            return tpl.updates.model.fetch();
+            return template.updates.model.fetch();
         },
 
         // The view model
         view: new ReactiveVar([]),
         updateView: function() {
             Tracker.nonreactive(function() {
-                var updates = tpl.updates.model.fetch();
-                tpl.updates.view.set(updates);
-                tpl.updates.refreshDate.set(new Date());
+                var updates = template.updates.model.fetch();
+                template.updates.view.set(updates);
+                template.updates.refreshDate.set(new Date());
                 Partup.client.updates.resetUpdatesCausedByCurrentuser();
             });
         },
@@ -54,49 +54,49 @@ Template.app_partup_updates.onCreated(function() {
 
         // Options reactive variable (on change, update the whole view model)
         options: new ReactiveVar({}, function(a, b) {
-            tpl.updates.resetLimit();
+            template.updates.resetLimit();
             var options = b;
-            options.limit = tpl.updates.limit.get();
+            options.limit = template.updates.limit.get();
 
-            tpl.updates.loading.set(true);
+            template.updates.loading.set(true);
 
-            var sub = tpl.subscribe('updates.from_partup', tpl.partup._id, options, function() {
-                tpl.updates.updateModel();
-                tpl.updates.updateView();
+            var sub = template.subscribe('updates.from_partup', template.partup._id, options, function() {
+                template.updates.updateModel();
+                template.updates.updateView();
             });
 
-            tpl.autorun(function(c) {
+            template.autorun(function(c) {
                 if (sub.ready()) {
                     c.stop();
-                    tpl.updates.loading.set(false);
+                    template.updates.loading.set(false);
                 }
             });
         }),
 
-        // Filter reactive variable (on change, set value to the tpl.options reactive var)
+        // Filter reactive variable (on change, set value to the template.options reactive var)
         filter: new ReactiveVar(defaultFilter, function(oldFilter, newFilter) {
-            var options = tpl.updates.options.get();
+            var options = template.updates.options.get();
             options.filter = newFilter;
-            tpl.updates.options.set(options);
+            template.updates.options.set(options);
         }),
 
         // The reactive limit variable (on change, add updates to the view)
         limit: new ReactiveVar(this.STARTING_LIMIT, function(a, b) {
-            var first = b === tpl.updates.STARTING_LIMIT;
+            var first = b === template.updates.STARTING_LIMIT;
             if (first) return;
 
-            var options = tpl.updates.options.get();
+            var options = template.updates.options.get();
             options.limit = b;
 
-            tpl.updates.infinite_scroll_loading.set(true);
-            var sub = tpl.subscribe('updates.from_partup', tpl.partup._id, options, {
+            template.updates.infinite_scroll_loading.set(true);
+            var sub = template.subscribe('updates.from_partup', template.partup._id, options, {
                 onReady: function() {
-                    var modelUpdates = tpl.updates.updateModel();
-                    var viewUpdates = tpl.updates.view.get();
+                    var modelUpdates = template.updates.updateModel();
+                    var viewUpdates = template.updates.view.get();
 
                     var difference = modelUpdates.length - viewUpdates.length;
-                    var end_reached = difference < tpl.updates.INCREMENT;
-                    tpl.updates.end_reached.set(end_reached);
+                    var end_reached = difference < template.updates.INCREMENT;
+                    template.updates.end_reached.set(end_reached);
 
                     var addedUpdates = mout.array.filter(modelUpdates, function(update) {
                         return !mout.array.find(viewUpdates, function(_update) {
@@ -104,64 +104,63 @@ Template.app_partup_updates.onCreated(function() {
                         });
                     });
 
-                    tpl.updates.addToView(addedUpdates);
-                    tpl.updates.infinite_scroll_loading.set(false);
+                    template.updates.addToView(addedUpdates);
+                    template.updates.infinite_scroll_loading.set(false);
                 }
             });
         }),
 
         increaseLimit: function() {
-            tpl.updates.limit.set(tpl.updates.limit.get() + tpl.updates.INCREMENT);
+            template.updates.limit.set(template.updates.limit.get() + template.updates.INCREMENT);
         },
 
         resetLimit: function() {
-            tpl.updates.limit.set(tpl.updates.STARTING_LIMIT);
-            tpl.updates.end_reached.set(false);
+            template.updates.limit.set(template.updates.STARTING_LIMIT);
+            template.updates.end_reached.set(false);
         }
     };
 
-    Partup.client.events.on('partup:updates:message_added', tpl.updates.updateView);
+    Partup.client.events.on('partup:updates:message_added', template.updates.updateView);
 
     // When the model changes and the view is empty, update the view with the model
-    tpl.autorun(function() {
-        var updates = tpl.updates.model.fetch();
+    template.autorun(function() {
+        var updates = template.updates.model.fetch();
 
-        if (updates.length && !tpl.updates.view.get().length) {
-            tpl.updates.view.set(updates);
-            tpl.updates.refreshDate.set(new Date());
+        if (updates.length && !template.updates.view.get().length) {
+            template.updates.view.set(updates);
+            template.updates.refreshDate.set(new Date());
         }
     });
 
     // First run
-    tpl.updates.options.set({filter: defaultFilter});
+    template.updates.options.set({filter: defaultFilter});
 });
 
 /**
  * Updates rendered
  */
 Template.app_partup_updates.onRendered(function() {
-    var tpl = this;
+    var template = this;
     /**
      * Infinite scroll
      */
     Partup.client.scroll.customInfinite({
-        template: tpl,
+        template: template,
         container: $('[data-infinitescroll-container]')[0],
         offset: 200
     }, function() {
-        if (tpl.updates.loading.get() || tpl.updates.infinite_scroll_loading.get() || tpl.updates.end_reached.get()) return;
-        tpl.updates.increaseLimit();
+        if (template.updates.loading.get() || template.updates.infinite_scroll_loading.get() || template.updates.end_reached.get()) return;
+        template.updates.increaseLimit();
     });
-
 });
 
 /**
  * Updates destroyed
  */
 Template.app_partup_updates.onDestroyed(function() {
-    var tpl = this;
+    var template = this;
 
-    Partup.client.events.off('partup:updates:message_added', tpl.updates.updateView);
+    Partup.client.events.off('partup:updates:message_added', template.updates.updateView);
 });
 
 /**
@@ -279,7 +278,7 @@ Template.app_partup_updates.helpers({
     // New updates separator
     showNewUpdatesSeparator: function() {
         var update = this;
-        var tpl = Template.instance();
+        var template = Template.instance();
         var firstUnseenUpdate = Partup.client.updates.firstUnseenUpdate(update.partup_id).get();
         var showNewUpdatesSeparator = false;
 
@@ -290,12 +289,12 @@ Template.app_partup_updates.helpers({
             var TIME_FIELD = 'updated_at';
 
             // Find remembered refreshDate
-            var rememberedRefreshDate = tpl.updates.refreshDate_remembered.get();
+            var rememberedRefreshDate = template.updates.refreshDate_remembered.get();
             if (!rememberedRefreshDate) return false;
             var rememberedRefreshMoment = moment(rememberedRefreshDate);
 
             // Find previous update
-            var updates = tpl.updates.view.get();
+            var updates = template.updates.view.get();
             var currentIndex = lodash.findIndex(updates, update);
             var previousUpdate = updates[currentIndex - 1];
             if (!previousUpdate) return false;
@@ -312,7 +311,7 @@ Template.app_partup_updates.helpers({
         var HIDE_LINE_TIMEOUT = 8000;
         var HIDE_LINE_ANIMATION_DURATION = 800;
         Meteor.defer(function() {
-            var element = tpl.find('.pu-sub-newupdatesseparator');
+            var element = template.find('.pu-sub-newupdatesseparator');
             Meteor.autorun(function(computation) {
                 if (Partup.client.scroll.inView(element)) {
                     computation.stop();
@@ -321,7 +320,7 @@ Template.app_partup_updates.helpers({
 
                         Meteor.setTimeout(function() {
                             Partup.client.updates.firstUnseenUpdate(update.partup_id).reset();
-                            tpl.updates.refreshDate_remembered.set(undefined);
+                            template.updates.refreshDate_remembered.set(undefined);
                         }, HIDE_LINE_ANIMATION_DURATION);
                     }, HIDE_LINE_TIMEOUT);
                 }

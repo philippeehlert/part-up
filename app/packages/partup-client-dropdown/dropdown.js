@@ -1,27 +1,26 @@
 Template.Dropdown.onRendered(function() {
-    var tpl = this;
-
-    // Find the dropdown containing element
-    var dropdown_element = tpl.find('[data-dropdown]');
+    const template = this;
+    const dropdown_element = template.find('[data-dropdown]');
+    
+    // This solves the problem that the dropdown is closed before it could open caused by the onClickOutside handler above
+    let click_outside_checker_enabled = false;
 
     // Capture outside click
-    tpl.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
+    template.handler = Partup.client.elements.onClickOutside([dropdown_element], function() {
         if (!click_outside_checker_enabled) return;
 
         // Disable the dropdown
-        tpl.data.toggle.set(false);
+        template.data.toggle.set(false);
     });
 
-    // This solves the problem that the dropdown is closed before it could open caused by the onClickOutside handler above
-    var click_outside_checker_enabled = false;
-    tpl.autorun(function() {
-        click_outside_checker_enabled = tpl.data.toggle.get();
+    template.autorun(function() {
+        click_outside_checker_enabled = template.data.toggle.get();
     });
 });
 
 Template.Dropdown.onDestroyed(function() {
-    var tpl = this;
-    Partup.client.elements.offClickOutside(tpl.handler);
+    var template = this;
+    Partup.client.elements.offClickOutside(template.handler);
 });
 
 Template.Dropdown.helpers({

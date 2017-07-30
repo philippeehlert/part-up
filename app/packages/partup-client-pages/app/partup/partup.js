@@ -1,40 +1,15 @@
-Template.app_partup.onCreated(function() {
+Template.app_partup.onCreated(function () {
     var template = this;
 
-    template.partupId = new ReactiveVar();
-    template.sectionActive = new ReactiveVar(false);
+    template.network = new ReactiveVar(undefined);
+    template.partup = new ReactiveVar(undefined, (oldVal, newVal) => {
+        template.loading.partup.set(false);
 
-    var partup_sub;
-
-    var continueLoadingPartupById = function(id) {
-        var partup = Partups.findOne({_id: id});
-        if (!partup) return Router.pageNotFound('partup');
-
-        var userId = Meteor.userId();
-        if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
-
-        template.partupId.set(id);
-
-        var seo = {
-            title: Partup.client.notifications.createTitle(partup.name),
-            meta: {
-                title: partup.name,
-                description: partup.description
-            }
-        };
-
-        if (partup.image) {
-            var image = Images.findOne({_id: partup.image});
-            if (image) {
-                var imageUrl = Partup.helpers.url.getImageUrl(image, '1200x520');
-                if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
-            }
-        }
-        if (typeof partup._id === 'string') {
-            // Reset new updates for current user
-            Partup.client.updates.firstUnseenUpdate(partup._id).set();
-        }
-    };
+        template.network.set(
+            newVal ?
+                Networks.findOne(newVal.network_id) :
+                undefined);
+    });
 
     template.loading = {
         partup: new ReactiveVar(true),
@@ -43,71 +18,135 @@ Template.app_partup.onCreated(function() {
         board: new ReactiveVar(true)
     };
 
-    template.autorun(function() {
-        var id = Template.currentData().partupId;
-        var accessToken = Session.get('partup_access_token');
-
-        partup_sub = Meteor.subscribe('partups.one', id, accessToken, {
-            onReady: function() {
-                // it's important the continueLoading logic is done AFTER
-                // the subscription is ready to prevent false positives on
-                // the 'partup not found' fallback
-                continueLoadingPartupById(id);
-                template.loading.partup.set(false);
-            }
-        }); // subs manager fails here
-        template.subscribe('activities.from_partup', id, accessToken, {onReady: function() {
-            template.loading.activities.set(false);
-        }});
-        template.subscribe('updates.from_partup', id, {}, accessToken, {onReady: function() {
-            template.loading.updates.set(false);
-        }});
-        template.subscribe('board.for_partup_id', id, {onReady: function() {
-            template.loading.board.set(false);
-        }});
-    });
-});
-
-Template.app_partup.onRendered(function() {
-    var template = this;
-
-    template.autorun(function(computation) {
-        var partup = Partups.findOne({_id: template.data.partupId});
-        if (!partup) return;
-    });
-});
-Template.app_partup.events({
-    'click [data-open-section-button]': function(event, template) {
-        event.preventDefault();
-        template.sectionActive.set(true);
-    },
-    'click [data-close-section]': function(event, template) {
-        if (template.sectionActive.curValue) {
-            event.preventDefault();
-            template.sectionActive.set(false);
-        }
+    function setClass(state, $elem, className) {
+        state ?
+            $elem.hasClass(className) ?
+                undefined :
+                $elem.addClass(className) :
+            $elem.hasClass(className) ?
+                $elem.removeClass(className) :
+                undefined;
     }
+
+    template.sidebarExpanded = new ReactiveVar(undefined, (oldVal, newVal) => {
+        setClass(newVal, $('.pu-partuplayout-sidebar'), 'pu-partuplayout-sidebar-expanded');
+        setClass(newVal, $('.pu-partuplayout-content'), 'pu-partuplayout-content-reduced');
+        setClass(newVal, $('#sidebar-chevron'), 'chevron-rotated');
+        Cookies.set('partup_sidebar_expanded', newVal, { expires: Infinity });
+    });
+
+    template.autorun(function () {
+        const partupId = Template.currentData().partupId;
+        const accessToken = Session.get('partup_access_token');
+
+        Meteor.subscribe('partups.one', partupId, accessToken, {
+            onReady: function () {
+                const partup = Partups.findOne(partupId);
+
+                if (!partup) {
+                    return Router.pageNotFound('partup');
+                }
+                if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
+                    return Router.pageNotFound('partup-closed');
+                }
+
+                template.partup.set(partup);
+            },
+        });
+
+        template.subscribe('activities.from_partup', partupId, accessToken, {
+            onReady: function () {
+                template.loading.activities.set(false);
+            },
+        });
+        template.subscribe('updates.from_partup', partupId, accessToken, {
+            onReady: function () {
+                template.loading.updates.set(false);
+            },
+        });
+        template.subscribe('board.for_partup_id', partupId, accessToken, {
+            onReady: function () {
+                template.loading.board.set(false);
+            },
+        });
+    });
+
+    // var partup_sub;
+
+    // var continueLoadingPartupById = function (id) {
+    //     var partup = Partups.findOne({ _id: id });
+    //     if (!partup) return Router.pageNotFound('partup');
+
+    //     var userId = Meteor.userId();
+    //     if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
+
+    //     template.partupId.set(id);
+
+    //     var seo = {
+    //         title: Partup.client.notifications.createTitle(partup.name),
+    //         meta: {
+    //             title: partup.name,
+    //             description: partup.description
+    //         }
+    //     };
+
+    //     if (partup.image) {
+    //         var image = Images.findOne({ _id: partup.image });
+    //         if (image) {
+    //             var imageUrl = Partup.helpers.url.getImageUrl(image, '1200x520');
+    //             if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
+    //         }
+    //     }
+    //     if (typeof partup._id === 'string') {
+    //         // Reset new updates for current user
+    //         Partup.client.updates.firstUnseenUpdate(partup._id).set();
+    //     }
+    // };
+});
+
+Template.app_partup.onRendered(function () {
+    const template = this;
+
+    template.autorun((computation) => {
+        const sidebarCookie = Cookies.get('partup_sidebar_expanded');
+        const sidebarState = 
+            sidebarCookie !== undefined
+                ? sidebarCookie.toBool()
+                : Partup.client.isMobile.isTabletOrMobile()
+                    ? false
+                    : true;
+        
+        if (sidebarState) {
+            $('#sidebar-chevron').addClass('chevron-rotated');
+        }
+        
+        template.sidebarExpanded.set(sidebarState);
+        computation.stop();
+    });
 });
 
 Template.app_partup.helpers({
-    partupIsLoaded: function() {
-        var template = Template.instance();
-        return !(template.loading.partup.get() && template.loading.activities.get() && template.loading.updates.get() && template.loading.board.get());
+    network() {
+        return Template.instance().network.get();
     },
-    sectionActive: function() {
-        return Template.instance().sectionActive.get();
+    partup() {
+        return Template.instance().partup.get();
     },
-    network: function() {
-        var partup = Partups.findOne({_id: this.partupId});
-        if (!partup) return;
-        return Networks.findOne({_id: partup.network_id});
+    partupLoaded() {
+        const loading = Template.instance().loading;
+        return !loading.partup.get() && !loading.activities.get() && !loading.updates.get() && !loading.board.get();
     },
-    isActivities: function() {
-        return Router.current().route.getName() === 'partup-activities';
+    sidebarExpanded() {
+        return Template.instance().sidebarExpanded.get();
     },
-    boardViewEnabled: function() {
-        var partup = Partups.findOne({_id: this.partupId});
-        if (!partup) return;
-        return partup.board_view;
+    scrollHorizontal() {
+        return Router.current().route.getName() === 'partup-activities' && (Template.instance().partup.get() && Template.instance().partup.get().board_view);
     }
+});
+
+Template.app_partup.events({
+    'click [data-toggle-sidebar]': function (event, template) {
+        event.preventDefault();
+        template.sidebarExpanded.set(!template.sidebarExpanded.curValue);
+    },
 });
