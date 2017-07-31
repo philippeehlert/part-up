@@ -115,7 +115,7 @@ $partup-navigation-compact-height: em(60);
 
                 // The rest of these sub classes are ugly work-arounds of default styling.
                 .pu-dropdown-expand {
-                    width: calc(100% - #{em(150)});
+                    width: calc(100% - #{em(100)});
                     padding: em(10) 0 0 0;
                     display:inline-block;
                 }
@@ -173,7 +173,8 @@ $partup-navigation-compact-height: em(60);
     }
 
     &-sidebar {
-        width: $sidebar-width;
+        width: 95%;
+        max-width: $sidebar-width;
         height: calc(100vh - #{$partup-navigation-compact-height});
         position: absolute;
         left: em(0);
@@ -184,6 +185,7 @@ $partup-navigation-compact-height: em(60);
         @include transition(transform .3s);
 
         @include goingLarge(810) {
+            width: $sidebar-width;
             height: calc(100vh - #{em(120)}); // find solution for -> // calc(#{$page-header} - #{$partup-navigation-compact-height}));
             top: $partup-navigation-compact-height;
         }
@@ -202,14 +204,29 @@ $partup-navigation-compact-height: em(60);
         width: 100vw;
         position:relative;
         z-index:0;
-
+        background-color: #fff;
+        
         @include transition(all .3s);
 
         &-reduced {
+            filter: brightness(89%);
+            pointer-events: none;
+            
+            a:hover {
+                cursor: default;
+            }
+    
             @include goingLarge(810) {
                 width: calc(100vw - #{$sidebar-width});
                 margin-left: $sidebar-width;
+                filter: none;
+                pointer-events: auto;
+
                 @include transition(all .3s);
+
+                a:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
