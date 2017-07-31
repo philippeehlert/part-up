@@ -45,3 +45,9 @@ ChatMessages = new Mongo.Collection('chatmessages', {
         return new ChatMessage(document);
     }
 });
+
+// Add indices
+if (Meteor.isServer) {
+    ChatMessages._ensureIndex({chat_id: 1});
+    ChatMessages._ensureIndex({created_at: -1});
+}

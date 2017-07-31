@@ -34,6 +34,11 @@ Lanes = new Mongo.Collection('lanes', {
     }
 });
 
+// Add indices
+if (Meteor.isServer) {
+    Lanes._ensureIndex('board_id');
+}
+
 /**
  * Find the lanes for a board
  *

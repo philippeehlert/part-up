@@ -13,6 +13,7 @@ if (Meteor.isServer) {
     Invites._ensureIndex('network_id');
     Invites._ensureIndex('inviter_id');
     Invites._ensureIndex('invitee_id');
+    Invites._ensureIndex('activity_id');
 }
 
 /**

@@ -592,6 +592,7 @@ if (Meteor.isServer) {
     Networks._ensureIndex('slug');
     Networks._ensureIndex('admins');
     Networks._ensureIndex('privacy_type');
+    Networks._ensureIndex('chat_id');
 }
 
 /**

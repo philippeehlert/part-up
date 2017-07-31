@@ -35,3 +35,8 @@ Tiles = new Mongo.Collection('tiles', {
         return new Tile(document);
     }
 });
+
+// Add indices
+if (Meteor.isServer) {
+    Tiles._ensureIndex('upper_id');
+}
