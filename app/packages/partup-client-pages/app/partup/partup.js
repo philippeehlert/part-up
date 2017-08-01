@@ -29,6 +29,7 @@ Template.app_partup.onCreated(function () {
     }
 
     template.sidebarExpanded = new ReactiveVar(undefined, (oldVal, newVal) => {
+        setClass(newVal, $('.pu-partuplayout-navigation'), 'pu-partuplayout-navigation-behind');
         setClass(newVal, $('.pu-partuplayout-sidebar'), 'pu-partuplayout-sidebar-expanded');
         setClass(newVal, $('.pu-partuplayout-content'), 'pu-partuplayout-content-reduced');
         setClass(newVal, $('#sidebar-chevron'), 'chevron-rotated');

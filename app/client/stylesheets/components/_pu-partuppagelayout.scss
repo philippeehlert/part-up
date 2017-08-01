@@ -10,6 +10,17 @@ $partup-navigation-compact-height: em(60);
     &-navigation {
         position: relative;
 
+        &-behind {
+            @include goingSmall(810) {
+                filter: brightness(89%);
+                pointer-events: none;
+
+                a, button {
+                    cursor: default;
+                }
+            }
+        }
+
         .pu-navigation {
             margin: 0;
             padding: 0;
