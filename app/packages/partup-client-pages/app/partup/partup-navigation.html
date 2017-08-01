@@ -87,20 +87,20 @@
                 </div>
             {{/if }}
             <ul class="pu-list pu-list-horizontal pu-list-horizontal-right no-margin">
-                {{#if screenWidthEqualOrAbove '810' }}
-                    {{#if partup.isEditableBy currentUser}}
-                        <li>
-                            <button class="pu-button pu-button-nav middle" data-toggle-partup-settings-dropdown>
-                                <i class="picon-cog"></i>
-                            </button> 
-                            {{> Dropdown toggle=settingsToggled template='partup_cog' data=. classes='pu-dropdownie-cog'}}
-                        </li>
-                    {{/if }}
+                {{#if partup.isEditableBy currentUser}}
+                    <li>
+                        <button class="pu-button pu-button-nav middle" data-toggle-partup-settings-dropdown>
+                            <i class="picon-cog"></i>
+                        </button> 
+                        {{> Dropdown toggle=settingsToggled template='partup_cog' data=. classes='pu-dropdownie-cog'}}
+                    </li>
                 {{/if }}
                 <li>
                     <button class="pu-button pu-button-nav middle" data-toggle-partup-share-dropdown>
                         <i class="picon-share"></i>
-                        {{_ 'pages-app-partup-menu_share-button'}}
+                        {{#if screenWidthEqualOrAbove '600'}}
+                            {{_ 'pages-app-partup-menu_share-button'}}
+                        {{/if}}
                     </button> 
                     {{> Dropdown toggle=shareToggled template='partup_share' data=. classes='pu-dropdownie-share arrow-right'}}
                 </li>

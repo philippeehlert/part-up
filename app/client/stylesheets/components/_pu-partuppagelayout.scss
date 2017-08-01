@@ -118,17 +118,19 @@ $partup-navigation-compact-height: em(60);
             .pu-nav-right {
                 width: calc(100% - #{$nav-left-collapsed});
                 padding: 0em em(25);
-                // white-space: nowrap;
 
                 @include goingLarge(980) {
                     width: calc(100% - #{$sidebar-width});
                 }
 
-                // The rest of these sub classes are ugly work-arounds of default styling.
                 .pu-dropdown-expand {
                     width: calc(100% - #{em(100)});
                     padding: em(10) 0 0 0;
                     display:inline-block;
+
+                    @include goingLarge(600) {
+                        width: calc(100% - #{em(150)});
+                    }
                 }
                 .pu-button-nav.middle {
                     border: none;
