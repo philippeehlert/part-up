@@ -25,9 +25,11 @@ Template.ChatGroupNotification.helpers({
 Template.ChatGroupNotification.events({
     'click [href]': function(event) {
         Partup.client.browser.onMobileOs(function() {
-            event.preventDefault();
-            var appStoreLink = Partup.client.browser.getAppStoreLink();
-            window.open(appStoreLink, '_blank');
+            if (!Partup.client.isMobile.isTablet())  {
+                event.preventDefault();
+                var appStoreLink = Partup.client.browser.getAppStoreLink();
+                window.open(appStoreLink, '_blank');
+            }
         });
     },
     'click [data-notification]': function(event, template) {
