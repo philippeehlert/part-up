@@ -93,10 +93,14 @@ Template.DropdownChatNotifications.events({
     'click [data-private]': function (event, template) {
         event.preventDefault();
         template.privateActive.set(true);
+        const list = template.find('ul[data-preventscroll]');
+        list.scrollTop = 0;
     },
     'click [data-network]': function (event, template) {
         event.preventDefault();
         template.privateActive.set(false);
+        const list = template.find('ul[data-preventscroll]');
+        list.scrollTop = 0;
     }
 });
 
