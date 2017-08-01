@@ -9,31 +9,23 @@
                 {{#if sidebarExpanded}}
                     <div class="pu-nav-group-title">
                         <a href="{{ pathFor route='network' slug=network.slug query='show=false' }}">
-                            <figure 
+                            <figure
                                 class="pu-avatar pu-avatar-square" 
                                 style="{{# with partupImageById network.image}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                            <div>
+                            <div class="title">
                                 <p>{{ network.name }}</p>
                                 <span class="pu-level-label">{{_ 'pages-app-partup-level-label-tribe'}}</span>
                             </div>
                         </a>
                     </div>
                 {{ else }}
-                    <div class="pu-nav-group-title">
-                        <div>
-                            <a href="#" data-toggle-sidebar>
-                                <figure 
-                                    class="pu-avatar pu-avatar-square pu-avatar-partup" 
-                                    style="{{# with partupImageById partup.image}}background-image:url('{{ . }}');{{/ with}}"></figure>
-                            </a>
-                        </div>
-                        <div>
-                            <a href="#" data-toggle-sidebar>
-                                <p>{{ partup.name }}</p>
-                            </a>
-                            <a href="{{ pathFor route='network' slug=network.slug }}"> 
-                                <span class="pu-level-label">{{ network.name }}</span>
-                            </a>
+                    <div class="pu-nav-group-title" data-toggle-sidebar>
+                        <figure
+                            class="pu-avatar pu-avatar-square pu-avatar-partup" 
+                            style="{{# with partupImageById partup.image}}background-image:url('{{ . }}');{{/ with}}"></figure>
+                        <div class="title">
+                            <p>{{ partup.name }}</p>
+                            <span class="pu-level-label">{{ network.name }}</span>
                         </div>
                     </div>
                 {{/if}}

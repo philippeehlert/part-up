@@ -64,6 +64,11 @@ $partup-navigation-compact-height: em(60);
                     p {
                         color: $color-text;
                     }
+
+                    .title {
+                        width: calc(100% - 55px);
+                        cursor: pointer;
+                    }
                 }
                 .pu-sticky-button {
                     height:100%;
