@@ -90,7 +90,9 @@
                 <li>
                     <button class="pu-button pu-button-nav middle" data-toggle-partup-share-dropdown>
                         <i class="picon-share"></i>
-                        {{_ 'pages-app-partup-menu_share-button'}}
+                        {{#if screenWidthEqualOrAbove '600'}}
+                            {{_ 'pages-app-partup-menu_share-button'}}
+                        {{/if}}
                     </button> 
                     {{> Dropdown toggle=shareToggled template='partup_share' data=. classes='pu-dropdownie-share arrow-right'}}
                 </li>
