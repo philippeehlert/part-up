@@ -70,38 +70,6 @@ Template.app_partup.onCreated(function () {
             },
         });
     });
-
-    // var partup_sub;
-
-    // var continueLoadingPartupById = function (id) {
-    //     var partup = Partups.findOne({ _id: id });
-    //     if (!partup) return Router.pageNotFound('partup');
-
-    //     var userId = Meteor.userId();
-    //     if (!partup.isViewableByUser(userId, Session.get('partup_access_token'))) return Router.pageNotFound('partup-closed');
-
-    //     template.partupId.set(id);
-
-    //     var seo = {
-    //         title: Partup.client.notifications.createTitle(partup.name),
-    //         meta: {
-    //             title: partup.name,
-    //             description: partup.description
-    //         }
-    //     };
-
-    //     if (partup.image) {
-    //         var image = Images.findOne({ _id: partup.image });
-    //         if (image) {
-    //             var imageUrl = Partup.helpers.url.getImageUrl(image, '1200x520');
-    //             if (imageUrl) seo.meta.image = encodeURIComponent(Meteor.absoluteUrl() + imageUrl);
-    //         }
-    //     }
-    //     if (typeof partup._id === 'string') {
-    //         // Reset new updates for current user
-    //         Partup.client.updates.firstUnseenUpdate(partup._id).set();
-    //     }
-    // };
 });
 
 Template.app_partup.onRendered(function () {
