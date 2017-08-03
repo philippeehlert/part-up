@@ -1,88 +1,91 @@
 {
-    "name": "part-up",
-    "description": "Part-up =================",
-    "version": "2.28.0",
-    "scripts": {
-        "conventional-github-releaser": "conventional-github-releaser",
-        "gulp": "gulp",
-        "commit": "git-cz",
-        "chimp": "chimp",
-        "release": "gulp release-it",
-        "release-notes": "npm run conventional-github-releaser -p angular -r 0",
-        "deploy:production": "cd ./devops && ./devops provision production all --tags=app && cd ../",
-        "deploy:acceptance": "cd ./devops && ./devops provision acceptance all --tags=app && cd ../",
-        "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
-        "push-translation": "node ./phraseapp/phraseapp.js --command push",
-        "start": "./start",
-        "test:watch": "./test_watch",
-        "test:e2e": "chimp --ddp=http://localhost:3000 --path=./app/tests/cucumber/features",
-        "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --path=./app/tests/cucumber/features"
+  "name": "part-up",
+  "description": "Part-up =================",
+  "version": "2.28.1",
+  "scripts": {
+    "conventional-github-releaser": "conventional-github-releaser",
+    "gulp": "gulp",
+    "commit": "git-cz",
+    "chimp": "chimp",
+    "release": "gulp release-it",
+    "release-notes": "npm run conventional-github-releaser -p angular -r 0",
+    "deploy:production": "cd ./devops && ./devops provision production all --tags=app && cd ../",
+    "deploy:acceptance": "cd ./devops && ./devops provision acceptance all --tags=app && cd ../",
+    "pull-translation": "node ./phraseapp/phraseapp.js --command pull --access_token 193b1cb74df9b522e06166c3dc17d5a7055ff9e17bf5ae93c8a97cf3b97a9780",
+    "push-translation": "node ./phraseapp/phraseapp.js --command push",
+    "start": "./start",
+    "test:watch": "./test_watch",
+    "test:e2e": "chimp --ddp=http://localhost:3000 --path=./app/tests/cucumber/features",
+    "test:e2e:watch": "chimp --ddp=http://localhost:3000 --watch --path=./app/tests/cucumber/features"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/part-up/part-up.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/part-up/part-up/issues"
+  },
+  "homepage": "https://github.com/part-up/part-up#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "bluebird": "^3.3.5",
+    "chimp": "^0.49.0",
+    "commitizen": "^2.8.2",
+    "conventional-changelog": "^1.1.4",
+    "conventional-changelog-cli": "^1.2.0",
+    "conventional-github-releaser": "^1.1.11",
+    "conventional-recommended-bump": "^1.0.0",
+    "cz-conventional-changelog": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.2.0",
+    "gulp-conventional-changelog": "^1.1.0",
+    "gulp-git": "^2.4.0",
+    "gulp-help": "^1.6.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-tag-version": "^1.3.0",
+    "gulp-util": "^3.0.7",
+    "json2yaml": "^1.1.0",
+    "map-stream": "^0.0.7",
+    "npm-build-tools": "^2.2.5",
+    "optimist": "^0.6.1",
+    "pre-git": "^3.15.0",
+    "prettyjson": "^1.1.3",
+    "prompt": "^1.0.0",
+    "require-dir": "^0.3.2",
+    "run-sequence": "^1.2.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/part-up/part-up.git"
-    },
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/part-up/part-up/issues"
-    },
-    "homepage": "https://github.com/part-up/part-up#readme",
-    "devDependencies": {
-        "babel-preset-es2015": "^6.24.1",
-        "bluebird": "^3.3.5",
-        "chimp": "^0.49.0",
-        "commitizen": "^2.8.2",
-        "conventional-changelog": "^1.1.4",
-        "conventional-changelog-cli": "^1.2.0",
-        "conventional-github-releaser": "^1.1.11",
-        "conventional-recommended-bump": "^1.0.0",
-        "cz-conventional-changelog": "^2.0.0",
-        "gulp": "^3.9.1",
-        "gulp-bump": "^2.2.0",
-        "gulp-conventional-changelog": "^1.1.0",
-        "gulp-git": "^2.4.0",
-        "gulp-help": "^1.6.1",
-        "gulp-load-plugins": "^1.2.4",
-        "gulp-notify": "^3.0.0",
-        "gulp-plumber": "^1.1.0",
-        "gulp-tag-version": "^1.3.0",
-        "gulp-util": "^3.0.7",
-        "json2yaml": "^1.1.0",
-        "map-stream": "^0.0.7",
-        "npm-build-tools": "^2.2.5",
-        "optimist": "^0.6.1",
-        "pre-git": "^3.15.0",
-        "prettyjson": "^1.1.3",
-        "prompt": "^1.0.0",
-        "require-dir": "^0.3.2",
-        "run-sequence": "^1.2.2"
-    },
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/cz-conventional-changelog"
-        },
-        "pre-git": {
-            "commit-msg": "conventional"
-        }
-    },
-    "dependencies": {
-        "apn": "^2.1.4",
-        "bcrypt": "^1.0.2",
-        "busboy": "^0.2.11",
-        "colors": "^1.0.3",
-        "country-language": "^0.1.7",
-        "cycle": "^1.0.3",
-        "debug": "^2.6.8",
-        "deeper": "^2.1.0",
-        "eventemitter2": "^4.1.0",
-        "gm": "^1.20.0",
-        "moment": "^2.13.0",
-        "node-metainspector": "^1.3.0",
-        "part-up-js-models": "git://github.com/part-up/js-models.git#1.1.3",
-        "pkginfo": "^0.4.0",
-        "pluralize": "5.0.0",
-        "slug": "^0.9.1",
-        "stack-trace": "0.0.10",
-        "winston": "^2.3.1"
+    "pre-git": {
+      "commit-msg": "conventional"
     }
+  },
+  "dependencies": {
+    "apn": "^2.1.4",
+    "bcrypt": "^1.0.2",
+    "busboy": "^0.2.11",
+    "colors": "^1.0.3",
+    "country-language": "^0.1.7",
+    "cycle": "^1.0.3",
+    "debug": "^2.6.8",
+    "deeper": "^2.1.0",
+    "eventemitter2": "^4.1.0",
+    "gm": "^1.20.0",
+    "moment": "^2.13.0",
+    "node-metainspector": "^1.3.0",
+    "part-up-js-models": "git://github.com/part-up/js-models.git#1.1.3",
+    "pkginfo": "^0.4.0",
+    "pluralize": "5.0.0",
+    "slug": "^0.9.1",
+    "stack-trace": "0.0.10",
+    "winston": "^2.3.1"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  }
 }

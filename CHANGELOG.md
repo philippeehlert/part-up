@@ -1,3 +1,18 @@
+<a name="2.28.0"></a>
+# [2.28.0](https://github.com/part-up/part-up/compare/2.27.1...2.28.0) (2017-07-30)
+
+
+### Bug Fixes
+
+* **chats:** Fix chat height for tablet ([5ef0632](https://github.com/part-up/part-up/commit/5ef0632))
+
+
+### Features
+
+* **chats:** Enable chats on tablets ([72aa872](https://github.com/part-up/part-up/commit/72aa872))
+
+
+
 <a name="2.27.1"></a>
 ## [2.27.1](https://github.com/part-up/part-up/compare/2.27.0...2.27.1) (2017-07-17)
 
