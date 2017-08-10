@@ -7,6 +7,11 @@ Template.app_profile.onCreated(function() {
         template.subscribe('users.one', data.profileId, {
             onReady: function() {
                 var user = Meteor.users.findOne(data.profileId);
+
+                if (!user || user.deactivatedAt) {
+                    Router.pageNotFound('profile');
+                }
+
                 var isViewable = User(user).aboutPageIsViewable();
                 if (!isViewable && Router.current().route.getName() === 'profile') {
                     Router.replaceYieldTemplate('app_profile_upper_partups', 'app_profile');
