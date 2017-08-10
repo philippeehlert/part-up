@@ -69,7 +69,7 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters, ac
 
     return {
         find: function() {
-            var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit:1}, accessToken).fetch().pop();
+            var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1}, accessToken).fetch().pop();
             if (!partup) return;
 
             return Updates.findForPartup(partup, parameters, self.userId);
