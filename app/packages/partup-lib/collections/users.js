@@ -37,7 +37,8 @@ var getPublicUserFields = function() {
         'networks': 1,
         'completeness': 1,
         'participation_score': 1,
-        'chats': 1
+        'chats': 1,
+        'deactivatedAt': 1,
     };
 };
 
