@@ -134,7 +134,7 @@ Template.app_partup_sidebar.helpers({
                     9: TAPi18n.__('pages-app-partup-label-network-custom-b-default'),
                 };
 
-                if (!labels && !labels[type]) return fallbackLabels[type];
+                if (!labels || !labels[type]) return fallbackLabels[type];
 
                 return labels[type];
             };
@@ -154,7 +154,7 @@ Template.app_partup_sidebar.helpers({
                 privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-closed', {network: lodash.get(network, 'name', '-')});
             } else if (type >= Partups.privacy_types.NETWORK_ADMINS) {
                 privacy.open = false;
-                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-custom', {network: lodash.get(network, 'name', '-'), label: getTypeLabel(type, network.privacy_type_labels)});
+                privacy.text = TAPi18n.__('pages-app-partup-privacy-label-network-custom', {network: lodash.get(network, 'name', '-'), label: getTypeLabel(type, lodash.get(network, 'privacy_type_labels'))});
             }
             return privacy;
         };
