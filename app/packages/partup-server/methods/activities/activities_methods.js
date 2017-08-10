@@ -61,7 +61,7 @@ Meteor.methods({
         // if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
 
         var partup = Partups.findOneOrFail(activity.partup_id);
-        
+
         if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
@@ -244,9 +244,12 @@ Meteor.methods({
 
         // Check if both Partup IDs are valid
         Partups.findOneOrFail(fromPartupId);
-        Partups.findOneOrFail(toPartupId);
+        const toPartup = Partups.findOneOrFail(toPartupId);
 
         try {
+            var board = Boards.findOneOrFail(toPartup.board_id);
+            var backlogLane = Lanes.findOneOrFail(board.lanes[0]);
+
             var existingActivities = Activities.find({partup_id: fromPartupId}).fetch();
             existingActivities.forEach(function(activity) {
                 var newActivity = {
@@ -260,7 +263,9 @@ Meteor.methods({
                     archived: false
                 };
 
-                Activities.insert(newActivity);
+                const activityId = Activities.insert(newActivity);
+
+                backlogLane.addActivity(activityId);
             });
 
             // Add number of activities to the Part-up's activity_count
