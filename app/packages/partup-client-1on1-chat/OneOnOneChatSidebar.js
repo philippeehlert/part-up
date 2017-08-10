@@ -41,10 +41,14 @@ Template.OneOnOneChatSidebar.helpers({
         var user = Meteor.user() || {};
         var privateLimit = template.privateLimit.get();
         var chats = template.chats.get();
+        const activeChatId = template.data.config.reactiveActiveChat.get();
 
         return {
             chats: function() {
                 return chats;
+            },
+            activeChat: function() {
+                return Partup.client.chatData.populateChatData(Chats.findOne({_id: activeChatId}));
             },
             searchValue: function() {
                 return template.searchValue.get();
@@ -54,8 +58,8 @@ Template.OneOnOneChatSidebar.helpers({
             },
             canLoadMore: function() {
                 var totalPrivate = chats.length;
-                return privateLimit <= totalPrivate
-            }
+                return privateLimit <= totalPrivate;
+            },
         };
     },
     state: function() {
@@ -139,6 +143,14 @@ Template.OneOnOneChatSidebar.events({
         template.data.config.onStartChat(userId);
         template.throttledSearchUser('');
         template.selectedIndex.set(0);
+        lodash.defer(() => {
+            $('[data-list-scroller]').scrollTop(0);
+        });
+    },
+    'click [data-initialize]': function(event, template) {
+        lodash.defer(() => {
+            $('[data-list-scroller]').scrollTop(0);
+        });
     },
     'click [data-loadmore]': function(event, template) {
         event.preventDefault();
