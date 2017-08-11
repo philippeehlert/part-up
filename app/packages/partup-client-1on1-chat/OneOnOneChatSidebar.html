@@ -32,6 +32,7 @@
                         </li>
                     {{/each}}
                     {{else}}
+                    {{#if data.activeChat}}
                     {{#with data.activeChat}}
                         <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-tall {{#if partupEquals _id state.activeChat }}pu-notification-active pu-notification-viewed{{/if}} {{#unless unreadCount }}pu-notification-viewed{{/unless}} {{#unless latestMessage }}pu-notification-viewed{{/unless}}">
                             <a href="{{pathFor route='chats' hash=_id }}">
@@ -52,6 +53,7 @@
                             </a>
                         </li>
                     {{/with}}
+                    {{/if}}
                     {{#each data.chats}}
                         {{#unless partupEquals _id state.activeChat }}
                         <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-tall {{#if partupEquals _id state.activeChat }}pu-notification-active pu-notification-viewed{{/if}} {{#unless unreadCount }}pu-notification-viewed{{/unless}} {{#unless latestMessage }}pu-notification-viewed{{/unless}}" data-initialize>
