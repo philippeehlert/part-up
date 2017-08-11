@@ -276,7 +276,7 @@ Template.Comments.events({
         event.preventDefault();
         template.showSystemMessages.set(!template.showSystemMessages.get());
     },
-    'keyup [data=commentfield]': function(event, template) {
+    'keyup [data-commentfield]': function(event, template) {
         var totalCharacters = event.currentTarget.value.length;
         if (totalCharacters > 1000) {
             template.tooManyCharacters.set(true);
