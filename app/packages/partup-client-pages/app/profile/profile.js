@@ -27,6 +27,8 @@ Template.app_profile.onCreated(function() {
         }
     });
 
+    template.hide = true;
+
     template.toggleExpandedText = function(hide) {
         var clickedElement = $('[data-expand]');
         if (!clickedElement || !clickedElement[0]) return;
@@ -47,6 +49,8 @@ Template.app_profile.onCreated(function() {
             parentElement.toggleClass('pu-state-open');
             clickedElement.parents('.pu-sub-pageheader').toggleClass('pu-state-descriptionexpanded');
         }
+
+        template.hide = hide;
     };
 });
 
@@ -130,7 +134,7 @@ Template.app_profile.helpers({
 Template.app_profile.events({
     'click [data-expand]': function(event, template) {
         event.preventDefault();
-        template.toggleExpandedText();
+        template.toggleExpandedText(!template.hide);
     },
     'click [data-open-profilesettings]': function(event, template) {
         event.preventDefault();
