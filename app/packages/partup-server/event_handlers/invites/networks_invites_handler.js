@@ -26,12 +26,15 @@ Event.on('invites.inserted.network', function(inviter, network, invitee, searchQ
     // Send notification
     Partup.server.services.notifications.send(notificationOptions);
 
+    // set email fromAddress
+    var fromAddress = Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name)
+
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_network',
-        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
+        fromAddress: fromAddress + ' ' + TAPi18n.__('emails-invite_upper_to_network-via'),
         toAddress: User(invitee).getEmail(),
-        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, uppernetwork: network.name}, User(invitee).getLocale()),
+        subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, network: network.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
         typeData: {
             name: User(invitee).getFirstname(),
