@@ -351,7 +351,16 @@ Meteor.users.findForAdminList = function(selector, options) {
     var page = options.page;
 
     return Meteor.users.find(selector, {
-        fields:{'_id':1, 'profile.name':1, 'profile.phonenumber':1, 'registered_emails':1, 'profile.invited_data.invites': 1, 'createdAt':1, 'deactivatedAt':1},
+        fields: {
+            '_id': 1,
+            'profile.name': 1,
+            'profile.phonenumber': 1,
+            'emails': 1,
+            'registered_emails': 1,
+            'profile.invited_data.invites': 1,
+            'createdAt': 1,
+            'deactivatedAt': 1,
+        },
         sort: {'createdAt': -1},
         limit: limit,
         skip: limit * page
@@ -361,9 +370,9 @@ Meteor.users.findForAdminList = function(selector, options) {
 Meteor.users.findStatsForAdmin = function() {
     return {
         'servicecounts': {
-            'password': Meteor.users.find({'services.password':{'$exists':true}}).count(),
-            'linkedin': Meteor.users.find({'services.linkedin':{'$exists':true}}).count(),
-            'facebook': Meteor.users.find({'services.facebook':{'$exists':true}}).count()
+            'password': Meteor.users.find({'services.password': {'$exists': true}}).count(),
+            'linkedin': Meteor.users.find({'services.linkedin': {'$exists': true}}).count(),
+            'facebook': Meteor.users.find({'services.facebook': {'$exists': true}}).count()
         },
         'counts': {
             'users': Meteor.users.find({}).count(),
