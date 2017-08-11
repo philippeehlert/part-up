@@ -95,7 +95,7 @@ SeoRouter.route('/profile/:id', function(params, request, response) {
     var userId = params.id;
     var user = Meteor.users.findOne(userId);
 
-    if (!user) {
+    if (!user || user.deactivatedAt) {
         response.statusCode = 404;
         return response.end();
     }
