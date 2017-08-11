@@ -55,8 +55,12 @@
                                     {{#if isProbablyTouchScreen}}
                                         <div type="text" data-bootstrap-datepicker class="pu-datepicker pu-datepicker-inline" placeholder="{{ placeholders.end_date }}" readonly></div>
                                     {{else}}
-                                        <input type="text" data-bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ placeholders.end_date }}" readonly>
-                                        <a href="#" class="pu-sub-remove picon-times" data-remove-date></a>
+                                        {{#if partupIE}}
+                                            <div type="text" data-bootstrap-datepicker class="pu-datepicker pu-datepicker-inline" placeholder="{{ placeholders.end_date }}" readonly></div>
+                                        {{else}}
+                                            <input type="text" data-bootstrap-datepicker class="pu-input pu-datepicker" placeholder="{{ placeholders.end_date }}" readonly>
+                                            <a href="#" class="pu-sub-remove picon-times" data-remove-date></a>
+                                        {{/if}}
                                     {{/if}}
                                 {{/DatePicker}}
                             </span>
