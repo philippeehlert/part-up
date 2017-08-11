@@ -131,7 +131,6 @@
                     <select class="pu-input" data-select-sector>
                         <option>{{_ 'network-settings-form-sector-placeholder'}}</option>
                         {{#each data.sectors}}
-                            <!-- selected="{{  }}" -->
                             <option value="{{ _id }}" selected="{{ data.isNetworkSector _id }}">{{_ phrase_key }}</option>
                         {{/each}}
                     </select>

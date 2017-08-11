@@ -201,12 +201,12 @@ Partup.schemas.forms.network = new SimpleSchema([networkBaseSchema, {
     tags_input: {
         type: String,
         regEx: Partup.services.validators.tagsSeparatedByComma,
+        max: 255,
         custom: function() {
             var max = false;
             lodash.each(this.value.split(','), function(tag) {
-                if (tag.length > 30) max = true;
+                if (tag.length > 51) max = true;
             });
-
             if (max) return 'individualMaxString';
         },
         autoform: {
