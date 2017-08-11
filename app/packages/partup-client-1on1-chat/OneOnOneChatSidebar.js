@@ -48,7 +48,8 @@ Template.OneOnOneChatSidebar.helpers({
                 return chats;
             },
             activeChat: function() {
-                return Partup.client.chatData.populateChatData(Chats.findOne({_id: activeChatId}));
+                const chat = Chats.findOne({_id: activeChatId});
+                return chat ? Partup.client.chatData.populateChatData(chat) : false;
             },
             searchValue: function() {
                 return template.searchValue.get();
