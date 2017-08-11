@@ -297,6 +297,7 @@
   "emails-dailydigest-subject": "Notificaties op Part-up.com",
   "emails-invite-user-subject": "Uitnodiging voor Part-up %s",
   "emails-invite_upper_to_network-subject": "Uitnodiging voor de tribe __network__",
+  "emails-invite_upper_to_network-via": "via Part-up"
   "emails-invite_upper_to_partup-subject": "Uitnodiging voor de part-up __partup__",
   "emails-invite_upper_to_partup_activity-subject": "Uitnodiging voor de activiteit __activity__ in part-up __partup__",
   "emails-partups_networks_accepted-subject": "Je bent toegelaten tot de tribe __network__",
