@@ -61,16 +61,17 @@ Meteor.methods({
         // if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
 
         var partup = Partups.findOneOrFail(activity.partup_id);
-        
+
         if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
         try {
             var updatedActivity = Partup.transformers.activity.fromForm(fields, activity.creator_id, activity.partup_id);
+
             updatedActivity.updated_at = new Date();
 
-            Activities.update(activityId, {$set: updatedActivity});
+            Activities.update(activityId, {$set: {...activity, ...updatedActivity}});
 
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_updated');
