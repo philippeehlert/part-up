@@ -7,3 +7,7 @@ Template.registerHelper('partupIE9', function() {
     }
     return false;
 });
+
+Template.registerHelper('partupIE', function() {
+    return Partup.client.browser.isIE();
+});
