@@ -1,6 +1,6 @@
 <template name="OneOnOneChatSidebar">
     <section>
-        <div class="pu-sidebar-wrap" data-preventscroll>
+        <div class="pu-sidebar-wrap" data-preventscroll data-list-scroller>
             <section class="pu-sidebar-search">
                 <div class="pu-search pu-clearinput">
                     <input type="text" placeholder="{{_ 'pages-one-on-one-chat-sidebar-search-placeholder'}}" class="pu-input form-control" data-search>
@@ -32,7 +32,8 @@
                         </li>
                     {{/each}}
                     {{else}}
-                    {{#each data.chats}}
+                    {{#if data.activeChat}}
+                    {{#with data.activeChat}}
                         <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-tall {{#if partupEquals _id state.activeChat }}pu-notification-active pu-notification-viewed{{/if}} {{#unless unreadCount }}pu-notification-viewed{{/unless}} {{#unless latestMessage }}pu-notification-viewed{{/unless}}">
                             <a href="{{pathFor route='chats' hash=_id }}">
                                 <figure class="pu-avatar pu-avatar-middle {{#if isOnline static.chatter._id }}pu-avatar-online{{else}}pu-avatar-offline{{/if}}" style="background-image:url('{{ getImage static.chatter.imageObj }}');"></figure>
@@ -51,6 +52,29 @@
                                 </article>
                             </a>
                         </li>
+                    {{/with}}
+                    {{/if}}
+                    {{#each data.chats}}
+                        {{#unless partupEquals _id state.activeChat }}
+                        <li class="pu-notification pu-notification-chat pu-notification-slim pu-notification-tall {{#if partupEquals _id state.activeChat }}pu-notification-active pu-notification-viewed{{/if}} {{#unless unreadCount }}pu-notification-viewed{{/unless}} {{#unless latestMessage }}pu-notification-viewed{{/unless}}" data-initialize>
+                            <a href="{{pathFor route='chats' hash=_id }}">
+                                <figure class="pu-avatar pu-avatar-middle {{#if isOnline static.chatter._id }}pu-avatar-online{{else}}pu-avatar-offline{{/if}}" style="background-image:url('{{ getImage static.chatter.imageObj }}');"></figure>
+                                <article>
+                                    <p>{{ static.chatter.profile.name }} {{#if unreadCount}}({{unreadCount}}){{/if}} <time>{{#if latestMessage}}{{ partupDateCustom latestMessage.created_at 'D MMM - HH:mm' }}{{/if}}</time></p>
+                                    {{#if latestMessage }}
+                                        <span><span>{{{ formatted latestMessage.content }}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
+                                    {{else}}
+                                        <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
+                                    {{/if}}
+                                    {{#if state.started_typing chatter._id _id}}
+                                        <div class="typing-container">
+                                            {{> ChatTypingIndicator}}
+                                        </div>
+                                    {{/if}}
+                                </article>
+                            </a>
+                        </li>
+                        {{/unless}}
                     {{/each}}
                         {{#if data.canLoadMore}}
                             <li class="pu-sub-loadmore">
