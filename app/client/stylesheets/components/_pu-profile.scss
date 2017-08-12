@@ -129,6 +129,12 @@
                 .pu-readmore {
                     display: block;
                 }
+
+                &.pu-state-open {
+                    max-height: none;
+                    height: auto;
+                    -webkit-line-clamp: inherit;
+                }
             }
         }
 
