@@ -72,16 +72,18 @@ Template.app_network_uppers.onCreated(function() {
                 return;
             }
 
-            var unorderedResult = (response.data.users || []).map(function(user) {
+            var rawUsers = (response.data.users || []).map(function(user) {
                 Partup.client.embed.user(user, response.data['cfs.images.filerecord']);
                 return user;
             });
-            Meteor.call('users.order_network_uppers', template.data.networkSlug, unorderedResult, function(error, result) {
+            const unorderedUserdata = rawUsers.map(({_id, participation_score}) => ({_id, participation_score}));
+
+            Meteor.call('users.order_network_uppers', template.data.networkSlug, unorderedUserdata, function(error, result) {
                 template.states.paging_end_reached.set(result.length < PAGING_INCREMENT);
 
                 var tiles = result.map(function(user) {
                     return {
-                        user: user,
+                        user: lodash.find(rawUsers, {_id: user._id}),
                         network: Networks.findOne({slug: template.data.networkSlug})
                     };
                 });
