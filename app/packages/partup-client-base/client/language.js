@@ -78,7 +78,7 @@ Partup.client.language = {
                 passwordIncorrect:      TAPi18n.__('base-client-language-ss-passwordIncorrect'),
                 shouldNotContainHtml:   TAPi18n.__('base-client-language-ss-shouldNotContainHtml'),
                 missingRequiredTags:    TAPi18n.__('base-client-language-ss-missingRequiredTags'),
-                shouldNotContainUrls:   TAPi18n.__('base-client-language-ss-shouldNotContainUrls')
+                shouldNotContainUrls:   TAPi18n.__('base-client-language-ss-shouldNotContainUrls'),
             });
 
             var user = Meteor.user();

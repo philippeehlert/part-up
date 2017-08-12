@@ -46,7 +46,7 @@ var profileBaseSchema = new SimpleSchema({
     description: {
         type: String,
         max: 650,
-        optional: true
+        optional: true,
     },
     image: {
         type: String,
@@ -85,7 +85,7 @@ var profileBaseSchema = new SimpleSchema({
     phonenumber: {
         type: String,
         max: 255,
-        optional: true
+        optional: true,
     },
     skype: {
         type: String,
@@ -117,6 +117,14 @@ var profileBaseSchema = new SimpleSchema({
  */
 Partup.schemas.forms.profileSettings = new SimpleSchema([profileBaseSchema, {
     name: {
-        type: String
+        type: String,
+        custom: function() {
+            if (!Partup.services.validators.containsNoHtml(this.value)) {
+                return 'shouldNotContainHtml';
+            }
+            if (!Partup.services.validators.containsNoUrls(this.value)) {
+                return 'shouldNotContainUrls';
+            }
+        }
     }
 }]);
