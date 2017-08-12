@@ -6,16 +6,16 @@ Template.FileInput.onRendered(function () {
     // For some reason, this template get's rendered twice on the PartupSettings modal
     // to prevent the pluploader from initializing twice the settings will only get passed when the Partupsettings template is rendered.
     if (pluploadSettings) {
-        pluploadSettings.config.browse_button = template.find(pluploadSettings.buttons.browse);
-        pluploadSettings.config.container = document.getElementById('uploadwrapper');
+        pluploadSettings.config.browse_button = 'uploader_button';
+        pluploadSettings.config.container = 'uploadwrapper';
         this.uploader = new Pluploader(pluploadSettings);
     } else if (settings) {
         var button = template.find('[' + template.data.inputSettings.button + ']');
         var input = template.find('[' + template.data.inputSettings.input + ']');
         var multiple = template.data.inputSettings.multiple;
 
-        Partup.client.uploader.create({
-            buttonElement: button,
+        this.uploader = Partup.client.uploader.create({
+            buttonElement: document.getElementById('uploader_button'),
             fileInput: input,
             multiple: multiple,
             onFileChange: function(fileInputEvent) {
@@ -27,3 +27,9 @@ Template.FileInput.onRendered(function () {
         });
     }
 });
+
+Template.FileInput.onDestroyed(function() {
+    if (this.uploader && this.uploader.destroy) {
+        this.uploader.destroy();
+    }
+})

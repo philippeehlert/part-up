@@ -168,7 +168,7 @@ Template.Partupsettings.onRendered(function() {
 
     this.pluploadSettings = {
         buttons: {
-            browse: '[data-browse-photos]'
+            browse: 'uploader_button'
         },
         dynamic_url: true,
         config: {
