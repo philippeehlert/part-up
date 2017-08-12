@@ -1,3 +1,23 @@
+<a name="2.28.1"></a>
+## [2.28.1](https://github.com/part-up/part-up/compare/2.28.0...2.28.1) (2017-08-03)
+
+
+### Bug Fixes
+
+* **chats:** Allow tribe chats on tablet ([b400f43](https://github.com/part-up/part-up/commit/b400f43))
+* **chats-dropdown:** Scroll top on switch chat-type in dropdown. ([fa51e91](https://github.com/part-up/part-up/commit/fa51e91))
+* **partup-header:** Collapse share button ([e0aa2b5](https://github.com/part-up/part-up/commit/e0aa2b5))
+* **partup-layout:** Improve element layout for mobile ([7935ff6](https://github.com/part-up/part-up/commit/7935ff6))
+* **partup-sidebar:** Add filter to navigation ([7d03d33](https://github.com/part-up/part-up/commit/7d03d33))
+* **sidebar:** Title is now menu expander ([5bb73a3](https://github.com/part-up/part-up/commit/5bb73a3))
+
+
+### Performance Improvements
+
+* **indexes:** added missing indexes ([#1188](https://github.com/part-up/part-up/issues/1188)) ([42cb1d8](https://github.com/part-up/part-up/commit/42cb1d8))
+
+
+
 <a name="2.28.0"></a>
 # [2.28.0](https://github.com/part-up/part-up/compare/2.27.1...2.28.0) (2017-07-30)
 
