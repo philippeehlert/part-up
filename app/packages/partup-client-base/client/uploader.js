@@ -365,8 +365,8 @@ const createPlupload = function (browseButton, container, filesAddedHandler, upl
         browse_button: browseButton,
         container: container,
         url: '/', //plupload requires the url to be set when initialized, the url gets set dynamically for each file based on file-type in the BeforeUpload handler
-        flash_swf_url: '../../../public/files/flash/Moxie.swf',
-        silverlight_xap_url: '../../../public/files/silverlight/Moxie.xap',
+        flash_swf_url: '../uploader/plupload/runtimes/Moxie.swf', // ../../public/files/flash/Moxie.swf',
+        silverlight_xap_url: '../uploader/plupload/runtimes/Moxie.xap',   // '../../../public/files/silverlight/Moxie.xap',
 
         filters: {
             max_file_size: '10mb',
