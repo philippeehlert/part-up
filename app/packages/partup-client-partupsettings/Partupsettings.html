@@ -304,14 +304,16 @@
                         {{> Loader }}
                     </div>
                     {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
-                    <div id="uploadwrapper" class="pu-sub-buttons">
+                    <div class="pu-sub-buttons">
                            {{#FileInput pluploadSettings=pluploadSettings }}
-                            <button data-browse-photos class="pu-button pu-button-secondary">
-                                {{_ 'partupsettings-image-button-overwrite'}}
-                                {{#if uploadingPicture}}
-                                    {{> Spinner color='inverted' type='small'}}
-                                {{/if}}
-                            </button>
+                           <div id="uploadwrapper" style="display:inline-block;">
+                                <button data-browse-photos class="pu-button pu-button-secondary">
+                                    {{_ 'partupsettings-image-button-overwrite'}}
+                                    {{#if uploadingPicture}}
+                                        {{> Spinner color='inverted' type='small'}}
+                                    {{/if}}
+                                </button>
+                            </div>
                            {{/FileInput}}   
 
                         <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
@@ -322,11 +324,13 @@
 
             {{ else }}
 
-                <div id="uploadwrapper" class="pu-upload pu-upload-large">
-                       {{#FileInput pluploadSettings=pluploadSettings }}   
-                         <button data-browse-photos class="pu-button pu-button-secondary"> 
-                            {{_ 'partupsettings-image-button'}}
-                        </button>
+                <div class="pu-upload pu-upload-large">
+                       {{#FileInput pluploadSettings=pluploadSettings }}
+                       <div id="uploadwrapper" style="display:inline-block;"> 
+                            <button data-browse-photos class="pu-button pu-button-secondary"> 
+                                {{_ 'partupsettings-image-button'}}
+                            </button>
+                        </div>
                         <span>{{_ 'partupsettings-image-validation'}}</span>
                        {{/FileInput}}   
                 </div>
