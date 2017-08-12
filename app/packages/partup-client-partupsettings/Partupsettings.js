@@ -63,8 +63,6 @@ Template.Partupsettings.onCreated(function() {
         if (partup.image) {
             template.imageSystem.currentImageId.set(partup.image);
             template.imageSystem.uploaded.set(true);
-        } else {
-            template.imageSystem.getSuggestions(partup.tags);
         }
 
         template.selectedType.set(partup.type);
@@ -132,7 +130,7 @@ Template.Partupsettings.onRendered(function() {
         $(template.findAll('[data-max]')).each(function(index) {
             $(this).trigger('keyup');
         });
-    }, 500);
+    }, 1000);
 
     var selectedNetworkId = undefined;
     if (template.data.networkSlug) {
@@ -167,9 +165,53 @@ Template.Partupsettings.onRendered(function() {
             template.preselectedNetwork.set(currentPartupNetworkId);
         }
     }
+
+    this.pluploadSettings = {
+        buttons: {
+            browse: 'uploader_button'
+        },
+        dynamic_url: true,
+        config: {
+            multi_selection: false,
+        },
+        types: [
+            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.join(',') }
+        ],
+        hooks: {
+            FilesAdded(uploader, files) {
+                template.loading.set('image-uploading', true);
+                uploader.start();
+            },
+            FileUploaded(uploader, file, result) {
+                if (!result) return;
+                const response = JSON.parse(result.response);
+
+                if (response.error) {
+                    template.loading.set('image-uploading', false);
+                    return Partup.client.notify.error(response.error);
+                }
+                if (!response.image) {
+                    template.loading.set('image-uploading', false);
+                    return Partup.client.notify.info('Something went wrong with uploading the image');
+                }
+                template.subscribe('images.one', response.image, {
+                    onReady() {
+                        template.loading.set('image-uploading', false);
+                        template.imageSystem.currentImageId.set(response.image);
+                        template.imageSystem.uploaded.set(true);
+                        var focuspoint = template.imageSystem.focuspoint.get();
+                        if (focuspoint) focuspoint.reset();
+                    }
+                });
+            }
+        }
+    }
 });
 
 Template.Partupsettings.helpers({
+    pluploadSettings() {
+        return Template.instance().pluploadSettings;
+    },
     datePicker: function() {
         return {
             input: 'data-bootstrap-datepicker',
@@ -471,30 +513,6 @@ Template.Partupsettings.helpers({
     currentCurrency: function() {
         return Template.instance().currentCurrency.get();
     },
-    imageInput: function() {
-        var template = Template.instance();
-        return {
-            button: 'data-browse-photos',
-            input: 'data-imageupload',
-            onFileChange: function(event) {
-                Partup.client.uploader.eachFile(event, function(file) {
-                    template.loading.set('image-uploading', true);
-                    Partup.client.uploader.uploadImage(file, function(error, image) {
-                        if (error) {
-                            Partup.client.notify.error(TAPi18n.__(error.reason));
-                            template.loading.set('image-uploading', false);
-                            return;
-                        }
-                        template.loading.set('image-uploading', false);
-                        template.imageSystem.currentImageId.set(image._id);
-                        template.imageSystem.uploaded.set(true);
-                        var focuspoint = template.imageSystem.focuspoint.get();
-                        if (focuspoint) focuspoint.reset();
-                    });
-                });
-            }
-        }
-    }
 });
 
 Template.Partupsettings.events({
@@ -505,13 +523,7 @@ Template.Partupsettings.events({
         template[charactersLeftVar].set(max - $inputElement.val().length);
     },
     'click [data-imageremove]': function(event, template) {
-        var tags_input = $(event.currentTarget.form).find('[data-schema-key=tags_input]').val();
-        var tags = Partup.client.strings.tagsStringToArray(tags_input);
-        template.imageSystem.unsetUploadedPicture(tags);
-    },
-    'change .autoform-tags-field [data-schema-key]': function(event, template) {
-        var tags = Partup.client.strings.tagsStringToArray($(event.currentTarget).val());
-        template.imageSystem.getSuggestions(tags);
+        template.imageSystem.unsetUploadedPicture();
     },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] label > :checked');
@@ -574,42 +586,11 @@ var ImageSystem = function(template) {
 
     this.currentImageId = new ReactiveVar(false);
     this.uploaded = new ReactiveVar(false);
-    this.availableSuggestions = new ReactiveVar([]);
     this.focuspoint = new ReactiveDict();
     this.focuspoint.set('x', 0.5); // set default focuspoint position
     this.focuspoint.set('y', 0.5);
 
-    this.getSuggestions = function(tags) {
-        this.availableSuggestions.set([])
-        return;
-
-        // if (!tags || !tags.length) {
-        //     this.availableSuggestions.set([]);
-        //     return;
-        // }
-
-        // var newSuggestionsArray = [];
-
-        // var addSuggestions = function(suggestions) {
-        //     if (!suggestions) return;
-        //     newSuggestionsArray = newSuggestionsArray.concat(lodash.map(suggestions, 'imageUrl'));
-        // };
-
-        // var setAvailableSuggestions = function() {
-        //     template.loading.set('suggesting-images', false);
-
-        //     if (!newSuggestionsArray.length) {
-        //         Partup.client.notify.warning('Could not find any images suggestions.');
-        //         return;
-        //     }
-
-        //     self.availableSuggestions.set(newSuggestionsArray.slice(0, 5));
-        //     Session.set('partials.create-partup.current-suggestion', 0);
-        // };
-    };
-
-    this.unsetUploadedPicture = function(tags) {
-        self.getSuggestions(tags);
+    this.unsetUploadedPicture = function() {
         self.currentImageId.set(false);
         self.uploaded.set(false);
     };
@@ -620,40 +601,4 @@ var ImageSystem = function(template) {
         self.focuspoint.set('x', x);
         self.focuspoint.set('y', y);
     };
-    var currentIndex;
-    // Set suggestion
-    var setSuggestionByIndex = function(index) {
-        var suggestions = self.availableSuggestions.get();
-        if (!mout.lang.isArray(suggestions)) return;
-
-        var url = suggestions[index];
-        currentIndex = index;
-        if (!mout.lang.isString(url)) return;
-
-        template.loading.set('setting-suggestion', true);
-        Partup.client.uploader.uploadImageByUrl(url, function(error, image) {
-            template.loading.set('setting-suggestion', false);
-
-            if (error) {
-                Partup.client.notify.error('Some error occured');
-                return;
-            }
-            if (index === currentIndex) self.currentImageId.set(image._id);
-        });
-    };
-
-    template.autorun(function() {
-        var suggestionIndex = Session.get('partials.create-partup.current-suggestion');
-
-        if (mout.lang.isNumber(suggestionIndex) &&
-                !mout.lang.isNaN(suggestionIndex) &&
-                !self.uploaded.get()) {
-            self.currentImageId.set(false);
-            self.uploaded.set(false);
-            setSuggestionByIndex(suggestionIndex);
-
-            var focuspoint = self.focuspoint.get();
-            if (focuspoint) focuspoint.reset();
-        }
-    });
 };

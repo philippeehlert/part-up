@@ -1,5 +1,4 @@
 <template name="MediaUploaderButton">
-    
     {{#FileInput inputSettings=imageInput}}
         <div class="pu-dropdown-add-media  pu-formdropdown" data-toggle-add-media-menu>
             <div class="pu-sub-container">
@@ -14,16 +13,12 @@
                 </button>
                 
                 <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
-                    {{#if screenSizeIsMinimalWidth 'desktop' }}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
-                        <a data-browse-photos href="#"
-                           class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
-                            <i class="picon-upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
-                            <span class="pu-media-types-description">{{_
-                                    'dropdowns-updatesactions-computer-types' }}</span>
-                        </a>
+                            <a id="uploader_button" class="{{#if photoLimitReached }}pu-state-disabled{{/if}}" style="background-color:#57c0c9">
+                                 <i class="picon-upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
+                                 <span class="pu-media-types-description">{{_'dropdowns-updatesactions-computer-types' }}</span>
+                            </a>
                     </li>
-                    {{/if}}
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         {{> DropboxChooser mediaUploader=mediaUploader }}
                     </li>
@@ -33,9 +28,5 @@
                 </ul>
             </div>
         </div>
-        <input {{ disabledImageUploadFile }} accept="{{ fileExtensions allow_all_files }}" type="file" class="pu-fileinput" multiple data-photo-input style="visibility: hidden;">
     {{/FileInput}}
-    <div id="uploadwrapper" style="visibility:hidden;">
-        <a id="ieInput" href="javascript:;" class="pu-fileinput" style="visibility:hidden;"></a>
-    </div>
 </template>

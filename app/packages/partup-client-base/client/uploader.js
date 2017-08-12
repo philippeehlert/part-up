@@ -361,12 +361,12 @@ Partup.client.uploader = {
 
 const createPlupload = function (browseButton, container, filesAddedHandler, uploadFileHandler, fileUploadedHandler) {
     const uploader = new plupload.Uploader({
-        runtimes: 'html5,silverlight,flash,html4',
+        // runtimes: 'html5,silverlight,flash,html4',
         browse_button: browseButton,
         container: container,
         url: '/', //plupload requires the url to be set when initialized, the url gets set dynamically for each file based on file-type in the BeforeUpload handler
-        flash_swf_url: '../../../public/files/flash/Moxie.swf',
-        silverlight_xap_url: '../../../public/files/silverlight/Moxie.xap',
+        flash_swf_url: '../uploader/plupload/runtimes/Moxie.swf', // ../../public/files/flash/Moxie.swf',
+        silverlight_xap_url: '../uploader/plupload/runtimes/Moxie.xap',   // '../../../public/files/silverlight/Moxie.xap',
 
         filters: {
             max_file_size: '10mb',
@@ -376,16 +376,6 @@ const createPlupload = function (browseButton, container, filesAddedHandler, upl
             ]
         },
         init: {
-            PostInit: function () {
-                browseButton.addEventListener('click', function () {
-                    $('ieInput').click()
-                })
-                //This is hardcoded for now since it's only used in the mediapuloaderbutton.
-                document.getElementById('ieInput').onclick = function () {
-                    uploader.start()
-                    return false
-                }
-            },
             FilesAdded: filesAddedHandler,
             BeforeUpload: uploadFileHandler,
             FileUploaded: fileUploadedHandler,

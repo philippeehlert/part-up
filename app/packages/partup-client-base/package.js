@@ -20,6 +20,9 @@ Package.onUse(function (api) {
 
     api.addFiles([
 
+        'uploader/plupload/plupload.min.js',
+        'uploader/Pluploader.js',
+
         'client/base-64-polyfill.js',
         'client/url-polyfill.js',
         'client/bind-polyfill.js',
@@ -27,7 +30,6 @@ Package.onUse(function (api) {
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
         'client/console-shim.js',
-        'client/plupload.full.min.js',
 
         'namespace.js',
         'client/sanitize.js',
@@ -116,6 +118,8 @@ Package.onUse(function (api) {
 
         'views/CenterView.html',
 
+        
+
         'bootstrap.js',
         'analytics.js',
         'marketo.js'
@@ -123,5 +127,6 @@ Package.onUse(function (api) {
     ], ['client']);
 
     api.export('strings');
+    api.export('Pluploader');
 
 });

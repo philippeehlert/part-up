@@ -53,7 +53,7 @@ Template.MediaUploaderButton.events({
         if (!mediaLimitReached()) {
             toggleMenu($(event.currentTarget));
         }
-    }
+    },
 });
 
 Template.MediaUploaderButton.helpers({

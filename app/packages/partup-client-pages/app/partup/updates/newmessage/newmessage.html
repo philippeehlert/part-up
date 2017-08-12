@@ -1,11 +1,12 @@
 <template name="app_partup_updates_newmessage">
+    
     {{#autoForm schema=formSchema id=state.formId class="pu-form pu-form-popup" doc=formDoc }}
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
                     <div class="pu-message pu-message-haspictures">
                         {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
-                        <!-- {{#if hasUploadedMedia}} -->
+                        
                             <ul class="pu-sub-photos">
                                 {{#each uploadedPhotos}}
                                     <li>
@@ -38,8 +39,7 @@
                                     </li>
                                 {{/if}}
                             </ul>
-
-                        <!-- {{/if}} -->
+                        
                     </div>
                 </span>
                 <div class="markdown-support">
@@ -69,7 +69,7 @@
                        data-dismiss>{{_ 'pages-app-partup-updates-newmessage-close'}}</a>
                 </li>
             </ul>
-                <!--  -->
         </footer>
     {{/autoForm}}
+    <div id="uploadwrapper" style="left:0;bottom:0;"></div>
 </template>
