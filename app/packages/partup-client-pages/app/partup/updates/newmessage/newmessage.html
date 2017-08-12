@@ -21,7 +21,9 @@
                                     </li>
                                 {{/each}}
                                 <li>
+                                    <div id="uploadwrapper" style="display:inline-block;">
                                     {{> MediaUploaderButton mediaUploader=mediaUploader allow_all_files=true }}
+                                    </div>
                                 </li>
                                 {{#if mediaLimitReached}}{{else}}
                                     <li class="pu-media-counter">

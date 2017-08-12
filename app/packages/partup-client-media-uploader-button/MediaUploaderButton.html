@@ -14,14 +14,12 @@
                 
                 <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
                     <li class="pu-dropdownitem pu-dropdownitem-small">
-                        <div id="uploadwrapper" style="display:inline-block;">
                             <a href="#" data-browse-photos style="display:inline-block;"
                                 class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
                                 <i class="picon-upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
                                 <span class="pu-media-types-description">{{_
                                         'dropdowns-updatesactions-computer-types' }}</span>
                             </a>
-                        </div>
                     </li>
                     <li class="pu-dropdownitem pu-dropdownitem-small">
                         {{> DropboxChooser mediaUploader=mediaUploader }}
