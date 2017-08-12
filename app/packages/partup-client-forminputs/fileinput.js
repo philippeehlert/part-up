@@ -7,6 +7,7 @@ Template.FileInput.onRendered(function () {
     // to prevent the pluploader from initializing twice the settings will only get passed when the Partupsettings template is rendered.
     if (pluploadSettings) {
         pluploadSettings.config.browse_button = template.find(pluploadSettings.buttons.browse);
+        pluploadSettings.config.container = document.getElementById('uploadwrapper');
         this.uploader = new Pluploader(pluploadSettings);
     } else if (settings) {
         var button = template.find('[' + template.data.inputSettings.button + ']');

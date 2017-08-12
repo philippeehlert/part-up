@@ -3,9 +3,8 @@
         <label class="pu-formfield">
             <div class="pu-sub-validations">
                 <span class="pu-sub-input">
-                    <div class="pu-message pu-message-haspictures">
+                    <div id="uploadwrapper" class="pu-message pu-message-haspictures">
                         {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
-                        <!-- {{#if hasUploadedMedia}} -->
                             <ul class="pu-sub-photos">
                                 {{#each uploadedPhotos}}
                                     <li>
@@ -38,8 +37,6 @@
                                     </li>
                                 {{/if}}
                             </ul>
-
-                        <!-- {{/if}} -->
                     </div>
                 </span>
                 <div class="markdown-support">

@@ -62,6 +62,10 @@
             bottom: 20px;
             transition: opacity 0.2s;
 
+            .pu-button {
+                display: inline-block;
+            }
+
             .pu-sub-left {
                 float: left;
             }

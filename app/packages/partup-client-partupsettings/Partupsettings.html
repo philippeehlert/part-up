@@ -304,10 +304,10 @@
                         {{> Loader }}
                     </div>
                     {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
-                    <div class="pu-sub-buttons">
-                           {{#FileInput pluploadSettings=pluploadSettings }}   
-                            <button data-browse-photos class="pu-sub-left pu-button pu-button-secondary">
-                                <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
+                    <div id="uploadwrapper" class="pu-sub-buttons">
+                           {{#FileInput pluploadSettings=pluploadSettings }}
+                            <button data-browse-photos class="pu-button pu-button-secondary">
+                                {{_ 'partupsettings-image-button-overwrite'}}
                                 {{#if uploadingPicture}}
                                     {{> Spinner color='inverted' type='small'}}
                                 {{/if}}
@@ -322,10 +322,10 @@
 
             {{ else }}
 
-                <div class="pu-upload pu-upload-large">
+                <div id="uploadwrapper" class="pu-upload pu-upload-large">
                        {{#FileInput pluploadSettings=pluploadSettings }}   
                          <button data-browse-photos class="pu-button pu-button-secondary"> 
-                            <span>{{_ 'partupsettings-image-button'}}</span>
+                            {{_ 'partupsettings-image-button'}}
                         </button>
                         <span>{{_ 'partupsettings-image-validation'}}</span>
                        {{/FileInput}}   
