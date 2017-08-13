@@ -62,6 +62,11 @@
             bottom: 20px;
             transition: opacity 0.2s;
 
+            #uploader_button {
+                -ms-touch-action: none;
+                touch-action: none;
+            }
+
             .pu-button {
                 padding:0;
                 > span,i {

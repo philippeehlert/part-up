@@ -49,11 +49,18 @@
     .pu-dropdownitem {
         background: #57c0c9;
 
+        #uploader_button {
+            -ms-touch-action: none;
+            touch-action: none;
+        }
+
         a {
+            background-color: $color-primary;
             color: white;
             z-index: 1;
             position:relative;
             display:inline-block;
+            touch-action: none;
             @include user-select(none);
 
             &:hover, &:active, &:visited, &:link {
