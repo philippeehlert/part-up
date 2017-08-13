@@ -11,11 +11,14 @@ Template.FileInput.onRendered(function () {
         this.uploader = new Pluploader(pluploadSettings);
     } else if (settings) {
         var button = template.find('[' + template.data.inputSettings.button + ']');
+        if (!button) {
+            button = document.getElementById('uploader_button');
+        }
         var input = template.find('[' + template.data.inputSettings.input + ']');
         var multiple = template.data.inputSettings.multiple;
 
         this.uploader = Partup.client.uploader.create({
-            buttonElement: document.getElementById('uploader_button'),
+            buttonElement: button,
             fileInput: input,
             multiple: multiple,
             onFileChange: function(fileInputEvent) {
@@ -28,8 +31,8 @@ Template.FileInput.onRendered(function () {
     }
 });
 
-Template.FileInput.onDestroyed(function() {
-    if (this.uploader && this.uploader.destroy) {
-        this.uploader.destroy();
-    }
-})
+// Template.FileInput.onDestroyed(function() {
+//     if (this.uploader && this.uploader.destroy) {
+//         this.uploader.destroy();
+//     }
+// })
