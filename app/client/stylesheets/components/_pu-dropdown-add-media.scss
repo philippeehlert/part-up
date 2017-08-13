@@ -51,9 +51,18 @@
 
         a {
             color: white;
+            z-index: 1;
+            position:relative;
+            display:inline-block;
+            @include user-select(none);
 
             &:hover, &:active, &:visited, &:link {
                 background: #57c0c9;
+            }
+
+            > * {
+                @include user-select(none);
+                pointer-events: none;
             }
         }
     }
