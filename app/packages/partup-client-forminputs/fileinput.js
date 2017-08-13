@@ -31,8 +31,8 @@ Template.FileInput.onRendered(function () {
     }
 });
 
-// Template.FileInput.onDestroyed(function() {
-//     if (this.uploader && this.uploader.destroy) {
-//         this.uploader.destroy();
-//     }
-// })
+Template.FileInput.onDestroyed(function() {
+    if (this.uploader && this.uploader.destroy) {
+        this.uploader.destroy();
+    }
+});
