@@ -50,8 +50,8 @@
         background: #57c0c9;
 
         #uploader_button {
-            -ms-touch-action: none;
-            touch-action: none;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
         }
 
         a {
