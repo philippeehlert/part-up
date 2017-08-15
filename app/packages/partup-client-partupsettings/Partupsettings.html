@@ -307,8 +307,8 @@
                     <div class="pu-sub-buttons">
                            {{#FileInput pluploadSettings=pluploadSettings }}
                            <div id="uploadwrapper" style="display:inline-block;">
-                                <a id="uploader_button" class="pu-button pu-button-secondary">
-                                    {{_ 'partupsettings-image-button-overwrite'}}
+                                <a id="uploader_button" class="pu-button pu-button-secondary" role="button">
+                                    <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
                                     {{#if uploadingPicture}}
                                         {{> Spinner color='inverted' type='small'}}
                                     {{/if}}
@@ -327,8 +327,8 @@
                 <div class="pu-upload pu-upload-large">
                        {{#FileInput pluploadSettings=pluploadSettings }}
                        <div id="uploadwrapper" style="display:inline-block;">
-                            <a id="uploader_button" class="pu-button pu-button-secondary"> 
-                                {{_ 'partupsettings-image-button'}}
+                            <a id="uploader_button" class="pu-button pu-button-secondary" role="button">
+                                <span>{{_ 'partupsettings-image-button'}}</span>
                             </a>
                         </div>
                         <span>{{_ 'partupsettings-image-validation'}}</span>

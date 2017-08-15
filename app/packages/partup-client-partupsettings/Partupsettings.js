@@ -175,7 +175,7 @@ Template.Partupsettings.onRendered(function() {
             multi_selection: false,
         },
         types: [
-            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.join(',') }
+            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.map(ext => ext.replace(/\./g, '')).join(',') }
         ],
         hooks: {
             FilesAdded(uploader, files) {

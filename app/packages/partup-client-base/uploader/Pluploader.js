@@ -13,9 +13,6 @@ class _Pluploader {
             filters: {
                 max_file_size: '10mb',
                 prevent_duplicates: true,
-                mime_types: [
-                    { title: 'Custom', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join(',') },
-                ]
             },
             init: {
                 Error(uploader, error) {
@@ -26,10 +23,10 @@ class _Pluploader {
 
         // Setting the plupload configuration
         _.extend(config, options.config);
+        this.setFileFilters(options.types, config);
 
         // extend the new pluploader with this class.
         const uploader = _.merge(new plupload.Uploader(config), this);
-        uploader.setFileFilters(options.types, uploader);
 
         if (options.dynamic_url) {
             uploader.bind('BeforeUpload', function (uploader, file) {
@@ -48,10 +45,11 @@ class _Pluploader {
         return uploader;
     }
 
-    setFileFilters(types) {
+    setFileFilters(types, config) {
         if (!types || types.length < 1) {
             return;
         }
+        config.filters.mime_types = [];
         const filters = _.reduce(types, (result, type) => {
             result.push({
                 title: type.name,
@@ -59,7 +57,8 @@ class _Pluploader {
             });
             return result;
         }, []);
-        this.setOption('mime_types', filters);
+
+        _.each(filters, filter => config.filters.mime_types.push(filter));
     }
 }
 

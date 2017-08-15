@@ -6,8 +6,11 @@
                 <span class="pu-sub-input">
                     <div class="pu-message pu-message-haspictures">
                         {{> afFieldInput name="text" data-message-input="" placeholder=placeholders.text class="pu-textarea" rows=3 autofocus=""}}
-                        
+                        <div id="uploadwrapper" style="display:block;">
                             <ul class="pu-sub-photos">
+                                <li>
+                                    {{> MediaUploaderButton mediaUploader=mediaUploader allow_all_files=true }}
+                                </li>
                                 {{#each uploadedPhotos}}
                                     <li>
                                         <figure data-type="image" class="pu-thumbnail pu-thumbnail-removable"
@@ -22,9 +25,6 @@
                                                 data-remove-upload="{{ _id }}"></figure>
                                     </li>
                                 {{/each}}
-                                <li>
-                                    {{> MediaUploaderButton mediaUploader=mediaUploader allow_all_files=true }}
-                                </li>
                                 {{#if mediaLimitReached}}{{else}}
                                     <li class="pu-media-counter">
                                         <div>
@@ -39,7 +39,7 @@
                                     </li>
                                 {{/if}}
                             </ul>
-                        
+                        </div>
                     </div>
                 </span>
                 <div class="markdown-support">
@@ -71,5 +71,4 @@
             </ul>
         </footer>
     {{/autoForm}}
-    <div id="uploadwrapper" style="left:0;bottom:0;"></div>
 </template>

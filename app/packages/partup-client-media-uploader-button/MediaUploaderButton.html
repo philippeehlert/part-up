@@ -14,8 +14,8 @@
                 
                 <ul class="pu-dropdown pu-dropdown-form" data-clickoutside-close>
                     <li class="pu-dropdownitem pu-dropdownitem-small">
-                            <a id="uploader_button" class="{{#if photoLimitReached }}pu-state-disabled{{/if}}" style="background-color:#57c0c9">
-                                 <i class="picon-upload"></i> {{_ 'dropdowns-updatesactions-computer' }}
+                            <a id="uploader_button" role="button" class="{{#if photoLimitReached }}pu-state-disabled{{/if}}">
+                                 <i class="picon-upload"></i> <span>{{_ 'dropdowns-updatesactions-computer' }}</span>
                                  <span class="pu-media-types-description">{{_'dropdowns-updatesactions-computer-types' }}</span>
                             </a>
                     </li>
