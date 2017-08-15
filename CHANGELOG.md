@@ -1,3 +1,38 @@
+<a name="2.29.0"></a>
+# [2.29.0](https://github.com/part-up/part-up/compare/2.28.1...2.29.0) (2017-08-12)
+
+
+### Bug Fixes
+
+* **activities:** fallback to inline datepicker for IE and edge because of browser compatibility issues ([07905f4](https://github.com/part-up/part-up/commit/07905f4))
+* **activities:** fixed the copiing of activities from one partup to another, ow they show up in the boardview ([67f20ea](https://github.com/part-up/part-up/commit/67f20ea))
+* **activity-update:** don't remove lane_id on update ([b521b82](https://github.com/part-up/part-up/commit/b521b82))
+* **chats:** fixed exception when no chat is available ([31659c3](https://github.com/part-up/part-up/commit/31659c3))
+* **chats:** only render achtive chat if a chat is active ([4fac8f6](https://github.com/part-up/part-up/commit/4fac8f6))
+* **comments:** fixed error handling of comment field limit ([f0a112e](https://github.com/part-up/part-up/commit/f0a112e))
+* **conversations:** added comments_count > 0 filter to updates shown on /conversations ([0c7498e](https://github.com/part-up/part-up/commit/0c7498e))
+* **csv:** fixed missing email adresses in csv export ([9b50d2b](https://github.com/part-up/part-up/commit/9b50d2b))
+* **email:** add noreply to email copy ([e57bfb5](https://github.com/part-up/part-up/commit/e57bfb5))
+* **network:** fixed template exception for network tags ([a759a87](https://github.com/part-up/part-up/commit/a759a87))
+* **partup:** fixed exception about privacy labels ([3028e18](https://github.com/part-up/part-up/commit/3028e18))
+* **profile:** Disable XSS posibility on name field ([b64e36d](https://github.com/part-up/part-up/commit/b64e36d))
+* **profile:** fixed profile description expand button ([355f2fe](https://github.com/part-up/part-up/commit/355f2fe))
+* **uploader:** Change container position for newmessage ([6c2cc8b](https://github.com/part-up/part-up/commit/6c2cc8b))
+* **uploader:** Change uploader to use ID for trigger button ([efea0db](https://github.com/part-up/part-up/commit/efea0db))
+* **uploader:** Try fix for iOS ([a944c98](https://github.com/part-up/part-up/commit/a944c98))
+* **uploader:** Upload container is now inline-block ([368ed53](https://github.com/part-up/part-up/commit/368ed53))
+* **user-sort:** fixed the user sorting on tribe member page to reduce the websocket load by 90% ([eaf555e](https://github.com/part-up/part-up/commit/eaf555e))
+
+
+### Features
+
+* **1-on-1-chats:** active chat is on top of the chats list, also the list scrolls to the top after activating ([eecef88](https://github.com/part-up/part-up/commit/eecef88))
+* **profile:** throw 404 on deactivated profiles ([2569360](https://github.com/part-up/part-up/commit/2569360))
+* **seo:** hide deactivated profiles from SEO ([f9d1d85](https://github.com/part-up/part-up/commit/f9d1d85))
+* **upload:** Enable uploading from mobile devices ([880b79e](https://github.com/part-up/part-up/commit/880b79e))
+
+
+
 <a name="2.28.1"></a>
 ## [2.28.1](https://github.com/part-up/part-up/compare/2.28.0...2.28.1) (2017-08-03)
 
