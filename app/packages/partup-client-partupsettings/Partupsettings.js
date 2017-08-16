@@ -92,6 +92,47 @@ Template.Partupsettings.onCreated(function() {
         }
     });
 
+    template.pluploadSettings = {
+        buttons: {
+            browse: 'uploader_button'
+        },
+        dynamic_url: true,
+        config: {
+            multi_selection: false,
+        },
+        types: [
+            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.map(ext => ext.replace(/\./g, '')).join(',') }
+        ],
+        hooks: {
+            FilesAdded(uploader, files) {
+                template.loading.set('image-uploading', true);
+                uploader.start();
+            },
+            FileUploaded(uploader, file, result) {
+                if (!result) return;
+                const response = JSON.parse(result.response);
+
+                if (response.error) {
+                    template.loading.set('image-uploading', false);
+                    return Partup.client.notify.error(response.error);
+                }
+                if (!response.image) {
+                    template.loading.set('image-uploading', false);
+                    return Partup.client.notify.info('Something went wrong with uploading the image');
+                }
+                template.subscribe('images.one', response.image, {
+                    onReady() {
+                        template.loading.set('image-uploading', false);
+                        template.imageSystem.currentImageId.set(response.image);
+                        template.imageSystem.uploaded.set(true);
+                        var focuspoint = template.imageSystem.focuspoint.get();
+                        if (focuspoint) focuspoint.reset();
+                    }
+                });
+            }
+        }
+    };
+
 });
 
 Template.autoForm.onRendered(function() {
@@ -166,46 +207,7 @@ Template.Partupsettings.onRendered(function() {
         }
     }
 
-    this.pluploadSettings = {
-        buttons: {
-            browse: 'uploader_button'
-        },
-        dynamic_url: true,
-        config: {
-            multi_selection: false,
-        },
-        types: [
-            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.map(ext => ext.replace(/\./g, '')).join(',') }
-        ],
-        hooks: {
-            FilesAdded(uploader, files) {
-                template.loading.set('image-uploading', true);
-                uploader.start();
-            },
-            FileUploaded(uploader, file, result) {
-                if (!result) return;
-                const response = JSON.parse(result.response);
-
-                if (response.error) {
-                    template.loading.set('image-uploading', false);
-                    return Partup.client.notify.error(response.error);
-                }
-                if (!response.image) {
-                    template.loading.set('image-uploading', false);
-                    return Partup.client.notify.info('Something went wrong with uploading the image');
-                }
-                template.subscribe('images.one', response.image, {
-                    onReady() {
-                        template.loading.set('image-uploading', false);
-                        template.imageSystem.currentImageId.set(response.image);
-                        template.imageSystem.uploaded.set(true);
-                        var focuspoint = template.imageSystem.focuspoint.get();
-                        if (focuspoint) focuspoint.reset();
-                    }
-                });
-            }
-        }
-    }
+    
 });
 
 Template.Partupsettings.helpers({

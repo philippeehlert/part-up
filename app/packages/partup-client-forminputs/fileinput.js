@@ -3,8 +3,6 @@ Template.FileInput.onRendered(function () {
     const settings = this.data.inputSettings
     const pluploadSettings = this.data.pluploadSettings;
 
-    // For some reason, this template get's rendered twice on the PartupSettings modal
-    // to prevent the pluploader from initializing twice the settings will only get passed when the Partupsettings template is rendered.
     if (pluploadSettings) {
         pluploadSettings.config.browse_button = 'uploader_button';
         pluploadSettings.config.container = 'uploadwrapper';
