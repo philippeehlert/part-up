@@ -1,3 +1,19 @@
+<a name="2.29.1"></a>
+## [2.29.1](https://github.com/part-up/part-up/compare/2.29.0...2.29.1) (2017-08-15)
+
+
+### Bug Fixes
+
+* **upload:** Remove display block on browse links ([1f090b5](https://github.com/part-up/part-up/commit/1f090b5))
+* **uploader:** Add fallback to old button with data attribute ([8062d57](https://github.com/part-up/part-up/commit/8062d57))
+* **uploader:** Cancel pointer events on spans inside the uploader button ([33c1b89](https://github.com/part-up/part-up/commit/33c1b89))
+* **uploader:** Change touch-action to manipulation ([f917c66](https://github.com/part-up/part-up/commit/f917c66))
+* **uploader:** Disable browser zooming and set touch-action to none on browse buttons ([a05db10](https://github.com/part-up/part-up/commit/a05db10))
+* **uploader:** Remove default extensions ([4115b80](https://github.com/part-up/part-up/commit/4115b80))
+* **uploader:** trigger jenkins ([1febf28](https://github.com/part-up/part-up/commit/1febf28))
+
+
+
 <a name="2.29.0"></a>
 # [2.29.0](https://github.com/part-up/part-up/compare/2.28.1...2.29.0) (2017-08-12)
 
