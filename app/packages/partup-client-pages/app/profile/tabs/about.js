@@ -62,6 +62,7 @@ Template.app_profile_about.helpers({
     data: function() {
         var template = Template.instance();
         var profileId = this.profileId;
+
         return {
             columnTilesLayout: function() {
                 return template.columnTilesLayout;
@@ -77,7 +78,19 @@ Template.app_profile_about.helpers({
                 return template.loading.get();
             }
         };
-    }
+    },
+    translations: function() {
+        var profileId = this.profileId;
+        var user = Meteor.users.findOne(profileId);
+
+        return {
+            firstname: function() {
+                return TAPi18n.__('pages-app-profile-about-name', {
+                    name: User(user).getFirstname(),
+                });
+            },
+        };
+    },
 });
 
 Template.app_profile_about.events({
