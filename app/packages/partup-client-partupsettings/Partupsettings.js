@@ -140,11 +140,6 @@ Template.Partupsettings.onRendered(function() {
             template.preselectedNetwork.set(currentPartupNetworkId);
         }
     }
-<<<<<<< b3801b87d0923b0242f2b84df72a44ddf2c24927
-
-    
-=======
->>>>>>> feat(file-upload): Refactor file upload for partupsettings
 });
 
 Template.Partupsettings.helpers({
