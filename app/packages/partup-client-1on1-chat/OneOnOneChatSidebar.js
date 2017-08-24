@@ -87,7 +87,7 @@ Template.OneOnOneChatSidebar.helpers({
             }
         };
     },
-    formatted: function(content) {
+    format: function(content) {
         return new Partup.client.message(content)
             .sanitize()
             .parseMentions({link: false})

@@ -40,7 +40,10 @@
                                 <article>
                                     <p>{{ static.chatter.profile.name }} {{#if unreadCount}}({{unreadCount}}){{/if}} <time>{{#if latestMessage}}{{ partupDateCustom latestMessage.created_at 'D MMM - HH:mm' }}{{/if}}</time></p>
                                     {{#if latestMessage }}
-                                        <span><span>{{{ formatted latestMessage.content }}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
+                                        <span>
+                                            <span>
+                                                {{> dangerouslyRenderHTML HTML=latestMessage.content transform=format }}
+                                            </span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
                                     {{else}}
                                         <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
                                     {{/if}}
@@ -62,7 +65,10 @@
                                 <article>
                                     <p>{{ static.chatter.profile.name }} {{#if unreadCount}}({{unreadCount}}){{/if}} <time>{{#if latestMessage}}{{ partupDateCustom latestMessage.created_at 'D MMM - HH:mm' }}{{/if}}</time></p>
                                     {{#if latestMessage }}
-                                        <span><span>{{{ formatted latestMessage.content }}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
+                                        <span>
+                                        <span>
+                                            {{> dangerouslyRenderHTML HTML=latestMessage.content transform=format }}
+                                        </span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
                                     {{else}}
                                         <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span> {{#unless state.started_typing upper._id _id}}{{/unless}}</span>
                                     {{/if}}
