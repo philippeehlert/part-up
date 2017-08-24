@@ -60,7 +60,7 @@
             z-index: 1;
             position:relative;
             display:inline-block;
-            touch-action: none;
+            touch-action: manipulation;
             @include user-select(none);
 
             &:hover, &:active, &:visited, &:link {
