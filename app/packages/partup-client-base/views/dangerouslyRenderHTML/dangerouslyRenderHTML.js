@@ -8,15 +8,20 @@ const allowedHTMLTags = [
     'svg',
 ];
 
+Template.dangerouslyRenderHTML.onCreated(function() {
+    const {transform = (html) => html} = this.data;
+    this.transform = transform;
+});
+
 /**
  * sanitizes and sets html dangerously
  *
- * {{> dangerouslyRenderHTML HTML=htmlString transform=transformHelper }}
+ * {{> dangerouslyRenderHTML HTML=htmlString transform=transformFunction }}
  */
 Template.dangerouslyRenderHTML.helpers({
     render: function() {
         const template = Template.instance();
-        const transform = template.data.transform ? template.data.transform : (html) => html;
+        const transform = template.transform;
         const transformed = transform(template.data.HTML);
 
         return sanitizeHTML(transformed, {

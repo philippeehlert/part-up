@@ -87,12 +87,14 @@ Template.OneOnOneChatSidebar.helpers({
             }
         };
     },
-    format: function(content) {
-        return new Partup.client.message(content)
-            .sanitize()
-            .parseMentions({link: false})
-            .emojify()
-            .getContent();
+    format: function() {
+        return function(content) {
+            return new Partup.client.message(content)
+                .sanitize()
+                .parseMentions({link: false})
+                .emojify()
+                .getContent();
+        };
     },
     getImage: function(imageObj) {
         return Partup.helpers.url.getImageUrl(imageObj, '80x80');
