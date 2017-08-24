@@ -36,7 +36,6 @@ class _Pluploader {
             uploader._registerDynamicUrl();
         }
 
-        // uploader.init();
         return uploader;
     }
 
