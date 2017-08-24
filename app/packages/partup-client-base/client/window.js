@@ -44,5 +44,16 @@ Partup.client.window = {
             document.body.scrollTop = scrollV;
             document.body.scrollLeft = scrollH;
         }
+    },
+
+    /**
+     * Get the absolute location from the browser.
+     * 
+     * @returns the exact location of the browser.
+     */
+    get location() {
+        return window.location.origin ? 
+            window.location.origin : 
+            window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     }
 };

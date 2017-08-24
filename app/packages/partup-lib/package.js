@@ -104,7 +104,8 @@ Package.onUse(function(api) {
         'helpers/fileUploader.js',
         'helpers/dropboxRenderer.js',
         'helpers/googleDriveRenderer.js',
-        'helpers/typeExtensions.js'
+        'helpers/typeExtensions.js',
+        'helpers/files/files.js',
     ]);
 
     api.addFiles([

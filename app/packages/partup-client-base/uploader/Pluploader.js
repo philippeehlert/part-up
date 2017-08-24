@@ -1,12 +1,14 @@
-// import plupload from './plupload/plupload.min.js';
-
 import _ from 'lodash';
 
+/**
+ * The partup file uploader.
+ * 
+ * @class _Pluploader
+ */
 class _Pluploader {
     constructor(options) {
-
-        const config = {
-            browse_button: 'browse_button',
+        // Setting the plupload configuration
+        const config = _.extend({
             url: '/',
             flash_swf_url: './runtimes/Moxie.swf',
             silverlight_xap_url: './runtimes/Moxie.xap',
@@ -16,49 +18,78 @@ class _Pluploader {
             },
             init: {
                 Error(uploader, error) {
-                    Partup.client.notify.error(error.message);
+                    Partup.client.notify.error(TAPi18n.__(`partup-files-error-${error.code}`));
                 }
-            }
-        }
+            },
+        }, options.config);
 
-        // Setting the plupload configuration
-        _.extend(config, options.config);
-        this.setFileFilters(options.types, config);
+        // extend the new pluploader with this class,
+        // or write a class API that encapsulates the pluploader and assign uploader to this.uploader;
+        const uploader = _.merge(
+            new plupload.Uploader(config), 
+            this
+        );
 
-        // extend the new pluploader with this class.
-        const uploader = _.merge(new plupload.Uploader(config), this);
-
+        uploader.setMimeFilters(options.types);
+        uploader._registerHooks(options.hooks);
         if (options.dynamic_url) {
-            uploader.bind('BeforeUpload', function (uploader, file) {
-                let location = window.location.origin ? window.location.origin : window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-                let filetype = file.type.substr(0, file.type.indexOf('/'));
-                let token = Accounts._storedLoginToken();
-
-                let url = `${location}/${filetype}s/upload?token=${token}`;
-                uploader.setOption('url', url);
-            });
+            uploader._registerDynamicUrl();
         }
 
-        _.each(Object.keys(options.hooks), key => uploader.bind(key, options.hooks[key]));
-
-        uploader.init();
+        // uploader.init();
         return uploader;
     }
 
-    setFileFilters(types, config) {
+    clearQueue() {
+        // .pop() removes the memory allocation of the item
+        while (this.files.length > 0) { 
+            this.files.pop();
+        }
+    }
+    setMimeFilters(types) {
         if (!types || types.length < 1) {
             return;
         }
-        config.filters.mime_types = [];
-        const filters = _.reduce(types, (result, type) => {
-            result.push({
-                title: type.name,
-                extensions: type.extensions,
-            });
-            return result;
-        }, []);
+        const filters = this.getOption('filters');
+        filters.mime_types = _.map(types, type => ({ title: type.name, extensions: type.extensions }));
+        this.setOption('filters', filters);
+    }
+    addMimeFilter(type) {
+        if (!type) {
+            return;
+        }
+        const filters = this.getOption('filters');
+        filters.mime_types.push({ title: type.name, extensions: type.extensions });
+        this.setOption('filters', filters);
+    }
+    removeMimeFilter(name) {
+        if (!name) {
+            return;
+        }
+        const filters = this.getOption('filters');
+        _.remove(filters.mime_types, {
+            title: name,
+        });
+        this.setOption('filters', filters);
+    }
+    setMaxFileSize(size) {
+        if (!typeof size === String || !typeof size === typeof Number) {
+            return;
+        }
+        const filters = this.getOption('filters');
+        filters.max_file_size = size;
+        this.setOption('filters', filters);
+    }
 
-        _.each(filters, filter => config.filters.mime_types.push(filter));
+    _registerDynamicUrl() {
+        this.bind('BeforeUpload', (uploader, file) => {
+            let filetype = file.type.substr(0, file.type.indexOf('/'));
+            uploader.setOption('url', `${Partup.client.window.location}/${filetype}s/upload?token=${Accounts._storedLoginToken()}`);
+        });
+    }
+
+    _registerHooks(hooks) {
+        _.each(Object.keys(hooks), key => this.bind(key, hooks[key]));
     }
 }
 
