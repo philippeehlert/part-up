@@ -18,7 +18,8 @@ class _Pluploader {
             },
             init: {
                 Error(uploader, error) {
-                    Partup.client.notify.error(TAPi18n.__(`partup-files-error-${error.code}`));
+                    Partup.client.notify.error(error.message);
+                    // TAPi18n.__(`partup-files-error-${error.code}`)
                 }
             },
         }, options.config);
