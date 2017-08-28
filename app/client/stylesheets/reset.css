@@ -65,3 +65,7 @@ textarea:focus, input:focus {
     -moz-transition: none;
     -webkit-transition: none;
 }
+
+.bootstrap-tagsinput > input {
+    width: 100% !important;
+}
