@@ -164,5 +164,7 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use(['ecmascript', 'underscore', 'tinytest', 'practicalmeteor:chai']);
 
-  api.addFiles('helpers/fileUploader.tests.js', 'client');
+//   api.addFiles('helpers/fileUploader.tests.js', 'client');
+  api.addFiles('helpers/files/files.test.js', 'client');
+
 });

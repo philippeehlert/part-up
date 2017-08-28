@@ -44,21 +44,32 @@ Partup.helpers.files = {
     /**
      * Get the extension of a file based on the name or mime
      * 
-     * @param {File} file 
+     * @param {String} fileName 
      * @returns {String}
      */
     getExtension(file) {
+        if (!file) {
+            throw new Meteor.Error(0, 'file is undefined');
+        }
+        
         const { name, type } = file;
-        let typeExt;
-        let nameExt;
 
-        if (type) {
-            typeExt = _.toLower(type.substr((type.indexOf('/') + 1), type.length));
+        let ext;
+        if (name && name.lastIndexOf('.') !== -1) {
+            ext = _.toLower(name.substr((name.lastIndexOf('.') + 1), name.length));
         }
-        if (name) {
-            nameExt = _.toLower(name.substr((name.lastIndexOf('.') + 1), name.length));
+
+        const info = ext ?
+            this.info[ext] :
+            this.info[_.toLower(type)];
+
+        if (!info) {    
+            throw new Meteor.Error(0, 'invalid name and type');
+        } else if (!info instanceof FileInfo) {
+            return undefined;
         }
-        return typeExt || nameExt;
+        
+        return info.extension;
     },
 
     /**
@@ -68,7 +79,20 @@ Partup.helpers.files = {
      * @returns {Boolean}
      */
     isImage(file) {
-        return _.includes(this.extensions['image'], this.getExtension(file)) ? true : false;
+        if (!file) {
+            throw new Meteor.Error(0, 'file is undefined');
+        }
+
+        if (_.includes(this.extensions['image'], this.getExtension(file))) {
+            return true;
+        }
+
+        let info = this.info[file.type];
+        if (info[0]) {
+            info = info[0];
+        }
+
+        return (info && info.category === this.categories.image) ? true : false;
     },
 
     /**
@@ -78,9 +102,18 @@ Partup.helpers.files = {
      * @returns {String} 'file.svg'
      */
     getSvgIcon(file) {
+        if (!file) {
+            throw new Meteor.Error(0, 'file is undefined');
+        }
         const ext = this.getExtension(file);
-        const { icon } = this.info[ext];
-        return icon;
+
+        return ext ?
+            this.info[ext] ?
+                this.info[ext].icon ?
+                    this.info[ext].icon :
+                undefined :
+            undefined :
+        undefined;
     },
 
     /**
@@ -93,14 +126,13 @@ Partup.helpers.files = {
      */
     toUploadFilter(category, extensions = undefined) {
         return {
-            name: category,
+            title: category,
             extensions: extensions || this.extensions[category].join(','),
         };
     },
 };
 
-
-// Create properties based on the _fileMap.
+// Create properties based on _fileMap.
 _.each(_filemap, ({ category, icon, data }) => {
     const typeExts = [];
 
@@ -109,12 +141,19 @@ _.each(_filemap, ({ category, icon, data }) => {
 
         typeExts.push(extension);
 
-        Partup.helpers.files.info[extension] = new FileInfo(
+        const info = new FileInfo(
             category,
             extension,
             mime,
             signatures,
-            (fileInfo.icon || icon));
+            (fileInfo.icon || icon)
+        );
+
+        Partup.helpers.files.info[extension] = info;
+
+        Partup.helpers.files.info[mime] ?
+            Partup.helpers.files.info[mime] = _.concat(Partup.helpers.files.info[mime], [info]) :
+            Partup.helpers.files.info[mime] = info;
 
         _.each(signatures, ({ bytes }) => {
             
@@ -136,7 +175,6 @@ _.each(_filemap, ({ category, icon, data }) => {
 Partup.helpers.files.extensions.all = _.reduce(Object.keys(Partup.helpers.files.extensions), (result, key) => {
     return _.concat(result, Partup.helpers.files.extensions[key])
 }, []);
-
 
 // Freeze the props to prevent any modification, e.g. file.extensions[x] = y
 Object.freeze(Partup.helpers.files.categories);

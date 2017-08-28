@@ -128,87 +128,87 @@ export default _filemap = [
             },
         ],
     },
-    {
-        // TODO
-        category: 'audio',
-        data: [
-            {
-                extension: 'aac',
-                mime: 'audio/aac',
-                signatures: [
-                    {
-                        bytes: 'FFF1',
-                        size: 2,
-                        offset: 0,
-                    },
-                    {
-                        bytes: 'FFF9',
-                        size: 2,
-                        offset: 0,
-                    }
-                ]
-            },
-            {
-                extension: 'oga',
-                mime: 'audio/ogg',
-                signatures: [
-                    {
-                        bytes: '4F67675300020000000000000000',
-                        size: 14,
-                        offset: 0,
-                    },
-                ]
-            },
-            {
-                extension: 'ogg',
-                mime: 'audio/ogg',
-                signatures: [
-                    {
-                        bytes: '4F67675300020000000000000000',
-                        size: 14,
-                        offset: 0,
-                    },
-                ]
-            },
-            {
-                extension: 'wav',
-                mime: 'audio/x-wav',
-                signatures: [
-                    {
-                        bytes: '52494646',
-                        size: 4,
-                        offset: 0,
-                    },
-                ]
-            },
-            {
-                extension: 'weba',
-                mime: 'audio/webm',
-                signatures: [
-                    {
-                        bytes: '1A45DFA3',
-                        size: 4,
-                        offset: 0,
-                    }
-                ]
-            },
-            {
-                extension: 'aif',
-                mime: 'audio/aiff',
-            },
-            {
-                extension: 'aiff',
-                mime: 'audio/aiff',
-                signatures: [
-                    {
-                        bytes: '464F524D00',
-                        size: 4,
-                        offset: 0,
-                    }
-                ]
-            },
-        ]
-    },
+    // {
+    //     // TODO
+    //     category: 'audio',
+    //     data: [
+    //         {
+    //             extension: 'aac',
+    //             mime: 'audio/aac',
+    //             signatures: [
+    //                 {
+    //                     bytes: 'FFF1',
+    //                     size: 2,
+    //                     offset: 0,
+    //                 },
+    //                 {
+    //                     bytes: 'FFF9',
+    //                     size: 2,
+    //                     offset: 0,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             extension: 'oga',
+    //             mime: 'audio/ogg',
+    //             signatures: [
+    //                 {
+    //                     bytes: '4F67675300020000000000000000',
+    //                     size: 14,
+    //                     offset: 0,
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             extension: 'ogg',
+    //             mime: 'audio/ogg',
+    //             signatures: [
+    //                 {
+    //                     bytes: '4F67675300020000000000000000',
+    //                     size: 14,
+    //                     offset: 0,
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             extension: 'wav',
+    //             mime: 'audio/x-wav',
+    //             signatures: [
+    //                 {
+    //                     bytes: '52494646',
+    //                     size: 4,
+    //                     offset: 0,
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             extension: 'weba',
+    //             mime: 'audio/webm',
+    //             signatures: [
+    //                 {
+    //                     bytes: '1A45DFA3',
+    //                     size: 4,
+    //                     offset: 0,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             extension: 'aif',
+    //             mime: 'audio/aiff',
+    //         },
+    //         {
+    //             extension: 'aiff',
+    //             mime: 'audio/aiff',
+    //             signatures: [
+    //                 {
+    //                     bytes: '464F524D00',
+    //                     size: 4,
+    //                     offset: 0,
+    //                 }
+    //             ]
+    //         },
+    //     ]
+    // },
     // {
     //     // TODO
     //     category: 'video',
