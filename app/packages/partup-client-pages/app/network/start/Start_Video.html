@@ -7,7 +7,7 @@
             <div class="pu-tribestart-block pu-tribestart-textblock">
                 <h2 class="pu-tribestart-subtitle pu-tribestart-textblock__title"><span>{{data.why_title}}</span></h2>
                 <div class="pu-contentblock pu-tribestart-intro__content pu-tribestart-contentblock">
-                    {{{data.why_body}}}
+                    {{> dangerouslyRenderHTML HTML=data.why_body }}
                 </div>
                 {{> Start_JoinButton }}
             </div>

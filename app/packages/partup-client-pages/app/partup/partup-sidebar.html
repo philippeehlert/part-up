@@ -49,7 +49,7 @@
                     </li>
                 {{/if}}
             </ul>
-            <p class="pu-sub-abstract">{{#with partupSanitize partup.description }}{{{ partupAutolink . }}}{{/with}}</p>
+            <p class="pu-sub-abstract">{{#with partupSanitize partup.description }}{{> dangerouslyRenderHTML HTML=. transform=partupAutolink }}{{/with}}</p>
             <ul class="pu-list pu-partup-meta">
                 <li><i class="picon-calendar-check"></i> {{_ 'pages-app-partup-active-untill-info'}} {{statusText.activeTill}}</li>
                 <li><i class="picon-location"></i> {{statusText.location}}</li>

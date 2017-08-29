@@ -3,7 +3,7 @@
         <div class="pu-tribestart-wrap pu-tribestart-about__container">
             <h2 class="pu-tribestart-subtitle pu-tribestart-about__title"><span>{{data.about_title}}</span></h2>
             <div class="pu-contentblock pu-tribestart-about__content pu-tribestart-contentblock">
-                {{{data.about_body}}}
+                {{> dangerouslyRenderHTML HTML=data.about_body }}
                 <a class="pu-link pu-tribestart-about__readmore" href="{{ pathFor route='network-about' slug=data.slug }}">{{_ 'pages-app-network-landing-about-link-readmore'}}</a>
             </div>
             {{#with data.links}}{{#unless isEmpty}}

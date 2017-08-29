@@ -55,7 +55,7 @@
                 {{# with update.data.type_data }}
                     <section>
                         <article class="pu-block pu-block-message">
-                            <p class="pu-paragraph">{{{ update.systemMessageContent }}}</p>
+                            <p class="pu-paragraph">{{> dangerouslyRenderHTML HTML=update.systemMessageContent }}</p>
                         </article>
                     </section>
                 {{/ with}}

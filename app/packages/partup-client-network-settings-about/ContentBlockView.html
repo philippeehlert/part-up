@@ -8,7 +8,7 @@
             {{/if}}
         </h3>
         {{#if data.block.text}}
-            {{{ data.block.text }}}
+            {{> dangerouslyRenderHTML HTML=data.block.text }}
         {{else}}
             <p>{{_ 'network-settings-about-contentblock-placeholder-intro' }}</p>
         {{/if}}

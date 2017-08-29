@@ -12,7 +12,7 @@
                 <p>{{ chatData.network.name }} {{#if chatData.unreadCount}}({{chatData.unreadCount}}){{/if}} <time>{{ partupDateCustom chatData.latestMessage.created_at 'D MMM HH:mm' }}</time></p>
                 <span>
                     {{#if chatData.latestMessage }}
-                        <span>{{{ formatted chatData.latestMessage.content }}}</span>
+                        <span>{{> dangerouslyRenderHTML HTML=chatData.latestMessage.content transform=format }}</span>
                     {{else}}
                         <span>&nbsp;</span>
                     {{/if}}

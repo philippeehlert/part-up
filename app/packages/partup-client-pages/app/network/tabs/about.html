@@ -17,7 +17,7 @@
                                         <h1>{{_ 'pages-app-network-tab-about-placeholder-intro-title-placeholder' tribe=data.network.name}}</h1>
                                     {{/if}}
                                     <!-- {{#with data.introBlock.text}} -->
-                                        {{{ data.introBlock.text }}}
+                                        {{> dangerouslyRenderHTML HTML=data.introBlock.text }}
                                    <!--  {{ else }}
                                         {{ data.network.description }}
                                     {{/with}} -->
@@ -86,7 +86,7 @@
                             {{#each data.contentBlocks}}
                                 <article class="pu-article pu-sub-section pu-contentblock">
                                     <h2>{{ title }}</h2>
-                                    {{{ text }}}
+                                    {{> dangerouslyRenderHTML HTML=text }}
                                 </article>
                                 {{#with image}}
                                     <img src="{{ partupImageUrl id=. store='1200x520' }}" alt="" class="pu-image pu-image-content pu-sub-section pu-sub-section-smaller">

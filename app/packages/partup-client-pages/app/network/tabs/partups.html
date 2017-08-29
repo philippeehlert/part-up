@@ -7,13 +7,13 @@
                         <div class="cell stretch">
                             <h2 class="pu-title">
                                 {{# if state.countLoading }}
-                                    {{{ translations.partupsLoading state.selectedFilter }}}
+                                    {{> dangerouslyRenderHTML HTML=state.selectedFilter transform=translations.partupsLoading }}
                                     {{> Spinner type='small' }}
                                 {{ else }}
                                     {{#if data.partupCount}}
-                                        {{{ translations.partupsCount state.selectedFilter data.partupCount}}}
+                                        {{> dangerouslyRenderHTML HTML=(translations.partupsCount state.selectedFilter data.partupCount) }}
                                     {{else}}
-                                        {{{ translations.partupsNone state.selectedFilter }}}
+                                        {{> dangerouslyRenderHTML HTML=state.selectedFilter transform=translations.partupsNone }}
                                     {{/if}}
                                 {{/if}}
                             </h2>

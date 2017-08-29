@@ -32,7 +32,7 @@
                 </div>
             </header>
             <article>
-                <p class="pu-highlighttext">{{{ data.highlightText }}}</p>
+                <p class="pu-highlighttext">{{> dangerouslyRenderHTML HTML=data.highlightText }}</p>
             </article>
             <article>
                 <ul class="pu-list pu-list-horizontal pu-list-tags {{#if data.searchQuery}}pu-highlighttags{{/if}}">
