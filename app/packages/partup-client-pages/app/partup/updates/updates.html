@@ -19,7 +19,11 @@
             <div class="cell stretch">
                     <a class="pu-button pu-button-icon" href="#" data-newmessage-popup>
                         <i class="picon-message"></i>
-                        {{_ 'pages-app-partup-updates-new_message' }}
+                        {{#if routeIsDocuments}}
+                        {{_ 'pages-app-partup-updates-new_message_document' }}
+                        {{else}}
+                            {{_ 'pages-app-partup-updates-new_message' }}
+                        {{/if }}
                     </a>
             </div>
         {{/if}}
