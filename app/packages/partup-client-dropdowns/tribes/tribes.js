@@ -43,12 +43,6 @@ Template.DropdownTribes.onCreated(function () {
 	template.dropdownOpen = new ReactiveVar(false, function (oldValue, newValue) {
 		// Prevents running the code the first time this get's set and the dropdown has not been opened yet
         if (!newValue) return;
-        
-		// if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
-
-		// Manages the partups and networks;
-		// MenuStateManager.updatePartups(template, Meteor.user());
-
 		MenuStateManager.update(template);
 	});
 

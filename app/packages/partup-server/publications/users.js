@@ -61,6 +61,8 @@ Meteor.routeComposite('/users/:id/menu', function (request, params) {
 	}
 });
 
+
+// OBSOLETE
 // Used to load individual part-ups by id's
 Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 
@@ -98,6 +100,7 @@ Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 	};
 });
 
+// OBSOLETE
 // Used to load individual networks by id's
 Meteor.routeComposite('/users/me/menu/networks', function (request, params) {
 
