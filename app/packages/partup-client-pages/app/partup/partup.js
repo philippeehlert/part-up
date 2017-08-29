@@ -28,11 +28,15 @@ Template.app_partup.onCreated(function () {
                 undefined;
     }
 
-    template.sidebarExpanded = new ReactiveVar(undefined, (oldVal, newVal) => {
-        setClass(newVal, $('.pu-partuplayout-navigation'), 'pu-partuplayout-navigation-behind');
-        setClass(newVal, $('.pu-partuplayout-sidebar'), 'pu-partuplayout-sidebar-expanded');
-        setClass(newVal, $('.pu-partuplayout-content'), 'pu-partuplayout-content-reduced');
-        setClass(newVal, $('#sidebar-chevron'), 'chevron-rotated');
+    const sidebarCookie = Cookies.get('partup_sidebar_expanded');
+    const sidebarState = 
+        sidebarCookie !== undefined
+            ? sidebarCookie.toBool()
+            : Partup.client.isMobile.isTabletOrMobile()
+                ? false
+                : true;
+
+    template.sidebarExpanded = new ReactiveVar(sidebarState, (oldVal, newVal) => {
         Cookies.set('partup_sidebar_expanded', newVal, { expires: Infinity });
     });
 
@@ -70,27 +74,6 @@ Template.app_partup.onCreated(function () {
                 template.loading.board.set(false);
             },
         });
-    });
-});
-
-Template.app_partup.onRendered(function () {
-    const template = this;
-
-    template.autorun((computation) => {
-        const sidebarCookie = Cookies.get('partup_sidebar_expanded');
-        const sidebarState = 
-            sidebarCookie !== undefined
-                ? sidebarCookie.toBool()
-                : Partup.client.isMobile.isTabletOrMobile()
-                    ? false
-                    : true;
-        
-        if (sidebarState) {
-            $('#sidebar-chevron').addClass('chevron-rotated');
-        }
-        
-        template.sidebarExpanded.set(sidebarState);
-        computation.stop();
     });
 });
 
