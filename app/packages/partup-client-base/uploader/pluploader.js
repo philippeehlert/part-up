@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import './plupload/plupload.min';
 
 /**
  * The partup file uploader.
@@ -10,8 +11,8 @@ class _Pluploader {
         // Setting the plupload configuration
         const config = _.extend({
             url: '/',
-            flash_swf_url: './runtimes/Moxie.swf',
-            silverlight_xap_url: './runtimes/Moxie.xap',
+            flash_swf_url: './plupload/runtimes/Moxie.swf',
+            silverlight_xap_url: './plupload/runtimes/Moxie.xap',
             filters: {
                 max_file_size: '10mb',
                 prevent_duplicates: true,
@@ -25,11 +26,8 @@ class _Pluploader {
         }, options.config);
 
         // extend the new pluploader with this class,
-        // or write a class API that encapsulates the pluploader and assign uploader to this.uploader;
-        const uploader = _.merge(
-            new plupload.Uploader(config), 
-            this
-        );
+        // doing it the other way around will cause every __proto__ prop to be set on the class instead of proto.
+        const uploader = _.merge(new plupload.Uploader(config), this);
 
         uploader.setMimeFilters(options.types);
         uploader._registerHooks(options.hooks);

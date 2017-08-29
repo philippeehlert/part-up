@@ -19,17 +19,16 @@ Template.ImageSystem.onCreated(function() {
 
     // Tell the view when to show the loading indicator
     this.loading = new ReactiveVar();
-
-    // Focuspoint handler
-    this.focuspoint = this.data.focuspoint || new ReactiveDict();
-    this.focuspoint.set('x', 0.5);
-    this.focuspoint.set('y', 0.5);
-
+    
     // This get's passed to the 'focuspoint' template via a helper to give it control over the focuspoint
     this.setFocuspoint = (x = 0.5, y = 0.5) => {
         this.focuspoint.set('x', x);
         this.focuspoint.set('y', y);
     }
+
+    // Focuspoint handler
+    this.focuspoint = this.data.focuspoint || new ReactiveDict();
+    this.setFocuspoint();
 
     this.draggingFocuspoint = new ReactiveVar(false);
 
@@ -136,16 +135,6 @@ Template.ImageSystem.onRendered(function() {
                 event.stopPropagation();
             });
         });
-
-        // Prevent default behavior for the cover button on tablet or mobile so the input get's activated right away
-        // iOS / Chrome does not activate the uploader when pressing the browse button
-        // Setting pointer events to none input created by pluploader get's pressed instead
-        if (Partup.client.isMobile.iOS()) {
-            $(browseButton).css({
-                'pointer-events': 'none'
-            });
-        }
-
     }());
 });
 
