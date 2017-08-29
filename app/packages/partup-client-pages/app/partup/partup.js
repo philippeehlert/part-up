@@ -1,14 +1,18 @@
 Template.app_partup.onCreated(function () {
     var template = this;
+    var partup_sub;
 
     template.network = new ReactiveVar(undefined);
     template.partup = new ReactiveVar(undefined, (oldVal, newVal) => {
-        template.loading.partup.set(false);
-
-        template.network.set(
-            newVal ?
-                Networks.findOne(newVal.network_id) :
-                undefined);
+        template.network.set(newVal ? Networks.findOne(newVal.network_id) : undefined);
+        if (newVal) {
+            // this throws an error on chrome about a subscription
+            // It's very important to keep this in order for the updates to keep working
+            if (typeof newVal._id === 'string') {
+                Partup.client.updates.firstUnseenUpdate(newVal._id).set();
+            }
+        }
+        template.loading.partup.set(false);  
     });
 
     template.loading = {
@@ -40,18 +44,19 @@ Template.app_partup.onCreated(function () {
         const partupId = Template.currentData().partupId;
         const accessToken = Session.get('partup_access_token');
 
-        Meteor.subscribe('partups.one', partupId, accessToken, {
-            onReady: function () {
+        partup_sub = Meteor.subscribe('partups.one', partupId, accessToken, {
+            onReady: function() {
                 const partup = Partups.findOne(partupId);
-
+                
                 if (!partup) {
                     return Router.pageNotFound('partup');
                 }
                 if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
                     return Router.pageNotFound('partup-closed');
                 }
-
+    
                 template.partup.set(partup);
+                
             },
         });
 
@@ -60,7 +65,8 @@ Template.app_partup.onCreated(function () {
                 template.loading.activities.set(false);
             },
         });
-        template.subscribe('updates.from_partup', partupId, accessToken, {
+
+        template.subscribe('updates.from_partup', partupId, {}, accessToken, {
             onReady: function () {
                 template.loading.updates.set(false);
             },
