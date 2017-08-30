@@ -269,11 +269,14 @@ Template.app_partup_updates.helpers({
     },
     showNewMessageButton: function () {
         let filter = Template.instance().data.defaultFilter 
-        let filtertypes = ['messages', 'conversations']
+        let filtertypes = ['messages', 'conversations', 'documents-links']
 
         return filtertypes.find((type) => {
             return type === filter
         }) || !filter
+    },
+    routeIsDocuments() {
+        return Template.instance().data.defaultFilter === 'documents-links';
     },
     // New updates separator
     showNewUpdatesSeparator: function() {

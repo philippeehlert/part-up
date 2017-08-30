@@ -1262,6 +1262,7 @@
   "pages-app-partup-updates-newmessage-submit": "Post message",
   "pages-app-partup-updates-newmessage-title": "Post a new message",
   "pages-app-partup-updates-new_message": "New message",
+  "pages-app-partup-updates-new_message_document": "Add document (via message)",
   "pages-app-partup-updates-new_updates_separator": "New updates",
   "pages-app-partup-updates-no_updates": "No updates found. You may want to try to alter the filter.",
   "pages-app-partup-updates-revealupdates": "View 1 new update",
