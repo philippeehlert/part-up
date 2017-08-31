@@ -3,8 +3,8 @@
         <section class="pu-partuplayout-navigation {{#if sidebarExpanded}}pu-partuplayout-navigation-behind{{/if }}">
             {{> app_partup_navigation network=network partup=partup sidebarExpanded=sidebarExpanded }}
         </section>
-        <section class="pu-partuplayout-content {{#if sidebarExpanded}}pu-partuplayout-content-reduced{{/if }}" data-infinitescroll-container>
-            <div class="{{#if scrollHorizontal}}content-horizontal{{else}}content-vertical{{/if}}">
+        <section class="pu-partuplayout-content {{#if sidebarExpanded}}pu-partuplayout-content-reduced{{/if }}">
+            <div class="{{#if scrollHorizontal}}content-horizontal{{else}}content-vertical{{/if}}" data-infinitescroll-container>
                 {{#if partupLoaded }}
                     {{> yield region='app_partup' }}
                 {{ else }}
