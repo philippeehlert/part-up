@@ -12,7 +12,7 @@ Template.app_partup.onCreated(function () {
                 Partup.client.updates.firstUnseenUpdate(newVal._id).set();
             }
         }
-        template.loading.partup.set(false);  
+        template.loading.partup.set(false);
     });
 
     template.loading = {
@@ -47,7 +47,7 @@ Template.app_partup.onCreated(function () {
         partup_sub = Meteor.subscribe('partups.one', partupId, accessToken, {
             onReady: function() {
                 const partup = Partups.findOne(partupId);
-                
+
                 if (!partup) {
                     return Router.pageNotFound('partup');
                 }

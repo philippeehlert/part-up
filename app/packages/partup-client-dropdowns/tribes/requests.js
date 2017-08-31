@@ -10,7 +10,6 @@ export default httpGet = {
 		}
 
         template.loadingNetworks.set(true);
-        template.loadingPartups.set(true);
         template.loadingUpperPartups.set(true);
         template.loadingSupporterPartups.set(true);
         
