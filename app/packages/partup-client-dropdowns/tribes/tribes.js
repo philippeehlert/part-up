@@ -10,19 +10,8 @@ Template.DropdownTribes.onCreated(function () {
 
 	// Renaming any of the variable declarations below requires them updated in the 'MenuStageManager' as well!
 	template.loadingNetworks = new ReactiveVar(false);
-	template.loadingPartups = new ReactiveVar(false, (oldVal, newVal) => {
-		if (newVal) return;
-	});
-	template.loadingUpperPartups = new ReactiveVar(true, (oldVal, newVal) => {
-		if (!newVal && template.loadingSupporterPartups.get() === false) {
-			template.loadingPartups.set(false);
-		}
-	});
-	template.loadingSupporterPartups = new ReactiveVar(true, (oldVal, newVal) => {
-		if (!newVal && template.loadingUpperPartups.get() === false) {
-			template.loadingPartups.set(false);
-		}
-	});
+	template.loadingUpperPartups = new ReactiveVar(true);
+	template.loadingSupporterPartups = new ReactiveVar(true);
 
 	template.query = {
 		token: Accounts._storedLoginToken()
@@ -43,12 +32,6 @@ Template.DropdownTribes.onCreated(function () {
 	template.dropdownOpen = new ReactiveVar(false, function (oldValue, newValue) {
 		// Prevents running the code the first time this get's set and the dropdown has not been opened yet
         if (!newValue) return;
-        
-		// if (template.loadingPartups.get() || template.loadingNetworks.get()) return;
-
-		// Manages the partups and networks;
-		// MenuStateManager.updatePartups(template, Meteor.user());
-
 		MenuStateManager.update(template);
 	});
 
@@ -60,7 +43,7 @@ Template.DropdownTribes.onCreated(function () {
 				$('[data-before]').css('width', width - 19);
 				currentWidth = width;
 			}
-		}
+		}   
 		// handleXPos(event) {
 		// 	$(event.currentTarget).parent().find('[data-inner]').css({
 		// 		left: (event.offsetX - 30) + 'px',
