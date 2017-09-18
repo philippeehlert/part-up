@@ -27,7 +27,7 @@ Template.dangerouslyRenderHTML.helpers({
         return sanitizeHTML(transformed, {
             allowedTags: allowedHTMLTags,
             allowedAttributes: {
-                a: ['href', 'name', 'target'],
+                a: ['href', 'name', 'target', 'data-*'],
                 img: ['src'],
                 '*': ['class'],
             },
