@@ -168,6 +168,9 @@ Partup.client.strings = {
                 )
             )
         );
+    },
+    autoLinkHTML(html) {
+        return partupAutolinker(html);
     }
 
 };
