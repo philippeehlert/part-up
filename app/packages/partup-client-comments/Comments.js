@@ -244,6 +244,11 @@ Template.Comments.helpers({
         return {
             content: this.content // needs to be decoded for input
         };
+    },
+    autoLink() {
+        return function (content) {
+            return Partup.client.strings.autoLinkHTML(content);
+        }
     }
 });
 

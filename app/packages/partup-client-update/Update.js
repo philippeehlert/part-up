@@ -134,6 +134,11 @@ Template.Update.helpers({
                 }
             }
         };
+    },
+    autoLink() {
+        return function (content) {
+            return Partup.client.strings.autoLinkHTML(content);
+        }
     }
 });
 

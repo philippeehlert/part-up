@@ -164,6 +164,11 @@ Template.app_partup_sidebar.helpers({
             location: location,
             privacy: getPrivacyLabel(partup.privacy_type, network)
         };
+    },
+    autoLink() {
+        return function (content) {
+            return Partup.client.strings.autoLinkHTML(content);
+        }
     }
 });
 
