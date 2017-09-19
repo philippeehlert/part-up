@@ -55,11 +55,11 @@ The whole app is made up of small styled components. These components are not fu
 
 #### Schema
 
-We use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to define our data structure. The schema can be found in the `partup-lib` package, this is because the client also uses it for validation. Any rules about the model get's defined here.
+We use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to define our data structure. The schema can be found in the `partup-lib` package, this is because the client also uses it for validation. Any rules about the model is defined here.
 
 #### Collections
 
-Collections in meteor are used both server and client side, though, the client should only read from these whilst the server uses these to query mongo. For this, we have created helper methods to be used by the server. Data returned from mongo will be transformed into a model, this model may also have extra functionality. When you need to access a collection from the client you first need to subscribe to it. We do this via **publications**, these can be found in `partup-server`.
+Collections in meteor are used both server and client side. However, the client should only read from these whilst the server uses these to query mongo. For this, we have created helper methods to be used by the server. Data returned from mongo will be transformed into a model, this model may also have extra functionality. When you need to access a collection from the client you first need to subscribe to it. We do this via **publications**, these can be found in `partup-server`.
 
 #### Mutations
 
