@@ -19,32 +19,23 @@ please [join the conversation of the Platform Development tribe on Part-up](http
   `git rebase origin/master` and create a pull request.
 - When an integrator is satisfied with the branch and all feedback is processed, the integrator merges the feature
   branch into `master` using `git merge --no-ff feat-notifications`.
+  
+## <a name="contributing"></a> Contributing workflow
+
+1. Clone or fork this repository
+2. Run `npm install` in the part-up root folder (you will need Node for this, make sure it is installed)
+3. Create a **feature** (`feat-...` or `ft-`) or **fix** (`fix-...`) branch: (git checkout -b _branchname_)
+4. Complete a feature or bug
+5. Try to create tests for the feature or bug, see [testing](#testing) for details
+6. Commit changes with `npm run commit` (in the part-up root folder) to automatically follow [our commit guidelines](#commit).
+7. Push the branch
+8. Create a pull request
 
 ## <a name="commit"></a> Git Commit Guidelines
 
 We have very precise rules over how our git commit messages can be formatted for maintenance of the change log and
 semantic versioning.  This leads to **more readable messages** that are easy to follow when looking through the
 **project history**.  But also, we use the git commit messages to **generate the change log**.
-
-
-## Contributing workflow
-
-**Make sure you run `npm install`**  (part-up root folder).
-
-1. Create a **feature** (`feat-...` or `ft-`) or **fix** (`fix-...`) branch
-2. Complete a feature or bug
-3. Commit changes with `npm run commit` (part-up root folder) and choose one of the following options:
-
-<div>
-<img src="https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png" />
-</div>
-
-*If you do not follow the convention you will not be able to commit your work!
-We have git-pre hooks built-in to ensure you're committing the code according to conventional format.*
-
-4. Push
-5. Create PR
-
 
 ### Commit Message Format
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
@@ -82,8 +73,8 @@ Must be one of the following:
   generation
 
 ### Scope
-The scope could be anything specifying place of the commit change. For example `$location`,
-`$browser`, `$compile`, `$rootScope`, `ngHref`, `ngClick`, `ngView`, etc...
+The scope could be anything specifying place of the commit change. For example `$collections`,
+`$server`, `$client`, `$schema`, `$mobile`, etc...
 
 ### Subject
 The subject contains succinct description of the change:
@@ -102,36 +93,26 @@ reference github issues that this commit **Closes**.
 
 **Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
 
-#### Examples
+#### Example of a commit message
 
-Appears under "Features" header, pencil sub header:
-
-```
-feat(pencil): add 'graphiteWidth' option
-```
-
-Appears under "Bug Fixes" header, graphite sub header, with a link to issue #GSNP-28:
+Appears under "Features" header, $schema sub header:
 
 ```
-fix(graphite): stop graphite breaking when width < 0.1
-
-Closes #123
+feat($schema): change 'tribe_admin' allowed character size
 ```
 
-Appears under "Performance Improvements" header, and under "Breaking Changes" with the breaking change explanation:
+## <a name="testing"></a> Testing
 
-```
-perf(pencil): remove graphiteWidth option
+### Unit tests
 
-BREAKING CHANGE: The graphiteWidth option has been removed. The default graphite width of 10mm is always used for
-performance reason.
-```
+We use [Tinytest](github.com/numtel/tinytest-in-app) to unit test code that exists in our local meteor packages that does not touch the UI, like the `partup-lib` package.
 
-The following commit and commit `667ecc1` do not appear in the change log if they are under the same release. If not,
-the revert commit appears under the "Reverts" header.
+1. Create a test file in the same folder as the code you want to test, e.g. `files.js` & `files.test.js`
+1. Add the test file to `Package.onTest()` in the packages `package.js` file
+1. Run the tests by *from the `app` directory* typing `meteor test-packages package-name` or `meteor test-packages ./`
 
-```
-revert: feat(pencil): add 'graphiteWidth' option
+You can find an example of tests in `app/packages/partup-lib/files`.
 
-This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
-```
+### Integration tests
+
+Some integration tests exists, but are not fully functional. We use cucumber. See `app/tests/cucumber`. We could really use some help writing tests!

@@ -1,75 +1,90 @@
 Part-up
 =================
 
-[Join the conversation of the Platform Development tribe on Part-up] (https://part-up.com/tribes/development/chat)
+[Join the conversation of the Platform Development tribe on Part-up](https://part-up.com/tribes/development/chat)
 
-# Installation
+## Installation
 
-- ensure [imagemagick][im] is installed (OS X: `brew install imagemagick`)
-- ensure [ansible](https://valdhaus.co/writings/ansible-mac-osx/) is installed (OS X: `brew install ansible`)
-- ensure [meteor](https://www.meteor.com/install) is installed
-- make sure you have all the correct environment variables set, which can be done in two ways:
-    1. generate the development configuration using `cd config/development && ./decrypt` (this requires a password, which can be requested from the Part-up team)
-    2. copy the file `config/development/env.sh.dist` to `config/development/env.sh` and fill in all the required credentials
-- `./start` (in the root folder of the app)
+- Clone this repository
+- Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
+- Copy the file `config/development/env.sh.dist` to `config/development/env.sh`
+- Run `npm start` (in the root folder of the app)
 - App running at: http://localhost:3000/
+- If you want to contribute to Part-up please read [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md)
 
-[im]: http://www.imagemagick.org/
+### Optional installation steps
 
-# Frontend
+- If you want to do something with an icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
+- If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
 
-## Structure
-We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**.
+## Working with Meteor
 
-### Layout
-Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The Sass file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
+All of our meteor code can be found in the `app` directory. In here we are working with local meteor packages inside the `packages` directory.
 
-### Page
-Pages can contain single components with page-specific functionality, widgets (packages) and sub-pages. A page, in fact, only represents a composition. Therefore, the Sass file should only contain position defenitions of the inside components. The js file should handle the page states and navigation functionality if subpages are present. Pages are directly binded to routes.
+There are three main packages,
 
-### Widget (packages)
-With a funcionality, you can think of a widget which will fulfill one standalone functionality. Functionalities that tie the app together (like a navigation bar) should not be declared as a package, because it’s not a widget with a standalone functionality. The Sass file may only contain component composition rules. When a widget is called WidgetsPartupActivities, the package should be called partup:client-widgets-partup-activities.
+- **partup-client-base** *client helpers*;
+- **partup-lib** *shared between client and server*;
+- **partup-server** *server code*.
 
-### Small component
-The whole app is made up of small styled components. These components are not functional by themselves, but only provides styling. For example: buttons, inputs, titles, paragraphs and menus. Each component should be defined as a Sass class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
+if you need to create a new package please check this [guide](https://themeteorchef.com/tutorials/writing-a-package)
 
-### Adding an icon
-1. `cd app/`
-2. `meteor add partup-iconfont-generator`
-3. Add the new icon SVG to the */client/icons* folder, **dot not use this folder for anything else than the iconfont icons**
-4. Name the icon svg file properly (upload icon should be named `upload.svg`, not `icon_upload.svg`, don't use a prefix like `icon_` for consistency)
-5. Wait for `[iconfont] generating`
-6. In */client/stylesheets/font-faces* a new `_picons.sass` is generated, NOTE: `_picons.sass` cannot be used to change icon styles, do this in */client/stylesheets/components/pu-icons.sass*
-7. check in **all** supported browsers if icons still work, **especially IE**
-8. `meteor remove partup-iconfont-generator`
-9. You now have a new icon added to the project *cheers*. Push the icon file changes to your current branch.
+### Frontend
 
+The front-end consists of [blaze](http://blazejs.org/guide/introduction.html) templates of which many are a package itself, these start with `partup-client-`. Any functionality that is not directly tied to a template and can be seen as helper functionality lives in the `partup-client-base` package which is only exposed to the client.
 
-# Backend
-## Collections manipulation flow
+<!-- #### Structure
+We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**. -->
 
-- Frontend uses `Meteor.call` to insert, update or remove documents in a collection.
-- Backend checks if the logged in user is authorised to perform the given operation (inside a Meteor method).
-- Backend saves document in mongodb
-- Backend emits an event that corresponds with the given CRUD operation, e.g. `inserted, updated or removed` (inside a Meteor method).
-- Handlers are created that have to react to these created events, for instance when inserting an update or notification.
+<!-- ### Layout
+Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The scss file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality. -->
 
-# Fixtures
+#### Pages
+
+We export all pages as a single package ***partup-client-pages***. A page can contain components with page-specific functionality and make use of multiple widgets. A page, in fact, only represents a composition. Therefore, the scss file should only contain position defenitions of the inside components. Pages are directly bound to routes and should handle any navigation functionality. Pages are also responsible for handling state *(e.g. subscriptions)* and pass handlers to components that live outside the page package.
+
+#### Widgets
+
+A widget only provides functionality to fulfill a single responsibility. They contain all the functionality required and don't depend on logic of on any other part of the application. Widgets may manage their own state in a limited way, where they should recieve as much data as possible from the page they live in. Widgets are stand-alone packages. The scss file should only contain component composition rules.
+
+#### Small components
+
+The whole app is made up of small styled components. These components are not functional by themselves and only provide styling like buttons, inputs, titles, paragraphs and menus. Each component should be defined as a scss class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
+
+### Backend
+
+#### Schema
+
+We use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to define our data structure. The schema can be found in the `partup-lib` package, this is because the client also uses it for validation. Any rules about the model is defined here.
+
+#### Collections
+
+Collections in meteor are used both server and client side. However, the client should only read from these whilst the server uses these to query mongo. For this, we have created helper methods to be used by the server. Data returned from mongo will be transformed into a model, this model may also have extra functionality. When you need to access a collection from the client you first need to subscribe to it. We do this via **publications**, these can be found in `partup-server`.
+
+#### Mutations
+
+When a mutation of data needs to be stored on the server you can call a **meteor method**. In this we define every mutation allowed for a collection.
+
+#### Routes
+
+We have page routes for navigation in `partup-lib` and routes to send data via POST requests in `partup-server`.
+
+## Application testing
+
+Please take a look as this epic: https://github.com/part-up/part-up/issues/528
+There is a specific chapter written about how to test a meteor application like part-up.com.
+
+Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md#testing) for more information about the tests we write.
+
+### Fixtures
+
+We have fixture data to test part-up locally in `partup-server`.
 
 - the following users are created automatically (all with password "user"):
     - user@example.com
     - john@example.com
     - judy@example.com
     - admin@example.com
-- admin created all the tribes
-- john is member of closed tribe and created a closed partup
-- user is member of open and invite tribe and created a partups in these tribes
-- judy is invited for closed tribe
-
-# Application testing
-
-Please take a look as this epic:  https://github.com/part-up/part-up/issues/528
-There is a specific chapter written about how to test a meteor application like part-up.com.
 
 ### Unit and integration testing
 `npm run test:watch`
@@ -77,14 +92,16 @@ There is a specific chapter written about how to test a meteor application like 
 ### End to end test
 `npm run test:e2e`
 
+### Unit testing
+`meteor run --test`
 
-# DevOps
+## DevOps
 
-## Quick deployment
+### Quick deployment
 - `cd devops`
 - `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
 
-## MongoDB
+### MongoDB
 
 - Connecting: `mongo "<host>/<database>" -u "<user>" -p "<password>"`
 - Dumping: `mongodump "<host>" --db "<database>" -u "<user>" -p "<password>" -o \`date +%s\``
@@ -95,10 +112,9 @@ There is a specific chapter written about how to test a meteor application like 
 - Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
 - Overwrite the language of a specific part-up: `db.getCollection('partups').find({'_id':'<<partupid>>'},{$set: {'language':'nl'}});`
 
-## Unit testing
-- `meteor run --test`
-
+<!--
 ## Required server environment variables
+
 ```
 NODE_ENV
 MONGO_URL
@@ -120,11 +136,12 @@ KADIRA_APP_ID
 KADIRA_APP_SECRET
 METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingId":""}}}}
 GOOGLE_API_KEY
-```
+``` 
+-->
 
-## data dumps
+## Data dumps
 
-### clean userdump
+### Clean userdump
 - regular mongo dump command
 - unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
 - `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
@@ -132,18 +149,14 @@ GOOGLE_API_KEY
 - `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
 - `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
 
-## editing env.sh-ecrypted
-
-`cd config/development && ansible-vault edit env.sh-encrypted`
 
 ## Phraseapp translation
-Add new keys using the i18n convention to the main locale
-[/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/master/app/i18n/phraseapp.en.i18n.json)
-and commit them to your branch.
+
+Add new keys using the i18n convention to the main locale [/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/master/app/i18n/phraseapp.en.i18n.json) and commit them to your branch.
 
 After merging the PR for your branch, [Ralph Boeije](https://github.com/ralphboeije) will import the new keys to [Phraseapp](https://phraseapp.com/accounts/part-up-com/projects/part-up-webapp/locales) and add the translations to the other locales.
 
-# License
+## License
 
 Copyright (C) 2017 Part-up
 
