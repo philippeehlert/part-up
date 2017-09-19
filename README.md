@@ -1,20 +1,21 @@
 Part-up
 =================
 
-[Join the conversation of the Platform Development tribe on Part-up] (https://part-up.com/tribes/development/chat)
+[Join the conversation of the Platform Development tribe on Part-up](https://part-up.com/tribes/development/chat)
 
 # Installation
 
-- ensure [imagemagick][im] is installed (OS X: `brew install imagemagick`)
-- ensure [ansible](https://valdhaus.co/writings/ansible-mac-osx/) is installed (OS X: `brew install ansible`)
-- ensure [meteor](https://www.meteor.com/install) is installed
-- make sure you have all the correct environment variables set, which can be done in two ways:
-    1. generate the development configuration using `cd config/development && ./decrypt` (this requires a password, which can be requested from the Part-up team)
-    2. copy the file `config/development/env.sh.dist` to `config/development/env.sh` and fill in all the required credentials
-- `./start` (in the root folder of the app)
+- Clone this repository
+- Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
+- Copy the file `config/development/env.sh.dist` to `config/development/env.sh` and fill in all the required credentials
+- Run `npm start` (in the root folder of the app)
 - App running at: http://localhost:3000/
+- If you want to contribute to Part-up please read [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md)
 
-[im]: http://www.imagemagick.org/
+### Optional installation steps
+
+- If you want to do something with the icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
+- If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
 
 # Frontend
 
@@ -33,7 +34,7 @@ With a funcionality, you can think of a widget which will fulfill one standalone
 ### Small component
 The whole app is made up of small styled components. These components are not functional by themselves, but only provides styling. For example: buttons, inputs, titles, paragraphs and menus. Each component should be defined as a Sass class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
 
-### Adding an icon
+<!-- ### Adding an icon
 1. `cd app/`
 2. `meteor add partup-iconfont-generator`
 3. Add the new icon SVG to the */client/icons* folder, **dot not use this folder for anything else than the iconfont icons**
@@ -43,10 +44,17 @@ The whole app is made up of small styled components. These components are not fu
 7. check in **all** supported browsers if icons still work, **especially IE**
 8. `meteor remove partup-iconfont-generator`
 9. You now have a new icon added to the project *cheers*. Push the icon file changes to your current branch.
-
+ -->
 
 # Backend
-## Collections manipulation flow
+
+## Structure
+
+### Schema
+
+### Routes
+
+### Collection
 
 - Frontend uses `Meteor.call` to insert, update or remove documents in a collection.
 - Backend checks if the logged in user is authorised to perform the given operation (inside a Meteor method).
@@ -68,8 +76,10 @@ The whole app is made up of small styled components. These components are not fu
 
 # Application testing
 
-Please take a look as this epic:  https://github.com/part-up/part-up/issues/528
+Please take a look as this epic: https://github.com/part-up/part-up/issues/528
 There is a specific chapter written about how to test a meteor application like part-up.com.
+
+Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md#testing) for more information about the tests we write.
 
 ### Unit and integration testing
 `npm run test:watch`
@@ -77,6 +87,8 @@ There is a specific chapter written about how to test a meteor application like 
 ### End to end test
 `npm run test:e2e`
 
+### Unit testing
+`meteor run --test`
 
 # DevOps
 
@@ -95,10 +107,8 @@ There is a specific chapter written about how to test a meteor application like 
 - Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
 - Overwrite the language of a specific part-up: `db.getCollection('partups').find({'_id':'<<partupid>>'},{$set: {'language':'nl'}});`
 
-## Unit testing
-- `meteor run --test`
-
 ## Required server environment variables
+
 ```
 NODE_ENV
 MONGO_URL
@@ -122,9 +132,9 @@ METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingI
 GOOGLE_API_KEY
 ```
 
-## data dumps
+## Data dumps
 
-### clean userdump
+### Clean userdump
 - regular mongo dump command
 - unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
 - `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
@@ -132,14 +142,10 @@ GOOGLE_API_KEY
 - `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
 - `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
 
-## editing env.sh-ecrypted
-
-`cd config/development && ansible-vault edit env.sh-encrypted`
 
 ## Phraseapp translation
-Add new keys using the i18n convention to the main locale
-[/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/master/app/i18n/phraseapp.en.i18n.json)
-and commit them to your branch.
+
+Add new keys using the i18n convention to the main locale [/part-up/app/i18n/phraseapp.en.i18n.json](https://github.com/part-up/part-up/blob/master/app/i18n/phraseapp.en.i18n.json) and commit them to your branch.
 
 After merging the PR for your branch, [Ralph Boeije](https://github.com/ralphboeije) will import the new keys to [Phraseapp](https://phraseapp.com/accounts/part-up-com/projects/part-up-webapp/locales) and add the translations to the other locales.
 
