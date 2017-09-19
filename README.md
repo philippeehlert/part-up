@@ -3,7 +3,7 @@ Part-up
 
 [Join the conversation of the Platform Development tribe on Part-up](https://part-up.com/tribes/development/chat)
 
-# Installation
+## Installation
 
 - Clone this repository
 - Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
@@ -17,69 +17,74 @@ Part-up
 - If you want to do something with an icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
 - If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
 
-# Frontend
+## Working with Meteor
 
-## Structure
-We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**.
+All of our meteor code can be found in the `app` directory. In here we are working with local meteor packages inside the `packages` directory.
 
-### Layout
-Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The scss file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
+There are three main packages,
 
-### Page
-Pages can contain single components with page-specific functionality, widgets (packages) and sub-pages. A page, in fact, only represents a composition. Therefore, the Sass file should only contain position defenitions of the inside components. The js file should handle the page states and navigation functionality if subpages are present. Pages are directly binded to routes.
+- **partup-client-base** *client helpers*;
+- **partup-lib** *shared between client and server*;
+- **partup-server** *server code*.
 
-### Widget (packages)
-With a funcionality, you can think of a widget which will fulfill one standalone functionality. Functionalities that tie the app together (like a navigation bar) should not be declared as a package, because it’s not a widget with a standalone functionality. The Sass file may only contain component composition rules. When a widget is called WidgetsPartupActivities, the package should be called partup:client-widgets-partup-activities.
+if you need to create a new package please check this [guide](https://themeteorchef.com/tutorials/writing-a-package)
 
-### Small component
-The whole app is made up of small styled components. These components are not functional by themselves, but only provides styling. For example: buttons, inputs, titles, paragraphs and menus. Each component should be defined as a scss class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
+### Frontend
 
-<!-- ### Adding an icon
-1. `cd app/`
-2. `meteor add partup-iconfont-generator`
-3. Add the new icon SVG to the */client/icons* folder, **dot not use this folder for anything else than the iconfont icons**
-4. Name the icon svg file properly (upload icon should be named `upload.svg`, not `icon_upload.svg`, don't use a prefix like `icon_` for consistency)
-5. Wait for `[iconfont] generating`
-6. In */client/stylesheets/font-faces* a new `_picons.sass` is generated, NOTE: `_picons.sass` cannot be used to change icon styles, do this in */client/stylesheets/components/pu-icons.sass*
-7. check in **all** supported browsers if icons still work, **especially IE**
-8. `meteor remove partup-iconfont-generator`
-9. You now have a new icon added to the project *cheers*. Push the icon file changes to your current branch.
- -->
+The front-end consists of [blaze](http://blazejs.org/guide/introduction.html) templates of which many are a package itself, these start with `partup-client-`. Any functionality that is not directly tied to a template and can be seen as helper functionality lives in the `partup-client-base` package which is only exposed to the client.
 
-# Backend
+<!-- #### Structure
+We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**. -->
 
-## Structure
+<!-- ### Layout
+Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The scss file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality. -->
 
-### Schema
+#### Pages
 
-### Routes
+We export all pages as a single package ***partup-client-pages***. A page can contain components with page-specific functionality and make use of multiple widgets. A page, in fact, only represents a composition. Therefore, the scss file should only contain position defenitions of the inside components. Pages are directly bound to routes and should handle any navigation functionality. Pages are also responsible for handling state *(e.g. subscriptions)* and pass handlers to components that live outside the page package.
 
-### Collection
+#### Widgets
 
-- Frontend uses `Meteor.call` to insert, update or remove documents in a collection.
-- Backend checks if the logged in user is authorised to perform the given operation (inside a Meteor method).
-- Backend saves document in mongodb
-- Backend emits an event that corresponds with the given CRUD operation, e.g. `inserted, updated or removed` (inside a Meteor method).
-- Handlers are created that have to react to these created events, for instance when inserting an update or notification.
+A widget only provides functionality to fulfill a single responsibility. They contain all the functionality required and don't depend on logic of on any other part of the application. Widgets may manage their own state in a limited way, where they should recieve as much data as possible from the page they live in. Widgets are stand-alone packages. The scss file should only contain component composition rules.
 
-# Fixtures
+#### Small components
+
+The whole app is made up of small styled components. These components are not functional by themselves and only provide styling like buttons, inputs, titles, paragraphs and menus. Each component should be defined as a scss class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
+
+### Backend
+
+#### Schema
+
+We use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) to define our data structure. The schema can be found in the `partup-lib` package, this is because the client also uses it for validation. Any rules about the model get's defined here.
+
+#### Collections
+
+Collections in meteor are used both server and client side, though, the client should only read from these whilst the server uses these to query mongo. For this, we have created helper methods to be used by the server. Data returned from mongo will be transformed into a model, this model may also have extra functionality. When you need to access a collection from the client you first need to subscribe to it. We do this via **publications**, these can be found in `partup-server`.
+
+#### Mutations
+
+When a mutation of data needs to be stored on the server you can call a **meteor method**. In this we define every mutation allowed for a collection.
+
+#### Routes
+
+We have page routes for navigation in `partup-lib` and routes to send data via POST requests in `partup-server`.
+
+## Application testing
+
+Please take a look as this epic: https://github.com/part-up/part-up/issues/528
+There is a specific chapter written about how to test a meteor application like part-up.com.
+
+Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md#testing) for more information about the tests we write.
+
+### Fixtures
+
+We have fixture data to test part-up locally in `partup-server`.
 
 - the following users are created automatically (all with password "user"):
     - user@example.com
     - john@example.com
     - judy@example.com
     - admin@example.com
-- admin created all the tribes
-- john is member of closed tribe and created a closed partup
-- user is member of open and invite tribe and created a partups in these tribes
-- judy is invited for closed tribe
-
-# Application testing
-
-Please take a look as this epic: https://github.com/part-up/part-up/issues/528
-There is a specific chapter written about how to test a meteor application like part-up.com.
-
-Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md#testing) for more information about the tests we write.
 
 ### Unit and integration testing
 `npm run test:watch`
@@ -90,13 +95,13 @@ Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRI
 ### Unit testing
 `meteor run --test`
 
-# DevOps
+## DevOps
 
-## Quick deployment
+### Quick deployment
 - `cd devops`
 - `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
 
-## MongoDB
+### MongoDB
 
 - Connecting: `mongo "<host>/<database>" -u "<user>" -p "<password>"`
 - Dumping: `mongodump "<host>" --db "<database>" -u "<user>" -p "<password>" -o \`date +%s\``
@@ -151,7 +156,7 @@ Add new keys using the i18n convention to the main locale [/part-up/app/i18n/phr
 
 After merging the PR for your branch, [Ralph Boeije](https://github.com/ralphboeije) will import the new keys to [Phraseapp](https://phraseapp.com/accounts/part-up-com/projects/part-up-webapp/locales) and add the translations to the other locales.
 
-# License
+## License
 
 Copyright (C) 2017 Part-up
 
