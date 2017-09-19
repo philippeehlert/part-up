@@ -22,29 +22,42 @@ Partup.helpers.files = {
 
     /**
      * Acts as an enum for categories where key === value
+     * @memberof Partup.helpers.files
      */
     categories: {},
 
     /**
      * Map of categories to extensions
+     * @memberof Partup.helpers.files
      */
     extensions: {},
 
     /**
      * Map of extensions to FileInfo objects
+     * @memberof Partup.helpers.files
      */
     info: {},
 
     /**
      * Map of signatures to extensions
+     * @memberof Partup.helpers.files
      */
     signatures: {},
 
+    /**
+     * Maximum file size in bytes (binary, 10mb)
+     * @memberof Partup.helpers.files
+     */
+    max_file_size: 10485760,
+
+    // #endregion
+
+    // #region methods
 
     /**
      * Get the extension of a file based on the name or mime
      * 
-     * @param {String} fileName 
+     * @param {File} file
      * @returns {String}
      */
     getExtension(file) {
@@ -63,13 +76,23 @@ Partup.helpers.files = {
             this.info[ext] :
             this.info[_.toLower(type)];
 
-        if (!info) {    
+        if (!info) {
             throw new Meteor.Error(0, 'invalid name and type');
         } else if (!info instanceof FileInfo) {
             return undefined;
         }
         
         return info.extension;
+    },
+
+    getCategory(extension) {
+        if (!extension) {
+            throw new Meteor.Error(0, 'extension is undefined');
+        }
+        const info = this.info[_.toLower(extension)];
+        return info ?
+            info.category :
+        undefined;
     },
 
     /**
@@ -121,7 +144,7 @@ Partup.helpers.files = {
      * pass in extensions to create custom filters.
      * 
      * @param {String} category
-     * @param {[String]} extensions [OPTIONAL]
+     * @param {[String]} extensions optional
      * @returns plupload mime filter
      */
     toUploadFilter(category, extensions = undefined) {
@@ -130,9 +153,41 @@ Partup.helpers.files = {
             extensions: extensions || this.extensions[category].join(','),
         };
     },
+
+    /**
+     * Convert a shorthand string size to binary size, e.g. 5mb
+     * 
+     * @param {String} size e.g. '5mb' 
+     * @returns {Number} binary value of size
+     */
+    shortToBinarySize(size) {
+        if (!size === typeof 'string') {
+            throw new Meteor.Error(0, `expected size to be of type string but is ${typeof size}`);
+        }
+
+        const match = size.match(/([0-9]+)([bkmgt])/i)
+        if (match[1]) {
+            switch (match[2]) {
+                case 'b':
+                    return match[1] * 1;
+                case 'k':
+                    return match[1] * 1024;
+                case 'm':
+                    return match[1] * 1024 * 1024;
+                case 'g':
+                    return match[1] * 1024 * 1024 * 1024;
+                case 't':
+                    return match[1] * 1024 * 1024 * 1024 * 1024;
+                default:
+                    return;
+            }
+        }
+    }
+
+    // #endregion
 };
 
-// Create properties based on _fileMap.
+// Create properties based on _fileMap which is the single source of truth
 _.each(_filemap, ({ category, icon, data }) => {
     const typeExts = [];
 
