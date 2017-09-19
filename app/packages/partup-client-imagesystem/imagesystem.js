@@ -44,7 +44,6 @@ Template.ImageSystem.onRendered(function() {
     const browseButton = template.find('[data-browse]');
 
     template.uploader = new Pluploader({
-        dynamic_url: true,
         config: {
             browse_button: browseButton,
             container: template.find('[data-upload-container]'),
@@ -52,15 +51,14 @@ Template.ImageSystem.onRendered(function() {
             multi_selection: false,
         },
         types: [
-            Partup.helpers.files.toUploadFilter('image'),
+            Partup.helpers.files.categories.image,
         ],
         hooks: {
             FilesAdded(uploader, files) {
                 _.each(files, file => {
                     if (!Partup.helpers.files.isImage(file)) {
                         uploader.removeFile(file);
-                        // TODO: Add PhraseApp translations for checking file types
-                        Partup.client.notify.info(`File removed, could not determine that ${file.name} is an image`);
+                        Partup.client.notify.info(TAPi18n.__('upload-error-not_image', { filename: file.name }));
                     }
                 });
 
@@ -75,13 +73,13 @@ Template.ImageSystem.onRendered(function() {
 
                 if (response.error) {
                     template.loading.set(false);
-                    return Partup.client.notify.error(TAPi18n.__(response.error));
+                    return Partup.client.notify.error(TAPi18n.__(response.error.reason), { filename: file.name });
                 }
 
                 // This might not be nessecary, have to look at the server side code.
-                if (!response.image) {
+                if (!response.fileId) {
                     template.loading.set(false);
-                    return Partup.client.notify.info('Something went wrong with uploading the image, please contact');
+                    return Partup.client.notify.info(TAPi18n.__('upload-error-100'), { filename: file.name });
                 }
 
                 // Stop the old subscription once the new image is uploaded.
@@ -89,10 +87,10 @@ Template.ImageSystem.onRendered(function() {
                     template.imageSubHandler.stop();
                 }
                 // The subscription is required to be able to access the Images collection from the helpers
-                template.imageSubHandler = template.subscribe('images.one', response.image, {
+                template.imageSubHandler = template.subscribe('images.one', response.fileId, {
                     onReady() {
                         template.loading.set(false);
-                        template.imageId.set(response.image);
+                        template.imageId.set(response.fileId);
                         template.setFocuspoint();
                     },
                 });
