@@ -1857,5 +1857,17 @@
   "widgetcommentfield-comment-systemmessage-show": "Laat meldingen zien",
   "widgetcommentfield-comment-totalcomments": "__count__ reactie",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ reacties",
-  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties"
+  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
+  "upload-error-100": "Sorrie, er is iets fout gegaan bij het uploaden van __filename__, probeer het nogmaals",
+  "upload-error-200": "Sorrie, wij hebben het bestand __filename__ niet kunnen ontvangen, probeer het nogmaals",
+  "upload-error-300": "Kan het bestand __filename__ niet lezen, probeer het nogmaals",
+  "upload-error-400": "Kan het bestand __filename__ niet lezen vanwege de beveiliging, probeer het nogmaals",
+  "upload-error-500": "Geen compatibel upload techniek beschikbaar op uw systeem",
+  "upload-error-600": "Het bestand __filename__ is te groot",
+  "upload-error-601": "De extensie van __filename__ is niet toegestaan",
+  "upload-error-700": "Dit bestand __filename__ is geen afbeelding",
+  "upload-error-701": "Kan __filename__ niet uploaden omdat er geen geheugen meer vrij is",
+  "upload-error-702": "Deze afbeelding __filename__ is te groot",
+  "upload-error-unknown_category": "Cannot determine the category for __filename__",
+  "upload-error-not_image": "Dit bestand __filename__ is geen afbeelding"
 }
