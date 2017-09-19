@@ -23,12 +23,12 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
     label_admins: {
         type: String,
         optional: true,
-        max: 10
+        max: 12
     },
     label_colleagues: {
         type: String,
         optional: true,
-        max: 10,
+        max: 12,
         custom: function() {
             var required = this.field('colleagues_default_enabled').value;
             if (required && !this.isSet) {
@@ -39,7 +39,7 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
     label_colleagues_custom_a: {
         type: String,
         optional: true,
-        max: 10,
+        max: 12,
         custom: function() {
             var required = this.field('colleagues_custom_a_enabled').value;
             if (required && !this.isSet) {
@@ -50,7 +50,7 @@ Partup.schemas.forms.networkAccess = new SimpleSchema({
     label_colleagues_custom_b: {
         type: String,
         optional: true,
-        max: 10,
+        max: 12,
         custom: function() {
             var required = this.field('colleagues_custom_b_enabled').value;
             if (required && !this.isSet) {
