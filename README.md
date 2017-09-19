@@ -7,14 +7,14 @@ Part-up
 
 - Clone this repository
 - Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
-- Copy the file `config/development/env.sh.dist` to `config/development/env.sh` and fill in all the required credentials
+- Copy the file `config/development/env.sh.dist` to `config/development/env.sh`
 - Run `npm start` (in the root folder of the app)
 - App running at: http://localhost:3000/
 - If you want to contribute to Part-up please read [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md)
 
 ### Optional installation steps
 
-- If you want to do something with the icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
+- If you want to do something with an icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
 - If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
 
 # Frontend
@@ -23,7 +23,7 @@ Part-up
 We have four types of application parts: *layout*, *page*, *widget* and *small component*. The explanation below points out their uses. Grahpic: **app/packages/partup:client-pages/app** and for the modals **app/packages/partup:client-pages/modal**.
 
 ### Layout
-Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The Sass file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
+Layouts are the top-level templates. They can contain a header, current page placeholder and footer. The scss file should only contain header and footer positioning rules. The js file should keep track of the state of the template and handle navigation functionality.
 
 ### Page
 Pages can contain single components with page-specific functionality, widgets (packages) and sub-pages. A page, in fact, only represents a composition. Therefore, the Sass file should only contain position defenitions of the inside components. The js file should handle the page states and navigation functionality if subpages are present. Pages are directly binded to routes.
@@ -32,7 +32,7 @@ Pages can contain single components with page-specific functionality, widgets (p
 With a funcionality, you can think of a widget which will fulfill one standalone functionality. Functionalities that tie the app together (like a navigation bar) should not be declared as a package, because it’s not a widget with a standalone functionality. The Sass file may only contain component composition rules. When a widget is called WidgetsPartupActivities, the package should be called partup:client-widgets-partup-activities.
 
 ### Small component
-The whole app is made up of small styled components. These components are not functional by themselves, but only provides styling. For example: buttons, inputs, titles, paragraphs and menus. Each component should be defined as a Sass class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
+The whole app is made up of small styled components. These components are not functional by themselves, but only provides styling. For example: buttons, inputs, titles, paragraphs and menus. Each component should be defined as a scss class prefixed with “pu-”, for example “pu-button”. Be aware not to define any styling dealing with the position of the component inside its parent or relative to its siblings.
 
 <!-- ### Adding an icon
 1. `cd app/`
@@ -107,6 +107,7 @@ Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRI
 - Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
 - Overwrite the language of a specific part-up: `db.getCollection('partups').find({'_id':'<<partupid>>'},{$set: {'language':'nl'}});`
 
+<!--
 ## Required server environment variables
 
 ```
@@ -130,7 +131,8 @@ KADIRA_APP_ID
 KADIRA_APP_SECRET
 METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingId":""}}}}
 GOOGLE_API_KEY
-```
+``` 
+-->
 
 ## Data dumps
 
