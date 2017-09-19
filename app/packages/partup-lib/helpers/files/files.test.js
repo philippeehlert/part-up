@@ -124,6 +124,22 @@ import './files';
         });
     });
 
+    // getCategory
+
+    Tinytest.add('getCategory returns category from extension', function() {
+        expect(Partup.helpers.files.getCategory('doc')).to.equal('document');
+    });
+
+    Tinytest.add('getCategory throws exception without input', function(test) {
+        test.throws(function() {
+            Partup.helpers.files.getCategory();
+        });
+    });
+
+    Tinytest.add('getCategory returns undefined when no category found', function() {
+        expect(Partup.helpers.files.getCategory('someextension')).to.equal(undefined);
+    });
+
     // isImage
 
     Tinytest.add('isImage filename .jpg returns true', function() {
@@ -168,6 +184,22 @@ import './files';
         const extensions = ['a', 'b', 'c'];
         expect(Partup.helpers.files.toUploadFilter('custom', extensions).title).to.equal('custom');
         expect(Partup.helpers.files.toUploadFilter('custom', extensions).extensions).to.equal(extensions);
+    });
+
+    // shortToBinarySize
+
+    Tinytest.add('shortToBinarySize returns binary size on size in bytes', function() {
+        expect(Partup.helpers.files.shortToBinarySize('5b')).to.equal(5);
+    });
+
+    Tinytest.add('shortToBinarySize returns binary size on size in kilobytes', function() {
+        expect(Partup.helpers.files.shortToBinarySize('5kb')).to.equal(5120);
+    });
+
+    Tinytest.add('shortToBinarySize throws when no input given', function(test) {
+        test.throws(function() {
+            Partup.helpers.files.shortToBinarySize();
+        });
     });
 
 // #endregion
