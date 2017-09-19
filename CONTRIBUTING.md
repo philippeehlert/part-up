@@ -28,7 +28,7 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 4. Complete a feature or bug
 5. Try to create tests for the feature or bug, see [testing](#testing) for details
 6. Commit changes with `npm run commit` (in the part-up root folder) to automatically follow [our commit guidelines](#commit).
-7. Push the brnach
+7. Push the branch
 8. Create a pull request
 
 ## <a name="commit"></a> Git Commit Guidelines
