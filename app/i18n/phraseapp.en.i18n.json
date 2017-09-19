@@ -1869,5 +1869,17 @@
   "widgetcommentfield-comment-systemmessage-show": "Show system messages",
   "widgetcommentfield-comment-totalcomments": "__count__ comment",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
-  "widgetcommentfield-comment-viewall-button": "View all %s comments"
+  "widgetcommentfield-comment-viewall-button": "View all %s comments",
+  "upload-error-100": "Sorry, something went wrong with uploading __filename__, please try again",
+  "upload-error-200": "Sorry, we could not recieve __filename__, please try again",
+  "upload-error-300": "Could not read __filename__, please try again",
+  "upload-error-400": "Could not read __filename__ because of security, please try again",
+  "upload-error-500": "No supported runtime found on your system",
+  "upload-error-600": "Can not upload __filename__, it is is too large",
+  "upload-error-601": "The file type of __filename__ is not allowed",
+  "upload-error-700": "Image __filename__ is not an image",
+  "upload-error-701": "Can not upload __filename__, out of memory",
+  "upload-error-702": "Image __filename__ is too big",
+  "upload-error-unknown_category": "Cannot determine the category for __filename__",
+  "upload-error-not_image": "Image __filename__ is not an image"
 }
