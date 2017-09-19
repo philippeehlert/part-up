@@ -2,6 +2,7 @@
     position: relative;
     height: 236px;
     background-color: #eee;
+    background-size: 90%;
 
     .pu-sub-loadercontainer {
             display: block;
@@ -47,11 +48,11 @@
     }
 
     .pu-sub-buttons {
-        // position: absolute;
-        // display: inline-block;
-        // left: 20px;
-        // bottom: 20px;
-        // cursor: pointer;
+        position: absolute;
+        display: inline-block;
+        left: 20px;
+        bottom: 20px;
+        cursor: pointer;
 
         .pu-button {
             background-color: $color-primary;
