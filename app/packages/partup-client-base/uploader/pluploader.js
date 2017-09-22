@@ -22,10 +22,10 @@ class _Pluploader {
                     // For a list of all plupload errors/codes see http://www.plupload.com/punbb/viewtopic.php?id=917
                     switch (error.code) {
                         case -500:
-                            Partup.client.notify.error(TAPi18n.__(`plupload-error${error.code}`));
+                            Partup.client.notify.error(TAPi18n.__(`upload-error${error.code}`));
                             break;
                         default:
-                            Partup.client.notify.error(TAPi18n.__(`plupload-error${error.code}`, { filename: error.file.name }));
+                            Partup.client.notify.error(TAPi18n.__(`upload-error${error.code}`, { filename: error.file.name }));
                             break;
                     }
                 }
