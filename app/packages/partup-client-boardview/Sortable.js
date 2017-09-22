@@ -462,8 +462,7 @@
 		_disableDelayedDrag: function (event) {
 			var ownerDocument = this.el.ownerDocument;
 
-            // Partup.client.isMobile.Android() && 
-            if (event) {
+            if (event && Partup.client.isMobile.Android()) {
                 const offset = 10;
 
                 if (this._previousPos.x === null || this._previousPos.y === null) {
