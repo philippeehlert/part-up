@@ -141,6 +141,7 @@ Template.BoardView.onCreated(function () {
                 pull: false,
                 put: false
             },
+            delay: Partup.client.isMobile.isTabletOrMobile() ? 400 : false,
             animation: 150,
             draggable: '.pu-js-sortable-lane',
             handle: '.pu-boardview-lane__header',
@@ -190,7 +191,7 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
-                delay: (Partup.client.isMobile.iOS() ? 250 : false),
+                delay: Partup.client.isMobile.isTabletOrMobile() ? 400 : false,
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',

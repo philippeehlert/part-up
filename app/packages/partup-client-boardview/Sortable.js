@@ -442,20 +442,47 @@
 					_on(ownerDocument, 'touchmove', _this._disableDelayedDrag);
 					_on(ownerDocument, 'pointermove', _this._disableDelayedDrag);
 
-                    var dragStartFn = setTimeout(dragStartFn, options.delay);
-					_this._dragStartTimer = dragStartFn;
+                    _this._dragStartTimer = setTimeout(dragStartFn, options.delay);
 				} else {
 					dragStartFn();
 				}
 
-
 			}
 		},
 
-		_disableDelayedDrag: function () {
+        _previousPos: {
+            x: null,
+            y: null,
+            set(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+        },
+
+		_disableDelayedDrag: function (event) {
 			var ownerDocument = this.el.ownerDocument;
 
-			clearTimeout(this._dragStartTimer);
+            // Partup.client.isMobile.Android() && 
+            if (event) {
+                const offset = 10;
+
+                if (this._previousPos.x === null || this._previousPos.y === null) {
+                    this._previousPos.set(event.x, event.y);
+                }
+
+                if (
+                    !(event.x >= (this._previousPos.x + offset) || event.x <= (this._previousPos.x - offset)) &&
+                    !(event.y >= (this._previousPos.y + offset) || event.y <= (this._previousPos.y - offset))
+                    ) {
+                    return;
+                }
+                
+                this._previousPos.set(event.x, event.y);
+
+            }
+
+            clearTimeout(this._dragStartTimer);
+
 			_off(ownerDocument, 'mouseup', this._disableDelayedDrag);
 			_off(ownerDocument, 'touchend', this._disableDelayedDrag);
 			_off(ownerDocument, 'touchcancel', this._disableDelayedDrag);
@@ -878,7 +905,8 @@
 
 			clearInterval(this._loopId);
 			clearInterval(autoScroll.pid);
-			clearTimeout(this._dragStartTimer);
+            clearTimeout(this._dragStartTimer);
+            this._previousPos.set(null, null);
 
 			// Unbind events
 			_off(document, 'mousemove', this._onTouchMove);
