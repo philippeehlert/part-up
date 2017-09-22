@@ -125,23 +125,11 @@ feat($schema): change 'tribe_admin' allowed character size
 
 ## <a name="testing"></a> Testing
 
-### Unit tests
-
-We use [Tinytest](github.com/numtel/tinytest-in-app) to unit test code that exists in our local meteor packages that does not touch the UI, like the `partup-lib` package.
-
-1. Create a test file in the same folder as the code you want to test, e.g. `files.js` & `files.test.js`
-1. Add the test file to `Package.onTest()` in the packages `package.js` file
-1. Run the tests by *from the `app` directory* typing `meteor test-packages package-name` or `meteor test-packages ./`
-
-You can find an example of tests in `app/packages/partup-lib/files`.
-
-## Testing
-
 ### Integration tests
 
 Some integration tests exists, but are not fully functional. We use cucumber. See `app/tests/cucumber`. We could really use some help writing tests!
 
-### unit tests
+### Unit tests
 
 We use [Tinytest](https://github.com/numtel/tinytest-in-app) to unit test code that exists in our local meteor packages that does not touch the UI, like the `partup-lib` package.
 
