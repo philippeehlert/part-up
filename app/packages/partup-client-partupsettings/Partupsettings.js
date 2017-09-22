@@ -64,7 +64,6 @@ Template.Partupsettings.onCreated(function() {
         if (partup.image) {
             template.imageId.set(partup.image);
         }
-
         template.selectedType.set(partup.type);
         template.selectedPhase.set(partup.phase);
     });

@@ -80,6 +80,7 @@ class _Pluploader {
     }
 }
 
+// Register any hook that matches the plupload API
 const _registerHooks = (uploader, hooks) => {
     _.each(Object.keys(hooks), key => uploader.bind(key, hooks[key]));
 }
