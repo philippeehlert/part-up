@@ -2,7 +2,7 @@
     <nav class="pu-navigation pu-navigation-compact">
         <div class="pu-nav-left">
             <button class="pu-sticky-button float-right" data-toggle-sidebar>
-                <i id="sidebar-chevron" class="picon-caret-slim-right"></i>
+                <i id="sidebar-chevron" class="picon-caret-slim-right {{#if sidebarExpanded}}chevron-rotated{{/if }}"></i>
                 <i id="sidebar-info" class="picon-info-2"></i>
             </button>
             {{#if screenWidthEqualOrAbove '980'}}
