@@ -11,7 +11,7 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 
 ## Feature branches
 
-- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing  
+- Always create a feature branch with a descriptive name (e.g., `git checkout -b feat-notifications`) when developing
   features. Push new commits to your branch only.
 - Keep your branch up to date with the latest commits on the master branch by occassionally merging in changes
   `git merge master`.
@@ -30,6 +30,10 @@ please [join the conversation of the Platform Development tribe on Part-up](http
 6. Commit changes with `npm run commit` (in the part-up root folder) to automatically follow [our commit guidelines](#commit).
 7. Push the branch
 8. Create a pull request
+
+## Code formatting
+
+We use linting following the Airbnb rule set to keep the code base clean and maintainable. You can use this by [installing a linter](https://guide.meteor.com/code-style.html#eslint-editor) to your editor. The linter will run while you code and help with format practices, besides realtime linting we also run the linter when commiting with `npm run commit` so you can see if you've missed anything.
 
 ## <a name="commit"></a> Git Commit Guidelines
 
