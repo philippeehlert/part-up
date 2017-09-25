@@ -16,7 +16,7 @@
                 {{/if}}
 
                 {{#TabView onToggleTab=onToggleTab defaultActiveTab=1 }}
-                    <nav class="pu-navigation pu-navigation-header pu-navigation-tabs"> 
+                    <nav class="pu-navigation pu-navigation-header pu-navigation-tabs">
                         <ul class="pu-list pu-list-horizontal">
                             <li>
                                 <button {{ tabButton 1 }} class="pu-button pu-button-nav pu-button-nav-secondary {{#if activeTab 1}}pu-state-active{{/if}}">
@@ -74,7 +74,7 @@
                                 <ul>
                                     {{# each data.suggestionIds }}
                                         <li>
-                                            {{> InviteTile userId=. partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
+                                            {{> InviteTile userId=. isActivity=true partupId=data.partupId activityId=data.activityId highlight=data.textsearch }}
                                         </li>
                                     {{/ each }}
                                 </ul>
@@ -89,7 +89,7 @@
                     {{/if}}
                     {{#if activeTab 2}}
                         {{#if data.activityId}}
-                            {{> InviteToActivity activityId=data.activityId nopopup=true }}                            
+                            {{> InviteToActivity activityId=data.activityId nopopup=true }}
                         {{/if}}
                     {{/if}}
                     {{#if activeTab 3}}
@@ -114,7 +114,7 @@
                     </div>
                 {{/TabView}}
                 <!--<a class="pu-button pu-button-text pu-button-no-side-padding" href="#" data-popup="popup.invite-to-partup">{{_ 'pages-modal-invite_to_activity-button_invite' }}</a>-->
-            </div>    
+            </div>
         </div>
     </article>
 

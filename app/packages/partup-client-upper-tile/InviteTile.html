@@ -74,7 +74,16 @@
                             {{/ if }}">
                         <span>
                             {{# if state.alreadyPartner }}
-                                {{_ 'pages-modal-invite_to_partup-button-already-partner' }}
+                                {{#if partupOneIsTrue isNetwork isActivity}}
+                                    {{#if isNetwork}}
+                                        {{_ 'pages-modal-invite_to_tribe-button-already-partner' }}
+                                    {{/if}}
+                                    {{#if isActivity}}
+                                        {{_ 'pages-modal-invite_to_activity-button-already-partner' }}
+                                    {{/if}}
+                                {{else}}
+                                    {{_ 'pages-modal-invite_to_partup-button-already-partner' }}
+                                {{/if}}
                             {{ else }}
                                 {{# if state.inviteSent }}
                                     {{_ 'pages-modal-invite_to_partup-button-invited-upper' }}
