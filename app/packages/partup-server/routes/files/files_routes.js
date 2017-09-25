@@ -68,7 +68,7 @@ Router.route('/files/upload', { where: 'server' }).post(function() {
                         } else {
                             return a===b;
                         }
-                    })();
+                    })(element, bytes);
                 }
             }
 
