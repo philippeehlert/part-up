@@ -135,9 +135,12 @@ Template.Update.helpers({
             }
         };
     },
-    autoLink() {
+    format() {
         return function (content) {
-            return Partup.client.strings.autoLinkHTML(content);
+            return new Partup.client.message(content)
+                .sanitize()
+                .autoLink()
+                .getContent();
         }
     }
 });

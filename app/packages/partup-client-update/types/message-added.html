@@ -13,7 +13,7 @@
 
     <section>
         <article class="pu-block pu-block-message">
-            {{> dangerouslyRenderHTML HTML=messageContent transform=autoLink }}
+            {{> dangerouslyRenderHTML HTML=messageContent transform=format }}
             {{# if type_data.images }}
                 {{> ImageGallery images=type_data.images updateId=_id}}
             {{/ if}}
