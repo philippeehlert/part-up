@@ -14,7 +14,10 @@
                 <ul class="pu-sub-avatar-list">
                     {{# each partup.avatars }}
                         {{# if data.upper }}
-                             <li style="
+                             <li
+                                data-hovercontainer="HoverContainer_upper"
+                                data-hovercontainer-context="{{ _id }}"
+                                style="
                                 {{# with avatarPosition }}
                                     -webkit-transform: translateX({{x}}px) translateY({{y}}px);
                                     -moz-transform: translateX({{x}}px) translateY({{y}}px);
