@@ -264,7 +264,6 @@ $partup-navigation-compact-height: em(60);
     }
 
     .content-horizontal {
-        overflow-x: scroll;
-        overflow-y: hidden;
+        overflow: scroll;
     }
 }

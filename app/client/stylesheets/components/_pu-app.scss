@@ -13,27 +13,22 @@
         }
     }
 
-    @media screen and (min-width: $breakpoint-desktop) {
-        padding-top: $spacing-app-headerheight;
+    padding-top: $spacing-app-headerheight;
 
-        // .pu-page
-        //     min-height: 100%
+    .pu-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 15;
+        transform: translateZ(0);
+    }
 
-        .pu-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 15;
-            transform: translateZ(0);
-        }
+    &-home {
+        padding-top: 0;
 
-        &-home {
-            padding-top: 0;
-
-            .pu-page {
-                margin-top: 0;
-            }
+        .pu-page {
+            margin-top: 0;
         }
     }
 }
