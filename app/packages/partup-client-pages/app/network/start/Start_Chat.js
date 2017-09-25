@@ -1,6 +1,8 @@
 Template.Start_Chat.helpers({
     data: function() {
-        const { networkSlug: slug } = this;
+        const {
+            networkSlug: slug,
+        } = this;
         const {
             _id,
             name: tribename,
@@ -13,6 +15,7 @@ Template.Start_Chat.helpers({
             uppers = [],
             most_active_uppers = []
         } = Networks.findOne({slug});
+
         return {
             admins: () => {
                 return Meteor.users.find({_id: {$in: admins}});
@@ -23,10 +26,10 @@ Template.Start_Chat.helpers({
             remainingUppers: () => {
                 return lodash.size(uppers) - lodash.size(lodash.union(most_active_uppers, admins));
             },
-            slug: slug,
+            slug,
             chat_title: () => chat_title || TAPi18n.__('pages-app-network-landing-chat-title-fallback', {tribename}),
             chat_body: () => chat_body || TAPi18n.__('pages-app-network-landing-chat-body-fallback', {tribename}),
             chat_subtitle: () => chat_subtitle || TAPi18n.__('pages-app-network-landing-chat-subtitle-fallback', {tribename}),
-        }
-    }
+        };
+    },
 });
