@@ -51,7 +51,7 @@ class _Pluploader {
         this.setOption('filters', filters);
     }
     addMimeFilter(category) {
-        if (!type) {
+        if (!category) {
             return;
         }
         const filters = this.getOption('filters');
