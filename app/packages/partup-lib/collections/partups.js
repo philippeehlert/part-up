@@ -79,9 +79,11 @@ var Partup = function (document) {
  * @return {Boolean}
  */
 Partup.prototype.isEditableBy = function (user) {
-	var uppers = this.uppers || [];
-
-	return user && (uppers.indexOf(user._id) > -1 || User(user).isAdmin());
+	return user && (
+        (this.uppers || []).indexOf(user._id) > -1 || 
+        User(user).isAdminOfNetwork(this.network_id) || 
+        User(user).isAdmin()
+    );
 };
 
 /**

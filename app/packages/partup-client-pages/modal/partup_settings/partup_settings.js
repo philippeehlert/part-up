@@ -6,7 +6,7 @@ Template.modal_partup_settings.onCreated(function() {
         var partup = Partups.findOne(template.data.partupId);
         if (!partup) return Router.pageNotFound('partup');
         var user = Meteor.user();
-        if (!partup.hasUpper(user._id) && !User(user).isAdmin()) return Router.pageNotFound('partup-not-allowed');
+        if (!partup.hasUpper(user._id) && !User(user).isAdminOfNetwork(partup.network_id) && !User(user).isAdmin()) return Router.pageNotFound('partup-not-allowed');
     }});
     template.submitting = new ReactiveVar(false);
 });
