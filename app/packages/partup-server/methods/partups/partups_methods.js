@@ -494,10 +494,10 @@ Meteor.methods({
     'partups.archive': function(partupId) {
         check(partupId, String);
 
-        var upper = Meteor.user();
+        var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (!upper || (!User(upper).isAdmin() && !partup.hasUpper(upper._id))) {
+        if (!partup.isEditableBy(user)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -509,7 +509,7 @@ Meteor.methods({
                 var network = Networks.findOneOrFail(partup.network_id);
                 network.removePartupName(partupId);
             }
-            Event.emit('partups.archived', upper._id, partup);
+            Event.emit('partups.archived', user._id, partup);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'partup_could_not_be_archived');
@@ -524,10 +524,10 @@ Meteor.methods({
     'partups.unarchive': function(partupId) {
         check(partupId, String);
 
-        var upper = Meteor.user();
+        var user = Meteor.user();
         var partup = Partups.findOneOrFail(partupId);
 
-        if (!upper || (!User(upper).isAdmin() && !partup.hasUpper(upper._id))) {
+        if (!partup.isEditableBy(user)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
 
@@ -539,7 +539,7 @@ Meteor.methods({
                 var network = Networks.findOneOrFail(partup.network_id);
                 network.createPartupName(partup._id, partup.name);
             }
-            Event.emit('partups.unarchived', upper._id, partup);
+            Event.emit('partups.unarchived', user._id, partup);
         } catch (error) {
             Log.error(error);
             throw new Meteor.Error(500, 'partup_could_not_be_unarchived');
