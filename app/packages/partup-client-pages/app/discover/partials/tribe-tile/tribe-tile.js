@@ -10,7 +10,7 @@ Template.TribeTile.helpers({
             activeUppers: function() {
                 return {
                     all: network.mostActiveUpperObjects,
-                    count: network.stats.upper_count,
+                    count: network.upper_count,
                     networkSlug: self.networkSlug,
                     networkId: network._id
                 };
@@ -71,6 +71,7 @@ Template.MostActiveUppers.helpers({
         var template = Template.instance();
         var uppers = template.data.uppers.all || [];
         var upperCount = template.data.uppers.count;
+
         return {
             uppers: function() {
                 return uppers;
