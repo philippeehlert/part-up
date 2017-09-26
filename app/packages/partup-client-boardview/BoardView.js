@@ -132,6 +132,13 @@ Template.BoardView.onCreated(function () {
             template.dragging.set(false);
         }, 250);
     };
+
+    const touchDelay = Partup.client.isMobile.iOS() ?
+        250 :
+    Partup.client.isMobile.Android() ?
+        400 :
+    false; // <--- desktop.
+
     template.createBoard = function () {
         var boardElement = template.$('[data-sortable-board]')[0];
 
@@ -141,6 +148,7 @@ Template.BoardView.onCreated(function () {
                 pull: false,
                 put: false
             },
+            delay: touchDelay,
             animation: 150,
             draggable: '.pu-js-sortable-lane',
             handle: '.pu-boardview-lane__header',
@@ -159,7 +167,7 @@ Template.BoardView.onCreated(function () {
     const isMobile = Partup.client.isMobile.isTabletOrMobile();
     const scrollOffsetMargin = isMobile ?
         35 :
-        120;
+    120;    
 
     // The sortable lib already throttles the handler for us.
     const horizontalScrollHandler = function (offX, offY, originalEvent, hoverTargetEl, touchEvt) {
@@ -190,7 +198,7 @@ Template.BoardView.onCreated(function () {
                     pull: true,
                     put: true,
                 },
-                delay: (Partup.client.isMobile.iOS() ? 250 : false),
+                delay: touchDelay,
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.pu-dropdownie',
