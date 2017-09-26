@@ -2,7 +2,6 @@ import * as Autolinker from './Autolinkjs';
 
 var autolinker = function(text) {
     return Autolinker.link(text, {
-        twitter: false, // to not parse twitter handles
         hashtag: false, // do not parse hashtags
         phone: false, // i've set this to false, because it does not work with dutch phone-number formatting
         newWindow: true, // target="_blank"
@@ -12,13 +11,13 @@ var autolinker = function(text) {
         // this replacefunction is for emails only
         // autolinker will put a target="_blank" on all urls
         // if newWindow is true
-        replaceFn: function (linker, match) {
+        replaceFn: function (match) {
             var type = match.getType();
             if (type === 'email') {
                 var email = match.getEmail();
                 return '<a href="mailto:' + email + '" class="pu-external-url" rel="nofollow">' + email + '</a>';
             }
-            var tag = linker.getTagBuilder().build(match);  // returns an Autolinker.HtmlTag instance
+            var tag = Autolinker.getTagBuilder().build(match);  // returns an Autolinker.HtmlTag instance
             tag.setAttr('rel', 'nofollow');
             return tag;
         }
