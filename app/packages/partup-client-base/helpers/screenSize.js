@@ -14,8 +14,9 @@ const screenHelper = {
         medium_portrait: 600,
         medium_landscape: 900,
         large: 1200,
-        extra_large: 1800
+        extra_large: 1800,
     }),
+    dep: new Tracker.Dependency(),
     extractValue(templateInput) {
         return this.isNumber(Number(templateInput)) ?
             Number(templateInput) :
@@ -27,9 +28,7 @@ const screenHelper = {
                 throw new Error('input is not a number or enum value');
             }
         });
-        return expressionFunc() ?
-            true :
-            false;
+        return expressionFunc();
     },
     isNumber(templateInput) {
         return typeof templateInput === 'number';
@@ -37,7 +36,14 @@ const screenHelper = {
     getScreenSize() {
         return Partup.client.screen.size.get('width');
     },
-}
+};
+
+/**
+ * Make the template helpers reactive by reacting to the orientationchange event
+ */
+window.addEventListener('orientationchange', () => {
+    screenHelper.dep.changed();
+});
 
 /**
  * Template helpers
@@ -50,11 +56,10 @@ const screenHelper = {
  * @return Boolean true if the @param size is equal or higher than the screen size
  */
 Template.registerHelper('screenWidthEqualOrBelow', function (size) {
-    const input = screenHelper.extractValue(size);
+    screenHelper.dep.depend();
 
-    return screenHelper.checkExpression(() => {
-        return screenHelper.getScreenSize() <= input
-    }, input);
+    const input = screenHelper.extractValue(size);
+    return screenHelper.checkExpression(() => screenHelper.getScreenSize() <= input, input);
 });
 
 /**
@@ -64,11 +69,10 @@ Template.registerHelper('screenWidthEqualOrBelow', function (size) {
  * @return Boolean true if the @param size is equal or less than the screen size
  */
 Template.registerHelper('screenWidthEqualOrAbove', function (size) {
+    screenHelper.dep.depend();
+
     const input = screenHelper.extractValue(size);
-    
-    return screenHelper.checkExpression(() => {
-        return screenHelper.getScreenSize() >= input
-    }, input);
+    return screenHelper.checkExpression(() => screenHelper.getScreenSize() >= input, input);
 });
 
 /**
@@ -79,12 +83,11 @@ Template.registerHelper('screenWidthEqualOrAbove', function (size) {
  * @return Boolean true if the screen sie is in range of @param min and @param max
  */
 Template.registerHelper('inRange', function (min, max) {
+    screenHelper.dep.depend();
+
     const minVal = screenHelper.extractValue(min);
     const maxVal = screenHelper.extractValue(max);
-
-    return screenHelper.checkExpression(() => {
-         return getScreenSize() >= minVal && getScreenSize() <= maxVal
-    }, minVal, maxVal);
+    return screenHelper.checkExpression(() => getScreenSize() >= minVal && getScreenSize() <= maxVal, minVal, maxVal);
 });
 
 //////////
