@@ -1,3 +1,13 @@
+<a name="2.29.2"></a>
+## [2.29.2](https://github.com/part-up/part-up/compare/2.29.1...2.29.2) (2017-08-16)
+
+
+### Bug Fixes
+
+* **partup:** Fix race condition between templates on create partup ([#1225](https://github.com/part-up/part-up/issues/1225)) ([c90d28e](https://github.com/part-up/part-up/commit/c90d28e))
+
+
+
 <a name="2.29.1"></a>
 ## [2.29.1](https://github.com/part-up/part-up/compare/2.29.0...2.29.1) (2017-08-15)
 
@@ -1385,7 +1395,7 @@
 ### Features
 
 * **becomepartner:** become partner accept and decline flow fully implemented ([1ee2685](https://github.com/part-up/part-up/commit/1ee2685))
-* **emails:** use notifications[@part](https://github.com/part)-up.com as sender of emails instead of info [#702](https://github.com/part-up/part-up/issues/702) ([0007b86](https://github.com/part-up/part-up/commit/0007b86))
+* **emails:** use notifications@part-up.com as sender of emails instead of info [#702](https://github.com/part-up/part-up/issues/702) ([0007b86](https://github.com/part-up/part-up/commit/0007b86))
 * **invite:** filter by invite in partup ([a178152](https://github.com/part-up/part-up/commit/a178152))
 * **invite:** filter on invited in network ([19c9807](https://github.com/part-up/part-up/commit/19c9807))
 * **invite:** implemented resend invite to tribe ([45ebdbe](https://github.com/part-up/part-up/commit/45ebdbe))

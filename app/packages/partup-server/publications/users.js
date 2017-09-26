@@ -27,13 +27,11 @@ Meteor.routeComposite('/users/:id/menu', function (request, params) {
 	const options = parseDefaultOptions(params.query);
 	const user = Meteor.users.findOne(params.id, { fields: { _id: 1, upperOf: 1, supporterOf: 1, networks: 1 } });
 
-	const partupsToGet = user.upperOf ?
-			user.upperOf.concat(user.supporterOf || []) :
-			user.supporterOf || [];
+    const partupsToGet = _.uniq(_.concat(user.upperOf, user.supporterOf));
 	const partupCursor = Partups.findForMenu(user._id, partupsToGet, options);
 
-	const partupNetworks = partupCursor.map(p => p.network_id);
-	const networksToGet = _.union(user.networks, _.uniq(partupNetworks));
+	const partupNetworks = _.uniq(partupCursor.map(p => p.network_id));
+	const networksToGet = _.union(user.networks, partupNetworks);
 	const networkCursor = Networks.findForMenu(user._id, networksToGet, options);
 
 	return {
@@ -61,6 +59,8 @@ Meteor.routeComposite('/users/:id/menu', function (request, params) {
 	}
 });
 
+
+// OBSOLETE
 // Used to load individual part-ups by id's
 Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 
@@ -98,6 +98,7 @@ Meteor.routeComposite('/users/me/menu/partups', function (request, params) {
 	};
 });
 
+// OBSOLETE
 // Used to load individual networks by id's
 Meteor.routeComposite('/users/me/menu/networks', function (request, params) {
 
