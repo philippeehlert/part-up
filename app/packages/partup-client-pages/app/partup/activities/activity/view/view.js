@@ -23,13 +23,19 @@ Template.ActivityView.helpers({
     activityDropdownOpen: function() {
         return Template.instance().activityDropdownOpen;
     },
-    renderWithMarkdown: text => strings.renderToMarkdownWithEmoji(text),
-    truncateDescription: text => {
-        // Because truncateHtmlString accepts only html we first need to process the description.
-        // This is not an elegant solution but it works for now.
-        let htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
-        let maxDescriptionLength = 55
-        return strings.truncateHtmlString(htmlText, maxDescriptionLength)
+    renderWithMarkdown() {
+        return function (text) {
+            return strings.renderToMarkdownWithEmoji(text);
+        }
+    },
+    truncateDescription() {
+        return function(text) {
+            // Because truncateHtmlString accepts only html we first need to process the description.
+            // This is not an elegant solution but it works for now.
+            let htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
+            let maxDescriptionLength = 55
+            return strings.truncateHtmlString(htmlText, maxDescriptionLength)
+        }
     },
     partup: function() {
         if (!this.activity) return;

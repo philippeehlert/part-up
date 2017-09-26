@@ -134,6 +134,14 @@ Template.Update.helpers({
                 }
             }
         };
+    },
+    format() {
+        return function (content) {
+            return new Partup.client.message(content)
+                .sanitize()
+                .autoLink()
+                .getContent();
+        }
     }
 });
 

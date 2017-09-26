@@ -117,8 +117,8 @@ Package.onUse(function (api) {
         'helpers/route.js',
 
         'views/CenterView.html',
-
-        
+        'views/dangerouslyRenderHTML/dangerouslyRenderHTML.html',
+        'views/dangerouslyRenderHTML/dangerouslyRenderHTML.js',
 
         'bootstrap.js',
         'analytics.js',

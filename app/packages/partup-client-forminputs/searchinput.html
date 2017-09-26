@@ -2,7 +2,7 @@
     <form class="pu-form pu-flexible-center" novalidate>
         <div>
             <span>
-                <p class="pu-search-label">{{{data.label}}}</p>
+                <p class="pu-search-label">{{> dangerouslyRenderHTML HTML=data.label}}</p>
             </span>
         </div>
         <div class="pu-sub-center" data-flexible-center>

@@ -76,10 +76,11 @@
                                     <p>
                                         {{# if isMotivation }}
                                             <a href="{{ pathFor 'profile' _id=creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>'s
-                                            {{_ 'widgetcommentfield-comment-motivation-prefix' }}{{{ partupAutolink content }}}
+                                            {{_ 'widgetcommentfield-comment-motivation-prefix' }}
+                                            {{> dangerouslyRenderHTML HTML=content transform=autoLink }}
                                         {{else}}
                                             <a href="{{ pathFor 'profile' _id=creator._id }}" class="pu-sub-author" rel="author" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ creator._id }}">{{ creator.name }}</a>
-                                            {{{ partupAutolink content }}}
+                                            {{> dangerouslyRenderHTML HTML=content transform=autoLink }}
                                         {{/ if}}
                                     </p>
                                     <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}{{#unless partupEquals created_at.getTime updated_at.getTime}}<span class="pu-sub-seperator">{{_'widgetcommentfield-comment-state-edited'}}</span>{{/unless}}{{#if partupEquals currentUser._id creator._id}}<a href="#" data-edit-comment class="pu-sub-edit"><span>{{_ 'widgetcommentfield-comment-button-edit'}}</span></a>{{/if}}</time>

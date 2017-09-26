@@ -164,13 +164,20 @@ Template.app_partup_sidebar.helpers({
             location: location,
             privacy: getPrivacyLabel(partup.privacy_type, network)
         };
+    },
+    format: function () {
+        return function (content) {
+            return new Partup.client.message(content)
+                .sanitize()
+                .autoLink()
+                .getContent();
+        }
     }
 });
 
 function becomeSupporter(partupId) {
     Meteor.call('partups.supporters.insert', partupId, function(error, result) {
         if (error) {
-            console.error(error);
             return;
         }
 

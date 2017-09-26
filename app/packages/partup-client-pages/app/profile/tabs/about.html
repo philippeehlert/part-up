@@ -7,7 +7,7 @@
                     {{_ 'pages-app-profile-about-loading'}}
                     {{> Spinner type='small' }}
                 {{ else }}
-                    {{{_ 'pages-app-profile-about-name' name=data.firstname }}}
+                     {{> dangerouslyRenderHTML HTML=translations.firstname }}
                 {{/ if }}
             </h2>
 

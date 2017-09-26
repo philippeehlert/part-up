@@ -10,7 +10,7 @@
             <article>
                 <p>{{ chatData.chatter.profile.name }} {{#with chatData.unreadCount}}({{.}}){{/with}} <time>{{#if chatData.latestMessage }}{{ partupDateCustom chatData.latestMessage.created_at 'D MMM HH:mm' }}{{else}}-{{/if}}</time></p>
                 {{#if chatData.latestMessage }}
-                    <span><span>{{{ formatted chatData.latestMessage.content }}}</span></span>
+                    <span><span>{{> dangerouslyRenderHTML HTML=chatData.latestMessage.content transform=format }}</span></span>
                 {{else}}
                     <span><span>{{_ 'pages-one-on-one-chat-sidebar-message-placeholder'}}</span></span>
                 {{/if}}
