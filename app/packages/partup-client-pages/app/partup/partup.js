@@ -1,6 +1,5 @@
 Template.app_partup.onCreated(function () {
-    var template = this;
-    var partup_sub;
+    const template = this;
 
     template.network = new ReactiveVar(undefined);
     template.partup = new ReactiveVar(undefined, (oldVal, newVal) => {
@@ -19,64 +18,63 @@ Template.app_partup.onCreated(function () {
         partup: new ReactiveVar(true),
         activities: new ReactiveVar(true),
         updates: new ReactiveVar(true),
-        board: new ReactiveVar(true)
+        board: new ReactiveVar(true),
     };
 
-    function setClass(state, $elem, className) {
-        state ?
-            $elem.hasClass(className) ?
-                undefined :
-                $elem.addClass(className) :
-            $elem.hasClass(className) ?
-                $elem.removeClass(className) :
-                undefined;
-    }
-
     const sidebarCookie = Cookies.get('partup_sidebar_expanded');
-    const sidebarState = 
+    const sidebarState =
         sidebarCookie !== undefined
             ? sidebarCookie.toBool()
-            : Partup.client.isMobile.isTabletOrMobile()
-                ? false
-                : true;
+            : !Partup.client.isMobile.isTabletOrMobile();
 
     template.sidebarExpanded = new ReactiveVar(sidebarState, (oldVal, newVal) => {
         Cookies.set('partup_sidebar_expanded', newVal, { expires: Infinity });
+    });
+
+    window.addEventListener('orientationchange', () => {
+        switch (window.orientation) {
+            case 90 || -90:
+                // landscape
+                template.sidebarExpanded(true);
+                break;
+            default:
+                // portrait
+                template.sidebarExpanded(false);
+                break;
+        }
     });
 
     template.autorun(function () {
         const partupId = Template.currentData().partupId;
         const accessToken = Session.get('partup_access_token');
 
-        partup_sub = Meteor.subscribe('partups.one', partupId, accessToken, {
-            onReady: function() {
+        Meteor.subscribe('partups.one', partupId, accessToken, {
+            onReady() {
                 const partup = Partups.findOne(partupId);
-
-                if (!partup) {
-                    return Router.pageNotFound('partup');
+                if (partup) {
+                    if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
+                        return Router.pageNotFound('partup-closed');
+                    }
+                    template.partup.set(partup);
                 }
-                if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
-                    return Router.pageNotFound('partup-closed');
-                }
-    
-                template.partup.set(partup);
                 
+                return Router.pageNotFound('partup');
             },
         });
 
         template.subscribe('activities.from_partup', partupId, accessToken, {
-            onReady: function () {
+            onReady() {
                 template.loading.activities.set(false);
             },
         });
 
         template.subscribe('updates.from_partup', partupId, {}, accessToken, {
-            onReady: function () {
+            onReady() {
                 template.loading.updates.set(false);
             },
         });
         template.subscribe('board.for_partup_id', partupId, accessToken, {
-            onReady: function () {
+            onReady() {
                 template.loading.board.set(false);
             },
         });
@@ -99,12 +97,12 @@ Template.app_partup.helpers({
     },
     scrollHorizontal() {
         return Router.current().route.getName() === 'partup-activities' && (Template.instance().partup.get() && Template.instance().partup.get().board_view);
-    }
+    },
 });
 
 Template.app_partup.events({
-    'click [data-toggle-sidebar]': function (event, template) {
+    'click [data-toggle-sidebar]': (event, templateInstance) => {
         event.preventDefault();
-        template.sidebarExpanded.set(!template.sidebarExpanded.curValue);
+        templateInstance.sidebarExpanded.set(!templateInstance.sidebarExpanded.curValue);
     },
 });
