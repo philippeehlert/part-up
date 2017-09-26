@@ -159,7 +159,7 @@ AutoForm.hooks({
             submitting.set(true);
             var self = this;
             var submittedDoc = insertDoc;
-            var locale = Partup.helpers.parseLocale(navigator.language || navigator.userLanguage);
+            var locale = Partup.client.language.current.get();
 
             Accounts.createUser({
                 email: submittedDoc.email,
