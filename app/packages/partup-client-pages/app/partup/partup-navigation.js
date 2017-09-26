@@ -31,6 +31,7 @@ Template.app_partup_navigation.helpers({
     },
     isPartner(user) {
         const partup = Template.instance().data.partup;
+        
         if (partup) {
             return User(user).isPartnerInPartup(partup._id);
         }
