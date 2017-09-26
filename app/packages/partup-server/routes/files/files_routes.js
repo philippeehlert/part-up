@@ -1,4 +1,5 @@
 var Busboy = Npm.require('busboy');
+var winston = Npm.require('winston');
 
 // #region AWS config
 
@@ -48,38 +49,43 @@ Router.route('/files/upload', { where: 'server' }).post(function() {
 
             // Try to get the fileinfo for the given extension and check if the signatures match.
             const fileInfo = Partup.helpers.files.info[ext];
+
             let match = false;
             if (fileInfo) {
                 for (var i = 0; i < fileInfo.signatures.length; i++) {
                     const element = fileInfo.signatures[i];
-                    const bytes = body.slice(0, (element.bytes - 1));
-
-                    match = (function arrayEqual(a, b) {
-                        if (a instanceof Array && b instanceof Array) {
-                            if (a.length !== b.length) {
-                                return false;
-                            }
-                            for (var j = 0; j < a.length; j++) {
-                                if (!arrayEqual(a[i],b[i])) {
+                    if (element) {
+                        let bytes = '';
+                        for (const val of body.slice(element.offset, element.size).values()) {
+                            bytes += val;           
+                        }
+                        match = (function arrayEqual(a, b) {
+                            if (a instanceof Array && b instanceof Array) {
+                                if (a.length !== b.length) {
                                     return false;
                                 }
+                                for (var j = 0; j < a.length; j++) {
+                                    if (!arrayEqual(a[j],b[j])) {
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            } else {
+                                return a===b;
                             }
-                            return true;
-                        } else {
-                            return a===b;
-                        }
-                    })(element, bytes);
-                }
-            }
+                        })(element, bytes);
 
-            // For now, log info about matching to improve this for the future
-            if (!match) {
-                let log = {
-                    filename,
-                    mimetype,
-                    bytes
+                        // For now, log info about matching to improve this for the future
+                        if (!match) {
+                            let log = {
+                                filename,
+                                mimetype,
+                                bytes
+                            }
+                            winston.info(`No match found for: ${JSON.stringify(log, null, 2)}`);
+                        }
+                    }
                 }
-                winston.info(`No match found for: ${JSON.stringify(log, null, 2)}`);
             }
 
             let file;
