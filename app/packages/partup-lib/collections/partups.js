@@ -79,8 +79,12 @@ var Partup = function (document) {
  * @return {Boolean}
  */
 Partup.prototype.isEditableBy = function (user) {
-	return user && (
-        (this.uppers || []).indexOf(user._id) > -1 || 
+    if (!user) {
+        throw new Error('input undefined');
+    }
+
+	return (
+        this.hasUpper(user._id) || 
         User(user).isAdminOfNetwork(this.network_id) || 
         User(user).isAdmin()
     );
