@@ -79,9 +79,15 @@ var Partup = function (document) {
  * @return {Boolean}
  */
 Partup.prototype.isEditableBy = function (user) {
-	var uppers = this.uppers || [];
+    if (!user) {
+        throw new Error('input undefined');
+    }
 
-	return user && (uppers.indexOf(user._id) > -1 || User(user).isAdmin());
+	return (
+        this.hasUpper(user._id) || 
+        User(user).isAdminOfNetwork(this.network_id) || 
+        User(user).isAdmin()
+    );
 };
 
 /**

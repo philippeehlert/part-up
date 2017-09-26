@@ -83,8 +83,12 @@
                     <li>
                         <button class="pu-button pu-button-nav middle" data-toggle-partup-settings-dropdown>
                             <i class="picon-cog"></i>
-                        </button> 
-                        {{> Dropdown toggle=settingsToggled template='partup_cog' data=. classes='pu-dropdownie-cog'}}
+                        </button>
+                        {{#if isPartner currentUser }}
+                            {{> Dropdown toggle=settingsToggled template='partup_cog_partner' data=. classes='pu-dropdownie-cog'}}
+                        {{ else }}
+                            {{> Dropdown toggle=settingsToggled template='partup_cog' data=. classes='pu-dropdownie-cog'}}
+                        {{/if }}
                     </li>
                 {{/if }}
                 <li>
@@ -108,11 +112,20 @@
                 {{_ 'pages-app-profile-tab-button-settings'}} 
             </button>
         </li>
+    </ul>
+</template>
+<template name="partup_cog_partner">
+    <ul class="pu-list">
         <li class="pu-dropdownitem pu-dropdownitem-small">
-            <button data-end-partup-partnership>
-                {{_ 'pages-app-partup-menu-endpartnership'}}
+            <button data-open-partup-settings>
+                {{_ 'pages-app-profile-tab-button-settings'}} 
             </button>
         </li>
+            <li class="pu-dropdownitem pu-dropdownitem-small">
+                <button data-end-partup-partnership>
+                    {{_ 'pages-app-partup-menu-endpartnership'}}
+                </button>
+            </li>
     </ul>
 </template>
 

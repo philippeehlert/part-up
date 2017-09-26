@@ -5,8 +5,12 @@ Template.modal_partup_settings.onCreated(function() {
         template.partupLoaded.set(true);
         var partup = Partups.findOne(template.data.partupId);
         if (!partup) return Router.pageNotFound('partup');
+        
         var user = Meteor.user();
-        if (!partup.hasUpper(user._id) && !User(user).isAdmin()) return Router.pageNotFound('partup-not-allowed');
+        if (!partup.isEditableBy(user)) {
+            return Router.pageNotFound('partup-not-allowed');
+        }
+        
     }});
     template.submitting = new ReactiveVar(false);
 });
