@@ -55,7 +55,7 @@ Template.app_partup.onCreated(function () {
                     if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
                         return Router.pageNotFound('partup-closed');
                     }
-                    template.partup.set(partup);
+                    return template.partup.set(partup);
                 }
                 
                 return Router.pageNotFound('partup');
