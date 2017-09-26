@@ -291,65 +291,13 @@
         <!-- Image -->
         <div class="pu-formfield">
             <span class="pu-label">{{_ 'partupsettings-image-label' }}</span>
-            {{> afFieldInput name="image" type="hidden" data-image-field="" value=partupImageId }}
+            {{> afFieldInput name="image" type="hidden" data-image-field="" value=imageId.get }}
 
             {{> afFieldInput name="focuspoint_x_input" type="hidden" }}
             {{> afFieldInput name="focuspoint_y_input" type="hidden" }}
 
-        
-            {{#if partupImage.uploaded.get }}
-
-                <figure class="pu-imagepreview pu-imagepreview-cover {{#if draggingFocuspoint}}pu-imagepreview-draggingfocuspoint{{/if}}" style="{{#with partupImage.currentImageId.get }}background-image:url('{{ partupImageUrl id=. store='1200x520' }}');{{/with }}" data-focuspoint-view>
-                    <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
-                        {{> Loader }}
-                    </div>
-                    {{> Focuspoint loading=imagepreviewIsLoading imageId=partupImageId view_elm=focuspointView focuspoint=setFocuspoint unset=unsetFocuspoint }}
-                    <div class="pu-sub-buttons">
-                           {{#FileInput pluploadSettings=pluploadSettings }}
-                           <div id="uploadwrapper" style="display:inline-block;">
-                                <a id="uploader_button" class="pu-button pu-button-secondary" role="button">
-                                    <span>{{_ 'partupsettings-image-button-overwrite'}}</span>
-                                    {{#if uploadingPicture}}
-                                        {{> Spinner color='inverted' type='small'}}
-                                    {{/if}}
-                                </a>
-                            </div>
-                           {{/FileInput}}   
-
-                        <button class="pu-sub-right pu-button pu-button-icononly pu-button-tertiery" type="button" data-imageremove>
-                            <i class="picon-times"></i>
-                        </button>
-                    </div>
-                </figure>
-
-            {{ else }}
-
-                <div class="pu-upload pu-upload-large">
-                        {{#FileInput pluploadSettings=pluploadSettings }} 
-                       <div id="uploadwrapper" style="display:inline-block;">
-                            <a id="uploader_button" class="pu-button pu-button-secondary" role="button">
-                                <span>{{_ 'partupsettings-image-button'}}</span>
-                            </a>
-                        </div>
-                        <span>{{_ 'partupsettings-image-validation'}}</span>
-                        {{/FileInput}} 
-                </div>
-
-                {{#if partupImage.availableSuggestions.get }}
-                    {{> Gallery loading=galleryIsLoading pictures=partupImage.availableSuggestions.get current=currentSuggestion setter=suggestionSetter fp_update=onFocuspointUpdate }}
-                {{ else }}
-                    <figure class="pu-gallery pu-gallery-placeholder">
-                        <div class="pu-sub-loadercontainer {{#if imagepreviewIsLoading }}pu-sub-loadercontainer-active{{/if}}">
-                            {{> Loader }}
-                        </div>
-                        <figcaption>
-                            <p>{{_ 'partupsettings-suggestion-placeholder'}}</p>
-                        </figcaption>
-                    </figure>
-                {{/if }}
-
-            {{/if }}
-
+            {{> ImageSystem imageId=imageId focuspoint=focuspoint }}
+            
             <div class="pu-sub-validations {{#if afFieldIsInvalid name='image' }}pu-state-invalid{{/if}}">
                 <span class="pu-sub-error">{{ afFieldMessage name='image' }}</span>
             </div>

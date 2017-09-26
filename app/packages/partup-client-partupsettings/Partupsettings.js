@@ -34,10 +34,7 @@ Template.Partupsettings.onCreated(function() {
 
     template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
-    template.imageSystem = new ImageSystem(template);
-    template.draggingFocuspoint = new ReactiveVar(false);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
-    template.loading = new ReactiveDict();
     template.selectedLocation = new ReactiveVar();
     template.selectedType = new ReactiveVar(this.data.currentPartup ? this.data.currentPartup.type : '');
     template.selectedPhase = new ReactiveVar('');
@@ -49,6 +46,10 @@ Template.Partupsettings.onCreated(function() {
     template.formId = template.data.FORM_ID;
     template.preselectedNetwork = new ReactiveVar(undefined);
     template.locationHasValueVar = new ReactiveVar(undefined);
+    
+    // Handlers for the ImageSystem template
+    template.imageId = new ReactiveVar();
+    template.focuspoint = new ReactiveDict();
 
     template.subscribe('networks.list');
 
@@ -61,77 +62,11 @@ Template.Partupsettings.onCreated(function() {
         if (partup.currency) template.currentCurrency.set(partup.currency);
 
         if (partup.image) {
-            template.imageSystem.currentImageId.set(partup.image);
-            template.imageSystem.uploaded.set(true);
+            template.imageId.set(partup.image);
         }
-
         template.selectedType.set(partup.type);
         template.selectedPhase.set(partup.phase);
     });
-
-    template.setFocuspoint = function(focuspoint) {
-        focuspoint.on('drag:start', function() {
-            template.draggingFocuspoint.set(true);
-        });
-        focuspoint.on('drag:end', function(x, y) {
-            template.draggingFocuspoint.set(false);
-            template.imageSystem.storeFocuspoint(x, y);
-        });
-        template.focuspoint = focuspoint;
-    };
-
-    template.unsetFocuspoint = function() {
-        template.focuspoint = undefined;
-    };
-
-    template.autorun(function() {
-        var imageId = template.imageSystem.currentImageId.get();
-
-        if (imageId && template.focuspoint) {
-            template.focuspoint.reset();
-        }
-    });
-
-    template.pluploadSettings = {
-        buttons: {
-            browse: 'uploader_button'
-        },
-        dynamic_url: true,
-        config: {
-            multi_selection: false,
-        },
-        types: [
-            { name: 'images', extensions: Partup.helpers.fileUploader.imageExtensions.map(ext => ext.replace(/\./g, '')).join(',') }
-        ],
-        hooks: {
-            FilesAdded(uploader, files) {
-                template.loading.set('image-uploading', true);
-                uploader.start();
-            },
-            FileUploaded(uploader, file, result) {
-                if (!result) return;
-                const response = JSON.parse(result.response);
-
-                if (response.error) {
-                    template.loading.set('image-uploading', false);
-                    return Partup.client.notify.error(response.error);
-                }
-                if (!response.image) {
-                    template.loading.set('image-uploading', false);
-                    return Partup.client.notify.info('Something went wrong with uploading the image');
-                }
-                template.subscribe('images.one', response.image, {
-                    onReady() {
-                        template.loading.set('image-uploading', false);
-                        template.imageSystem.currentImageId.set(response.image);
-                        template.imageSystem.uploaded.set(true);
-                        var focuspoint = template.imageSystem.focuspoint.get();
-                        if (focuspoint) focuspoint.reset();
-                    }
-                });
-            }
-        }
-    };
 
 });
 
@@ -139,18 +74,16 @@ Template.autoForm.onRendered(function() {
     var template = this.parent();
     if (template.view.name !== 'Template.Partupsettings') return;
 
-    // Set the focuspoint input values to the form every time they change
     this.autorun(function() {
         if (!template.view.isRendered) return;
 
-        var x = template.imageSystem.focuspoint.get('x');
-        var y = template.imageSystem.focuspoint.get('y');
+        var x = template.focuspoint.get('x');
+        var y = template.focuspoint.get('y');
         var form = template.find('#' + template.data.FORM_ID);
         if (!form) return;
 
         form.elements.focuspoint_x_input.value = x;
         form.elements.focuspoint_y_input.value = y;
-
     });
 
     // Update the tagsInputStates when the tags change
@@ -206,13 +139,14 @@ Template.Partupsettings.onRendered(function() {
             template.preselectedNetwork.set(currentPartupNetworkId);
         }
     }
-
-    
 });
 
 Template.Partupsettings.helpers({
-    pluploadSettings() {
-        return Template.instance().pluploadSettings;
+    imageId() {
+        return Template.instance().imageId;
+    },
+    focuspoint() {
+        return Template.instance().focuspoint;
     },
     datePicker: function() {
         return {
@@ -242,55 +176,6 @@ Template.Partupsettings.helpers({
     },
     descriptionCharactersLeft: function() {
         return Template.instance().descriptionCharactersLeft.get();
-    },
-    partupImage: function() {
-        return Template.instance().imageSystem;
-    },
-    partupImageId: function() {
-        return Template.instance().imageSystem.currentImageId.get();
-    },
-    suggestionSetter: function() {
-        return function(index) {
-            Session.set('partials.create-partup.current-suggestion', index);
-        };
-    },
-    currentSuggestion: function() {
-        return Session.get('partials.create-partup.current-suggestion');
-    },
-    galleryIsLoading: function() {
-        var template = Template.instance();
-        return template.loading &&
-            (template.loading.get('suggesting-images') ||
-            template.loading.get('image-uploading') ||
-            template.loading.get('setting-suggestion'));
-    },
-    imagepreviewIsLoading: function() {
-        var template = Template.instance();
-        return template.loading &&
-            (template.loading.get('image-uploading') ||
-             template.loading.get('setting-suggestion'));
-    },
-    uploadingPicture: function() {
-        var template = Template.instance();
-        return template.loading && template.loading.get('image-uploading');
-    },
-    setFocuspoint: function() {
-        return Template.instance().setFocuspoint;
-    },
-    unsetFocuspoint: function() {
-        return Template.instance().unsetFocuspoint;
-    },
-    focuspointView: function() {
-        return {
-            template: Template.instance(),
-            selector: '[data-focuspoint-view]'
-        };
-    },
-    onFocuspointUpdate: function() {
-        return Template.instance().imageSystem.storeFocuspoint;
-    },
-    draggingFocuspoint: function() {
-        return Template.instance().draggingFocuspoint.get();
     },
     selectedPrivacyLabel: function() {
         return Template.instance().selectedPrivacyLabel.get();
@@ -524,9 +409,6 @@ Template.Partupsettings.events({
         var charactersLeftVar = $inputElement.data('characters-left-var');
         template[charactersLeftVar].set(max - $inputElement.val().length);
     },
-    'click [data-imageremove]': function(event, template) {
-        template.imageSystem.unsetUploadedPicture();
-    },
     'change [data-type]': function(event, template) {
         var input = template.find('[data-type] label > :checked');
         if (!input) return;
@@ -579,28 +461,3 @@ Template.Partupsettings.events({
         });
     }
 });
-
-/*************************************************************/
-/* Image system for Part-up cover picture */
-/*************************************************************/
-var ImageSystem = function(template) {
-    var self = this;
-
-    this.currentImageId = new ReactiveVar(false);
-    this.uploaded = new ReactiveVar(false);
-    this.focuspoint = new ReactiveDict();
-    this.focuspoint.set('x', 0.5); // set default focuspoint position
-    this.focuspoint.set('y', 0.5);
-
-    this.unsetUploadedPicture = function() {
-        self.currentImageId.set(false);
-        self.uploaded.set(false);
-    };
-
-    this.storeFocuspoint = function(x, y) {
-        if (typeof x === 'undefined') x = 0.5;
-        if (typeof y === 'undefined') y = 0.5;
-        self.focuspoint.set('x', x);
-        self.focuspoint.set('y', y);
-    };
-};

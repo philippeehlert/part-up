@@ -41,11 +41,31 @@ We have very precise rules over how our git commit messages can be formatted for
 semantic versioning.  This leads to **more readable messages** that are easy to follow when looking through the
 **project history**.  But also, we use the git commit messages to **generate the change log**.
 
+## Contributing workflow
+
+**Make sure you run `npm install`**  (part-up root folder).
+
+1. Create a **feature** (`feat-...` or `ft-`) or **fix** (`fix-...`) branch
+1. Complete a feature or bug
+1. Test the code, see our [testing](#testing) section
+1. Commit changes with `npm run commit` (part-up root folder) and choose one of the following options:
+
+<div>
+<img src="https://raw.githubusercontent.com/commitizen/cz-cli/master/meta/screenshots/add-commit.png" />
+</div>
+
+*If you do not follow the convention you will not be able to commit your work!
+We have git-pre hooks built-in to ensure you're committing the code according to conventional format.*
+
+1. Push
+1. Create PR
+
+
 ### Commit Message Format
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**, a **scope** and a **subject**:
 
-```
+```Shell
 <type>(<scope>): <subject>
 <BLANK LINE>
 <body>
@@ -59,10 +79,12 @@ Any line of the commit message cannot be longer 100 characters! This allows the 
 to read on GitHub as well as in various git tools.
 
 ### Revert
+
 If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit.
 In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
 
 ### Type
+
 Must be one of the following:
 
 * **feat**: A new feature
@@ -107,16 +129,16 @@ feat($schema): change 'tribe_admin' allowed character size
 
 ## <a name="testing"></a> Testing
 
-### Unit tests
-
-We use [Tinytest](github.com/numtel/tinytest-in-app) to unit test code that exists in our local meteor packages that does not touch the UI, like the `partup-lib` package.
-
-1. Create a test file in the same folder as the code you want to test, e.g. `files.js` & `files.test.js`
-1. Add the test file to `Package.onTest()` in the packages `package.js` file
-1. Run the tests by *from the `app` directory* typing `meteor test-packages package-name` or `meteor test-packages ./`
-
-You can find an example of tests in `app/packages/partup-lib/files`.
-
 ### Integration tests
 
 Some integration tests exists, but are not fully functional. We use cucumber. See `app/tests/cucumber`. We could really use some help writing tests!
+
+### Unit tests
+
+We use [Tinytest](https://github.com/numtel/tinytest-in-app) to unit test code that exists in our local meteor packages that does not touch the UI, like the `partup-lib` package.
+
+1. Create a test file in the same folder as the code you want to test, e.g. `files.js` & `files.test.js`
+1. Add the test file to `Package.onTest()` in the packages `package.js` file
+1. run the tests by typing `meteor test-packages package-name` or `meteor test-packages ./` *from the `app` directory*
+
+You can find an example of tests in `app/packages/partup-lib/files`.

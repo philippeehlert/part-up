@@ -20,8 +20,8 @@ Package.onUse(function (api) {
 
     api.addFiles([
 
-        'uploader/plupload/plupload.min.js',
-        'uploader/Pluploader.js',
+        // 'uploader/plupload/plupload.js', //For debugging purposes only!
+        'uploader/pluploader.js',
 
         'client/base-64-polyfill.js',
         'client/url-polyfill.js',

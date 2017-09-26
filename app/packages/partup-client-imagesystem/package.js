@@ -1,29 +1,25 @@
+/**
+ * Partup imagesystem for profile images
+ */
 Package.describe({
-    name: 'partup-client-partupsettings',
+    name: 'partup-client-imagesystem',
     version: '0.0.1',
     summary: '',
-    documentation: null
+    documentation: null,
 });
 
 Package.onUse(function(api) {
 
     api.use([
         'templating',
-        'aldeed:autoform',
         'reactive-var',
         'reactive-dict',
         'ecmascript',
-        'partup-client-imagesystem',
     ], 'client');
 
     api.addFiles([
-
-        'BoardSwitch.html',
-        'BoardSwitch.js',
-
-        'Partupsettings.html',
-        'Partupsettings.js'
-
+        'imagesystem.html',
+        'imagesystem.js',
     ], 'client');
 
 });

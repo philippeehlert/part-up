@@ -1,0 +1,45 @@
+<template name="ImageSystem">
+    <figure
+        class="pu-imagesystem {{#if draggingFocuspoint}}pu-dragging{{/if}}"
+        style="background-image:url('{{ imageUrl }}');"
+        data-focuspoint-view>
+
+        <div class="pu-sub-loadercontainer {{#if loading}}pu-sub-loadercontainer-active{{/if}}">
+            {{> Loader }}
+        </div>
+
+        {{#if imageId }}
+            {{#if focuspoint }}
+
+                {{> Focuspoint
+                    loading=loading
+                    imageId=imageId
+                    view_elm=focuspointView
+                    focuspoint=setFocuspoint
+                    unset=unsetFocuspoint }}
+
+            {{/if }}
+        {{else}}
+            <div class="centered">
+                <figcaption>
+                    <span>{{_ 'partupsettings-suggestion-placeholder'}}</span>
+                </figcaption>
+            </div>
+        {{/if}}
+
+        <div class="pu-sub-buttons" data-upload-container>
+            <a type="button" class="pu-button" data-browse >
+                <span>
+                    {{#if imageId }}
+                        {{_ 'partupsettings-image-button-overwrite'}}
+                    {{else}}
+                        {{_ 'partupsettings-image-button'}} 
+                    {{/if }}
+                </span>
+            </a>
+        </div>
+
+        <div class="drop-area" data-drop-area></div>
+
+    </figure>
+</template>

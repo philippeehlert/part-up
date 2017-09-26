@@ -104,7 +104,8 @@ Package.onUse(function(api) {
         'helpers/fileUploader.js',
         'helpers/dropboxRenderer.js',
         'helpers/googleDriveRenderer.js',
-        'helpers/typeExtensions.js'
+        'helpers/typeExtensions.js',
+        'helpers/files/files.js',
     ]);
 
     api.addFiles([
@@ -163,5 +164,7 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use(['ecmascript', 'underscore', 'tinytest', 'practicalmeteor:chai']);
 
-  api.addFiles('helpers/fileUploader.tests.js', 'client');
+//   api.addFiles('helpers/fileUploader.tests.js', 'client');
+  api.addFiles('helpers/files/files.test.js', 'client');
+
 });
