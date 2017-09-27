@@ -1,3 +1,41 @@
+<a name="2.30.0"></a>
+# [2.30.0](https://github.com/part-up/part-up/compare/2.29.2...2.30.0) (2017-09-08)
+
+
+### Bug Fixes
+
+* **build:** trigger jenkins ([5c1d913](https://github.com/part-up/part-up/commit/5c1d913))
+* **forms:** Reset bootstrap input width to 100% ([e59db8e](https://github.com/part-up/part-up/commit/e59db8e))
+* **html:** added the ability to transform the html output before rendering ([0f35528](https://github.com/part-up/part-up/commit/0f35528))
+* **html:** allow only needed tags ([970338d](https://github.com/part-up/part-up/commit/970338d))
+* **menu:** Fix user returned being both upper and supporter. ([f3a6870](https://github.com/part-up/part-up/commit/f3a6870))
+* **merge:** Fix merge conflict ([0fbe63d](https://github.com/part-up/part-up/commit/0fbe63d))
+* **merge:** Manually fix conflict ([fa246cd](https://github.com/part-up/part-up/commit/fa246cd))
+* **merge:** Merge branch 'style-add-linter' ([0fbb0e1](https://github.com/part-up/part-up/commit/0fbb0e1))
+* **merge:** resolve merge conflict ([c93d463](https://github.com/part-up/part-up/commit/c93d463))
+* **notifications:** Load partups and networks every time in my tribes menu ([188ca2c](https://github.com/part-up/part-up/commit/188ca2c))
+* **notifications:** Set notifications when partup loaded ([5b1567d](https://github.com/part-up/part-up/commit/5b1567d))
+* **partup-scroll:** Fix infinite scroll for updates ([ebe3c8e](https://github.com/part-up/part-up/commit/ebe3c8e))
+* **partup-scroll:** Fix infinite scroll for updates ([9b0de03](https://github.com/part-up/part-up/commit/9b0de03))
+* **partup-sidebar:** Set state before render ([5fbcf3c](https://github.com/part-up/part-up/commit/5fbcf3c))
+* **pluploader:** cleanup import / package ([9811bec](https://github.com/part-up/part-up/commit/9811bec))
+* **render-html:** Apply template helper to rendered places ([a512f5b](https://github.com/part-up/part-up/commit/a512f5b))
+* **sanitizer:** fixed faulty html transformer ([b08e793](https://github.com/part-up/part-up/commit/b08e793))
+* **sectors:** Re-add phrase key translations ([2b4f348](https://github.com/part-up/part-up/commit/2b4f348))
+* **translation:** Change sector finance key to match entity ([a112c04](https://github.com/part-up/part-up/commit/a112c04))
+
+
+### Features
+
+* **file-upload:** Refactor file upload for partupsettings ([bf20617](https://github.com/part-up/part-up/commit/bf20617))
+* **files:** Add tests for file helper ([f8c3bf2](https://github.com/part-up/part-up/commit/f8c3bf2))
+* **html:** created a dangerouslyRenderHTML template to use for consiously rendering html ([8eec5d7](https://github.com/part-up/part-up/commit/8eec5d7))
+* **partup-docs:** Add upload via new message to documents & links tab ([315272e](https://github.com/part-up/part-up/commit/315272e))
+* **toastr:** Change toastr position to above intercom button ([66886b6](https://github.com/part-up/part-up/commit/66886b6))
+* **uploader:** Provide untranslated error message ([1e5491a](https://github.com/part-up/part-up/commit/1e5491a))
+
+
+
 <a name="2.29.2"></a>
 ## [2.29.2](https://github.com/part-up/part-up/compare/2.29.1...2.29.2) (2017-08-16)
 
@@ -39,6 +77,8 @@
 * **conversations:** added comments_count > 0 filter to updates shown on /conversations ([0c7498e](https://github.com/part-up/part-up/commit/0c7498e))
 * **csv:** fixed missing email adresses in csv export ([9b50d2b](https://github.com/part-up/part-up/commit/9b50d2b))
 * **email:** add noreply to email copy ([e57bfb5](https://github.com/part-up/part-up/commit/e57bfb5))
+* **email:** added via Part-up to sendFrom address ([21da4ee](https://github.com/part-up/part-up/commit/21da4ee))
+* **email:** added via Part-up to sendFrom address ([94452a9](https://github.com/part-up/part-up/commit/94452a9))
 * **network:** fixed template exception for network tags ([a759a87](https://github.com/part-up/part-up/commit/a759a87))
 * **partup:** fixed exception about privacy labels ([3028e18](https://github.com/part-up/part-up/commit/3028e18))
 * **profile:** Disable XSS posibility on name field ([b64e36d](https://github.com/part-up/part-up/commit/b64e36d))
