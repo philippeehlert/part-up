@@ -18,8 +18,18 @@ Partup.server.services.emails = {
      * @param {String} options.locale
      * @param {Object} options.userEmailPreferences
      * @param {String|null} options.body
+     * @param {Object} existingUser Email service will use this user object to check if it's deactivated
      */
-    send: function(options) {
+    send: function(options, existingUser) {
+
+        // check if user is deactivated, if so, don't send an email (failsafe)
+        const existingUserId = lodash.get(existingUser, '_id');
+        if (existingUserId) {
+            const user = Meteor.users.findOne({_id: existingUserId});
+            const deactivatedAt = lodash.get(user, 'deactivatedAt');
+            if (deactivatedAt) return; // user is deactivated, bailing out
+        }
+
         Meteor.defer(function() {
             options = options || {};
             var emailSettings = {};

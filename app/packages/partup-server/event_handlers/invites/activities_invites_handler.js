@@ -76,7 +76,7 @@ Event.on('invites.inserted.activity', function(inviter, partup, activity, invite
     };
 
     // Send the email
-    Partup.server.services.emails.send(emailOptions);
+    Partup.server.services.emails.send(emailOptions, invitee);
 
     // Update stats
     partup.increaseEmailShareCount();

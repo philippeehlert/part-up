@@ -61,7 +61,7 @@ Event.on('partups.partner_requested', function(requester, partup, updateId) {
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, partner);
     });
 });
 

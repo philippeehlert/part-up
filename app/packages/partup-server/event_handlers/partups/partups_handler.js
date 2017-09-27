@@ -93,7 +93,7 @@ Event.on('partups.inserted', function(userId, partup) {
             };
 
             // Send the email
-            Partup.server.services.emails.send(emailOptions);
+            Partup.server.services.emails.send(emailOptions, upper);
         });
     }
 });
@@ -301,6 +301,6 @@ Event.on('partups.privacy_type_changed', function(userId, partup, oldPrivacyType
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, upper);
     });
 });
