@@ -50,7 +50,7 @@ Event.on('invites.inserted.network', function(inviter, network, invitee, searchQ
     };
 
     // Send the email
-    Partup.server.services.emails.send(emailOptions);
+    Partup.server.services.emails.send(emailOptions, invitee);
 });
 
 /**

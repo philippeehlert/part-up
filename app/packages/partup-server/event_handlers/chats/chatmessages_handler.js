@@ -57,7 +57,7 @@ Event.on('chats.messages.inserted', function(upper, chatMessage, network) {
             };
 
             // Send the email
-            Partup.server.services.emails.send(emailOptions);
+            Partup.server.services.emails.send(emailOptions, user);
 
         };
 

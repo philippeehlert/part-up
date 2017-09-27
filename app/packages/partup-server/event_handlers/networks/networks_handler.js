@@ -47,7 +47,7 @@ Event.on('networks.accepted', function(userId, networkId, upperId) {
     };
 
     // Send the email
-    Partup.server.services.emails.send(emailOptions);
+    Partup.server.services.emails.send(emailOptions, acceptedUpper);
 });
 
 /**
@@ -100,7 +100,7 @@ Event.on('networks.new_pending_upper', function(network, pendingUpper) {
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, admin);
     });
 });
 
@@ -162,7 +162,7 @@ Event.on('networks.uppers.inserted', function(newUpper, network) {
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, networkUpper);
     });
 });
 
@@ -219,6 +219,6 @@ Event.on('networks.uppers.removed', function(upper, network) {
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, networkAdmin);
     });
 });

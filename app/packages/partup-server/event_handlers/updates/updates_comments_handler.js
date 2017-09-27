@@ -59,7 +59,7 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
             };
 
             // Send the email
-            Partup.server.services.emails.send(emailOptions);
+            Partup.server.services.emails.send(emailOptions, user);
         }
     };
     if (!limitExceeded) {
@@ -145,6 +145,6 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
         };
 
         // Send the email
-        Partup.server.services.emails.send(emailOptions);
+        Partup.server.services.emails.send(emailOptions, notifiedUpper);
     });
 });

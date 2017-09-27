@@ -67,7 +67,7 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee, searchQue
     };
 
     // Send the email
-    Partup.server.services.emails.send(emailOptions);
+    Partup.server.services.emails.send(emailOptions, invitee);
 
     // Update stats
     partup.increaseEmailShareCount();

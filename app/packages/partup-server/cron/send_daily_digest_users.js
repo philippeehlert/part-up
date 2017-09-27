@@ -38,7 +38,7 @@ if(process.env.PARTUP_CRON_ENABLED) {
                     };
 
                     // Send the email
-                    Partup.server.services.emails.send(emailOptions);
+                    Partup.server.services.emails.send(emailOptions, user);
 
                     Meteor.users.update(user._id, {'$set': {'flags.dailyDigestEmailHasBeenSent': true}});
                     counter++;

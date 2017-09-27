@@ -54,7 +54,7 @@ Event.on('partups.messages.insert', function(upper, partup, update, message) {
             };
 
             // Send the email
-            Partup.server.services.emails.send(emailOptions);
+            Partup.server.services.emails.send(emailOptions, user);
         }
     };
     if (!limitExceeded) {
