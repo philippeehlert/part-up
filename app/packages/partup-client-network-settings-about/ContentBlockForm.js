@@ -5,10 +5,15 @@ Template.ContentBlockForm.onCreated(function() {
     template.submitting = new ReactiveVar(false);
     template.currentImage = new ReactiveVar();
     template.characterCount = new ReactiveVar(0);
+    template.htmlCharacterCount = new ReactiveVar(0);
+
     var blockId = template.data.block._id;
     AutoForm.addHooks(blockId, {
         onSubmit: function(doc) {
             if (template.view.isDestroyed) return false;
+
+            if (template.characterCount.get() > 999) return false;
+            if (template.htmlCharacterCount.get() > 2000) return false;
 
             var self = this;
             self.event.preventDefault();
@@ -38,7 +43,7 @@ Template.ContentBlockForm.helpers({
                     if (image) return Partup.helpers.url.getImageUrl(image, '360x360');
                 }
 
-            }
+            },
         };
     },
     state: function() {
@@ -51,8 +56,8 @@ Template.ContentBlockForm.helpers({
                 return !!template.submitting.get();
             },
             textCharactersLeft: function() {
-                return Partup.schemas.forms.contentBlock._schema.text.max - template.characterCount.get();
-            }
+                return 999 - template.characterCount.get();
+            },
         };
     },
     form: function() {
@@ -65,7 +70,8 @@ Template.ContentBlockForm.helpers({
                 placeholder: TAPi18n.__('network-settings-about-form-placeholder-text'),
                 prefill: template.data.block.text || false,
                 maxCharacters: Partup.schemas.forms.contentBlock._schema.text.max,
-                characterCountVar: template.characterCount
+                characterCountVar: template.characterCount,
+                htmlCharacterCountVar: template.htmlCharacterCount,
             },
             doc: template.data.block,
             schema: Partup.schemas.forms.contentBlock,

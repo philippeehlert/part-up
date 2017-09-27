@@ -3,7 +3,11 @@ Template.Wysiwyg.onCreated(function() {
     template.placeholder = new ReactiveVar('');
     template.className = new ReactiveVar('');
 });
-
+function strip(html) {
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
 Template.Wysiwyg.onRendered(function() {
     var template = this;
 
@@ -44,11 +48,15 @@ Template.Wysiwyg.onRendered(function() {
     };
 
     template.outputHandler = function(event) {
+
+        // console.log(event, template.editor);
         var output = Partup.client.sanitizeOutputHTML(template.editor.trumbowyg('html'));
+        var textOutput = strip(output);
 
         var wrappedOutput = wrapInParagraphIfNoTagsArePresent(output);
 
-        if (settings.characterCountVar) settings.characterCountVar.set(wrappedOutput.length);
+        if (settings.htmlCharacterCountVar) settings.htmlCharacterCountVar.set(wrappedOutput.length);
+        if (settings.characterCountVar) settings.characterCountVar.set(textOutput.length);
 
         $('[' + settings.input + ']').val(wrappedOutput);
     };
