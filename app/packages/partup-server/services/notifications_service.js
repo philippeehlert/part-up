@@ -20,6 +20,12 @@ Partup.server.services.notifications = {
         var notification = {};
 
         if (!options.userId) throw new Meteor.Error('Required argument [options.userId] is missing for method [Partup.server.services.notifications::send]');
+
+        // check if user is deactivated, if so, don't send an email (failsafe)
+        const user = Meteor.users.findOne({_id: options.userId});
+        const deactivatedAt = lodash.get(user, 'deactivatedAt');
+        if (deactivatedAt) return; // user is deactivated, bailing out
+
         if (!options.type) throw new Meteor.Error('Required argument [options.type] is missing for method [Partup.server.services.notifications::send]');
         if (!options.typeData) throw new Meteor.Error('Required argument [options.typeData] is missing for method [Partup.server.services.notifications::send]');
 

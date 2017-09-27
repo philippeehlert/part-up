@@ -18,6 +18,7 @@ Partup.server.services.emails = {
      * @param {String} options.locale
      * @param {Object} options.userEmailPreferences
      * @param {String|null} options.body
+     * @param {Object} existingUser Email service will use this user object to check if it's deactivated
      */
     send: function(options, existingUser) {
 
