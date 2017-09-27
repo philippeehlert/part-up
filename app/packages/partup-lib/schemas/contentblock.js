@@ -10,8 +10,8 @@ Partup.schemas.forms.contentBlock = new SimpleSchema({
     },
     text: {
         type: String,
-        max: 999,
-        optional: true
+        max: 2000,
+        optional: true,
     },
     image: {
         type: String,
