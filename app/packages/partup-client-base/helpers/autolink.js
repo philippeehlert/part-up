@@ -17,7 +17,7 @@ var autolinker = function(text) {
                 var email = match.getEmail();
                 return '<a href="mailto:' + email + '" class="pu-external-url" rel="nofollow">' + email + '</a>';
             }
-            var tag = Autolinker.getTagBuilder().build(match);  // returns an Autolinker.HtmlTag instance
+            var tag = match.buildTag();  // returns an Autolinker.HtmlTag instance
             tag.setAttr('rel', 'nofollow');
             return tag;
         }
