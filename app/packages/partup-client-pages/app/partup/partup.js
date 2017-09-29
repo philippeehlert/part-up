@@ -35,9 +35,9 @@ Template.app_partup.onCreated(function () {
         if (window.innerWidth < window.innerHeight) {
             if (template.sidebarExpanded.get()) {
                 template.sidebarExpanded.set(false);
-            } else {
-                template.sidebarExpanded.set(true);
             }
+        } else if (!template.sidebarExpanded.get()) {
+            template.sidebarExpanded.set(true);
         }
     });
 
