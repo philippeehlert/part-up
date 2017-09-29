@@ -1,37 +1,31 @@
-import sanitizeHTML from 'sanitize-html';
+// import sanitizeHTML from 'sanitize-html';
 
-const allowedHTMLTags = [
-    'p',
-    'a',
-    'img',
-    'span',
-    'svg',
-];
+// const allowedHTMLTags = [
+//     'p',
+//     'a',
+//     'img',
+//     'span',
+//     'svg',
+// ];
 
 Template.dangerouslyRenderHTML.onCreated(function() {
-    const {transform = (html) => html} = this.data;
+    const { transform = html => html } = this.data;
     this.transform = transform;
+    this.access = this.data.access;
 });
 
 /**
- * sanitizes and sets html dangerously
+ * Sanitize and set HTML dangerously
  *
  * {{> dangerouslyRenderHTML HTML=htmlString transform=transformFunction }}
  */
 Template.dangerouslyRenderHTML.helpers({
-    render: function() {
+    render() {
         const template = Template.instance();
         const transform = template.transform;
         const transformed = transform(template.data.HTML);
+        const sanitizeAccess = template.access || 'standard';
 
-        return sanitizeHTML(transformed, {
-            allowedTags: allowedHTMLTags,
-            allowedAttributes: {
-                a: ['href', 'name', 'target', 'data-*'],
-                img: ['src'],
-                '*': ['class'],
-            },
-            allowedSchemes: ['http', 'https', 'mailto'],
-        });
+        return Partup.client.html.sanitize(transformed, sanitizeAccess);
     },
 });

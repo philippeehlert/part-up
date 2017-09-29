@@ -23,6 +23,7 @@ Package.onUse(function (api) {
         // 'uploader/plupload/plupload.js', //For debugging purposes only!
         'uploader/pluploader.js',
 
+        
         'client/base-64-polyfill.js',
         'client/url-polyfill.js',
         'client/bind-polyfill.js',
@@ -30,10 +31,11 @@ Package.onUse(function (api) {
         'client/moxie.js',
         'client/requestanimationframe-polyfill.js',
         'client/console-shim.js',
-
+        
         'namespace.js',
         'client/sanitize.js',
-
+        'client/html/html.js',
+        
         'constructors/ColumnTilesLayout.js',
 
         'client/trumbowyg.js',
