@@ -146,12 +146,13 @@ Template.NetworkSettingsPartups_form.helpers({
             });
         }
 
-        if (partupNetwork.isInvitational() || partupNetwork.isClosed()) {
-            types.push({
-                value: Partups.privacy_types.NETWORK_PUBLIC,
-                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-discoverable'),
-            });
-        }
+        // This feature has more impact than expected, see 'Partupsettings.js'
+        // if (partupNetwork.isInvitational() || partupNetwork.isClosed()) {
+        //     types.push({
+        //         value: Partups.privacy_types.NETWORK_PUBLIC,
+        //         label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-discoverable'),
+        //     });
+        // }
 
         return types;
     },
