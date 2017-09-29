@@ -32,15 +32,12 @@ Template.app_partup.onCreated(function () {
     });
 
     window.addEventListener('orientationchange', () => {
-        switch (window.orientation) {
-            case 90 || -90:
-                // landscape
-                template.sidebarExpanded(true);
-                break;
-            default:
-                // portrait
-                template.sidebarExpanded(false);
-                break;
+        if (window.innerWidth < window.innerHeight) {
+            if (template.sidebarExpanded.get()) {
+                template.sidebarExpanded.set(false);
+            } else {
+                template.sidebarExpanded.set(true);
+            }
         }
     });
 
