@@ -32,7 +32,7 @@ Template.app_partup.onCreated(function () {
     });
 
     window.addEventListener('orientationchange', () => {
-        if (window.innerWidth < window.innerHeight) {
+        if (screen.width < screen.height) {
             template.sidebarExpanded.set(false);
         } else {
             template.sidebarExpanded.set(true);
