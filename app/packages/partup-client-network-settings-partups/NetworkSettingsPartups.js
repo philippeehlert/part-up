@@ -99,13 +99,29 @@ Template.NetworkSettingsPartups.events({
 Template.NetworkSettingsPartups_form.helpers({
     partupPrivacyTypes: function(network_id) {
         var partupNetwork = Networks.findOne({_id: network_id});
-        var types = [{
-            value: Partups.privacy_types.NETWORK_PUBLIC,
-            label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-public')
-        },{
+        const types = [];
+
+        if (partupNetwork.isPublic()) {
+            types.push({
+                value: Partups.privacy_types.NETWORK_PUBLIC,
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-public'),
+            });
+        } else if (partupNetwork.isInvitational()) {
+            types.push({
+                value: Partups.privacy_types.NETWORK_INVITE,
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-invite'),
+            });
+        } else if (partupNetwork.isClosed()) {
+            types.push({
+                value: Partups.privacy_types.NETWORK_PRIVATE,
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-private'),
+            });
+        }
+
+        types.push({
             value: Partups.privacy_types.NETWORK_ADMINS,
             label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-admin', {label: ((partupNetwork.privacy_type_labels && partupNetwork.privacy_type_labels[6]) || TAPi18n.__('networksettings-partups-privacy-type-label-admin-default'))})
-        }];
+        });
 
         if (!partupNetwork) return types;
 
@@ -130,8 +146,15 @@ Template.NetworkSettingsPartups_form.helpers({
             });
         }
 
+        if (partupNetwork.isInvitational() || partupNetwork.isClosed()) {
+            types.push({
+                value: Partups.privacy_types.NETWORK_PUBLIC,
+                label: TAPi18n.__('networksettings-partups-privacy-type-popup-option-discoverable'),
+            });
+        }
+
         return types;
-    }
+    },
 });
 
 Template.NetworkSettingsPartups_form.events({
