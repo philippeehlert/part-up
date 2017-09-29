@@ -33,10 +33,8 @@ Template.app_partup.onCreated(function () {
 
     window.addEventListener('orientationchange', () => {
         if (window.innerWidth < window.innerHeight) {
-            if (template.sidebarExpanded.get()) {
-                template.sidebarExpanded.set(false);
-            }
-        } else if (!template.sidebarExpanded.get()) {
+            template.sidebarExpanded.set(false);
+        } else {
             template.sidebarExpanded.set(true);
         }
     });
