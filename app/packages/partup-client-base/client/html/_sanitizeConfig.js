@@ -35,6 +35,7 @@ const sanitizeMap = {
             'blockquote',
             'span',
             'img',
+            'svg',
             'ul',
             'ol',
             'li',
