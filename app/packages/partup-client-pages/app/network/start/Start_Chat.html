@@ -3,7 +3,7 @@
         <div class="pu-tribestart-wrap">
             <h2 class="pu-tribestart-subtitle pu-tribestart-chat__title">{{data.chat_title}}</h2>
             <div class="pu-contentblock pu-tribestart-chat__paragraph pu-tribestart-contentblock">
-                {{> dangerouslyRenderHTML HTML=data.chat_body}}
+                {{> dangerouslyRenderHTML HTML=data.chat_body access="MARKUP" }}
             </div>
             <ul class="pu-list pu-list-horizontal pu-tribestart-chat__admins">
                 {{#each data.admins}}

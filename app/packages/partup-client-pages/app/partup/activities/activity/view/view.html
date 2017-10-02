@@ -69,10 +69,10 @@
                     {{# unless COMPACT }}
                         {{# if activity.description }}
                             {{#if BOARDVIEW }}
-                                {{> dangerouslyRenderHTML HTML=activity.description transform=truncateDescription }}
+                                {{> dangerouslyRenderHTML HTML=activity.description transform=truncateDescription access="MARKUP" }}
                             {{else}}
                                 <p class="pu-paragraph pu-sub-description">
-                                    {{> dangerouslyRenderHTML HTML=activity.description transform=renderWithMarkdown }}
+                                    {{> dangerouslyRenderHTML HTML=activity.description transform=renderWithMarkdown access="MARKUP" }}
                                 </p>
                             {{/if}}
                         {{/ if }}
