@@ -1,3 +1,78 @@
+<a name="2.31.0"></a>
+# [2.31.0](https://github.com/part-up/part-up/compare/2.30.0...2.31.0) (2017-09-27)
+
+
+### Bug Fixes
+
+* **$client:** Change background-image for imagesystem to cover ([99b0d37](https://github.com/part-up/part-up/commit/99b0d37))
+* **$client:** Change background-image for imagesystem to cover ([56cda20](https://github.com/part-up/part-up/commit/56cda20))
+* **$client:** Reapply styling to imagesystem upload button ([a4f1b61](https://github.com/part-up/part-up/commit/a4f1b61))
+* **$client:** Reapply styling to imagesystem upload button ([e6f5dbb](https://github.com/part-up/part-up/commit/e6f5dbb))
+* **authorization:** Checks if partup is editable are all done via the same function ([33a28d8](https://github.com/part-up/part-up/commit/33a28d8))
+* **build:** trigger jenkins ([d7901c0](https://github.com/part-up/part-up/commit/d7901c0))
+* **build:** trigger jenkins ([e7dbce6](https://github.com/part-up/part-up/commit/e7dbce6))
+* **button:** fixed button spinner styling ([83b7c4e](https://github.com/part-up/part-up/commit/83b7c4e))
+* **button:** trigger staging build ([993d8be](https://github.com/part-up/part-up/commit/993d8be))
+* **client:** Add min-width to add-lane-button ([e9e3093](https://github.com/part-up/part-up/commit/e9e3093))
+* **client:** Add touch delay on android for the boardview cards and lanes ([99f794b](https://github.com/part-up/part-up/commit/99f794b))
+* **client:** Change touch delay back to 250ms for iOS ([fbf7c5f](https://github.com/part-up/part-up/commit/fbf7c5f))
+* **client:** Make `screenHelper` template helpers reactive ([5453dd4](https://github.com/part-up/part-up/commit/5453dd4))
+* **client:** New delay structure only for android ([224bc51](https://github.com/part-up/part-up/commit/224bc51))
+* **client:** Optimize boardview for mobile devices in landscape mode ([2789bb3](https://github.com/part-up/part-up/commit/2789bb3))
+* **client:** Partup page would always respond with page not found ([02b2da9](https://github.com/part-up/part-up/commit/02b2da9))
+* **client:** Sanitize autolink messages before sending it to the dangerouslyRenderHTML template ([af57c0d](https://github.com/part-up/part-up/commit/af57c0d))
+* **config:** Remove old babel deps from meteor package.json ([389549f](https://github.com/part-up/part-up/commit/389549f))
+* **contentblock:** the limit is based on the text only, with a built in safety for html validation (max length double of max text length 999 => 2000) ([e77a882](https://github.com/part-up/part-up/commit/e77a882))
+* **dangerous-html:** transform helpers now return functions for the render template ([a05c47a](https://github.com/part-up/part-up/commit/a05c47a))
+* **discover:** re-enabled upper hover cards on discover page ([35c296b](https://github.com/part-up/part-up/commit/35c296b))
+* **discover:** use correct partup count stat ([d633f3f](https://github.com/part-up/part-up/commit/d633f3f))
+* **emails:** don't send emails to deactivated users ([7f47854](https://github.com/part-up/part-up/commit/7f47854))
+* **i18n:** fixed missing url variable in translations [#1099](https://github.com/part-up/part-up/issues/1099) ([52f7a95](https://github.com/part-up/part-up/commit/52f7a95))
+* **invite-modal:** fix the spinner for network invite aswell ([e160bea](https://github.com/part-up/part-up/commit/e160bea))
+* **jenkins:** Trigger jenkins ([e26f226](https://github.com/part-up/part-up/commit/e26f226))
+* **locale:** use correct locale helper to set locale on signup ([b79f8d3](https://github.com/part-up/part-up/commit/b79f8d3))
+* **merge:** 'master' into 'ft-sanitize-html-frontend' ([e5c42f7](https://github.com/part-up/part-up/commit/e5c42f7))
+* **merge:** Fix merge conflict in contributing.md ([f8c4a8b](https://github.com/part-up/part-up/commit/f8c4a8b))
+* **merge:** resolve merge conflict ([ba27c60](https://github.com/part-up/part-up/commit/ba27c60))
+* **notifications:** don't send notifications to deactivated users ([3ff75d6](https://github.com/part-up/part-up/commit/3ff75d6))
+* **partup-tile:** fixed missing remaining-uppers on partup tile ([03060bd](https://github.com/part-up/part-up/commit/03060bd))
+* **pluploader:** cleanup import / package ([9b8d1f2](https://github.com/part-up/part-up/commit/9b8d1f2))
+* **scraper:** disabled chat message scraper [#885](https://github.com/part-up/part-up/issues/885) ([da06250](https://github.com/part-up/part-up/commit/da06250))
+* **server:** Properly extract bytes from buffer to compare ([6b8dd3a](https://github.com/part-up/part-up/commit/6b8dd3a))
+* **share:** fixed partupName in share email ([dd30abf](https://github.com/part-up/part-up/commit/dd30abf))
+* **translations:** added translation keys as requested in [#1205](https://github.com/part-up/part-up/issues/1205) ([5c27a6c](https://github.com/part-up/part-up/commit/5c27a6c))
+* **uploader:** Adjust error translation keys ([102b7eb](https://github.com/part-up/part-up/commit/102b7eb))
+* **uploader:** Fix typo at 'addMimeFilter' ([a2a2d3e](https://github.com/part-up/part-up/commit/a2a2d3e))
+* **uploader:** Now actually compares the file bytes with known signatures ([5c2bc28](https://github.com/part-up/part-up/commit/5c2bc28))
+
+
+### Features
+
+* **$client:** Increase character limit for tribe access levels ([0a8ee34](https://github.com/part-up/part-up/commit/0a8ee34))
+* **$uploader:** Add functions to files helper ([87ce0c9](https://github.com/part-up/part-up/commit/87ce0c9))
+* **$uploader:** Add functions to files helper ([726fe7e](https://github.com/part-up/part-up/commit/726fe7e))
+* **$uploader:** Change Pluploader to work better with the files helper ([43ae211](https://github.com/part-up/part-up/commit/43ae211))
+* **$uploader:** Change Pluploader to work better with the files helper ([0d324ec](https://github.com/part-up/part-up/commit/0d324ec))
+* **client:** Add rel=noopener attribute to link with target=_blank ([8386e9f](https://github.com/part-up/part-up/commit/8386e9f))
+* **client:** Auto hide sidebar when orientation changes to portrait mode ([352911c](https://github.com/part-up/part-up/commit/352911c))
+* **client:** Update AutolinkJS to 1.4.4 ([df1ce59](https://github.com/part-up/part-up/commit/df1ce59))
+* **dangerous-html:** Remove helper from invite tile ([42e4ca2](https://github.com/part-up/part-up/commit/42e4ca2))
+* **dangerous-html:** Remove helper where unnecessary ([97f093e](https://github.com/part-up/part-up/commit/97f093e))
+* **dangerous-render:** Add autolink to strings instead of it only being a template helper ([f3f9b91](https://github.com/part-up/part-up/commit/f3f9b91))
+* **dangerous-render:** Allow rendering of data attributes ([d5395e1](https://github.com/part-up/part-up/commit/d5395e1))
+* **file-upload:** Refactor file upload for partupsettings ([684c04d](https://github.com/part-up/part-up/commit/684c04d))
+* **files:** Add tests for file helper ([299cfe3](https://github.com/part-up/part-up/commit/299cfe3))
+* **partups:** Tribe admins can now edit part-up settings within the tribe ([7030013](https://github.com/part-up/part-up/commit/7030013))
+* **uploader:** Add phraseapp translations ([7b1bcf5](https://github.com/part-up/part-up/commit/7b1bcf5))
+* **uploader:** Add phraseapp translations ([157d1ef](https://github.com/part-up/part-up/commit/157d1ef))
+* **uploader:** Make files route generic to handle all file types ([04aac50](https://github.com/part-up/part-up/commit/04aac50))
+* **uploader:** Make files route generic to handle all file types ([e01ecf2](https://github.com/part-up/part-up/commit/e01ecf2))
+* **uploader:** Provide untranslated error message ([ea4f8da](https://github.com/part-up/part-up/commit/ea4f8da))
+* **uploader:** Update imagesystem to work with changes to Pluploader ([adc3b70](https://github.com/part-up/part-up/commit/adc3b70))
+* **uploader:** Update imagesystem to work with changes to Pluploader ([e390fbb](https://github.com/part-up/part-up/commit/e390fbb))
+
+
+
 <a name="2.30.0"></a>
 # [2.30.0](https://github.com/part-up/part-up/compare/2.29.2...2.30.0) (2017-09-08)
 
