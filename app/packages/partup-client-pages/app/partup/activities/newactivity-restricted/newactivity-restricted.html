@@ -3,10 +3,21 @@
         <section>
             <h2>{{_ 'pages-app-partup-activities-newactivity_restricted_header' }}</h2>
             <p>{{_ 'pages-app-partup-activities-newactivity_restricted_paragraph' }}</p>
-            <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-icon" data-newmessage>
+            <!-- <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-icon" data-newmessage>
                 <i class="picon-message"></i>
                 {{_ 'pages-app-partup-activities-newactivity_restricted_newmessage' }}
+            </a> -->
+             <!-- take part popup -->
+            {{#if isPendingPartner}}
+                <button type='button' class="pu-button pu-button-pending">
+                    <i class="picon-person-plus"></i> {{_ 'pages-app-partup-become_partner-pending' }}
+                </button>
+            {{else}}
+            <a class="pu-button" data-open-takepart-popup>
+                <i class="picon-person-plus"></i>
+                {{_ 'pages-app-partup-become_partner' }}
             </a>
+            {{/if}}
         </section>
         <footer>
             <a href="#" class="pu-button pu-button-gray" data-dismiss>
