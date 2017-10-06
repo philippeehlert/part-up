@@ -271,7 +271,8 @@ Router.route('/oauth/authorize', {
         return {
             clientId: query.client_id,
             responseType: query.response_type,
-            scope: query.scope
+            scope: query.scope,
+            state: query.state,
         };
     },
     onBeforeAction: function() {
@@ -487,9 +488,9 @@ Router.route('/partups/:slug/updates', {
     name: 'partup-updates',
     where: 'client',
     yieldRegions: {
-        'app':                {to: 'main'},
-        'app_partup':         {to: 'app'},
-        'app_partup_updates': {to: 'app_partup'}
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_updates': { to: 'app_partup' }
     },
     data: function() {
         return {
@@ -859,9 +860,9 @@ Router.route('/tribes/:slug/settings/landing', {
     name: 'network-settings-landing',
     where: 'client',
     yieldRegions: {
-        'modal':                         {to: 'main'},
-        'modal_network_settings':        {to: 'modal'},
-        'modal_network_settings_landing': {to: 'modal_network_settings'}
+        'modal': { to: 'main' },
+        'modal_network_settings': { to: 'modal' },
+        'modal_network_settings_landing': { to: 'modal_network_settings' }
     },
     data: function() {
         return {

@@ -38,7 +38,7 @@ Meteor.methods({
             return null;
         }
     },
-    'oauth.grant': function(clientId) {
+    'oauth.grant': function(clientId, state) {
         if (!provisionKey && process.env.NODE_ENV.match(/development|staging/) && kongAdminUrl) {
             this.unblock();
             Log.info('Provision key not set, attempting to obtain from Kong Admin API...');
@@ -51,8 +51,11 @@ Meteor.methods({
                 response_type: 'code',
                 scope: 'openid',
                 provision_key: provisionKey,
-                authenticated_userid: userId
+                authenticated_userid: userId,
             };
+            if (state) {
+                payload.state = state;
+            }
             this.unblock();
             try {
                 var headers = Api.isSecure() ? {} : { 'x-forwarded-proto': 'https' };
