@@ -1,3 +1,26 @@
+<a name="2.32.0"></a>
+# [2.32.0](https://github.com/part-up/part-up/compare/2.31.0...2.32.0) (2017-10-02)
+
+
+### Bug Fixes
+
+* **client:** Add <em> and <strong> to MARKUP sanitize_access ([206e669](https://github.com/part-up/part-up/commit/206e669))
+* **client:** Add sanitize access-levels to dangerouslyRenderHTML ([275447c](https://github.com/part-up/part-up/commit/275447c))
+* **client:** Add svg to MARKUP sanitize ([b0c4e17](https://github.com/part-up/part-up/commit/b0c4e17))
+* **client:** Change window to screen for matching sizes ([763ac19](https://github.com/part-up/part-up/commit/763ac19))
+* **client:** Fix autolinker after update ([f517a1b](https://github.com/part-up/part-up/commit/f517a1b))
+* **client:** Fix nested conditional ([eea40b2](https://github.com/part-up/part-up/commit/eea40b2))
+* **client:** Remove partup access level public in closed tribe ([eabd0bd](https://github.com/part-up/part-up/commit/eabd0bd))
+* **client:** Show right partup-access level options in tribesettings ([d5712d2](https://github.com/part-up/part-up/commit/d5712d2))
+* **client:** Simplify conditional for auto sidebar ([3076b85](https://github.com/part-up/part-up/commit/3076b85))
+
+
+### Features
+
+* **client:** Auto hide sidebar on orientation change ([c9167e1](https://github.com/part-up/part-up/commit/c9167e1))
+
+
+
 <a name="2.31.0"></a>
 # [2.31.0](https://github.com/part-up/part-up/compare/2.30.0...2.31.0) (2017-09-27)
 
