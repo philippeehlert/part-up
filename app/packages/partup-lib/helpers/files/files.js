@@ -45,10 +45,10 @@ Partup.helpers.files = {
     signatures: {},
 
     /**
-     * Maximum file size in bytes (binary, 10mb)
+     * Maximum file size in bytes (binary, 20mb)
      * @memberof Partup.helpers.files
      */
-    max_file_size: 10485760,
+    max_file_size: 20971520,
 
     // #endregion
 
