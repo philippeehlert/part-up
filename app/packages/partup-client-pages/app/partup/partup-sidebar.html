@@ -9,7 +9,7 @@
         <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
         {{#if partup.archived_at}}
             <div class="pu-state-message">
-                <h3>{{_ 'pages-app-partup-archive-info' }} <strong>{{ partupDateOnly archived_at }}</strong></h3>
+                <h3>{{_ 'pages-app-partup-archive-info' }} <strong>{{ partupDateOnly partup.archived_at }}</strong></h3>
             </div>
         {{/if}}
         <div class="pu-sub-title">

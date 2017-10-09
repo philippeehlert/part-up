@@ -124,6 +124,8 @@ MentionsInput.prototype.select = function(index) {
     var post = value.substring(this.input.selectionStart, value.length);
     if (post.length < 1) {
         post = ' '
+    } else if (!post.startsWith(' ')) {
+        post = ' ' + post
     }
 
     this.input.value = pre + suggestionName + post;

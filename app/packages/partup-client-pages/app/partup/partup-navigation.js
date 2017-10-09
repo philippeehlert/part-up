@@ -60,7 +60,7 @@ Template.app_partup_navigation.events({
             confirmButton: TAPi18n.__('pages-app-popup-confirmation-confirm-button'),
             cancelButton: TAPi18n.__('pages-app-popup-confirmation-cancel-button'),
             onConfirm: function () {
-                Meteor.call('partups.unpartner', template.data.partup)
+                Meteor.call('partups.unpartner', template.data.partup._id)
             }
         });
     },
