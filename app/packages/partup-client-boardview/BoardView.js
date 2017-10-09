@@ -245,7 +245,7 @@ Template.BoardView.onCreated(function () {
 
             lane.activities = (lane && lane.activities || []).map(function (activityId, activityIndex) {
                 return Activities.findOne(activityId);
-            }).filter(function (activity) { return !!activity; });
+            }).filter(function (activity) { return (activity && !activity.isRemoved()); });
 
             lane.activitiesCount = lane.activities.length;
 
