@@ -1,3 +1,25 @@
+<a name="2.33.0"></a>
+# [2.33.0](https://github.com/part-up/part-up/compare/2.32.0...2.33.0) (2017-10-06)
+
+
+### Bug Fixes
+
+* **$activity:** changed new activity modal for non-partners ([ae47015](https://github.com/part-up/part-up/commit/ae47015))
+* **$partup:** Sidebar now shows the right date when a partup was archived ([ccd69e1](https://github.com/part-up/part-up/commit/ccd69e1))
+* **client:** A removed activity now doesn't show up the lanes anymore ([0922974](https://github.com/part-up/part-up/commit/0922974))
+* **client:** correct previous commit regarding focus ([632cc02](https://github.com/part-up/part-up/commit/632cc02))
+* **client:** focus on new activity modal ([62b42b3](https://github.com/part-up/part-up/commit/62b42b3))
+* **client:** Mentions in comments now correctly insert spaces after mention ([d8e674e](https://github.com/part-up/part-up/commit/d8e674e))
+* **client:** Set autofocus to activity modal input form ([980bd36](https://github.com/part-up/part-up/commit/980bd36))
+* **partup:** Unpartner button now has a partupID as argument ([c8a6051](https://github.com/part-up/part-up/commit/c8a6051))
+
+
+### Features
+
+* **oauth2:** Added support for state query param ([50cb7c6](https://github.com/part-up/part-up/commit/50cb7c6))
+
+
+
 <a name="2.32.0"></a>
 # [2.32.0](https://github.com/part-up/part-up/compare/2.31.0...2.32.0) (2017-10-02)
 
