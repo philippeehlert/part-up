@@ -1,21 +1,11 @@
-function isPendingPartner(partupId) {
-
-        var user = Meteor.user();
-        if (!user) return false;
-        var partup = Partups.findOne(partupId);
-        if (!partup) return false;
-        return (partup.pending_partners || []).indexOf(user._id) > -1;
-}
-
 Template.app_partup_activities_newactivity_restricted.helpers({
 
     partup: function() {
         return Partups.findOne(this.partupId);
     },
-
-    isPendingPartner: function() {
-        return isPendingPartner(this.partupId);
-    }
+    isPendingPartner() {
+        return User(Meteor.user()).isPendingPartner(this.partupId);
+    },
 
 });
 

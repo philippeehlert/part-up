@@ -466,6 +466,16 @@ User = function(user) {
             return isSupporter || isPartner;
         },
 
+        isPendingPartner(partupId) {
+            if (user) {
+                const partup = Partups.findOne(partupId);
+                if (partup) {
+                    return (partup.pending_partners || []).indexOf(user._id) > -1;
+                }
+            }
+            return false;
+        },
+
         /**
          * Check if the user is member of any network
          * @member {Function}
