@@ -76,14 +76,14 @@ Router.route('/files/upload', { where: 'server' }).post(function() {
                         })(element, bytes);
 
                         // For now, log info about matching to improve this for the future
-                        if (!match) {
-                            let log = {
-                                filename,
-                                mimetype,
-                                bytes
-                            }
-                            winston.info(`No match found for: ${JSON.stringify(log, null, 2)}`);
-                        }
+                        // if (!match) {
+                        //     let log = {
+                        //         filename,
+                        //         mimetype,
+                        //         bytes
+                        //     }
+                        //     winston.info(`No match found for: ${JSON.stringify(log, null, 2)}`);
+                        // }
                     }
                 }
             }
