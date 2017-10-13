@@ -68,6 +68,7 @@ Template.Comments.onRendered(function() {
     var partupId = template.data.update.partup_id;
     template.mentionsInput = Partup.client.forms.MentionsInput(template.input, {partupId: partupId});
     Partup.client.elements.onClickOutside([template.list], template.resetEditCommentForm);
+
 });
 
 Template.afFieldInput.onRendered(function() {
@@ -260,7 +261,7 @@ Template.Comments.events({
             template.showCommentClicked.set(true);
 
             Meteor.defer(function() {
-                var commentForm = template.find('[id=commentForm-' + updateId + ']');
+                var commentForm = template.find('[id$=commentForm-' + updateId + ']');
                 var field = lodash.find(commentForm, {name: 'content'});
                 if (field) field.focus();
             });

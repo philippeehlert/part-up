@@ -107,7 +107,7 @@
                     {{# if isMotivation }}
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment data-validate-keyup=""}}
                     {{ else }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows }}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows autofocus=''}}
                     {{/ if }}
                     {{#if state.messageTooLong}}
                         <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>
