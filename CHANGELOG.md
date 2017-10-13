@@ -1,3 +1,23 @@
+<a name="2.34.0"></a>
+# [2.34.0](https://github.com/part-up/part-up/compare/2.33.1...2.34.0) (2017-10-13)
+
+
+### Bug Fixes
+
+* **$meteor:** Fixing the updateId commentForm selector when so focus in on the comment field ([433120d](https://github.com/part-up/part-up/commit/433120d))
+* **$mobile:** Remove fastclick and file upload logging ([ba0bc73](https://github.com/part-up/part-up/commit/ba0bc73))
+* **client:** Added newline at end of file ([1161bc1](https://github.com/part-up/part-up/commit/1161bc1))
+* **client:** fix response on non-partner of a part-up trying to create new activity ([86e9799](https://github.com/part-up/part-up/commit/86e9799))
+* **client:** Partup.isEditableBy now returns false when input undefined ([1226bba](https://github.com/part-up/part-up/commit/1226bba))
+* **client:** Replace duplicate code by adding it to the User object. ([d7cc743](https://github.com/part-up/part-up/commit/d7cc743))
+
+
+### Features
+
+* **client:** Add new phraseapp key to activity_restricted ([312aa35](https://github.com/part-up/part-up/commit/312aa35))
+
+
+
 <a name="2.33.1"></a>
 ## [2.33.1](https://github.com/part-up/part-up/compare/2.33.0...2.33.1) (2017-10-10)
 
