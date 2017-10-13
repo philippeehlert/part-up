@@ -1,3 +1,13 @@
+<a name="2.33.1"></a>
+## [2.33.1](https://github.com/part-up/part-up/compare/2.33.0...2.33.1) (2017-10-10)
+
+
+### Bug Fixes
+
+* **client:** Demo of easy fix autofocus on comment field ([ccb3634](https://github.com/part-up/part-up/commit/ccb3634))
+
+
+
 <a name="2.33.0"></a>
 # [2.33.0](https://github.com/part-up/part-up/compare/2.32.0...2.33.0) (2017-10-06)
 
