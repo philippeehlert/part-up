@@ -107,7 +107,6 @@
                     {{# if isMotivation }}
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment data-validate-keyup=""}}
                     {{ else }}
-                    <br>RPZZZZ: Hier het commentaar veld met autofocus erbij<br>
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows autofocus=''}}
                     {{/ if }}
                     {{#if state.messageTooLong}}
