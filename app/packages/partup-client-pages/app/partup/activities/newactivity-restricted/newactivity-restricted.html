@@ -2,7 +2,13 @@
     <div class="pu-sub-content">
         <section>
             <h2>{{_ 'pages-app-partup-activities-newactivity_restricted_header' }}</h2>
-            <p>{{_ 'pages-app-partup-activities-newactivity_restricted_paragraph' }}</p>
+            <p>
+                {{#if isPendingPartner }}
+                    {{_ 'pages-app-partup-activities-newactivity_restricted_paragraph_pending' }}
+                {{ else }}
+                    {{_ 'pages-app-partup-activities-newactivity_restricted_paragraph' }}
+                {{/if }}
+            </p>
         </section>
         <footer>
             <ul class="pu-list pu-list-horizontal pu-list-buttons">
