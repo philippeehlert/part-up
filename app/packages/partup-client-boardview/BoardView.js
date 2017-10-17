@@ -317,6 +317,8 @@ Template.BoardView.events({
     'keyup [data-add-lane-input]': function (event, template) {
         if (event.keyCode === 13) {
             template.addLane.set(false);
+            // Not every browser blurs after pressing enter (FF on Mac for example)
+            $(":focus").blur(); // Thus we force a blur
         }
     },
     'blur [data-add-lane-input]': function (event, template) {
