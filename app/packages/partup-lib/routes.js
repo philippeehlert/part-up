@@ -14,9 +14,9 @@ Router.configure({
     layoutTemplate: 'main',
     state: function() {
         return {
-            type: 'default'
+            type: 'default',
         };
-    }
+    },
 });
 
 /*************************************************************/
@@ -27,11 +27,23 @@ Router.route('', {
     where: 'client',
     yieldRegions: {
         'app': { to: 'main' },
-        'app_home': { to: 'app' }
+        'app_home': { to: 'app' },
     },
     onBeforeAction: function() {
-        Partup.client.windowTitle.setContextName("Home");
+        Partup.client.windowTitle.setContextName('Home');
         this.next();
+    },
+});
+
+/*************************************************************/
+/* Dashboard */
+/*************************************************************/
+Router.route('/home', {
+    name: 'dashboard',
+    where: 'client',
+    yieldRegions: {
+        'app': { to: 'main' },
+        'app_dashboard': { to: 'app' },
     }
 });
 
@@ -44,12 +56,12 @@ Router.route('/discover', {
     yieldRegions: {
         'app': { to: 'main' },
         'app_discover': { to: 'app' },
-        'app_discover_tribes': { to: 'app_discover' }
+        'app_discover_tribes': { to: 'app_discover' },
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName('Discover');
         this.next();
-    }
+    },
 });
 
 /*************************************************************/

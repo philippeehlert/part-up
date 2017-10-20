@@ -161,6 +161,7 @@ partup-client-profilesettings@0.0.1
 partup-client-prompt@0.0.1
 partup-client-rating@0.0.1
 partup-client-ratings@0.0.1
+partup-client-react@0.0.1
 partup-client-resetpassword@0.0.1
 partup-client-selectors@0.0.1
 partup-client-spinner@0.0.1

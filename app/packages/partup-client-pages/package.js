@@ -65,6 +65,8 @@ Package.onUse(function(api) {
             // 'app/home/partials/call-to-action.js',
 
             // App:discover
+            'app/dashboard/dashboard.html',
+            'app/dashboard/dashboard.js',
             'app/discover/discover.html',
             'app/discover/discover.js',
             'app/discover/tabs/discover-partups.html',

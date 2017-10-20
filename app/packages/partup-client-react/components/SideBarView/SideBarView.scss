@@ -1,0 +1,16 @@
+.pur-SideBarView {
+
+    &__sidebar, &__content {
+        display: inline-block;
+        vertical-align: top;
+        min-height: calc(100% - 60px);
+    }
+
+    &__sidebar {
+        width: 400px;
+    }
+
+    &__content {
+        width: calc(100% - 400px);
+    }
+}
