@@ -100,7 +100,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
         });
     });
 
-    Updates.update({_id: this._id}, {$set: {upper_data: upper_data}});
+    Updates.update({ _id: this._id }, { $set: { upper_data: upper_data } });
 };
 
 /**
@@ -109,7 +109,7 @@ Update.prototype.addNewCommentToUpperData = function(comment, upperIds) {
  * @memberOf Updates
  */
 Update.prototype.isLatestUpdateOfItsPartup = function() {
-    var updates = Updates.find({partup_id: this.partup_id});
+    var updates = Updates.find({ partup_id: this.partup_id });
     var self = this;
     var isLatestUpdateOfItsPartup = true;
     updates.forEach(function(update) {
@@ -134,7 +134,7 @@ Update.prototype.getInvolvedUppers = function() {
 
     // Add contributors if update is an activity
     if (this.type_data && this.type_data.activity_id) {
-        Contributions.find({activity_id: this.type_data.activity_id}, {upper_id: 1}).fetch().forEach(function(contribution) {
+        Contributions.find({ activity_id: this.type_data.activity_id }, { upper_id: 1 }).fetch().forEach(function(contribution) {
             uppers.push(contribution.upper_id);
         });
     }
@@ -177,7 +177,7 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor}
  */
 Updates.findForActivity = function(activity) {
-    return Updates.find({_id: activity.update_id}, {limit: 1});
+    return Updates.find({ _id: activity.update_id }, { limit: 1 });
 };
 
 /**
@@ -198,8 +198,8 @@ Updates.findForPartup = function(partup, parameters, userId) {
         userId = Meteor.userId();
     }
 
-    var selector = {partup_id: partup._id};
-    var options = {sort: {updated_at: -1}};
+    var selector = { partup_id: partup._id };
+    var options = { sort: { updated_at: -1 } };
 
     if (parameters.limit) {
         options.limit = parseInt(parameters.limit);
@@ -211,29 +211,29 @@ Updates.findForPartup = function(partup, parameters, userId) {
         if (filter === 'my-updates') {
             selector.upper_id = userId;
         } else if (filter === 'activities') {
-            selector.type = {$regex: '.*activities.*'};
+            selector.type = { $regex: '.*activities.*' };
         } else if (filter === 'partup-changes') {
             var regex = '.*(tags|end_date|name|description|image|budget).*';
-            selector.type = {$regex: regex};
+            selector.type = { $regex: regex };
         } else if (filter === 'messages') {
-            selector.type = {$regex: '.*message.*'};
+            selector.type = { $regex: '.*message.*' };
         } else if (filter === 'contributions') {
-            selector.type = {$regex: '.*contributions.*'};
+            selector.type = { $regex: '.*contributions.*' };
         } else if (filter === 'documents-links') {
-            selector.$or = [{has_documents: true}, {has_links: true}];
+            selector.$or = [{ has_documents: true }, { has_links: true }];
         } else if (filter === 'documents') {
             selector.has_documents = true;
         } else if (filter === 'links') {
             selector.has_links = true;
         } else if (filter === 'conversations') {
             selector.$or = [
-                {type: 'partups_message_added'},
-                {type: 'partups_activities_comments_added'},
-                {comments_count: {$gt: 0}}
+                { type: 'partups_message_added' },
+                { type: 'partups_activities_comments_added' },
+                { comments_count: { $gt: 0 } }
             ];
             selector.$and = [
-                {archived_at: {$exists: false}},
-                {deleted_at: {$exists: false}}
+                { archived_at: { $exists: false } },
+                { deleted_at: { $exists: false } }
             ];
         }
     }
