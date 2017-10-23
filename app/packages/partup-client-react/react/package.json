@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0"
   },
   "scripts": {
@@ -19,9 +23,14 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.3",
     "@types/jest": "^21.1.4",
+    "@types/jquery": "^3.2.15",
+    "@types/lodash": "^4.14.78",
     "@types/node": "^8.0.46",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.18",
-    "@types/react-dom": "^16.0.2"
+    "@types/react-dom": "^16.0.2",
+    "@types/react-router-dom": "^4.0.8"
   }
 }

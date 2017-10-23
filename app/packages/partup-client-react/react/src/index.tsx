@@ -1,19 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import * as ReactRouter from 'react-router-dom';
+import Router from './components/Router';
+import DashboardView from './views/DashboardView';
 
 const checker = setInterval(() => {
   const root = document.getElementById('react-root');
-  console.log('setInterval');
 
   if (root) {
-    console.log('RENDER REACT');
     ReactDOM.render(
-      <App />,
-      root as HTMLElement
+        <ReactRouter.MemoryRouter>
+            <Router>
+                <DashboardView />
+            </Router>
+        </ReactRouter.MemoryRouter>,
+        root as HTMLElement
     );
     clearInterval(checker);
-
   }
-}, 500)
+}, 500);

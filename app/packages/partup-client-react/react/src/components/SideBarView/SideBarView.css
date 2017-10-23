@@ -1,0 +1,10 @@
+.pur-SideBarView__sidebar, .pur-SideBarView__content {
+  display: inline-block;
+  vertical-align: top;
+  min-height: calc(100% - 60px); }
+
+.pur-SideBarView__sidebar {
+  width: 400px; }
+
+.pur-SideBarView__content {
+  width: calc(100% - 400px); }
