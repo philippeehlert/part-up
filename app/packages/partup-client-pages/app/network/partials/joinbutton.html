@@ -17,7 +17,7 @@
                     </a>
                 {{ else }}
                     <a href="#" class="pu-button" data-join>
-                        {{_ 'pages-app-network-actions-button-join'}}
+                        {{_ 'pages-app-network-actions-button-join'}} {{ network.name }}
                     </a>
                 {{/ if }}
             {{/ if }}
@@ -33,7 +33,7 @@
                     </a>
                 {{ else }}
                     <a href="#" class="pu-button" data-request-invite>
-                        {{_ 'pages-app-network-actions-button-request_access' }}
+                        {{_ 'pages-app-network-actions-button-request_access' }} {{ network.name }}
                     </a>
                 {{/if}}
             {{/ if }}
