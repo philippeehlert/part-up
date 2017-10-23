@@ -11,6 +11,10 @@ import List, {
     ListItem,
 } from '../../components/List';
 
+import Portal, {
+    PortalManager,
+} from '../../components/Portal';
+
 import { Link } from '../../components/Router';
 
 import ActivitiesView from './routes/Activities';
@@ -61,6 +65,18 @@ export default class DashboardView extends Component {
     renderMaster = () => (
         <View>
             Conversations
+            <PortalManager
+                renderHandler={(open) => (
+                    <button onClick={open}>Open portal</button>
+                )}
+                renderPortal={(close) => (
+                    <Portal>
+                        <View>
+                            jajajajajaj
+                            <button onClick={close}>Close portal</button>
+                        </View>
+                    </Portal>
+                )} />
         </View>
     );
 };
