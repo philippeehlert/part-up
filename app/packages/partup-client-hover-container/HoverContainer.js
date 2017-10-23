@@ -35,7 +35,7 @@ Template.HoverContainer.onRendered(function() {
 
         // Gather data for tile
         var tileTemplate = $trigger.data('hovercontainer') || '';
-        var tileData = $trigger.attr('data-hovercontainer-context') || {};
+        var tileData = $trigger.data('hovercontainer-context') || {};
         var delay = parseInt($trigger.data('hovercontainer-delay')) || 500;
         var orientation = $trigger.data('hovercontainer-orientation') || 'top-bottom';
         var typeClass = $trigger.data('hovercontainer-class') || '';
