@@ -3,6 +3,7 @@ const Future = Npm.require('fibers/future');
 const exec = Npm.require('child_process').exec;
 const path = Npm.require('path');
 const glob = Npm.require('glob');
+const fs = Npm.require('fs');
 
 Package.describe({
     name: 'partup-client-react',
@@ -31,11 +32,26 @@ Package.onUse((api) => {
 
     future.wait();
 
+    const packagePath = path.join(path.resolve('.'), 'packages', 'partup-client-react');
     const options = {
-        cwd: path.join(path.resolve('.'), 'packages', 'partup-client-react'),
+        cwd: packagePath,
+        ignore: ['index.scss'],
     };
 
     const files = glob.sync('./react/build/static/js/main.*.js', options);
+
+    const cssfiles = glob.sync('./react/src/**/*.scss', options);
+    console.log(cssfiles);
+
+    const cssArray = cssfiles.map((str) => {
+        return str.replace('./', '@import "').replace('.scss', '";');
+    }).filter((str) => str !== '@import "react/src/index";');
+    cssArray.unshift('@import "react/src/index";');
+    const cssString = cssArray.join('\n');
+
+    console.log(packagePath);
+
+    fs.writeFileSync(path.resolve(packagePath + '/react-app-style.scss'), cssString, {encoding: 'utf8'});
 
     console.log('REACT: Adding files', files);
 
