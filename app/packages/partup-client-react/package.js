@@ -12,6 +12,18 @@ Package.describe({
     documentation: null,
 });
 
+const runSyncFunctions = (funcs) => {
+
+    funcs.forEach((func) => {
+        const future = new Future;
+
+        func(future.resolver());
+
+        future.wait();
+    });
+
+};
+
 Package.onUse((api) => {
 
     api.use([
@@ -21,43 +33,40 @@ Package.onUse((api) => {
         'iron:router',
     ], 'client');
 
-    console.log('NPM: Installing');
+    runSyncFunctions([
+        (done) => {
+            console.log('NPM: Installing');
 
-    const future1 = new Future;
+            exec('cd ./packages/partup-client-react/react && npm install --silent --unsafe-perm', (error, stdout, stderr) => {
+                if (error) {
+                    console.log('NPM: Failed!', error.stack, stderr);
+                    process.exit(1);
+                }
 
-    exec('cd ./packages/partup-client-react/react && npm install --silent --unsafe-perm', (error, stdout, stderr) => {
+                console.log('NPM: Finished', stdout);
 
-        if (error) {
-            console.log('NPM: Failed!', error.stack, stderr);
-            process.exit(1);
-        }
+                done();
+            });
+        },
+        (done) => {
+            console.log('REACT: Building');
 
-        console.log('NPM: Finished', stdout);
+            exec('cd ./packages/partup-client-react/react && npm run build', (error, stdout, stderr) => {
+                if (error) {
+                    console.log('REACT: FAILED building', error.stack, stderr);
+                    process.exit(1);
+                }
 
-        future1.resolver()();
-    })
+                console.log('REACT: Finished building', stdout);
 
-    future1.wait();
+                done();
+            });
+        },
 
-    console.log('REACT: Building');
-
-    const future2 = new Future;
-
-    exec('cd ./packages/partup-client-react/react && npm run build', (error, stdout, stderr) => {
-
-        if (error) {
-            console.log('REACT: FAILED building', error.stack, stderr);
-            process.exit(1);
-        }
-
-        console.log('REACT: Finished building', stdout);
-
-        future2.resolver()();
-    })
-
-    future2.wait();
+    ]);
 
     const packagePath = path.join(path.resolve('.'), 'packages', 'partup-client-react');
+
     const options = {
         cwd: packagePath,
         ignore: ['index.scss'],
@@ -66,19 +75,20 @@ Package.onUse((api) => {
     const files = glob.sync('./react/build/static/js/main.*.js', options);
 
     const cssfiles = glob.sync('./react/src/**/*.scss', options);
-    console.log(cssfiles);
 
-    const cssArray = cssfiles.map((str) => {
-        return str.replace('./', '@import "').replace('.scss', '";');
-    }).filter((str) => str !== '@import "react/src/index";');
+    console.log('REACT: Adding css files:', cssfiles);
+
+    const cssArray = cssfiles
+        .map((str) => str.replace('./', '@import "').replace('.scss', '";'))
+        .filter((str) => str !== '@import "react/src/index";');
+
     cssArray.unshift('@import "react/src/index";');
-    const cssString = cssArray.join('\n');
 
-    console.log(packagePath);
+    const cssString = cssArray.join('\n');
 
     fs.writeFileSync(path.resolve(packagePath + '/react-app-style.scss'), cssString, {encoding: 'utf8'});
 
-    console.log('REACT: Adding files', files);
+    console.log('REACT: Adding js files', files);
 
     api.addFiles([
         'blaze/ReactDashboard.html',
