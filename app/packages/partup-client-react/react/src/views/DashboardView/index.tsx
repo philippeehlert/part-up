@@ -4,13 +4,13 @@ import * as ReactRouter from 'react-router-dom';
 import {
     View,
     SideBarView,
-} from '../../components';
+} from 'components';
 
 import List, {
     ListItem,
-} from '../../components/List';
+} from 'components/List';
 
-import { Link } from '../../components/Router';
+import { Link } from 'components/Router';
 
 import ActivitiesView from './routes/Activities';
 import InvitesView from './routes/Invites';
@@ -20,7 +20,7 @@ interface Props {
     match?: Object;
     location?: Object;
     history?: Object;
-};
+}
 
 export default class DashboardView extends React.Component<Props, {}> {
 
@@ -43,6 +43,7 @@ export default class DashboardView extends React.Component<Props, {}> {
                         </ListItem>
                     </List>
                 }>
+                
                 <ReactRouter.Switch>
                     <ReactRouter.Route path={'/activities'} component={ActivitiesView} />
                     <ReactRouter.Route path={'/invites'} component={InvitesView} />
@@ -51,11 +52,11 @@ export default class DashboardView extends React.Component<Props, {}> {
                 </ReactRouter.Switch>
             </SideBarView>
         );
-    };
+    }
 
     renderMaster = () => (
         <View>
             Conversations
         </View>
-    );
-};
+    )
+}
