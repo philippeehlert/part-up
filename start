@@ -4,7 +4,7 @@
 # Global variables.
 #
 
-APP="app"
+APP="$(pwd)/app"
 CONFIG="config"
 BUNDLE="build/bundle"
 
@@ -28,6 +28,8 @@ display_help() {
     --checkout         Use a Meteor git checkout
     --env <env>        Set the environment (development, test, production)
     --packages <path>  Tell Meteor about another packages folder
+    --react-dev        Start without compiling partup-client-react
+    --once             Start meteor without watching file changes
 
 
 EOF
@@ -75,12 +77,36 @@ start() {
   else
     if [ -z "$MIGRATE" ]; then
       export MIGRATE=latest
-    fi
+    fi    
+    
     cd "$APP"
     echo "Running npm install..."
     meteor npm install
-    echo "Starting your app in $NODE_ENV..."
-    local CMD="$METEOR --settings ../$settings_file"
+    
+    if [ "$REACT_DEV" ]; then
+      BLUE='\033[0;34m'
+      GREEN='\033[0;32m'
+      NC='\033[0m'
+      echo "Starting your app in $NODE_ENV..."
+      echo -e "${GREEN}______________________________________________________________"
+      echo -e "| To run the react-develop environment run                    |"
+      echo -e "| => ${BLUE}cd app/packages/partup-client-react/react && yarn start${GREEN}  |"
+      echo -e "| in another terminal window                                  |"
+      echo -e "|_____________________________________________________________|${NC}"
+    else
+      echo "Installing and building partup-client-react package..."
+      cd "$APP/packages/partup-client-react/react" 
+      npm install --silent --unsafe-perm
+      npm run build
+    fi
+    
+    if [ "$REACT_DEV" ]; then    
+      local CMD="REACT_DEV=true $METEOR $ONCE --settings ../$settings_file"
+    else
+      local CMD="$METEOR $ONCE --settings ../$settings_file"
+    fi
+
+    cd "$APP"
     echo "$CMD"
     eval $CMD
   fi
@@ -99,6 +125,8 @@ else
       -e|--env)             export NODE_ENV="$2"; shift ;;
       --checkout)           CHECKOUT=true ;;
       --packages)           export PACKAGE_DIRS="$2:$PACKAGE_DIRS"; shift ;;
+      --react-dev)          REACT_DEV=true ;;
+      --once)               ONCE="--once" ;;
       *)                    display_help ;;
     esac
     shift
