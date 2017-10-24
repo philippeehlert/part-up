@@ -43,7 +43,7 @@ Package.onUse((api) => {
 
     const future2 = new Future;
 
-    exec('cd ./packages/partup-client-react/react && npm build', (error, stdout, stderr) => {
+    exec('cd ./packages/partup-client-react/react && npm run build', (error, stdout, stderr) => {
 
         if (error) {
             console.log('REACT: FAILED building', error.stack, stderr);
