@@ -85,19 +85,27 @@ start() {
     
     BLUE='\033[0;36m'
     YELLOW='\033[0;33m'
+    MAGENTA='\033[0;35m'
     NC='\033[0m'
     if [ "$REACT_DEV" ]; then
       echo "Starting your app in $NODE_ENV..."
       echo -e "${YELLOW}███████████████████████████████████████████████████████████████"
-      echo -e "█ To run the react-develop environment run                    █"
+      echo -e "█ Starting Meteor in --react-dev mode...                      █"
+      if [ ! "$ONCE" ]; then
+        echo -e "█ ${MAGENTA}Warning: running without --once will slow down ${YELLOW}             █"
+        echo -e "█ ${MAGENTA}development speed significantly because Meteor will         ${YELLOW}█"
+        echo -e "█ ${MAGENTA}rebuild every time the react-package is built 😱${YELLOW}             █"
+      fi
+      echo -e "█ To start the react environment run                          █"
       echo -e "█ => ${BLUE}cd app/packages/partup-client-react/react && yarn start${YELLOW}  █"
       echo -e "█ in another terminal window                                  █"
       echo -e "███████████████████████████████████████████████████████████████${NC}"
     else
       echo -e "${YELLOW}███████████████████████████████████████████████████████████████"
       echo -e "█ Installing and building partup-client-react package...      █"
-      echo -e "█ Use ${BLUE}./start --react-dev --once${YELLOW} to work on the               █"
-      echo -e "█ react-codebase                                              █"
+      echo -e "█ Run ${BLUE}./start --react-dev${YELLOW} to work on the                      █"
+      echo -e "█ Use the ${BLUE}--once${YELLOW} flag to disable the Meteor watcher           █"
+      echo -e "█ (recommended when working on the react codebase)            █"
       echo -e "███████████████████████████████████████████████████████████████${NC}"
       cd "$APP/packages/partup-client-react/react" 
       npm install --silent --unsafe-perm
