@@ -25,7 +25,7 @@ Package.onUse((api) => {
 
     const future1 = new Future;
 
-    exec('cd ./packages/partup-client-react/react && npm install --unsafe-perm', (error, stdout, stderr) => {
+    exec('cd ./packages/partup-client-react/react && npm install --silent --unsafe-perm', (error, stdout, stderr) => {
 
         if (error) {
             console.log('NPM: Failed!', error.stack, stderr);
