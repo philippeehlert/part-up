@@ -25,8 +25,15 @@ Package.onUse((api) => {
 
     const future = new Future;
 
-    exec('cd ./packages/partup-client-react/react && npm install && npm build', (error, stdout, stderr) => {
-        console.log('REACT: Finished building', error, stdout, stderr);
+    exec('cd ./packages/partup-client-react/react && npm install --unsafe-perm && npm build', (error, stdout, stderr) => {
+
+        if (error) {
+            console.log('REACT: FAILED building', error.stack, stderr);
+            process.exit(1);
+        }
+
+        console.log('REACT: Finished building', stdout);
+
         future.resolver()();
     })
 
