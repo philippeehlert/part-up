@@ -21,11 +21,29 @@ Package.onUse((api) => {
         'iron:router',
     ], 'client');
 
+    console.log('NPM: Installing');
+
+    const future1 = new Future;
+
+    exec('cd ./packages/partup-client-react/react && npm install --unsafe-perm', (error, stdout, stderr) => {
+
+        if (error) {
+            console.log('NPM: Failed!', error.stack, stderr);
+            process.exit(1);
+        }
+
+        console.log('NPM: Finished', stdout);
+
+        future1.resolver()();
+    })
+
+    future1.wait();
+
     console.log('REACT: Building');
 
-    const future = new Future;
+    const future2 = new Future;
 
-    exec('cd ./packages/partup-client-react/react && npm install --unsafe-perm && npm build', (error, stdout, stderr) => {
+    exec('cd ./packages/partup-client-react/react && npm build', (error, stdout, stderr) => {
 
         if (error) {
             console.log('REACT: FAILED building', error.stack, stderr);
@@ -34,10 +52,10 @@ Package.onUse((api) => {
 
         console.log('REACT: Finished building', stdout);
 
-        future.resolver()();
+        future2.resolver()();
     })
 
-    future.wait();
+    future2.wait();
 
     const packagePath = path.join(path.resolve('.'), 'packages', 'partup-client-react');
     const options = {
