@@ -10,7 +10,7 @@
     "lint": "eslint"
   },
   "engines": {
-    "node": "0.10.36"
+    "node": "4.8.4"
   },
   "dependencies": {
     "HTMLString": "^1.0.7",
