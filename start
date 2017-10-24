@@ -83,18 +83,22 @@ start() {
     echo "Running npm install..."
     meteor npm install
     
+    BLUE='\033[0;36m'
+    YELLOW='\033[0;33m'
+    NC='\033[0m'
     if [ "$REACT_DEV" ]; then
-      BLUE='\033[0;34m'
-      GREEN='\033[0;32m'
-      NC='\033[0m'
       echo "Starting your app in $NODE_ENV..."
-      echo -e "${GREEN}______________________________________________________________"
-      echo -e "| To run the react-develop environment run                    |"
-      echo -e "| => ${BLUE}cd app/packages/partup-client-react/react && yarn start${GREEN}  |"
-      echo -e "| in another terminal window                                  |"
-      echo -e "|_____________________________________________________________|${NC}"
+      echo -e "${YELLOW}███████████████████████████████████████████████████████████████"
+      echo -e "█ To run the react-develop environment run                    █"
+      echo -e "█ => ${BLUE}cd app/packages/partup-client-react/react && yarn start${YELLOW}  █"
+      echo -e "█ in another terminal window                                  █"
+      echo -e "███████████████████████████████████████████████████████████████${NC}"
     else
-      echo "Installing and building partup-client-react package..."
+      echo -e "${YELLOW}███████████████████████████████████████████████████████████████"
+      echo -e "█ Installing and building partup-client-react package...      █"
+      echo -e "█ Use ${BLUE}./start --react-dev --once${YELLOW} to work on the               █"
+      echo -e "█ react-codebase                                              █"
+      echo -e "███████████████████████████████████████████████████████████████${NC}"
       cd "$APP/packages/partup-client-react/react" 
       npm install --silent --unsafe-perm
       npm run build
