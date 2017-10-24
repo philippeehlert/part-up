@@ -23,23 +23,14 @@ Package.onUse((api) => {
 
     console.log('REACT: Building');
 
-    const future1 = new Future;
-    
-    exec('cd ./packages/partup-client-react/react && npm install', (error, stdout, stderr) => {
-        console.log('REACT: Installing packages', error, stdout, stderr);
-        future1.resolver()();
-    })
-    
-    future1.wait();
+    const future = new Future;
 
-    const future2 = new Future;
-
-    exec('cd ./packages/partup-client-react/react && npm build', (error, stdout, stderr) => {
+    exec('cd ./packages/partup-client-react/react && npm install && npm build', (error, stdout, stderr) => {
         console.log('REACT: Finished building', error, stdout, stderr);
-        future2.resolver()();
+        future.resolver()();
     })
 
-    future2.wait();
+    future.wait();
 
     const packagePath = path.join(path.resolve('.'), 'packages', 'partup-client-react');
     const options = {
