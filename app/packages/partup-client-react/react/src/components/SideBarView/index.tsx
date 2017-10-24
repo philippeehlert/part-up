@@ -5,7 +5,7 @@ import './SideBarView.css';
 interface Props {
     className?: string;
     sidebar: any;
-};
+}
 
 export default class SideBarView extends React.Component<Props, {}> {
 
@@ -15,7 +15,7 @@ export default class SideBarView extends React.Component<Props, {}> {
         return c('pur-SideBarView', className, {
 
         });
-    };
+    }
 
     render() {
         const { children, sidebar } = this.props;
@@ -30,5 +30,5 @@ export default class SideBarView extends React.Component<Props, {}> {
                 </div>
             </div>
         );
-    };
-};
+    }
+}

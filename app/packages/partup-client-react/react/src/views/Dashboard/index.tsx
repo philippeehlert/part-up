@@ -24,7 +24,7 @@ interface Props {
     history?: Object;
 }
 
-export default class DashboardView extends React.Component<Props, {}> {
+export default class Dashboard extends React.Component<Props, {}> {
 
     private subscriptions = new Subscriber({
         subscriptions: [{
@@ -33,18 +33,6 @@ export default class DashboardView extends React.Component<Props, {}> {
         }],
         onChange: () => this.forceUpdate(),
     });
-    
-    // private fetcher = new Fetcher({
-    //     routes: [
-    //         '/partups/discover'
-    //     ],
-    //     onChange: () => this.forceUpdate(),
-    //     // transformData: (data) => {
-    //     //     return {
-    //     //         partups: data['/partups/discover'],
-    //     //     }
-    //     // }
-    // })
 
     componentWillMount() {
         this.subscriptions.subscribe();

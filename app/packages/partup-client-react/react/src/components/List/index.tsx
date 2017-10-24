@@ -4,7 +4,7 @@ import './List.css';
 
 interface Props {
     className?: string;
-};
+}
 
 export default class List extends React.Component<Props, {}> {
 
@@ -14,7 +14,7 @@ export default class List extends React.Component<Props, {}> {
         return c('pur-List', className, {
 
         });
-    };
+    }
 
     render() {
         const { children } = this.props;
@@ -24,7 +24,7 @@ export default class List extends React.Component<Props, {}> {
                 {children}
             </ul>
         );
-    };
-};
+    }
+}
 
 export { default as ListItem } from './ListItem';

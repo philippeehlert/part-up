@@ -96,7 +96,7 @@ start() {
         echo -e "█ ${MAGENTA}development speed significantly because Meteor will         ${YELLOW}█"
         echo -e "█ ${MAGENTA}rebuild every time the react-package is built 😱${YELLOW}             █"
       fi
-      echo -e "█ To start the react environment run                          █"
+      echo -e "█ To start the react development environment run              █"
       echo -e "█ => ${BLUE}cd app/packages/partup-client-react/react && yarn start${YELLOW}  █"
       echo -e "█ in another terminal window                                  █"
       echo -e "███████████████████████████████████████████████████████████████${NC}"

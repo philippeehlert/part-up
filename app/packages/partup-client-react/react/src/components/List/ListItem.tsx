@@ -4,7 +4,7 @@ import './ListItem.css';
 
 interface Props {
     className?: string;
-};
+}
 
 export default class ListItem extends React.Component<Props, {}> {
 
@@ -14,7 +14,7 @@ export default class ListItem extends React.Component<Props, {}> {
         return c('pur-ListItem', className, {
 
         });
-    };
+    }
 
     render() {
         const { children } = this.props;
@@ -25,4 +25,4 @@ export default class ListItem extends React.Component<Props, {}> {
             </li>
         );
     }
-};
+}

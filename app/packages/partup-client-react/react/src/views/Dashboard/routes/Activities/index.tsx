@@ -8,15 +8,15 @@ interface Props {
     match: Object;
     location: Object;
     history: Object;
-};
+}
 
-export default class InvitesView extends React.Component<Props> {
+export default class ActivitiesView extends React.Component<Props> {
 
     render() {
         return (
             <View>
-                Invites View
+                Activities View
             </View>
         );
     }
-};
+}

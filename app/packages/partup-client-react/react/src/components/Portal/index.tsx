@@ -11,21 +11,21 @@ export default class Portal extends React.Component<{}, {}> {
         super(props);
 
         this.portalElement = document.createElement('div');
-    };
+    }
 
     componentDidMount() {
         portalRoot.appendChild(this.portalElement);
-    };
+    }
 
     componentWillUnmount() {
         portalRoot.removeChild(this.portalElement);
-    };
+    }
 
     render() {
         const { children } = this.props;
 
         return ReactDOM.createPortal(children, this.portalElement);
-    };
-};
+    }
+}
 
 export { default as PortalManager } from './PortalManager';

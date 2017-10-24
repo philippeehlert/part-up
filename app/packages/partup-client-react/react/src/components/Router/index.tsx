@@ -6,8 +6,8 @@ import './Router.css';
 
 interface Props {
     className?: string;
-    onBackRoute?: (event:Object) => void;
-};
+    onBackRoute?: (event: Object) => void;
+}
 
 export default class Router extends React.Component<Props, {}> {
 
@@ -17,11 +17,11 @@ export default class Router extends React.Component<Props, {}> {
 
     componentWillMount() {
         $(window).on('popstate', this.onBackRoute);
-    };
+    }
 
     componentWillUnmount() {
         $(window).off('popstate', this.onBackRoute);
-    };
+    }
 
     onBackRoute = (event: Object) => {
         const { onBackRoute } = this.props;
@@ -30,7 +30,7 @@ export default class Router extends React.Component<Props, {}> {
         router.history.goBack();
 
         if (onBackRoute) onBackRoute(event);
-    };
+    }
 
     getClassNames = () => {
         const { className } = this.props;
@@ -38,7 +38,7 @@ export default class Router extends React.Component<Props, {}> {
         return c('pur-Router', className, {
 
         });
-    };
+    }
 
     render() {
         const { children } = this.props;
@@ -49,6 +49,6 @@ export default class Router extends React.Component<Props, {}> {
             </div>
         );
     }
-};
+}
 
 export { default as Link } from './Link';

@@ -8,7 +8,7 @@ interface Props {
     match: Object;
     location: Object;
     history: Object;
-};
+}
 
 export default class RecommendationsView extends React.Component<Props> {
 
@@ -19,4 +19,4 @@ export default class RecommendationsView extends React.Component<Props> {
             </View>
         );
     }
-};
+}

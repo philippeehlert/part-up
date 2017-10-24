@@ -8,7 +8,7 @@ interface Props {
     className?: string;
     onClick?: Function;
     to?: string;
-};
+}
 
 export default class Link extends React.Component<Props, {}> {
 
@@ -24,7 +24,7 @@ export default class Link extends React.Component<Props, {}> {
         router.history.push(to);
 
         if (onClick) onClick(event);
-    };
+    }
 
     getClassNames = () => {
         const { className } = this.props;
@@ -32,7 +32,7 @@ export default class Link extends React.Component<Props, {}> {
         return c('pur-Link', className, {
 
         });
-    };
+    }
 
     render() {
         const { children } = this.props;
@@ -43,4 +43,4 @@ export default class Link extends React.Component<Props, {}> {
             </a>
         );
     }
-};
+}

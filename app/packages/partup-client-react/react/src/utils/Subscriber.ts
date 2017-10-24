@@ -1,6 +1,5 @@
 import Meteor from 'utils/Meteor';
 
-
 type Subscription = {
     name: string;
     collection: string;

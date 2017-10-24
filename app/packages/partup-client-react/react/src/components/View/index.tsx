@@ -3,8 +3,8 @@ import * as c from 'classnames';
 import './View.css';
 
 interface Props {
-    className?: string,
-};
+    className?: string;
+}
 
 export default class View extends React.Component<Props, {}> {
 
@@ -25,4 +25,4 @@ export default class View extends React.Component<Props, {}> {
             </div>
         );
     }
-};
+}

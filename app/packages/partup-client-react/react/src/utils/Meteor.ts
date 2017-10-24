@@ -4,11 +4,77 @@ declare global {
     interface Window { Meteor: any; }
 }
 
-if (!window.Meteor) {
-    Meteor.startup = (cb:any) => cb();
-    window.Meteor = Meteor;
+let callbackQueue: Array<any> = [];
+let isLoadingCompleted = false;
+let isReady = false;
 
-    Meteor.connect('ws://localhost:3000/websocket');
+const maybeReady = () => {
+    if (isReady || !isLoadingCompleted) return;
+    
+    isReady = true;
+    
+    // Run startup callbacks
+    while (callbackQueue.length) {
+        (callbackQueue.shift())();
+    }
+};
+
+const loadingCompleted = () => {
+    if (!isLoadingCompleted) {
+        isLoadingCompleted = true;
+        maybeReady();
+    }
 }
+
+if (document.readyState === 'complete' || document.readyState === 'loaded') {
+    // Loading has completed,
+    // but allow other scripts the opportunity to hold ready
+    window.setTimeout(loadingCompleted);
+} else { // Attach event listeners to wait for loading to complete
+    if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', loadingCompleted, false);
+        window.addEventListener('load', loadingCompleted, false);
+    } else { // Use IE event model for < IE9
+        document['attachEvent']('onreadystatechange', () => {
+            if (document.readyState === "complete") {
+                loadingCompleted();
+            }
+        });
+        window['attachEvent']('load', loadingCompleted);
+    }
+}
+
+export function onStartup(callback: Function) {
+    // Fix for < IE9, see http://javascript.nwbox.com/IEContentLoaded/
+    const doScroll = !document.addEventListener && document.documentElement['doScroll'];
+    
+    if (!doScroll || window !== top) {
+        if (isReady) {
+            callback();
+        } else {
+            callbackQueue.push(callback);
+        }
+    } else {
+        try {
+            doScroll('left');
+        } catch (error) {
+            setTimeout(() => {
+                Meteor.startup(callback);
+            }, 50);
+            return;
+        };
+        callback();
+    }
+}
+
+onStartup(() => {
+    if (!window.Meteor) {
+        Meteor.connect('ws://localhost:3000/websocket');
+    } else {
+        const { protocol, host } = window.location;
+
+        Meteor.connect(`${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}/websocket`);
+    }
+});
 
 export default Meteor;
