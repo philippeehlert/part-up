@@ -16,3 +16,9 @@ indent_brace_style = 1TBS
 spaces_around_operators = true
 quote_type = auto
 # curly_bracket_next_line = true
+
+[*.{ts,tsx,css,scss}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
