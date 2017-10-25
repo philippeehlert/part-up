@@ -10,9 +10,9 @@ let isReady = false;
 
 const maybeReady = () => {
     if (isReady || !isLoadingCompleted) return;
-    
+
     isReady = true;
-    
+
     // Run startup callbacks
     while (callbackQueue.length) {
         (callbackQueue.shift())();
@@ -24,7 +24,7 @@ const loadingCompleted = () => {
         isLoadingCompleted = true;
         maybeReady();
     }
-}
+};
 
 if (document.readyState === 'complete' || document.readyState === 'loaded') {
     // Loading has completed,
@@ -35,19 +35,21 @@ if (document.readyState === 'complete' || document.readyState === 'loaded') {
         document.addEventListener('DOMContentLoaded', loadingCompleted, false);
         window.addEventListener('load', loadingCompleted, false);
     } else { // Use IE event model for < IE9
-        document['attachEvent']('onreadystatechange', () => {
-            if (document.readyState === "complete") {
+        const ieEvent = 'attachEvent';
+        document[ieEvent]('onreadystatechange', () => {
+            if (document.readyState === 'complete') {
                 loadingCompleted();
             }
         });
-        window['attachEvent']('load', loadingCompleted);
+        window[ieEvent]('load', loadingCompleted);
     }
 }
 
 export function onStartup(callback: Function) {
+    const ieEvent = 'doScroll';
     // Fix for < IE9, see http://javascript.nwbox.com/IEContentLoaded/
-    const doScroll = !document.addEventListener && document.documentElement['doScroll'];
-    
+    const doScroll = !document.addEventListener && document.documentElement[ieEvent];
+
     if (!doScroll || window !== top) {
         if (isReady) {
             callback();
@@ -62,7 +64,7 @@ export function onStartup(callback: Function) {
                 Meteor.startup(callback);
             }, 50);
             return;
-        };
+        }
         callback();
     }
 }

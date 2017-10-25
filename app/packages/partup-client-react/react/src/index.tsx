@@ -9,13 +9,13 @@ import DashboardView from './views/Dashboard';
 import HomeView from './views/Home';
 import './index.css';
 
-const dev = true;
+const dev = process.env.REACT_APP_DEV;
 
 if (dev) {
     onStartup(() => {
         onRender(() => {
             const root = document.getElementById('react-root');
-            
+
             if (root) {
                 ReactDOM.render(
                     <ReactRouter.BrowserRouter>
@@ -24,10 +24,10 @@ if (dev) {
                             <ReactRouter.Route exact component={HomeView}/>
                         </ReactRouter.Switch>
                     </ReactRouter.BrowserRouter>,
-                    root as HTMLElement
+                    root as HTMLElement,
               );
             }
-        })
+        });
     });
 } else {
     onStartup(() => {
@@ -41,10 +41,9 @@ if (dev) {
                           <DashboardView />
                       </Router>
                   </ReactRouter.MemoryRouter>,
-                  root as HTMLElement
+                  root as HTMLElement,
               );
             }
-        })
+        });
     });
 }
-

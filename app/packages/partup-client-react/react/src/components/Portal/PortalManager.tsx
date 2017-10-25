@@ -16,7 +16,7 @@ interface PortalManagerWrapperProps {
     children: any;
 }
 
-const PortalManagerWrapper: React.SFC<PortalManagerWrapperProps> = ({children}) => (children);
+const PortalManagerWrapper: React.SFC<PortalManagerWrapperProps> = ({ children }) => (children);
 
 export default class PortalManager extends React.Component<Props, State> {
 
@@ -37,11 +37,11 @@ export default class PortalManager extends React.Component<Props, State> {
     }
 
     close = () => {
-        this.setState({render: false});
+        this.setState({ render: false });
     }
 
     open = () => {
-        this.setState({render: true});
+        this.setState({ render: true });
     }
 
     render(): any {
@@ -50,11 +50,11 @@ export default class PortalManager extends React.Component<Props, State> {
 
         return [
             <PortalManagerWrapper key={'handler'}>
-                { renderHandler(this.open) }
+                {renderHandler(this.open)}
             </PortalManagerWrapper>,
             render && (
                 <PortalManagerWrapper key={'portal'}>
-                    { renderPortal(this.close) }
+                    {renderPortal(this.close)}
                 </PortalManagerWrapper>
             ),
         ];

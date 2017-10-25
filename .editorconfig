@@ -19,6 +19,8 @@ quote_type = auto
 
 [*.{ts,tsx,css,scss}]
 indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
 
 [*.md]
 trim_trailing_whitespace = false

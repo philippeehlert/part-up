@@ -26,21 +26,29 @@ interface Props {
     history?: Object;
 }
 
-export default class Dashboard extends React.Component<Props, {}> {
+type Partup = {
+    _id: string;
+    name: string;
+};
 
-    private subscriptions = new Subscriber({
+interface SubscriberData {
+    partups: Array<Partup>;
+}
+
+export default class Dashboard extends React.Component<Props, {}> {
+    static defaultProps: Props = {
+        match: {
+            url: '',
+        },
+    };
+
+    private subscriptions = new Subscriber<SubscriberData>({
         subscriptions: [{
             name: 'partups.list',
             collection: 'partups',
         }],
         onChange: () => this.forceUpdate(),
     });
-
-    static defaultProps: Props = {
-        match: {
-            url: '',
-        },
-    };
 
     componentWillMount() {
         this.subscriptions.subscribe();
@@ -71,7 +79,7 @@ export default class Dashboard extends React.Component<Props, {}> {
                         </ListItem>
                     </List>
                 }>
-                
+
                 <ReactRouter.Switch>
                     <ReactRouter.Route path={`${match.url}/activities`} component={ActivitiesView} />
                     <ReactRouter.Route path={`${match.url}/invites`} component={InvitesView} />
@@ -83,7 +91,7 @@ export default class Dashboard extends React.Component<Props, {}> {
     }
 
     renderMaster = () => {
-        const { data } = this.subscriptions
+        const { data } = this.subscriptions;
 
         return (
             <View>

@@ -4,7 +4,6 @@
         "align": [
             true,
             "parameters",
-            "arguments",
             "statements"
         ],
         "ban": false,
@@ -14,15 +13,21 @@
             "check-space"
         ],
         "jsx-boolean-value": false,
-        "curly": true,
+        "curly": [true, "ignore-same-line"],
         "eofline": false,
         "forin": true,
         "indent": [ true, "spaces" ],
         "interface-name": [true, "never-prefix"],
+        "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
         "jsdoc-format": true,
         "jsx-no-lambda": false,
         "jsx-alignment": false,
         "jsx-no-multiline-js": false,
+        "jsx-wrap-multiline": false,
+        "jsx-curly-spacing": false,
+        "jsx-key": true,
+        "jsx-no-bind": true,
+        "jsx-self-close": true,
         "label-position": true,
         "max-line-length": [ true, 120 ],
         "member-ordering": [
@@ -31,24 +36,27 @@
             "static-before-instance",
             "variables-before-functions"
         ],
-        "no-any": true,
+        "no-any": false,
         "no-arg": true,
         "no-bitwise": true,
-        "no-console": [
-            true,
-            "log",
-            "error",
-            "debug",
-            "info",
-            "time",
-            "timeEnd",
-            "trace"
-        ],
+        "no-console": {
+            "options": [
+                true,
+                "log",
+                "error",
+                "debug",
+                "info",
+                "time",
+                "timeEnd",
+                "trace"
+            ],
+            "severity": "warning"
+        },
         "no-consecutive-blank-lines": true,
         "no-construct": true,
         "no-debugger": true,
         "no-duplicate-variable": true,
-        "no-empty": true,
+        "no-empty": false,
         "no-eval": true,
         "no-shadowed-variable": true,
         "no-string-literal": true,
@@ -67,8 +75,6 @@
         "radix": true,
         "semicolon": [true, "always"],
         "switch-default": true,
-
-        "trailing-comma": [false],
 
         "triple-equals": [ true, "allow-null-check" ],
         "typedef": [
