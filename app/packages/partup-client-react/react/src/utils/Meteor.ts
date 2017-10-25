@@ -79,4 +79,8 @@ onStartup(() => {
     }
 });
 
+export function getLoginToken() {
+    return window.localStorage.getItem('reactnativemeteor_usertoken');
+}
+
 export default Meteor;

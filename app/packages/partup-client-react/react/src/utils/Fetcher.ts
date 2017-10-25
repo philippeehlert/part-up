@@ -1,0 +1,62 @@
+import Meteor, { getLoginToken } from 'utils/Meteor';
+
+type QueryParameters = {
+    [param: string]: string|boolean|number|null;
+};
+
+type FetcherOptions = {
+    route: string,
+    query?: QueryParameters;
+    onChange?: Function;
+    transformData?: Function;
+};
+
+export default class Fetcher<FetcherData> {
+
+    public data: FetcherData;
+
+    private rawData: any;
+    private route: string;
+    private query: QueryParameters = {};
+
+    constructor({route, query, onChange, transformData}: FetcherOptions) {
+        this.route = route;
+        this.query = query || this.query;
+        this.onChange = onChange || this.onChange;
+        this.transformData = transformData || this.transformData;
+        this.data = {} as FetcherData;
+    }
+
+    public async fetch() {
+        // const { origin } = window.location;
+
+        try {
+            const response = await window.fetch(`http://localhost:3000/${this.route}/?${this.getQueryParams()}`);
+            const responseJson = await response.json();
+
+            this.rawData = responseJson;
+            this.data = this.transformData(this.rawData);
+            this.onChange();
+
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    private getQueryParams(): string {
+        const params = {
+            token: getLoginToken(),
+            userId: Meteor.userId(),
+            ...this.query,
+        };
+
+        return Object
+            .keys(params)
+            .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+            .join('&');
+    }
+
+    private onChange: Function = () => {};
+    private transformData: Function = (d: any) => d;
+
+}

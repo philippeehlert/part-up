@@ -1,7 +1,10 @@
 import * as React from 'react';
 import * as ReactRouter from 'react-router-dom';
+import Meteor from 'utils/Meteor';
+import { get } from 'lodash';
 
 import Subscriber from 'utils/Subscriber';
+import Fetcher from 'utils/Fetcher';
 
 import {
     View,
@@ -26,6 +29,10 @@ interface Props {
     history?: Object;
 }
 
+interface State {
+    user: any;
+}
+
 type Partup = {
     _id: string;
     name: string;
@@ -38,11 +45,15 @@ interface SubscriberData {
 
 const partupId = 'vGaxNojSerdizDPjc';
 
-export default class Dashboard extends React.Component<Props, {}> {
+export default class Dashboard extends React.Component<Props, State> {
     static defaultProps: Props = {
         match: {
             url: '',
         },
+    };
+
+    public state: State = {
+        user: {},
     };
 
     private subscriptions = new Subscriber<SubscriberData>({
@@ -65,7 +76,12 @@ export default class Dashboard extends React.Component<Props, {}> {
         onChange: () => this.forceUpdate(),
     });
 
+    private fetcher = new Fetcher({
+        route: '/partups/discover',
+    });
+
     componentWillMount() {
+        this.fetcher.fetch();
         this.subscriptions.subscribe();
     }
 
@@ -105,13 +121,36 @@ export default class Dashboard extends React.Component<Props, {}> {
         );
     }
 
+    onRandomName = () => {
+        Meteor.call('users.update', {
+            name: 'w00t',
+        }, () => {
+            this.setState({
+                user: Meteor.collection('users').findOne({_id: 'a7qcp5RHnh5rfaeW9'}),
+            });
+        });
+    }
+
+    onLogin = () => {
+        Meteor.loginWithPassword('judy@example.com', 'user', (...args: any[]) => {
+            this.setState({
+                user: Meteor.collection('users').findOne({_id: 'a7qcp5RHnh5rfaeW9'}),
+            });
+        });
+    }
+
     renderMaster = () => {
-        const { data } = this.subscriptions;
+        const { user } = this.state;
 
         return (
             <View>
-                Conversationss
-                { (data.partups || []).map((partup: any) => partup.name) }
+                {`Conversationss (${get(user, 'profile.name')})`}
+                <button onClick={this.onLogin}>
+                    login
+                </button>
+                <button onClick={this.onRandomName}>
+                    random name change
+                </button>
             </View>
         );
     }

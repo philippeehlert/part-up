@@ -77,5 +77,5 @@ export default class Subscriber<SubscriberData> {
     }
 
     private onChange: Function = () => {};
-    private transformData: Function = () => {};
+    private transformData: Function = (c: any) => c;
 }
