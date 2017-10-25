@@ -3,11 +3,20 @@ import Meteor from 'utils/Meteor';
 type Subscription = {
     name: string;
     collection: string;
+    parameters?: Array<any>;
+};
+
+type SubscriberOptions = {
+    subscriptions: Array<Subscription>;
+    onChange?: Function;
+    transformData?: Function;
 };
 
 export default class Subscriber<SubscriberData> {
 
     public data: SubscriberData;
+
+    private collections = {};
 
     private subscriptions: Array<Subscription> = [];
 
@@ -18,9 +27,10 @@ export default class Subscriber<SubscriberData> {
         };
     } = {};
 
-    constructor({subscriptions, onChange}: {subscriptions: Array<Subscription>, onChange?: Function}) {
+    constructor({subscriptions, onChange, transformData}: SubscriberOptions) {
         this.subscriptions = subscriptions;
         this.onChange = onChange || this.onChange;
+        this.transformData = transformData || this.transformData;
         this.data = {} as SubscriberData;
     }
 
@@ -30,14 +40,15 @@ export default class Subscriber<SubscriberData> {
      * @throws Throws Error when adding duplicate subscriptions.
      */
     public subscribe() {
-        this.subscriptions.forEach(({name, collection}) => {
+        this.subscriptions.forEach(({name, collection, parameters = []}) => {
             if (this.activeSubscriptions[name]) {
                 throw new Error('Subscription already active');
             }
 
-            const sub = Meteor.subscribe(name, {
+            const sub = Meteor.subscribe(name, ...parameters, {
                 onReady: () => {
-                    this.data[collection] = Meteor.collection(collection).find();
+                    this.collections[collection] = Meteor.collection(collection);
+                    this.data = this.transformData(this.collections);
                     this.onChange();
                 },
             });
@@ -66,4 +77,5 @@ export default class Subscriber<SubscriberData> {
     }
 
     private onChange: Function = () => {};
+    private transformData: Function = () => {};
 }

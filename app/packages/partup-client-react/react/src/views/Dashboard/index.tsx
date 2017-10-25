@@ -33,7 +33,10 @@ type Partup = {
 
 interface SubscriberData {
     partups: Array<Partup>;
+    singlePartup: Partup;
 }
+
+const partupId = 'vGaxNojSerdizDPjc';
 
 export default class Dashboard extends React.Component<Props, {}> {
     static defaultProps: Props = {
@@ -44,9 +47,21 @@ export default class Dashboard extends React.Component<Props, {}> {
 
     private subscriptions = new Subscriber<SubscriberData>({
         subscriptions: [{
+            name: 'partups.one',
+            collection: 'partups',
+            parameters: [
+                partupId,
+            ],
+        }, {
             name: 'partups.list',
             collection: 'partups',
         }],
+        transformData: (collections: any) => {
+            return {
+                singlePartup: collections.partups.findOne({_id: partupId}),
+                partups: collections.partups.find(),
+            };
+        },
         onChange: () => this.forceUpdate(),
     });
 
