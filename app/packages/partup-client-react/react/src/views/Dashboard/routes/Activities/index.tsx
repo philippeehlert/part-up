@@ -1,13 +1,12 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 
 import {
     View,
-} from '../../../../components';
+} from 'components';
 
-interface Props {
-    match: Object;
-    location: Object;
-    history: Object;
+interface Props extends RouteComponentProps<any> {
+    //
 }
 
 export default class ActivitiesView extends React.Component<Props> {
