@@ -35,7 +35,7 @@ Package.onUse((api) => {
 
     let cssfiles = [];
     if (!process.env.REACT_DEV) {
-        cssfiles = glob.sync('./react/src/**/*.scss', options);
+        cssfiles = glob.sync('./react/src/**/[^_]*.scss', options);
 
         console.log(`> Adding ${cssfiles.length} css files.`);
     } else {
