@@ -28,10 +28,10 @@ export default class Fetcher<FetcherData> {
     }
 
     public async fetch() {
-        // const { origin } = window.location;
+        const baseUrl = !process.env.REACT_APP_DEV ? '/' : 'http://localhost:3000/';
 
         try {
-            const response = await window.fetch(`http://localhost:3000/${this.route}/?${this.getQueryParams()}`);
+            const response = await window.fetch(`${baseUrl}${this.route}/?${this.getQueryParams()}`);
             const responseJson = await response.json();
 
             this.rawData = responseJson;
