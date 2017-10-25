@@ -19,7 +19,9 @@ import InvitesView from './routes/Invites';
 import RecommendationsView from './routes/Recommendations';
 
 interface Props {
-    match?: Object;
+    match?: {
+        url?: string;
+    };
     location?: Object;
     history?: Object;
 }
@@ -34,6 +36,12 @@ export default class Dashboard extends React.Component<Props, {}> {
         onChange: () => this.forceUpdate(),
     });
 
+    static defaultProps: Props = {
+        match: {
+            url: '',
+        },
+    };
+
     componentWillMount() {
         this.subscriptions.subscribe();
     }
@@ -43,30 +51,32 @@ export default class Dashboard extends React.Component<Props, {}> {
     }
 
     render() {
+        const { match = {} }: Props = this.props;
+
         return (
             <SideBarView
                 sidebar={
                     <List>
                         <ListItem>
-                            <Link to={'/'}>ConversationsView</Link>
+                            <Link to={`${match.url}`}>ConversationsView</Link>
                         </ListItem>
                         <ListItem>
-                            <Link to={'/activities'}>ActivitiesView</Link>
+                            <Link to={`${match.url}/activities`}>ActivitiesView</Link>
                         </ListItem>
                         <ListItem>
-                            <Link to={'/invites'}>InvitesView</Link>
+                            <Link to={`${match.url}/invites`}>InvitesView</Link>
                         </ListItem>
                         <ListItem>
-                            <Link to={'/recommendations'}>RecommendationsView</Link>
+                            <Link to={`${match.url}/recommendations`}>RecommendationsView</Link>
                         </ListItem>
                     </List>
                 }>
                 
                 <ReactRouter.Switch>
-                    <ReactRouter.Route path={'/activities'} component={ActivitiesView} />
-                    <ReactRouter.Route path={'/invites'} component={InvitesView} />
-                    <ReactRouter.Route path={'/recommendations'} component={RecommendationsView} />
-                    <ReactRouter.Route exact path={'/'} render={this.renderMaster} />
+                    <ReactRouter.Route path={`${match.url}/activities`} component={ActivitiesView} />
+                    <ReactRouter.Route path={`${match.url}/invites`} component={InvitesView} />
+                    <ReactRouter.Route path={`${match.url}/recommendations`} component={RecommendationsView} />
+                    <ReactRouter.Route exact path={`${match.url}`} render={this.renderMaster} />
                 </ReactRouter.Switch>
             </SideBarView>
         );

@@ -9,7 +9,7 @@ import DashboardView from './views/Dashboard';
 import HomeView from './views/Home';
 import './index.css';
 
-const dev = false;
+const dev = true;
 
 if (dev) {
     onStartup(() => {
