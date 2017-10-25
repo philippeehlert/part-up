@@ -70,7 +70,7 @@ export function onStartup(callback: Function) {
 }
 
 onStartup(() => {
-    if (!window.Meteor) {
+    if (process.env.REACT_APP_DEV) {
         Meteor.connect('ws://localhost:3000/websocket');
     } else {
         const { protocol, host } = window.location;
