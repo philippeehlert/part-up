@@ -2,6 +2,8 @@
 
     <main class="pu-main">
         {{> yield region='main' }}
+        <div id="react-root"></div>
+        <div id="react-portal-root"></div>
     </main>
     {{> Popup }}
     {{> Prompt }}
@@ -16,8 +18,6 @@
 
     {{> CookieLawBar }}
     {{> ReloadBar }}
-
-    <div id="react-portal"></div>
 
     <!-- Google Tag Manager -->
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PPQ3WW"

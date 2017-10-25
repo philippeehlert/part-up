@@ -2,51 +2,35 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
     BrowserRouter,
-    Switch,
-    Route,
     MemoryRouter,
 } from 'react-router-dom';
+
 import { onStartup } from 'utils/Meteor';
 import onRender from 'utils/onRender';
+import { routes, getCurrentIndex } from 'utils/router';
 
-import Router from './components/Router';
-import DashboardView from './views/Dashboard';
-import HomeView from './views/Home';
+import App from './App';
+
 import './index.css';
 
-if (process.env.REACT_APP_DEV) {
-    onStartup(() => {
-        onRender(() => {
-            const root = document.getElementById('react-root');
+const dev = process.env.REACT_APP_DEV;
 
-            if (root) {
-                ReactDOM.render(
-                    <BrowserRouter>
-                        <Switch>
-                            <Route path={'/home'} component={DashboardView}/>
-                            <Route exact component={HomeView}/>
-                        </Switch>
-                    </BrowserRouter>,
-                    root as HTMLElement,
-              );
-            }
-        });
-    });
+let Router: any = null;
+if (dev) {
+    Router = BrowserRouter;
 } else {
-    onStartup(() => {
-        onRender(() => {
-            const root = document.getElementById('react-dashboard-root');
-
-            if (root) {
-              ReactDOM.render(
-                  <MemoryRouter>
-                      <Router>
-                          <DashboardView />
-                      </Router>
-                  </MemoryRouter>,
-                  root as HTMLElement,
-              );
-            }
-        });
-    });
+    Router = MemoryRouter;
 }
+
+onStartup(() => {
+    onRender((root: HTMLElement) => {
+        console.log(root);
+    
+        ReactDOM.render(
+            <Router initialEntries={routes} initialIndex={getCurrentIndex()}>
+                <App />
+            </Router>,
+            root as HTMLElement,
+        );
+    });
+});
