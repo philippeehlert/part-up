@@ -44,7 +44,7 @@ Router.route('/home', {
     yieldRegions: {
         'app': { to: 'main' },
         'app_dashboard': { to: 'app' },
-    }
+    },
 });
 
 /*************************************************************/

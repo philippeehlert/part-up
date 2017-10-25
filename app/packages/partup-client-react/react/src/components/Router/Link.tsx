@@ -35,10 +35,10 @@ export default class Link extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children, to } = this.props;
+        const { children } = this.props;
 
         return (
-            <a className={this.getClassNames()} href={to} onClick={this.onClick}>
+            <a className={this.getClassNames()} href={'#'} onClick={this.onClick}>
                 {children}
             </a>
         );

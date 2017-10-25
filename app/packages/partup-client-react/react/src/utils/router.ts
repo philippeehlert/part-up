@@ -20,6 +20,10 @@ export const routes = [
     '/',
 ];
 
+export const activeRoutes: Array<string> = [
+    '/home',
+];
+
 let callbacks: any = [];
 
 let currentLocationIndex = 0;
@@ -56,4 +60,8 @@ export function onRouteChange(cb: Function) {
 
 export function getCurrentIndex() {
     return currentLocationIndex;
+}
+
+export function getCurrentRoute() {
+    return routes[currentLocationIndex];
 }

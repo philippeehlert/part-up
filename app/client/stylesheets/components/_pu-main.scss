@@ -28,4 +28,10 @@ body {
             z-index: 1;
         }
     }
+
+    &--react {
+        .pu-modal, .pu-app {
+            position: relative;
+        }
+    }
 }
