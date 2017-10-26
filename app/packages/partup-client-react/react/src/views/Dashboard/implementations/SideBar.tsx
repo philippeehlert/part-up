@@ -6,6 +6,8 @@ import { AppContext } from 'App'
 import {
     UserAvatar,
     Icon,
+    MediaQuery,
+    MobileNav,
 } from 'components';
 
 import List, {
@@ -13,6 +15,8 @@ import List, {
 } from 'components/List';
 
 import { MenuLink } from 'components';
+
+import { Link } from 'components/Router';
 
 interface Props {
     className?: string;
@@ -29,13 +33,47 @@ export default class SideBar extends React.Component<Props> {
     public context: AppContext;
 
     render() {
+        return (
+            <MediaQuery
+                query={`(min-width: 420px)`}
+                renderMatch={this.renderDesktopNavigation}
+                renderNoMatch={this.renderMobileNavigation}
+            />
+        );
+    }
+
+    renderMobileNavigation = () => {
+        const { user } = this.context;
+
+        return (
+            <MobileNav>
+                <List horizontal>
+                    <ListItem>
+                        <Link to={user ? `http://localhost:3000/profile/${user._id}` : '#'}>
+                            <UserAvatar user={user} />
+                        </Link>
+                    </ListItem>
+                    <ListItem stretch>
+                        <select>
+                            <option>ConversationsView</option>
+                            <option>ActivitiesView</option>
+                            <option>InvitesView</option>
+                            <option>InvitesView</option>
+                        </select>
+                    </ListItem>
+                </List>
+            </MobileNav>
+        );
+    }
+
+    renderDesktopNavigation = () => {
         const { user } = this.context;
         const { baseUrl, currentRoute } = this.props;
 
         return (
             <List>
                 <ListItem>
-                    <MenuLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar user={user} />}>
+                    <MenuLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar small user={user} />}>
                         { user && user.profile.normalized_name }
                     </MenuLink>
                 </ListItem>
@@ -62,6 +100,6 @@ export default class SideBar extends React.Component<Props> {
                     </MenuLink>
                 </ListItem>
             </List>
-        );
+        )
     }
 }

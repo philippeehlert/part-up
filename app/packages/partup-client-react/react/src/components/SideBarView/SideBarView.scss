@@ -1,20 +1,25 @@
 .pur-SideBarView {
     @import "../../stylesheets/spacings";
 
-    $sideBarWidth: 372px;
-
     &__sidebar {
-        position: fixed;
-        top: 60px;
-        bottom: 0;
         font-size: 15px;
-        width: $sideBarWidth;
         background-color: #eeeeee;
-        overflow-y: auto;
+        width: 100%;
     }
 
-    &__content {
-        margin-left: $sideBarWidth;
-        width: calc(100% - $sideBarWidth);
+    @media screen and (min-width: 420px) {
+        $sideBarWidth: 372px;
+
+        &__sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            width: $sideBarWidth;
+            overflow-y: auto;
+        }
+
+        &__content {
+            margin-left: $sideBarWidth;
+        }
     }
 }

@@ -4,15 +4,16 @@ import './List.css';
 
 interface Props {
     className?: string;
+    horizontal?: boolean;
 }
 
 export default class List extends React.Component<Props, {}> {
 
     getClassNames = () => {
-        const { className } = this.props;
+        const { className, horizontal } = this.props;
 
         return c('pur-List', className, {
-
+            'pur-List--horizontal': horizontal,
         });
     }
 

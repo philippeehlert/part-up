@@ -10,15 +10,16 @@ import { User } from 'types/User';
 interface Props {
     user?: User;
     className?: string;
+    small?: boolean
 }
 
 export default class UserAvatar extends React.Component<Props, {}> {
 
     getClassNames = () => {
-        const { className } = this.props;
+        const { className, small } = this.props;
 
         return c('pur-UserAvatar', className, {
-
+            'pur-UserAvatar--small': small,
         });
     }
 

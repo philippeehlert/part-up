@@ -1,5 +1,16 @@
 .pur-List {
+    @import "../../stylesheets/spacings";
+
     margin: 0;
     padding: 0;
     list-style: none;
+
+    &--horizontal {
+        display: flex;
+        align-items: center;
+
+        .pur-ListItem + .pur-ListItem {
+            margin-left: getSpacing(0.5)
+        }
+    }
 }

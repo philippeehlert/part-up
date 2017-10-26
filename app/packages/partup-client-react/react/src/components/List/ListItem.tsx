@@ -4,15 +4,16 @@ import './ListItem.css';
 
 interface Props {
     className?: string;
+    stretch?: boolean;
 }
 
 export default class ListItem extends React.Component<Props, {}> {
 
     getClassNames = () => {
-        const { className } = this.props;
+        const { className, stretch } = this.props;
 
         return c('pur-ListItem', className, {
-
+            'pur-ListItem--stretch': stretch,
         });
     }
 
