@@ -1,18 +1,18 @@
 export type Email = {
-    address: string,
-    verified: boolean
+    address: string;
+    verified: boolean;
 }
 
 export interface Location {
-  city: string,
-  lat: number,
-  lng: number,
-  place_id: string,
-  country: string
+  city: string;
+  lat: number;
+  lng: number;
+  place_id: string;
+  country: string;
 }
 
 export interface Profile {
-  name: string,
+  name: string;
   normalized_name: string,
   settings: {
     locale: string,

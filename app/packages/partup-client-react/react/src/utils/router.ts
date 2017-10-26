@@ -42,8 +42,7 @@ setCurrentIndex();
 (function(history: any) {
     var pushState = history.pushState;
     history.pushState = function(state: any) {
-        // tslint:disable-next-line:quotemark
-        if (typeof history.onpushstate === "function") {
+        if (typeof history.onpushstate === 'function') {
             history.onpushstate({state: state});
         }
         setCurrentIndex(arguments[2]);
