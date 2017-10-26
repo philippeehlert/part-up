@@ -11,7 +11,7 @@ import List, {
     ListItem,
 } from 'components/List';
 
-import { NavLink } from 'components/Router';
+import { MenuLink } from 'components';
 
 interface Props {
     className?: string;
@@ -34,29 +34,29 @@ export default class SideBar extends React.Component<Props> {
         return (
             <List>
                 <ListItem>
-                    <NavLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar user={user} />}>
+                    <MenuLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar user={user} />}>
                         { user && user.profile.normalized_name }
-                    </NavLink>
+                    </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <NavLink to={`${baseUrl}`} icon={`💬`} counter={`25`}>
+                    <MenuLink to={`${baseUrl}`} icon={`💬`} counter={`25`}>
                         ConversationsView
-                    </NavLink>
+                    </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <NavLink to={`${baseUrl}/activities`} icon={`💬`} counter={`4`}>
+                    <MenuLink to={`${baseUrl}/activities`} icon={`💬`} counter={`4`}>
                         ActivitiesView
-                    </NavLink>
+                    </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <NavLink to={`${baseUrl}/invites`} icon={`💬`} counter={`5`}>
+                    <MenuLink to={`${baseUrl}/invites`} icon={`💬`} counter={`5`}>
                         InvitesView
-                    </NavLink>
+                    </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <NavLink to={`${baseUrl}/recommendations`} icon={`💬`} counter={`3`}>
+                    <MenuLink to={`${baseUrl}/recommendations`} icon={`💬`} counter={`3`}>
                         InvitesView
-                    </NavLink>
+                    </MenuLink>
                 </ListItem>
             </List>
         );

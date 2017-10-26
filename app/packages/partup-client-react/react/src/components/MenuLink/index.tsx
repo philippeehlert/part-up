@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as c from 'classnames';
-import './NavLink.css';
+import './MenuLink.css';
 
 import Link from '../Router/Link'
 
@@ -11,12 +11,12 @@ interface Props {
     className?: string;
 };
 
-export default class NavLink extends React.Component<Props, {}> {
+export default class MenuLink extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;
 
-        return c('pur-NavLink', className, {
+        return c('pur-MenuLink', className, {
 
         });
     }
@@ -31,9 +31,9 @@ export default class NavLink extends React.Component<Props, {}> {
 
         return (
             <Link to={to} className={this.getClassNames()}>
-                { icon && <span className={`pur-NavLink__icon`}>{ icon }</span> }
-                <span className={`pur-NavLink__label`}>{ children }</span>
-                { counter && <span className={`pur-NavLink__counter`}>{ counter }</span> }
+                { icon && <span className={`pur-MenuLink__icon`}>{ icon }</span> }
+                <span className={`pur-MenuLink__label`}>{ children }</span>
+                { counter && <span className={`pur-MenuLink__counter`}>{ counter }</span> }
             </Link>
         );
     }

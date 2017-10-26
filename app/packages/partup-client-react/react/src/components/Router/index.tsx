@@ -24,7 +24,7 @@ export default class Router extends React.Component<Props, {}> {
         const element = document.querySelector('.pu-main') as HTMLElement;
         element.classList.add('pu-main--react');
     }
-    
+
     onDeactivate() {
         const element = document.querySelector('.pu-main') as HTMLElement;
         element.classList.remove('pu-main--react');
@@ -34,7 +34,7 @@ export default class Router extends React.Component<Props, {}> {
         $(window).on('popstate', this.onBackRoute);
 
         const currentRoute = getCurrentRoute();
-        
+
         if (activeRoutes.includes(currentRoute)) {
             this.onActivate();
         }
@@ -83,4 +83,3 @@ export default class Router extends React.Component<Props, {}> {
 }
 
 export { default as Link } from './Link';
-export { default as NavLink } from './NavLink';
