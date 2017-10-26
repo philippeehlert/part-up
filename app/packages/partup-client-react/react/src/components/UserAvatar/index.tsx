@@ -1,5 +1,8 @@
 import * as React from 'react';
 import * as c from 'classnames';
+import * as Images from 'collections/Images';
+import { get } from 'lodash';
+
 import './UserAvatar.css';
 
 import { User } from 'types/User';
@@ -14,19 +17,21 @@ export default class UserAvatar extends React.Component<Props, {}> {
     getClassNames = () => {
         const { className } = this.props;
 
-        return c('pug-UserAvatar', className, {
+        return c('pur-UserAvatar', className, {
 
         });
     }
 
     render() {
         const { user } = this.props;
+        const image = Images.findOne({_id: get(user, 'profile.image')});
+        const imageUrl = Images.getUrl(image, '360x360');
 
-        const image = !user || !user.profile.image ? 'https://s3-eu-west-1.amazonaws.com/partup-production/80x80/images/rMRdjjrbX7oJboxpX-Profielfoto3.png' : user.profile.image as string;
+        console.log(imageUrl);
 
         return (
             <div className={this.getClassNames()}>
-                <img src={image} alt={name} className={`pug-UserAvatar__image`} />
+                <img src={imageUrl} alt={name} className={`pur-UserAvatar__image`} />
             </div>
         );
     }

@@ -2,7 +2,7 @@ import Meteor from 'utils/Meteor';
 
 type Subscription = {
     name: string;
-    collection: string;
+    collections: Array<string>;
     parameters?: Array<any>;
 };
 
@@ -23,7 +23,7 @@ export default class Subscriber<SubscriberData> {
     private activeSubscriptions: {
         [subname: string]: {
             subscription: any;
-            collection: string;
+            collections: Array<string>;
         };
     } = {};
 
@@ -40,14 +40,16 @@ export default class Subscriber<SubscriberData> {
      * @throws Throws Error when adding duplicate subscriptions.
      */
     public subscribe() {
-        this.subscriptions.forEach(({name, collection, parameters = []}) => {
+        this.subscriptions.forEach(({name, collections, parameters = []}) => {
             if (this.activeSubscriptions[name]) {
                 throw new Error('Subscription already active');
             }
 
             const sub = Meteor.subscribe(name, ...parameters, {
                 onReady: () => {
-                    this.collections[collection] = Meteor.collection(collection);
+                    collections.forEach((collection) => {
+                        this.collections[collection] = Meteor.collection(collection);
+                    });
                     this.data = this.transformData(this.collections);
                     this.onChange();
                 },
@@ -55,14 +57,14 @@ export default class Subscriber<SubscriberData> {
 
             this.activeSubscriptions[name] = {
                 subscription: sub,
-                collection,
+                collections,
             };
         });
     }
 
     public unsubscribe(subname: string) {
         this.activeSubscriptions[subname].subscription.stop();
-        delete this.data[this.activeSubscriptions[subname].collection];
+        // delete this.data[this.activeSubscriptions[subname].collections];
         delete this.activeSubscriptions[subname];
     }
 

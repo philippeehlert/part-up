@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Meteor from 'utils/Meteor';
+import Subscriber from 'utils/Subscriber';
 import {
     Switch,
     Route,
@@ -68,6 +69,10 @@ interface State {
     loginFailed: boolean;
 }
 
+interface SubscriberData {
+    users: Array<User>;
+}
+
 export interface AppContext {
     user?: User;
     refetchUser: Function;
@@ -85,6 +90,17 @@ export default class App extends React.Component<Props, State> {
         loginFailed: false,
     };
 
+    private subscriptions = new Subscriber<SubscriberData>({
+        subscriptions: [{
+            name: 'users.loggedin',
+            collections: [
+                'users',
+                'cfs.images.filerecord',
+            ],
+        }],
+        onChange: () => this.forceUpdate(),
+    });
+
     getChildContext(): AppContext {
         const { user } = this.state;
 
@@ -97,11 +113,12 @@ export default class App extends React.Component<Props, State> {
     refetchUser = () => {
         this.setState({
             user: Meteor.user(),
-        })
+        });
     }
 
     componentWillMount() {
-        this.refetchUser()
+        this.subscriptions.subscribe();
+        this.refetchUser();
 
         Meteor.Accounts.onLogin(() => {
             this.setState({ loginFailed: false });
@@ -110,11 +127,14 @@ export default class App extends React.Component<Props, State> {
 
         Meteor.Accounts.onLoginFailure(() => {
             this.setState({ loginFailed: true });
-        })
+        });
     }
 
     render() {
         const { loginFailed, user } = this.state;
+        const { data } = this.subscriptions;
+
+        console.log(data);
 
         if (loginFailed) {
             return (
