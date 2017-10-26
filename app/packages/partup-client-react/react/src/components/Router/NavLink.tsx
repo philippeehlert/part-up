@@ -5,7 +5,7 @@ import './NavLink.css';
 import Link from '../Router/Link'
 
 interface Props {
-    icon?: Element|string;
+    icon?: JSX.Element|Element|string;
     counter?: string|number;
     to: string;
     className?: string;

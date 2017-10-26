@@ -11,7 +11,7 @@ import List, {
     ListItem,
 } from 'components/List';
 
-import { Link, NavLink } from 'components/Router';
+import { NavLink } from 'components/Router';
 
 interface Props {
     className?: string;
@@ -34,9 +34,9 @@ export default class SideBar extends React.Component<Props> {
         return (
             <List>
                 <ListItem>
-                    <Link external to={user ? `http://localhost:3000/profile/${user._id}` : undefined}>
-                        { <UserAvatar user={user} displayName={true} /> }
-                    </Link>
+                    <NavLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar user={user} />}>
+                        { user && user.profile.normalized_name }
+                    </NavLink>
                 </ListItem>
                 <ListItem>
                     <NavLink to={`${baseUrl}`} icon={`💬`} counter={`25`}>

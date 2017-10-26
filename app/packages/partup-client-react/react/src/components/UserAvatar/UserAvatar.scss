@@ -1,28 +1,9 @@
 .pug-UserAvatar {
-    @import "../../stylesheets/spacings";
-
     &__image {
         display: inline-block;
         vertical-align: middle;
         width: 30px;
         height: 30px;
         border-radius: 15px;
-    }
-
-    &__name {
-        display: inline-block;
-        vertical-align: middle;
-
-        &--tombstone {
-            display: inline-block;
-            width: 40%;
-            height: 7px;
-            border-radius: 20px;
-            background-color: #cfcfcf;
-        }
-    }
-
-    &__image + &__name {
-        margin-left: getSpacing(0.5);
     }
 }
