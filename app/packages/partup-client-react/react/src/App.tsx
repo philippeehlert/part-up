@@ -93,10 +93,6 @@ export default class App extends React.Component<Props, State> {
     private subscriptions = new Subscriber<SubscriberData>({
         subscriptions: [{
             name: 'users.loggedin',
-            collections: [
-                'users',
-                'cfs.images.filerecord',
-            ],
         }],
         onChange: () => this.forceUpdate(),
     });
@@ -132,9 +128,6 @@ export default class App extends React.Component<Props, State> {
 
     render() {
         const { loginFailed, user } = this.state;
-        const { data } = this.subscriptions;
-
-        console.log(data);
 
         if (loginFailed) {
             return (

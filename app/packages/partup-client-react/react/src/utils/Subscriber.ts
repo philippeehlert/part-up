@@ -2,35 +2,29 @@ import Meteor from 'utils/Meteor';
 
 type Subscription = {
     name: string;
-    collections: Array<string>;
     parameters?: Array<any>;
 };
 
 type SubscriberOptions = {
     subscriptions: Array<Subscription>;
     onChange?: Function;
-    transformData?: Function;
 };
 
 export default class Subscriber<SubscriberData> {
 
     public data: SubscriberData;
 
-    private collections = {};
-
     private subscriptions: Array<Subscription> = [];
 
     private activeSubscriptions: {
         [subname: string]: {
             subscription: any;
-            collections: Array<string>;
         };
     } = {};
 
-    constructor({subscriptions, onChange, transformData}: SubscriberOptions) {
+    constructor({subscriptions, onChange}: SubscriberOptions) {
         this.subscriptions = subscriptions;
         this.onChange = onChange || this.onChange;
-        this.transformData = transformData || this.transformData;
         this.data = {} as SubscriberData;
     }
 
@@ -40,31 +34,28 @@ export default class Subscriber<SubscriberData> {
      * @throws Throws Error when adding duplicate subscriptions.
      */
     public subscribe() {
-        this.subscriptions.forEach(({name, collections, parameters = []}) => {
+        this.subscriptions.forEach(({name, parameters = []}) => {
             if (this.activeSubscriptions[name]) {
                 throw new Error('Subscription already active');
             }
 
             const sub = Meteor.subscribe(name, ...parameters, {
                 onReady: () => {
-                    collections.forEach((collection) => {
-                        this.collections[collection] = Meteor.collection(collection);
-                    });
-                    this.data = this.transformData(this.collections);
                     this.onChange();
                 },
+                onStop: () => {
+                    this.onChange();
+                }
             });
 
             this.activeSubscriptions[name] = {
                 subscription: sub,
-                collections,
             };
         });
     }
 
     public unsubscribe(subname: string) {
         this.activeSubscriptions[subname].subscription.stop();
-        // delete this.data[this.activeSubscriptions[subname].collections];
         delete this.activeSubscriptions[subname];
     }
 
@@ -79,5 +70,4 @@ export default class Subscriber<SubscriberData> {
     }
 
     private onChange: Function = () => {};
-    private transformData: Function = (c: any) => c;
 }
