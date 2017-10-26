@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import Meteor from 'utils/Meteor';
 import {
     Switch,
     Route,
 } from 'react-router-dom';
+import { User } from 'types/User';
 
 import DashboardView from './views/Dashboard';
 import HomeView from './views/Home';
@@ -31,7 +33,7 @@ class Container extends React.Component<Props, {}> {
 
     constructor(props: Props, context: any) {
         super(props);
-        
+
         if (!dev) {
             onRouteChange((currentRoute: string) => {
                 context.router.history.push(currentRoute);
@@ -61,9 +63,70 @@ class Container extends React.Component<Props, {}> {
     }
 }
 
-export default class App extends React.Component<Props, {}> {
+interface State {
+    user?: User;
+    loginFailed: boolean;
+}
+
+export interface AppContext {
+    user?: User;
+    refetchUser: Function;
+}
+
+export default class App extends React.Component<Props, State> {
+
+    static childContextTypes = {
+        user: PropTypes.object,
+        refetchUser: PropTypes.func,
+    };
+
+    public state: State = {
+        user: undefined,
+        loginFailed: false,
+    };
+
+    getChildContext(): AppContext {
+        const { user } = this.state;
+
+        return {
+            user,
+            refetchUser: this.refetchUser,
+        };
+    }
+
+    refetchUser = () => {
+        this.setState({
+            user: Meteor.user(),
+        })
+    }
+
+    componentWillMount() {
+        this.refetchUser()
+
+        Meteor.Accounts.onLogin(() => {
+            this.setState({ loginFailed: false });
+            this.refetchUser();
+        });
+
+        Meteor.Accounts.onLoginFailure(() => {
+            this.setState({ loginFailed: true });
+        })
+    }
 
     render() {
+        const { loginFailed, user } = this.state;
+
+        if (loginFailed) {
+            return (
+                <div>TODO: Login failed Please login @ partup</div>
+            );
+        }
+
+        if (!user) {
+            return (
+                <div>TODO: Empty state</div>
+            );
+        }
 
         return (
             <Container>

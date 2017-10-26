@@ -6,15 +6,11 @@ import {
     SideBarView,
 } from 'components';
 
-import List, {
-    ListItem,
-} from 'components/List';
-
-import { Link } from 'components/Router';
-
 import ActivitiesView from './routes/Activities';
 import InvitesView from './routes/Invites';
 import RecommendationsView from './routes/Recommendations';
+
+import { SideBar } from './implementations';
 
 // We need to define these here instead of using RouteComponentProps
 // Because of the custom 'router' component used.
@@ -26,9 +22,7 @@ interface Props {
     history?: Object;
 }
 
-interface State {}
-
-export default class Dashboard extends React.Component<Props, State> {
+export default class Dashboard extends React.Component<Props, {}> {
     static defaultProps = {
         match: {
             url: '',
@@ -39,28 +33,13 @@ export default class Dashboard extends React.Component<Props, State> {
         const { match = {} } = this.props;
 
         return (
-            <SideBarView
-                sidebar={
-                    <List>
-                        <ListItem>
-                            <Link to={`${match.url}`}>ConversationsView</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link to={`${match.url}/activities`}>ActivitiesView</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link to={`${match.url}/invites`}>InvitesView</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link to={`${match.url}/recommendations`}>RecommendationsView</Link>
-                        </ListItem>
-                    </List>
-                }>
+            <SideBarView sidebar={<SideBar baseUrl={match.url as string}/>}>
 
                 <Switch>
                     <Route path={`${match.url}/activities`} component={ActivitiesView} />
                     <Route path={`${match.url}/invites`} component={InvitesView} />
                     <Route path={`${match.url}/recommendations`} component={RecommendationsView} />
+
                     <Route exact path={`${match.url}`} render={this.renderMaster} />
                 </Switch>
             </SideBarView>
@@ -70,7 +49,7 @@ export default class Dashboard extends React.Component<Props, State> {
     private renderMaster = () => {
         return (
             <View>
-                Master dashboard view.
+                Conversations view.
             </View>
         );
     }

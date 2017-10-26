@@ -1,0 +1,33 @@
+.pur-NavLink {
+    @import "../../stylesheets/spacings";
+
+    display: block;
+    color: #494949;
+    text-decoration: none;
+    font-weight: 600;
+    min-height: 60px;
+    padding: getSpacing() getSpacing(1.5);
+
+    &__icon {
+        margin-right: getSpacing(0.5);
+    }
+
+    &__counter {
+        float: right;
+        font-weight: 300;
+        color: #999999;
+    }
+
+    &--active {
+        background-color: #fff;
+    }
+
+    &:not(.pur-Link--active):hover {
+        background-color: #e4e4e4;
+    }
+
+    // Overwrite base partup styling
+    &:hover, &:active {
+        color: inherit;
+    }
+}

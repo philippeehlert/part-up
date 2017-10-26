@@ -6,6 +6,7 @@ import './Link.css';
 interface Props {
     children?: any;
     className?: string;
+    external?: boolean;
     onClick?: Function;
     to?: string;
 }

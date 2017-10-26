@@ -29,7 +29,7 @@
         "jsx-no-bind": true,
         "jsx-self-close": true,
         "label-position": true,
-        "max-line-length": [ true, 120 ],
+        "max-line-length": [ true, 140 ],
         "member-ordering": [
             true,
             "public-before-private",

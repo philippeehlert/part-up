@@ -1,10 +1,12 @@
-.pur-SideBarView__sidebar, .pur-SideBarView__content {
-  display: inline-block;
-  vertical-align: top;
-  min-height: calc(100% - 60px); }
-
 .pur-SideBarView__sidebar {
-  width: 400px; }
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  font-size: 15px;
+  width: 372px;
+  background-color: #eeeeee;
+  overflow-y: auto; }
 
 .pur-SideBarView__content {
-  width: calc(100% - 400px); }
+  margin-left: 372px;
+  width: calc(100% - $sideBarWidth); }

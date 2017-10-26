@@ -77,10 +77,16 @@ onStartup(() => {
 
         Meteor.connect(`${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}/websocket`);
     }
+
+    Meteor._loginWithToken(getLoginToken());
 });
 
 export function getLoginToken() {
-    return window.localStorage.getItem('reactnativemeteor_usertoken');
+    if (process.env.REACT_APP_DEV) {
+        return window.localStorage.getItem('reactnativemeteor_usertoken');
+    }
+
+    return window.localStorage.getItem('Meteor.loginToken');
 }
 
 export default Meteor;

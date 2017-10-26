@@ -4,7 +4,7 @@ import './SideBarView.css';
 
 interface Props {
     className?: string;
-    sidebar: any;
+    sidebar: JSX.Element;
 }
 
 export default class SideBarView extends React.Component<Props, {}> {
