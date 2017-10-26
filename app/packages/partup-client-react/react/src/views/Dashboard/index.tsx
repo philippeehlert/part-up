@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import {
-    View,
     SideBarView,
 } from 'components';
+
+import { ContentView } from 'components/View'
 
 import ActivitiesView from './routes/Activities';
 import InvitesView from './routes/Invites';
@@ -48,9 +49,9 @@ export default class Dashboard extends React.Component<Props, {}> {
 
     private renderMaster = () => {
         return (
-            <View>
+            <ContentView>
                 Conversations view.
-            </View>
+            </ContentView>
         );
     }
 }
