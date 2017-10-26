@@ -25,22 +25,24 @@ interface Props {
         url?: string;
     };
     location?: Object;
-    history?: Object;
+    history: any;
 }
 
 export default class Dashboard extends React.Component<Props, {}> {
     static defaultProps = {
         match: {
             url: '',
-        },
+        }
     };
 
     render() {
-        const { match = {} } = this.props;
+        const { match = {}, history } = this.props;
+
+        const currentRoute = history && history.location ? history.location.pathname : '';
+        console.log(currentRoute);
 
         return (
-            <SideBarView sidebar={<SideBar baseUrl={match.url as string}/>}>
-
+            <SideBarView sidebar={<SideBar currentRoute={currentRoute} baseUrl={match.url as string}/>}>
                 <Switch>
                     <Route path={`${match.url}/activities`} component={ActivitiesView} />
                     <Route path={`${match.url}/invites`} component={InvitesView} />

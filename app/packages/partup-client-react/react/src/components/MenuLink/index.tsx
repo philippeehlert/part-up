@@ -6,6 +6,7 @@ import Link from '../Router/Link'
 
 interface Props {
     icon?: JSX.Element|Element|string;
+    isActive?: boolean;
     counter?: string|number;
     to: string;
     className?: string;
@@ -14,10 +15,10 @@ interface Props {
 export default class MenuLink extends React.Component<Props, {}> {
 
     getClassNames() {
-        const { className } = this.props;
+        const { className, isActive } = this.props;
 
         return c('pur-MenuLink', className, {
-
+            'pur-MenuLink--active': isActive,
         });
     }
 

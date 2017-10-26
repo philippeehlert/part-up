@@ -17,10 +17,11 @@ import { MenuLink } from 'components';
 interface Props {
     className?: string;
     baseUrl: string,
+    currentRoute: string,
 };
 
 export default class SideBar extends React.Component<Props> {
-    
+
     static contextTypes = {
         user: PropTypes.object,
     };
@@ -29,9 +30,7 @@ export default class SideBar extends React.Component<Props> {
 
     render() {
         const { user } = this.context;
-        const { baseUrl } = this.props;
-
-        console.log(user);
+        const { baseUrl, currentRoute } = this.props;
 
         return (
             <List>
@@ -41,22 +40,24 @@ export default class SideBar extends React.Component<Props> {
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink to={`${baseUrl}`} icon={<Icon name={'message'} />} counter={`25`}>
+                    <MenuLink isActive={currentRoute === `${baseUrl}`} to={`${baseUrl}`} icon={<Icon name={'message'} />} counter={`25`}>
                         ConversationsView
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink to={`${baseUrl}/activities`} icon={<Icon name={'chart'} />} counter={`4`}>
+                    <MenuLink isActive={currentRoute === `${baseUrl}/activities`} to={`${baseUrl}/activities`} icon={<Icon name={'chart'} />} counter={`4`}>
+
                         ActivitiesView
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink to={`${baseUrl}/invites`} icon={<Icon name={'person-plus'} />} counter={`5`}>
+                    <MenuLink isActive={currentRoute === `${baseUrl}/invites`} to={`${baseUrl}/invites`} icon={<Icon name={'person-plus'} />} counter={`5`}>
                         InvitesView
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink to={`${baseUrl}/recommendations`} icon={<Icon name={'globe'} />} counter={`3`}>
+                    <MenuLink isActive={currentRoute === `${baseUrl}/recommendations`} to={`${baseUrl}/recommendations`} icon={<Icon name={'globe'} />} counter={`3`}>
+
                         InvitesView
                     </MenuLink>
                 </ListItem>
