@@ -9,6 +9,12 @@ to open chrome `open -a Google\ Chrome --args --disable-web-security --user-data
 - `cd app/packages/partup-client-react/react && yarn start`
 - in another window, from project root, run `./start --once --react-dev`
 
+
+# icon generating
+
+1. add icon.svg to src/static/icons
+2. run `yarn generate-icons`
+
 # Component example 
 
 ```ts

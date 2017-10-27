@@ -24,8 +24,6 @@ if (dev) {
 
 onStartup(() => {
     onRender((root: HTMLElement) => {
-        console.log(root);
-    
         ReactDOM.render(
             <Router initialEntries={routes} initialIndex={getCurrentIndex()}>
                 <App />
