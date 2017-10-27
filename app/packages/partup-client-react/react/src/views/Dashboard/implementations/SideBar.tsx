@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { AppContext } from 'App'
+import { AppContext } from 'App';
 
 import {
     UserAvatar,
@@ -20,9 +20,9 @@ import { Link } from 'components/Router';
 
 interface Props {
     className?: string;
-    baseUrl: string,
-    currentRoute: string,
-};
+    baseUrl: string;
+    currentRoute: string;
+}
 
 export default class SideBar extends React.Component<Props> {
 
@@ -83,23 +83,36 @@ export default class SideBar extends React.Component<Props> {
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink isActive={currentRoute === `${baseUrl}/activities`} to={`${baseUrl}/activities`} icon={<Icon name={'chart'} />} counter={`4`}>
-
+                    <MenuLink
+                        isActive={currentRoute === `${baseUrl}/activities`}
+                        to={`${baseUrl}/activities`}
+                        icon={<Icon name={'chart'} />}
+                        counter={`4`}
+                    >
                         ActivitiesView
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink isActive={currentRoute === `${baseUrl}/invites`} to={`${baseUrl}/invites`} icon={<Icon name={'person-plus'} />} counter={`5`}>
+                    <MenuLink
+                        isActive={currentRoute === `${baseUrl}/invites`}
+                        to={`${baseUrl}/invites`}
+                        icon={<Icon name={'person-plus'} />}
+                        counter={`5`}
+                    >
                         InvitesView
                     </MenuLink>
                 </ListItem>
                 <ListItem>
-                    <MenuLink isActive={currentRoute === `${baseUrl}/recommendations`} to={`${baseUrl}/recommendations`} icon={<Icon name={'globe'} />} counter={`3`}>
-
+                    <MenuLink
+                        isActive={currentRoute === `${baseUrl}/recommendations`}
+                        to={`${baseUrl}/recommendations`}
+                        icon={<Icon name={'globe'} />}
+                        counter={`3`}
+                    >
                         InvitesView
                     </MenuLink>
                 </ListItem>
             </List>
-        )
+        );
     }
 }

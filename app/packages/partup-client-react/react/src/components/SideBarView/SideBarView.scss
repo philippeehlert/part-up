@@ -1,6 +1,4 @@
 .pur-SideBarView {
-    @import "../../stylesheets/spacings";
-
     &__sidebar {
         font-size: 15px;
         background-color: #eeeeee;
@@ -8,18 +6,18 @@
     }
 
     @media screen and (min-width: 420px) {
-        $sideBarWidth: 372px;
+        $pur-sideBarWidth: 372px;
 
         &__sidebar {
             position: fixed;
             top: 60px;
             bottom: 0;
-            width: $sideBarWidth;
+            width: $pur-sideBarWidth;
             overflow-y: auto;
         }
 
         &__content {
-            margin-left: $sideBarWidth;
+            margin-left: $pur-sideBarWidth;
         }
     }
 }

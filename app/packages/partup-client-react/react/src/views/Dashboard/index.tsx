@@ -36,7 +36,6 @@ export default class Dashboard extends React.Component<Props, {}> {
         const { match = {}, history } = this.props;
 
         const currentRoute = history && history.location ? history.location.pathname : '';
-        console.log(currentRoute);
 
         return (
             <SideBarView sidebar={<SideBar currentRoute={currentRoute} baseUrl={match.url as string}/>}>

@@ -6,7 +6,7 @@ import View from './';
 
 interface Props {
     className?: string;
-};
+}
 
 export default class ContentView extends React.Component<Props, {}> {
 

@@ -6,7 +6,7 @@
     text-decoration: none;
     font-weight: 600;
     min-height: 60px;
-    padding: getSpacing() getSpacing(1.5);
+    padding: getSpacing(2) getSpacing(3);
 
     &__icon, &__label {
         display: inline-block;
@@ -14,7 +14,7 @@
     }
 
     &__icon {
-        margin-right: getSpacing(0.5);
+        margin-right: getSpacing(1);
     }
 
     &__counter {

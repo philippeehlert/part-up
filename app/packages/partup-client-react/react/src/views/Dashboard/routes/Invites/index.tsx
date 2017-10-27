@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { ContentView } from 'components/View'
+import { ContentView } from 'components/View';
 
 interface Props extends RouteComponentProps<any> {
     //
