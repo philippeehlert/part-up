@@ -14,9 +14,7 @@ import List, {
     ListItem,
 } from 'components/List';
 
-import { MenuLink } from 'components';
-
-import { Link } from 'components/Router';
+import { Link, MenuLink } from 'components/Router';
 
 interface Props {
     className?: string;

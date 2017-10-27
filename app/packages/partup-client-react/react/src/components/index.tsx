@@ -2,7 +2,6 @@ export { default as Button } from './Button';
 export { default as Icon } from './Icon';
 export { default as List } from './List';
 export { default as MediaQuery } from './MediaQuery';
-export { default as MenuLink } from './MenuLink';
 export { default as MobileNav } from './MobileNav';
 export { default as NavigationBar } from './NavigationBar';
 export { default as Portal } from './Portal';

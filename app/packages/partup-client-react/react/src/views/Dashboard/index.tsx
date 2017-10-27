@@ -7,6 +7,8 @@ import {
     Button,
 } from 'components';
 
+import Portal, { PortalManager } from 'components/Portal';
+
 import { ContentView } from 'components/View';
 
 import ActivitiesView from './routes/Activities';
@@ -53,7 +55,21 @@ export default class Dashboard extends React.Component<Props, {}> {
     private renderMaster = () => {
         return (
             <ContentView>
-                <Button leftChild={<Icon name={'message'} />}>Hello</Button>
+                <PortalManager
+                    renderHandler={(open) => (
+                        <Button
+                            onClick={open}
+                            leftChild={<Icon name={'message'} />}
+                            rightChild={<Icon name={'archive'} />}>
+                            Hello
+                        </Button>
+                    )}
+                    renderPortal={(close) => (
+                        <Portal>
+                            <Button onClick={close}>w00t</Button>
+                        </Portal>
+                    )}
+                />
             </ContentView>
         );
     }

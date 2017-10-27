@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 interface Props {
-    className: string;
-    onOpen: Function;
-    onClose: Function;
-    renderHandler: Function;
-    renderPortal: Function;
+    className?: string;
+    onOpen?: Function;
+    onClose?: Function;
+    renderHandler: (open: Function) => JSX.Element;
+    renderPortal: (close: Function) => JSX.Element;
 }
 
 interface State {

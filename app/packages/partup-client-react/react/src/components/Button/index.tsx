@@ -12,6 +12,7 @@ interface Props {
     type?: ButtonType;
     leftChild?: any;
     rightChild?: any;
+    onClick?: Function;
 }
 
 export default class Button extends React.Component<Props, {}> {
@@ -28,6 +29,12 @@ export default class Button extends React.Component<Props, {}> {
         });
     }
 
+    onClick = (event: React.SyntheticEvent<any>) => {
+        const { onClick } = this.props;
+    
+        if (onClick) onClick(event);
+    }
+
     render() {
         const {
             leftChild,
@@ -36,7 +43,7 @@ export default class Button extends React.Component<Props, {}> {
         } = this.props;
 
         return (
-            <button className={this.getClassNames()}>
+            <button className={this.getClassNames()} onClick={this.onClick}>
                 { leftChild && (
                     <span className={`pur-Button__left-child`}>
                         { leftChild }

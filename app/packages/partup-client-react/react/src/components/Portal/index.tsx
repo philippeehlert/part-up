@@ -1,24 +1,24 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-const portalRoot = document.getElementById('react-portal-root') as HTMLElement;
-
 export default class Portal extends React.Component<{}, {}> {
 
     private portalElement: HTMLElement;
+    private portalRoot: HTMLElement;
 
     constructor(props: Object) {
         super(props);
 
+        this.portalRoot = document.getElementById('react-portal-root') as HTMLElement;        
         this.portalElement = document.createElement('div');
     }
 
     componentDidMount() {
-        portalRoot.appendChild(this.portalElement);
+        this.portalRoot.appendChild(this.portalElement);
     }
 
     componentWillUnmount() {
-        portalRoot.removeChild(this.portalElement);
+        this.portalRoot.removeChild(this.portalElement);
     }
 
     render() {

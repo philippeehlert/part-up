@@ -1,6 +1,9 @@
 .pur-Icon {
   font-size: inherit;
-  display: inline; }
+  line-height: inherit;
+  display: inline-block; }
   .pur-Icon svg {
+    display: inline-block;
     width: 1em;
-    height: 1em; }
+    height: 1em;
+    vertical-align: middle; }

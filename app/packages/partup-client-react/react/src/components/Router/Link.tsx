@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './Link.css';
 
 interface Props {
-    children?: any;
     className?: string;
-    external?: boolean;
-    onClick?: Function;
-    to?: string;
+    children?: any;
+    // onClick?: Function;
+    to?: any;
+    leftChild?: any;
+    rightChild?: any;
 }
 
 export default class Link extends React.Component<Props, {}> {
@@ -16,16 +18,6 @@ export default class Link extends React.Component<Props, {}> {
     static contextTypes = {
         router: PropTypes.object,
     };
-
-    onClick = (event: any) => {
-        event.nativeEvent.preventDefault();
-        const { onClick, to } = this.props;
-        const { router } = this.context;
-
-        router.history.push(to);
-
-        if (onClick) onClick(event);
-    }
 
     getClassNames = () => {
         const { className } = this.props;
@@ -36,12 +28,31 @@ export default class Link extends React.Component<Props, {}> {
     }
 
     render() {
-        const { children } = this.props;
+        const {
+            leftChild,
+            children,
+            rightChild,
+            to,
+        } = this.props;
 
         return (
-            <a className={this.getClassNames()} href={'#'} onClick={this.onClick}>
-                {children}
-            </a>
+            <RouterLink to={to} className={this.getClassNames()}>
+                { leftChild && (
+                    <span className={`pur-Link__left-child`}>
+                        { leftChild }
+                    </span>
+                ) }
+                { children && (
+                    <span className={`pur-Link__content`}>
+                        { children }
+                    </span>
+                ) }
+                { rightChild && (
+                    <span className={`pur-Link__right-child`}>
+                        { rightChild }
+                    </span>
+                ) }
+            </RouterLink>
         );
     }
 }

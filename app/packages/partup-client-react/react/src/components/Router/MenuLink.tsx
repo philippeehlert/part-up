@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './MenuLink.css';
 
-import Link from '../Router/Link';
+import Link from './Link';
 
 interface Props {
     icon?: JSX.Element|Element|string;
@@ -18,7 +18,7 @@ export default class MenuLink extends React.Component<Props, {}> {
         const { className, isActive } = this.props;
 
         return c('pur-MenuLink', className, {
-            'pur-MenuLink--active': isActive,
+            'pur-MenuLink--is-active': isActive,
         });
     }
 
@@ -31,10 +31,12 @@ export default class MenuLink extends React.Component<Props, {}> {
         } = this.props;
 
         return (
-            <Link to={to} className={this.getClassNames()}>
-                { icon && <span className={`pur-MenuLink__icon`}>{ icon }</span> }
-                <span className={`pur-MenuLink__label`}>{ children }</span>
-                { counter && <span className={`pur-MenuLink__counter`}>{ counter }</span> }
+            <Link
+                to={to}
+                className={this.getClassNames()}
+                leftChild={icon}
+                rightChild={counter}>
+                { children }
             </Link>
         );
     }
