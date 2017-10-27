@@ -1,5 +1,3 @@
-var path = Npm.require('path');
-
 Meteor.methods({
 
     /**
@@ -9,22 +7,41 @@ Meteor.methods({
      *
      * @return {String} imageId
      */
-    'images.insertByUrl': function(url) {
-        check(url, String);
-
+    'images.insertByUrl'(file) {
+        check(file, Partup.schemas.entities.file);
         this.unblock();
 
-        var result = HTTP.get(url, {'npmRequestOptions': {'encoding': null}});
-
-        var filename = Random.id() + '.jpg';
-        var body = new Buffer(result.content, 'binary');
-        var mimetype = 'image/jpeg';
-
-        var image = Partup.server.services.images.upload(filename, body, mimetype);
-
+        const request = HTTP.get(file.link, { npmRequestOptions: { encoding: null } });
+        const fileBody = new Buffer(request.content, 'binary');
+        const image = Partup.server.services.images.upload(file.name, fileBody, file.type, {
+            id: file._id,
+        });
         return {
-            _id: image._id
+            _id: image._id,
         };
-    }
+    },
+    'images.remove'(id) {
+        check(id, String);
+
+        Partup.server.services.images.remove(id);
+        Images.remove(id);
+        return {
+            _id: id,
+        };
+    },
+    'images.remove_many'(ids) {
+        check(ids, [String]);
+
+        if (Meteor.user()) {
+            _.each(ids, (id) => {
+                Partup.server.images.remove(id);
+                Images.remove(id);
+            });
+            return {
+                _ids: ids,
+            };
+        }
+        throw new Meteor.Error(400, 'unauthorized');
+    },
 
 });

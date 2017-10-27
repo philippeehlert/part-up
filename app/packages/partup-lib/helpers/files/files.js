@@ -50,54 +50,73 @@ Partup.helpers.files = {
      */
     max_file_size: 20971520,
 
+    FILE_SERVICES: {
+        PARTUP: 'partup',
+        DROPBOX: 'dropbox',
+        GOOGLEDRIVE: 'googledrive',
+    },
+
     // #endregion
 
     // #region methods
 
     /**
-     * Get the extension of a file based on the name or mime
+     * Get the file info object for a file
      * 
+     * @param {File} file
+     * @returns {FileInfo} object containing info about a file
+     */
+    getFileInfo(file) {
+        const { name, type } = file;
+        let ext;
+
+        if (name && name.lastIndexOf('.') !== -1) {
+            ext = _.toLower(name.substr((name.lastIndexOf('.') + 1), name.length));
+        }
+
+        return ext ? this.info[ext] : this.info[_.toLower(type)];
+    },
+
+
+    /**
+     * Get the extension of a file based on the name or mime
+     *
      * @param {File} file
      * @returns {String}
      */
     getExtension(file) {
         if (!file) {
-            throw new Meteor.Error(0, 'file is undefined');
-        }
-        
-        const { name, type } = file;
-
-        let ext;
-        if (name && name.lastIndexOf('.') !== -1) {
-            ext = _.toLower(name.substr((name.lastIndexOf('.') + 1), name.length));
+            throw new Error('getExtension: file is undefined');
         }
 
-        const info = ext ?
-            this.info[ext] :
-            this.info[_.toLower(type)];
+        const info = this.getFileInfo(file);
 
-        if (!info) {
-            throw new Meteor.Error(0, 'invalid name and type');
-        } else if (!info instanceof FileInfo) {
-            return undefined;
+        if (info) {
+            return info[0] ?
+                undefined :
+            info.extension;
         }
-        
-        return info.extension;
+        return undefined;
     },
 
-    getCategory(extension) {
-        if (!extension) {
+    getCategory(file) {
+        if (!file) {
             throw new Meteor.Error(0, 'extension is undefined');
         }
-        const info = this.info[_.toLower(extension)];
-        return info ?
-            info.category :
-        undefined;
+
+        const info = this.info[file] || this.getFileInfo(file);
+
+        if (info) {
+            return info[0] ?
+                info[0].category :
+            info.category;
+        }
+        return undefined;
     },
 
     /**
      * Client side check if the file is an image based on the name or mime.
-     * 
+     *
      * @param {File} file as long as a name or type property is present
      * @returns {Boolean}
      */
@@ -106,16 +125,13 @@ Partup.helpers.files = {
             throw new Meteor.Error(0, 'file is undefined');
         }
 
-        if (_.includes(this.extensions['image'], this.getExtension(file))) {
-            return true;
+        const info = this.getFileInfo(file);
+        if (info) {
+            return info[0] ?
+                info[0].category === this.categories.image :
+            (_.includes(this.extensions.image, info.extension) || info.category === this.categories.image);
         }
-
-        let info = this.info[file.type];
-        if (info[0]) {
-            info = info[0];
-        }
-
-        return (info && info.category === this.categories.image) ? true : false;
+        return false;
     },
 
     /**
@@ -128,15 +144,16 @@ Partup.helpers.files = {
         if (!file) {
             throw new Meteor.Error(0, 'file is undefined');
         }
-        const ext = this.getExtension(file);
 
-        return ext ?
-            this.info[ext] ?
-                this.info[ext].icon ?
-                    this.info[ext].icon :
-                undefined :
-            undefined :
-        undefined;
+        const info = this.getFileInfo(file);
+
+        if (info[0]) {
+            return info[0].icon;
+        }
+        if (info) {
+            return info[0] ? info[0].icon : info.icon;
+        }
+        return 'file.svg';
     },
 
     /**
@@ -150,7 +167,7 @@ Partup.helpers.files = {
     toUploadFilter(category, extensions = undefined) {
         return {
             title: category,
-            extensions: extensions || this.extensions[category].join(','),
+            extensions: (Array.isArray(extensions) ? extensions.join(',') : extensions) || this.extensions[category].join(','),
         };
     },
 
@@ -161,7 +178,7 @@ Partup.helpers.files = {
      * @returns {Number} binary value of size
      */
     shortToBinarySize(size) {
-        if (!size === typeof 'string') {
+        if (!(typeof size === 'string')) {
             throw new Meteor.Error(0, `expected size to be of type string but is ${typeof size}`);
         }
 
@@ -179,10 +196,29 @@ Partup.helpers.files = {
                 case 't':
                     return match[1] * 1024 * 1024 * 1024 * 1024;
                 default:
-                    return;
+                    break;
             }
         }
-    }
+
+        return 0;
+    },
+
+    binaryToShortSize(size) {
+        if (!(typeof size === 'number')) {
+            throw new Error(`binaryToShortSize: size is not a number ${size}`);
+        } else if (size === 0) {
+            return size;
+        }
+
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const index = parseInt(Math.floor(Math.log(size) / Math.log(1024)), 10);
+
+        if (index === 0) {
+            return `${size} ${sizes[index]}`;
+        }
+
+        return `${(size / Math.pow(1024, index)).toFixed(1)} ${sizes[index]}`;
+    },
 
     // #endregion
 };
@@ -228,8 +264,49 @@ _.each(_filemap, ({ category, icon, data }) => {
  * Expose an array of all extensions
  */
 Partup.helpers.files.extensions.all = _.reduce(Object.keys(Partup.helpers.files.extensions), (result, key) => {
-    return _.concat(result, Partup.helpers.files.extensions[key])
+    return _.concat(result, Partup.helpers.files.extensions[key]);
 }, []);
+
+/**
+ * Expose an array of all categories
+ * */
+Partup.helpers.files.categories.all = _.reduce(Object.keys(Partup.helpers.files.categories), (result, key) => {
+    return _.concat(result, Partup.helpers.files.categories[key]);
+});
+
+if (Meteor.isClient) {
+    Partup.helpers.files.transform = {
+        dropbox(dropboxFile) {
+            const file = {
+                name: dropboxFile.name,
+                type: Partup.helpers.files.info[Partup.helpers.files.getExtension(dropboxFile)].mime,
+                bytes: dropboxFile.bytes,
+                service: Partup.helpers.files.FILE_SERVICES.DROPBOX,
+            };
+
+            file.link = Partup.helpers.files.isImage(file) ?
+                `${dropboxFile.link.slice(0, -1)}1` :
+            dropboxFile.link;
+
+            return file;
+        },
+        googledrive(driveFile) {
+            console.log(driveFile);
+            const file = {
+                name: driveFile.name,
+                type: driveFile.mimeType,
+                bytes: (!isNaN(driveFile.sizeBytes) ? parseInt(driveFile.sizeBytes) : 0),
+                service: Partup.helpers.files.FILE_SERVICES.GOOGLEDRIVE,
+            };
+
+            file.link = Partup.helpers.files.isImage(file) ?
+                `https://docs.google.com/uc?id=${driveFile.id}` :
+            driveFile.url.toString();
+
+            return file;
+        },
+    };
+}
 
 // Freeze the props to prevent any modification, e.g. file.extensions[x] = y
 Object.freeze(Partup.helpers.files.categories);

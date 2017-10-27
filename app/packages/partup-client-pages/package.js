@@ -19,7 +19,8 @@ Package.onUse(function(api) {
         'reactive-var',
         'aldeed:autoform',
         'yogiben:autoform-tags',
-        'http'
+        'http',
+        'partup-client-files',
     ], 'client');
 
     var clientFiles = {
@@ -178,10 +179,11 @@ Package.onUse(function(api) {
             // App:partup-updates
             'app/partup/updates/updates.html',
             'app/partup/updates/updates.js',
-            'app/partup/updates/newmessage/newmessage.html',
-            'app/partup/updates/newmessage/newmessage.js',
             'app/partup/update/update.html',
             'app/partup/update/update.js',
+            'app/partup/updates/message-form/message-form.html',
+            'app/partup/updates/message-form/message-form.js',
+            'app/partup/updates/message-form/markdown-support/markdown-support.html',
 
             // App:partup-activities
             'app/partup/activities/activities.html',

@@ -360,7 +360,10 @@ export default _filemap = [
             {
                 extension: 'pages',
                 mime: 'application/vnd.apple.pages',
-            }
+            },
+            {
+                mime: 'application/vnd.google-apps.document',
+            },
         ],
     },
     {
@@ -501,8 +504,11 @@ export default _filemap = [
             {
                 extension: 'numbers',
                 mime: 'application/vnd.apple.numbers', // Some systems read it as `application/zip`
-            }
-        ], 
+            },
+            {
+                mime: 'application/vnd.google-apps.spreadsheet',
+            },
+        ],
     },
     {
         category: 'archive',
