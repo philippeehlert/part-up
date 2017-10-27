@@ -28,7 +28,12 @@ Template.Update.onCreated(function() {
 /*************************************************************/
 Template.Update.helpers({
     update: function() {
+    
         var self = this;
+
+        // Cache for not hitting to mini mongo as often
+        if (self._update) return self._update;
+
         var template = Template.instance();
         var updateId = template.data.updateId;
         if (!updateId) return; // no updateId found, return
@@ -42,7 +47,7 @@ Template.Update.helpers({
             contributor = Meteor.users.findOne(contribution.upper_id);
         }
         var user = Meteor.user();
-        return {
+        self._update = {
             data: function() {
                 return update;
             },
@@ -134,6 +139,7 @@ Template.Update.helpers({
                 }
             }
         };
+        return self._update;
     },
     format() {
         return function (content) {
@@ -143,6 +149,7 @@ Template.Update.helpers({
                 .getContent();
         }
     }
+
 });
 
 /*************************************************************/
