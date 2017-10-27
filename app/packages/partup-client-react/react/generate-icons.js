@@ -21,11 +21,11 @@ fs.readdirSync(iconsFolder).forEach(file => {
         if (!file.endsWith('.svg')) return console.log(`Skipped <${filePath}> because it isn't a .svg file.`);
 
         jsonObject[file.replace('.svg', '')] = optimizedContent.data
-            .replace(/xmlns="(.*?)"/, '')
-            .replace(/fill="(.*?)"/, '')
-            .replace('<path', '<path fill="currentColor"')
-            .replace(/width="(.*?)"/, '')
-            .replace(/height="(.*?)"/, '');
+            .replace(/xmlns="(.*?)"/g, '')
+            .replace(/fill="(.*?)"/g, '')
+            .replace(/<path/g, '<path fill="currentColor"')
+            .replace(/width="(.*?)"/g, '')
+            .replace(/height="(.*?)"/g, '');
         
         console.log(`Added <${file.replace('.svg', '')}> icon.`);
     });

@@ -1,3 +1,8 @@
+.pur-React * {
+    @import "../../stylesheets/fonts";
+    font-family: $font-primary;
+}
+
 body {
     background: #fff;
     height: auto;
