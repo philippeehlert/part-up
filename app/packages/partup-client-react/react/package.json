@@ -37,6 +37,7 @@
     "@types/react-router-dom": "^4.0.8",
     "babel-cli": "^6.26.0",
     "fs-extra": "^4.0.2",
+    "svgo": "^0.7.2",
     "tslint": "^5.8.0"
   }
 }
