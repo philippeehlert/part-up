@@ -3,22 +3,22 @@ import * as c from 'classnames';
 import './Button.css';
 
 export enum ButtonType {
-    link = 'submit',
     button = 'button',
     submit = 'submit',
 }
 
 interface Props {
-    icon?: Element
-    counter?: string|number
-    className?: string
-    type?: ButtonType
+    className?: string;
+    type?: ButtonType;
+    leftChild?: any;
+    rightChild?: any;
 }
 
 export default class Button extends React.Component<Props, {}> {
+    
     static defaultProps = {
-        type: ButtonType.button
-    }
+        type: ButtonType.button,
+    };
 
     getClassNames() {
         const { className } = this.props;
@@ -30,16 +30,28 @@ export default class Button extends React.Component<Props, {}> {
 
     render() {
         const {
-            icon,
+            leftChild,
             children,
-            counter,
+            rightChild,
         } = this.props;
 
         return (
             <button className={this.getClassNames()}>
-                { icon && <span className={`pur-Button__icon`}>{ icon }</span> }
-                <span className={`pur-Button__label`}>{ children }</span>
-                { counter && <span className={`pur-Button__counter`}>{ counter }</span> }
+                { leftChild && (
+                    <span className={`pur-Button__left-child`}>
+                        { leftChild }
+                    </span>
+                ) }
+                { children && (
+                    <span className={`pur-Button__content`}>
+                        { children }
+                    </span>
+                ) }
+                { rightChild && (
+                    <span className={`pur-Button__right-child`}>
+                        { rightChild }
+                    </span>
+                ) }
             </button>
         );
     }

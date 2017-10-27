@@ -4,7 +4,7 @@ import './MobileNav.css';
 
 interface Props {
     className?: string;
-};
+}
 
 export default class MobileNav extends React.Component<Props, {}> {
 

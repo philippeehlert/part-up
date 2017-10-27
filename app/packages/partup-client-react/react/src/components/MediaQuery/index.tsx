@@ -5,17 +5,17 @@ interface Props {
     query: string;
     renderMatch: Function;
     renderNoMatch?: Function;
-};
+}
 
 interface State {
-    mediaQueryList: MediaQueryList
+    mediaQueryList: MediaQueryList;
 }
 
 export default class MediaQuery extends React.Component<Props, State> {
 
     public state: State = {
-        mediaQueryList: window.matchMedia(this.props.query)
-    }
+        mediaQueryList: window.matchMedia(this.props.query),
+    };
 
     componentDidMount() {
         this.updateMediaQueryList();
@@ -30,7 +30,7 @@ export default class MediaQuery extends React.Component<Props, State> {
         const { query } = this.props;
 
         this.setState({mediaQueryList: window.matchMedia(query)});
-    });
+    })
 
     render() {
         const { renderMatch, renderNoMatch } = this.props;

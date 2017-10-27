@@ -27,4 +27,4 @@ export default class View extends React.Component<Props, {}> {
     }
 }
 
-export { default as ContentView } from './ContentView'
+export { default as ContentView } from './ContentView';

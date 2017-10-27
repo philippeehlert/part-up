@@ -1,14 +1,21 @@
 .pur-Button {
+    @import "../../stylesheets/colors";
+    background-color: $pug-color-sunshade;
+    border: 0;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0 15px;
+    color: #fff;
 
-    &__left-icon {
+    &__left-child {
 
     }
 
-    &__right-icon {
+    &__right-child {
 
     }
 
-    &__label {
+    &__content {
 
     }
 }

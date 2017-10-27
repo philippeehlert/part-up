@@ -20,7 +20,7 @@ const PortalManagerWrapper: React.SFC<PortalManagerWrapperProps> = ({ children }
 
 export default class PortalManager extends React.Component<Props, State> {
 
-    state = {
+    state: State = {
         render: false,
     };
 

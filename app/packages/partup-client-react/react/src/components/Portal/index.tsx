@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-const portalRoot = document.getElementById('react-portal') as HTMLElement;
+const portalRoot = document.getElementById('react-portal-root') as HTMLElement;
 
 export default class Portal extends React.Component<{}, {}> {
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './MenuLink.css';
 
-import Link from '../Router/Link'
+import Link from '../Router/Link';
 
 interface Props {
     icon?: JSX.Element|Element|string;
@@ -10,7 +10,7 @@ interface Props {
     counter?: string|number;
     to: string;
     className?: string;
-};
+}
 
 export default class MenuLink extends React.Component<Props, {}> {
 

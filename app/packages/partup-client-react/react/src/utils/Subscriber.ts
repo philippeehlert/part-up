@@ -45,7 +45,7 @@ export default class Subscriber<SubscriberData> {
                 },
                 onStop: () => {
                     this.onChange();
-                }
+                },
             });
 
             this.activeSubscriptions[name] = {
