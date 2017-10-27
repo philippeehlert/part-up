@@ -46,10 +46,13 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee, searchQue
     // Send notification
     Partup.server.services.notifications.send(notificationOptions);
 
+     // set email fromAddress
+    var fromAddress = Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name);
+
     // Set the email details
     var emailOptions = {
         type: 'invite_upper_to_partup',
-        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
+        fromAddress: fromAddress + ' ' + TAPi18n.__('emails-invite_upper_to_partup-via'),
         toAddress: User(invitee).getEmail(),
         subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {inviter: inviter.profile.name, partup: partup.name}, User(invitee).getLocale()),
         locale: User(invitee).getLocale(),
