@@ -16,9 +16,6 @@ Template.app_partup.onCreated(function () {
 
     template.loading = {
         partup: new ReactiveVar(true),
-        activities: new ReactiveVar(true),
-        updates: new ReactiveVar(true),
-        board: new ReactiveVar(true),
     };
 
     const sidebarCookie = Cookies.get('partup_sidebar_expanded');
@@ -56,23 +53,6 @@ Template.app_partup.onCreated(function () {
                 return Router.pageNotFound('partup');
             },
         });
-
-        template.subscribe('activities.from_partup', partupId, accessToken, {
-            onReady() {
-                template.loading.activities.set(false);
-            },
-        });
-
-        template.subscribe('updates.from_partup', partupId, {}, accessToken, {
-            onReady() {
-                template.loading.updates.set(false);
-            },
-        });
-        template.subscribe('board.for_partup_id', partupId, accessToken, {
-            onReady() {
-                template.loading.board.set(false);
-            },
-        });
     });
 });
 
@@ -84,8 +64,7 @@ Template.app_partup.helpers({
         return Template.instance().partup.get();
     },
     partupLoaded() {
-        const loading = Template.instance().loading;
-        return !loading.partup.get() && !loading.activities.get() && !loading.updates.get() && !loading.board.get();
+        return !Template.instance().loading.partup.get();
     },
     sidebarExpanded() {
         return Template.instance().sidebarExpanded.get();
