@@ -291,7 +291,6 @@ if (Meteor.isClient) {
             return file;
         },
         googledrive(driveFile) {
-            console.log(driveFile);
             const file = {
                 name: driveFile.name,
                 type: driveFile.mimeType,
