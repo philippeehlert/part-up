@@ -31,33 +31,42 @@ Meteor.startup(function() {
             });
 
             /* 3 */
-            Updates.insert({
-                '_id' : 'BWQzehWhCX5ZTpLLh',
-                'partup_id' : 'gJngF65ZWyS9f3NDE',
-                'type_data' : {
-                    'new_value' : 'Default user was here. Maybe we can add some more activities?',
-                    'images' : []
-                },
-                'comments_count' : 1,
-                'upper_id' : 'K5c5M4Pbdg3B82wQH',
-                'created_at' : new Date('2015-07-21T14:07:20.064Z'),
-                'updated_at' : new Date('2015-07-21T14:08:02.797Z'),
-                'type' : 'partups_message_added',
-                'comments' : [
-                    {
-                        '_id' : 'gX9ZDAfsgkaZFPag5',
-                        'content' : 'That sounds like a good idea. I will do some suggestions for contributions as well!',
-                        'type' : null,
-                        'creator' : {
-                            '_id' : 'K5c5M4Pbdg3B82wQI',
-                            'name' : 'John Partup',
-                            'image' : 'nL2MYYXJ3eFeb2GYq'
+            for (var hour = 10; hour < 22; hour++) {
+                for (var minute = 10; minute < 22; minute++) {
+                    var comments = [];
+                    var last_comment_time;
+                    for (var i = 1; i <= 3; i++) {
+                        var comment_time = new Date('2015-07-21T' + hour + ':' + (minute + i) + ':20.000Z');
+                        last_comment_time = comment_time;
+                        comments.push({
+                            '_id' : 'gX9ZDAfsgkaZFPag' + i,
+                            'content' : 'Comment on activity nr ' + i,
+                            'type' : null,
+                            'creator' : {
+                                '_id' : 'K5c5M4Pbdg3B82wQI',
+                                'name' : 'John Partup',
+                                'image' : 'nL2MYYXJ3eFeb2GYq'
+                            },
+                            'created_at' : comment_time,
+                            'updated_at' : comment_time
+                        });
+                    }       
+                    Updates.insert({
+                        '_id' : 'BWQzehWhCX5ZT' + hour + minute,
+                        'partup_id' : 'gJngF65ZWyS9f3NDE',
+                        'type_data' : {
+                            'new_value' : 'Activity nr [ ' + hour + ', ' + minute + ']',
+                            'images' : []
                         },
-                        'created_at' : new Date('2015-07-21T14:08:02.796Z'),
-                        'updated_at' : new Date('2015-07-21T14:08:02.796Z')
-                    }
-                ]
-            });
+                        'comments_count' : 3,
+                        'upper_id' : 'K5c5M4Pbdg3B82wQH',
+                        'created_at' : new Date('2015-07-21T' + hour + ':' + minute + ':20.000Z'),
+                        'updated_at' : last_comment_time,
+                        'type' : 'partups_message_added',
+                        'comments' : comments
+                    });
+                };
+            };
 
             /* 4 */
             Updates.insert({
