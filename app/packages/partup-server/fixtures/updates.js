@@ -40,7 +40,7 @@ Meteor.startup(function() {
                         last_comment_time = comment_time;
                         comments.push({
                             '_id' : 'gX9ZDAfsgkaZFPag' + i,
-                            'content' : 'Comment on activity nr ' + i,
+                            'content' : 'Comment on a message, nr ' + i,
                             'type' : null,
                             'creator' : {
                                 '_id' : 'K5c5M4Pbdg3B82wQI',
@@ -55,7 +55,7 @@ Meteor.startup(function() {
                         '_id' : 'BWQzehWhCX5ZT' + hour + minute,
                         'partup_id' : 'gJngF65ZWyS9f3NDE',
                         'type_data' : {
-                            'new_value' : 'Activity nr [ ' + hour + ', ' + minute + ']',
+                            'new_value' : 'Message nr [ ' + hour + ', ' + minute + ']',
                             'images' : []
                         },
                         'comments_count' : 3,
