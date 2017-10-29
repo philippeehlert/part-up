@@ -26,6 +26,12 @@ Template.BoardView.onCreated(function () {
         });
     });
 
+    template.subscribe('board.for_partup_id', partupId, {
+        onReady() {
+            template.loaded.set(true);
+        },
+    });
+
     var arraysAreTheSame = function (arr1, arr2) {
         return JSON.stringify(arr1) === JSON.stringify(arr2);
     };
@@ -266,6 +272,7 @@ Template.BoardView.onCreated(function () {
 
     template.autorun(function () {
         var board = Boards.findOne();
+
         var dragging = template.dragging.get();
         if (!board || dragging) return;
 
@@ -284,11 +291,6 @@ Template.BoardView.onCreated(function () {
         });
         template.lanesCollection.set(lanes);
     });
-});
-
-Template.BoardView.onRendered(function () {
-    var template = this;
-    template.loaded.set(true);
 });
 
 Template.BoardView.onDestroyed(function () {

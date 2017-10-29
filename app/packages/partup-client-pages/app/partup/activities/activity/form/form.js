@@ -164,9 +164,13 @@ AutoForm.addHooks(null, {
 
                 done();
 
-                analytics.track('activity inserted', {
-                    partupId: template.data.partupId
-                });
+                try {
+                    analytics.track('activity inserted', {
+                        partupId: template.data.partupId
+                    });
+                } catch (err) {
+                    Partup.client.logger.debug(err);
+                }
             });
         }
 
