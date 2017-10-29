@@ -1,5 +1,5 @@
-<a name="2.34.0"></a>
-# [2.34.0](https://github.com/part-up/part-up/compare/2.33.1...2.34.0) (2017-10-13)
+<a name="2.35.0"></a>
+# [2.35.0](https://github.com/part-up/part-up/compare/2.33.1...2.35.0) (2017-10-13)
 
 
 ### Bug Fixes
