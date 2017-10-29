@@ -169,7 +169,7 @@ AutoForm.addHooks(null, {
                         partupId: template.data.partupId
                     });
                 } catch (err) {
-                    Partup.client.logger.debug(err);
+                    // Partup.client.logger.debug(err);
                 }
             });
         }

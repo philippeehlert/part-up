@@ -126,29 +126,29 @@ Package.onUse(function (api) {
         'marketo.js',
 
 
-        'client/logger/plogger.js'
+        // 'client/logger/plogger.js'
     ], ['client']);
 
     api.export('strings');
     api.export('Pluploader');
-    api.export('plogger');
+    // api.export('plogger');
 
 });
 
-Package.onTest(function (api) {
-    api.use([
-        'ecmascript',
-        'modules',
-        'chrismbeckett:toastr',
-        'tinytest',
-        'practicalmeteor:chai',
-    ]);
+// Package.onTest(function (api) {
+//     api.use([
+//         'ecmascript',
+//         'modules',
+//         'chrismbeckett:toastr',
+//         'tinytest',
+//         'practicalmeteor:chai',
+//     ]);
 
-    api.addFiles([
-        'client/logger/formats/no.test.js',
-        'client/logger/formats/tapi18n.test.js',
-        'client/logger/transports/console.test.js',
-        'client/logger/transports/toastr.test.js',
-        'client/logger/plogger.test.js',
-    ], ['client']);
-});
+//     api.addFiles([
+//         'client/logger/formats/no.test.js',
+//         'client/logger/formats/tapi18n.test.js',
+//         'client/logger/transports/console.test.js',
+//         'client/logger/transports/toastr.test.js',
+//         'client/logger/plogger.test.js',
+//     ], ['client']);
+// });
