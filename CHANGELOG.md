@@ -1,3 +1,36 @@
+<a name="2.36.0"></a>
+# [2.36.0](https://github.com/part-up/part-up/compare/2.35.0...2.36.0) (2017-10-29)
+
+
+### Bug Fixes
+
+* **$browser:** This fixes the new lane input on firefox ([c503493](https://github.com/part-up/part-up/commit/c503493))
+* **$client:** do not always load all updates and activities ([b10b19c](https://github.com/part-up/part-up/commit/b10b19c))
+* **$meteor:** Changes the request access and join button of a tribe startpage ([865ea5c](https://github.com/part-up/part-up/commit/865ea5c))
+* **$meteor:** Fixes the upper hover container for partup tiles ([3fbe69c](https://github.com/part-up/part-up/commit/3fbe69c))
+* **client:** Add compatibility for IE in css attributes ([5abae65](https://github.com/part-up/part-up/commit/5abae65))
+* **client:** Make css compatible with firefox ([c2a128a](https://github.com/part-up/part-up/commit/c2a128a))
+* **dev:** Reencypted env ([36e6a94](https://github.com/part-up/part-up/commit/36e6a94))
+* **email:** Add via partup noreply to invite sender ([fa8a3cb](https://github.com/part-up/part-up/commit/fa8a3cb))
+* **style:** Code style change ([950eef8](https://github.com/part-up/part-up/commit/950eef8))
+* **style:** Code style fixes ([5d09b92](https://github.com/part-up/part-up/commit/5d09b92))
+
+
+### Features
+
+* **client:** Implement client side logger ([093a791](https://github.com/part-up/part-up/commit/093a791))
+* **client:** Rework file-picker templates ([e70aabf](https://github.com/part-up/part-up/commit/e70aabf))
+
+
+### Performance Improvements
+
+* **$browser:** Update helper is now cached inside the function ([4bbc193](https://github.com/part-up/part-up/commit/4bbc193))
+* **$server:** Added indexes on partups for uppers and supporters ([2e63c1a](https://github.com/part-up/part-up/commit/2e63c1a))
+* **$server:** Index to get joins for uppers ([6b704a2](https://github.com/part-up/part-up/commit/6b704a2))
+* **updates:** Added index for Updates on partup id and updated_at ([30d6e54](https://github.com/part-up/part-up/commit/30d6e54))
+
+
+
 <a name="2.35.0"></a>
 # [2.35.0](https://github.com/part-up/part-up/compare/2.33.1...2.35.0) (2017-10-13)
 
