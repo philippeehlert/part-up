@@ -1,3 +1,14 @@
+<a name="2.36.1"></a>
+## [2.36.1](https://github.com/part-up/part-up/compare/2.36.0...2.36.1) (2017-10-29)
+
+
+### Bug Fixes
+
+* **client:** Add subscription to boardview template ([fd11e02](https://github.com/part-up/part-up/commit/fd11e02))
+* **meteor:** Add winston to package.json ([1f22616](https://github.com/part-up/part-up/commit/1f22616))
+
+
+
 <a name="2.36.0"></a>
 # [2.36.0](https://github.com/part-up/part-up/compare/2.35.0...2.36.0) (2017-10-29)
 
