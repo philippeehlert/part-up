@@ -10,7 +10,12 @@ import {
 
 import PortalManager from 'components/PortalManager';
 
-import ModalPortal, { ModalWindow, ModalHeader, ModalContent, ModalFooter } from 'components/PortalManager/ModalPortal';
+import ModalPortal, {
+    ModalWindow,
+    ModalHeader,
+    ModalContent,
+    ModalFooter,
+} from 'components/PortalManager/ModalPortal';
 
 import { ContentView } from 'components/View';
 
@@ -34,14 +39,11 @@ export default class Dashboard extends React.Component<Props, {}> {
     render() {
         const { match , history, location } = this.props;
 
-        const currentRoute = history && history.location ? history.location.pathname : '';
-
         return (
             <SideBarView
                 sidebar={
                     <SideBar
                         navigator={{match, history, location}}
-                        currentRoute={currentRoute} baseUrl={match.url as string}
                     />
                 }>
                 <Switch>

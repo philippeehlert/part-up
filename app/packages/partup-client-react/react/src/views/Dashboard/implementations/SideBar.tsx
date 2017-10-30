@@ -20,9 +20,7 @@ import { Link, MenuLink } from 'components/Router';
 interface Props {
     className?: string;
     baseUrl: string;
-    currentRoute: string;
     navigator: RouteComponentProps<any>;
-
 }
 
 export default class SideBar extends React.Component<Props> {
@@ -91,7 +89,6 @@ export default class SideBar extends React.Component<Props> {
                     return (
                         <MenuLink
                             key={index}
-                            isActive={link.isActive}
                             to={link.to}
                             icon={link.icon}
                             counter={link.counter}
@@ -108,32 +105,28 @@ export default class SideBar extends React.Component<Props> {
      * Returns the menu links used in the sidebar.
      */
     private getMenuLinks() {
-        const { baseUrl, currentRoute } = this.props;
+        const { baseUrl } = this.props;
 
         return [
             {
-                isActive: currentRoute === `${baseUrl}`,
                 to: `${baseUrl}`,
                 icon: <Icon name={'message'} />,
                 counter: `25`,
                 label: `Gesprekken`,
             },
             {
-                isActive: currentRoute === `${baseUrl}/activities`,
                 to: `${baseUrl}/activities`,
                 icon: <Icon name={'chart'} />,
                 counter: `4`,
                 label: `Mijn activiteiten`,
             },
             {
-                isActive: currentRoute === `${baseUrl}/invites`,
                 to: `${baseUrl}/invites`,
                 icon: <Icon name={'person-plus'} />,
                 counter: `5`,
                 label:  `Mijn uitnodigingen`,
             },
             {
-                isActive: currentRoute === `${baseUrl}/recommendations`,
                 to: `${baseUrl}/recommendations`,
                 icon: <Icon name={'globe'} />,
                 counter: `3`,
