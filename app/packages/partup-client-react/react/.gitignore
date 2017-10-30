@@ -7,7 +7,12 @@
 /coverage
 
 # production
-/build
+/build/*
+!/build/static
+/build/static/*
+!/build/static/js
+/build/static/js/*
+!/build/static/js/main.*.js
 *.css
 
 # misc

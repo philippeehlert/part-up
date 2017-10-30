@@ -1,4 +1,4 @@
-FROM node:8.8.1-slim
+FROM node:4.8-slim
 
 EXPOSE 3000
 
@@ -44,7 +44,7 @@ RUN \
     mkdir -p /home/meteor/app && \
     cd /home/meteor/ && \
     chown meteor:meteor --recursive /home/meteor && \
-    curl "https://install.meteor.com?release=1.6" -o ./install_meteor.sh && \
+    curl https://install.meteor.com -o ./install_meteor.sh && \
     echo "Starting meteor installation...   \n" && \
     chown meteor:meteor ./install_meteor.sh && \
     gosu meteor:meteor sh ./install_meteor.sh
@@ -63,11 +63,6 @@ RUN \
     mv /home/meteor/app_build/bundle /app && \
     cd /app && \
     gosu meteor npm install newrelic @newrelic/native-metrics @risingstack/trace && \
-    # Build React apps
-    cd /app/packages/partup-client-react/react && \
-    npm install --unsafe-perm && \
-    npm run build && \
-    cd /app && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
