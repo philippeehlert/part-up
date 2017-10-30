@@ -12,6 +12,7 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
+    "react-select": "^1.0.0-rc.10",
     "react-web-meteor": "^0.2.3"
   },
   "scripts": {
@@ -35,6 +36,7 @@
     "@types/react-dom": "^16.0.2",
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.0.8",
+    "@types/react-select": "^1.0.59",
     "babel-cli": "^6.26.0",
     "fs-extra": "^4.0.2",
     "svgo": "^0.7.2",
