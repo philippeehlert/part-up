@@ -1,0 +1,63 @@
+.pur-Modal {
+    @import "../../stylesheets/colors";
+    
+    background-color: rgba(#000, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &__window {
+        width:700px;
+        border-radius: 4px;
+        background-color: $pur-color-gallery;
+    }
+}
+
+.pur-ModalHeader {
+    @import "../../stylesheets/colors";
+    @import "../../stylesheets/spacings";
+    background-color: $pur-color-white;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: getSpacing(5);
+    padding: getSpacing(1.5) getSpacing(2);
+    vertical-align: middle;
+    position: relative;
+    
+    &__title {
+        font-size: 14px;
+    }
+    
+    &__close-button {
+        font-size: 10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 50px;
+        transition: background-color 100ms;
+        
+        &:hover {
+            background-color: rgba(#000, 0.1);
+        }
+    }
+    
+    &__title, &__close-button {
+        display: inline-block;
+    }
+}
+
+.pur-ModalContent {
+    @import "../../stylesheets/spacings";
+    padding: getSpacing(4);
+
+    + .pur-ModalFooter {
+        padding-top: getSpacing(0);
+    }
+}
+
+.pur-ModalFooter {
+    @import "../../stylesheets/spacings";
+    padding: getSpacing(4);
+    padding-top: getSpacing(4);
+}

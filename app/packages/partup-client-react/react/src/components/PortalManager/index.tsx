@@ -60,3 +60,6 @@ export default class PortalManager extends React.Component<Props, State> {
         ];
     }
 }
+
+export { default as Portal } from './Portal';
+export { default as Modal } from './Modal';

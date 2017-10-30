@@ -63,3 +63,5 @@ export default class Button extends React.Component<Props, {}> {
         );
     }
 }
+
+export { default as Clickable } from './Clickable';

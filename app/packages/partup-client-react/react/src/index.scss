@@ -1,6 +1,18 @@
-.pur-React * {
-    @import "stylesheets/fonts";
-    font-family: $pur-font-primary;
+.pur-React {
+    @import "./stylesheets/fonts";
+    * {
+        font-family: $pur-font-primary;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    &--root {
+        z-index: 1
+    }
+
+    &--portal {
+        z-index: 2;
+        background-color: #f0f;
+    }
 }
 
 .pur-React {
