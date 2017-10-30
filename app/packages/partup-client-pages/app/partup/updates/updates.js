@@ -7,6 +7,14 @@ Template.app_partup_updates.onCreated(function() {
 
     template.partup = Partups.findOne(template.data.partupId);
 
+    // Redundant, we need to refactor the triple sub.
+    this.loadingUpdates = new ReactiveVar(true);
+    this.updateSub = template.subscribe('updates.from_partup', template.data.partupId, undefined, {
+        onReady() {
+            template.loadingUpdates.set(false);
+        },
+    });
+
     // Updates model
     template.updates = {
 
@@ -117,7 +125,8 @@ Template.app_partup_updates.onCreated(function() {
         resetLimit: function() {
             template.updates.limit.set(template.updates.STARTING_LIMIT);
             template.updates.end_reached.set(false);
-        }
+        },
+
     };
 
     Partup.client.events.on('partup:updates:message_added', template.updates.updateView);
@@ -340,6 +349,12 @@ Template.app_partup_updates.helpers({
     },
     updatesLoadingMore: function() {
         return Template.instance().updates.infinite_scroll_loading.get();
+    },
+    loadingUpdates() {
+        const instance = Template.instance();
+        return instance.data.defaultFilter === 'conversations' ?
+            instance.updates.loading.get() :
+        instance.loadingUpdates.get();
     },
 });
 
