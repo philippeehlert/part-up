@@ -46,9 +46,11 @@ export default class SideBar extends React.Component<Props> {
     renderMobileNavigation = () => {
         const { user } = this.context;
         const { navigator } = this.props;
+        const { currentRoute } = this.props;
 
         const dropDownOptions = this.getMenuLinks().map((link, index) => {
             return {
+                isActive: currentRoute === link.to,
                 leftChild: link.icon,
                 rightChild: link.counter,
                 label: link.label,
@@ -65,7 +67,10 @@ export default class SideBar extends React.Component<Props> {
                         </Link>
                     </ListItem>
                     <ListItem stretch>
-                        <DropDown options={dropDownOptions} onChange={({value}) => { navigator.history.push(value); }} />
+                        <DropDown
+                            options={dropDownOptions}
+                            onChange={({value}) => { navigator.history.push(value); }}
+                        />
                     </ListItem>
                 </List>
             </MobileNav>

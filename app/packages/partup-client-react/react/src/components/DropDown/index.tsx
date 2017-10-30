@@ -5,6 +5,7 @@ import './DropDown.css';
 import { Icon } from '../';
 
 type DropDownItem = {
+    isActive: boolean,
     label: JSX.Element|Element|string,
     value: string,
     leftChild: JSX.Element|Element|string|number,
@@ -30,7 +31,7 @@ export default class DropDown extends React.Component<Props, State> {
 
     public state: State = {
         isExpanded: false,
-        activeIndex: 0,
+        activeIndex: this.props.options.findIndex(({isActive}) => isActive) || 0,
     };
 
     render() {
