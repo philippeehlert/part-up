@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
+import { RouteComponentProps } from 'react-router';
 import { AppContext } from 'App';
 
 import {
@@ -21,6 +21,8 @@ interface Props {
     className?: string;
     baseUrl: string;
     currentRoute: string;
+    navigator: RouteComponentProps<any>;
+
 }
 
 export default class SideBar extends React.Component<Props> {
@@ -43,6 +45,7 @@ export default class SideBar extends React.Component<Props> {
 
     renderMobileNavigation = () => {
         const { user } = this.context;
+        const { navigator } = this.props;
 
         const dropDownOptions = this.getMenuLinks().map((link, index) => {
             return {
@@ -62,7 +65,7 @@ export default class SideBar extends React.Component<Props> {
                         </Link>
                     </ListItem>
                     <ListItem stretch>
-                        <DropDown options={dropDownOptions}/>
+                        <DropDown options={dropDownOptions} onChange={({value}) => { navigator.history.push(value); }} />
                     </ListItem>
                 </List>
             </MobileNav>

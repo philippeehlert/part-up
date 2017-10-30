@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './DropDown.css';
 
+import { Icon } from '../';
+
 type DropDownItem = {
     label: JSX.Element|Element|string,
     value: string,
@@ -35,6 +37,8 @@ export default class DropDown extends React.Component<Props, State> {
         const { options } = this.props;
         const { activeIndex, isExpanded } = this.state;
 
+        const activeItem = options[activeIndex];
+
         return (
             <div className={this.getClassNames()}>
 
@@ -43,15 +47,29 @@ export default class DropDown extends React.Component<Props, State> {
                     className={`pur-DropDown__button-control`}
                     onClick={this.toggleExpanded}
                 >
-                    { this.renderItem(options[activeIndex]) }
+                    { activeItem.leftChild && (
+                        <span className={`pur-DropDown__button-control__leftChild`}>{ activeItem.leftChild }</span>
+                    ) }
+
+                    <span className={`pur-DropDown__button-control__label`}>{activeItem.label}</span>
+
+                    <span className={`pur-DropDown__button-control__caret`}><Icon name={`caret-slim-down`} /></span>
                 </button>
 
                 { isExpanded && (
                     <ul className={`pur-DropDown__items`}>
-                        { options.map((option, index) => {
+                        { options.map((item, index) => {
                             return (
                                 <li key={index} className={`pur-DropDown__item`} onClick={() => this.handleItemClick(index)}>
-                                    { this.renderItem(option) }
+                                    { item.leftChild && (
+                                        <span className={`pur-DropDown__item__leftChild`}>{ item.leftChild }</span>
+                                    ) }
+
+                                    <span className={`pur-DropDown__item__label`}>{item.label}</span>
+
+                                    { item.rightChild && (
+                                        <span className={`pur-DropDown__item__rightChild`}>{ item.rightChild }</span>
+                                    ) }
                                 </li>
                             );
                         }) }
@@ -80,22 +98,6 @@ export default class DropDown extends React.Component<Props, State> {
         event.preventDefault();
 
         this.setState({ isExpanded: ! this.state.isExpanded });
-    }
-
-    private renderItem(item: DropDownItem) {
-        return (
-            <div>
-                { item.leftChild && (
-                    <span className={`pur-DropDown__item__leftChild`}>{ item.leftChild }</span>
-                ) }
-
-                <span className={`pur-DropDown__item__label`}>{item.label}</span>
-
-                { item.rightChild && (
-                    <span className={`pur-DropDown__item__rightChild`}>{ item.rightChild }</span>
-                ) }
-            </div>
-        );
     }
 
     private getClassNames() {

@@ -1,3 +1,93 @@
 .pur-DropDown {
+    @import "../../stylesheets/border-radius";
+    @import "../../stylesheets/spacings";
+    @import "../../stylesheets/colors";
+
     width: 100%;
+    position: relative;
+
+    &__button-control {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border: 0;
+        border-radius: $pur-border-radius-standard;
+        background-color: $pur-color-alto;
+        color: $pur-color-tundora;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+
+        border: 2px solid $pur-color-alto;
+        padding: getSpacing();
+        outline: 0;
+
+        &__caret {
+            font-size: 10px;
+        }
+
+        &__leftChild + &__label,
+        &__label + &__caret {
+            margin-left: getSpacing();
+        }
+
+        &__label {
+            text-align: left;
+            flex: 1;
+        }
+    }
+
+    &__items {
+        position: absolute;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        background: #fff;
+        border: 2px solid #ccc;
+        border-top: 0;
+
+        border-bottom-left-radius: $pur-border-radius-standard;
+        border-bottom-right-radius: $pur-border-radius-standard;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: getSpacing();
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+
+        &__leftChild + &__label,
+        &__label + &__rightChild {
+            margin-left: getSpacing();
+        }
+
+        &__label {
+            text-align: left;
+            flex: 1;
+        }
+        border-top: 2px solid #f9f9f9;
+
+        &:hover {
+            background-color: #f9f9f9;
+        }
+    }
+
+    &--is-expanded &__button-control {
+        background-color: #fff;
+        border-color: #ccc;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: 0;
+        padding-bottom: calc(10px + 2px);
+        color: #ccc;
+
+        &__caret {
+            transform: rotate(180deg);
+        }
+    }
 }
