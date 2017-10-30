@@ -1,4 +1,4 @@
-FROM node:8.4.0-slim
+FROM node:8.8.1-slim
 
 EXPOSE 3000
 
