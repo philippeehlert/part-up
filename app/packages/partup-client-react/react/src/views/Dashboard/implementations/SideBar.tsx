@@ -8,7 +8,7 @@ import {
     Icon,
     MediaQuery,
     MobileNav,
-    Select,
+    DropDown,
 } from 'components';
 
 import List, {
@@ -44,6 +44,15 @@ export default class SideBar extends React.Component<Props> {
     renderMobileNavigation = () => {
         const { user } = this.context;
 
+        const dropDownOptions = this.getMenuLinks().map((link, index) => {
+            return {
+                leftChild: link.icon,
+                rightChild: link.counter,
+                label: link.label,
+                value: link.to,
+            };
+        });
+
         return (
             <MobileNav>
                 <List horizontal>
@@ -53,24 +62,7 @@ export default class SideBar extends React.Component<Props> {
                         </Link>
                     </ListItem>
                     <ListItem stretch>
-                        <Select name={'foo'} options={[
-                            {
-                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
-                                value: 'ConversationsView',
-                            },
-                            {
-                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
-                                value: 'ActivitiesView',
-                            },
-                            {
-                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
-                                value: 'dadada',
-                            },
-                            {
-                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
-                                value: 'hadasdafag',
-                            },
-                        ]}/>
+                        <DropDown options={dropDownOptions}/>
                     </ListItem>
                 </List>
             </MobileNav>
@@ -79,7 +71,6 @@ export default class SideBar extends React.Component<Props> {
 
     renderDesktopNavigation = () => {
         const { user } = this.context;
-        const { baseUrl, currentRoute } = this.props;
 
         return (
             <List>
@@ -88,42 +79,58 @@ export default class SideBar extends React.Component<Props> {
                         { user && user.profile.normalized_name }
                     </MenuLink>
                 </ListItem>
-                <ListItem>
-                    <MenuLink isActive={currentRoute === `${baseUrl}`} to={`${baseUrl}`} icon={<Icon name={'message'} />} counter={`25`}>
-                        ConversationsView
-                    </MenuLink>
-                </ListItem>
-                <ListItem>
-                    <MenuLink
-                        isActive={currentRoute === `${baseUrl}/activities`}
-                        to={`${baseUrl}/activities`}
-                        icon={<Icon name={'chart'} />}
-                        counter={`4`}
-                    >
-                        ActivitiesView
-                    </MenuLink>
-                </ListItem>
-                <ListItem>
-                    <MenuLink
-                        isActive={currentRoute === `${baseUrl}/invites`}
-                        to={`${baseUrl}/invites`}
-                        icon={<Icon name={'person-plus'} />}
-                        counter={`5`}
-                    >
-                        InvitesView
-                    </MenuLink>
-                </ListItem>
-                <ListItem>
-                    <MenuLink
-                        isActive={currentRoute === `${baseUrl}/recommendations`}
-                        to={`${baseUrl}/recommendations`}
-                        icon={<Icon name={'globe'} />}
-                        counter={`3`}
-                    >
-                        InvitesView
-                    </MenuLink>
-                </ListItem>
+                { this.getMenuLinks().map((link, index) => {
+                    return (
+                        <MenuLink
+                            key={index}
+                            isActive={link.isActive}
+                            to={link.to}
+                            icon={link.icon}
+                            counter={link.counter}
+                        >
+                            {link.label}
+                        </MenuLink>
+                    );
+                }) }
             </List>
         );
+    }
+
+    /**
+     * Returns the menu links used in the sidebar.
+     */
+    private getMenuLinks() {
+        const { baseUrl, currentRoute } = this.props;
+
+        return [
+            {
+                isActive: currentRoute === `${baseUrl}`,
+                to: `${baseUrl}`,
+                icon: <Icon name={'message'} />,
+                counter: `25`,
+                label: `Gesprekken`,
+            },
+            {
+                isActive: currentRoute === `${baseUrl}/activities`,
+                to: `${baseUrl}/activities`,
+                icon: <Icon name={'chart'} />,
+                counter: `4`,
+                label: `Mijn activiteiten`,
+            },
+            {
+                isActive: currentRoute === `${baseUrl}/invites`,
+                to: `${baseUrl}/invites`,
+                icon: <Icon name={'person-plus'} />,
+                counter: `5`,
+                label:  `Mijn uitnodigingen`,
+            },
+            {
+                isActive: currentRoute === `${baseUrl}/recommendations`,
+                to: `${baseUrl}/recommendations`,
+                icon: <Icon name={'globe'} />,
+                counter: `3`,
+                label:  `Aanbevolen voor jou`,
+            },
+        ];
     }
 }

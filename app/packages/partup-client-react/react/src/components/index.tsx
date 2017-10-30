@@ -1,10 +1,10 @@
 export { default as Button } from './Button';
+export { default as DropDown } from './DropDown';
 export { default as Icon } from './Icon';
 export { default as List } from './List';
 export { default as MediaQuery } from './MediaQuery';
 export { default as MobileNav } from './MobileNav';
 export { default as NavigationBar } from './NavigationBar';
-export { default as Select } from './Select';
 export { default as SideBarView } from './SideBarView';
 export { default as UserAvatar } from './UserAvatar';
 export { default as View } from './View';
