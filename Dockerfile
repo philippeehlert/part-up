@@ -44,7 +44,7 @@ RUN \
     mkdir -p /home/meteor/app && \
     cd /home/meteor/ && \
     chown meteor:meteor --recursive /home/meteor && \
-    curl "https://install.meteor.com?release=1.6.0" -o ./install_meteor.sh && \
+    curl "https://install.meteor.com?release=1.6" -o ./install_meteor.sh && \
     echo "Starting meteor installation...   \n" && \
     chown meteor:meteor ./install_meteor.sh && \
     gosu meteor:meteor sh ./install_meteor.sh
