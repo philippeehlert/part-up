@@ -63,6 +63,11 @@ RUN \
     mv /home/meteor/app_build/bundle /app && \
     cd /app && \
     gosu meteor npm install newrelic @newrelic/native-metrics @risingstack/trace && \
+    # Build React apps
+    cd /app/packages/partup-client-react/react && \
+    gosu npm install --silent --unsafe-perm && \
+    gosu npm run build && \
+    cd /app && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
