@@ -95,7 +95,7 @@ export default class Dashboard extends React.Component<Props, {}> {
                                                 {`<Button>Annuleren</Button>`}
                                             {`</ListItem>`}
                                             {`<ListItem alignRight>`}
-                                                {`<Button>Plaats bericht</Button>`}
+                                                {`<Button type={'submit'}>Plaats bericht</Button>`}
                                             {`</ListItem>`}
                                         {`</List>`}
                                     </ModalFooter>
