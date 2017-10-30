@@ -44,11 +44,10 @@ export default class SideBar extends React.Component<Props> {
     renderMobileNavigation = () => {
         const { user } = this.context;
         const { navigator } = this.props;
-        const { currentRoute } = this.props;
 
         const dropDownOptions = this.getMenuLinks().map((link, index) => {
             return {
-                isActive: currentRoute === link.to,
+                isActive: navigator.match.url === link.to,
                 leftChild: link.icon,
                 rightChild: link.counter,
                 label: link.label,

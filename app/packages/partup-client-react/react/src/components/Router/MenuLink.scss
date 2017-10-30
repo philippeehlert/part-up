@@ -12,12 +12,12 @@
         background-color: #fff;
     }
 
-    &:not(.pur-MenuLink--active):hover {
+    &:not(.pur-MenuLink--is-active):hover {
         background-color: #e4e4e4;
     }
 
     // Overwrite base partup styling
-    &:hover, &:active, &:focus {
-        color: inherit;
-    }
+    // &:hover, &:active, &:focus {
+    //     color: inherit;
+    // }
 }
