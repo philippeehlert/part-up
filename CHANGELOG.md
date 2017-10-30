@@ -1,3 +1,13 @@
+<a name="2.36.2"></a>
+## [2.36.2](https://github.com/part-up/part-up/compare/2.36.1...2.36.2) (2017-10-29)
+
+
+### Bug Fixes
+
+* **client:** Remove plogger from partup-client-base for IE ([170b078](https://github.com/part-up/part-up/commit/170b078))
+
+
+
 <a name="2.36.1"></a>
 ## [2.36.1](https://github.com/part-up/part-up/compare/2.36.0...2.36.1) (2017-10-29)
 
