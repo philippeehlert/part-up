@@ -9,6 +9,7 @@ import {
     MediaQuery,
     MobileNav,
     DropDown,
+    Counter,
 } from 'components';
 
 import List, {
@@ -110,25 +111,25 @@ export default class SideBar extends React.Component<Props> {
             {
                 to: `${baseUrl}`,
                 icon: <Icon name={'message'} />,
-                counter: `25`,
+                counter: <Counter count={25} />,
                 label: `Gesprekken`,
             },
             {
                 to: `${baseUrl}/activities`,
                 icon: <Icon name={'chart'} />,
-                counter: `4`,
+                counter: <Counter count={4} />,
                 label: `Mijn activiteiten`,
             },
             {
                 to: `${baseUrl}/invites`,
                 icon: <Icon name={'person-plus'} />,
-                counter: `5`,
+                counter: <Counter count={5} />,
                 label:  `Mijn uitnodigingen`,
             },
             {
                 to: `${baseUrl}/recommendations`,
                 icon: <Icon name={'globe'} />,
-                counter: `3`,
+                counter: <Counter count={3} />,
                 label:  `Aanbevolen voor jou`,
             },
         ];

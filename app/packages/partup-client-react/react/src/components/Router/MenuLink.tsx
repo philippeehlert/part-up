@@ -6,7 +6,7 @@ import NavLink from './NavLink';
 
 interface Props {
     icon?: JSX.Element|Element|string;
-    counter?: string|number;
+    counter?: JSX.Element|string|number;
     to: string;
     className?: string;
 }

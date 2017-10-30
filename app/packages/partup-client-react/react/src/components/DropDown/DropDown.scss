@@ -36,6 +36,10 @@
             text-align: left;
             flex: 1;
         }
+
+        &:hover {
+            background: #fff;
+        }
     }
 
     &__items {

@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as Counter } from './Counter';
 export { default as DropDown } from './DropDown';
 export { default as Icon } from './Icon';
 export { default as List } from './List';
