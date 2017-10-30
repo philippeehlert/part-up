@@ -18,7 +18,7 @@
     &__left-child + &__content {
         margin-left: 10px;
     }
-    
+
     &__content + &__right-child{
         margin-left: 10px;
     }
@@ -26,12 +26,12 @@
     &__left-child {
         float: left;
     }
-    
+
     &__content {
         line-height: 1em;
         vertical-align: bottom;
     }
-    
+
     &__right-child {
         float: right;
     }
@@ -44,7 +44,7 @@
     &:hover {
         background-color: darken($pur-color-sunshade, 10%);
     }
-    
+
     &:active {
         transform: translateY(2px);
     }

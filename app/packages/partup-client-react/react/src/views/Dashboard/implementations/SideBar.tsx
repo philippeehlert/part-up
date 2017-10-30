@@ -8,6 +8,7 @@ import {
     Icon,
     MediaQuery,
     MobileNav,
+    Select,
 } from 'components';
 
 import List, {
@@ -52,12 +53,24 @@ export default class SideBar extends React.Component<Props> {
                         </Link>
                     </ListItem>
                     <ListItem stretch>
-                        <select>
-                            <option>ConversationsView</option>
-                            <option>ActivitiesView</option>
-                            <option>InvitesView</option>
-                            <option>InvitesView</option>
-                        </select>
+                        <Select name={'foo'} options={[
+                            {
+                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
+                                value: 'ConversationsView',
+                            },
+                            {
+                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
+                                value: 'ActivitiesView',
+                            },
+                            {
+                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
+                                value: 'dadada',
+                            },
+                            {
+                                label: <span><Icon name={'message'} />ConversationsView<Icon name={'message'} /></span>,
+                                value: 'hadasdafag',
+                            },
+                        ]}/>
                     </ListItem>
                 </List>
             </MobileNav>

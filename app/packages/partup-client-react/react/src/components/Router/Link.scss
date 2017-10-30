@@ -1,6 +1,7 @@
 .pur-Link {
-    @import "../../stylesheets/colors";
     @import "../../stylesheets/fonts";
+    @import "../../stylesheets/colors";
+
     color: $pur-color-sunshade;
     border: 0;
     font-size: 15px;
@@ -13,7 +14,7 @@
     &__left-child + &__content {
         margin-left: 10px;
     }
-    
+
     &__content + &__right-child{
         margin-left: 10px;
     }
@@ -21,12 +22,12 @@
     &__left-child {
         float: left;
     }
-    
+
     &__content {
         line-height: 1em;
         vertical-align: bottom;
     }
-    
+
     &__right-child {
         float: right;
     }
@@ -38,9 +39,9 @@
 
     &:hover {
         text-decoration: underline;
-        
+
         &__content {
-            text-decoration: underline;   
+            text-decoration: underline;
         }
     }
 }
