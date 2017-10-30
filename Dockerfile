@@ -65,8 +65,8 @@ RUN \
     gosu meteor npm install newrelic @newrelic/native-metrics @risingstack/trace && \
     # Build React apps
     cd /app/packages/partup-client-react/react && \
-    gosu npm install --silent --unsafe-perm && \
-    gosu npm run build && \
+    npm install --unsafe-perm && \
+    npm run build && \
     cd /app && \
     \
     # Cleanup
