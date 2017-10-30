@@ -9,7 +9,7 @@ import {
 
 import PortalManager from 'components/PortalManager';
 
-import Modal, { ModalHeader, ModalContent, ModalFooter } from 'components/PortalManager/Modal';
+import ModalPortal, { ModalWindow, ModalHeader, ModalContent, ModalFooter } from 'components/PortalManager/ModalPortal';
 
 import { ContentView } from 'components/View';
 
@@ -67,17 +67,19 @@ export default class Dashboard extends React.Component<Props, {}> {
                         </Button>
                     )}
                     renderPortal={(close) => (
-                        <Modal onClose={close}>
-                            <ModalHeader
-                                onClose={close}
-                                title={'Plaats een nieuw bericht'} />
-                            <ModalContent>
-                                huehue
-                            </ModalContent>
-                            <ModalFooter>
-                                huehue
-                            </ModalFooter>
-                        </Modal>
+                        <ModalPortal onBackgroundClick={close}>
+                            <ModalWindow>
+                                <ModalHeader
+                                    onClose={close}
+                                    title={'Plaats een nieuw bericht'} />
+                                <ModalContent>
+                                    huehue
+                                </ModalContent>
+                                <ModalFooter>
+                                    huehue
+                                </ModalFooter>
+                            </ModalWindow>
+                        </ModalPortal>
                     )}
                 />
             </ContentView>
