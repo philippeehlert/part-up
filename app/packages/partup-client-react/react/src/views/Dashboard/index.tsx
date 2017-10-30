@@ -61,24 +61,39 @@ export default class Dashboard extends React.Component<Props, {}> {
                     renderHandler={(open) => (
                         <Button
                             onClick={open}
-                            leftChild={<Icon name={'message'} />}
-                            rightChild={<Icon name={'archive'} />}>
-                            Hello
+                            leftChild={<Icon name={'message'} />}>
+                            Nieuw bericht
                         </Button>
                     )}
                     renderPortal={(close) => (
                         <ModalPortal onBackgroundClick={close}>
-                            <ModalWindow>
-                                <ModalHeader
-                                    onClose={close}
-                                    title={'Plaats een nieuw bericht'} />
-                                <ModalContent>
-                                    huehue
-                                </ModalContent>
-                                <ModalFooter>
-                                    huehue
-                                </ModalFooter>
-                            </ModalWindow>
+                            {/* <Form onSubmit={this.onSubmit}> */}
+                                <ModalWindow>
+                                    <ModalHeader
+                                        onClose={close}
+                                        title={'Plaats een nieuw bericht'} />
+                                    <ModalContent>
+                                        {`<FieldCollection>`}
+                                            {`<Fieldset label={'Waar wil je het bericht plaatsen?'}>`}
+                                                {`<Input placeholder={'Selecteer part-up'} />`}
+                                            {`</Fieldset>`}
+                                            {`<Fieldset label={'Wat wil je delen?'}>`}
+                                                {`<TextArea placeholder={'Write a comment'} />`}
+                                            {`</Fieldset>`}
+                                        {`</FieldCollection>`}
+                                    </ModalContent>
+                                    <ModalFooter>
+                                        {`<List horizontal>`}
+                                            {`<ListItem alignRight>`}
+                                                {`<Button>Annuleren</Button>`}
+                                            {`</ListItem>`}
+                                            {`<ListItem alignRight>`}
+                                                {`<Button>Plaats bericht</Button>`}
+                                            {`</ListItem>`}
+                                        {`</List>`}
+                                    </ModalFooter>
+                                </ModalWindow>
+                            {/* </Form> */}
                         </ModalPortal>
                     )}
                 />
