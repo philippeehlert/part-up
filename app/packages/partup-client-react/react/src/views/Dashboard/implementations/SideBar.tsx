@@ -46,7 +46,6 @@ export default class SideBar extends React.Component<Props> {
         const { user } = this.context;
         const { navigator } = this.props;
 
-
         const dropDownOptions = this.getMenuLinks().map((link, index) => {
             const match = matchPath(navigator.location.pathname, {
                 path: link.to,
@@ -114,7 +113,7 @@ export default class SideBar extends React.Component<Props> {
 
         return [
             {
-                to: `${baseUrl}/:id`,
+                to: `${baseUrl}`,
                 icon: <Icon name={'message'} />,
                 counter: <Counter count={25} />,
                 label: `Gesprekken`,

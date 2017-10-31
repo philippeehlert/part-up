@@ -8,6 +8,11 @@ import {
     Button,
 } from 'components';
 
+import FilteredList, {
+    FilteredListControls,
+    FilteredListItems,
+} from 'components/FilteredList';
+
 import PortalManager from 'components/PortalManager';
 
 import ModalPortal, {
@@ -101,6 +106,29 @@ export default class Dashboard extends React.Component<Props, {}> {
                         </ModalPortal>
                     )}
                 />
+
+                <FilteredList>
+                        <FilteredListControls>
+                            {`
+                                <FillInTheBlanks>
+                                    <Blank label={'Toon updates als'}>
+                                        <Filter name={}>
+                                    </Blank>
+                                    <Blank label={'Van'}>
+                                        <FilterDropDown name={}>
+                                    </Blank>
+                                </FillInTheBlanks>
+                            `}
+                        </FilteredListControls>
+                        <FilteredListItems>
+                            {`
+                                <Tile title={}>
+                                    <MessageUpdate />
+                                </Tile>
+                            `}
+                        </FilteredListItems>
+                </FilteredList>
+
             </ContentView>
         );
     }
