@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { NavLink as RouterNavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './NavLink.css';
-
-const dev = process.env.REACT_APP_DEV;
+import Link from './Link';
 
 interface Props {
     className?: string;
@@ -15,6 +14,9 @@ interface Props {
     leftChild?: any;
     rightChild?: any;
     exact?: boolean;
+    strict?: boolean;
+    location?: any;
+    isActive?: Function;
 }
 
 export default class NavLink extends React.Component<Props, {}> {
@@ -39,46 +41,41 @@ export default class NavLink extends React.Component<Props, {}> {
         });
     }
 
-    onClick = (event: React.SyntheticEvent<any>) => {
-        if (!dev) event.preventDefault();
-
-        const { onClick } = this.props;
-    
-        if (onClick) onClick(event);
-    }
-
     render() {
         const {
-            leftChild,
-            children,
-            rightChild,
             to,
             exact,
+            strict,
+            location,
+            isActive: getIsActive,
+            ...rest,
         } = this.props;
+        const path = typeof to === 'object' ? to.pathname : to;
+        const escapedPath = path.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
 
         return (
-            <RouterNavLink
-                to={to}
+            <Route
+                path={escapedPath}
                 exact={exact}
-                activeClassName={this.getActiveClassNames()}
-                className={this.getClassNames()}
-                onClick={this.onClick}>
-                { leftChild && (
-                    <span className={`pur-NavLink__left-child`}>
-                        { leftChild }
-                    </span>
-                ) }
-                { children && (
-                    <span className={`pur-NavLink__content`}>
-                        { children }
-                    </span>
-                ) }
-                { rightChild && (
-                    <span className={`pur-NavLink__right-child`}>
-                        { rightChild }
-                    </span>
-                ) }
-            </RouterNavLink>
+                strict={strict}
+                location={location}
+                children={({ location: currentLocation, match }) => {
+                    const isActive = !!(getIsActive ? getIsActive(match, currentLocation) : match);
+
+                    return (
+                        <Link
+                            to={to}
+                            {...rest}
+                            className={
+                                isActive ?
+                                [ this.getClassNames(), this.getActiveClassNames() ].filter(i => i).join(' ')
+                                :
+                                this.getClassNames()
+                            }
+                            />
+                    );
+                }}
+                />
         );
     }
 }

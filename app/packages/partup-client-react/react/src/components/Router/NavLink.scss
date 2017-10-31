@@ -1,46 +1,46 @@
-.pur-NavLink {
-    @import "../../stylesheets/fonts";
-    @import "../../stylesheets/colors";
+// .pur-NavLink {
+//     @import "../../stylesheets/fonts";
+//     @import "../../stylesheets/colors";
 
-    color: $pur-color-sunshade;
-    border: 0;
-    font-size: 15px;
-    font-family: $pur-font-primary;
-    display: inline-block;
-    line-height: normal;
-    transition: color 100ms;
+//     color: $pur-color-sunshade;
+//     border: 0;
+//     font-size: 15px;
+//     font-family: $pur-font-primary;
+//     display: inline-block;
+//     line-height: normal;
+//     transition: color 100ms;
 
-    &__left-child + &__content {
-        margin-left: 10px;
-    }
+//     &__left-child + &__content {
+//         margin-left: 10px;
+//     }
 
-    &__content + &__right-child{
-        margin-left: 10px;
-    }
+//     &__content + &__right-child{
+//         margin-left: 10px;
+//     }
 
-    &__left-child {
-        float: left;
-    }
+//     &__left-child {
+//         float: left;
+//     }
 
-    &__content {
-        line-height: 1em;
-        vertical-align: bottom;
-    }
+//     &__content {
+//         line-height: 1em;
+//         vertical-align: bottom;
+//     }
 
-    &__right-child {
-        float: right;
-    }
+//     &__right-child {
+//         float: right;
+//     }
 
-    &__left-child, &__content, &__right-child {
-        display: inline-block;
-        font-size: 15px;
-    }
+//     &__left-child, &__content, &__right-child {
+//         display: inline-block;
+//         font-size: 15px;
+//     }
 
-    &:hover {
-        text-decoration: underline;
+//     &:hover {
+//         text-decoration: underline;
 
-        &__content {
-            text-decoration: underline;
-        }
-    }
-}
+//         &__content {
+//             text-decoration: underline;
+//         }
+//     }
+// }
