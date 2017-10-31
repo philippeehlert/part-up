@@ -37,7 +37,7 @@ RUN \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Install Node dependencies
-    npm install -g npm3 &&
+    npm install -g npm3 && \
     npm3 -g uninstall npm && \
     npm3 install -g npm@5.5.1 && \
     npm install -g node-gyp && \
