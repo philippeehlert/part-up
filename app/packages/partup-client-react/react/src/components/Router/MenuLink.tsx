@@ -4,11 +4,14 @@ import './MenuLink.css';
 
 import NavLink from './NavLink';
 
+import { TargetType } from './Link';
+
 interface Props {
     icon?: JSX.Element|Element|string;
     counter?: JSX.Element|string|number;
     to: string;
     className?: string;
+    target?: TargetType;
 }
 
 export default class MenuLink extends React.Component<Props, {}> {
@@ -27,6 +30,7 @@ export default class MenuLink extends React.Component<Props, {}> {
             children,
             counter,
             to,
+            ...rest,
         } = this.props;
 
         return (
@@ -36,7 +40,8 @@ export default class MenuLink extends React.Component<Props, {}> {
                 activeClassName={'pur-MenuLink--is-active'}
                 exact
                 leftChild={icon}
-                rightChild={counter}>
+                rightChild={counter}
+                {...rest}>
                 { children }
             </NavLink>
         );

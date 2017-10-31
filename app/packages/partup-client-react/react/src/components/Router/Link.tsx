@@ -5,13 +5,7 @@ import './Link.css';
 
 const dev = process.env.REACT_APP_DEV;
 
-export enum TargetType {
-    blank = '_blank',
-    self = '_self',
-    parent = '_parent',
-    top = '_top',
-    partup = '_partup',
-}
+export type TargetType = '_blank' | '_self' | '_parent' | '_top' | '_partup';
 
 interface Props {
     className?: string;
@@ -57,6 +51,14 @@ export default class Link extends React.Component<Props, {}> {
         return dev ? to : '#';
     }
 
+    getTarget = () => {
+        const { target } = this.props;
+
+        if (target === '_partup') return undefined;
+
+        return target;
+    }
+
     render() {
         const {
             leftChild,
@@ -66,6 +68,7 @@ export default class Link extends React.Component<Props, {}> {
 
         return (
             <a
+                target={this.getTarget()}
                 href={this.getHref()}
                 className={this.getClassNames()}
                 onClick={this.onClick}>

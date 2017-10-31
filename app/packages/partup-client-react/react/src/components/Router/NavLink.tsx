@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './NavLink.css';
-import Link from './Link';
+import Link, { TargetType } from './Link';
 
 interface Props {
     className?: string;
@@ -17,6 +17,7 @@ interface Props {
     strict?: boolean;
     location?: any;
     isActive?: Function;
+    target?: TargetType;
 }
 
 export default class NavLink extends React.Component<Props, {}> {

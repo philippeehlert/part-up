@@ -85,7 +85,9 @@ export default class SideBar extends React.Component<Props> {
         return (
             <List>
                 <ListItem>
-                    <MenuLink to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar small user={user} />}>
+                    <MenuLink
+                        target={'_partup'}
+                        to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar small user={user} />}>
                         { user && user.profile.normalized_name }
                     </MenuLink>
                 </ListItem>
