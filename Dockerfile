@@ -37,6 +37,8 @@ RUN \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Install Node dependencies
+    npm install -g semver && \
+    npm install -g npm && \
     npm install -g node-gyp && \
     npm install -g fibers && \
     \
