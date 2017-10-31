@@ -5,7 +5,7 @@ import './Blank.css';
 interface Props {
     label: string;
     className?: string;
-};
+}
 
 export default class Blank extends React.Component<Props, {}> {
 

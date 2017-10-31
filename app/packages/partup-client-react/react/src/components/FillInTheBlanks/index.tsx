@@ -4,7 +4,7 @@ import './FillInTheBlanks.css';
 
 interface Props {
     className?: string;
-};
+}
 
 export default class FillInTheBlanks extends React.Component<Props, {}> {
 
