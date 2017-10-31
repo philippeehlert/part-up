@@ -4,10 +4,12 @@ import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './Link.css';
 
+const dev = process.env.REACT_APP_DEV;
+
 interface Props {
     className?: string;
     children?: any;
-    // onClick?: Function;
+    onClick?: Function;
     to?: any;
     leftChild?: any;
     rightChild?: any;
@@ -27,6 +29,14 @@ export default class Link extends React.Component<Props, {}> {
         });
     }
 
+    onClick = (event: React.SyntheticEvent<any>) => {
+        if (!dev) event.preventDefault();
+
+        const { onClick } = this.props;
+    
+        if (onClick) onClick(event);
+    }
+
     render() {
         const {
             leftChild,
@@ -36,7 +46,7 @@ export default class Link extends React.Component<Props, {}> {
         } = this.props;
 
         return (
-            <RouterLink to={to} className={this.getClassNames()}>
+            <RouterLink to={to} className={this.getClassNames()} onClick={this.onClick}>
                 { leftChild && (
                     <span className={`pur-Link__left-child`}>
                         { leftChild }

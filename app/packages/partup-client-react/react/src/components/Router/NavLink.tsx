@@ -4,9 +4,12 @@ import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './NavLink.css';
 
+const dev = process.env.REACT_APP_DEV;
+
 interface Props {
     className?: string;
     activeClassName?: string;
+    onClick?: Function;
     children?: any;
     to?: any;
     leftChild?: any;
@@ -36,6 +39,14 @@ export default class NavLink extends React.Component<Props, {}> {
         });
     }
 
+    onClick = (event: React.SyntheticEvent<any>) => {
+        if (!dev) event.preventDefault();
+
+        const { onClick } = this.props;
+    
+        if (onClick) onClick(event);
+    }
+
     render() {
         const {
             leftChild,
@@ -50,7 +61,8 @@ export default class NavLink extends React.Component<Props, {}> {
                 to={to}
                 exact={exact}
                 activeClassName={this.getActiveClassNames()}
-                className={this.getClassNames()}>
+                className={this.getClassNames()}
+                onClick={this.onClick}>
                 { leftChild && (
                     <span className={`pur-NavLink__left-child`}>
                         { leftChild }

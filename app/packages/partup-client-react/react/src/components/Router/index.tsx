@@ -13,7 +13,6 @@ interface Props {
     className?: string;
     onBackRoute?: (event: Object) => void;
 }
-
 export default class Router extends React.Component<Props, {}> {
 
     static contextTypes = {
