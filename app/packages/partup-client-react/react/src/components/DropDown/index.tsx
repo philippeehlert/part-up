@@ -29,10 +29,16 @@ export default class DropDown extends React.Component<Props, State> {
         onChange: () => {},
     };
 
-    public state: State = {
-        isExpanded: false,
-        activeIndex: this.props.options.findIndex(({isActive}) => isActive) || 0,
-    };
+    constructor(props: Props) {
+        super(props);
+
+        const activeIndex = this.props.options.findIndex(({isActive}) => isActive);
+
+        this.state = {
+            isExpanded: false,
+            activeIndex: activeIndex !== -1 ? activeIndex : 0,
+        };
+    }
 
     render() {
         const { options } = this.props;

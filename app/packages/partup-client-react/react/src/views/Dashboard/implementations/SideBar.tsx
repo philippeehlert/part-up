@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, matchPath } from 'react-router';
 import { AppContext } from 'App';
 
 import {
@@ -46,9 +46,14 @@ export default class SideBar extends React.Component<Props> {
         const { user } = this.context;
         const { navigator } = this.props;
 
+
         const dropDownOptions = this.getMenuLinks().map((link, index) => {
+            const match = matchPath(navigator.location.pathname, {
+                path: link.to,
+            });
+
             return {
-                isActive: navigator.match.url === link.to,
+                isActive: (match && match.isExact) || false,
                 leftChild: link.icon,
                 rightChild: link.counter,
                 label: link.label,
@@ -109,7 +114,7 @@ export default class SideBar extends React.Component<Props> {
 
         return [
             {
-                to: `${baseUrl}`,
+                to: `${baseUrl}/:id`,
                 icon: <Icon name={'message'} />,
                 counter: <Counter count={25} />,
                 label: `Gesprekken`,

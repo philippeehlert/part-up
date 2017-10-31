@@ -43,7 +43,7 @@ export default class Dashboard extends React.Component<Props, {}> {
             <SideBarView
                 sidebar={
                     <SideBar
-                        baseUrl={'/home'}
+                        baseUrl={match.url}
                         navigator={{match, history, location}}
                     />
                 }>
