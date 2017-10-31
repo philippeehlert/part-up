@@ -1,4 +1,4 @@
-FROM node:8.8.1-slim
+FROM node:8.8.1
 
 EXPOSE 3000
 
@@ -37,7 +37,6 @@ RUN \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Install Node dependencies
-    npm install -g semver && \
     npm install -g npm && \
     npm install -g node-gyp && \
     npm install -g fibers && \
