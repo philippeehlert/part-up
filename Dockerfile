@@ -37,8 +37,13 @@ RUN \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Install Node dependencies
+    echo "CURRENT NPM VERSION:" && \
+    npm -v && \
+    npm install -g npm && \
     npm install -g node-gyp && \
     npm install -g fibers && \
+    echo "NEW NPM VERSION:" && \
+    npm -v && \
     \
     # Change user to meteor and install meteor
     mkdir -p /home/meteor/app && \
