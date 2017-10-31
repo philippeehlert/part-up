@@ -2,6 +2,10 @@
     padding: 15px;
 
     @media screen and (min-width: 420px) {
+        padding: 25px 35px;
+    }
+
+    @media screen and (min-width: 925px) {
         padding: 25px 95px;
     }
 }

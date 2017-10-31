@@ -1,3 +1,11 @@
 .pur-FilteredListControls {
+    @import "../../stylesheets/spacings";
+    @import "../../stylesheets/colors";
 
+    padding: getSpacing(2);
+    border-bottom: 2px solid $pur-color-gallery;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
 }

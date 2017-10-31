@@ -6,18 +6,29 @@
     }
 
     @media screen and (min-width: 420px) {
-        $pur-sideBarWidth: 372px;
+        $sideBarWidth: 282px;
 
         &__sidebar {
             position: fixed;
             top: 60px;
             bottom: 0;
-            width: $pur-sideBarWidth;
+            width: $sideBarWidth;
             overflow-y: auto;
         }
 
         &__content {
-            margin-left: $pur-sideBarWidth;
+            margin-left: $sideBarWidth;
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        $sideBarWidth: 372px;
+
+        &__sidebar {
+            width: $sideBarWidth;
+        }
+        &__content {
+            margin-left: $sideBarWidth;
         }
     }
 }

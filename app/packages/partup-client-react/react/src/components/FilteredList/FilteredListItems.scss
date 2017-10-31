@@ -1,3 +1,9 @@
 .pur-FilteredListItems {
+    @import "../../stylesheets/spacings";
 
+    padding: getSpacing(2);
+
+    > * + * {
+        margin-top: getSpacing(1);
+    }
 }

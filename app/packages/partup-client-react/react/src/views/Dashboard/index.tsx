@@ -6,12 +6,15 @@ import {
     SideBarView,
     Icon,
     Button,
+    Tile,
 } from 'components';
 
 import FilteredList, {
     FilteredListControls,
     FilteredListItems,
 } from 'components/FilteredList';
+
+import FillInTheBlanks, { Blank } from 'components/FillInTheBlanks';
 
 import PortalManager from 'components/PortalManager';
 
@@ -109,23 +112,80 @@ export default class Dashboard extends React.Component<Props, {}> {
 
                 <FilteredList>
                         <FilteredListControls>
-                            {`
-                                <FillInTheBlanks>
-                                    <Blank label={'Toon updates als'}>
-                                        <Filter name={}>
-                                    </Blank>
-                                    <Blank label={'Van'}>
-                                        <FilterDropDown name={}>
-                                    </Blank>
-                                </FillInTheBlanks>
-                            `}
+                            <FillInTheBlanks>
+                                <Blank label={'Toon updates als'}>
+                                    <select>
+                                        <option>hoi</option>
+                                    </select>
+                                </Blank>
+                                <Blank label={'van'}>
+                                    <select>
+                                        <option>hoi</option>
+                                    </select>
+                                </Blank>
+                            </FillInTheBlanks>
                         </FilteredListControls>
                         <FilteredListItems>
-                            {`
-                                <Tile title={}>
-                                    <MessageUpdate />
-                                </Tile>
-                            `}
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap`}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
+                            <Tile title={`Co-creating the Part-up development roadmap `}>
+                                {` <MessageUpdate /> `}
+                            </Tile>
                         </FilteredListItems>
                 </FilteredList>
 

@@ -1,0 +1,10 @@
+.pur-FillInTheBlanks {
+    @import "../../stylesheets/spacings";
+
+    display: flex;
+    flex-wrap: wrap;
+
+    .pur-Blank + .pur-Blank {
+        margin-left: getSpacing();
+    }
+}

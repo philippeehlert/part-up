@@ -1,0 +1,14 @@
+.pur-Blank {
+    @import "../../stylesheets/spacings";
+    @import "../../stylesheets/colors";
+
+    display: flex;
+    align-content: center;
+
+    &__label {
+        font-size: 16px;
+        font-weight: 600;
+        color: $pur-color-dusty-gray;
+        margin-right: getSpacing();
+    }
+}
