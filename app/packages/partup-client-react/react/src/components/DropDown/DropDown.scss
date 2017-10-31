@@ -3,6 +3,9 @@
     @import "../../stylesheets/spacings";
     @import "../../stylesheets/colors";
 
+    $spacing: getSpacing();
+    $borderWidth: 2px;
+
     width: 100%;
     position: relative;
 
@@ -19,8 +22,8 @@
         font-weight: 600;
         font-size: 14px;
 
-        border: 2px solid $pur-color-alto;
-        padding: getSpacing();
+        border: $borderWidth solid $pur-color-alto;
+        padding: $spacing;
         outline: 0;
 
         &__caret {
@@ -29,7 +32,7 @@
 
         &__leftChild + &__label,
         &__label + &__caret {
-            margin-left: getSpacing();
+            margin-left: $spacing;
         }
 
         &__label {
@@ -38,7 +41,7 @@
         }
 
         &:hover {
-            background: #fff;
+            background: $pur-color-white;
         }
     }
 
@@ -48,8 +51,8 @@
         padding: 0;
         margin: 0;
         list-style: none;
-        background: #fff;
-        border: 2px solid #ccc;
+        background: $pur-color-white;
+        border: $borderWidth solid $pur-color-silver;
         border-top: 0;
 
         border-bottom-left-radius: $pur-border-radius-standard;
@@ -60,35 +63,35 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: getSpacing();
+        padding: $spacing;
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
+        border-top: $borderWidth solid $pur-color-alabaster;
 
         &__leftChild + &__label,
         &__label + &__rightChild {
-            margin-left: getSpacing();
+            margin-left: $spacing;
         }
 
         &__label {
             text-align: left;
             flex: 1;
         }
-        border-top: 2px solid #f9f9f9;
 
         &:hover {
-            background-color: #f9f9f9;
+            background-color: $pur-color-alabaster;
         }
     }
 
     &--is-expanded &__button-control {
-        background-color: #fff;
-        border-color: #ccc;
+        background-color: $pur-color-white;
+        border-color: $pur-color-silver;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         border-bottom: 0;
-        padding-bottom: calc(10px + 2px);
-        color: #ccc;
+        padding-bottom: calc($spacing + $borderWidth);
+        color: $pur-color-silver;
 
         &__caret {
             transform: rotate(180deg);
