@@ -55,6 +55,7 @@ Meteor.publishComposite('updates.one', function(updateId) {
  * @param {String} accessToken
  */
 Meteor.publishComposite('updates.from_partup', function(partupId, parameters, accessToken) {
+
     check(partupId, String);
     if (accessToken) check(accessToken, String);
 
@@ -70,6 +71,7 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters, ac
     return {
         find: function() {
             var partup = Partups.guardedFind(self.userId, {_id: partupId}, {limit: 1}, accessToken).fetch().pop();
+
             if (!partup) return;
 
             return Updates.findForPartup(partup, parameters, self.userId);

@@ -10,9 +10,7 @@ type SubscriberOptions = {
     onChange?: Function;
 };
 
-export default class Subscriber<SubscriberData> {
-
-    public data: SubscriberData;
+export default class Subscriber {
 
     private subscriptions: Array<Subscription> = [];
 
@@ -25,7 +23,6 @@ export default class Subscriber<SubscriberData> {
     constructor({subscriptions, onChange}: SubscriberOptions) {
         this.subscriptions = subscriptions;
         this.onChange = onChange || this.onChange;
-        this.data = {} as SubscriberData;
     }
 
     /**

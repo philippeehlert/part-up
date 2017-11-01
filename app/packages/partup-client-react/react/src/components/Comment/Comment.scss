@@ -1,0 +1,21 @@
+.pur-Comment {
+    @import "../../stylesheets/spacings";
+    @import "../../stylesheets/colors";
+
+    display: flex;
+
+    &__avatar {
+        margin-right: getSpacing();
+    }
+
+    &__content {
+        font-size: 14px;
+        flex: 1;
+    }
+
+    &__postedAt {
+        font-size: 11px;
+        color: $pur-color-dusty-gray;
+        font-weight: bold;
+    }
+}

@@ -1,6 +1,15 @@
 .pur-Clickable {
+    @import "../../stylesheets/colors";
+
     outline: 0;
+    padding: 0;
     border: 0;
     background-color: transparent;
     font-size: 15px;
+    color: $pur-color-sunshade;
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
 }

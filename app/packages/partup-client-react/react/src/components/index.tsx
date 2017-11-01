@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as Comment } from './Comment';
 export { default as Counter } from './Counter';
 export { default as DropDown } from './DropDown';
 export { default as FilteredList } from './FilteredList';
@@ -9,5 +10,6 @@ export { default as MobileNav } from './MobileNav';
 export { default as NavigationBar } from './NavigationBar';
 export { default as SideBarView } from './SideBarView';
 export { default as Tile } from './Tile';
+export { default as UpdateTile } from './UpdateTile';
 export { default as UserAvatar } from './UserAvatar';
 export { default as View } from './View';

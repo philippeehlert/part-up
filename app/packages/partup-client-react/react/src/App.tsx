@@ -69,10 +69,6 @@ interface State {
     loginFailed: boolean;
 }
 
-interface SubscriberData {
-    users: Array<User>;
-}
-
 export interface AppContext {
     user?: User;
     refetchUser: Function;
@@ -90,7 +86,7 @@ export default class App extends React.Component<Props, State> {
         loginFailed: false,
     };
 
-    private subscriptions = new Subscriber<SubscriberData>({
+    private subscriptions = new Subscriber({
         subscriptions: [{
             name: 'users.loggedin',
         }],

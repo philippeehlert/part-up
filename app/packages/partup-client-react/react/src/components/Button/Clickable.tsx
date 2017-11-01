@@ -15,7 +15,7 @@ export default class Clickable extends React.Component<Props, {}> {
 
     onClick = (event: React.SyntheticEvent<any>) => {
         const { onClick } = this.props;
-    
+
         if (onClick) onClick(event);
     }
 
@@ -31,7 +31,7 @@ export default class Clickable extends React.Component<Props, {}> {
         const { children } = this.props;
 
         return (
-            <button className={this.getClassNames()} onClick={this.onClick}>
+            <button type="button" className={this.getClassNames()} onClick={this.onClick}>
                 {children}
             </button>
         );

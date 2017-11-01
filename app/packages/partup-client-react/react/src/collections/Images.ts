@@ -15,7 +15,7 @@ export function findOne(...args: any[]) {
 
 export function getUrl(image: Image, store: string = '360x360'): string {
     const imageKey = get(image, `copies[${store}].key`);
-    
+
     if (!imageKey) return '';
 
     const region = get(window, 'Meteor.settings.public.aws.region', 'eu-west-1');

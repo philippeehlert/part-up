@@ -25,6 +25,7 @@ export default class UserAvatar extends React.Component<Props, {}> {
 
     render() {
         const { user } = this.props;
+
         const image = findOne({_id: get(user, 'profile.image')});
         const imageUrl = getUrl(image, '360x360');
 

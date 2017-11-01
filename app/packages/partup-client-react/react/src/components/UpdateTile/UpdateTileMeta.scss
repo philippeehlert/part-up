@@ -1,0 +1,29 @@
+.pur-UpdateTileMeta {
+    @import "../../stylesheets/spacings";
+    @import "../../stylesheets/colors";
+
+    $padding: getSpacing(1.5);
+
+    display: flex;
+    align-items: center;
+    padding: $padding $padding 0 $padding;
+
+    &__author-avatar {
+        margin-right: getSpacing();
+    }
+
+    &__info {
+        flex: 1;
+    }
+
+    &__created-info {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    &__created-at {
+        font-weight: 600;
+        font-size: 12px;
+        color: $pur-color-dusty-gray;
+    }
+}

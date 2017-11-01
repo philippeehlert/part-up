@@ -38,8 +38,10 @@
 
     &:hover {
         text-decoration: underline;
+        color: inherit;
 
         &__content {
+            color: inherit;
             text-decoration: underline;
         }
     }
