@@ -174,6 +174,10 @@ import './files';
         expect(Partup.helpers.files.getSvgIcon({ name: 'filename.doc', type: 'application/msword' })).to.equal('doc.svg');
     });
 
+    Tinytest.add("getSvgIcon returns icon when multiple FileInfo objects found", function () {
+        expect(Partup.helpers.files.getSvgIcon({ type: 'application/gzip' })).to.equal('zip.svg');
+    });
+
     // toUploadFilter
 
     Tinytest.add("toUploadFilter returns filter for category images", function(test) {
