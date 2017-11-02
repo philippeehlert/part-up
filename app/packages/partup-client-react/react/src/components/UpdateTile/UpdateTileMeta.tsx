@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as c from 'classnames';
-import { get } from 'lodash';
 import * as moment from 'moment';
 import './UpdateTileMeta.css';
 
-import { Link } from '../Router';
+// import { Link } from '../Router';
 
 import { UserAvatar } from '../';
 
@@ -27,14 +26,14 @@ export default class UpdateTileMeta extends React.Component<Props, {}> {
     }
 
     render() {
-        const { postedBy, postedAt } = this.props;
+        const { postedBy, postedAt, children } = this.props;
 
         return (
             <div className={this.getClassNames()}>
                 <UserAvatar user={postedBy} className={`pur-UpdateTileMeta__author-avatar`} />
                 <div className={`pur-UpdateTileMeta__pur-UpdateTileMeta__info`}>
                     <h4 className={`pur-UpdateTileMeta__created-info`}>
-                        <Link to="#">{this.getProfileNameOrPartup(postedBy)}</Link> voegde een bericht toe
+                        { children }
                     </h4>
                     <time
                         className={`pur-UpdateTileMeta__created-at`}
@@ -45,13 +44,5 @@ export default class UpdateTileMeta extends React.Component<Props, {}> {
                 </div>
             </div>
         );
-    }
-
-    private getProfileNameOrPartup(postee: User|any) {
-        if (postee.profile) {
-            return get(postee, 'profile.normalized_name') || get(postee, 'profile.name');
-        }
-
-        return postee.name;
     }
 }

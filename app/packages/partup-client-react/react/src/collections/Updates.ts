@@ -66,4 +66,4 @@ function getUpdateCreator(update: Update) {
 
 export default {
     getUpdatesForLoggedInUser,
-}
+};

@@ -11,7 +11,7 @@ type FetcherOptions = {
     transformData?: Function;
 };
 
-export default class Fetcher<FetcherData> {
+export default class Fetcher<FetcherData = any> {
 
     public data: FetcherData;
 

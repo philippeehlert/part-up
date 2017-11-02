@@ -24,6 +24,7 @@
         "jsx-alignment": false,
         "jsx-no-multiline-js": false,
         "jsx-wrap-multiline": false,
+        "prefer-template": true,
         "jsx-curly-spacing": false,
         "jsx-key": true,
         "jsx-no-bind": true,
