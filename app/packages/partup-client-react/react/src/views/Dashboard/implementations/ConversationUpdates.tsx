@@ -61,6 +61,25 @@ export default class ConversationUpdates extends React.Component {
     private fetcher = new Fetcher({
         route: 'partups/updates',
         onChange: () => this.forceUpdate(),
+        transformData: (data: any) => {
+            const {
+                updates = [],
+                partups = [],
+                users = [],
+            }: {
+                updates: any[],
+                partups: any[],
+                users: any[],
+            } = data;
+
+            return {
+                updates: updates.map((update: any) => ({
+                    ...update,
+                    partup: partups.find(({_id}) => update.partup_id === _id),
+                    users: users.find(({_id}) => update.upper_id === _id),
+                })),
+            };
+        },
     });
 
     componentWillMount() {
@@ -68,27 +87,8 @@ export default class ConversationUpdates extends React.Component {
     }
 
     render() {
-        const { data }: {data: {
-            updates: any[],
-            partups: any[],
-            users: any[],
-        } } = this.fetcher;
-
-        let {
-            updates = [],
-            partups = [],
-            users = [],
-        } = data;
-
-        updates = updates.map((update: any) => {
-
-            return ({
-                ...update,
-                partup: partups.find(({ _id }: {_id: string}) => update.partup_id === _id),
-                upperUser: users.find(({ _id }: {_id: string}) => update.upper_id === _id),
-            });
-        });
-
+        const { updates = [] } = this.fetcher.data;
+        // console.log()
         return (
             <FilteredList>
                 <FilteredListControls>

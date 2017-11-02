@@ -4,11 +4,11 @@ type QueryParameters = {
     [param: string]: string|boolean|number|null;
 };
 
-type FetcherOptions = {
+type FetcherOptions<FetcherData = {[key: string]: any}> = {
     route: string,
     query?: QueryParameters;
     onChange?: Function;
-    transformData?: Function;
+    transformData?: (data: any) => FetcherData;
 };
 
 export default class Fetcher<FetcherData = any> {
@@ -19,7 +19,7 @@ export default class Fetcher<FetcherData = any> {
     private route: string;
     private query: QueryParameters = {};
 
-    constructor({route, query, onChange, transformData}: FetcherOptions) {
+    constructor({route, query, onChange, transformData}: FetcherOptions<FetcherData>) {
         this.route = route;
         this.query = query || this.query;
         this.onChange = onChange || this.onChange;
@@ -57,6 +57,6 @@ export default class Fetcher<FetcherData = any> {
     }
 
     private onChange: Function = () => {};
-    private transformData: Function = (d: any) => d;
+    private transformData: (data: any) => FetcherData = (data: any) => data;
 
 }
