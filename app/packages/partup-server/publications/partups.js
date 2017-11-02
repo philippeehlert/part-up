@@ -1,4 +1,33 @@
 /**
+ * Gets all conversation updates for a user's partup.
+ */
+Meteor.routeComposite('/partups/updates', function(request, parameters) {
+    const userId = parameters.query.userId || this.userId;
+
+    const partupsCursor = Partups.guardedFind(userId, {}, { _id: 1, name: 1 });
+
+    const partupIds = partupsCursor.map(({_id}) => _id);
+
+    const updatesCursor = Updates.findForPartupsIds(partupIds, {filter: 'conversations'});
+
+    const upperIds = updatesCursor
+        .map(({upper_id}) => upper_id)
+        .filter((_id) => _id)
+        .filter((v, i, a) => a.indexOf(v) === i);
+
+    const usersCursor = Meteor.users.findMultiplePublicProfiles(upperIds);
+
+    return {
+        find: () => Meteor.users.find({_id: userId}),
+        children: [
+            {find: () => partupsCursor},
+            {find: () => updatesCursor},
+            {find: () => usersCursor},
+        ],
+    };
+});
+
+/**
  * Publish multiple partups for discover
  *
  * @param {Object} parameters
