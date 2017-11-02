@@ -1,3 +1,6 @@
+const callbacks: any = [];
+let currentLocationIndex = 0;
+
 export const routes = [
     '/home',
     '/discover',
@@ -24,34 +27,40 @@ export const activeRoutes: Array<string> = [
     '/home',
 ];
 
-let callbacks: any = [];
+function update(route?: any) {
+    setCurrentIndex(route);
+    callbacks.forEach((cb: Function) => {
+        cb(routes[getCurrentIndex()]);
+    });
+}
 
-let currentLocationIndex = 0;
-
-const setCurrentIndex = (pathname: string = window.location.pathname) => {
+function setCurrentIndex(pathname: string = window.location.pathname) {
     for (let i = 0; i < routes.length; i++) {
         if (pathname.startsWith(routes[i])) {
             currentLocationIndex = i;
             break;
         }
     }
-};
+}
 
-setCurrentIndex();
+function initialize() {
+    (function(history: any) {
+        var pushState = history.pushState;
+        history.pushState = function(state: any) {
+            if (typeof history.onpushstate === 'function') {
+                history.onpushstate({state: state});
+            }
+            update(arguments[2]);
+            return pushState.apply(history, arguments);
+        };
+    })(window.history);
+    
+    window.addEventListener('popstate', () => {
+        update();
+    });
 
-(function(history: any) {
-    var pushState = history.pushState;
-    history.pushState = function(state: any) {
-        if (typeof history.onpushstate === 'function') {
-            history.onpushstate({state: state});
-        }
-        setCurrentIndex(arguments[2]);
-        callbacks.forEach((cb: Function) => {
-            cb(routes[getCurrentIndex()]);
-        });
-        return pushState.apply(history, arguments);
-    };
-})(window.history);
+    setCurrentIndex();
+}
 
 export function onRouteChange(cb: Function) {
     callbacks.push(cb);
@@ -64,3 +73,5 @@ export function getCurrentIndex() {
 export function getCurrentRoute() {
     return routes[currentLocationIndex];
 }
+
+initialize();

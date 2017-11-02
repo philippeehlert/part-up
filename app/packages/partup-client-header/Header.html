@@ -11,8 +11,10 @@
 <template name="Header_LoggedIn">
     <ul class="pu-list pu-list-horizontal pu-list-with-right-items">
         <li class="pu-sub-logo">{{> Header_logo }}</li>
+        <li class="pu-sub-tribes">
+            <a href="{{pathFor 'dashboard'}}" class="pu-button pu-button-header pu-button-header-text">{{_ 'header-desktop-home' }}</a>
+        </li>
         <li class="pu-sub-tribes">{{> Header_Tribes }}</li>
-        <li class="pu-sub-hidesmallscreen pu-sub-tribes">{{> DropdownMenu }}</li>
         <li class="pu-sub-align-right">{{> DropdownChatNotifications label=chatlabel }}</li>
         <li class="pu-sub-align-right">{{> DropdownNotifications label=notificationslabel }}</li>
         <li class="pu-sub-align-right">{{> DropdownProfile label=currentUser.profile.name image=currentUser.profile.image }}</li>

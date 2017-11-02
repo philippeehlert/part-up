@@ -4,6 +4,9 @@ import {
     View,
 } from 'components';
 
+import { Link } from 'components/Router';
+import List, { ListItem } from 'components/List';
+
 interface Props {
     match?: Object;
     location?: Object;
@@ -15,7 +18,13 @@ export default class Home extends React.Component<Props, {}> {
     render() {
         return (
             <View>
-                Home
+                Welcome to the Part-up React development environment.
+                
+                <List>
+                    <ListItem>
+                        <Link to={'/home'}>Dashboard</Link>
+                    </ListItem>
+                </List>
             </View>
         );
     }

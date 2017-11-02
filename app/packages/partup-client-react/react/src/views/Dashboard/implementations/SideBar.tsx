@@ -64,7 +64,7 @@ export default class SideBar extends React.Component<Props> {
             <MobileNav>
                 <List horizontal>
                     <ListItem>
-                        <Link to={user ? `http://localhost:3000/profile/${user._id}` : '#'}>
+                        <Link to={user ? `/profile/${user._id}` : '#'}>
                             <UserAvatar user={user} />
                         </Link>
                     </ListItem>
@@ -87,7 +87,7 @@ export default class SideBar extends React.Component<Props> {
                 <ListItem>
                     <MenuLink
                         target={'_partup'}
-                        to={user ? `http://localhost:3000/profile/${user._id}` : '#'} icon={<UserAvatar small user={user} />}>
+                        to={user ? `/profile/${user._id}` : '#'} icon={<UserAvatar small user={user} />}>
                         { user && user.profile.normalized_name }
                     </MenuLink>
                 </ListItem>

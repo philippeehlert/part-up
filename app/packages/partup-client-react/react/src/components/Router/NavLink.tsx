@@ -5,7 +5,7 @@ import * as c from 'classnames';
 import './NavLink.css';
 import Link, { TargetType } from './Link';
 
-interface Props {
+export interface NavLinkProps {
     className?: string;
     activeClassName?: string;
     onClick?: Function;
@@ -20,7 +20,7 @@ interface Props {
     target?: TargetType;
 }
 
-export default class NavLink extends React.Component<Props, {}> {
+export default class NavLink extends React.Component<NavLinkProps, {}> {
 
     static contextTypes = {
         router: PropTypes.object,

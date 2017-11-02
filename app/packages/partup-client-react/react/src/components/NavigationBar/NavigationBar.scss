@@ -1,9 +1,8 @@
 .pur-NavigationBar {
-    padding: 20px;
+    // padding: 20px;
     box-sizing: border-box;
     height: 60px;
     text-align: center;
-    content: 'Partup React Development Environent';
     font-size: 20px;
     font-weight: 600;
     color: #fff;
@@ -13,5 +12,5 @@
     top: 0;
     right: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 5;
 }

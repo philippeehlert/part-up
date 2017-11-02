@@ -14,7 +14,7 @@ import HomeView from './views/Home';
 import { View } from 'components';
 import RouterContainer from 'components/Router';
 
-import { onRouteChange } from 'utils/router';
+import { routes, activeRoutes, onRouteChange } from 'utils/router';
 
 import {
     DevelopmentNavigation,
@@ -32,12 +32,10 @@ class Container extends React.Component<Props, {}> {
         router: PropTypes.object,
     };
 
-    constructor(props: Props, context: any) {
-        super(props);
-
+    componentWillMount() {
         if (!dev) {
             onRouteChange((currentRoute: string) => {
-                context.router.history.push(currentRoute);
+                this.context.router.history.push(currentRoute);
             });
         }
     }
@@ -141,7 +139,9 @@ export default class App extends React.Component<Props, State> {
             <Container>
                 <Switch>
                     <Route path={'/home'} component={DashboardView}/>
-                    <Route exact component={HomeView}/>
+                    { routes.filter((route) => !activeRoutes.includes(route)).map((route, index) => (
+                        <Route key={index} path={route} component={HomeView} />
+                    )) }
                 </Switch>
             </Container>
         );

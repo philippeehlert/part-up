@@ -27,7 +27,9 @@ if (dev) {
 onStartup(() => {
     onRender((root: HTMLElement) => {
         ReactDOM.render(
-            <Router initialEntries={routes} initialIndex={getCurrentIndex()}>
+            <Router
+                initialEntries={routes}
+                initialIndex={getCurrentIndex()}>
                 <App />
             </Router>,
             root as HTMLElement,

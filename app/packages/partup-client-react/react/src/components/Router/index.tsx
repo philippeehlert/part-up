@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import './Router.css';
 import {
     onRouteChange,
@@ -21,16 +21,18 @@ export default class Router extends React.Component<Props, {}> {
 
     onActivate() {
         const element = document.querySelector('.pu-main') as HTMLElement;
-        element.classList.add('pu-main--react');
+        
+        if (element) element.classList.add('pu-main--react');
     }
 
     onDeactivate() {
         const element = document.querySelector('.pu-main') as HTMLElement;
-        element.classList.remove('pu-main--react');
+
+        if (element) element.classList.remove('pu-main--react');
     }
 
     componentWillMount() {
-        $(window).on('popstate', this.onBackRoute);
+        // $(window).on('popstate', this.onBackRoute);
 
         const currentRoute = getCurrentRoute();
 
@@ -48,19 +50,19 @@ export default class Router extends React.Component<Props, {}> {
     }
 
     componentWillUnmount() {
-        $(window).off('popstate', this.onBackRoute);
+        // $(window).off('popstate', this.onBackRoute);
 
         this.onDeactivate();
     }
 
-    onBackRoute = (event: Object) => {
-        const { onBackRoute } = this.props;
-        const { router } = this.context;
+    // onBackRoute = (event: Object) => {
+    //     const { onBackRoute } = this.props;
+    //     const { router } = this.context;
 
-        router.history.goBack();
+    //     router.history.goBack();
 
-        if (onBackRoute) onBackRoute(event);
-    }
+    //     if (onBackRoute) onBackRoute(event);
+    // }
 
     getClassNames = () => {
         const { className } = this.props;
@@ -83,4 +85,7 @@ export default class Router extends React.Component<Props, {}> {
 
 export { default as Link } from './Link';
 export { default as NavLink } from './NavLink';
+
+// variants on link or navlink
 export { default as MenuLink } from './MenuLink';
+export { default as MainNavLink } from './MainNavLink';

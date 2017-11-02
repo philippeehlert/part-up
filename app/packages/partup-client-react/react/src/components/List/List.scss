@@ -7,10 +7,15 @@
 
     &--horizontal {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+    }
 
+    &--spaced {
         .pur-ListItem + .pur-ListItem {
-            margin-left: getSpacing(1)
+            margin-left: getSpacing(1);
+            &--align-right {
+                margin-left: auto;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@
             "check-space"
         ],
         "jsx-boolean-value": false,
+        "prefer-template": true,
         "curly": [true, "ignore-same-line"],
         "eofline": false,
         "forin": true,

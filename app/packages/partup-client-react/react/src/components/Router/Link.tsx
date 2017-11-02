@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import './Link.css';
 
-const dev = process.env.REACT_APP_DEV;
+// const dev = process.env.REACT_APP_DEV;
 
 export type TargetType = '_blank' | '_self' | '_parent' | '_top' | '_partup';
 
@@ -48,7 +48,7 @@ export default class Link extends React.Component<Props, {}> {
 
         if (target === '_partup') return to;
 
-        return dev ? to : '#';
+        return '#';
     }
 
     getTarget = () => {
