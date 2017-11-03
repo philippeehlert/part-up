@@ -1,9 +1,5 @@
 const { default: Meteor } = require('react-web-meteor');
 
-declare global {
-    interface Window { Meteor: any; }
-}
-
 let callbackQueue: Array<any> = [];
 let isLoadingCompleted = false;
 let isReady = false;

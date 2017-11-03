@@ -29,4 +29,3 @@ export default class PartupSupporterAdded extends React.Component<Props, {}> {
         );
     }
 }
-

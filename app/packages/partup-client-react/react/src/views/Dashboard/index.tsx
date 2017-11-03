@@ -24,6 +24,7 @@ import InvitesView from './routes/Invites';
 import RecommendationsView from './routes/Recommendations';
 
 import { SideBar, ConversationUpdates } from './implementations';
+import translate from 'utils/translate';
 
 // import Form, {
 //     FieldCollection,
@@ -66,7 +67,7 @@ export default class Dashboard extends React.Component<Props, {}> {
                         <Button
                             onClick={open}
                             leftChild={<Icon name={'message'} />}>
-                            Nieuw bericht
+                            {translate('pur-dashboard-conversations-button-new-message')}
                         </Button>
                     )}
                     renderPortal={(close) => (

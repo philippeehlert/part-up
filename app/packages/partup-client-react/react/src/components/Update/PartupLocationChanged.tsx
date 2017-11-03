@@ -29,4 +29,3 @@ export default class PartupLocationChanged extends React.Component<Props, {}> {
         );
     }
 }
-

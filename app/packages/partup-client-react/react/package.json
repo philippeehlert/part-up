@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/i18next": "^8.4.2",
     "classnames": "^2.2.5",
+    "i18next": "^10.0.7",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",

@@ -29,4 +29,3 @@ export default class ContributionRemoved extends React.Component<Props, {}> {
         );
     }
 }
-

@@ -29,4 +29,3 @@ export default class PartupMessageAdded extends React.Component<Props, {}> {
         );
     }
 }
-

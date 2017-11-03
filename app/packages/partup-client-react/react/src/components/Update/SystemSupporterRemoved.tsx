@@ -29,4 +29,3 @@ export default class SystemSupporterRemoved extends React.Component<Props, {}> {
         );
     }
 }
-

@@ -29,4 +29,3 @@ export default class NetworkPrivate extends React.Component<Props, {}> {
         );
     }
 }
-

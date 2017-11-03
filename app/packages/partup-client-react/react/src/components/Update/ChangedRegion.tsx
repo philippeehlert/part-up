@@ -29,4 +29,3 @@ export default class ChangedRegion extends React.Component<Props, {}> {
         );
     }
 }
-

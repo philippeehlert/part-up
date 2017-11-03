@@ -29,4 +29,3 @@ export default class PartupRatingChanged extends React.Component<Props, {}> {
         );
     }
 }
-

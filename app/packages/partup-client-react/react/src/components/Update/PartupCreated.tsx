@@ -29,4 +29,3 @@ export default class PartupCreated extends React.Component<Props, {}> {
         );
     }
 }
-

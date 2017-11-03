@@ -29,4 +29,3 @@ export default class PartupPartnerRejected extends React.Component<Props, {}> {
         );
     }
 }
-

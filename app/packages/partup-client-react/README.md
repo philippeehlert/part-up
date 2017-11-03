@@ -15,6 +15,10 @@ to open chrome `open -a Google\ Chrome --args --disable-web-security --user-data
 1. add icon.svg to src/static/icons
 2. run `yarn generate-icons`
 
+# i18n
+Create symlinks to translation files by running this command in the public folder:
+`ln -s ../../../../i18n/phraseapp.en.i18n.json ./en-translation.json`
+
 # Component example 
 
 ```ts

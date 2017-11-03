@@ -29,4 +29,3 @@ export default class PartupDescriptionChanged extends React.Component<Props, {}>
         );
     }
 }
-

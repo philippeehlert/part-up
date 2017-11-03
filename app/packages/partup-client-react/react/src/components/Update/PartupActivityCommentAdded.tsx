@@ -29,4 +29,3 @@ export default class PartupActivityCommentAdded extends React.Component<Props, {
         );
     }
 }
-

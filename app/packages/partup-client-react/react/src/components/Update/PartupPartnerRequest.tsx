@@ -29,4 +29,3 @@ export default class PartupPartnerRequest extends React.Component<Props, {}> {
         );
     }
 }
-

@@ -29,4 +29,3 @@ export default class PartupActivityUnarchived extends React.Component<Props, {}>
         );
     }
 }
-

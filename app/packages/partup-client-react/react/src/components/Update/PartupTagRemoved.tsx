@@ -29,4 +29,3 @@ export default class PartupTagRemoved extends React.Component<Props, {}> {
         );
     }
 }
-

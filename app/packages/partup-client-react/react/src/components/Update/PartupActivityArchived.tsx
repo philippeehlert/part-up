@@ -29,4 +29,3 @@ export default class PartupActivityArchived extends React.Component<Props, {}> {
         );
     }
 }
-

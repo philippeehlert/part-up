@@ -29,4 +29,3 @@ export default class PartupBudgetChanged extends React.Component<Props, {}> {
         );
     }
 }
-

@@ -29,4 +29,3 @@ export default class PartupRatingInserted extends React.Component<Props, {}> {
         );
     }
 }
-

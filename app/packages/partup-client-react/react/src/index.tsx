@@ -1,5 +1,13 @@
 'use strict';
 
+declare global {
+    interface Window {
+        TAPi18n: any;
+        i18next: any;
+        Meteor: any;
+    }
+}
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {

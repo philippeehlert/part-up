@@ -29,4 +29,3 @@ export default class PartupEndDateChanged extends React.Component<Props, {}> {
         );
     }
 }
-

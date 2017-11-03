@@ -1885,5 +1885,6 @@
   "widgetcommentfield-comment-systemmessage-show": "Show system messages",
   "widgetcommentfield-comment-totalcomments": "__count__ comment",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
-  "widgetcommentfield-comment-viewall-button": "View all %s comments"
+  "widgetcommentfield-comment-viewall-button": "View all %s comments",
+  "pur-dashboard-conversations-button-new-message": "New message - test"
 }

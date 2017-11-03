@@ -29,4 +29,3 @@ export default class PartupActivityChanged extends React.Component<Props, {}> {
         );
     }
 }
-

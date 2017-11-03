@@ -29,4 +29,3 @@ export default class PartupImageChanged extends React.Component<Props, {}> {
         );
     }
 }
-

@@ -29,4 +29,3 @@ export default class PartupArchived extends React.Component<Props, {}> {
         );
     }
 }
-

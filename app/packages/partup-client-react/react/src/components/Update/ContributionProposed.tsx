@@ -29,4 +29,3 @@ export default class ContributionProposed extends React.Component<Props, {}> {
         );
     }
 }
-

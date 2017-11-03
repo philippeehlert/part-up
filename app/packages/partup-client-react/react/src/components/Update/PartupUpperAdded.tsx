@@ -29,4 +29,3 @@ export default class PartupUpperAdded extends React.Component<Props, {}> {
         );
     }
 }
-

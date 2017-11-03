@@ -29,4 +29,3 @@ export default class ContributionChanged extends React.Component<Props, {}> {
         );
     }
 }
-

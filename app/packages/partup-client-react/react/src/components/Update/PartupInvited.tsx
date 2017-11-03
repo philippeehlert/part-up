@@ -29,4 +29,3 @@ export default class PartupInvited extends React.Component<Props, {}> {
         );
     }
 }
-
