@@ -4,7 +4,7 @@ interface Props {
     className?: string;
     onOpen?: Function;
     onClose?: Function;
-    renderHandler: (open: Function) => JSX.Element;
+    renderHandler?: (open: Function) => JSX.Element;
     renderPortal: (close: Function) => JSX.Element;
 }
 
@@ -50,7 +50,7 @@ export default class PortalManager extends React.Component<Props, State> {
 
         return [
             <PortalManagerWrapper key={'handler'}>
-                {renderHandler(this.open)}
+                {renderHandler && renderHandler(this.open)}
             </PortalManagerWrapper>,
             render && (
                 <PortalManagerWrapper key={'portal'}>

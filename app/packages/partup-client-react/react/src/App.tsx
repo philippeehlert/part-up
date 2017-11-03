@@ -13,8 +13,10 @@ import HomeView from './views/Home';
 
 import { View } from 'components';
 import RouterContainer from 'components/Router';
+import { error, success } from 'utils/notify';
 
 import { routes, activeRoutes, onRouteChange } from 'utils/router';
+import NotificationsManager from 'components/NotificationsManager';
 
 import {
     DevelopmentNavigation,
@@ -113,11 +115,21 @@ export default class App extends React.Component<Props, State> {
         Meteor.Accounts.onLogin(() => {
             this.setState({ loginFailed: false });
             this.refetchUser();
+            success({
+                title: 'Login success',
+                content: `Successfully logged in as ${Meteor.userId()}`,
+            });
         });
 
         Meteor.Accounts.onLoginFailure(() => {
             this.setState({ loginFailed: true });
+            error({
+                title: 'Login failed',
+                content: 'Failed to login...',
+                error: new Error('Login failed'),
+            });
         });
+
     }
 
     render() {
@@ -143,6 +155,8 @@ export default class App extends React.Component<Props, State> {
                         <Route key={index} path={route} component={HomeView} />
                     )) }
                 </Switch>
+                <NotificationsManager />
+                />
             </Container>
         );
     }
