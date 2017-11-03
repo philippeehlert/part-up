@@ -30,6 +30,7 @@ display_help() {
     --packages <path>  Tell Meteor about another packages folder
     --react-dev        Start without compiling partup-client-react
     --once             Start meteor without watching file changes
+    --verbose          Start meteor with verbose logs
 
 
 EOF
@@ -113,9 +114,9 @@ start() {
     fi
     
     if [ "$REACT_DEV" ]; then    
-      local CMD="REACT_DEV=true $METEOR $ONCE --settings ../$settings_file"
+      local CMD="REACT_DEV=true $VERBOSE_PRE $METEOR $ONCE $VERBOSE_SUF --settings ../$settings_file"
     else
-      local CMD="$METEOR $ONCE --settings ../$settings_file"
+      local CMD="$VERBOSE_PRE $METEOR $ONCE --settings ../$settings_file $VERBOSE_SUF"
     fi
 
     cd "$APP"
@@ -139,6 +140,7 @@ else
       --packages)           export PACKAGE_DIRS="$2:$PACKAGE_DIRS"; shift ;;
       --react-dev)          REACT_DEV=true ;;
       --once)               ONCE="--once" ;;
+      --verbose)            VERBOSE_PRE="METEOR_PROFILE=1 METEOR_LOG=debug"; VERBOSE_SUF="--verbose";;
       *)                    display_help ;;
     esac
     shift
