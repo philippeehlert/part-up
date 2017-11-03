@@ -43,6 +43,12 @@ export default class Fetcher<FetcherData = any> {
         }
     }
 
+    public destroy() {
+        this.onChange = () => {};
+        this.transformData = (data: any) => data;
+        this.data = {} as FetcherData;
+    }
+
     private getQueryParams(): string {
         const params = {
             token: getLoginToken(),

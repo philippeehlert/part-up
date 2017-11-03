@@ -12,7 +12,10 @@
     <ul class="pu-list pu-list-horizontal pu-list-with-right-items">
         <li class="pu-sub-logo">{{> Header_logo }}</li>
         <li class="pu-sub-tribes">
-            <a href="{{pathFor 'dashboard'}}" class="pu-button pu-button-header pu-button-header-text">{{_ 'header-desktop-home' }}</a>
+            <a href="{{pathFor 'dashboard'}}" class="pu-button pu-button-header pu-button-header-text">
+                <i class="picon-show" ></i>
+                <span>{{_ 'header-desktop-home' }}</span>
+            </a>
         </li>
         <li class="pu-sub-tribes">{{> Header_Tribes }}</li>
         <li class="pu-sub-align-right">{{> DropdownChatNotifications label=chatlabel }}</li>

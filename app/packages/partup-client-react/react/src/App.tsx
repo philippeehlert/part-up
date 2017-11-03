@@ -146,7 +146,7 @@ export default class App extends React.Component<Props, State> {
                 <div>TODO: Empty state</div>
             );
         }
-
+        
         return (
             <Container>
                 <Switch>

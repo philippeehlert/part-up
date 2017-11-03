@@ -9,6 +9,7 @@ export { default as MediaQuery } from './MediaQuery';
 export { default as MobileNav } from './MobileNav';
 export { default as NavigationBar } from './NavigationBar';
 export { default as SideBarView } from './SideBarView';
+export { default as Spinner } from './Spinner';
 export { default as Tile } from './Tile';
 export { default as UpdateTile } from './UpdateTile';
 export { default as UserAvatar } from './UserAvatar';

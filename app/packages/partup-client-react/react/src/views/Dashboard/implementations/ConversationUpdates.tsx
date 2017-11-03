@@ -4,6 +4,7 @@ import UpdateTile, { UpdateTileMeta, UpdateTileContent, UpdateTileComments } fro
 
 import {
     Tile,
+    Spinner,
 } from 'components';
 
 import {
@@ -90,9 +91,12 @@ export default class ConversationUpdates extends React.Component {
         this.fetcher.fetch();
     }
 
+    componentWillUnmount() {
+        this.fetcher.destroy();
+    }
+
     render() {
         const { updates = [] } = this.fetcher.data;
-        console.log(updates);
 
         return (
             <FilteredList>
@@ -111,7 +115,10 @@ export default class ConversationUpdates extends React.Component {
                     </FillInTheBlanks>
                 </FilteredListControls>
                 <FilteredListItems>
-                    { updates.map((update: any) => {
+                    { !updates.length && (
+                        <Spinner />
+                    ) }
+                    { !!updates.length && updates.map((update: any) => {
                         const postee = update.upperUser || update.partup;
                         const posteeName = postee.profile
                             ? (postee.profile.normalized_name || postee.profile.name)

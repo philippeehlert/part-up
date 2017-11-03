@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/i18next": "^8.4.2",
     "classnames": "^2.2.5",
     "i18next": "^10.0.7",
     "jquery": "^3.2.1",
@@ -15,7 +14,8 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
-    "react-web-meteor": "^0.2.3"
+    "react-web-meteor": "^0.2.3",
+    "spin": "^0.0.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/i18next": "^8.4.2",
     "@types/jest": "^21.1.4",
     "@types/jquery": "^3.2.15",
     "@types/lodash": "^4.14.78",
