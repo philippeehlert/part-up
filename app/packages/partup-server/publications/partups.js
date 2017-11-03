@@ -2,13 +2,27 @@
  * Gets all conversation updates for a user's partup.
  */
 Meteor.routeComposite('/partups/updates', function(request, parameters) {
+    check(parameters.query, {
+        limit: Match.Optional(String),
+        skip: Match.Optional(String),
+        userId: Match.Optional(String),
+    });
+
+    const options = {};
+
+    options.limit = parseInt(lodash.get(parameters, 'query.limit')) || 25;
+    options.skip = parseInt(lodash.get(parameters, 'query.skip')) || 0;
+
     const userId = parameters.query.userId || this.userId;
 
     const partupsCursor = Partups.guardedFind(userId, {}, { _id: 1, name: 1 });
 
     const partupIds = partupsCursor.map(({_id}) => _id);
 
-    const updatesCursor = Updates.findForPartupsIds(partupIds, {filter: 'conversations'});
+    const updatesCursor = Updates.findForPartupsIds(partupIds, {
+        filter: 'conversations',
+        ...options,
+    });
 
     const upperIds = updatesCursor
         .map(({upper_id}) => upper_id)

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as c from 'classnames';
-import { find, findOne, getUrl } from 'collections/Images';
+import { findOne, getUrl } from 'collections/Images';
 import { get } from 'lodash';
 
 import './UserAvatar.css';
@@ -28,7 +28,6 @@ export default class UserAvatar extends React.Component<Props, {}> {
 
         const image = findOne({_id: get(user, 'profile.image')});
         const imageUrl = getUrl(image, '360x360');
-        console.log(find());
 
         return (
             <div className={this.getClassNames()}>

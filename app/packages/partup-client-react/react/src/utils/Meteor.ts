@@ -74,6 +74,10 @@ onStartup(() => {
         Meteor.connect(`${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}/websocket`);
     }
 
+    // Meteor.loginWithPassword('rickondraw@gmail.com', 'Testpassword1', (...args:  any[]) => {
+    //     console.log(...args);
+    // });
+
     Meteor._loginWithToken(getLoginToken());
 });
 

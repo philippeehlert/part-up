@@ -250,9 +250,8 @@ Updates.findForPartupsIds = function(partupIds, parameters, userId) {
     var selector = {partup_id: {$in: partupIds} };
     var options = {sort: {updated_at: -1}};
 
-    if (parameters.limit) {
-        options.limit = parseInt(parameters.limit);
-    }
+    options.limit = parseInt(parameters.limit) || 25;
+    options.skip = parseInt(parameters.skip) || 0;
 
     if (parameters.filter) {
         var filter = parameters.filter;

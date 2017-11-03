@@ -60,6 +60,10 @@ export default class ConversationUpdates extends React.Component {
 
     private fetcher = new Fetcher({
         route: 'partups/updates',
+        query: {
+            limit: 15,
+            skip: 0,
+        },
         onChange: () => this.forceUpdate(),
         transformData: (data: any) => {
             const {
@@ -88,7 +92,8 @@ export default class ConversationUpdates extends React.Component {
 
     render() {
         const { updates = [] } = this.fetcher.data;
-        // console.log()
+        console.log(updates);
+
         return (
             <FilteredList>
                 <FilteredListControls>

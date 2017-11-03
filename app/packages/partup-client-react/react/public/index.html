@@ -30,9 +30,10 @@
                     whitelist: ['en', 'nl'],
                     nonExplicitWhitelist: true,
                     interpolation: {
-                    prefix: '__',
-                    suffix: '__',
-                    }
+                        prefix: '__',
+                        suffix: '__',
+                    },
+                    parseMissingKeyHandler: (key) => key,
                 });
             } catch(err) {
                 console.log(err);
