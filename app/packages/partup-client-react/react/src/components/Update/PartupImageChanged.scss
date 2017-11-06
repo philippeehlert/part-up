@@ -1,4 +1,24 @@
 
 .pur-PartupImageChanged {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 
+    &__image {
+        margin-right: 10px;
+        width: calc(50% - 10px - 16px);
+        height: auto;
+        border-radius: 4px;
+
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__icon {
+        margin-right: 10px;
+        color: #ccc;
+    }
 }

@@ -18,13 +18,9 @@ export default class ContributionChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `contribution_changed` }
             </div>
         );
     }

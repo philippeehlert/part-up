@@ -2,9 +2,14 @@
 import * as React from 'react';
 import * as c from 'classnames';
 import './PartupMessageAdded.css';
+import translate from 'utils/translate';
+import { get } from 'lodash';
+import { HTMLText } from 'components';
+import { decode } from 'utils/mentions';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class PartupMessageAdded extends React.Component<Props, {}> {
@@ -18,14 +23,20 @@ export default class PartupMessageAdded extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { this.renderContent() }
             </div>
         );
+    }
+
+    private renderContent = () => {
+        const { type_data } = this.props.data;
+
+        if (type_data.type === 'welcome_message') {
+            return translate('update-type-partups_message_added-system-welcome_message-content');
+        }
+
+        return <HTMLText html={decode(get(type_data, 'new_value'))} />;
     }
 }

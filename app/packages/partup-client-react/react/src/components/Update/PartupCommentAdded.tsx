@@ -18,13 +18,9 @@ export default class PartupCommentAdded extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `partup_comment_added` }
             </div>
         );
     }

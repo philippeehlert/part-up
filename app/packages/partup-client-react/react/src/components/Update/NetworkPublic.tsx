@@ -18,13 +18,9 @@ export default class NetworkPublic extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `network_public` }
             </div>
         );
     }

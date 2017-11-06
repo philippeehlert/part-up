@@ -1,4 +1,26 @@
 
 .pur-PartupEndDateChanged {
-
+    &__label {
+        display: inline-block;
+        position: relative;
+        height: 30px;
+        padding: 8px 6px 6px 8px;
+        background-color: #eeeeee;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16px;
+        color: #292929;
+        border-radius: 2px;
+        text-decoration: none;
+        margin-right: 0;
+        text-transform: lowercase;
+        transition: background-color 0.15s;
+        white-space: nowrap;
+        margin-right: 10px;
+    }
+    
+    &__icon {
+        margin-right: 10px;
+        color: #ccc;
+    }
 }

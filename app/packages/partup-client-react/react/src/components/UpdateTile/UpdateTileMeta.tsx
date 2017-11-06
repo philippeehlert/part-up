@@ -5,14 +5,10 @@ import './UpdateTileMeta.css';
 
 // import { Link } from '../Router';
 
-import { UserAvatar } from '../';
-
-import { User } from 'types/User';
-
 interface Props {
     className?: string;
-    postedBy: User|any;
     postedAt: Date|string;
+    avatar: JSX.Element;
 }
 
 export default class UpdateTileMeta extends React.Component<Props, {}> {
@@ -26,11 +22,13 @@ export default class UpdateTileMeta extends React.Component<Props, {}> {
     }
 
     render() {
-        const { postedBy, postedAt, children } = this.props;
+        const { postedAt, children, avatar } = this.props;
 
         return (
             <div className={this.getClassNames()}>
-                <UserAvatar user={postedBy} className={`pur-UpdateTileMeta__author-avatar`} />
+                <div className={`pur-UpdateTileMeta__author-avatar`}>
+                    {avatar}
+                </div>
                 <div className={`pur-UpdateTileMeta__pur-UpdateTileMeta__info`}>
                     <h4 className={`pur-UpdateTileMeta__created-info`}>
                         { children }

@@ -2,9 +2,11 @@
 import * as React from 'react';
 import * as c from 'classnames';
 import './PartupTagAdded.css';
+import { get } from 'lodash';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class PartupTagAdded extends React.Component<Props, {}> {
@@ -18,13 +20,13 @@ export default class PartupTagAdded extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
+        const { data } = this.props;
+        
         return (
             <div className={this.getClassNames()}>
-                { children }
+                <span className={'pur-PartupTagAdded__label'}>
+                    { get(data, 'type_data.new_tag') }
+                </span>
             </div>
         );
     }

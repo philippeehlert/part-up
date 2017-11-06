@@ -18,13 +18,9 @@ export default class PartupBudgetChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `partup_budget_changed` }
             </div>
         );
     }

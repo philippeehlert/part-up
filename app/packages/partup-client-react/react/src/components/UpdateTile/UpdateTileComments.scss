@@ -9,6 +9,10 @@
         &__reactions {
             color: $pur-color-dusty-gray;
         }
+        
+        &__respond-link * {
+            text-decoration: underline;
+        }
     }
 
     &__container {

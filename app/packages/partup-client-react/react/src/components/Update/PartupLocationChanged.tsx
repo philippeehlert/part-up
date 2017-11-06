@@ -18,13 +18,9 @@ export default class PartupLocationChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `partup_location_changed` }
             </div>
         );
     }

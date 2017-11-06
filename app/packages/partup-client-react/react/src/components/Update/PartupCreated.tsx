@@ -5,6 +5,7 @@ import './PartupCreated.css';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class PartupCreated extends React.Component<Props, {}> {
@@ -18,14 +19,6 @@ export default class PartupCreated extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
-        return (
-            <div className={this.getClassNames()}>
-                { children }
-            </div>
-        );
+        return 'no-update-available';
     }
 }

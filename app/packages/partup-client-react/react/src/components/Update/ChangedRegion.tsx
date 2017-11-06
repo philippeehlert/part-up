@@ -5,6 +5,7 @@ import './ChangedRegion.css';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class ChangedRegion extends React.Component<Props, {}> {
@@ -18,13 +19,13 @@ export default class ChangedRegion extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
+        const { data } = this.props;
+
+        console.log(data);
 
         return (
             <div className={this.getClassNames()}>
-                { children }
+                {`changed_region`}
             </div>
         );
     }

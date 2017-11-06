@@ -2,9 +2,12 @@
 import * as React from 'react';
 import * as c from 'classnames';
 import './PartupTagChanged.css';
+import { get } from 'lodash';
+import { Icon } from 'components';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class PartupTagChanged extends React.Component<Props, {}> {
@@ -18,13 +21,17 @@ export default class PartupTagChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
+        const { data } = this.props;
 
         return (
             <div className={this.getClassNames()}>
-                { children }
+                <span className={'pur-PartupTagChanged__label'}>
+                    { get(data, 'type_data.new_tag') }
+                </span>
+                <Icon className={'pur-PartupTagChanged__icon'} name={'arrow-left'} />
+                <span className={'pur-PartupTagChanged__label'}>
+                    { get(data, 'type_data.old_tag') }
+                </span>
             </div>
         );
     }

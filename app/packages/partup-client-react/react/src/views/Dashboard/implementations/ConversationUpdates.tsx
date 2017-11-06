@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { get } from 'lodash';
 
 import UpdateTile, { UpdateTileMeta, UpdateTileContent, UpdateTileComments } from 'components/UpdateTile';
+
+import Images from 'collections/Images';
 
 import {
     Tile,
@@ -53,6 +56,8 @@ import FilteredList, {
     FilteredListItems,
 } from 'components/FilteredList';
 
+import { UserAvatar, SystemAvatar } from 'components/Avatar';
+
 import FillInTheBlanks, { Blank } from 'components/FillInTheBlanks';
 
 import Fetcher from 'utils/Fetcher';
@@ -62,11 +67,14 @@ export default class ConversationUpdates extends React.Component {
     private fetcher = new Fetcher({
         route: 'partups/updates',
         query: {
-            limit: 15,
+            limit: 400,
             skip: 0,
             supporterOnly: true,
         },
         onChange: () => this.forceUpdate(),
+        onResponse: (data: any) => {
+            Images.updateStatic(data['cfs.images.filerecord']);
+        },
         transformData: (data: any) => {
             const {
                 updates = [],
@@ -82,7 +90,7 @@ export default class ConversationUpdates extends React.Component {
                 updates: updates.map((update: any) => ({
                     ...update,
                     partup: partups.find(({_id}) => update.partup_id === _id),
-                    users: users.find(({_id}) => update.upper_id === _id),
+                    upper: users.find(({_id}) => update.upper_id === _id),
                 })),
             };
         },
@@ -97,7 +105,8 @@ export default class ConversationUpdates extends React.Component {
     }
 
     render() {
-        const { updates = [] } = this.fetcher.data;
+        const { data, loading } = this.fetcher;
+        const { updates = [] } = data;
 
         return (
             <FilteredList>
@@ -116,28 +125,26 @@ export default class ConversationUpdates extends React.Component {
                     </FillInTheBlanks>
                 </FilteredListControls>
                 <FilteredListItems>
-                    { !updates.length && (
+                    { loading && !updates.length && (
                         <Spinner />
                     ) }
                     { !!updates.length && updates.map((update: any) => {
-                        const postee = update.upperUser || update.partup;
-                        const posteeName = postee.profile
-                            ? (postee.profile.normalized_name || postee.profile.name)
-                            : postee.name;
-
+                        const upper = update.upper;
                         return (
                             <Tile title={update.partup.name} key={update._id}>
                                 <UpdateTile>
                                     <UpdateTileMeta
-                                        postedBy={postee}
+                                        avatar={update.system ? <SystemAvatar /> :  <UserAvatar user={upper} />}
                                         postedAt={update.created_at}
                                     >
-                                        { this.renderUpdateTitle(update.type, posteeName, update.type_data) }
+                                        { this.renderUpdateTitle(update, get(upper, 'profile.name')) }
                                     </UpdateTileMeta>
-                                    <UpdateTileContent>
-                                        { this.renderUpdateComponent(update.type, update.type_data) }
-                                    </UpdateTileContent>
-                                    <UpdateTileComments comments={update.comments || []} />
+                                    { this.shouldRenderUpdateComponent(update) && (
+                                        <UpdateTileContent>
+                                            { this.renderUpdateComponent(update) }
+                                        </UpdateTileContent>
+                                    )}
+                                    <UpdateTileComments update={update} comments={update.comments || []} />
                                 </UpdateTile>
                             </Tile>
                         );
@@ -147,53 +154,96 @@ export default class ConversationUpdates extends React.Component {
         );
     }
 
-    private renderUpdateComponent(type: string, typeData: {[key: string]: any} ) {
+    private shouldRenderUpdateComponent({type}: {type: string}) {
+        return {
+            'changed_region':                          () => true,
+            'partups_contributions_accepted':          () => true,
+            'partups_contributions_added':             () => true,
+            'partups_contributions_changed':           () => true,
+            'partups_contributions_comments_added':    () => true,
+            'partups_contributions_proposed':          () => true,
+            'partups_contributions_removed':           () => true,
+            'network_private':                         () => true,
+            'network_public':                          () => true,
+            'partups_activities_added':                () => true,
+            'partups_activities_archived':             () => true,
+            'partups_activities_changed':              () => true,
+            'partups_activities_comments_added':       () => true,
+            'partups_activities_removed':              () => true,
+            'partups_activities_unarchived':           () => true,
+            'partups_archived':                        () => false, // no update content
+            'partups_budget_changed':                  () => true,
+            'partups_comments_added':                  () => false, // no update content
+            'partups_created':                         () => false, // no update content
+            'partups_description_changed':             () => true,
+            'partups_end_date_changed':                () => true,
+            'partups_image_changed':                   () => true,
+            'partups_invited':                         () => false, // no update content
+            'partups_location_changed':                () => true,
+            'partups_message_added':                   () => true,
+            'partups_name_changed':                    () => true,
+            'partups_partner_rejected':                () => true,
+            'partups_partner_request':                 () => true,
+            'partups_ratings_changed':                 () => true,
+            'partups_ratings_inserted':                () => true,
+            'partups_supporters_added':                () => false, // no update content
+            'partups_tags_added':                      () => true,
+            'partups_tags_changed':                    () => true,
+            'partups_tags_removed':                    () => true,
+            'partups_unarchived':                      () => false, // no update content
+            'partups_uppers_added':                    () => false, // no update content
+            'rated':                                   () => true,
+            'system_supporters_removed':               () => true,
+        }[type]();
+    }
+
+    private renderUpdateComponent({type, ...update}: {type: string, typeData: {[key: string]: any}}) {
 
         const table = {
-            'partups_message_added':                   (data: any) => <PartupMessageAdded />,
-            'changed_region':                          (data: any) => <ChangedRegion />,
-            'network_private':                         (data: any) => <NetworkPrivate />,
-            'network_public':                          (data: any) => <NetworkPublic />,
-            'partups_activities_added':                (data: any) => <PartupActivityAdded />,
-            'partups_activities_archived':             (data: any) => <PartupActivityArchived />,
-            'partups_activities_changed':              (data: any) => <PartupActivityChanged />,
-            'partups_activities_comments_added':       (data: any) => <PartupActivityCommentAdded />,
-            'partups_activities_removed':              (data: any) => <PartupActivityRemoved />,
-            'partups_activities_unarchived':           (data: any) => <PartupActivityUnarchived />,
-            'partups_archived':                        (data: any) => <PartupArchived />,
-            'partups_budget_changed':                  (data: any) => <PartupBudgetChanged />,
-            'partups_comments_added':                  (data: any) => <PartupCommentAdded />,
-            'partups_contributions_accepted':          (data: any) => <ContributionAccepted />,
-            'partups_contributions_added':             (data: any) => <ContributionAdded />,
+            'changed_region':                          (data: any) => <ChangedRegion data={data} />,
+            'partups_contributions_accepted':          (data: any) => <ContributionAccepted data={data} />,
+            'partups_contributions_added':             (data: any) => <ContributionAdded data={data} />,
             'partups_contributions_changed':           (data: any) => <ContributionChanged />,
             'partups_contributions_comments_added':    (data: any) => <ContributionCommentAdded />,
             'partups_contributions_proposed':          (data: any) => <ContributionProposed />,
             'partups_contributions_removed':           (data: any) => <ContributionRemoved />,
-            'partups_created':                         (data: any) => <PartupCreated />,
-            'partups_description_changed':             (data: any) => <PartupDescriptionChanged />,
-            'partups_end_date_changed':                (data: any) => <PartupEndDateChanged />,
-            'partups_image_changed':                   (data: any) => <PartupImageChanged />,
-            'partups_invited':                         (data: any) => <PartupInvited />,
+            'network_private':                         (data: any) => <NetworkPrivate />,
+            'network_public':                          (data: any) => <NetworkPublic />,
+            'partups_activities_added':                (data: any) => <PartupActivityAdded data={data} />,
+            'partups_activities_archived':             (data: any) => <PartupActivityArchived data={data} />,
+            'partups_activities_changed':              (data: any) => <PartupActivityChanged data={data} />,
+            'partups_activities_comments_added':       (data: any) => <PartupActivityCommentAdded data={data} />,
+            'partups_activities_removed':              (data: any) => <PartupActivityRemoved data={data} />,
+            'partups_activities_unarchived':           (data: any) => <PartupActivityUnarchived data={data} />,
+            'partups_archived':                        (data: any) => <PartupArchived data={data} />, // no update content
+            'partups_budget_changed':                  (data: any) => <PartupBudgetChanged />,
+            'partups_comments_added':                  (data: any) => <PartupCommentAdded />, // no update content
+            'partups_created':                         (data: any) => <PartupCreated data={data} />, // no update content
+            'partups_description_changed':             (data: any) => <PartupDescriptionChanged data={data} />,
+            'partups_end_date_changed':                (data: any) => <PartupEndDateChanged data={data} />,
+            'partups_image_changed':                   (data: any) => <PartupImageChanged data={data} />,
+            'partups_invited':                         (data: any) => <PartupInvited data={data} />, // no update content
             'partups_location_changed':                (data: any) => <PartupLocationChanged />,
-            'partups_name_changed':                    (data: any) => <PartupNameChanged />,
+            'partups_message_added':                   (data: any) => <PartupMessageAdded data={data} />,
+            'partups_name_changed':                    (data: any) => <PartupNameChanged data={data} />,
             'partups_partner_rejected':                (data: any) => <PartupPartnerRejected />,
             'partups_partner_request':                 (data: any) => <PartupPartnerRequest />,
             'partups_ratings_changed':                 (data: any) => <PartupRatingChanged />,
             'partups_ratings_inserted':                (data: any) => <PartupRatingInserted />,
-            'partups_supporters_added':                (data: any) => <PartupSupporterAdded />,
-            'partups_tags_added':                      (data: any) => <PartupTagAdded />,
-            'partups_tags_changed':                    (data: any) => <PartupTagChanged />,
-            'partups_tags_removed':                    (data: any) => <PartupTagRemoved />,
-            'partups_unarchived':                      (data: any) => <PartupUnarchived />,
-            'partups_uppers_added':                    (data: any) => <PartupUpperAdded />,
+            'partups_supporters_added':                (data: any) => <PartupSupporterAdded data={data} />, // no update content
+            'partups_tags_added':                      (data: any) => <PartupTagAdded data={data} />,
+            'partups_tags_changed':                    (data: any) => <PartupTagChanged data={data} />,
+            'partups_tags_removed':                    (data: any) => <PartupTagRemoved data={data} />,
+            'partups_unarchived':                      (data: any) => <PartupUnarchived data={data} />, // no update content
+            'partups_uppers_added':                    (data: any) => <PartupUpperAdded data={data} />, // no update content
             'rated':                                   (data: any) => <Rated />,
             'system_supporters_removed':               (data: any) => <SystemSupporterRemoved />,
         };
 
-        return table[type](typeData);
+        return table[type](update);
     }
 
-    private renderUpdateTitle(type: string, poster: any, typeData: any) {
+    private renderUpdateTitle({type, typeData}: {type: string, typeData: {[key: string]: any}}, upperName: string) {
 
         const map = {
             'changed_region': (postee: any) => `${postee} changed the part-up location`,
@@ -236,6 +286,6 @@ export default class ConversationUpdates extends React.Component {
             'system_supporters_removed': (postee: any) => `${postee} is not a supporter anymore`,
         };
 
-        return map[type](poster, typeData);
+        return map[type](upperName, typeData);
     }
 }

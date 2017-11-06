@@ -18,13 +18,10 @@ export default class ContributionCommentAdded extends React.Component<Props, {}>
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
 
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `contribution_comment_added` }
             </div>
         );
     }

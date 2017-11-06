@@ -18,13 +18,9 @@ export default class PartupRatingChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
         return (
             <div className={this.getClassNames()}>
-                { children }
+                { `partup_rating_changed` }
             </div>
         );
     }

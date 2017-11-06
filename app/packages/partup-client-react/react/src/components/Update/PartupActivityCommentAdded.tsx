@@ -2,9 +2,12 @@
 import * as React from 'react';
 import * as c from 'classnames';
 import './PartupActivityCommentAdded.css';
+import Activity from 'components/Activity';
+import { get } from 'lodash';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class PartupActivityCommentAdded extends React.Component<Props, {}> {
@@ -18,13 +21,11 @@ export default class PartupActivityCommentAdded extends React.Component<Props, {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
+        const { data } = this.props;
+        
         return (
             <div className={this.getClassNames()}>
-                { children }
+                <Activity _id={get(data, 'type_data.activity_id')} />
             </div>
         );
     }

@@ -4,13 +4,16 @@ import { RouteComponentProps, matchPath } from 'react-router';
 import { AppContext } from 'App';
 
 import {
-    UserAvatar,
     Icon,
     MediaQuery,
     MobileNav,
     DropDown,
     Counter,
 } from 'components';
+
+import {
+    UserAvatar,
+} from 'components/Avatar';
 
 import List, {
     ListItem,

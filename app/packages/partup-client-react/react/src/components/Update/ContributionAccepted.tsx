@@ -5,6 +5,7 @@ import './ContributionAccepted.css';
 
 interface Props {
     className?: string;
+    data: any;
 }
 
 export default class ContributionAccepted extends React.Component<Props, {}> {
@@ -18,13 +19,10 @@ export default class ContributionAccepted extends React.Component<Props, {}> {
     }
 
     render() {
-        const {
-            children,
-        } = this.props;
-
+        console.log(this.props.data);
         return (
             <div className={this.getClassNames()}>
-                { children }
+                {`contribution_accepted`}
             </div>
         );
     }
