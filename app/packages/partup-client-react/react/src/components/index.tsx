@@ -12,5 +12,5 @@ export { default as SideBarView } from './SideBarView';
 export { default as Spinner } from './Spinner';
 export { default as Tile } from './Tile';
 export { default as UpdateTile } from './UpdateTile';
-export { default as UserAvatar } from './UserAvatar';
 export { default as View } from './View';
+export { default as HTMLText } from './HTMLText';
