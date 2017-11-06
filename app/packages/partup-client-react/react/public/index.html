@@ -33,7 +33,7 @@
                         prefix: '__',
                         suffix: '__',
                     },
-                    parseMissingKeyHandler: (key) => key,
+                    parseMissingKeyHandler: (key) => 'missing:' + key,
                 });
             } catch(err) {
                 console.log(err);
