@@ -67,7 +67,7 @@ export default class ConversationUpdates extends React.Component {
     private fetcher = new Fetcher({
         route: 'partups/updates',
         query: {
-            limit: 400,
+            limit: 25,
             skip: 0,
             supporterOnly: true,
         },
