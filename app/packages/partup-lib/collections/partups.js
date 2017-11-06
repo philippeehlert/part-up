@@ -83,8 +83,8 @@ Partup.prototype.isEditableBy = function (user) {
         return false;
     }
 	return (
-        this.hasUpper(user._id) || 
-        User(user).isAdminOfNetwork(this.network_id) || 
+        this.hasUpper(user._id) ||
+        User(user).isAdminOfNetwork(this.network_id) ||
         User(user).isAdmin()
     );
 };
@@ -861,6 +861,32 @@ Partups.findSupporterPartupsForUser = function (user, parameters, loggedInUserId
 	return result;
 };
 
+Partups.findPartupsIdsForUser = function (user, options, loggedInUserId) {
+	user = user || {};
+    options = options || {};
+
+    let ids = [];
+    const supporterOfIds = user.supporterOf || [];
+    const upperOfIds = user.upperOf || [];
+
+    if (options.supporterOnly) {
+        ids = supporterOfIds;
+    } else if (options.upperOnly) {
+        ids = upperOfIds;
+    } else {
+        ids = [
+            ...(supporterOfIds),
+            ...(upperOfIds),
+        ]
+    }
+
+    console.log(ids);
+
+	var selector = { _id: { $in: ids } };
+
+	return this.guardedFind(loggedInUserId, selector);
+};
+
 Partups.findStatsForAdmin = function () {
 	var partups = this.find({});
 	results = {
@@ -920,19 +946,19 @@ Partups.findForAdminList = function (selector, options) {
 
 Partups.findForMenu = function (userId, ids, options) {
 	check(userId, String);
-	
-	const partupFields = { 
-		fields: { 
-			name: 1, 
-			network_id: 1, 
-			slug: 1, 
-			image: 1, 
-			upper_data: { $elemMatch: { _id: userId } } 
-		} 
+
+	const partupFields = {
+		fields: {
+			name: 1,
+			network_id: 1,
+			slug: 1,
+			image: 1,
+			upper_data: { $elemMatch: { _id: userId } }
+		}
 	};
 	const partupOptions = Object.assign({}, options, partupFields);
 
-	return this.guardedFind(userId, 
+	return this.guardedFind(userId,
 		{ $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
 		partupOptions);
 }

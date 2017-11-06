@@ -6,6 +6,8 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
         limit: Match.Optional(String),
         skip: Match.Optional(String),
         userId: Match.Optional(String),
+        upperOnly: Match.Optional(String),
+        supporterOnly: Match.Optional(String),
     });
 
     const options = {};
@@ -14,8 +16,12 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     options.skip = parseInt(lodash.get(parameters, 'query.skip')) || 0;
 
     const userId = parameters.query.userId || this.userId;
+    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
-    const partupsCursor = Partups.guardedFind(userId, {}, { _id: 1, name: 1 });
+    const partupsCursor = Partups.findPartupsIdsForUser(user, {
+        upperOnly: parameters.upperOnly || false,
+        supporterOnly: parameters.supporterOnly || false,
+    }, userId);
 
     const partupIds = partupsCursor.map(({_id}) => _id);
 

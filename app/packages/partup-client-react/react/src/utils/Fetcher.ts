@@ -1,7 +1,7 @@
 import Meteor, { getLoginToken } from 'utils/Meteor';
 
 type QueryParameters = {
-    [param: string]: string|boolean|number|null;
+    [param: string]: any;
 };
 
 type FetcherOptions<FetcherData = {[key: string]: any}> = {

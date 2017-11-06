@@ -64,6 +64,7 @@ export default class ConversationUpdates extends React.Component {
         query: {
             limit: 15,
             skip: 0,
+            supporterOnly: true,
         },
         onChange: () => this.forceUpdate(),
         transformData: (data: any) => {
