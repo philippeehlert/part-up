@@ -25,17 +25,34 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
 
     const partupIds = partupsCursor.map(({_id}) => _id);
 
+    const partupUpperArrays = partupsCursor.map(({uppers}) => uppers);
+    const partupUpperIds = lodash.flattenDeep(partupUpperArrays);
+    const partupUniqueUpperIds = lodash.uniq(partupUpperIds);
+
     const updatesCursor = Updates.findForPartupsIds(partupIds, {
         filter: 'conversations',
+        sort: {updated_at: -1},
         ...options,
     });
 
-    const upperIds = updatesCursor
-        .map(({upper_id}) => upper_id)
-        .filter((_id) => _id)
-        .filter((v, i, a) => a.indexOf(v) === i);
+    const usersCursor = Meteor.users.findMultiplePublicProfiles(partupUniqueUpperIds);
 
-    const usersCursor = Meteor.users.findMultiplePublicProfiles(upperIds);
+    const imagesCursor = Images.findForCursors([{
+        cursor: usersCursor,
+        imageKey: 'profile.image',
+    }, {
+        cursor: partupsCursor,
+        imageKey: 'image',
+    }, {
+        cursor: updatesCursor,
+        imageKey: 'type_data.old_image',
+    }, {
+        cursor: updatesCursor,
+        imageKey: 'type_data.new_image',
+    }, {
+        cursor: updatesCursor,
+        imageKey: 'type_data.images',
+    }]);
 
     return {
         find: () => Meteor.users.find({_id: userId}),
@@ -43,6 +60,7 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
             {find: () => partupsCursor},
             {find: () => updatesCursor},
             {find: () => usersCursor},
+            {find: () => imagesCursor},
         ],
     };
 });

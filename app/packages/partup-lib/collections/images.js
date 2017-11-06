@@ -129,14 +129,17 @@ Images.findForContentBlock = function(contentBlock) {
 };
 
 Images.findForCursors = function(cursors, options) {
-    var imageIds = cursors.map(function(obj) {
-        var documents = obj.cursor.fetch();
+    const imageIds = cursors.map(function(obj) {
+        const documents = obj.cursor.fetch();
+
         return documents.map(function(item) {
             return lodash.get(item, obj.imageKey);
         });
     }).reduce(function(accumilator, curr) {
+
         return accumilator.concat(curr);
     }, []).filter(function(item) {
+        
         return !!item;
     });
     return Images.find({_id: { $in: imageIds}}, options)
