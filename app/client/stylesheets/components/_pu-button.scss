@@ -348,6 +348,10 @@
                 background-color: transparent;
             }
 
+            .pu-dropdown-simple {
+                overflow: auto;
+            }
+
             &-active {
                 // padding-top: 0
                 background-color: darken($color-primary, 10%);
