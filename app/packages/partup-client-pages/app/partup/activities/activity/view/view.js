@@ -16,12 +16,6 @@ Template.ActivityView.onCreated(function() {
     };
 });
 
-Template.ActivityView.onRendered(function () {
-    window.addEventListener('click', function(event) {
-        console.log(event.target);
-    });
-});
-
 /*************************************************************/
 /* Widget helpers */
 /*************************************************************/
