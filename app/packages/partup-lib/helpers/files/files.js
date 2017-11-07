@@ -146,12 +146,8 @@ Partup.helpers.files = {
         }
 
         const info = this.getFileInfo(file);
-
-        if (info[0]) {
-            return info[0].icon;
-        }
         if (info) {
-            return info[0] ? info[0].icon : info.icon;
+            return (info[0] instanceof FileInfo) ? info[0].icon : info.icon;
         }
         return 'file.svg';
     },
