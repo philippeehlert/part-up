@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import UpdateTile, { UpdateTileMeta, UpdateTileContent, UpdateTileComments } from 'components/UpdateTile';
 
 import Images from 'collections/Images';
+import Partups from 'collections/Partups';
 
 import {
     Tile,
@@ -74,23 +75,33 @@ export default class ConversationUpdates extends React.Component {
         onChange: () => this.forceUpdate(),
         onResponse: (data: any) => {
             Images.updateStatic(data['cfs.images.filerecord']);
+            Partups.updateStatic(data.partups || []);
         },
         transformData: (data: any) => {
             const {
                 updates = [],
                 partups = [],
                 users = [],
+                activities = [],
+                lanes = [],
             }: {
                 updates: any[],
                 partups: any[],
                 users: any[],
+                activities: any[],
+                lanes: any[],
             } = data;
+
+            activities.forEach((activity) => {
+                activity.lane = lanes.find(({_id}) => _id === activity.lane_id);
+            });
 
             return {
                 updates: updates.map((update: any) => ({
                     ...update,
                     partup: partups.find(({_id}) => update.partup_id === _id),
                     upper: users.find(({_id}) => update.upper_id === _id),
+                    activity: activities.find(({update_id}) => update_id === update._id),
                 })),
             };
         },

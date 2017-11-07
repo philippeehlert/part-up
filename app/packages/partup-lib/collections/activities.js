@@ -118,6 +118,22 @@ Activities.findForUpdate = function(update) {
 };
 
 /**
+ * Find activity for an update
+ *
+ * @memberOf Activities
+ * @param {Update} update
+ * @return {Mongo.Cursor|Void}
+ */
+Activities.findForUpdateIds = function(updateIds) {
+    options = options || {};
+    parameters = parameters || {};
+
+    const selector = {update_id: {$in: updateIds} }
+
+    return this.guardedFind(null, selector, options);
+};
+
+/**
  * Find activity for contribution
  *
  * @memberOf Activities

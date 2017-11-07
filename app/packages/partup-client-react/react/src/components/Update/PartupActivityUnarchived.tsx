@@ -25,7 +25,7 @@ export default class PartupActivityUnarchived extends React.Component<Props, {}>
         
         return (
             <div className={this.getClassNames()}>
-                <Activity _id={get(data, 'type_data.activity_id')} />
+                <Activity _id={get(data, 'type_data.activity_id')} data={data.activity} />
             </div>
         );
     }

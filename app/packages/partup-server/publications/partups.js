@@ -18,25 +18,37 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     const userId = parameters.query.userId || this.userId;
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
+    // find all partups for user
     const partupsCursor = Partups.findPartupsIdsForUser(user, {
-        upperOnly: parameters.upperOnly || false,
-        supporterOnly: parameters.supporterOnly || false,
+        upperOnly: parameters.query.upperOnly || false,
+        supporterOnly: parameters.query.supporterOnly || false,
     }, userId);
 
+    // map ids for future finds
     const partupIds = partupsCursor.map(({_id}) => _id);
-
     const partupUpperArrays = partupsCursor.map(({uppers}) => uppers);
     const partupUpperIds = lodash.flattenDeep(partupUpperArrays);
     const partupUniqueUpperIds = lodash.uniq(partupUpperIds);
+    
+    // find all users for partups
+    const usersCursor = Meteor.users.findMultiplePublicProfiles(partupUniqueUpperIds);
 
+    // find all updates for user partups
     const updatesCursor = Updates.findForPartupsIds(partupIds, {
         filter: 'conversations',
         sort: {updated_at: -1},
         ...options,
     });
+    const updateIds = updatesCursor.map(({_id}) => _id);
 
-    const usersCursor = Meteor.users.findMultiplePublicProfiles(partupUniqueUpperIds);
+    // find all activities for userPartupUpdates
+    const activitiesCursor = Activities.findForUpdateIds(updateIds);
+    const activityLaneIds = activitiesCursor.map(({lane_id}) => lane_id);
 
+    // find lanes for activities
+    const lanesCursor = Lanes.find({_id: {$in: activityLaneIds}});
+
+    // find all asociated images for collections
     const imagesCursor = Images.findForCursors([{
         cursor: usersCursor,
         imageKey: 'profile.image',
@@ -54,11 +66,14 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
         imageKey: 'type_data.images',
     }]);
 
+    // resolve data to client
     return {
         find: () => Meteor.users.find({_id: userId}),
         children: [
             {find: () => partupsCursor},
             {find: () => updatesCursor},
+            {find: () => activitiesCursor},
+            {find: () => lanesCursor},
             {find: () => usersCursor},
             {find: () => imagesCursor},
         ],

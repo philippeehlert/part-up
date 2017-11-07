@@ -874,10 +874,7 @@ Partups.findPartupsIdsForUser = function (user, options, loggedInUserId) {
     } else if (options.upperOnly) {
         ids = upperOfIds;
     } else {
-        ids = [
-            ...(supporterOfIds),
-            ...(upperOfIds),
-        ]
+        ids = ids.concat(supporterOfIds, upperOfIds);
     }
 
     console.log(ids);
