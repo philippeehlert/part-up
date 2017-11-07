@@ -1,3 +1,13 @@
+<a name="2.36.3"></a>
+## [2.36.3](https://github.com/part-up/part-up/compare/2.36.2...2.36.3) (2017-10-30)
+
+
+### Bug Fixes
+
+* **client:** Add update subscription to update template for all updates tab ([a012210](https://github.com/part-up/part-up/commit/a012210))
+
+
+
 <a name="2.36.2"></a>
 ## [2.36.2](https://github.com/part-up/part-up/compare/2.36.1...2.36.2) (2017-10-29)
 
