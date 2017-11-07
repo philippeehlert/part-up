@@ -34,36 +34,40 @@
             <!-- Meta data -->
             <section class="pu-sub-section {{#unless BOARDVIEW}}pu-sub-section-divided{{/unless}}">
                 <div class="pu-sub-section__main">
-                    <!-- Edit button -->
-                    {{# unless COMPACT }}{{#unless BOARDVIEW}}{{# if showEditButton }}
-                    <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
-                    {{/ if }}{{/ unless }}{{/ unless }}
+                    <div>
+                        <!-- Title (could be clickable) -->
+                        <h3 class="pu-sub-title pu-expander">
+                            {{#unless BOARDVIEW}}
+                            {{#with lane}}
+                                <span class="pu-tag">{{ name }}</span>
+                            {{/with}}
+                            {{/unless}}
 
-                    <!-- Title (could be clickable) -->
-                    <h3 class="pu-sub-title pu-expander">
-                        {{#unless BOARDVIEW}}
-                        {{#with lane}}
-                            <span class="pu-tag">{{ name }}</span>
-                        {{/with}}
-                        {{/unless}}
+                            <span data-activity-expander>
+                                {{# if isActiveRoute name='partup' }}
+                                    <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
+                                    <!-- <i class="picon-caret-slim-right"></i> -->
+                                {{ else }}
+                                    {{ activity.name }}
+                                {{/ if }}
+                            </span>
 
-                        <span data-activity-expander>
-                            {{# if isActiveRoute name='partup' }}
-                                <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">{{ activity.name }}</a>
-                                <!-- <i class="picon-caret-slim-right"></i> -->
-                            {{ else }}
-                                {{ activity.name }}
-                            {{/ if }}
-                        </span>
+                            <!-- {{# if showChevron }}
+                                <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
+                            {{/ if }} -->
 
-                        <!-- {{# if showChevron }}
-                            <i class="{{# if expanded }}picon-caret-slim-up{{ else }}picon-caret-slim-down{{/ if }}"></i>
-                        {{/ if }} -->
+                            <!-- Edit button -->
+                            {{# unless COMPACT }}{{#unless BOARDVIEW}}{{# if showEditButton }}
+                            <a class="pu-sub-editbutton pu-button pu-button-text pu-button-text-subtle" data-activity-edit>{{_ 'activity-button-edit' }}</a>
+                            {{/ if }}{{/ unless }}{{/ unless }}
+                        </h3>
                         {{# if BOARDVIEW }}
-                            <i class="picon-caret-down" data-activity-dropdown></i>
-                            {{> Dropdown toggle=activityDropdownOpen template="activityActionsDropdown" data=. position='left' }}
+                            <div class="ignore-drag picon-wrap" data-activity-dropdown>
+                                <i class="picon-caret-down"></i>
+                                {{> Dropdown toggle=activityDropdownOpen template="activityActionsDropdown" data=. position='left' }}
+                            </div>
                         {{/ if }}
-                    </h3>
+                    </div>
 
                     <!-- If multiple contributions were found, show the activity description and metadata -->
                     {{# unless COMPACT }}

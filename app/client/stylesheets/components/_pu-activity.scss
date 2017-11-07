@@ -4,6 +4,13 @@
         padding: 15px;
         border-top: 2px solid #eee;
 
+        .ignore-drag {
+            margin-top: -10px;
+            padding: em(0) em(4);
+            display: inline-block;
+            position: relative;
+        }
+
         &:first-child {
             border-top: 0;
         }
@@ -21,6 +28,8 @@
             float:right;
             z-index:10;
             position:relative;
+            right: 0;
+            color: #999;
         }
 
         &-divided {
@@ -97,6 +106,8 @@
 
         &.pu-expander {
             overflow: visible;
+            display: inline-block;
+            width: calc(100% - 27px);
         }
     }
 
@@ -253,10 +264,10 @@
                     text-decoration: underline;
                 }
 
-                .picon-caret-down {
-                    font-size: 12px;
-                    float: right;
-                }
+            }
+            .picon-caret-down {
+                font-size: 13px;
+                color: #999;
             }
 
             .pu-sub-description {
@@ -286,7 +297,8 @@
             right: -12px;
 
             .pu-sub-arrow {
-                right: 19px;
+                left: auto;
+                right: 9px;
             }
 
             ul {
