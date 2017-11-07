@@ -37,7 +37,7 @@ Partup.services.validators = {
     // facebookUrl: /^http[s]?:\/\/(www\.)?facebook\.com\/\w+(\?.*)?$/,     //old
     facebookUrl: /^http[s]?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9._-]+\/?(\?.*)?$/, //new
     instagramUrl: /^http[s]?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9._-]+\/?(\?.*)?$/,
-    linkedinUrl: /^http[s]?:\/\/([a-zA-Z]+\.)?linkedin\.com\/(in\/[a-zA-Z0-9._-]+|pub\/.*|profile\/view)\/?(\?.*)?$/,
+    linkedinUrl: /^http[s]?:\/\/([a-zA-Z]+\.)?linkedin\.com\/(company\/.*|in\/[a-zA-Z0-9._-]+|pub\/.*|profile\/view)\/?(\?.*)?$/,
     twitterUrl: /^http[s]?:\/\/(www\.)?twitter\.com\/[a-zA-Z0-9._-]+\/?(\?.*)??$/,
 
     /**
