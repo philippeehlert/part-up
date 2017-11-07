@@ -8,6 +8,8 @@ import {
     Button,
 } from 'components';
 
+import List, { ListItem } from 'components/List';
+
 import PortalManager from 'components/PortalManager';
 
 import ModalPortal, {
@@ -26,12 +28,12 @@ import RecommendationsView from './routes/Recommendations';
 import { SideBar, ConversationUpdates } from './implementations';
 import translate from 'utils/translate';
 
-// import Form, {
-//     FieldCollection,
-//     FieldSet,
-//     Input,
-//     TextArea,
-// } from 'components/Form';
+import Form, {
+    FieldCollection,
+    FieldSet,
+    Label,
+    Input,
+} from 'components/Form';
 
 interface Props extends RouteComponentProps<any> {}
 
@@ -72,33 +74,32 @@ export default class Dashboard extends React.Component<Props, {}> {
                     )}
                     renderPortal={(close) => (
                         <ModalPortal onBackgroundClick={close}>
-                            {/* <Form onSubmit={this.onSubmit}> */}
+                            <Form onSubmit={(e: any, fields: any) => console.log(fields)}>
                                 <ModalWindow>
                                     <ModalHeader
                                         onClose={close}
                                         title={'Plaats een nieuw bericht'} />
                                     <ModalContent>
-                                        {`<FieldCollection>`}
-                                            {`<Fieldset label={'Waar wil je het bericht plaatsen?'}>`}
-                                                {`<Input placeholder={'Selecteer part-up'} />`}
-                                            {`</Fieldset>`}
-                                            {`<Fieldset label={'Wat wil je delen?'}>`}
-                                                {`<TextArea placeholder={'Write a comment'} />`}
-                                            {`</Fieldset>`}
-                                        {`</FieldCollection>`}
+                                        <FieldCollection>
+                                            <FieldSet>
+                                                <Label label={'Field label'}>
+                                                    <Input type={'text'} name={'fieldname'} />
+                                                </Label>
+                                            </FieldSet>
+                                        </FieldCollection>
                                     </ModalContent>
                                     <ModalFooter>
-                                        {`<List horizontal>`}
-                                            {`<ListItem alignRight>`}
-                                                {`<Button>Annuleren</Button>`}
-                                            {`</ListItem>`}
-                                            {`<ListItem alignRight>`}
-                                                {`<Button type={'submit'}>Plaats bericht</Button>`}
-                                            {`</ListItem>`}
-                                        {`</List>`}
+                                        <List horizontal>
+                                            <ListItem alignRight>
+                                                <Button type={'button'} onClick={close}>Annuleren</Button>
+                                            </ListItem>
+                                            <ListItem alignRight>
+                                                <Button type={'submit'}>Plaats bericht</Button>
+                                            </ListItem>
+                                        </List>
                                     </ModalFooter>
                                 </ModalWindow>
-                            {/* </Form> */}
+                            </Form>
                         </ModalPortal>
                     )}
                 />

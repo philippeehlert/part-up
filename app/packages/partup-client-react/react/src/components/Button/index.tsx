@@ -2,14 +2,9 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './Button.css';
 
-export enum ButtonType {
-    button = 'button',
-    submit = 'submit',
-}
-
 interface Props {
     className?: string;
-    type?: ButtonType;
+    type?: 'button'|'submit';
     leftChild?: any;
     rightChild?: any;
     onClick?: Function;
@@ -18,7 +13,7 @@ interface Props {
 export default class Button extends React.Component<Props, {}> {
     
     static defaultProps = {
-        type: ButtonType.button,
+        type: 'button',
     };
 
     getClassNames() {
