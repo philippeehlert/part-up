@@ -142,8 +142,11 @@ Template.Comments.helpers({
 
                 var clicked = self.showCommentClicked || template.showCommentClicked.get();
                 if (self.FULLVIEW) {
+                    return clicked;
+
+                    // This caused an IE bug where one could not unfocus the focused input.
                     // update detail
-                    return true;
+                    // return true;
                 } else {
                     // partup detail
                     return clicked;
