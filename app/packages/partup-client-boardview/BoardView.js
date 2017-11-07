@@ -207,7 +207,7 @@ Template.BoardView.onCreated(function () {
                 delay: touchDelay,
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
-                filter: '.pu-dropdownie',
+                filter: '.ignore-drag',
                 preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
