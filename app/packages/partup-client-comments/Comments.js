@@ -263,7 +263,7 @@ Template.Comments.events({
             Meteor.defer(function() {
                 var commentForm = template.find('[id$=commentForm-' + updateId + ']');
                 var field = lodash.find(commentForm, {name: 'content'});
-                if (field) field.focus();
+                if (field && !Partup.client.browser.isIE()) field.focus();
             });
         };
         if (Meteor.user()) {
