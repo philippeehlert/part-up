@@ -1,7 +1,7 @@
 Partup.schemas.forms.message = new SimpleSchema({
     text: {
         type: String,
-        max: 1000,
+        max: 2500,
     },
     images: {
         type: [String],
