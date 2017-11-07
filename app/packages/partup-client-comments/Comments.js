@@ -142,8 +142,11 @@ Template.Comments.helpers({
 
                 var clicked = self.showCommentClicked || template.showCommentClicked.get();
                 if (self.FULLVIEW) {
+                    return clicked;
+
+                    // This caused an IE bug where one could not unfocus the focused input.
                     // update detail
-                    return true;
+                    // return true;
                 } else {
                     // partup detail
                     return clicked;
@@ -263,7 +266,7 @@ Template.Comments.events({
             Meteor.defer(function() {
                 var commentForm = template.find('[id$=commentForm-' + updateId + ']');
                 var field = lodash.find(commentForm, {name: 'content'});
-                if (field && !Partup.client.browser.isIE()) field.focus();
+                if (field) field.focus();
             });
         };
         if (Meteor.user()) {
