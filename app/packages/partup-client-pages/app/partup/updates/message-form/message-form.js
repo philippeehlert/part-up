@@ -32,10 +32,17 @@ Template.messageForm.onCreated(function () {
         this.data :
     new Update();
     
+    this.maxLength = {
+        text: Partup.schemas.forms.message._schema.text.max,
+    };
+    this.charactersRemaining = new ReactiveDict();
+
+    const { type_data } = this.update;
+    const { new_value, images, documents } = (type_data || {});
+    
+    this.charactersRemaining.set('text', (this.maxLength.text - (new_value ? new_value.length : 0)));
+
     if (this.isExistingUpdate) {
-        const { type_data } = this.update;
-        const { images, documents } = type_data;
-        
         if (documents && documents.length) {
             this.subscribe('files.many', documents, {
                 onReady() {
@@ -122,6 +129,12 @@ Template.messageForm.helpers({
     fileController() {
         return Template.instance().fileController;
     },
+    charactersRemaining() {
+        const { charactersRemaining } = Template.instance();
+        return {
+            text: charactersRemaining.get('text'),
+        };
+    },
     isSubmitting() {
         return Template.instance().isSubmitting.get();
     },
@@ -133,6 +146,15 @@ Template.messageForm.helpers({
 Template.messageForm.events({
     'click [data-dismiss]'(event, templateInstance) {
         templateInstance.removeFiles();
+    },
+    'input [maxlength]'(event, templateInstance) {
+        const { target } = event;
+        const newVal = templateInstance.maxLength[target.name] - target.value.length;
+        templateInstance.charactersRemaining.set('text', newVal);
+
+        if (target.name === 'text') {
+            $(target).scrollTop(target.scrollHeight);
+        }
     },
 });
 
