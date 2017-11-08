@@ -167,7 +167,10 @@ AutoForm.hooks({
             const messageForm = Template.instance().parent();
 
             if (messageForm.fileController.uploading.get()) {
-                Partup.client.notify.info('still uploading');
+                Partup.client.notify.info(TAPi18n.__('files-uploading'));
+                return false;
+            }
+            if (messageForm.isSubmitting.get()) {
                 return false;
             }
 
@@ -225,7 +228,10 @@ AutoForm.hooks({
             const messageForm = Template.instance().parent();
 
             if (messageForm.fileController.uploading.get()) {
-                Partup.client.notify.info('still uploading');
+                Partup.client.notify.info(TAPi18n.__('files-uploading'));
+                return false;
+            }
+            if (messageForm.isSubmitting.get()) {
                 return false;
             }
 
