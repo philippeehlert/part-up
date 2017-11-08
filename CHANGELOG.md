@@ -1,3 +1,20 @@
+<a name="2.36.4"></a>
+## [2.36.4](https://github.com/part-up/part-up/compare/2.36.3...2.36.4) (2017-11-07)
+
+
+### Bug Fixes
+
+* **$schema:** LinkedInUrl validator now accepts company urls ([44baf16](https://github.com/part-up/part-up/commit/44baf16))
+* **client:** Change cursor to pointer when hovering chevron ([10be6e7](https://github.com/part-up/part-up/commit/10be6e7))
+* **client:** Change text area of new message ([1057bc7](https://github.com/part-up/part-up/commit/1057bc7))
+* **client:** Do not automatically show comment input ([7de34e3](https://github.com/part-up/part-up/commit/7de34e3))
+* **client:** Make activity-card chevron clickable on firefox ([9b417a7](https://github.com/part-up/part-up/commit/9b417a7))
+* **client:** Properly extract file icon when multiple info objects found ([46f07e7](https://github.com/part-up/part-up/commit/46f07e7))
+* **client:** Remove autofocus on comment field for IE ([215978c](https://github.com/part-up/part-up/commit/215978c))
+* **files:** Add google presentation to allowed file types ([93cabb0](https://github.com/part-up/part-up/commit/93cabb0))
+
+
+
 <a name="2.36.3"></a>
 ## [2.36.3](https://github.com/part-up/part-up/compare/2.36.2...2.36.3) (2017-10-30)
 
