@@ -3,7 +3,7 @@
 
     padding: getSpacing(2);
 
-    > * + * {
+    .pur-Tile + .pur-Tile {
         margin-top: getSpacing(1);
     }
 }

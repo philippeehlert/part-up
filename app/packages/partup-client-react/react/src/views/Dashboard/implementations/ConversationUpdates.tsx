@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { get } from 'lodash';
+import * as PropTypes from 'prop-types';
+import { get, uniqBy } from 'lodash';
+import { AppContext } from 'App';
 
 import UpdateTile, { UpdateTileMeta, UpdateTileContent, UpdateTileComments } from 'components/UpdateTile';
 
@@ -9,6 +11,7 @@ import Partups from 'collections/Partups';
 import {
     Tile,
     Spinner,
+    InfiniteScroll,
 } from 'components';
 
 import {
@@ -57,6 +60,8 @@ import FilteredList, {
     FilteredListItems,
 } from 'components/FilteredList';
 
+import { Select } from 'components/Form';
+
 import { UserAvatar, SystemAvatar } from 'components/Avatar';
 
 import FillInTheBlanks, { Blank } from 'components/FillInTheBlanks';
@@ -65,12 +70,22 @@ import Fetcher from 'utils/Fetcher';
 
 export default class ConversationUpdates extends React.Component {
 
-    private fetcher = new Fetcher({
+    static contextTypes = {
+        user: PropTypes.object,
+    };
+
+    public context: AppContext;
+
+    private filters: {[key: string]: any} = {};
+
+    private skip = 0;
+    private fetchedAll = false;
+
+    private conversationsFetcher = new Fetcher({
         route: 'partups/updates',
         query: {
-            limit: 25,
+            limit: 20,
             skip: 0,
-            supporterOnly: true,
         },
         onChange: () => this.forceUpdate(),
         onResponse: (data: any) => {
@@ -107,31 +122,81 @@ export default class ConversationUpdates extends React.Component {
         },
     });
 
+    private partupsFetcher = new Fetcher({
+        route: 'partups/me',
+        onChange: () => this.forceUpdate(),
+    });
+
     componentWillMount() {
-        this.fetcher.fetch();
+        this.conversationsFetcher.fetch();
+        this.partupsFetcher.fetch();
     }
 
     componentWillUnmount() {
-        this.fetcher.destroy();
+        this.conversationsFetcher.destroy();
+        this.partupsFetcher.destroy();
+    }
+
+    filterBy(type: 'filterByAll' | 'filterByPartner'| 'filterBySupporter') {
+        this.skip = 0;
+        this.fetchedAll = false;
+
+        const options = {
+            filterByAll: false,
+            filterByPartner: false,
+            filterBySupporter: false,
+            [type]: true,
+        };
+
+        this.filters = {
+            ...this.filters,
+            supporterOnly: !options.filterByAll && options.filterBySupporter,
+            upperOnly: !options.filterByAll && options.filterByPartner,
+        };
+
+        this.conversationsFetcher.fetch(this.filters);
+    }
+
+    filterByPartup(partupId: string) {
+        this.skip = 0;
+        this.fetchedAll = false;
+
+        if (partupId === 'all' && this.filters.partupId) {
+            delete this.filters.partupId;
+        } else if (partupId !== 'all') {
+            this.filters = {
+                ...this.filterBy,
+                partupId: partupId,
+            };
+        }
+
+        this.conversationsFetcher.fetch(this.filters);
     }
 
     render() {
-        const { data, loading } = this.fetcher;
+        const { data, loading } = this.conversationsFetcher;
+        const { data: partupsData } = this.partupsFetcher;
         const { updates = [] } = data;
+        const { partups = [] } = partupsData;
+
+        const partupOptions = this.getPartupOptions(partups);
 
         return (
             <FilteredList>
                 <FilteredListControls>
                     <FillInTheBlanks>
                         <Blank label={'Toon updates als'}>
-                            <select>
-                                <option>hoi</option>
-                            </select>
+                            <Select options={[
+                                {label: 'Alle', value: 'filterByAll', onChange: () => this.filterBy('filterByAll')},
+                                {label: 'Partner', value: 'filterByPartner', onChange: () => this.filterBy('filterByPartner')},
+                                {label: 'Supporter', value: 'filterBySupporter', onChange: () => this.filterBy('filterBySupporter')},
+                            ]} />
                         </Blank>
                         <Blank label={'van'}>
-                            <select>
-                                <option>hoi</option>
-                            </select>
+                            <Select options={[
+                                {label: 'Alle partups', value: 'all'},
+                                ...partupOptions,
+                            ]} onChange={(ev) => this.filterByPartup(ev.currentTarget.value)} />
                         </Blank>
                     </FillInTheBlanks>
                 </FilteredListControls>
@@ -139,30 +204,78 @@ export default class ConversationUpdates extends React.Component {
                     { loading && !updates.length && (
                         <Spinner />
                     ) }
-                    { !!updates.length && updates.map((update: any) => {
-                        const upper = update.upper;
-                        return (
-                            <Tile title={update.partup.name} key={update._id}>
-                                <UpdateTile>
-                                    <UpdateTileMeta
-                                        avatar={update.system ? <SystemAvatar /> :  <UserAvatar user={upper} />}
-                                        postedAt={update.created_at}
-                                    >
-                                        { this.renderUpdateTitle(update, get(upper, 'profile.name')) }
-                                    </UpdateTileMeta>
-                                    { this.shouldRenderUpdateComponent(update) && (
-                                        <UpdateTileContent>
-                                            { this.renderUpdateComponent(update) }
-                                        </UpdateTileContent>
-                                    )}
-                                    <UpdateTileComments update={update} comments={update.comments || []} />
-                                </UpdateTile>
-                            </Tile>
-                        );
-                    }) }
+                    <InfiniteScroll loadMore={this.loadMore}>
+                        { !!updates.length && updates.map((update: any) => {
+                            const upper = update.upper;
+                            return (
+                                <Tile title={update.partup.name} key={update._id}>
+                                    <UpdateTile>
+                                        <UpdateTileMeta
+                                            avatar={update.system ? <SystemAvatar /> :  <UserAvatar user={upper} />}
+                                            postedAt={update.created_at}
+                                        >
+                                            { this.renderUpdateTitle(update, get(upper, 'profile.name')) }
+                                        </UpdateTileMeta>
+                                        { this.shouldRenderUpdateComponent(update) && (
+                                            <UpdateTileContent>
+                                                { this.renderUpdateComponent(update) }
+                                            </UpdateTileContent>
+                                        )}
+                                        <UpdateTileComments update={update} comments={update.comments || []} />
+                                    </UpdateTile>
+                                </Tile>
+                            );
+                        }) }
+                    </InfiniteScroll>
                 </FilteredListItems>
             </FilteredList>
         );
+    }
+
+    private loadMore = async (done: Function) => {
+        if (this.fetchedAll) {
+            return;
+        }
+
+        this.skip = this.skip + 20;
+
+        await this.conversationsFetcher.fetchMore({
+            ...this.filters,
+            skip: this.skip,
+        }, (oldData, newData) => {
+            if (!newData.updates) {
+                this.fetchedAll = true;
+            }
+
+            return {
+                ['cfs.images.filerecord']: uniqBy([
+                    ...oldData['cfs.images.filerecord'],
+                    ...newData['cfs.images.filerecord'],
+                ], '_id'),
+                updates: uniqBy([
+                    ...oldData.updates,
+                    ...(newData.updates || []),
+                ], '_id'),
+                partups: uniqBy([
+                    ...oldData.partups,
+                    ...(newData.partups || []),
+                ], '_id'),
+                users: uniqBy([
+                    ...oldData.users,
+                    ...(newData.users || []),
+                ], '_id'),
+                activities: uniqBy([
+                    ...oldData.activities,
+                    ...(newData.activities || []),
+                ], '_id'),
+                lanes: uniqBy([
+                    ...oldData.lanes,
+                    ...(newData.lanes || []),
+                ], '_id'),
+            };
+        });
+
+        done();
     }
 
     private shouldRenderUpdateComponent({type}: {type: string}) {
@@ -195,6 +308,7 @@ export default class ConversationUpdates extends React.Component {
             'partups_name_changed':                    () => true,
             'partups_partner_rejected':                () => true,
             'partups_partner_request':                 () => true,
+            'partup_partner_request':                  () => false,
             'partups_ratings_changed':                 () => true,
             'partups_ratings_inserted':                () => true,
             'partups_supporters_added':                () => false, // no update content
@@ -239,6 +353,7 @@ export default class ConversationUpdates extends React.Component {
             'partups_name_changed':                    (data: any) => <PartupNameChanged data={data} />,
             'partups_partner_rejected':                (data: any) => <PartupPartnerRejected />,
             'partups_partner_request':                 (data: any) => <PartupPartnerRequest />,
+            'partup_partner_request':                  (data: any) => <PartupPartnerRequest />,
             'partups_ratings_changed':                 (data: any) => <PartupRatingChanged />,
             'partups_ratings_inserted':                (data: any) => <PartupRatingInserted />,
             'partups_supporters_added':                (data: any) => <PartupSupporterAdded data={data} />, // no update content
@@ -298,5 +413,26 @@ export default class ConversationUpdates extends React.Component {
         };
 
         return map[type](upperName, typeData);
+    }
+
+    private getPartupOptions(partups: any) {
+        return partups.filter(({_id}: any) => {
+            if (!this.context.user || (!this.filters.supporterOnly && !this.filters.upperOnly)) {
+                return true;
+            }
+
+            if (this.filters.supporterOnly) {
+                return this.context.user.supporterOf.includes(_id);
+            }
+
+            if (this.filters.upperOnly) {
+                return this.context.user.upperOf.includes(_id);
+            }
+
+            return false;
+        }).map((partup: any) => ({
+            label: partup.name,
+            value: partup._id,
+        }));
     }
 }

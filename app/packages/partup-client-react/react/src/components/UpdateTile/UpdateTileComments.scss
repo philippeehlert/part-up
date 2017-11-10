@@ -9,7 +9,7 @@
         &__reactions {
             color: $pur-color-dusty-gray;
         }
-        
+
         &__respond-link * {
             text-decoration: underline;
         }
@@ -22,5 +22,9 @@
         & > * + * {
             margin-top: getSpacing();
         }
+    }
+
+    &__more-commments {
+        font-size: 14px;
     }
 }

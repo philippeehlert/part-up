@@ -111,7 +111,7 @@ export default class App extends React.Component<Props, State> {
     componentWillMount() {
         this.subscriptions.subscribe();
         this.refetchUser();
-
+        // Meteor.loginWithPassword('ralph@part-up.com', 'Testpassword1')
         Meteor.Accounts.onLogin(() => {
             this.setState({ loginFailed: false });
             this.refetchUser();
@@ -146,7 +146,7 @@ export default class App extends React.Component<Props, State> {
                 <div>TODO: Empty state</div>
             );
         }
-        
+
         return (
             <Container>
                 <Switch>

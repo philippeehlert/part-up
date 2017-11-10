@@ -9,16 +9,16 @@ interface Props {
 }
 
 export default class Form extends React.Component<Props, {}> {
-    
+
     static defaultProps = {
-        
+
     };
-    
+
     private form?: HTMLFormElement = undefined;
-    
+
     render() {
         const { children } = this.props;
-        
+
         return (
             <form
                 className={this.getClassNames()}
@@ -31,9 +31,9 @@ export default class Form extends React.Component<Props, {}> {
 
     private getClassNames = () => {
         const { className } = this.props;
-        
+
         return c('pur-Form', className, {
-            
+
         });
     }
 
@@ -42,7 +42,7 @@ export default class Form extends React.Component<Props, {}> {
         event.preventDefault();
 
         const fields = getFormData(this.form);
-    
+
         if (onSubmit) onSubmit(event, fields);
     }
 }
@@ -51,3 +51,4 @@ export { default as FieldCollection } from './FieldCollection';
 export { default as FieldSet } from './FieldSet';
 export { default as Label } from './Label';
 export { default as Input } from './Input';
+export { default as Select } from './Select';

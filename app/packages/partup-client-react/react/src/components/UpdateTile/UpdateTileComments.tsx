@@ -8,6 +8,7 @@ import { Comment as CommentType } from 'collections/Updates';
 
 import Comment, { SystemComment } from 'components/Comment';
 import { Link } from 'components/Router';
+import { Clickable } from 'components/Button';
 
 interface Props {
     comments: Array<CommentType>;
@@ -19,6 +20,7 @@ interface Props {
 
 interface State {
     commentBoxEnabled: boolean;
+    showAllComments: boolean;
 }
 
 export default class UpdateTileComments extends React.Component<Props, State> {
@@ -29,6 +31,7 @@ export default class UpdateTileComments extends React.Component<Props, State> {
 
     public state: State = {
         commentBoxEnabled: false,
+        showAllComments: false,
     };
 
     getClassNames() {
@@ -41,7 +44,7 @@ export default class UpdateTileComments extends React.Component<Props, State> {
 
     onRespondClick = (event: React.SyntheticEvent<any>) => {
         const { onRespondClick } = this.props;
-    
+
         if (onRespondClick) onRespondClick(event);
     }
 
@@ -53,7 +56,7 @@ export default class UpdateTileComments extends React.Component<Props, State> {
         return (
             <div className={this.getClassNames()}>
                 <div className={`pur-UpdateTileComments__controls`}>
-                    <span className={`pur-UpdateTileComments__controls__reactions`}>
+                    <span className={`pur-UpdateTileComments__controls__reactions`} onClick={this.toggleAllComments}>
                         { count } reactie{count !== 1 && 's'}
                     </span>
                     {` • `}
@@ -79,6 +82,9 @@ export default class UpdateTileComments extends React.Component<Props, State> {
 
     private renderComments() {
         const { comments, collapsedMax } = this.props;
+        const { showAllComments } = this.state;
+
+        const amountOfCommentToShow = showAllComments ? comments.length : collapsedMax;
 
         const commentComponents = comments.map((comment) => {
 
@@ -93,10 +99,28 @@ export default class UpdateTileComments extends React.Component<Props, State> {
 
         return (
             <div className={`pur-UpdateTileComments__container`}>
-                { take(commentComponents, collapsedMax) }
+                { take(commentComponents, amountOfCommentToShow) }
+
+                { !showAllComments && comments.length > 2 && (
+                    <Clickable className={`pur-UpdateTileComments__more-commments`} onClick={this.toggleAllComments}>
+                        Laat alle reacties zien
+                    </Clickable>
+                ) }
+
+                { showAllComments && comments.length > 2 && (
+                    <Clickable className={`pur-UpdateTileComments__more-commments`} onClick={this.toggleAllComments}>
+                        Verberg reacties
+                    </Clickable>
+                ) }
             </div>
 
         );
+    }
+
+    private toggleAllComments = () => {
+        this.setState({
+            showAllComments: !this.state.showAllComments,
+        });
     }
 
     // private toggleCommentBox = () => {
