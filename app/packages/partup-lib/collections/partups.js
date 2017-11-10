@@ -877,8 +877,6 @@ Partups.findPartupsIdsForUser = function (user, options, loggedInUserId) {
         ids = ids.concat(supporterOfIds, upperOfIds);
     }
 
-    console.log(ids);
-
 	var selector = { _id: { $in: ids } };
 
 	return this.guardedFind(loggedInUserId, selector);
