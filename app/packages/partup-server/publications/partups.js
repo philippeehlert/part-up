@@ -1,4 +1,21 @@
 /**
+ * Gets all partsups for a user.
+ */
+Meteor.routeComposite('/partups/me', function(request, parameters) {
+    const userId = parameters.query.userId || this.userId;
+
+    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+
+    const partupsCursor = Partups.guardedFind(user, { _id: { $in: [
+        ...(user.upperOf || []),
+        ...(user.supporterOf || []),
+    ]}}, {fields: {_id: 1, name: 1, image: 1}, sort: { popularity: -1 }});
+
+    return {
+        find: () => partupsCursor,
+    }
+});
+/**
  * Gets all conversation updates for a user's partup.
  */
 Meteor.routeComposite('/partups/updates', function(request, parameters) {
@@ -8,6 +25,7 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
         userId: Match.Optional(String),
         upperOnly: Match.Optional(String),
         supporterOnly: Match.Optional(String),
+        partupId: Match.Optional(String),
     });
 
     const options = {};
@@ -18,18 +36,23 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     const userId = parameters.query.userId || this.userId;
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
-    // find all partups for user
-    const partupsCursor = Partups.findPartupsIdsForUser(user, {
-        upperOnly: parameters.query.upperOnly || false,
-        supporterOnly: parameters.query.supporterOnly || false,
-    }, userId);
+    // find partups for user
+    let partupsCursor;
+    if (parameters.query.partupId) {
+        partupsCursor = Partups.guardedFind(userId, { _id: { $in: [parameters.query.partupId] } });
+    } else {
+        partupsCursor = Partups.findPartupsIdsForUser(user, {
+            upperOnly: parameters.query.upperOnly || false,
+            supporterOnly: parameters.query.supporterOnly || false,
+        }, userId);
+    }
 
     // map ids for future finds
     const partupIds = partupsCursor.map(({_id}) => _id);
     const partupUpperArrays = partupsCursor.map(({uppers}) => uppers);
     const partupUpperIds = lodash.flattenDeep(partupUpperArrays);
     const partupUniqueUpperIds = lodash.uniq(partupUpperIds);
-    
+
     // find all users for partups
     const usersCursor = Meteor.users.findMultiplePublicProfiles(partupUniqueUpperIds);
 
