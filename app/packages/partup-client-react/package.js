@@ -35,20 +35,14 @@ Package.onUse((api) => {
 
     let cssfiles = [];
     if (!process.env.REACT_DEV) {
-        cssfiles = glob.sync('./react/src/**/[^_]*.scss', options);
+        cssfiles = glob.sync('./react/build/static/css/main.*.css', options);
 
-        console.log(`> Adding ${cssfiles.length} css files.`);
+        console.log(`> Adding css.`);
     } else {
         console.log('> Skipping css files in --react-dev mode.');
     }
 
-    const cssArray = cssfiles
-        .map((str) => `@import "${str.replace('./', '').replace('.scss', '')}";`)
-        .filter((str) => str !== '@import "react/src/index";');
-
-    if (!process.env.REACT_DEV) {
-        cssArray.unshift('@import "react/src/index";');
-    }
+    const cssArray = cssfiles.map((filePath) => fs.readFileSync(path.resolve(packagePath + '/' + filePath), 'utf8'));
 
     const cssString = cssArray.join('\n');
 
