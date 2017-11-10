@@ -3,8 +3,26 @@
 
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
 
     .pur-Blank + .pur-Blank {
-        margin-left: getSpacing();
+        margin-top: getSpacing();
+    }
+
+    .pur-Blank {
+        justify-content: flex-end;
+    }
+
+    @media screen and (min-width: 650px) {
+        flex-direction: row;
+
+        .pur-Blank + .pur-Blank {
+            margin-top: 0;
+            margin-left: getSpacing();
+        }
+
+        .pur-Blank {
+            justify-content: initial;
+        }
     }
 }
