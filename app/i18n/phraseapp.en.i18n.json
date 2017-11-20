@@ -1622,7 +1622,7 @@
   "pages-modal-register-details-form-submit": "Ready to part-up!",
   "pages-modal-register-details-maywegettoknowyou": "Hi %s, can we get to know you?",
   "pages-modal-register-details-optionalexplanation": "We already created your account. You are almost ready to part-up. Share some details to make your profile reliable and we can introduce you to matching part-ups.",
-  "pages-modal-register-signup-becomethexthupper": "Become upper <u>#%d</u>",
+  "pages-modal-register-signup-becomethexthupper": "Create your free account",
   "pages-modal-register-signup-close": "Close",
   "pages-modal-register-signup-error_Accounts-LoginCancelledError": "Login cancelled",
   "pages-modal-register-signup-error_email-already-exists": "This email is already in use",
