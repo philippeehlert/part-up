@@ -1,3 +1,13 @@
+<a name="2.36.5"></a>
+## [2.36.5](https://github.com/part-up/part-up/compare/2.36.4...2.36.5) (2017-11-08)
+
+
+### Bug Fixes
+
+* **client:** Prevent users from inserting a message multiple times ([a36de0d](https://github.com/part-up/part-up/commit/a36de0d))
+
+
+
 <a name="2.36.4"></a>
 ## [2.36.4](https://github.com/part-up/part-up/compare/2.36.3...2.36.4) (2017-11-07)
 
