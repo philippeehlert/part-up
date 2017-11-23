@@ -43,7 +43,9 @@
                     <ul class="pu-profile__ul pu-list pu-list-horizontal pu-list-tags">
                         {{#each profile.data.tags}}
                             <li>
-                                <a href="#" class="pu-tag">{{.}}</a>
+                                {{#Tag}}
+                                    {{.}}
+                                {{/Tag}}
                             </li>
                         {{/each}}
                     </ul>

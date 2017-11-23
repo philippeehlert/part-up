@@ -101,7 +101,6 @@ Package.onUse(function (api) {
         'helpers/footerToggle.js',
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
-        'helpers/tagsQuerySearch.js',
         'helpers/currentUserId.js',
         'helpers/Autolinkjs.js',
         'helpers/autolink.js',
@@ -120,6 +119,9 @@ Package.onUse(function (api) {
         'views/CenterView.html',
         'views/dangerouslyRenderHTML/dangerouslyRenderHTML.html',
         'views/dangerouslyRenderHTML/dangerouslyRenderHTML.js',
+
+        'components/Tag.html',
+        'components/Tag.js',
 
         'bootstrap.js',
         'analytics.js',

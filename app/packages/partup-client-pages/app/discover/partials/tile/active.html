@@ -48,7 +48,11 @@
             {{# with partup.mappedTags }}
                 <ul class="pu-sub-partup-tags">
                     {{# each . }}
-                        <li><span class="pu-tag">{{ tag }}</span></li>
+                        <li>
+                            {{#Tag context="discover-partups" query=tag}}
+                                {{tag}}
+                            {{/Tag}}
+                        </li>
                     {{/ each }}
                 </ul>
             {{/ with }}

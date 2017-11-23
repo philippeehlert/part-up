@@ -1,5 +1,5 @@
 var tagsConfiguration = {
-    tagClass: 'pu-tag pu-tag-disableglobalclick',
+    tagClass: 'pu-tag',
     maxTags: 5
 };
 /**

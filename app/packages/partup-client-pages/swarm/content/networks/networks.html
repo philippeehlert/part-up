@@ -12,7 +12,10 @@
                                     {{#with displayTags slug }}
                                         {{# each . }}
                                             <li>
-                                                <a href="{{pathFor route='network-detail' slug=networkSlug query=tagQuery}}" class="pu-tag pu-tag-inverted pu-tag-disable">{{tag}}</a>
+                                                <!-- {{pathFor route='network-detail' slug=networkSlug query=tagQuery}} -->
+                                                {{#Tag type="inverted" context="discover-tribes" query=tag}}
+                                                    {{tag}}
+                                                {{/Tag}}
                                             </li>
                                         {{/ each }}
                                     {{ else }}

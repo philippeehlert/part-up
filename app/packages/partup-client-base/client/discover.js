@@ -111,6 +111,7 @@ Partup.client.discover = {
      * Helper to set prefill value
      */
     setPrefill: function(key, value) {
+        console.log(key, value)
         if (!Partup.client.discover.DEFAULT_QUERY.hasOwnProperty(key)) {
             throw new Error('Discover query key "' + key + '" is not defined in Partup.client.discover.DEFAULT_QUERY');
         }
@@ -123,6 +124,14 @@ Partup.client.discover = {
         }
 
         _tribe_prefill[key] = value;
+    },
+
+    getPrefill: function(key) {
+        return _prefill[key] || false;
+    },
+
+    getTribePrefill: function(key) {
+        return _tribe_prefill[key] || false;
     },
 
     /*

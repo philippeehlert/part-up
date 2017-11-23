@@ -17,7 +17,11 @@
             {{#with data.network.displayTags data.network.slug}}
                 <ul class="pu-list pu-list-horizontal pu-list-tags">
                     {{#each .}}
-                        <li><a href="#" class="pu-tag pu-tag-dark">{{tag}}</a></li>
+                        <li>
+                            {{#Tag type="dark" context="discover-tribes" query=tag}}
+                                {{tag}}
+                            {{/Tag}}
+                        </li>
                     {{/each}}
                 </ul>
             {{/with}}

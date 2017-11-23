@@ -39,7 +39,9 @@
                         <h3 class="pu-sub-title pu-expander">
                             {{#unless BOARDVIEW}}
                             {{#with lane}}
-                                <span class="pu-tag">{{ name }}</span>
+                                {{#Tag}}
+                                    {{name}}
+                                {{/Tag}}
                             {{/with}}
                             {{/unless}}
 

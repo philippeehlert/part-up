@@ -38,9 +38,9 @@
                 <ul class="pu-list pu-list-horizontal pu-list-tags {{#if data.searchQuery}}pu-highlighttags{{/if}}">
                     {{#each data.highlightTags.tags}}
                         <li>
-                            <a href="#" class="pu-tag {{#unless partupContainsOneInArray . data.highlightTags.highlight }}
-                                pu-tag-dim
-                            {{/unless}}">{{ . }}</a>
+                            {{#Tag}}
+                                {{ . }}
+                            {{/Tag}}
                         </li>
                     {{/each}}
                 </ul>

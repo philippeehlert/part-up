@@ -7,9 +7,21 @@
                 <h1>{{_ 'pages-app-notfound-networkstart-title' }}</h1>
                 <h3>{{_ 'pages-app-notfound-networkstart-description' }}</h3>
                 <ul class="pu-list pu-list-horizontal pu-list-tags">
-                    <li><a href="#" class="pu-tag pu-tag-dark pu-tag-disableglobalclick">{{_ 'pages-app-notfound-networkstart-tag1' }}</a></li>
-                    <li><a href="#" class="pu-tag pu-tag-dark pu-tag-disableglobalclick">{{_ 'pages-app-notfound-networkstart-tag2' }}</a></li>
-                    <li><a href="#" class="pu-tag pu-tag-dark pu-tag-disableglobalclick">{{_ 'pages-app-notfound-networkstart-tag3' }}</a></li>
+                    <li>
+                        {{#Tag type="dark"}}
+                            {{_ 'pages-app-notfound-networkstart-tag1' }}
+                        {{/Tag}}
+                    </li>
+                    <li>
+                        {{#Tag type="dark"}}
+                            {{_ 'pages-app-notfound-networkstart-tag2' }}
+                        {{/Tag}}
+                    </li>
+                    <li>
+                        {{#Tag type="dark"}}
+                            {{_ 'pages-app-notfound-networkstart-tag3' }}
+                        {{/Tag}}
+                    </li>
                 </ul>
                 <a href="{{pathFor 'discover'}}" class="pu-button">{{_ 'pages-app-notfound-networkstart-button' }}</a>
             </header>
