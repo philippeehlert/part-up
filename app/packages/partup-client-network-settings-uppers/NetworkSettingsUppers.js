@@ -103,7 +103,7 @@ Template.NetworkSettingsUppers.helpers({
         var searchQuery = template.searchQuery.get();
         if (searchQuery) searchOptions['profile.name'] = {$regex: searchQuery, $options: 'i'};
         var uppers = Meteor.users.find(searchOptions).fetch();
-        template.reactiveLabel.set(uppers.length + ' uppers');
+        template.reactiveLabel.set((network.uppers || []).length + ' uppers');
         var self = this;
         return {
             network: function() {
