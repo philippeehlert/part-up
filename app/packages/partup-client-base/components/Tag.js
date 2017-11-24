@@ -31,7 +31,6 @@ Template.Tag.helpers({
 Template.Tag.events({
     'click [data-tag]': (event, templateInstance) => {
         const { data } = templateInstance;
-        console.log('Tag', data);
 
         if (!data.query) return;
 
@@ -48,6 +47,13 @@ Template.Tag.events({
                 Partup.client.discover.setTribePrefill('textSearch', data.query);
                 Router.go('discover');
                 break;
+            case 'tribe-search':
+                Router.go(`/tribes/${data.slug}/partups?tag=${data.query}`);
+                break;
+            // case 'activity':
+            //     Partup.client.discover.setTribePrefill('textSearch', data.query);
+            //     Router.go('discover');
+            //     break;
         }
     },
 });

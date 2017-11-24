@@ -108,7 +108,8 @@ Template.app_network_partups.onCreated(function() {
 
                 return {
                     partup: partup,
-                    HIDE_NETWORKTILE: true
+                    HIDE_NETWORKTILE: true,
+                    CONTEXT: 'tribe',
                 };
             });
             // Add tiles to the column layout
@@ -140,18 +141,18 @@ Template.app_network_partups.onCreated(function() {
     };
     template.throttledSetSearchQuery = _.throttle(setSearchQuery, 500, {trailing: true});
 
+    template.reactiveExpander = new ReactiveVar(false);
+
 });
 
 Template.app_network_partups.onRendered(function() {
     var template = this;
+
     if (template.searchQuery.get()) {
-        $('[data-search]').val(template.searchQuery.get());
+        template.reactiveExpander.set(true);
+
         Meteor.defer(function() {
-            $('[data-flexible-center]').parent().addClass('start');
-            _.defer(function() {
-                $('[data-flexible-center]').parent().addClass('active');
-                $('[data-search]').focus();
-            });
+            $('[data-search]').val(template.searchQuery.get());
         });
     }
 
@@ -239,6 +240,9 @@ Template.app_network_partups.helpers({
                 return function() {
                     template.find('[data-search]').focus();
                 };
+            },
+            reactiveExpander: function() {
+                return template.reactiveExpander;
             }
         };
     },

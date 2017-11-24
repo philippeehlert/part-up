@@ -1,7 +1,9 @@
 Template.PartupToggler.onCreated(function() {
     var template = this;
 
-    template.expanded = new ReactiveVar(false);
+    const { reactiveExpander } = this.data;
+
+    template.expanded = reactiveExpander ? reactiveExpander : new ReactiveVar(false);
 });
 
 Template.PartupToggler.events({

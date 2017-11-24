@@ -45,17 +45,21 @@
         <p>{{ partup.description }}</p>
 
         {{# unless HIDE_TAGS }}
-            {{# with partup.mappedTags }}
-                <ul class="pu-sub-partup-tags">
-                    {{# each . }}
-                        <li>
+            <ul class="pu-sub-partup-tags">
+                {{# each partup.mappedTags }}
+                    <li>
+                        {{#if networkSlug}}
+                            {{#Tag context="tribe-search" query=tag slug=networkSlug }}
+                                {{tag}}
+                            {{/Tag}}
+                        {{else}}
                             {{#Tag context="discover-partups" query=tag}}
                                 {{tag}}
                             {{/Tag}}
-                        </li>
-                    {{/ each }}
-                </ul>
-            {{/ with }}
+                        {{/if}}
+                    </li>
+                {{/ each }}
+            </ul>
         {{/unless}}
 
         <ul class="pu-sub-partup-stats">

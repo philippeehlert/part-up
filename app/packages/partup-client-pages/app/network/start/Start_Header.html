@@ -18,7 +18,7 @@
                 <ul class="pu-list pu-list-horizontal pu-list-tags">
                     {{#each .}}
                         <li>
-                            {{#Tag type="dark" context="discover-tribes" query=tag}}
+                            {{#Tag type="dark" context="tribe-search" query=tag slug=data.network.slug }}
                                 {{tag}}
                             {{/Tag}}
                         </li>
