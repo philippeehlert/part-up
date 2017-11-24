@@ -37,14 +37,22 @@ Template.app_profile_about.onCreated(function() {
             if (!profileHasResults && profileIsCurrentUser) {
                 displayTiles = displayTiles.concat([{
                     type: 'result',
-                    profileId: profileId
+                    profileId,
                 }]);
             }
 
             if (!profilehasMediaTiles && profileIsCurrentUser) {
                 displayTiles = displayTiles.concat([{
                     type: 'image',
-                    placeholder: true
+                    placeholder: true,
+                }]);
+            }
+
+            if (profileHasResults) {
+                displayTiles = displayTiles.concat([{
+                    type: 'result',
+                    results: meurs,
+                    profileId,
                 }]);
             }
 
