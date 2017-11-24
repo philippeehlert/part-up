@@ -73,7 +73,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
         });
     };
 
-    fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
+    var fromAddress = Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name)
 
     // Set the email details
     var emailOptions = {
