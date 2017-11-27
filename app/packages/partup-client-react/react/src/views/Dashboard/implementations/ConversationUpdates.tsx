@@ -106,6 +106,7 @@ export class ConversationUpdates extends React.Component {
             return {
                 updates: updates.map((update: any) => ({
                     ...update,
+                    comments: (update.comments || []).filter(({ type }: any) => type !== 'system'),
                     partup: partups.find(({ _id }) => update.partup_id === _id),
                     upper: users.find(({ _id }) => update.upper_id === _id),
                     activity: activities.find(({ update_id }) => update_id === update._id),
@@ -136,6 +137,7 @@ export class ConversationUpdates extends React.Component {
         const { partups = [] } = partupsData;
 
         const partupOptions = this.getPartupOptions(partups);
+        const { user } = this.context;
 
         return (
             <FilteredList>
@@ -177,7 +179,7 @@ export class ConversationUpdates extends React.Component {
                                                 { this.renderUpdateComponent(update) }
                                             </UpdateTileContent>
                                         )}
-                                        <UpdateTileComments update={update} comments={update.comments || []} />
+                                        <UpdateTileComments user={user} update={update} comments={update.comments || []} />
                                     </UpdateTile>
                                 </Tile>
                             );

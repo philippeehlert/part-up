@@ -1,3 +1,22 @@
 .pur-Input {
+    @import "stylesheets/spacings";
 
+    position: relative;
+    padding: getSpacing(1) getSpacing(1.5);
+    border: 2px solid #eeeeee;
+    color: #333;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #fff;
+    border-radius: 4px;
+
+    &:focus {
+        border-color: #cfcfcf;
+    }
+
+    &::placeholder {
+        color: #999;
+    }
 }

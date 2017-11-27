@@ -5,8 +5,8 @@ import * as c from 'classnames';
 import { take } from 'lodash';
 import { Comment as CommentType } from 'collections/Updates';
 import { Comment } from 'components/Comment/Comment';
-import { Link } from 'components/Router/Link';
 import { Clickable } from 'components/Button/Clickable';
+import { CommentBox } from 'components/Comment/CommentBox';
 
 interface Props {
     comments: Array<CommentType>;
@@ -14,6 +14,7 @@ interface Props {
     collapsedMax?: number;
     // onRespondClick?: Function;
     update: any;
+    user: any
 }
 
 interface State {
@@ -33,8 +34,8 @@ export class UpdateTileComments extends React.Component<Props, State> {
     };
 
     public render() {
-        const { comments, update } = this.props;
-        // const { commentBoxEnabled } = this.state;
+        const { comments, user } = this.props;
+        const { commentBoxEnabled } = this.state;
         const count = comments.length;
 
         return (
@@ -44,22 +45,23 @@ export class UpdateTileComments extends React.Component<Props, State> {
                         { count } reactie{count !== 1 && 's'}
                     </span>
                     {` • `}
-                    <Link
+                    <Clickable
                         className={`pur-UpdateTileComments__controls__respond-link`}
-                        target={'_partup'}
-                        to={`/partups/${update.partup.slug}/updates/${update._id}`}
+                        onClick={this.toggleCommentBox}
                     >
                         Reageren
-                    </Link>
+                    </Clickable>
                 </div>
 
                 { comments.length > 0 && this.renderComments() }
 
-                { /* { commentBoxEnabled && (
-                    <div className={`put-UpdateTileComments__comment-box`}>
-                        <input type="text" />
-                    </div>
-                ) } */ }
+                { commentBoxEnabled && (
+                    <CommentBox
+                        poster={user}
+                        onSubmit={(e: any, fields: any) => console.log(e, fields)}
+                        className={`put-UpdateTileComments__comment-box`}
+                    />
+                ) }
             </div>
         );
     }
@@ -68,11 +70,9 @@ export class UpdateTileComments extends React.Component<Props, State> {
         const { comments, collapsedMax } = this.props;
         const { showAllComments } = this.state;
 
-        const updateComments = comments.filter(({ type }) => type !== 'system');
+        const amountOfCommentToShow = showAllComments ? comments.length : collapsedMax;
 
-        const amountOfCommentToShow = showAllComments ? updateComments.length : collapsedMax;
-
-        const commentComponents = updateComments.map((comment) => {
+        const commentComponents = comments.map((comment) => {
             if (comment.type === 'motivation') {
                 return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
             }
@@ -106,11 +106,11 @@ export class UpdateTileComments extends React.Component<Props, State> {
         });
     }
 
-    // private toggleCommentBox = () => {
-    //     this.setState({
-    //         commentBoxEnabled: !this.state.commentBoxEnabled,
-    //     });
-    // }
+    private toggleCommentBox = () => {
+        this.setState({
+            commentBoxEnabled: !this.state.commentBoxEnabled,
+        });
+    }
 
     private getClassNames() {
         const { className } = this.props;

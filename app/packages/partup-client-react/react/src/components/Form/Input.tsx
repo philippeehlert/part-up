@@ -7,15 +7,31 @@ interface Props {
     className?: string;
     type: string;
     name: string;
+    placeholder?: string;
+    onFocus?: () => void
+    onBlur?: () => void
 }
 
 export class Input extends React.Component<Props, {}> {
 
     public render() {
-        const { type, name } = this.props;
+        const {
+            type,
+            name,
+            placeholder,
+            onFocus,
+            onBlur,
+        } = this.props;
 
         return (
-            <input type={type} name={name} className={this.getClassNames()} />
+            <input
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                className={this.getClassNames()}
+                onFocus={onFocus ? onFocus : undefined}
+                onBlur={onBlur ? onBlur : undefined}
+            />
         );
     }
 

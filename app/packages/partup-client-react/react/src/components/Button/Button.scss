@@ -13,7 +13,6 @@
     outline: 0;
     transition: background-color 100ms;
     display: inline-block;
-    margin-bottom: 20px;
 
     &__left-child + &__content {
         margin-left: 10px;

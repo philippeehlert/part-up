@@ -1,0 +1,19 @@
+.pur-CommentBox {
+    @import "stylesheets/spacings";
+
+    display: flex;
+    align-items: center;
+    margin: 0 getSpacing(1.5) getSpacing(1.5) getSpacing(1.5);
+
+    &__avatar {
+        margin-right: getSpacing(1);
+    }
+
+    &__submit-button {
+        margin-left: getSpacing(1);
+    }
+
+    &__input {
+        flex: 1;
+    }
+}
