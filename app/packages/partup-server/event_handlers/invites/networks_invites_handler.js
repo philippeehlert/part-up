@@ -78,7 +78,7 @@ Event.on('invites.inserted.network.by_email', function(inviter, network, email, 
     // Set the email details
     var emailOptions = {
         type: 'invite_email_address_to_network',
-        fromAddress: fromAddress + ' ' + TAPi18n.__('emails-invite_upper_to_partup_network-via'),
+        fromAddress: fromAddress + ' ' + TAPi18n.__('emails-invite_upper_to_network-via'),
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_network-subject', {inviter: inviter.profile.name, network: network.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
