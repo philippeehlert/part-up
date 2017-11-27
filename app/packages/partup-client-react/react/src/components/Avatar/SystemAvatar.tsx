@@ -6,7 +6,7 @@ interface Props {
     className?: string;
 }
 
-export default class SystemAvatar extends React.Component<Props, {}> {
+export class SystemAvatar extends React.Component<Props, {}> {
 
     static defaultProps = {
 

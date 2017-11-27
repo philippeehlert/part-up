@@ -7,7 +7,7 @@ interface Props {
     className?: string;
 }
 
-export default class PartupPartnerRequest extends React.Component<Props, {}> {
+export class PartupPartnerRequest extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

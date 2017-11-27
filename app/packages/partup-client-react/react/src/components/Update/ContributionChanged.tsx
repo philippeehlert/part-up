@@ -7,7 +7,7 @@ interface Props {
     className?: string;
 }
 
-export default class ContributionChanged extends React.Component<Props, {}> {
+export class ContributionChanged extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './ContentView.css';
 
-import View from './';
+import { View } from './View';
 
 interface Props {
     className?: string;
 }
 
-export default class ContentView extends React.Component<Props, {}> {
+export class ContentView extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

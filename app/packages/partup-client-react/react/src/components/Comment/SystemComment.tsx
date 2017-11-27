@@ -17,7 +17,7 @@ interface Props {
     className?: string;
 }
 
-export default class SystemComment extends React.Component<Props, {}> {
+export class SystemComment extends React.Component<Props, {}> {
 
     static defaultProps = {
 

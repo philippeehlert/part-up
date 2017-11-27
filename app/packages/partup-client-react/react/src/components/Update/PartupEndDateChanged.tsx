@@ -4,14 +4,14 @@ import * as c from 'classnames';
 import './PartupEndDateChanged.css';
 import { get } from 'lodash';
 import * as moment from 'moment';
-import { Icon } from 'components';
+import { Icon } from 'components/Icon/Icon';
 
 interface Props {
     className?: string;
     data: any;
 }
 
-export default class PartupEndDateChanged extends React.Component<Props, {}> {
+export class PartupEndDateChanged extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

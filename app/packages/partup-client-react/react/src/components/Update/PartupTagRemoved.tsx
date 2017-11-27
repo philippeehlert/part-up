@@ -9,7 +9,7 @@ interface Props {
     data: any;
 }
 
-export default class PartupTagRemoved extends React.Component<Props, {}> {
+export class PartupTagRemoved extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;
@@ -21,7 +21,7 @@ export default class PartupTagRemoved extends React.Component<Props, {}> {
 
     render() {
         const { data } = this.props;
-        
+
         return (
             <div className={this.getClassNames()}>
                 <span className={'pur-PartupTagRemoved__label'}>

@@ -19,7 +19,7 @@ import { onStartup } from 'utils/Meteor';
 import onRender from 'utils/onRender';
 import { routes, getCurrentIndex } from 'utils/router';
 
-import App from './App';
+import { App } from './App';
 
 import './index.css';
 

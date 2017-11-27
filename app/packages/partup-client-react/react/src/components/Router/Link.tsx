@@ -17,7 +17,7 @@ interface Props {
     target?: TargetType;
 }
 
-export default class Link extends React.Component<Props, {}> {
+export class Link extends React.Component<Props, {}> {
 
     static contextTypes = {
         router: PropTypes.object,
@@ -37,7 +37,7 @@ export default class Link extends React.Component<Props, {}> {
 
         if (!target) {
             event.preventDefault();
-            router.history.push(to);    
+            router.history.push(to);
         }
 
         if (onClick) onClick(event);

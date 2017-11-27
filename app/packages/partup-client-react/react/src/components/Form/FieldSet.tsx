@@ -6,7 +6,7 @@ interface Props {
     className?: string;
 }
 
-export default class FieldSet extends React.Component<Props, {}> {
+export class FieldSet extends React.Component<Props, {}> {
 
     static defaultProps = {
 

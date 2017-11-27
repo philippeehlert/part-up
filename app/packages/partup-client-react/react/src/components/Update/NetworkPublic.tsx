@@ -7,7 +7,7 @@ interface Props {
     className?: string;
 }
 
-export default class NetworkPublic extends React.Component<Props, {}> {
+export class NetworkPublic extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

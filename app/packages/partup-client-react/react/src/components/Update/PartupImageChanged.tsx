@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './PartupImageChanged.css';
 import { get } from 'lodash';
-import { Icon } from 'components';
+import { Icon } from 'components/Icon/Icon';
 
 import Images from 'collections/Images';
 
@@ -12,7 +12,7 @@ interface Props {
     data: any;
 }
 
-export default class PartupImageChanged extends React.Component<Props, {}> {
+export class PartupImageChanged extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;
@@ -23,7 +23,6 @@ export default class PartupImageChanged extends React.Component<Props, {}> {
     }
 
     render() {
-        console.log(this.props.data);
         const { data } = this.props;
         const newImageId = get(data, 'type_data.new_image');
         const oldImageId = get(data, 'type_data.old_image');

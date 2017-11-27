@@ -14,7 +14,7 @@ interface Props {
     }[];
 }
 
-export default class Select extends React.Component<Props, {}> {
+export class Select extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

@@ -9,7 +9,7 @@ interface Props {
     data: any;
 }
 
-export default class PartupDescriptionChanged extends React.Component<Props, {}> {
+export class PartupDescriptionChanged extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

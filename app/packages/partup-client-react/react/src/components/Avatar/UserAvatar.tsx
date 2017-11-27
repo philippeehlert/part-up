@@ -14,7 +14,7 @@ interface Props {
     small?: boolean;
 }
 
-export default class UserAvatar extends React.Component<Props, {}> {
+export class UserAvatar extends React.Component<Props, {}> {
 
     getClassNames = () => {
         const { className, small } = this.props;

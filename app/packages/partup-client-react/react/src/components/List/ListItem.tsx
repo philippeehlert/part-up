@@ -8,7 +8,7 @@ interface Props {
     alignRight?: boolean;
 }
 
-export default class ListItem extends React.Component<Props, {}> {
+export class ListItem extends React.Component<Props, {}> {
 
     getClassNames = () => {
         const { className, stretch, alignRight } = this.props;

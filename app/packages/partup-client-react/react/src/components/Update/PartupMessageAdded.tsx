@@ -4,7 +4,7 @@ import * as c from 'classnames';
 import './PartupMessageAdded.css';
 import translate from 'utils/translate';
 import { get } from 'lodash';
-import { HTMLText } from 'components';
+import { HTMLText } from 'components/HTMLText/HTMLText';
 import { decode } from 'utils/mentions';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
     data: any;
 }
 
-export default class PartupMessageAdded extends React.Component<Props, {}> {
+export class PartupMessageAdded extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

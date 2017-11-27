@@ -7,7 +7,7 @@ interface Props {
     onClick: Function;
 }
 
-export default class Clickable extends React.Component<Props, {}> {
+export class Clickable extends React.Component<Props, {}> {
 
     static defaultProps = {
 

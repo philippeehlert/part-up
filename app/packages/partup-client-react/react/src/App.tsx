@@ -7,20 +7,14 @@ import {
     Route,
 } from 'react-router-dom';
 import { User } from 'types/User';
-
-import DashboardView from './views/Dashboard';
-import HomeView from './views/Home';
-
-import { View } from 'components';
-import RouterContainer from 'components/Router';
 import { error, success } from 'utils/notify';
-
 import { routes, activeRoutes, onRouteChange } from 'utils/router';
-import NotificationsManager from 'components/NotificationsManager';
-
-import {
-    DevelopmentNavigation,
-} from 'implementations';
+import { View } from 'components/View/View';
+import { DevelopmentNavigation } from 'implementations/DevelopmentNavigation';
+import { Router } from 'components/Router/Router';
+import { NotificationsManager } from 'components/NotificationsManager/NotificationsManager';
+import { Dashboard } from 'views/Dashboard/Dashboard';
+import { Home } from 'views/Home/Home';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -56,9 +50,9 @@ class Container extends React.Component<Props, {}> {
 
         return (
             <View>
-                <RouterContainer>
+                <Router>
                     {children}
-                </RouterContainer>
+                </Router>
             </View>
         );
     }
@@ -74,7 +68,7 @@ export interface AppContext {
     refetchUser: Function;
 }
 
-export default class App extends React.Component<Props, State> {
+export class App extends React.Component<Props, State> {
 
     static childContextTypes = {
         user: PropTypes.object,
@@ -150,13 +144,12 @@ export default class App extends React.Component<Props, State> {
         return (
             <Container>
                 <Switch>
-                    <Route path={'/home'} component={DashboardView}/>
+                    <Route path={'/home'} component={Dashboard}/>
                     { routes.filter((route) => !activeRoutes.includes(route)).map((route, index) => (
-                        <Route key={index} path={route} component={HomeView} />
+                        <Route key={index} path={route} component={Home} />
                     )) }
                 </Switch>
                 <NotificationsManager />
-                />
             </Container>
         );
     }

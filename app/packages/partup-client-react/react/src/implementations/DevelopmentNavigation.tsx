@@ -1,13 +1,10 @@
 import * as React from 'react';
+import { NavigationBar } from 'components/NavigationBar/NavigationBar';
+import { List } from 'components/List/List';
+import { MainNavLink } from 'components/Router/MainNavLink';
+import { ListItem } from 'components/List/ListItem';
 
-import {
-    NavigationBar,
-} from 'components';
-
-import { MainNavLink } from 'components/Router';
-import List, { ListItem } from 'components/List';
-
-export default class DevelopmentNavigation extends React.Component {
+export class DevelopmentNavigation extends React.Component {
     render() {
         return (
             <NavigationBar>

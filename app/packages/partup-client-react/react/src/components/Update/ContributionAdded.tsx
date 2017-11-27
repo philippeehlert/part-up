@@ -8,7 +8,7 @@ interface Props {
     data: any;
 }
 
-export default class ContributionAdded extends React.Component<Props, {}> {
+export class ContributionAdded extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

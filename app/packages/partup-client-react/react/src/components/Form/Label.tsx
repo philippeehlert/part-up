@@ -7,7 +7,7 @@ interface Props {
     label: string;
 }
 
-export default class Label extends React.Component<Props, {}> {
+export class Label extends React.Component<Props, {}> {
 
     static defaultProps = {
 

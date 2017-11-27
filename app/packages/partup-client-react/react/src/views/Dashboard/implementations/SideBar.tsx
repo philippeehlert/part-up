@@ -2,24 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { RouteComponentProps, matchPath } from 'react-router';
 import { AppContext } from 'App';
-
-import {
-    Icon,
-    MediaQuery,
-    MobileNav,
-    DropDown,
-    Counter,
-} from 'components';
-
-import {
-    UserAvatar,
-} from 'components/Avatar';
-
-import List, {
-    ListItem,
-} from 'components/List';
-
-import { Link, MenuLink } from 'components/Router';
+import { MediaQuery } from 'components/MediaQuery/MediaQuery';
+import { MobileNav } from 'components/MobileNav/MobileNav';
+import { List } from 'components/List/List';
+import { Link } from 'components/Router/Link';
+import { UserAvatar } from 'components/Avatar/UserAvatar';
+import { DropDown } from 'components/DropDown/DropDown';
+import { MenuLink } from 'components/Router/MenuLink';
+import { Icon } from 'components/Icon/Icon';
+import { Counter } from 'components/Counter/Counter';
+import { ListItem } from 'components/List/ListItem';
 
 interface Props {
     className?: string;
@@ -27,7 +19,7 @@ interface Props {
     navigator: RouteComponentProps<any>;
 }
 
-export default class SideBar extends React.Component<Props> {
+export class SideBar extends React.Component<Props> {
 
     static contextTypes = {
         user: PropTypes.object,

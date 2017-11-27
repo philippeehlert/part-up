@@ -8,7 +8,7 @@ interface Props {
     data: any;
 }
 
-export default class PartupArchived extends React.Component<Props, {}> {
+export class PartupArchived extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

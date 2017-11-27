@@ -8,7 +8,7 @@ interface Props {
     data: any;
 }
 
-export default class ChangedRegion extends React.Component<Props, {}> {
+export class ChangedRegion extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

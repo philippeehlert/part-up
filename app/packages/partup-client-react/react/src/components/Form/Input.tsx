@@ -8,7 +8,7 @@ interface Props {
     name: string;
 }
 
-export default class Input extends React.Component<Props, {}> {
+export class Input extends React.Component<Props, {}> {
 
     static defaultProps = {
 

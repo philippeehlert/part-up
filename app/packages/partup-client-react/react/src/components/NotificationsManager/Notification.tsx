@@ -21,23 +21,23 @@ interface State {
     active: boolean;
 }
 
-export default class Notification extends React.Component<Props, State> {
+export class Notification extends React.Component<Props, State> {
 
     static defaultProps = {
-        
+
     };
-    
+
     state = {
         active: false,
     };
 
     private timeout: any = undefined;
-    
+
     componentDidMount() {
         const { title } = this.props;
         this.start(title.length * 500);
     }
-    
+
     start = (time: number) => {
         setTimeout(() => {
             this.setState({active: true});
@@ -57,12 +57,12 @@ export default class Notification extends React.Component<Props, State> {
         }, 200);
 
     }
-    
+
     onMouseOver = (event: React.SyntheticEvent<any>) => {
         const { onMouseOver } = this.props;
-        
+
         clearTimeout(this.timeout);
-        
+
         if (onMouseOver) onMouseOver(event);
     }
 
@@ -70,14 +70,14 @@ export default class Notification extends React.Component<Props, State> {
         const { onMouseLeave } = this.props;
 
         this.start(1000);
-    
+
         if (onMouseLeave) onMouseLeave(event);
     }
-    
+
     getClassNames = () => {
         const { className, type } = this.props;
         const { active } = this.state;
-        
+
         return c('pur-Notification', className, {
             'pur-Notification--error': type === 'error',
             'pur-Notification--warn': type === 'warn',
@@ -85,10 +85,10 @@ export default class Notification extends React.Component<Props, State> {
             'pur-Notification--active': active,
         });
     }
-    
+
     render() {
         const { title, icon, content } = this.props;
-        
+
         return (
             <div className={this.getClassNames()} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
                 { icon && (

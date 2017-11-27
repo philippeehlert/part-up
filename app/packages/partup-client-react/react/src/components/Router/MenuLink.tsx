@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './MenuLink.css';
 
-import NavLink from './NavLink';
-
+import { NavLink } from './NavLink';
 import { TargetType } from './Link';
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
     target?: TargetType;
 }
 
-export default class MenuLink extends React.Component<Props, {}> {
+export class MenuLink extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

@@ -6,9 +6,10 @@ import { take } from 'lodash';
 
 import { Comment as CommentType } from 'collections/Updates';
 
-import Comment, { SystemComment } from 'components/Comment';
-import { Link } from 'components/Router';
-import { Clickable } from 'components/Button';
+import { Comment } from 'components/Comment/Comment';
+import { SystemComment } from 'components/Comment//SystemComment';
+import { Link } from 'components/Router/Link';
+import { Clickable } from 'components/Button/Clickable';
 
 interface Props {
     comments: Array<CommentType>;
@@ -23,7 +24,7 @@ interface State {
     showAllComments: boolean;
 }
 
-export default class UpdateTileComments extends React.Component<Props, State> {
+export class UpdateTileComments extends React.Component<Props, State> {
 
     static defaultProps = {
         collapsedMax: 2,

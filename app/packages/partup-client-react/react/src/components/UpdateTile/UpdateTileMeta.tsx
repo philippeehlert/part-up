@@ -11,7 +11,7 @@ interface Props {
     avatar: JSX.Element;
 }
 
-export default class UpdateTileMeta extends React.Component<Props, {}> {
+export class UpdateTileMeta extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

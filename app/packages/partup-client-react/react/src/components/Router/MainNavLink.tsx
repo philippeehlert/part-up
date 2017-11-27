@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './MainNavLink.css';
 
-import NavLink, { NavLinkProps } from './NavLink';
+import { NavLink, NavLinkProps } from './NavLink';
 
-export default class MainNavLink extends React.Component<NavLinkProps, {}> {
+export class MainNavLink extends React.Component<NavLinkProps, {}> {
 
     static defaultProps = {
 

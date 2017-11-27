@@ -3,14 +3,14 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './PartupTagChanged.css';
 import { get } from 'lodash';
-import { Icon } from 'components';
+import { Icon } from 'components/Icon/Icon';
 
 interface Props {
     className?: string;
     data: any;
 }
 
-export default class PartupTagChanged extends React.Component<Props, {}> {
+export class PartupTagChanged extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

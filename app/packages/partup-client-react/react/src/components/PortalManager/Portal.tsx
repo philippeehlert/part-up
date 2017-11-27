@@ -7,7 +7,7 @@ interface Props {
     onClick?: Function;
 }
 
-export default class Portal extends React.Component<Props, {}> {
+export class Portal extends React.Component<Props, {}> {
 
     private portalElement: HTMLElement;
     private portalRoot: HTMLElement;
@@ -17,10 +17,10 @@ export default class Portal extends React.Component<Props, {}> {
 
         const { className } = this.props;
 
-        this.portalRoot = document.getElementById('react-portal-root') as HTMLElement;        
+        this.portalRoot = document.getElementById('react-portal-root') as HTMLElement;
         this.portalElement = document.createElement('div');
         this.portalElement.classList.add('pur-Portal');
-        
+
         if (className) {
             className.split(' ').forEach((name) => {
                 this.portalElement.classList.add(name);
@@ -32,7 +32,7 @@ export default class Portal extends React.Component<Props, {}> {
         if (event.target !== this.portalElement) return;
 
         const { onClick } = this.props;
-    
+
         if (onClick) onClick(event);
     }
 
@@ -40,7 +40,7 @@ export default class Portal extends React.Component<Props, {}> {
         this.portalRoot.appendChild(this.portalElement);
         this.portalElement.addEventListener('click', this.onClick);
     }
-    
+
     componentWillUnmount() {
         this.portalRoot.removeChild(this.portalElement);
         this.portalElement.removeEventListener('click', this.onClick);

@@ -6,7 +6,7 @@ interface Props {
     className?: string;
 }
 
-export default class UpdateTileContent extends React.Component<Props, {}> {
+export class UpdateTileContent extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;

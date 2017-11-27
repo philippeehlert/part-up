@@ -6,7 +6,7 @@ interface Props {
     className?: string;
 }
 
-export default class FilteredListItems extends React.Component<Props, {}> {
+export class FilteredListItems extends React.Component<Props, {}> {
 
     getClassNames() {
         const { className } = this.props;
