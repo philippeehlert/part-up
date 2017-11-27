@@ -23,6 +23,8 @@ export class CommentBox extends React.Component<Props, State> {
         showSendButton: false,
     };
 
+    private inputElement: Input|null = null;
+
     public render() {
         const { poster } = this.props;
 
@@ -33,6 +35,7 @@ export class CommentBox extends React.Component<Props, State> {
                     className={`pur-CommentBox__input`}
                     type={`text`}
                     name={`comment`}
+                    ref={el => this.inputElement = el}
                     placeholder={`Schrijf een reactie`}
                     onFocus={this.showSendButton}
                 />
@@ -43,6 +46,13 @@ export class CommentBox extends React.Component<Props, State> {
                 )}
             </Form>
         );
+    }
+
+    public focus() {
+        if (this.inputElement) {
+            this.inputElement.focus();
+        }
+        this.showSendButton();
     }
 
     private getClassNames() {

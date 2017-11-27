@@ -179,7 +179,12 @@ export class ConversationUpdates extends React.Component {
                                                 { this.renderUpdateComponent(update) }
                                             </UpdateTileContent>
                                         )}
-                                        <UpdateTileComments user={user} update={update} comments={update.comments || []} />
+                                        <UpdateTileComments
+                                            user={user}
+                                            update={update}
+                                            comments={update.comments || []}
+                                            onCommentSubmitted={(comment, user) => console.log(user, 'submitted', comment)}
+                                        />
                                     </UpdateTile>
                                 </Tile>
                             );

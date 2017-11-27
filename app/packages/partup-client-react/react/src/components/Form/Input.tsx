@@ -14,6 +14,8 @@ interface Props {
 
 export class Input extends React.Component<Props, {}> {
 
+    private element: HTMLInputElement|null = null;
+
     public render() {
         const {
             type,
@@ -27,12 +29,19 @@ export class Input extends React.Component<Props, {}> {
             <input
                 type={type}
                 name={name}
+                ref={el => this.element = el}
                 placeholder={placeholder}
                 className={this.getClassNames()}
                 onFocus={onFocus ? onFocus : undefined}
                 onBlur={onBlur ? onBlur : undefined}
             />
         );
+    }
+
+    public focus() {
+        if (this.element) {
+            this.element.focus();
+        }
     }
 
     private getClassNames() {

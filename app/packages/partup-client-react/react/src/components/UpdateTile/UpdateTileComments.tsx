@@ -15,10 +15,10 @@ interface Props {
     // onRespondClick?: Function;
     update: any;
     user: any
+    onCommentSubmitted: (comment: string, user: any) => void
 }
 
 interface State {
-    commentBoxEnabled: boolean;
     showAllComments: boolean;
 }
 
@@ -29,13 +29,13 @@ export class UpdateTileComments extends React.Component<Props, State> {
     };
 
     public state: State = {
-        commentBoxEnabled: false,
         showAllComments: false,
     };
 
+    private commentBoxComponent: CommentBox|null = null;
+
     public render() {
         const { comments, user } = this.props;
-        const { commentBoxEnabled } = this.state;
         const count = comments.length;
 
         return (
@@ -47,7 +47,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
                     {` • `}
                     <Clickable
                         className={`pur-UpdateTileComments__controls__respond-link`}
-                        onClick={this.toggleCommentBox}
+                        onClick={() => this.commentBoxComponent && this.commentBoxComponent.focus()}
                     >
                         Reageren
                     </Clickable>
@@ -55,13 +55,12 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
                 { comments.length > 0 && this.renderComments() }
 
-                { commentBoxEnabled && (
-                    <CommentBox
-                        poster={user}
-                        onSubmit={(e: any, fields: any) => console.log(e, fields)}
-                        className={`put-UpdateTileComments__comment-box`}
-                    />
-                ) }
+                <CommentBox
+                    poster={user}
+                    ref={el => this.commentBoxComponent = el}
+                    onSubmit={(e: any, fields: any) => this.props.onCommentSubmitted(fields.comment, user)}
+                    className={`put-UpdateTileComments__comment-box`}
+                />
             </div>
         );
     }
@@ -103,12 +102,6 @@ export class UpdateTileComments extends React.Component<Props, State> {
     private toggleAllComments = () => {
         this.setState({
             showAllComments: !this.state.showAllComments,
-        });
-    }
-
-    private toggleCommentBox = () => {
-        this.setState({
-            commentBoxEnabled: !this.state.commentBoxEnabled,
         });
     }
 
