@@ -5,7 +5,6 @@ import * as c from 'classnames';
 import { take } from 'lodash';
 import { Comment as CommentType } from 'collections/Updates';
 import { Comment } from 'components/Comment/Comment';
-import { SystemComment } from 'components/Comment//SystemComment';
 import { Link } from 'components/Router/Link';
 import { Clickable } from 'components/Button/Clickable';
 
@@ -69,16 +68,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
         const { comments, collapsedMax } = this.props;
         const { showAllComments } = this.state;
 
-        const amountOfCommentToShow = showAllComments ? comments.length : collapsedMax;
+        const updateComments = comments.filter(({ type }) => type !== 'system');
 
-        const commentComponents = comments.map((comment) => {
+        const amountOfCommentToShow = showAllComments ? updateComments.length : collapsedMax;
 
-            if (comment.type === 'system') {
-                return <SystemComment key={comment._id} comment={comment} />;
-            }
+        const commentComponents = updateComments.map((comment) => {
             if (comment.type === 'motivation') {
                 return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
             }
+
             return <Comment key={comment._id} comment={comment} />;
         });
 
