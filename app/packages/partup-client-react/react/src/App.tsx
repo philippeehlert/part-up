@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Meteor from 'utils/Meteor';
-import Subscriber from 'utils/Subscriber';
+import { Meteor } from 'utils/Meteor';
+import { Subscriber } from 'utils/Subscriber';
 import {
     Switch,
     Route,
@@ -24,11 +24,11 @@ interface Props {
 
 class Container extends React.Component<Props, {}> {
 
-    static contextTypes = {
+    public static contextTypes = {
         router: PropTypes.object,
     };
 
-    componentWillMount() {
+    public componentWillMount() {
         if (!dev) {
             onRouteChange((currentRoute: string) => {
                 this.context.router.history.push(currentRoute);
@@ -36,7 +36,7 @@ class Container extends React.Component<Props, {}> {
         }
     }
 
-    render() {
+    public render() {
         const { children } = this.props;
 
         if (dev) {
@@ -70,7 +70,7 @@ export interface AppContext {
 
 export class App extends React.Component<Props, State> {
 
-    static childContextTypes = {
+    public static childContextTypes = {
         user: PropTypes.object,
         refetchUser: PropTypes.func,
     };
@@ -87,7 +87,7 @@ export class App extends React.Component<Props, State> {
         onChange: () => this.forceUpdate(),
     });
 
-    getChildContext(): AppContext {
+    public getChildContext(): AppContext {
         const { user } = this.state;
 
         return {
@@ -96,13 +96,7 @@ export class App extends React.Component<Props, State> {
         };
     }
 
-    refetchUser = () => {
-        this.setState({
-            user: Meteor.user(),
-        });
-    }
-
-    componentWillMount() {
+    public componentWillMount() {
         this.subscriptions.subscribe();
         this.refetchUser();
         // Meteor.loginWithPassword('ralph@part-up.com', 'Testpassword1')
@@ -126,7 +120,7 @@ export class App extends React.Component<Props, State> {
 
     }
 
-    render() {
+    public render() {
         const { loginFailed, user } = this.state;
 
         if (loginFailed) {
@@ -152,5 +146,11 @@ export class App extends React.Component<Props, State> {
                 <NotificationsManager />
             </Container>
         );
+    }
+
+    private refetchUser = () => {
+        this.setState({
+            user: Meteor.user(),
+        });
     }
 }

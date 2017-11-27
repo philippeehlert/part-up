@@ -1,6 +1,7 @@
+import './NotificationsManager.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './NotificationsManager.css';
 
 import { Portal } from 'components/PortalManager/Portal';
 import { Icon } from 'components/Icon/Icon';
@@ -18,63 +19,23 @@ interface State {
 
 export class NotificationsManager extends React.Component<Props, State> {
 
-    static defaultProps = {
-
-    };
-
-    state: State = {
+    public state: State = {
         notifications: [],
     };
 
-    componentWillMount() {
+    public componentWillMount() {
         NotificationsDispatcher.subscribe('error', this.onNotification);
         NotificationsDispatcher.subscribe('warn', this.onNotification);
         NotificationsDispatcher.subscribe('success', this.onNotification);
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         NotificationsDispatcher.unsubscribe('error', this.onNotification);
         NotificationsDispatcher.unsubscribe('warn', this.onNotification);
         NotificationsDispatcher.unsubscribe('success', this.onNotification);
     }
 
-    onNotification = (event: NotificationProps) => {
-        const { notifications } = this.state;
-
-        notifications.push(event);
-
-        this.setState({
-            notifications,
-        });
-    }
-
-    closeNotification = (n: number) => {
-        const { notifications } = this.state;
-
-        if (notifications) notifications[n] = undefined;
-
-        this.setState({
-            notifications,
-        });
-    }
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-NotificationsManager', className, {
-
-        });
-    }
-
-    getIcon = (type: string) => {
-        if (type === 'error') return <Icon name={'warning'} />;
-        if (type === 'warn') return <Icon name={'warning'} />;
-        if (type === 'success') return <Icon name={'check'} />;
-
-        return undefined;
-    }
-
-    render() {
+    public render() {
         const { notifications = [] } = this.state;
 
         return (
@@ -94,5 +55,41 @@ export class NotificationsManager extends React.Component<Props, State> {
                 )).filter((n) => !!n) }
             </Portal>
         );
+    }
+
+    private onNotification = (event: NotificationProps) => {
+        const { notifications } = this.state;
+
+        notifications.push(event);
+
+        this.setState({
+            notifications,
+        });
+    }
+
+    private closeNotification = (n: number) => {
+        const { notifications } = this.state;
+
+        if (notifications) notifications[n] = undefined;
+
+        this.setState({
+            notifications,
+        });
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-NotificationsManager', className, {
+
+        });
+    }
+
+    private getIcon(type: string) {
+        if (type === 'error') return <Icon name={'warning'} />;
+        if (type === 'warn') return <Icon name={'warning'} />;
+        if (type === 'success') return <Icon name={'check'} />;
+
+        return undefined;
     }
 }

@@ -1,11 +1,11 @@
+import './PartupImageChanged.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupImageChanged.css';
 import { get } from 'lodash';
 import { Icon } from 'components/Icon/Icon';
 
-import Images from 'collections/Images';
+import { Images } from 'collections/Images';
 
 interface Props {
     className?: string;
@@ -14,21 +14,13 @@ interface Props {
 
 export class PartupImageChanged extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupImageChanged', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { data } = this.props;
         const newImageId = get(data, 'type_data.new_image');
         const oldImageId = get(data, 'type_data.old_image');
 
-        const newImage = Images.findOne({_id: newImageId}) || Images.findOneStatic(newImageId);
-        const oldImage = Images.findOne({_id: oldImageId}) || Images.findOneStatic(oldImageId);
+        const newImage = Images.findOne({ _id: newImageId }) || Images.findOneStatic(newImageId);
+        const oldImage = Images.findOne({ _id: oldImageId }) || Images.findOneStatic(oldImageId);
         const newImageUrl = Images.getUrl(newImage);
         const oldImageUrl = Images.getUrl(oldImage);
 
@@ -39,5 +31,13 @@ export class PartupImageChanged extends React.Component<Props, {}> {
                 <img className={`pur-PartupImageChanged__image`} src={oldImageUrl} alt={'partup-image'}/>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupImageChanged', className, {
+
+        });
     }
 }

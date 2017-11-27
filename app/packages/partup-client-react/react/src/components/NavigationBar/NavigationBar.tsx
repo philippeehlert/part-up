@@ -1,6 +1,7 @@
+import './NavigationBar.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './NavigationBar.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class NavigationBar extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-NavigationBar', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -24,5 +17,13 @@ export class NavigationBar extends React.Component<Props, {}> {
                 {children}
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-NavigationBar', className, {
+
+        });
     }
 }

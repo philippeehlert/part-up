@@ -5,7 +5,8 @@ import { MainNavLink } from 'components/Router/MainNavLink';
 import { ListItem } from 'components/List/ListItem';
 
 export class DevelopmentNavigation extends React.Component {
-    render() {
+
+    public render() {
         return (
             <NavigationBar>
                 <List horizontal spaced>
@@ -20,7 +21,7 @@ export class DevelopmentNavigation extends React.Component {
                         </MainNavLink>
                     </ListItem>
                     <ListItem alignRight>
-                        <span style={{padding: '15px', display: 'block'}}>
+                        <span style={{ padding: '15px', display: 'block' }}>
                             Partup React Development Environment
                         </span>
                     </ListItem>

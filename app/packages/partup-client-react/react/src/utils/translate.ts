@@ -1,11 +1,11 @@
 import { TranslationFunction } from 'i18next';
 
-let translate = undefined;
+let t = undefined;
 
 if (process.env.REACT_APP_DEV) {
-    translate = (...args: any[]) => window.i18next.t(...args);
+    t = (...args: any[]) => window.i18next.t(...args);
 } else {
-    translate = (...args: any[]) => window.TAPi18n.__(...args);
+    t = (...args: any[]) => window.TAPi18n.__(...args);
 }
 
-export default translate as TranslationFunction;
+export const translate = t as TranslationFunction;

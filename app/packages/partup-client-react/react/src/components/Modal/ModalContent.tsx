@@ -1,6 +1,7 @@
+import './ModalContent.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ModalContent.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class ModalContent extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-ModalContent', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -24,5 +17,13 @@ export class ModalContent extends React.Component<Props, {}> {
                 {children}
             </article>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ModalContent', className, {
+
+        });
     }
 }

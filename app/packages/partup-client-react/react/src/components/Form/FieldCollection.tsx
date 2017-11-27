@@ -1,6 +1,7 @@
+import './FieldCollection.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './FieldCollection.css';
 
 interface Props {
     className?: string;
@@ -8,19 +9,7 @@ interface Props {
 
 export class FieldCollection extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-FieldCollection', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -28,5 +17,13 @@ export class FieldCollection extends React.Component<Props, {}> {
                 {children}
             </div>
         );
+    }
+
+    private getClassNames = () => {
+        const { className } = this.props;
+
+        return c('pur-FieldCollection', className, {
+
+        });
     }
 }

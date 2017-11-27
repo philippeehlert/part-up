@@ -1,5 +1,5 @@
 // import { get } from 'lodash';
-import Meteor from 'utils/Meteor';
+import { Meteor } from 'utils/Meteor'
 
 import { User } from 'types/User';
 

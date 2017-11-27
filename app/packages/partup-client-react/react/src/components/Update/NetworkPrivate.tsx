@@ -1,7 +1,7 @@
+import './NetworkPrivate.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './NetworkPrivate.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class NetworkPrivate extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-NetworkPrivate', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `network_private` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-NetworkPrivate', className, {
+
+        });
     }
 }

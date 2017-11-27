@@ -1,6 +1,7 @@
+import './DropDown.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './DropDown.css';
 import { Icon } from 'components/Icon/Icon';
 
 interface DropDownItem {
@@ -24,14 +25,14 @@ interface State {
 
 export class DropDown extends React.Component<Props, State> {
 
-    static defaultProps = {
-        onChange: () => {},
+    public static defaultProps: Partial<Props> = {
+        onChange: () => {/**/},
     };
 
     constructor(props: Props) {
         super(props);
 
-        const activeIndex = this.props.options.findIndex(({isActive}) => isActive);
+        const activeIndex = this.props.options.findIndex(({ isActive }) => isActive);
 
         this.state = {
             isExpanded: false,
@@ -39,7 +40,7 @@ export class DropDown extends React.Component<Props, State> {
         };
     }
 
-    render() {
+    public render() {
         const { options } = this.props;
         const { activeIndex, isExpanded } = this.state;
 

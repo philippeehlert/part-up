@@ -1,6 +1,7 @@
+import './ListItem.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ListItem.css';
 
 interface Props {
     className?: string;
@@ -10,16 +11,7 @@ interface Props {
 
 export class ListItem extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className, stretch, alignRight } = this.props;
-
-        return c('pur-ListItem', className, {
-            'pur-ListItem--stretch': stretch,
-            'pur-ListItem--align-right': alignRight,
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -27,5 +19,14 @@ export class ListItem extends React.Component<Props, {}> {
                 {children}
             </li>
         );
+    }
+
+    private getClassNames() {
+        const { className, stretch, alignRight } = this.props;
+
+        return c('pur-ListItem', className, {
+            'pur-ListItem--stretch': stretch,
+            'pur-ListItem--align-right': alignRight,
+        });
     }
 }

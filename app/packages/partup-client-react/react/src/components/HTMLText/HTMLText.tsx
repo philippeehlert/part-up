@@ -1,6 +1,7 @@
+import './HTMLText.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './HTMLText.css';
 
 interface Props {
     className?: string;
@@ -10,11 +11,18 @@ interface Props {
 
 export class HTMLText extends React.Component<Props, {}> {
 
-    static defaultProps = {
+    public render() {
+        const { html } = this.props;
+        const Wrap = this.getComponent();
 
-    };
+        return (
+            <Wrap
+            className={this.getClassNames()}
+            dangerouslySetInnerHTML={{ __html: html }} />
+        );
+    }
 
-    getClassNames = () => {
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-HTMLText', className, {
@@ -22,22 +30,11 @@ export class HTMLText extends React.Component<Props, {}> {
         });
     }
 
-    getComponent = () => {
+    private getComponent() {
         const { wrapComponent } = this.props;
 
         if (wrapComponent) return wrapComponent;
 
         return 'span';
-    }
-
-    render() {
-        const { html } = this.props;
-        const Wrap = this.getComponent();
-
-        return (
-            <Wrap
-                className={this.getClassNames()}
-                dangerouslySetInnerHTML={{__html: html}} />
-        );
     }
 }

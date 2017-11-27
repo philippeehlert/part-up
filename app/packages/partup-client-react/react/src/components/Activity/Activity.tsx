@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as c from 'classnames';
 import './Activity.css';
 import { get } from 'lodash';
-import Partups from 'collections/Partups';
+import { Partups } from 'collections/Partups';
 
 import { Link } from 'components/Router/Link';
 
@@ -14,19 +14,7 @@ interface Props {
 
 export class Activity extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Activity', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { _id, data } = this.props;
 
         if (!data) return this.renderDeleted();
@@ -63,4 +51,12 @@ export class Activity extends React.Component<Props, {}> {
             <span className={'pur-Activity__deleted-label'}>This activity is deleted...</span>
         </div>
     )
+
+    private getClassNames = () => {
+        const { className } = this.props;
+
+        return c('pur-Activity', className, {
+
+        });
+    }
 }

@@ -1,6 +1,7 @@
+import './Button.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Button.css';
 
 interface Props {
     className?: string;
@@ -12,25 +13,11 @@ interface Props {
 
 export class Button extends React.Component<Props, {}> {
 
-    static defaultProps = {
+    public static defaultProps: Partial<Props> = {
         type: 'button',
     };
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Button', className, {
-
-        });
-    }
-
-    onClick = (event: React.SyntheticEvent<any>) => {
-        const { onClick } = this.props;
-
-        if (onClick) onClick(event);
-    }
-
-    render() {
+    public render() {
         const {
             leftChild,
             children,
@@ -56,5 +43,19 @@ export class Button extends React.Component<Props, {}> {
                 ) }
             </button>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Button', className, {
+
+        });
+    }
+
+    private onClick = (event: React.SyntheticEvent<any>) => {
+        const { onClick } = this.props;
+
+        if (onClick) onClick(event);
     }
 }

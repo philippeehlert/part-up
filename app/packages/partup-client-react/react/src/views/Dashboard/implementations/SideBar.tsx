@@ -21,13 +21,13 @@ interface Props {
 
 export class SideBar extends React.Component<Props> {
 
-    static contextTypes = {
+    public static contextTypes = {
         user: PropTypes.object,
     };
 
     public context: AppContext;
 
-    render() {
+    public render() {
         return (
             <MediaQuery
                 query={`(min-width: 650px)`}
@@ -37,7 +37,7 @@ export class SideBar extends React.Component<Props> {
         );
     }
 
-    renderMobileNavigation = () => {
+    private renderMobileNavigation = () => {
         const { user } = this.context;
         const { navigator } = this.props;
 
@@ -66,7 +66,7 @@ export class SideBar extends React.Component<Props> {
                     <ListItem stretch>
                         <DropDown
                             options={dropDownOptions}
-                            onChange={({value}) => { navigator.history.push(value); }}
+                            onChange={({ value }) => navigator.history.push(value)}
                         />
                     </ListItem>
                 </List>
@@ -74,7 +74,7 @@ export class SideBar extends React.Component<Props> {
         );
     }
 
-    renderDesktopNavigation = () => {
+    private renderDesktopNavigation = () => {
         const { user } = this.context;
 
         return (

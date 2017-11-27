@@ -1,6 +1,7 @@
+import './Blank.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Blank.css';
 
 interface Props {
     label: string;
@@ -9,15 +10,7 @@ interface Props {
 
 export class Blank extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Blank', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             label,
             children,
@@ -29,5 +22,13 @@ export class Blank extends React.Component<Props, {}> {
                 { children }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Blank', className, {
+
+        });
     }
 }

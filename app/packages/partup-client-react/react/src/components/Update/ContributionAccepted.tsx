@@ -1,7 +1,7 @@
+import './ContributionAccepted.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './ContributionAccepted.css';
 
 interface Props {
     className?: string;
@@ -10,20 +10,22 @@ interface Props {
 
 export class ContributionAccepted extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-ContributionAccepted', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
+        // tslint:disable-next-line:no-console
         console.log(this.props.data);
+
         return (
             <div className={this.getClassNames()}>
                 {`contribution_accepted`}
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ContributionAccepted', className, {
+
+        });
     }
 }

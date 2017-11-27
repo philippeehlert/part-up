@@ -1,8 +1,8 @@
+import './PartupMessageAdded.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupMessageAdded.css';
-import translate from 'utils/translate';
+import { translate } from 'utils/translate';
 import { get } from 'lodash';
 import { HTMLText } from 'components/HTMLText/HTMLText';
 import { decode } from 'utils/mentions';
@@ -14,15 +14,7 @@ interface Props {
 
 export class PartupMessageAdded extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupMessageAdded', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { this.renderContent() }
@@ -30,7 +22,7 @@ export class PartupMessageAdded extends React.Component<Props, {}> {
         );
     }
 
-    private renderContent = () => {
+    private renderContent() {
         const { type_data } = this.props.data;
 
         if (type_data.type === 'welcome_message') {
@@ -38,5 +30,13 @@ export class PartupMessageAdded extends React.Component<Props, {}> {
         }
 
         return <HTMLText html={decode(get(type_data, 'new_value'))} />;
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupMessageAdded', className, {
+
+        });
     }
 }

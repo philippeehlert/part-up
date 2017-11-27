@@ -1,6 +1,7 @@
+import './Input.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Input.css';
 
 interface Props {
     className?: string;
@@ -10,23 +11,19 @@ interface Props {
 
 export class Input extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Input', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { type, name } = this.props;
 
         return (
             <input type={type} name={name} className={this.getClassNames()} />
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Input', className, {
+
+        });
     }
 }

@@ -1,9 +1,8 @@
+import './UpdateTileMeta.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
 import * as moment from 'moment';
-import './UpdateTileMeta.css';
-
-// import { Link } from '../Router';
 
 interface Props {
     className?: string;
@@ -13,15 +12,7 @@ interface Props {
 
 export class UpdateTileMeta extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-UpdateTileMeta', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { postedAt, children, avatar } = this.props;
 
         return (
@@ -42,5 +33,13 @@ export class UpdateTileMeta extends React.Component<Props, {}> {
                 </div>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-UpdateTileMeta', className, {
+
+        });
     }
 }

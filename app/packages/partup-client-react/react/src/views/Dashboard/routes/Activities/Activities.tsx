@@ -8,7 +8,7 @@ interface Props extends RouteComponentProps<any> {
 
 export class ActivitiesView extends React.Component<Props> {
 
-    render() {
+    public render() {
         return (
             <ContentView>
                 Activities View

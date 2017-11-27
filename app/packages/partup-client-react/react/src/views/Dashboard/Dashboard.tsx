@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
-import translate from 'utils/translate';
+import { translate } from 'utils/translate';
 
 import { ActivitiesView } from 'views/Dashboard/routes/Activities/Activities';
 import { InvitesView } from 'views/Dashboard/routes/Invites/Invites';
@@ -32,7 +32,7 @@ interface Props extends RouteComponentProps<any> {}
 
 export class Dashboard extends React.Component<Props, {}> {
 
-    render() {
+    public render() {
         const { match , history, location } = this.props;
 
         return (
@@ -40,7 +40,7 @@ export class Dashboard extends React.Component<Props, {}> {
                 sidebar={
                     <SideBar
                         baseUrl={'/home'}
-                        navigator={{match, history, location}}
+                        navigator={{ match, history, location }}
                     />
                 }>
                 <Switch>
@@ -54,7 +54,7 @@ export class Dashboard extends React.Component<Props, {}> {
         );
     }
 
-    private renderMaster = () => {
+    private renderMaster() {
         return (
             <ContentView>
                 <PortalManager
@@ -67,7 +67,11 @@ export class Dashboard extends React.Component<Props, {}> {
                     )}
                     renderPortal={(close) => (
                         <ModalPortal onBackgroundClick={close}>
-                            <Form onSubmit={(e: any, fields: any) => console.log(fields)}>
+
+                            <Form onSubmit={(e: any, fields: any) => {
+                                // tslint:disable-next-line:no-console
+                                console.log(fields);
+                            }}>
                                 <ModalWindow>
                                     <ModalHeader
                                         onClose={close}

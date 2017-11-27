@@ -1,7 +1,7 @@
+import './ContributionCommentAdded.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './ContributionCommentAdded.css';
 
 interface Props {
     className?: string;
@@ -9,20 +9,20 @@ interface Props {
 
 export class ContributionCommentAdded extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-ContributionCommentAdded', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
 
         return (
             <div className={this.getClassNames()}>
                 { `contribution_comment_added` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ContributionCommentAdded', className, {
+
+        });
     }
 }

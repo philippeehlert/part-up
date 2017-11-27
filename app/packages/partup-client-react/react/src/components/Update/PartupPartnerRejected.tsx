@@ -1,7 +1,7 @@
+import './PartupPartnerRejected.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupPartnerRejected.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class PartupPartnerRejected extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupPartnerRejected', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `partup_partner_rejected` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupPartnerRejected', className, {
+
+        });
     }
 }

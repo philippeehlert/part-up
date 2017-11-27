@@ -1,6 +1,7 @@
+import './Portal.css';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import './Portal.css';
 
 interface Props {
     className?: string;
@@ -28,27 +29,27 @@ export class Portal extends React.Component<Props, {}> {
         }
     }
 
-    onClick = (event: MouseEvent) => {
+    public componentDidMount() {
+        this.portalRoot.appendChild(this.portalElement);
+        this.portalElement.addEventListener('click', this.onClick);
+    }
+
+    public componentWillUnmount() {
+        this.portalRoot.removeChild(this.portalElement);
+        this.portalElement.removeEventListener('click', this.onClick);
+    }
+
+    public render() {
+        const { children } = this.props;
+
+        return ReactDOM.createPortal(children, this.portalElement);
+    }
+
+    private onClick = (event: MouseEvent) => {
         if (event.target !== this.portalElement) return;
 
         const { onClick } = this.props;
 
         if (onClick) onClick(event);
-    }
-
-    componentDidMount() {
-        this.portalRoot.appendChild(this.portalElement);
-        this.portalElement.addEventListener('click', this.onClick);
-    }
-
-    componentWillUnmount() {
-        this.portalRoot.removeChild(this.portalElement);
-        this.portalElement.removeEventListener('click', this.onClick);
-    }
-
-    render() {
-        const { children } = this.props;
-
-        return ReactDOM.createPortal(children, this.portalElement);
     }
 }

@@ -1,6 +1,7 @@
+import './Counter.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Counter.css';
 
 interface Props {
     className?: string;
@@ -9,15 +10,7 @@ interface Props {
 
 export class Counter extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Counter', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             count,
         } = this.props;
@@ -27,5 +20,13 @@ export class Counter extends React.Component<Props, {}> {
                 { count }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Counter', className, {
+
+        });
     }
 }

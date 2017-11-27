@@ -1,6 +1,7 @@
+import './FieldSet.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './FieldSet.css';
 
 interface Props {
     className?: string;
@@ -8,19 +9,7 @@ interface Props {
 
 export class FieldSet extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-FieldSet', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -28,5 +17,13 @@ export class FieldSet extends React.Component<Props, {}> {
                 {children}
             </fieldset>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-FieldSet', className, {
+
+        });
     }
 }

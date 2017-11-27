@@ -1,16 +1,16 @@
-import Meteor from 'utils/Meteor';
+import { Meteor } from 'utils/Meteor';
 
-type Subscription = {
-    name: string;
-    parameters?: Array<any>;
-};
+interface Subscription {
+    name: string
+    parameters?: Array<any>
+}
 
-type SubscriberOptions = {
-    subscriptions: Array<Subscription>;
-    onChange?: Function;
-};
+interface SubscriberOptions {
+    subscriptions: Array<Subscription>
+    onChange?: Function
+}
 
-export default class Subscriber {
+export class Subscriber {
 
     private subscriptions: Array<Subscription> = [];
 
@@ -20,7 +20,7 @@ export default class Subscriber {
         };
     } = {};
 
-    constructor({subscriptions, onChange}: SubscriberOptions) {
+    constructor({ subscriptions, onChange }: SubscriberOptions) {
         this.subscriptions = subscriptions;
         this.onChange = onChange || this.onChange;
     }
@@ -31,7 +31,7 @@ export default class Subscriber {
      * @throws Throws Error when adding duplicate subscriptions.
      */
     public subscribe() {
-        this.subscriptions.forEach(({name, parameters = []}) => {
+        this.subscriptions.forEach(({ name, parameters = [] }) => {
             if (this.activeSubscriptions[name]) {
                 throw new Error('Subscription already active');
             }
@@ -63,8 +63,12 @@ export default class Subscriber {
             }
         }
 
-        this.onChange = () => {};
+        this.onChange = () => {
+            //
+        };
     }
 
-    private onChange: Function = () => {};
+    private onChange: Function = () => {
+        //
+    }
 }

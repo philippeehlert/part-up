@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { get, uniqBy } from 'lodash';
 import { AppContext } from 'App';
-import Images from 'collections/Images';
-import Partups from 'collections/Partups';
-import Fetcher from 'utils/Fetcher';
+import { Images } from 'collections/Images';
+import { Partups } from 'collections/Partups';
+import { Fetcher } from 'utils/Fetcher';
 
 import { FilteredList } from 'components/FilteredList/FilteredList';
 import { FilteredListControls } from 'components/FilteredList/FilteredListControls';
@@ -62,7 +62,7 @@ import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved
 
 export class ConversationUpdates extends React.Component {
 
-    static contextTypes = {
+    public static contextTypes = {
         user: PropTypes.object,
     };
 
@@ -100,15 +100,15 @@ export class ConversationUpdates extends React.Component {
             } = data;
 
             activities.forEach((activity) => {
-                activity.lane = lanes.find(({_id}) => _id === activity.lane_id);
+                activity.lane = lanes.find(({ _id }) => _id === activity.lane_id);
             });
 
             return {
                 updates: updates.map((update: any) => ({
                     ...update,
-                    partup: partups.find(({_id}) => update.partup_id === _id),
-                    upper: users.find(({_id}) => update.upper_id === _id),
-                    activity: activities.find(({update_id}) => update_id === update._id),
+                    partup: partups.find(({ _id }) => update.partup_id === _id),
+                    upper: users.find(({ _id }) => update.upper_id === _id),
+                    activity: activities.find(({ update_id }) => update_id === update._id),
                 })),
             };
         },
@@ -119,53 +119,17 @@ export class ConversationUpdates extends React.Component {
         onChange: () => this.forceUpdate(),
     });
 
-    componentWillMount() {
+    public componentWillMount() {
         this.conversationsFetcher.fetch();
         this.partupsFetcher.fetch();
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this.conversationsFetcher.destroy();
         this.partupsFetcher.destroy();
     }
 
-    filterBy(type: 'filterByAll' | 'filterByPartner'| 'filterBySupporter') {
-        this.skip = 0;
-        this.fetchedAll = false;
-
-        const options = {
-            filterByAll: false,
-            filterByPartner: false,
-            filterBySupporter: false,
-            [type]: true,
-        };
-
-        this.filters = {
-            ...this.filters,
-            supporterOnly: !options.filterByAll && options.filterBySupporter,
-            upperOnly: !options.filterByAll && options.filterByPartner,
-        };
-
-        this.conversationsFetcher.fetch(this.filters);
-    }
-
-    filterByPartup(partupId: string) {
-        this.skip = 0;
-        this.fetchedAll = false;
-
-        if (partupId === 'all' && this.filters.partupId) {
-            delete this.filters.partupId;
-        } else if (partupId !== 'all') {
-            this.filters = {
-                ...this.filterBy,
-                partupId: partupId,
-            };
-        }
-
-        this.conversationsFetcher.fetch(this.filters);
-    }
-
-    render() {
+    public render() {
         const { data, loading } = this.conversationsFetcher;
         const { data: partupsData } = this.partupsFetcher;
         const { updates = [] } = data;
@@ -203,7 +167,7 @@ export class ConversationUpdates extends React.Component {
                                 <Tile title={update.partup.name} key={update._id}>
                                     <UpdateTile>
                                         <UpdateTileMeta
-                                            avatar={update.system ? <SystemAvatar /> :  <UserAvatar user={upper} />}
+                                            avatar={update.system ? <SystemAvatar /> : <UserAvatar user={upper} />}
                                             postedAt={update.created_at}
                                         >
                                             { this.renderUpdateTitle(update, get(upper, 'profile.name')) }
@@ -222,6 +186,42 @@ export class ConversationUpdates extends React.Component {
                 </FilteredListItems>
             </FilteredList>
         );
+    }
+
+    private filterBy(type: 'filterByAll' | 'filterByPartner'| 'filterBySupporter') {
+        this.skip = 0;
+        this.fetchedAll = false;
+
+        const options = {
+            filterByAll: false,
+            filterByPartner: false,
+            filterBySupporter: false,
+            [type]: true,
+        };
+
+        this.filters = {
+            ...this.filters,
+            supporterOnly: !options.filterByAll && options.filterBySupporter,
+            upperOnly: !options.filterByAll && options.filterByPartner,
+        };
+
+        this.conversationsFetcher.fetch(this.filters);
+    }
+
+    private filterByPartup(partupId: string) {
+        this.skip = 0;
+        this.fetchedAll = false;
+
+        if (partupId === 'all' && this.filters.partupId) {
+            delete this.filters.partupId;
+        } else if (partupId !== 'all') {
+            this.filters = {
+                ...this.filterBy,
+                partupId: partupId,
+            };
+        }
+
+        this.conversationsFetcher.fetch(this.filters);
     }
 
     private loadMore = async (done: Function) => {
@@ -408,7 +408,7 @@ export class ConversationUpdates extends React.Component {
     }
 
     private getPartupOptions(partups: any) {
-        return partups.filter(({_id}: any) => {
+        return partups.filter(({ _id }: any) => {
             if (!this.context.user || (!this.filters.supporterOnly && !this.filters.upperOnly)) {
                 return true;
             }

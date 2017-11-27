@@ -1,6 +1,7 @@
+import './ContentView.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ContentView.css';
 
 import { View } from './View';
 
@@ -10,15 +11,7 @@ interface Props {
 
 export class ContentView extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-ContentView', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             children,
         } = this.props;
@@ -28,5 +21,13 @@ export class ContentView extends React.Component<Props, {}> {
                 { children }
             </View>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ContentView', className, {
+
+        });
     }
 }

@@ -20,31 +20,11 @@ const PortalManagerWrapper: React.SFC<PortalManagerWrapperProps> = ({ children }
 
 export class PortalManager extends React.Component<Props, State> {
 
-    state: State = {
+    public state: State = {
         render: false,
     };
 
-    onOpen = (event: Object) => {
-        const { onOpen } = this.props;
-
-        if (onOpen) onOpen(event);
-    }
-
-    onClose = (event: Object) => {
-        const { onClose } = this.props;
-
-        if (onClose) onClose(event);
-    }
-
-    close = () => {
-        this.setState({ render: false });
-    }
-
-    open = () => {
-        this.setState({ render: true });
-    }
-
-    render(): any {
+    public render() {
         const { render } = this.state;
         const { renderHandler, renderPortal } = this.props;
 
@@ -57,6 +37,14 @@ export class PortalManager extends React.Component<Props, State> {
                     {renderPortal(this.close)}
                 </PortalManagerWrapper>
             ),
-        ];
+        ] as (JSX.Element)[];
+    }
+
+    private close = () => {
+        this.setState({ render: false });
+    }
+
+    private open = () => {
+        this.setState({ render: true });
     }
 }

@@ -1,6 +1,6 @@
-const { default: Meteor } = require('react-web-meteor');
+export const { default: Meteor } = require('react-web-meteor');
 
-let callbackQueue: Array<any> = [];
+const callbackQueue: Array<any> = [];
 let isLoadingCompleted = false;
 let isReady = false;
 
@@ -88,5 +88,3 @@ export function getLoginToken() {
 
     return window.localStorage.getItem('Meteor.loginToken');
 }
-
-export default Meteor;

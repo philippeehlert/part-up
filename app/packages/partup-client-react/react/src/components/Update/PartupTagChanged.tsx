@@ -1,7 +1,7 @@
+import './PartupTagChanged.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupTagChanged.css';
 import { get } from 'lodash';
 import { Icon } from 'components/Icon/Icon';
 
@@ -12,15 +12,7 @@ interface Props {
 
 export class PartupTagChanged extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupTagChanged', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { data } = this.props;
 
         return (
@@ -34,5 +26,13 @@ export class PartupTagChanged extends React.Component<Props, {}> {
                 </span>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupTagChanged', className, {
+
+        });
     }
 }

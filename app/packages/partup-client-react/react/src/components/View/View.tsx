@@ -1,6 +1,7 @@
+import './View.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './View.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class View extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-View', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -25,5 +18,12 @@ export class View extends React.Component<Props, {}> {
             </div>
         );
     }
-}
 
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-View', className, {
+
+        });
+    }
+}

@@ -1,7 +1,7 @@
+import './PartupPartnerRequest.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupPartnerRequest.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class PartupPartnerRequest extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupPartnerRequest', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `partup_partner_request` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupPartnerRequest', className, {
+
+        });
     }
 }

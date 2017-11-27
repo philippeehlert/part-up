@@ -1,16 +1,11 @@
-import * as React from 'react';
-import * as c from 'classnames';
 import './SystemComment.css';
 
+import * as React from 'react';
+import * as c from 'classnames';
 import * as moment from 'moment';
-
-// import { HTMLText } from 'components';
+import { translate } from 'utils/translate';
 
 import { Comment as CommentType } from 'collections/Updates';
-
-// import { decode } from 'utils/mentions';
-
-import translate from 'utils/translate';
 
 interface Props {
     comment: CommentType;
@@ -19,19 +14,7 @@ interface Props {
 
 export class SystemComment extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-SystemComment', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { comment } = this.props;
 
         return (
@@ -51,5 +34,13 @@ export class SystemComment extends React.Component<Props, {}> {
                 </p>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-SystemComment', className, {
+
+        });
     }
 }

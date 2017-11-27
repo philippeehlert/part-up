@@ -12,7 +12,7 @@ interface Props {
 
 export class Home extends React.Component<Props, {}> {
 
-    render() {
+    public render() {
         return (
             <View>
                 Welcome to the Part-up React development environment.

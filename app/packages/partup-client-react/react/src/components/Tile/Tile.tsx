@@ -1,6 +1,7 @@
+import './Tile.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Tile.css';
 
 interface Props {
     title: JSX.Element|string;
@@ -9,15 +10,7 @@ interface Props {
 
 export class Tile extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Tile', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             children,
             title,
@@ -31,5 +24,13 @@ export class Tile extends React.Component<Props, {}> {
                 </div>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Tile', className, {
+
+        });
     }
 }

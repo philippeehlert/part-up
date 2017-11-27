@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import Meteor from 'utils/Meteor';
+import { Meteor } from 'utils/Meteor';
 
 interface Partup {
     _id: string;
@@ -38,13 +38,13 @@ export function findOneStatic(partupId: string) {
 }
 
 export function getSlug(partupId: string) {
-    const partup = findOne({_id: partupId});
+    const partup = findOne({ _id: partupId });
     const staticPartup = findOneStatic(partupId);
 
     return get(partup, 'slug', get(staticPartup, 'slug'));
 }
 
-export default {
+export const Partups = {
     updateStatic,
     find,
     findOne,

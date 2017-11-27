@@ -1,8 +1,9 @@
+import './NavLink.css';
+
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
-import './NavLink.css';
 import { Link, TargetType } from './Link';
 
 export interface NavLinkProps {
@@ -22,27 +23,11 @@ export interface NavLinkProps {
 
 export class NavLink extends React.Component<NavLinkProps, {}> {
 
-    static contextTypes = {
+    public static contextTypes = {
         router: PropTypes.object,
     };
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-NavLink', className, {
-
-        });
-    }
-
-    getActiveClassNames = () => {
-        const { activeClassName } = this.props;
-
-        return c('pur-NavLink--is-active', activeClassName, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             to,
             exact,
@@ -78,5 +63,21 @@ export class NavLink extends React.Component<NavLinkProps, {}> {
                 }}
                 />
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-NavLink', className, {
+
+        });
+    }
+
+    private getActiveClassNames() {
+        const { activeClassName } = this.props;
+
+        return c('pur-NavLink--is-active', activeClassName, {
+
+        });
     }
 }

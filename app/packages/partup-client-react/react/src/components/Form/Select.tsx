@@ -1,6 +1,7 @@
+import './Select.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Select.css';
 
 interface Props {
     className?: string;
@@ -16,15 +17,7 @@ interface Props {
 
 export class Select extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Select', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             options,
             defaultValue,
@@ -44,12 +37,20 @@ export class Select extends React.Component<Props, {}> {
         const selectedValue = event.currentTarget.value;
 
         const selectedOption =
-            options.find(({value}) => value === selectedValue) || options[selectedValue];
+        options.find(({ value }) => value === selectedValue) || options[selectedValue];
 
         if (selectedOption && selectedOption.onChange) {
             selectedOption.onChange(event);
         }
 
         if (onChange) onChange(event);
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Select', className, {
+
+        });
     }
 }

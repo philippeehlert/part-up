@@ -1,6 +1,7 @@
+import './ModalHeader.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ModalHeader.css';
 
 import { Icon } from 'components/Icon/Icon';
 import { Clickable } from 'components/Button/Clickable';
@@ -16,21 +17,7 @@ interface ModalHeaderProps extends Props {
 
 export class ModalHeader extends React.Component<ModalHeaderProps, {}> {
 
-    onClose = (event: React.SyntheticEvent<any>) => {
-        const { onClose } = this.props;
-
-        if (onClose) onClose(event);
-    }
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-ModalHeader', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { title } = this.props;
 
         return (
@@ -41,5 +28,19 @@ export class ModalHeader extends React.Component<ModalHeaderProps, {}> {
                 </Clickable>
             </header>
         );
+    }
+
+    private onClose = (event: React.SyntheticEvent<any>) => {
+        const { onClose } = this.props;
+
+        if (onClose) onClose(event);
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ModalHeader', className, {
+
+        });
     }
 }

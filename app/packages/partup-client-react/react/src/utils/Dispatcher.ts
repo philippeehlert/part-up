@@ -1,7 +1,7 @@
-export default class Dispatcher {
+export class Dispatcher {
 
-    _listeners = {};
-    _destroyed = false;
+    private listeners = {};
+    private destroyed = false;
 
     /**
      * Subscribes a callback to an event
@@ -9,11 +9,11 @@ export default class Dispatcher {
      * @param {String} event
      * @param {Function} callback
      */
-    subscribe(event: string, callback: Function) {
-        if (this._destroyed) return;
-        if (!this._listeners[event]) this._listeners[event] = [];
+    public subscribe(event: string, callback: Function) {
+        if (this.destroyed) return;
+        if (!this.listeners[event]) this.listeners[event] = [];
 
-        this._listeners[event].push(callback);
+        this.listeners[event].push(callback);
     }
 
     /**
@@ -22,11 +22,11 @@ export default class Dispatcher {
      * @param {String} event
      * @param {Function} callback
      */
-    unsubscribe(event: string, callback: Function) {
-        if (this._listeners[event]) {
-            const listenerIndex = this._listeners[event].indexOf(callback);
+    public unsubscribe(event: string, callback: Function) {
+        if (this.listeners[event]) {
+            const listenerIndex = this.listeners[event].indexOf(callback);
 
-            if (listenerIndex > -1) this._listeners[event].splice(listenerIndex, 1);
+            if (listenerIndex > -1) this.listeners[event].splice(listenerIndex, 1);
         }
     }
 
@@ -36,17 +36,17 @@ export default class Dispatcher {
      * @param {String} event
      * @param {Object} event parameters
      */
-    dispatch(event: string, parameters: Object = {}) {
-        if (this._destroyed) return;
-        if (this._listeners[event]) this._listeners[event].forEach((cb: Function) => cb({event, ...parameters}));
+    public dispatch(event: string, parameters: Object = {}) {
+        if (this.destroyed) return;
+        if (this.listeners[event]) this.listeners[event].forEach((cb: Function) => cb({ event, ...parameters }));
     }
 
     /**
      * Destroys the entire dispatcher and clears ALL event subscriptions
      * @public
      */
-    destroy() {
-        this._listeners = {};
-        this._destroyed = true;
+    public destroy() {
+        this.listeners = {};
+        this.destroyed = true;
     }
 }

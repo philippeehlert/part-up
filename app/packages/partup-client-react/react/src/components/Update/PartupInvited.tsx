@@ -1,7 +1,7 @@
+import './PartupInvited.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupInvited.css';
 
 interface Props {
     className?: string;
@@ -10,16 +10,19 @@ interface Props {
 
 export class PartupInvited extends React.Component<Props, {}> {
 
-    getClassNames() {
+    public render() {
+        return (
+            <div className={this.getClassNames()}>
+                {`no-update-available`}
+            </div>
+        );
+    }
+
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-PartupInvited', className, {
 
         });
-    }
-
-    render() {
-
-        return 'no-update-avaiable';
     }
 }

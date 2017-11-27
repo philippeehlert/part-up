@@ -1,7 +1,7 @@
+import './ContributionRemoved.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './ContributionRemoved.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class ContributionRemoved extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-ContributionRemoved', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `contribution_removed` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ContributionRemoved', className, {
+
+        });
     }
 }

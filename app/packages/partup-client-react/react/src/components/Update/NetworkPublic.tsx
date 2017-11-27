@@ -1,7 +1,7 @@
+import './NetworkPublic.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './NetworkPublic.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class NetworkPublic extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-NetworkPublic', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `network_public` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-NetworkPublic', className, {
+
+        });
     }
 }

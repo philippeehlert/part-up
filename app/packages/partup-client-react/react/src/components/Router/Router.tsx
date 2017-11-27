@@ -1,8 +1,9 @@
+import './Router.css';
+
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
-// import * as $ from 'jquery';
-import './Router.css';
+
 import {
     onRouteChange,
     activeRoutes,
@@ -15,25 +16,11 @@ interface Props {
 }
 export class Router extends React.Component<Props, {}> {
 
-    static contextTypes = {
+    public static contextTypes = {
         router: PropTypes.object,
     };
 
-    onActivate() {
-        const element = document.querySelector('.pu-main') as HTMLElement;
-
-        if (element) element.classList.add('pu-main--react');
-    }
-
-    onDeactivate() {
-        const element = document.querySelector('.pu-main') as HTMLElement;
-
-        if (element) element.classList.remove('pu-main--react');
-    }
-
-    componentWillMount() {
-        // $(window).on('popstate', this.onBackRoute);
-
+    public componentWillMount() {
         const currentRoute = getCurrentRoute();
 
         if (activeRoutes.includes(currentRoute)) {
@@ -49,30 +36,11 @@ export class Router extends React.Component<Props, {}> {
         });
     }
 
-    componentWillUnmount() {
-        // $(window).off('popstate', this.onBackRoute);
-
+    public componentWillUnmount() {
         this.onDeactivate();
     }
 
-    // onBackRoute = (event: Object) => {
-    //     const { onBackRoute } = this.props;
-    //     const { router } = this.context;
-
-    //     router.history.goBack();
-
-    //     if (onBackRoute) onBackRoute(event);
-    // }
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Router', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -80,5 +48,25 @@ export class Router extends React.Component<Props, {}> {
                 {children}
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Router', className, {
+
+        });
+    }
+
+    private onActivate() {
+        const element = document.querySelector('.pu-main') as HTMLElement;
+
+        if (element) element.classList.add('pu-main--react');
+    }
+
+    private onDeactivate() {
+        const element = document.querySelector('.pu-main') as HTMLElement;
+
+        if (element) element.classList.remove('pu-main--react');
     }
 }

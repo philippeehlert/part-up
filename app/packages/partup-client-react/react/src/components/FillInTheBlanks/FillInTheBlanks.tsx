@@ -1,6 +1,7 @@
+import './FillInTheBlanks.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './FillInTheBlanks.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class FillInTheBlanks extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-FillInTheBlanks', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             children,
         } = this.props;
@@ -26,5 +19,13 @@ export class FillInTheBlanks extends React.Component<Props, {}> {
                 { children }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-FillInTheBlanks', className, {
+
+        });
     }
 }

@@ -16,7 +16,7 @@ import {
 } from 'react-router-dom';
 
 import { onStartup } from 'utils/Meteor';
-import onRender from 'utils/onRender';
+import { onRender } from 'utils/onRender';
 import { routes, getCurrentIndex } from 'utils/router';
 
 import { App } from './App';

@@ -1,6 +1,8 @@
+import './Form.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Form.css';
+
 const getFormData = require('get-form-data');
 
 interface Props {
@@ -10,13 +12,9 @@ interface Props {
 
 export class Form extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
     private form?: HTMLFormElement = undefined;
 
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -29,7 +27,7 @@ export class Form extends React.Component<Props, {}> {
         );
     }
 
-    private getClassNames = () => {
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-Form', className, {

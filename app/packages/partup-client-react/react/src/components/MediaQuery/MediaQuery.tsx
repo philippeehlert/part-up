@@ -17,22 +17,22 @@ export class MediaQuery extends React.Component<Props, State> {
         mediaQueryList: window.matchMedia(this.props.query),
     };
 
-    componentDidMount() {
+    public componentDidMount() {
         this.updateMediaQueryList();
         window.addEventListener('resize', this.updateMediaQueryList);
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         window.removeEventListener('resize', this.updateMediaQueryList);
     }
 
-    updateMediaQueryList = () => requestAnimationFrame(() => {
+    public updateMediaQueryList = () => requestAnimationFrame(() => {
         const { query } = this.props;
 
-        this.setState({mediaQueryList: window.matchMedia(query)});
+        this.setState({ mediaQueryList: window.matchMedia(query) });
     })
 
-    render() {
+    public render() {
         const { renderMatch, renderNoMatch } = this.props;
         const { mediaQueryList } = this.state;
 

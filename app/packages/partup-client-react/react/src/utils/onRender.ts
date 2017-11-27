@@ -1,4 +1,4 @@
-export default function onRender(cb: Function) {
+export function onRender(cb: Function) {
     // wait for blaze to render the react-root div
     requestAnimationFrame(() => {
         const element = document.getElementById('react-root');

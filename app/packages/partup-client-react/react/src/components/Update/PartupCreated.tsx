@@ -1,7 +1,7 @@
+import './PartupCreated.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupCreated.css';
 
 interface Props {
     className?: string;
@@ -10,15 +10,19 @@ interface Props {
 
 export class PartupCreated extends React.Component<Props, {}> {
 
-    getClassNames() {
+    public render() {
+        return (
+            <div className={this.getClassNames()}>
+                {`no-update-available`}
+            </div>
+        );
+    }
+
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-PartupCreated', className, {
 
         });
-    }
-
-    render() {
-        return 'no-update-available';
     }
 }

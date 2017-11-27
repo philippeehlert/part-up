@@ -8,29 +8,21 @@ interface Props {
 
 export class InfiniteScroll extends React.Component<Props, {}> {
 
-    static THRESHOLD = window.innerHeight / 2;
+    private static THRESHOLD = window.innerHeight / 2;
 
     private loadingMore = false;
 
     private scrollContainer: HTMLDivElement|null;
 
-    componentDidMount() {
+    public componentDidMount() {
         window.addEventListener('scroll', this.throttleOnScroll);
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         window.removeEventListener('scroll', this.throttleOnScroll);
     }
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-InfiniteScroll', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             children,
         } = this.props;
@@ -43,7 +35,6 @@ export class InfiniteScroll extends React.Component<Props, {}> {
     }
 
     private onScroll = () => {
-
         if (!this.scrollContainer || this.loadingMore) {
             return;
         }
@@ -58,5 +49,13 @@ export class InfiniteScroll extends React.Component<Props, {}> {
 
     private throttleOnScroll = () => {
         return requestAnimationFrame(this.onScroll);
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-InfiniteScroll', className, {
+
+        });
     }
 }

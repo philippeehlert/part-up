@@ -1,6 +1,7 @@
+import './UpdateTile.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './UpdateTile.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class UpdateTile extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-UpdateTile', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             children,
         } = this.props;
@@ -26,5 +19,13 @@ export class UpdateTile extends React.Component<Props, {}> {
                 { children }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-UpdateTile', className, {
+
+        });
     }
 }

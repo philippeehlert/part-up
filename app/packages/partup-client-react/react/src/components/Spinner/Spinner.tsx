@@ -1,7 +1,8 @@
+import './Spinner.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
 const Spin = require('spin');
-import './Spinner.css';
 
 interface Props {
     className?: string;
@@ -9,21 +10,9 @@ interface Props {
 
 export class Spinner extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
     private spin = undefined;
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Spinner', className, {
-
-        });
-    }
-
-    componentDidMount() {
+    public componentDidMount() {
         const options = {
             lines: 10,  // The number of lines to draw
             length: 8,  // The length of each line
@@ -46,7 +35,7 @@ export class Spinner extends React.Component<Props, {}> {
         new Spin(options).spin(this.spin);
     }
 
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -54,5 +43,13 @@ export class Spinner extends React.Component<Props, {}> {
                 {children}
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Spinner', className, {
+
+        });
     }
 }

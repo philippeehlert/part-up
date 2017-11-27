@@ -1,7 +1,7 @@
+import './PartupDescriptionChanged.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupDescriptionChanged.css';
 import { get } from 'lodash';
 
 interface Props {
@@ -11,15 +11,7 @@ interface Props {
 
 export class PartupDescriptionChanged extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-PartupDescriptionChanged', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { data } = this.props;
 
         return (
@@ -27,5 +19,13 @@ export class PartupDescriptionChanged extends React.Component<Props, {}> {
                 { get(data, 'type_data.new_description') }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-PartupDescriptionChanged', className, {
+
+        });
     }
 }

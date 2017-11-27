@@ -1,11 +1,9 @@
+import './UpdateTileComments.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './UpdateTileComments.css';
 import { take } from 'lodash';
-
 import { Comment as CommentType } from 'collections/Updates';
-
 import { Comment } from 'components/Comment/Comment';
 import { SystemComment } from 'components/Comment//SystemComment';
 import { Link } from 'components/Router/Link';
@@ -15,7 +13,7 @@ interface Props {
     comments: Array<CommentType>;
     className?: string;
     collapsedMax?: number;
-    onRespondClick?: Function;
+    // onRespondClick?: Function;
     update: any;
 }
 
@@ -26,7 +24,7 @@ interface State {
 
 export class UpdateTileComments extends React.Component<Props, State> {
 
-    static defaultProps = {
+    public static defaultProps: Partial<Props> = {
         collapsedMax: 2,
     };
 
@@ -35,21 +33,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
         showAllComments: false,
     };
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-UpdateTileComments', className, {
-
-        });
-    }
-
-    onRespondClick = (event: React.SyntheticEvent<any>) => {
-        const { onRespondClick } = this.props;
-
-        if (onRespondClick) onRespondClick(event);
-    }
-
-    render() {
+    public render() {
         const { comments, update } = this.props;
         // const { commentBoxEnabled } = this.state;
         const count = comments.length;
@@ -128,5 +112,19 @@ export class UpdateTileComments extends React.Component<Props, State> {
     //     this.setState({
     //         commentBoxEnabled: !this.state.commentBoxEnabled,
     //     });
+    // }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-UpdateTileComments', className, {
+
+        });
+    }
+
+    // private onRespondClick = (event: React.SyntheticEvent<any>) => {
+    //     const { onRespondClick } = this.props;
+
+    //     if (onRespondClick) onRespondClick(event);
     // }
 }

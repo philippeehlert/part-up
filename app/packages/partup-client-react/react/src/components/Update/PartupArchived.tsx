@@ -1,7 +1,7 @@
+import './PartupArchived.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './PartupArchived.css';
 
 interface Props {
     className?: string;
@@ -10,15 +10,20 @@ interface Props {
 
 export class PartupArchived extends React.Component<Props, {}> {
 
-    getClassNames() {
+    public render() {
+
+        return (
+            <div className={this.getClassNames()}>
+                {`no-update-available`}
+            </div>
+        );
+    }
+
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-PartupArchived', className, {
 
         });
-    }
-
-    render() {
-        return 'no-update-available';
     }
 }

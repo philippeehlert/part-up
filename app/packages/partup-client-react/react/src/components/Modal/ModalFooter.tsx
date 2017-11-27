@@ -1,6 +1,7 @@
+import './ModalFooter.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ModalFooter.css';
 
 interface Props {
     className?: string;
@@ -8,15 +9,7 @@ interface Props {
 
 export class ModalFooter extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-ModalFooter', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -24,5 +17,13 @@ export class ModalFooter extends React.Component<Props, {}> {
                 {children}
             </footer>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ModalFooter', className, {
+
+        });
     }
 }

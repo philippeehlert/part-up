@@ -1,6 +1,7 @@
+import './Label.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Label.css';
 
 interface Props {
     className?: string;
@@ -9,19 +10,7 @@ interface Props {
 
 export class Label extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Label', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children, label } = this.props;
 
         return (
@@ -34,5 +23,13 @@ export class Label extends React.Component<Props, {}> {
                 </div>
             </label>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Label', className, {
+
+        });
     }
 }

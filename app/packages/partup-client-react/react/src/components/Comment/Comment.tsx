@@ -1,8 +1,8 @@
+import './Comment.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
 import { get } from 'lodash';
-import './Comment.css';
-
 import * as moment from 'moment';
 
 import { Comment as CommentType } from 'collections/Updates';
@@ -18,15 +18,7 @@ interface Props {
 
 export class Comment extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Comment', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { comment, prefix } = this.props;
 
         return (
@@ -53,5 +45,13 @@ export class Comment extends React.Component<Props, {}> {
                 </div>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-Comment', className, {
+
+        });
     }
 }

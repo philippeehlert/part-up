@@ -1,6 +1,7 @@
+import './MenuLink.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './MenuLink.css';
 
 import { NavLink } from './NavLink';
 import { TargetType } from './Link';
@@ -15,15 +16,7 @@ interface Props {
 
 export class MenuLink extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-MenuLink', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const {
             icon,
             children,
@@ -44,5 +37,13 @@ export class MenuLink extends React.Component<Props, {}> {
                 { children }
             </NavLink>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-MenuLink', className, {
+
+        });
     }
 }

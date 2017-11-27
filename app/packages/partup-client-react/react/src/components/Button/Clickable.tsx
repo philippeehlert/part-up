@@ -1,6 +1,7 @@
+import './Clickable.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './Clickable.css';
 
 interface Props {
     className?: string;
@@ -9,25 +10,7 @@ interface Props {
 
 export class Clickable extends React.Component<Props, {}> {
 
-    static defaultProps = {
-
-    };
-
-    onClick = (event: React.SyntheticEvent<any>) => {
-        const { onClick } = this.props;
-
-        if (onClick) onClick(event);
-    }
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-Clickable', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -35,5 +18,19 @@ export class Clickable extends React.Component<Props, {}> {
                 {children}
             </button>
         );
+    }
+
+    private onClick = (event: React.SyntheticEvent<any>) => {
+        const { onClick } = this.props;
+
+        if (onClick) onClick(event);
+    }
+
+    private getClassNames = () => {
+        const { className } = this.props;
+
+        return c('pur-Clickable', className, {
+
+        });
     }
 }

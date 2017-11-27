@@ -1,7 +1,7 @@
+import './ChangedRegion.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './ChangedRegion.css';
 
 interface Props {
     className?: string;
@@ -10,23 +10,22 @@ interface Props {
 
 export class ChangedRegion extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-ChangedRegion', className, {
-
-        });
-    }
-
-    render() {
-        const { data } = this.props;
-
-        console.log(data);
+    public render() {
+        // tslint:disable-next-line:no-console
+        console.log(this.props.data);
 
         return (
             <div className={this.getClassNames()}>
                 {`changed_region`}
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ChangedRegion', className, {
+
+        });
     }
 }

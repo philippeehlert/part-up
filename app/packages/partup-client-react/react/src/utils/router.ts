@@ -45,16 +45,16 @@ function setCurrentIndex(pathname: string = window.location.pathname) {
 
 function initialize() {
     (function(history: any) {
-        var pushState = history.pushState;
+        const pushState = history.pushState;
         history.pushState = function(state: any) {
             if (typeof history.onpushstate === 'function') {
-                history.onpushstate({state: state});
+                history.onpushstate({ state: state });
             }
             update(arguments[2]);
             return pushState.apply(history, arguments);
         };
     })(window.history);
-    
+
     window.addEventListener('popstate', () => {
         update();
     });

@@ -1,6 +1,7 @@
+import './ModalPortal.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './ModalPortal.css';
 import { Portal } from 'components/PortalManager/Portal';
 
 interface Props {
@@ -13,25 +14,7 @@ interface ModalPortalProps extends Props {
 
 export class ModalPortal extends React.Component<ModalPortalProps, {}> {
 
-    static defaultProps = {
-
-    };
-
-    onBackgroundClick = (event: React.SyntheticEvent<any>) => {
-        const { onBackgroundClick } = this.props;
-
-        if (onBackgroundClick) onBackgroundClick(event);
-    }
-
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-ModalPortal', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -39,5 +22,19 @@ export class ModalPortal extends React.Component<ModalPortalProps, {}> {
                 {children}
             </Portal>
         );
+    }
+
+    private onBackgroundClick = (event: React.SyntheticEvent<any>) => {
+        const { onBackgroundClick } = this.props;
+
+        if (onBackgroundClick) onBackgroundClick(event);
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-ModalPortal', className, {
+
+        });
     }
 }

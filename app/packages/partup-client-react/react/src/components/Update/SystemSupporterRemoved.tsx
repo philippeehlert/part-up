@@ -1,7 +1,7 @@
+import './SystemSupporterRemoved.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import './SystemSupporterRemoved.css';
 
 interface Props {
     className?: string;
@@ -9,19 +9,19 @@ interface Props {
 
 export class SystemSupporterRemoved extends React.Component<Props, {}> {
 
-    getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-SystemSupporterRemoved', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         return (
             <div className={this.getClassNames()}>
                 { `system_supporter_removed` }
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-SystemSupporterRemoved', className, {
+
+        });
     }
 }

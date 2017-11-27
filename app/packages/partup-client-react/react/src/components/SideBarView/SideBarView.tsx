@@ -1,6 +1,7 @@
+import './SideBarView.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './SideBarView.css';
 
 interface Props {
     className?: string;
@@ -9,15 +10,7 @@ interface Props {
 
 export class SideBarView extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className } = this.props;
-
-        return c('pur-SideBarView', className, {
-
-        });
-    }
-
-    render() {
+    public render() {
         const { children, sidebar } = this.props;
 
         return (
@@ -30,5 +23,13 @@ export class SideBarView extends React.Component<Props, {}> {
                 </div>
             </div>
         );
+    }
+
+    private getClassNames() {
+        const { className } = this.props;
+
+        return c('pur-SideBarView', className, {
+
+        });
     }
 }

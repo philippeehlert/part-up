@@ -1,18 +1,18 @@
-import Meteor, { getLoginToken } from 'utils/Meteor';
+import { Meteor, getLoginToken } from 'utils/Meteor';
 
-type QueryParameters = {
-    [param: string]: any;
-};
+interface QueryParameters {
+    [param: string]: any
+}
 
-type FetcherOptions<FetcherData = {[key: string]: any}> = {
-    route: string,
-    query?: QueryParameters;
-    onChange?: Function;
-    transformData?: (data: any) => FetcherData;
-    onResponse?: (data: any) => void;
-};
+interface FetcherOptions<FetcherData = {[key: string]: any}> {
+    route: string
+    query?: QueryParameters
+    onChange?: Function
+    transformData?: (data: any) => FetcherData
+    onResponse?: (data: any) => void
+}
 
-export default class Fetcher<FetcherData = any> {
+export class Fetcher<FetcherData = any> {
 
     public data: FetcherData;
     public loading: boolean = false;
@@ -21,7 +21,7 @@ export default class Fetcher<FetcherData = any> {
     private route: string;
     private query: QueryParameters = {};
 
-    constructor({route, query, onChange, transformData, onResponse}: FetcherOptions<FetcherData>) {
+    constructor({ route, query, onChange, transformData, onResponse }: FetcherOptions<FetcherData>) {
         this.route = route;
         this.query = query || this.query;
         this.onChange = onChange || this.onChange;
@@ -87,7 +87,9 @@ export default class Fetcher<FetcherData = any> {
     }
 
     public destroy() {
-        this.onChange = () => {};
+        this.onChange = () => {
+            //
+        };
         this.transformData = (data: any) => data;
         this.data = {} as FetcherData;
     }
@@ -103,8 +105,10 @@ export default class Fetcher<FetcherData = any> {
             .join('&');
     }
 
-    private onChange: Function = () => {};
+    private onChange: Function = () => {
+        //
+    }
+
     private transformData: (data: any) => FetcherData = (data: any) => data;
     private onResponse: (data: any) => void = (data: any) => data;
-
 }

@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import Meteor from 'utils/Meteor';
+import { Meteor } from 'utils/Meteor';
 
 interface Image {
     _id: string;
@@ -49,7 +49,7 @@ export function getUrl(image: Image, store: string = '360x360'): string {
     return `https://s3-${region}.amazonaws.com/${bucket}/${store}/${imageKey}`;
 }
 
-export default {
+export const Images = {
     updateStatic,
     find,
     findOne,

@@ -1,6 +1,7 @@
+import './List.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
-import './List.css';
 
 interface Props {
     className?: string;
@@ -10,16 +11,7 @@ interface Props {
 
 export class List extends React.Component<Props, {}> {
 
-    getClassNames = () => {
-        const { className, horizontal, spaced } = this.props;
-
-        return c('pur-List', className, {
-            'pur-List--horizontal': horizontal,
-            'pur-List--spaced': spaced,
-        });
-    }
-
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (
@@ -27,5 +19,14 @@ export class List extends React.Component<Props, {}> {
                 {children}
             </ul>
         );
+    }
+
+    private getClassNames() {
+        const { className, horizontal, spaced } = this.props;
+
+        return c('pur-List', className, {
+            'pur-List--horizontal': horizontal,
+            'pur-List--spaced': spaced,
+        });
     }
 }

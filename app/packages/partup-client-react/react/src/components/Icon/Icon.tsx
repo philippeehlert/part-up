@@ -1,9 +1,9 @@
+import './Icon.css';
+
 import * as React from 'react';
 import * as c from 'classnames';
 
 import * as icons from 'static/icons.json';
-
-import './Icon.css';
 
 interface Props {
     className?: string;
@@ -13,32 +13,28 @@ interface Props {
 
 export class Icon extends React.Component<Props, {}> {
 
-    static defaultProps = {
+    public render() {
+        const { name } = this.props;
 
-    };
+        return (
+            <i
+            className={this.getClassNames()}
+            onClick={this.onClick}
+            dangerouslySetInnerHTML={{ __html: icons[name] }} />
+        );
+    }
 
-    onClick = (event: React.MouseEvent<HTMLElement>) => {
+    private onClick = (event: React.MouseEvent<HTMLElement>) => {
         const { onClick } = this.props;
 
         if (onClick) onClick(event);
     }
 
-    getClassNames = () => {
+    private getClassNames() {
         const { className } = this.props;
 
         return c('pur-Icon', className, {
 
         });
-    }
-
-    render() {
-        const { name } = this.props;
-
-        return (
-            <i
-                className={this.getClassNames()}
-                onClick={this.onClick}
-                dangerouslySetInnerHTML={{__html: icons[name]}} />
-        );
     }
 }

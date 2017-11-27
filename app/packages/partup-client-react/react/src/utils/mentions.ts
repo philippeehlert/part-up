@@ -8,18 +8,18 @@
  * @return {String}
  */
 export function decode(message: string) {
-   return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, (m: string, users: string) => {
+    return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, (m: string, users: string) => {
         // decode supporter mentions
         return `<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="${
            users
         }" class="pu-mention-group">Supporters</a>`;
-   }).replace(/\[Partners:(?:([^\]]+))?\]/g, (m: string, users: string) => {
+    }).replace(/\[Partners:(?:([^\]]+))?\]/g, (m: string, users: string) => {
         // decode upper mentions
         return `<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="${
             users
         }" class="pu-mention-group">Partners</a>`;
-   }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, (m: string, _id: string, name: string) => {
-       // decode invividual mentions
+    }).replace(/\[user:([^\]|]+)(?:\|([^\]]+))?\]/g, (m: string, _id: string, name: string) => {
+        // decode invividual mentions
         return `<a href="profile/${
             _id
         }" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="${
@@ -27,5 +27,5 @@ export function decode(message: string) {
         }" class="pu-mention-user">${
             name
         }</a>`;
-   });
+    });
 }
