@@ -1,60 +1,33 @@
 {
     "extends": ["tslint-react"],
     "rules": {
-        "align": [
-            true,
-            "parameters",
-            "statements"
-        ],
+        "align": [ true, "parameters", "statements" ],
         "ban": false,
         "class-name": true,
-        "comment-format": [
-            true,
-            "check-space"
-        ],
-        "jsx-boolean-value": false,
-        "prefer-template": true,
+        "comment-format": [ true, "check-space" ],
         "curly": [true, "ignore-same-line"],
         "eofline": false,
         "forin": true,
         "indent": [ true, "spaces" ],
         "interface-name": [true, "never-prefix"],
-        "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
         "jsdoc-format": true,
-        "jsx-no-lambda": false,
         "jsx-alignment": false,
-        "jsx-no-multiline-js": false,
-        "jsx-wrap-multiline": false,
-        "prefer-template": true,
+        "jsx-boolean-value": false,
         "jsx-curly-spacing": false,
         "jsx-key": true,
         "jsx-no-bind": true,
+        "jsx-no-lambda": false,
+        "jsx-no-multiline-js": false,
         "jsx-self-close": true,
+        "jsx-wrap-multiline": false,
         "label-position": true,
         "max-line-length": [ true, 140 ],
-        "member-ordering": [
-            true,
-            "public-before-private",
-            "static-before-instance",
-            "variables-before-functions"
-        ],
+        "member-ordering": [ true, "public-before-private", "static-before-instance", "variables-before-functions" ],
         "no-any": false,
         "no-arg": true,
         "no-bitwise": true,
-        "no-console": {
-            "options": [
-                true,
-                "log",
-                "error",
-                "debug",
-                "info",
-                "time",
-                "timeEnd",
-                "trace"
-            ],
-            "severity": "warning"
-        },
         "no-consecutive-blank-lines": true,
+        "no-console": { "options": [ true, "log", "error", "debug", "info", "time", "timeEnd", "trace" ], "severity": "warning" },
         "no-construct": true,
         "no-debugger": true,
         "no-duplicate-variable": true,
@@ -66,44 +39,18 @@
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
         "no-use-before-declare": true,
-        "one-line": [
-            true,
-            "check-catch",
-            "check-else",
-            "check-open-brace",
-            "check-whitespace"
-        ],
+        "one-line": [ true, "check-catch", "check-else", "check-open-brace", "check-whitespace" ],
+        "prefer-template": true,
+        "prefer-template": true,
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,
         "semicolon": [true, "always"],
         "switch-default": true,
-
+        "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
         "triple-equals": [ true, "allow-null-check" ],
-        "typedef": [
-            true,
-            "parameter",
-            "property-declaration"
-        ],
-        "typedef-whitespace": [
-            true,
-            {
-                "call-signature": "nospace",
-                "index-signature": "nospace",
-                "parameter": "nospace",
-                "property-declaration": "nospace",
-                "variable-declaration": "nospace"
-            }
-        ],
+        "typedef-whitespace": [ true, { "call-signature": "nospace", "index-signature": "nospace", "parameter": "nospace", "property-declaration": "nospace", "variable-declaration": "nospace" } ],
+        "typedef": [ true, "parameter", "property-declaration" ],
         "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
-        "whitespace": [
-            true,
-            "check-branch",
-            "check-decl",
-            "check-module",
-            "check-operator",
-            "check-separator",
-            "check-type",
-            "check-typecast"
-        ]
+        "whitespace": [ true, "check-branch", "check-decl", "check-module", "check-operator", "check-separator", "check-type", "check-typecast" ]
     }
 }
