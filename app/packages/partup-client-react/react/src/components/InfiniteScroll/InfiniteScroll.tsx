@@ -8,7 +8,7 @@ interface Props {
 
 export class InfiniteScroll extends React.Component<Props, {}> {
 
-    private static THRESHOLD = window.innerHeight / 2;
+    // private static THRESHOLD = window.innerHeight;
 
     private loadingMore = false;
 
@@ -41,7 +41,7 @@ export class InfiniteScroll extends React.Component<Props, {}> {
 
         const fromBottom = (this.scrollContainer.clientHeight + this.scrollContainer.offsetTop) - window.scrollY - window.innerHeight;
 
-        if (fromBottom <= InfiniteScroll.THRESHOLD) {
+        if (fromBottom <= this.scrollContainer.clientHeight / 3.5) {
             this.loadingMore = true;
             this.props.loadMore(() => this.loadingMore = false);
         }
