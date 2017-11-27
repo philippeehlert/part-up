@@ -25,7 +25,9 @@ Template.DropdownNotifications.onCreated(function() {
 });
 Template.DropdownNotifications.onRendered(function() {
     var template = this;
-    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=notifications]', function() {ClientDropdowns.partupNavigationSubmenuActive.set(false);});
+    ClientDropdowns.addOutsideDropdownClickHandler(template, '[data-clickoutside-close]', '[data-toggle-menu=notifications]', function() {
+        ClientDropdowns.partupNavigationSubmenuActive.set(false);
+    });
     Router.onBeforeAction(function(req, res, next) {
         template.dropdownOpen.set(false);
         next();
@@ -46,6 +48,7 @@ Template.DropdownNotifications.events({
         template.dropdownOpen.set(false);
         var notificationId = $(event.currentTarget).data('notification');
         Meteor.call('notifications.clicked', notificationId);
+        ClientDropdowns.partupNavigationSubmenuActive.set(false);
     },
     'click [data-loadmore]': function(event, template) {
         event.preventDefault();
