@@ -95,10 +95,12 @@ Event.on('invites.inserted.partup.by_email', function(inviter, partup, email, na
         });
     };
 
+    var fromAddress = Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name);
+
     // Set the email details
     var emailOptions = {
         type: 'invite_email_address_to_partup',
-        fromAddress: Partup.constants.EMAIL_FROM.replace(/Part-up/, inviter.profile.name),
+        fromAddress: fromAddress + ' ' + TAPi18n.__('emails-invite_upper_to_partup-via'),
         toAddress: email,
         subject: TAPi18n.__('emails-invite_upper_to_partup-subject', {inviter: inviter.profile.name, partup: partup.name}, User(inviter).getLocale()),
         locale: User(inviter).getLocale(),
