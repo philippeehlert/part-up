@@ -1,7 +1,7 @@
 .pur-DropDown {
-    @import "../../stylesheets/border-radius";
-    @import "../../stylesheets/spacings";
-    @import "../../stylesheets/colors";
+    @import "stylesheets/border-radius";
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
 
     $spacing: getSpacing();
     $borderWidth: 2px;

@@ -1,7 +1,7 @@
 .pur-UpdateTileContent {
-    @import "../../stylesheets/border-radius";
-    @import "../../stylesheets/spacings";
-    @import "../../stylesheets/colors";
+    @import "stylesheets/border-radius";
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
 
     padding: getSpacing(1.5);
     border-bottom: 2px solid $pur-color-gallery;
