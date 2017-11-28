@@ -79,3 +79,13 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters, ac
         children: updateChildren
     };
 });
+
+Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
+    check(updateIds, [String]);
+
+    this.unblock();
+
+    return {
+        find: () => Updates.find({_id: {$in: updateIds}}, {fields: {comments: 1, comments_count: 1}}),
+    }
+});
