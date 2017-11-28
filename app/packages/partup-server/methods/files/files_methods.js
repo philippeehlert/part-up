@@ -14,7 +14,7 @@ Meteor.methods({
                 _id: file._id,
             };
         }
-        throw new Meteor.Error(400, 'unauthorized');
+        throw new Meteor.Error(401, 'unauthorized');
     },
     'files.remove'(id) {
         check(id, String);
@@ -26,7 +26,7 @@ Meteor.methods({
                 _id: id,
             };
         }
-        throw new Meteor.Error(400, 'unauthorized');
+        throw new Meteor.Error(401, 'unauthorized');
     },
     'files.remove_many'(ids) {
         check(ids, String);
@@ -38,6 +38,17 @@ Meteor.methods({
                 _ids: ids,
             };
         }
-        throw new Meteor.Error(400, 'unauthorized');
+        throw new Meteor.Error(401, 'unauthorized');
+    },
+    'files.get_many'(ids) {
+        check(ids, [String]);
+        this.unblock();
+
+        if (Meteor.user()) {
+            const cursor = Files.find({ _id: { $in: ids } });
+            return cursor.fetch();
+        }
+
+        throw new Meteor.Error(401, 'unauthorized');
     },
 });

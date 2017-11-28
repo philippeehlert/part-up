@@ -14,7 +14,7 @@ import _ from 'lodash';
  * @class _FileController
  */
 class _FileController {
-    constructor(config) {
+    constructor(config = {}) {
         const calculateLimit = (collection, val) => {
             this.limitReached.set((val === 0 && this[collection].get().length === 0));
         };

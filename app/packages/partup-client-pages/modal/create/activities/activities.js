@@ -4,16 +4,15 @@
 var getActivities = function(partupId) {
     var partup = Partups.findOne(partupId);
     if (!partup) return;
-
     return Activities.findForPartup(partup, {sort: {created_at: -1}});
 };
 
 Template.modal_create_activities.onCreated(function() {
 
-    var partupId = mout.object.get(this, 'data.partupId') || Router.current().params._id; // strange fix. this.data can be `null` in some cases
-    this.subscribe('partups.one', partupId);
+    this.partupId = mout.object.get(this, 'data.partupId') || Router.current().params._id; // strange fix. this.data can be `null` in some cases
+    this.subscribe('partups.one', this.partupId);
 
-    var activities_sub = this.subscribe('activities.from_partup', partupId);
+    var activities_sub = this.subscribe('activities.from_partup', this.partupId);
     this.autorun(function(c) {
         if (activities_sub.ready()) {
             c.stop();
@@ -26,6 +25,9 @@ Template.modal_create_activities.onCreated(function() {
 /* Widget helpers */
 /*************************************************************/
 Template.modal_create_activities.helpers({
+    partupId() {
+        return Template.instance().partupId;
+    },
     Partup: Partup,
     partupActivities: function() {
         return getActivities(this.partupId);

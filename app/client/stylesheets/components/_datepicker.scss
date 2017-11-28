@@ -12,6 +12,7 @@
     }
 }
 
+
 .datepicker {
     font-family: $font-primary;
     padding: 0;
@@ -266,6 +267,16 @@
             tbody tr td.day:after {
                 top: -5px;
             }
+        }
+    }
+
+    &-inline {
+        &.collapsed {
+            display: none;
+        }
+        &.expanded {
+            display: static;
+            display: block;
         }
     }
 }

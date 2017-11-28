@@ -5,24 +5,36 @@
  * @private
  */
 var activityBaseSchema = new SimpleSchema({
+    name: {
+        type: String,
+        max: 60,
+    },
     description: {
         type: String,
-        max: 250,
-        optional: true
+        max: 1000,
+        optional: true,
     },
     end_date: {
         type: Date,
-        optional: true
+        optional: true,
     },
     lane_id: {
         type: String,
         optional: true,
         regEx: SimpleSchema.RegEx.Id
     },
-    name: {
-        type: String,
-        max: 60
-    }
+    files: {
+        type: Object,
+        optional: true,
+    },
+    'files.documents': {
+        type: [String],
+        optional: true,
+    },
+    'files.images': {
+        type: [String],
+        optional: true,
+    },
 });
 
 /**
@@ -69,3 +81,5 @@ Partup.schemas.entities.activity = new SimpleSchema([activityBaseSchema, {
 Partup.schemas.forms.startActivities = new SimpleSchema([activityBaseSchema, {
     //
 }]);
+
+Partup.schemas.forms.activity = new SimpleSchema([activityBaseSchema]);

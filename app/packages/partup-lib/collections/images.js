@@ -129,6 +129,18 @@ Images.getForUpdate = function (update) {
     });
 };
 
+Images.get = (ids) => {
+    ids = Array.isArray(ids) ? ids : [ids];
+    return new Promise((resolve, reject) => {
+        if (ids) {
+            const images = Images.find({ _id: { $in: ids } });
+            resolve(images);
+        } else {
+            reject();
+        }
+    });
+}
+
 /**
  * Find images for the comments in an update
  *

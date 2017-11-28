@@ -131,6 +131,7 @@ Package.onUse(function(api) {
     api.export('Partup');
 
     // Collections
+    api.export('Activity');
     api.export('Activities');
     api.export('Invites');
     api.export('Contributions');

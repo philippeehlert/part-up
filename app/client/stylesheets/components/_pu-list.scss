@@ -131,6 +131,7 @@
 
     &-comments {
         min-height: 10px;
+        padding-bottom: em(5);
 
         li {
             // overflow: hidden;
@@ -142,7 +143,7 @@
         }
 
         li:first-child {
-            margin-top: 25px;
+            margin-top: 15px;
         }
 
         li:last-child {

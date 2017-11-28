@@ -21,6 +21,10 @@ Template.Update.onCreated(function() {
     var template = this;
     template.commentInputFieldExpanded = new ReactiveVar(false);
     template.showCommentClicked = new ReactiveVar(false);
+    template.commentsExpanded = new ReactiveVar(undefined, (oldVal, newVal) => {
+        template.commentInputFieldExpanded.set(newVal);
+        template.showCommentClicked.set(newVal);
+    });
 });
 
 /*************************************************************/
@@ -28,7 +32,8 @@ Template.Update.onCreated(function() {
 /*************************************************************/
 Template.Update.helpers({
     update: function() {
-    
+
+        const templateInstance = Template.instance();
         var self = this;
 
         // Cache for not hitting to mini mongo as often
@@ -137,6 +142,9 @@ Template.Update.helpers({
                 } else {
                     return true;
                 }
+            },
+            FILES_EXPANDED() {
+                return templateInstance.data.FILES_EXPANDED;
             }
         };
         return self._update;
@@ -148,8 +156,10 @@ Template.Update.helpers({
                 .autoLink()
                 .getContent();
         }
-    }
-
+    },
+    commentsExpanded() {
+        return Template.instance().commentsExpanded;
+    },
 });
 
 /*************************************************************/
@@ -161,8 +171,7 @@ Template.Update.events({
    
         var updateId = this.updateId;
         var proceed = function() {
-            template.commentInputFieldExpanded.set(true);
-            template.showCommentClicked.set(true);
+            template.commentsExpanded.set(true);
 
             Meteor.defer(function() {
                 var commentForm = template.find('[id$=commentForm-' + updateId + ']');

@@ -1,6 +1,5 @@
 Template.app_partup_activities.onCreated(function() {
     var template = this;
-
     template.partup = Partups.findOne(template.data.partupId);
 
     template.activities = {
@@ -20,7 +19,7 @@ Template.app_partup_activities.onCreated(function() {
             var activities = Activities
                 .findForPartup(template.partup, {}, {archived: !!options.archived})
                 .fetch()
-                .filter(function(activity, idx) {
+            .filter(function(activity, idx) {
                     if (filter === 'my-activities')
                         return activity.creator_id && activity.creator_id === Meteor.user()._id;
 

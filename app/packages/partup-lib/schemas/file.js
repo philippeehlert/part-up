@@ -33,4 +33,16 @@ const FileSchema = new SimpleSchema([FileBaseSchema, {
     },
 }]);
 
+const AttachedFilesSchema = new SimpleSchema({
+    documents: {
+        type: [String],
+        optional: true,
+    },
+    images: {
+        type: [String],
+        optional: true,
+    },
+});
+
 Partup.schemas.entities.file = FileSchema;
+Partup.schemas.forms.attachedFiles = AttachedFilesSchema;

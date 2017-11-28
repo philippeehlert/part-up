@@ -16,6 +16,13 @@
         margin: 0;
     }
 
+    .pu-form-popup {
+        background: $color-background-secondary;
+        border-radius: em(5);
+        padding: 30px;
+        margin-bottom: 20px;
+    }
+
     .pu-activity-create {
         margin-top: 40px - 15px;
         margin-bottom: 40px + 2px;

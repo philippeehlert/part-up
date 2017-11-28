@@ -17,6 +17,7 @@ import {strings} from 'meteor/partup-client-base';
 /*************************************************************/
 Template.Comments.onCreated(function() {
     var template = this;
+
     // template states
     template.submittingForm = new ReactiveVar(false);
     template.expanded = new ReactiveVar(false);
@@ -137,19 +138,17 @@ Template.Comments.helpers({
                 var authorized = Meteor.user();
                 if (!authorized) return false;
 
-                var motivation = (get(template , 'data.type') === 'motivation');
+                var motivation = (get(template, 'data.type') === 'motivation');
                 if (motivation) return true;
 
                 var clicked = self.showCommentClicked || template.showCommentClicked.get();
                 if (self.FULLVIEW) {
-                    return clicked;
-
                     // This caused an IE bug where one could not unfocus the focused input.
                     // update detail
-                    // return true;
+                    return true;
                 } else {
                     // partup detail
-                    return clicked;
+                    return clicked || self.update.comments_count;
                 }
             },
             commentCount: function() {
@@ -161,7 +160,7 @@ Template.Comments.helpers({
                 return lodash.filter(allComments, 'type', 'system').length;
             },
             showSystemMessages: function() {
-                return template.showSystemMessages.get() && self.FULLVIEW;
+                return template.showSystemMessages.get();
             }
         };
     },
@@ -253,7 +252,7 @@ Template.Comments.helpers({
         return function (content) {
             return Partup.client.strings.autoLinkHTML(content);
         }
-    }
+    },
 });
 
 Template.Comments.events({

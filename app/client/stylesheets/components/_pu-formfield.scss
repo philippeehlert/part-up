@@ -87,9 +87,13 @@
             transition: color 0.2s, opacity 0.2s;
             cursor: pointer;
             outline: none;
-            opacity: 0;
+            opacity: 1;
             pointer-events: none;
             text-decoration: none;
+
+            @include goingLarge(1000) {
+                opacity: 0;
+            }
 
             &:hover {
                 color: darken(#ccc, 10%);
