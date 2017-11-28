@@ -111,7 +111,6 @@ Partup.client.discover = {
      * Helper to set prefill value
      */
     setPrefill: function(key, value) {
-        console.log(key, value)
         if (!Partup.client.discover.DEFAULT_QUERY.hasOwnProperty(key)) {
             throw new Error('Discover query key "' + key + '" is not defined in Partup.client.discover.DEFAULT_QUERY');
         }
