@@ -1,6 +1,10 @@
 .pur-ContentView {
     padding: 15px;
 
+    > * + * {
+        margin-top: 25px;
+    }
+
     @media screen and (min-width: 420px) {
         padding: 25px 35px;
     }
