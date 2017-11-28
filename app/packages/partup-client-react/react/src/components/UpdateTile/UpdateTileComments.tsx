@@ -7,15 +7,14 @@ import { Comment as CommentType } from 'collections/Updates';
 import { Comment } from 'components/Comment/Comment';
 import { Clickable } from 'components/Button/Clickable';
 import { CommentBox } from 'components/Comment/CommentBox';
+import { Meteor } from 'utils/Meteor';
 
 interface Props {
     comments: Array<CommentType>;
     className?: string;
     collapsedMax?: number;
-    // onRespondClick?: Function;
     update: any;
-    user: any
-    onCommentSubmitted: (comment: string, user: any) => void
+    user: any;
 }
 
 interface State {
@@ -58,7 +57,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
                 <CommentBox
                     poster={user}
                     ref={el => this.commentBoxComponent = el}
-                    onSubmit={(e: any, fields: any) => this.props.onCommentSubmitted(fields.comment, user)}
+                    onSubmit={this.submitComment}
                     className={`put-UpdateTileComments__comment-box`}
                 />
             </div>
@@ -70,7 +69,6 @@ export class UpdateTileComments extends React.Component<Props, State> {
         const { showAllComments } = this.state;
 
         const amountOfCommentToShow = showAllComments ? comments.length : collapsedMax;
-
         const commentComponents = comments.map((comment) => {
             if (comment.type === 'motivation') {
                 return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
@@ -105,6 +103,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
         });
     }
 
+    private submitComment = (e: Event, { comment }: {comment: string}) => {
+        e.preventDefault();
+        const { update } = this.props;
+
+        Meteor.call('updates.comments.insert', update._id, {
+            content: comment.trim(),
+        });
+    }
+
     private getClassNames() {
         const { className } = this.props;
 
@@ -112,10 +119,4 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
         });
     }
-
-    // private onRespondClick = (event: React.SyntheticEvent<any>) => {
-    //     const { onRespondClick } = this.props;
-
-    //     if (onRespondClick) onRespondClick(event);
-    // }
 }

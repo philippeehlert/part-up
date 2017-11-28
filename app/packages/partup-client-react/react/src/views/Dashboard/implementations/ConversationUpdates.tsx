@@ -183,7 +183,6 @@ export class ConversationUpdates extends React.Component {
                                             user={user}
                                             update={update}
                                             comments={update.comments || []}
-                                            onCommentSubmitted={(comment, user) => console.log(user, 'submitted', comment)}
                                         />
                                     </UpdateTile>
                                 </Tile>
