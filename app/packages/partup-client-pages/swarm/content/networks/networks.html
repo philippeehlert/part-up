@@ -12,7 +12,6 @@
                                     {{#with displayTags slug }}
                                         {{# each . }}
                                             <li>
-                                                <!-- {{pathFor route='network-detail' slug=networkSlug query=tagQuery}} -->
                                                 {{#Tag type="inverted" context="discover-tribes" query=tag}}
                                                     {{tag}}
                                                 {{/Tag}}
