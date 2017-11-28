@@ -31,7 +31,15 @@ Package.onUse((api) => {
         ignore: ['index.scss'],
     };
 
-    const files = glob.sync('./react/build/static/js/main.*.js', options);
+    let jsfiles = [];
+
+    if (!process.env.REACT_DEV) {
+        jsfiles = glob.sync('./react/build/static/js/main.*.js', options);
+        
+        console.log('> Adding javascript\n', jsfiles.join('\n\t\t'));
+    } else {
+        console.log('> Skipping js files in --react-dev mode.');
+    }
 
     let cssfiles = [];
     if (!process.env.REACT_DEV) {
@@ -48,11 +56,9 @@ Package.onUse((api) => {
 
     fs.writeFileSync(path.resolve(packagePath + '/react-app-style.scss'), cssString, {encoding: 'utf8'});
 
-    console.log('> Adding javascript\n', files.join('\n\t\t'));
-
     api.addFiles([
         'blaze/ReactDashboard.html',
-    ].concat(files), 'client');
+    ].concat(jsfiles), 'client');
 
     console.log('> Done.');
     console.log(`--------------------------------------------------------------`);
