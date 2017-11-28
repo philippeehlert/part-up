@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Meteor } from 'utils/Meteor';
+import { Meteor, onLogin, onLoginFailure } from 'utils/Meteor';
 import { Subscriber } from 'utils/Subscriber';
 import {
     Switch,
@@ -80,10 +80,8 @@ export class App extends React.Component<Props, State> {
         loginFailed: false,
     };
 
-    private subscriptions = new Subscriber({
-        subscriptions: [{
-            name: 'users.loggedin',
-        }],
+    private userSubscription = new Subscriber({
+        subscription: 'users.loggedin',
         onChange: () => this.forceUpdate(),
     });
 
@@ -96,20 +94,20 @@ export class App extends React.Component<Props, State> {
         };
     }
 
-    public componentWillMount() {
-        this.subscriptions.subscribe();
+    public loadData = async () => {
+        await this.userSubscription.subscribe();
         this.refetchUser();
-        // Meteor.loginWithPassword('ralph@part-up.com', 'Testpassword1')
-        Meteor.Accounts.onLogin(() => {
+
+        onLogin(() => {
             this.setState({ loginFailed: false });
             this.refetchUser();
             success({
                 title: 'Login success',
-                content: `Successfully logged in as ${Meteor.userId()}`,
+                content: `Successfully logged in as ${Meteor.user().profile.name}`,
             });
         });
 
-        Meteor.Accounts.onLoginFailure(() => {
+        onLoginFailure(() => {
             this.setState({ loginFailed: true });
             error({
                 title: 'Login failed',
@@ -117,7 +115,10 @@ export class App extends React.Component<Props, State> {
                 error: new Error('Login failed'),
             });
         });
+    }
 
+    public componentWillMount() {
+        this.loadData();
     }
 
     public render() {

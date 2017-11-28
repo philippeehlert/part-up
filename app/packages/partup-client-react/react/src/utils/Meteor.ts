@@ -88,3 +88,14 @@ export function getLoginToken() {
 
     return window.localStorage.getItem('Meteor.loginToken');
 }
+
+export function onLogin(cb: Function) {
+
+    if (Meteor.user()) return cb();
+
+    Meteor.Accounts.onLogin(cb);
+}
+
+export function onLoginFailure(cb: Function) {
+    Meteor.Accounts.onLoginFailure(cb);
+}
