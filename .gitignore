@@ -6,7 +6,6 @@ app/packages/*/.npm
 
 # Editors
 .idea/
-.vscode/
 
 # Generated Docs
 docs/jsdocs
