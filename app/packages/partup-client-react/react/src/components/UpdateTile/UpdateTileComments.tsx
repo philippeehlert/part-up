@@ -3,14 +3,13 @@ import './UpdateTileComments.css';
 import * as React from 'react';
 import * as c from 'classnames';
 import { takeRight } from 'lodash';
-import { Comment as CommentType } from 'collections/Updates';
+import { Updates } from 'collections/Updates';
 import { Comment } from 'components/Comment/Comment';
 import { Clickable } from 'components/Button/Clickable';
 import { CommentBox } from 'components/Comment/CommentBox';
 import { Meteor } from 'utils/Meteor';
 
 interface Props {
-    comments: Array<CommentType>;
     className?: string;
     collapsedMax?: number;
     update: any;
@@ -30,14 +29,14 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
     public state: State = {
         showAllComments: false,
-        showCommentBox: this.props.comments.length > 0 ? true : false,
+        showCommentBox: true,
     };
 
     private commentBoxComponent: CommentBox|null = null;
 
     public render() {
-        const { comments, user } = this.props;
-        const count = comments.length;
+        const { user, update } = this.props;
+        const { comments_count = 0 } = Updates.findOne({ _id: update._id });
         const { showCommentBox } = this.state;
 
         return (
@@ -47,7 +46,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
                         className={`pur-UpdateTileComments__control-reactions`}
                         onClick={this.toggleAllComments}
                     >
-                        { count } reactie{count !== 1 && 's'}
+                        { comments_count } reactie
                     </Clickable>
                     {` • `}
                     <Clickable
@@ -58,7 +57,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
                     </Clickable>
                 </div>
 
-                { comments.length > 0 && this.renderComments() }
+                { comments_count > 0 && this.renderComments() }
 
                 {showCommentBox && (
                     <CommentBox
@@ -73,11 +72,12 @@ export class UpdateTileComments extends React.Component<Props, State> {
     }
 
     private renderComments() {
-        const { comments, collapsedMax } = this.props;
+        const { update, collapsedMax } = this.props;
+        const { comments = [], comments_count = 0 } = Updates.findOne({ _id: update._id });
         const { showAllComments } = this.state;
 
-        const amountOfCommentToShow = showAllComments ? comments.length : collapsedMax;
-        const commentComponents = comments.map((comment) => {
+        const amountOfCommentToShow = showAllComments ? comments_count : collapsedMax;
+        const commentComponents = comments.map((comment: any) => {
             if (comment.type === 'motivation') {
                 return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
             }

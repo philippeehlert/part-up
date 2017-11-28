@@ -59,6 +59,7 @@ import { PartupUnarchived } from 'components/Update/PartupUnarchived';
 import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
+import { Subscriber } from 'utils/Subscriber';
 
 export class ConversationUpdates extends React.Component {
 
@@ -83,6 +84,7 @@ export class ConversationUpdates extends React.Component {
         onResponse: (data: any) => {
             Images.updateStatic(data['cfs.images.filerecord']);
             Partups.updateStatic(data.partups || []);
+            this.subscribeToComments(data);
         },
         transformData: (data: any) => {
             const {
@@ -119,6 +121,18 @@ export class ConversationUpdates extends React.Component {
         route: 'partups/me',
         onChange: () => this.forceUpdate(),
     });
+
+    private updatesCommentsSubscriber = new Subscriber({
+        subscription: 'updates.comments_by_update_ids',
+        onChange: () => this.forceUpdate(),
+    });
+
+    public subscribeToComments = async (data: any) => {
+        const updateIds = data.updates.map((update: any) => update._id);
+
+        await this.updatesCommentsSubscriber.subscribe(updateIds);
+        console.log('ready', this.updatesCommentsSubscriber);
+    }
 
     public componentWillMount() {
         this.conversationsFetcher.fetch();
@@ -182,7 +196,6 @@ export class ConversationUpdates extends React.Component {
                                         <UpdateTileComments
                                             user={user}
                                             update={update}
-                                            comments={update.comments || []}
                                         />
                                     </UpdateTile>
                                 </Tile>

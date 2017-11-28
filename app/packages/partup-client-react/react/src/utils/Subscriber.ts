@@ -1,27 +1,21 @@
 import { Meteor } from 'utils/Meteor';
-
-interface Subscription {
-    name: string
-    parameters?: Array<any>
-}
+import { defer } from 'lodash';
 
 interface SubscriberOptions {
-    subscriptions: Array<Subscription>
+    subscription: string
     onChange?: Function
 }
 
 export class Subscriber {
 
-    private subscriptions: Array<Subscription> = [];
+    private subscription: string = '';
 
-    private activeSubscriptions: {
-        [subname: string]: {
-            subscription: any;
-        };
-    } = {};
+    private activeSubscription: any = undefined;
 
-    constructor({ subscriptions, onChange }: SubscriberOptions) {
-        this.subscriptions = subscriptions;
+    private tracker: any = undefined;
+
+    constructor({ subscription, onChange }: SubscriberOptions) {
+        this.subscription = subscription;
         this.onChange = onChange || this.onChange;
     }
 
@@ -30,42 +24,46 @@ export class Subscriber {
      *
      * @throws Throws Error when adding duplicate subscriptions.
      */
-    public subscribe() {
-        this.subscriptions.forEach(({ name, parameters = [] }) => {
-            if (this.activeSubscriptions[name]) {
-                throw new Error('Subscription already active');
-            }
+    public async subscribe(...parameters: any[]) {
+        return new Promise((resolve, reject) => {
 
-            const sub = Meteor.subscribe(name, ...parameters, {
+            const subscription = Meteor.subscribe(this.subscription, ...parameters, {
                 onReady: () => {
                     this.onChange();
+                    resolve();
                 },
                 onStop: () => {
                     this.onChange();
+                    reject();
                 },
             });
 
-            this.activeSubscriptions[name] = {
-                subscription: sub,
-            };
+            if (this.activeSubscription) this.activeSubscription.stop();
+            this.activeSubscription = subscription;
+
+            this.track(subscription);
         });
     }
 
-    public unsubscribe(subname: string) {
-        this.activeSubscriptions[subname].subscription.stop();
-        delete this.activeSubscriptions[subname];
+    public unsubscribe() {
+        if (this.activeSubscription) this.activeSubscription.stop();
+        if (this.tracker) Meteor.ddp.off('changed', this.onDataChange);
     }
 
     public destroy() {
-        for (const key in this.activeSubscriptions) {
-            if (this.activeSubscriptions.hasOwnProperty(key)) {
-                this.unsubscribe(key);
-            }
-        }
-
+        this.unsubscribe();
         this.onChange = () => {
             //
         };
+    }
+
+    private onDataChange = (event: any) => {
+        defer(() => this.onChange());
+    }
+
+    private track = (subscription: any) => {
+        if (this.tracker) Meteor.ddp.off('changed', this.onDataChange);
+        this.tracker = Meteor.ddp.on('changed', this.onDataChange);
     }
 
     private onChange: Function = () => {
