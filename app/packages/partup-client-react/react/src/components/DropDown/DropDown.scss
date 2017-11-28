@@ -57,6 +57,7 @@
 
         border-bottom-left-radius: $pur-border-radius-standard;
         border-bottom-right-radius: $pur-border-radius-standard;
+        z-index: 1;
     }
 
     &__item {
