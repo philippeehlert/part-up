@@ -2,7 +2,7 @@ import './UpdateTileComments.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import { take } from 'lodash';
+import { takeRight } from 'lodash';
 import { Comment as CommentType } from 'collections/Updates';
 import { Comment } from 'components/Comment/Comment';
 import { Clickable } from 'components/Button/Clickable';
@@ -79,7 +79,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
         return (
             <div className={`pur-UpdateTileComments__container`}>
-                { take(commentComponents, amountOfCommentToShow) }
+                { takeRight(commentComponents, amountOfCommentToShow) }
 
                 { !showAllComments && comments.length > 2 && (
                     <Clickable className={`pur-UpdateTileComments__more-commments`} onClick={this.toggleAllComments}>
