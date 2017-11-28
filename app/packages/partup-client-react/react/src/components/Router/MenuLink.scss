@@ -1,12 +1,14 @@
 .pur-NavLink.pur-MenuLink {
     @import "stylesheets/spacings";
 
-    display: block;
+    display: flex;
     color: #494949;
     font-weight: 600;
     min-height: 60px;
     padding: getSpacing(2);
     transition: background-color 100ms;
+    text-decoration: none;
+    align-items: center;
 
     &--is-active {
         background-color: #fff;

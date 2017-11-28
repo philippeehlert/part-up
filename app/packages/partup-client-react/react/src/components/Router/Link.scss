@@ -4,7 +4,9 @@
 
     color: $pur-color-sunshade;
     border: 0;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
     line-height: normal;
     transition: color 100ms;
 
@@ -16,21 +18,8 @@
         margin-left: 10px;
     }
 
-    &__left-child {
-        float: left;
-    }
-
     &__content {
-        line-height: 1em;
-        vertical-align: bottom;
-    }
-
-    &__right-child {
-        float: right;
-    }
-
-    &__left-child, &__content, &__right-child {
-        display: inline-block;
+        flex: 1;
     }
 
     &:hover {

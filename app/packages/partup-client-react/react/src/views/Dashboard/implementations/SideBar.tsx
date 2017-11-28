@@ -57,7 +57,7 @@ export class SideBar extends React.Component<Props> {
 
         return (
             <MobileNav>
-                <List horizontal>
+                <List horizontal spaced>
                     <ListItem>
                         <Link to={user ? `/profile/${user._id}` : '#'}>
                             <UserAvatar user={user} />

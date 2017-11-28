@@ -9,6 +9,8 @@
 
 
     &__header {
+        display: flex;
+        align-items: center;
         margin-bottom: 10px;
 
         &__lane {
