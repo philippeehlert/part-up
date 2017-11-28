@@ -7,7 +7,7 @@ interface Image {
 
 const statics: Array<Image> = [];
 
-export function updateStatic(staticImages: Array<Image>) {
+export function updateStatic(staticImages: Array<Image> = []) {
     staticImages.forEach((image) => {
         const index = statics.findIndex((element) => {
             return element._id === image._id;

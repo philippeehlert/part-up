@@ -10,6 +10,10 @@ to open chrome `open -a Google\ Chrome --args --disable-web-security --user-data
 - in another window, from project root, run `./start --once --react-dev`
 
 
+# Ubuntu errors
+https://stackoverflow.com/questions/16748737/grunt-watch-error-waiting-fatal-error-watch-enospc
+ENOSPC run `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+
 # icon generating
 
 1. add icon.svg to src/static/icons
