@@ -5,17 +5,20 @@
     &__controls {
         font-size: 14px;
         padding: getSpacing(1.5);
-        color: $pur-color-dusty-gray;;
-    }
-
-    &__control-reactions.pur-Clickable {
         color: $pur-color-dusty-gray;
     }
 
-    &__control-reactions.pur-Clickable,
+    &__control-reactions.pur-Clickable {
+        font-size: 14px;
+        color: $pur-color-dusty-gray;
+        margin-right: 5px;
+    }
+
     &__control-respond-link.pur-Clickable {
         font-size: 14px;
+        margin-left: 5px;
     }
+
 
     &__container {
         padding: getSpacing(1.5);
