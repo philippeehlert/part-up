@@ -5,14 +5,16 @@
     &__controls {
         font-size: 14px;
         padding: getSpacing(1.5);
+        color: $pur-color-dusty-gray;;
+    }
 
-        &__reactions {
-            color: $pur-color-dusty-gray;
-        }
+    &__control-reactions.pur-Clickable {
+        color: $pur-color-dusty-gray;
+    }
 
-        &__respond-link * {
-            text-decoration: underline;
-        }
+    &__control-reactions.pur-Clickable,
+    &__control-respond-link.pur-Clickable {
+        font-size: 14px;
     }
 
     &__container {

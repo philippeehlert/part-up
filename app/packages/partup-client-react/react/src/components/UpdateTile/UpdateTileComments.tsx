@@ -43,12 +43,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
         return (
             <div className={this.getClassNames()}>
                 <div className={`pur-UpdateTileComments__controls`}>
-                    <span className={`pur-UpdateTileComments__controls__reactions`} onClick={this.toggleAllComments}>
+                    <Clickable
+                        className={`pur-UpdateTileComments__control-reactions`}
+                        onClick={this.toggleAllComments}
+                    >
                         { count } reactie{count !== 1 && 's'}
-                    </span>
+                    </Clickable>
                     {` • `}
                     <Clickable
-                        className={`pur-UpdateTileComments__controls__respond-link`}
+                        className={`pur-UpdateTileComments__control-respond-link`}
                         onClick={this.handleCommentClick}
                     >
                         Reageren
@@ -85,18 +88,6 @@ export class UpdateTileComments extends React.Component<Props, State> {
         return (
             <div className={`pur-UpdateTileComments__container`}>
                 { takeRight(commentComponents, amountOfCommentToShow) }
-
-                { !showAllComments && comments.length > 2 && (
-                    <Clickable className={`pur-UpdateTileComments__more-commments`} onClick={this.toggleAllComments}>
-                        Laat alle reacties zien
-                    </Clickable>
-                ) }
-
-                { showAllComments && comments.length > 2 && (
-                    <Clickable className={`pur-UpdateTileComments__more-commments`} onClick={this.toggleAllComments}>
-                        Verberg reacties
-                    </Clickable>
-                ) }
             </div>
 
         );
