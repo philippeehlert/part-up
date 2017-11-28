@@ -11,6 +11,7 @@ interface Props {
     userAvatarImageId?: string;
     className?: string;
     small?: boolean;
+    square?: boolean;
 }
 
 export class UserAvatar extends React.Component<Props, {}> {
@@ -31,10 +32,11 @@ export class UserAvatar extends React.Component<Props, {}> {
     }
 
     private getClassNames = () => {
-        const { className, small } = this.props;
+        const { className, small, square } = this.props;
 
         return c('pur-UserAvatar', className, {
             'pur-UserAvatar--small': small,
+            'pur-UserAvatar--square': square,
         });
     }
 }

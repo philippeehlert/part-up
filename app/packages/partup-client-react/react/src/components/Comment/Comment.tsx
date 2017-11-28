@@ -25,7 +25,10 @@ export class Comment extends React.Component<Props, {}> {
             <div className={this.getClassNames()}>
                 <UserAvatar
                     userAvatarImageId={get(comment, 'creator.image')}
-                    className={`pur-Comment__avatar`} />
+                    className={`pur-Comment__avatar`}
+                    small
+                    square
+                />
                 <div className={`pur-Comment__content`}>
                     <p>
                         <strong

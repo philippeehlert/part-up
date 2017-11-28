@@ -30,7 +30,7 @@ export class CommentBox extends React.Component<Props, State> {
 
         return (
             <Form className={this.getClassNames()} onSubmit={this.props.onSubmit}>
-                <UserAvatar user={poster} className={`pur-CommentBox__avatar`} />
+                <UserAvatar user={poster} className={`pur-CommentBox__avatar`} small square />
                 <Input
                     className={`pur-CommentBox__input`}
                     type={`text`}
