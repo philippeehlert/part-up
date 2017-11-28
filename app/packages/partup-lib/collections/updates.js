@@ -253,6 +253,10 @@ Updates.findForPartupsIds = function(partupIds, parameters, userId) {
     options.limit = parseInt(parameters.limit) || 25;
     options.skip = parseInt(parameters.skip) || 0;
 
+    if (parameters.fields) {
+        options.fields = parameters.fields;
+    }
+
     if (parameters.filter) {
         var filter = parameters.filter;
 

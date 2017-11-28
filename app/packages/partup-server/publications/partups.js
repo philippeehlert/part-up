@@ -39,7 +39,7 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     // find partups for user
     let partupsCursor;
     if (parameters.query.partupId) {
-        partupsCursor = Partups.guardedFind(userId, { _id: { $in: [parameters.query.partupId] } });
+        partupsCursor = Partups.guardedFind(userId, { _id: { $in: [parameters.query.partupId] }});
     } else {
         partupsCursor = Partups.findPartupsIdsForUser(user, {
             upperOnly: parameters.query.upperOnly || false,
@@ -54,12 +54,13 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     const partupUniqueUpperIds = lodash.uniq(partupUpperIds);
 
     // find all users for partups
-    const usersCursor = Meteor.users.findMultiplePublicProfiles(partupUniqueUpperIds);
+    const usersCursor = Meteor.users.find({_id: {$in: partupUniqueUpperIds}}, {fields: {'_id': 1, 'profile.image': 1, 'profile.name': 1}});
 
     // find all updates for user partups
     const updatesCursor = Updates.findForPartupsIds(partupIds, {
         filter: 'conversations',
-        sort: {updated_at: -1},
+        sort: { updated_at: -1 },
+        fields: { comments: 0 },
         ...options,
     });
     const updateIds = updatesCursor.map(({_id}) => _id);
