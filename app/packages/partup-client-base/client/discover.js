@@ -125,6 +125,14 @@ Partup.client.discover = {
         _tribe_prefill[key] = value;
     },
 
+    getPrefill: function(key) {
+        return _prefill[key] || false;
+    },
+
+    getTribePrefill: function(key) {
+        return _tribe_prefill[key] || false;
+    },
+
     /*
      * Prefill the query with set values
      */

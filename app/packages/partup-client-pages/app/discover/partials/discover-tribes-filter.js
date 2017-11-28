@@ -40,6 +40,15 @@ Template.app_discover_tribes_filter.onCreated(function() {
     template.typeSelectorOpen = new ReactiveVar(false);
     template.languageSelectorOpen = new ReactiveVar(false);
 });
+
+Template.app_discover_tribes_filter.onRendered(function() {
+    const prefill = Partup.client.discover.getTribePrefill('textSearch');
+    if (prefill) {
+        this.searchQuery.set(prefill);
+        $('[data-search-query]').val(prefill);
+    }
+});
+
 Template.app_discover_tribes_filter.onDestroyed(function() {
     var template = this;
     Partup.client.discover.resetTribeQuery();

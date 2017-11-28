@@ -57,7 +57,11 @@
             </ul>
             <ul class="pu-list pu-list-horizontal pu-list-tags">
                 {{#each partup.tags }}
-                    <li><span class="pu-tag pu-tag-inverted">{{ . }}</span></li>
+                    <li>
+                        {{#Tag type="inverted"}}
+                            {{ . }}
+                        {{/Tag}}
+                    </li>
                 {{/each }}
             </ul>
         </div>

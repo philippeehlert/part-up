@@ -21,28 +21,41 @@ Template.PartupTile.onCreated(function() {
     const template = this;
 
     // Transform partup
-    const { partup } = template.data;
+    const { partup, CONTEXT } = template.data;
     partup.hovering = new ReactiveVar(false);
-
+    
     // -- Partup details
     partup.name = Partup.helpers.url.capitalizeFirstLetter(partup.name);
     partup.imageObject = partup.imageObject || Images.findOne({_id: partup.image});
     partup.boundedProgress = partup.progress ? Math.max(10, Math.min(99, partup.progress)) : 10;
-    partup.mappedTags = partup.tags.map((tag, index) => {
-        return {
-            tag,
-            delay: .05 * index
-        };
-    });
+
     // -- Partup network
     partup.networkObject = partup.networkObject || Networks.findOne({_id: partup.network_id});
     if (partup.networkObject) {
         partup.networkObject.iconObject = partup.networkObject.iconObject || Images.findOne({_id: partup.networkObject.icon});
-
+        
         // this checkd the network object en determines if the user is definitly a member of the network
         // this should not be considered the truth if it is false
         partup.networkObject.userIsDefinitlyMember = Partup.client.partuptile.userIsDefinitlyMemberOfNetwork(partup.networkObject, Meteor.userId());
     }
+    
+    const networkSlug = lodash.get(partup, 'networkObject.slug');
+
+
+    // Partup tags
+    partup.mappedTags = partup.tags.map((tag, index) => {
+        if (CONTEXT === 'tribe') {
+            return {
+                tag,
+                delay: .05 * index,
+                networkSlug,
+            };
+        }
+        return {
+            tag,
+            delay: .05 * index,
+        };
+    });
 
     // -- Partup counts
     partup.activityCount = partup.activity_count || Activities.findForPartup(partup).count();

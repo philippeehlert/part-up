@@ -11,7 +11,11 @@
                 <!-- TODO use displayTags (partup-based) -->
                 {{#with data.displayTags}}
                     {{#each .}}
-                        <li class="pu-tag pu-tag-dark pu-tag-disable">{{ tag }}</li>
+                        <li>
+                            {{#Tag type="dark" context="discover-tribes" query=tag}}
+                                {{ tag }}
+                            {{/Tag}}
+                        </li>
                     {{/each}}
                 {{/with}}
             </ul>

@@ -6,7 +6,7 @@
                 {{#each data.partups }}
                     <li class="pu-tribestart-mostactive__partups__item">
                         <div class="pu-tile pu-tile-partup">
-                            {{> PartupTile partup=. HIDE_NETWORKTILE=true}}
+                            {{> PartupTile partup=. HIDE_NETWORKTILE=true CONTEXT='tribe'}}
                         </div>
                     </li>
                 {{/each}}
