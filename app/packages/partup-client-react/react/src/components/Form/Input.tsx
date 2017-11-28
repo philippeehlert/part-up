@@ -38,6 +38,10 @@ export class Input extends React.Component<Props, {}> {
         );
     }
 
+    public clear() {
+        if (this.element) this.element.value = '';
+    }
+
     public focus() {
         if (this.element) {
             this.element.focus();

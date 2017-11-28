@@ -29,7 +29,7 @@ export class CommentBox extends React.Component<Props, State> {
         const { poster } = this.props;
 
         return (
-            <Form className={this.getClassNames()} onSubmit={this.props.onSubmit}>
+            <Form className={this.getClassNames()} onSubmit={this.onSubmit}>
                 <UserAvatar user={poster} className={`pur-CommentBox__avatar`} small square />
                 <Input
                     className={`pur-CommentBox__input`}
@@ -49,10 +49,17 @@ export class CommentBox extends React.Component<Props, State> {
     }
 
     public focus() {
-        if (this.inputElement) {
-            this.inputElement.focus();
-        }
+        if (this.inputElement) this.inputElement.focus();
+
         this.showSendButton();
+    }
+
+    private onSubmit = (event: React.SyntheticEvent<any>, fields: Object) => {
+        const { onSubmit } = this.props;
+
+        if (this.inputElement) this.inputElement.clear();
+
+        if (onSubmit) onSubmit(event, fields);
     }
 
     private getClassNames() {
