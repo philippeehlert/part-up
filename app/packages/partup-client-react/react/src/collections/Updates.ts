@@ -64,6 +64,16 @@ function getUpdateCreator(update: Update) {
     return null;
 }
 
-export default {
+export function find(...args: any[]) {
+    return Meteor.collection('updates').find(...args) as Array<Update>;
+}
+
+export function findOne(...args: any[]) {
+    return Meteor.collection('updates').findOne(...args) || {} as Update;
+}
+
+export const Updates = {
     getUpdatesForLoggedInUser,
+    find,
+    findOne,
 };
