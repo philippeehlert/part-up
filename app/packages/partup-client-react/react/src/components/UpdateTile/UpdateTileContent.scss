@@ -5,4 +5,14 @@
 
     padding: getSpacing(1.5);
     border-bottom: 2px solid $pur-color-gallery;
+
+    // Mention overwrites
+    .pur-mention-user,
+    .pur-mention-group {
+        color: #ffa725!important;
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
