@@ -167,6 +167,30 @@ Activities.findForPartup = function(partup, options, parameters) {
 };
 
 /**
+ * Find activities for partup ids.
+ *
+ * @memberOf Activities
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Activities.findForPartupIds = function(partupIds, options, parameters) {
+    options = options || {};
+    parameters = parameters || {};
+
+    const selector = {
+        partup_id: { $in: partupIds },
+        end_date: { $gte: new Date() },
+    };
+
+    if (parameters.hasOwnProperty('archived')) {
+        selector.archived = !!parameters.archived;
+    }
+
+    return this.guardedFind(null, selector, options);
+};
+
+
+/**
  * Modified version of Collection.find that makes sure the
  * user (or guest) can only retrieve authorized entities
  *

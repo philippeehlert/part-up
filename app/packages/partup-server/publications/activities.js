@@ -36,3 +36,27 @@ Meteor.publishComposite('activities.from_partup', function(partupId, accessToken
     };
 });
 
+/**
+ * Publish all activities in a partup
+ *
+ *
+ * @param {String} partupId
+ * @param {String} accessToken
+ */
+Meteor.publishComposite('activities.me', function(accessToken) {
+    if (accessToken) check(accessToken, String);
+
+    this.unblock();
+
+    return {
+        find: function() {
+            const partups = Partups.guardedFind(this.userId, {}, {fields: { _id: 1 }}, accessToken).fetch();
+            const ids = partups.map((partup) => partup._id);
+
+            if (!partups.length) return;
+
+            return Activities.findForPartupIds(ids);
+        },
+    };
+});
+

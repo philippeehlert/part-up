@@ -10,6 +10,8 @@ import { ActivityTile } from 'components/ActivityTile/ActivityTile';
 import { FilteredListSection } from 'components/FilteredList/FilteredListSection';
 import { Icon } from 'components/Icon/Icon';
 import { Button } from 'components/Button/Button';
+import { Subscriber } from 'utils/Subscriber';
+import { Meteor } from 'utils/Meteor';
 
 interface Props extends RouteComponentProps<any> {
     //
@@ -17,13 +19,24 @@ interface Props extends RouteComponentProps<any> {
 
 export class ActivitiesView extends React.Component<Props> {
 
+    private activitiesSubscriber = new Subscriber({
+        subscription: 'activities.me',
+        onChange: () => this.forceUpdate(),
+    });
+
+    public async componentWillMount() {
+        await this.activitiesSubscriber.subscribe();
+        console.log(Meteor.collection('activities').find())
+    }
+
     public render() {
+
         return (
             <ContentView>
 
                 <Button
                     leftChild={<Icon name={'chart'} />}>
-                    Niewe activiteit
+                    Nieuwe activiteit
                 </Button>
 
                 <FilteredList>
