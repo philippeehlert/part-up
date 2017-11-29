@@ -2,7 +2,7 @@
     @import "stylesheets/spacings";
     @import "stylesheets/colors";
 
-    padding: getSpacing(2);
+    padding: getSpacing(1);
     border-bottom: 2px solid $pur-color-gallery;
     display: flex;
     align-items: center;

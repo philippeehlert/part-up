@@ -24,10 +24,10 @@
 
     &:hover {
         text-decoration: underline;
-        color: inherit;
+        color: $pur-color-sunshade;;
 
         &__content {
-            color: inherit;
+            color: $pur-color-sunshade;
             text-decoration: underline;
         }
     }

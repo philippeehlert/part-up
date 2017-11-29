@@ -6,4 +6,8 @@
     .pur-Tile + .pur-Tile {
         margin-top: getSpacing(1);
     }
+
+    &--has-sub-sections {
+        padding: 0;
+    }
 }
