@@ -43,6 +43,10 @@ Template.DatePicker.onRendered(function() {
                 $(`[${input}]`).find('.pu-input-datepicker-inline').val(moment(prefillValue.toISOString()).format('L'));
             }
     
+            $(document).on('click', function(event) {
+                console.log(event.target);
+            });
+
             $inlineDatePicker.addClass('collapsed');
         
             $inlineDatePickerTrigger.on('click', function () {

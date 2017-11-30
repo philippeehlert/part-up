@@ -282,6 +282,10 @@
                         &.pu-sub-action {
                             display: none;
                         }
+
+                    }
+                    .pu-sub-seperator {
+                        display: none;
                     }
                 }
 
@@ -293,6 +297,14 @@
                             margin-top: em(9);
                         }
                     }
+                }
+
+                .pu-list-fieldwithbutton {
+                    margin-top: 5px;
+                }
+
+                .pu-comment time {
+                    margin-bottom: 0px;
                 }
 
                 .pu-input-mentions-wrap {
@@ -377,6 +389,7 @@
             &-contributions {
                 .pu-avatar-stack {
                     height: em(30);
+                    margin-left: -2px; // For the white border.
                     > li {
                         width: em(30);
                         height: em(30);

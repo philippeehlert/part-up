@@ -35,10 +35,8 @@
 
                 {{# if update.mayComment }}
                     {{# if metadata.is_contribution }}
-
                         <!-- When the update is a contribution-update, link to the activity -->
                         <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
-
                     {{ else }}
 
                         <!-- Only show the comment button when the update is commentable -->

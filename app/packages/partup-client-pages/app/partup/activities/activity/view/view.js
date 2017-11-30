@@ -38,7 +38,7 @@ Template.ActivityView.onCreated(function() {
 
     this.update = Updates.findOne({ _id: this.data.updateId || get(Template.instance(), 'data.activity.update_id') });
     template.hidden = {
-        comments: new ReactiveVar(template.data.BOARDVIEW || !(this.update && get(this.update, 'comments_count'))),
+        comments: new ReactiveVar(template.data.BOARDVIEW || (!template.data.EXPANDED && !_.get(this.update, 'comments_count'))),
         files: new ReactiveVar(!template.data.FILES_EXPANDED),
     };
 
@@ -208,7 +208,31 @@ Template.ActivityView.helpers({
 /* Widget events */
 /*************************************************************/
 Template.ActivityView.events({
+    'click [data-detail]'(event, templateInstance) {
+        // Don't do anything when already on detail.
+        if (this.EXPANDED) {
+            return true;
+        }
+
+        const partup = Partups.findOne({ _id: templateInstance.data.activity.partup_id });
+        const detailIsFiles = $(event.target.closest('[data-detail]')).data('detail');
+
+        if (templateInstance.data.BOARDVIEW || (templateInstance.data.EXPANDABLE && !templateInstance.expanded.get())) {
+            Router.go('partup-update', {
+                slug: partup.slug,
+                update_id: templateInstance.data.updateId || templateInstance.data.activity.update_id,
+            }, {
+                query: `fe=${detailIsFiles === 'files'}`,
+            });
+        }
+    },
     'click [data-toggle]'(event, templateInstance) {
+        // This will get triggered before [data-detail] above.
+        // we don't want to expand when on boardview.
+        if (this.BOARDVIEW) {
+            return true;
+        }
+
         const who = $(event.target).data('toggle');
         const hide = templateInstance.hidden[who];
         const newVal = hide.get();
@@ -257,24 +281,13 @@ Template.ActivityView.events({
         var opened = template.expanded.get();
         template.expanded.set(!opened);
     },
-    'click [data-detail]'(event, templateInstance) {
-        const partup = Partups.findOne({ _id: templateInstance.data.activity.partup_id });
-        const detailIsFiles = $(event.target.closest('[data-detail]')).data('detail');
-
-        if (templateInstance.data.BOARDVIEW || (templateInstance.data.EXPANDABLE && !templateInstance.expanded.get())) {
-            Router.go('partup-update', {
-                slug: partup.slug,
-                update_id: templateInstance.data.updateId || templateInstance.data.activity.update_id,
-            }, {
-                query: `fe=${detailIsFiles === 'files'}`,
-            });
-        }
-    },
     'click [data-contribute]': function(event, template) {
         event.preventDefault();
 
         var contribute = function() {
             var partup = Partups.findOne({_id: template.data.activity.partup_id});
+
+            template.activityDropdownOpen.set(false)
 
             if (!partup) {
                 Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');

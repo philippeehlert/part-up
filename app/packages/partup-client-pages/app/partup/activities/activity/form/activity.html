@@ -41,11 +41,11 @@
                 <div class="pu-sub-validations {{#if afFieldIsInvalid name='end_date' }}pu-state-invalid{{/if }}">
                     <span class="pu-sub-input pu-sub-input-clickable">
                         {{#DatePicker inputSettings=datePickerSettings collapsable=true }}
-                            {{> afFieldInput name="end_date" type="hidden" data-autoform-input="" }}
-                                <div type="text" data-bootstrap-datepicker class="pu-datepicker pu-datepicker-inline" style="min-height:46px;" placeholder="{{ form.placeholders.end_date }}" readonly>
-                                    <input type="text" class="pu-input pu-input-datepicker-inline" style="position:absolute;" placeholder="{{ form.placeholders.end_date }}" readonly>
-                                    <a href="#" class="pu-sub-remove picon-times" data-remove-date></a>
-                                </div>
+                        <div type="text" data-bootstrap-datepicker class="pu-datepicker pu-datepicker-inline" style="min-height:46px;" placeholder="{{ form.placeholders.end_date }}" readonly>
+                            <input type="text" class="pu-input pu-input-datepicker-inline" style="position:absolute;" placeholder="{{ form.placeholders.end_date }}" readonly>
+                            <a href="#" class="pu-sub-remove picon-times" data-remove-date></a>
+                        </div>
+                        {{> afFieldInput name="end_date" type="hidden" data-autoform-input="" }}
                         {{/DatePicker }}
                     </span>
                     <span class="pu-sub-error">

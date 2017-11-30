@@ -32,7 +32,7 @@
         {{ else }}
 
             <section class="pu-sub-section-main">
-                {{#unless CREATE_PARTUP }}
+                {{#unless activity.placeholder }}
                     <div class="more-options" data-dropdown-open>
                         {{#if BOARDVIEW }}
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="18px" width="25px" id="Layer_1" style="enable-background:new 0 0 25 18;" version="1.1" viewBox="0 0 25 18"  xml:space="preserve">
@@ -62,9 +62,13 @@
                     {{#if isActiveRoute name='partup-update' }}
                         {{ activity.name }}
                     {{ else }}
-                        <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">
+                        {{#if CREATE_PARTUP }}
                             {{ activity.name }}
-                        </a>
+                        {{ else }}
+                            <a href="{{ pathFor route='partup-update' slug=partup.slug update_id=activity.update_id }}">
+                                {{ activity.name }}
+                            </a>
+                        {{/if }}
                     {{/if }}
                 </h3>
 
@@ -198,7 +202,7 @@
                             {{#if EXPANDED }}
                                 {{> Comments update=update showCommentClicked=true FULLVIEW=true SHOW_COMMENTS=true LIMIT=0 hideCommentButtons=false }}
                             {{ else }}
-                                {{> Comments update=update showCommentClicked=true FULLVIEW=true SHOW_COMMENTS=true LIMIT=2 hideCommentButtons=false }}
+                                {{> Comments update=update showCommentClicked=true FULLVIEW=true SHOW_COMMENTS=true LIMIT=2 hideCommentButtons=false HIDE_SYSTEM_MESSAGES=true }}
                             {{/if }}
                         </div>
                     </section>

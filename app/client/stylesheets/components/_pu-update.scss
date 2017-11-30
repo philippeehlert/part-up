@@ -1,6 +1,10 @@
 .pu-update {
     @extend %clearfix;
 
+    .extra-margin {
+        margin-top: 16px;
+    }
+
     .pu-commentfield {
         padding: em(5) em(10) em(10) em(10);
         border: 2px solid #eee;
@@ -39,7 +43,7 @@
         > header {
             margin-left: 115px;
             margin-top: -42px;
-
+            
             @extend %clearfix;
 
             h3 {
@@ -48,6 +52,7 @@
                 color: $color-secondary;
                 font-weight: 600;
                 margin-left: 10px;
+                margin-top: 8px;
 
                 a {
                     color: $color-secondary;
@@ -88,7 +93,7 @@
             }
         }
 
-        > footer {
+        footer {
             .pu-sub-view-all-comments-button {
                 font-size: 14px;
                 color: $color-text-subtle;
@@ -174,7 +179,12 @@
             > header {
                 position: relative;
                 margin: 0;
+                margin-bottom: 16px;
                 width: auto;
+
+                h3 {
+                    margin-top: 0px;
+                }
             }
         }
     }

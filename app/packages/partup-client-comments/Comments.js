@@ -149,6 +149,7 @@ Template.Comments.helpers({
                 } else {
                     // partup detail
                     return clicked || self.update.comments_count;
+                    // return clicked !== undefined ? clicked : self.update.comments_count;
                 }
             },
             commentCount: function() {
@@ -368,7 +369,7 @@ AutoForm.addHooks(null, {
         self.event.preventDefault();
 
         // the parent of the autoform
-        var template = self.template.parent();
+        // var template = self.template.parent();
         var formId = template.formId;
 
         // change form state

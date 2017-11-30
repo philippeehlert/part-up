@@ -15,7 +15,8 @@
                     <!-- {{/ unless }} -->
                     <!-- focus button -->
                     <a href="#" data-expand-comments class="pu-sub-action">{{_ 'widgetcommentfield-comment-button'}}</a>
-                    <!-- {{# if FULLVIEW }} -->
+                    {{# if FULLVIEW }}
+                    {{#unless HIDE_SYSTEM_MESSAGES }}
                         {{# if state.systemCount }}
                             <span class="pu-sub-seperator"></span>
                             <a href="#" data-toggle-systemmessages>
@@ -26,7 +27,8 @@
                                 {{/ if }}
                             </a>
                         {{/ if }}
-                    <!-- {{/ if }} -->
+                    {{/unless }}
+                    {{/if }}
                 </p>
             <!-- {{/ if }} -->
 

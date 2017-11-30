@@ -36,8 +36,9 @@ Template.Update.helpers({
         const templateInstance = Template.instance();
         var self = this;
 
-        // Cache for not hitting to mini mongo as often
-        if (self._update) return self._update;
+        // This causes new comments on updates not to be re-rendered!!
+        // // Cache for not hitting to mini mongo as often
+        // if (self._update) return self._update;
 
         var template = Template.instance();
         var updateId = template.data.updateId;
