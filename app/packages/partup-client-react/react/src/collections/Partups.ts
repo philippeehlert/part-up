@@ -1,54 +1,22 @@
 import { get } from 'lodash';
-import { Meteor } from 'utils/Meteor';
 
-interface Partup {
-    _id: string;
+import { CollectionDocument, Collection } from 'collections/Collection';
+
+interface Partup extends CollectionDocument {
+    store: string;
 }
 
-const statics: Array<Partup> = [];
+class PartupsCollection extends Collection<Partup> {
 
-export function updateStatic(staticPartups: Array<Partup>) {
-    staticPartups.forEach((partup) => {
-        const index = statics.findIndex((element) => {
-            return element._id === partup._id;
-        });
+    public getSlugById = (partupId: string) => {
+        const partup = this.findOne({ _id: partupId });
+        const staticPartup = this.findOneStatic(partupId);
 
-        if (index > -1) {
-            statics[index] = partup;
-        } else {
-            statics.push(partup);
-        }
-    });
+        return get(partup, 'slug', get(staticPartup, 'slug')) as string;
+    }
+
 }
 
-export function find(...args: any[]) {
-    return Meteor.collection('partups').find(...args);
-}
-
-export function findOne(...args: any[]) {
-    return Meteor.collection('partups').findOne(...args);
-}
-
-export function findStatic() {
-    return statics as Array<Partup>;
-}
-
-export function findOneStatic(partupId: string) {
-    return statics.find((element) => element._id === partupId) as Partup;
-}
-
-export function getSlug(partupId: string) {
-    const partup = findOne({ _id: partupId });
-    const staticPartup = findOneStatic(partupId);
-
-    return get(partup, 'slug', get(staticPartup, 'slug'));
-}
-
-export const Partups = {
-    updateStatic,
-    find,
-    findOne,
-    findStatic,
-    findOneStatic,
-    getSlug,
-};
+export const Partups = new PartupsCollection({
+    collection: 'partups',
+});
