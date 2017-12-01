@@ -1,12 +1,12 @@
 export const { default: Meteor } = require('react-web-meteor');
 
+interface MeteorDocument {
+    _id: string;
+}
+
 export interface MeteorCollection {
-    _name: string;
-    _collection: {
-        name: string;
-    };
-    find(selector: Object, options: Object): Object[];
-    findOne(selector: Object, options: Object): Object | undefined;
+    find(selector: Object, options: Object): MeteorDocument[];
+    findOne(selector: Object, options: Object): MeteorDocument | undefined;
 }
 
 const callbackQueue: Array<any> = [];

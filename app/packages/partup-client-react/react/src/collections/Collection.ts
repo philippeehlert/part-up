@@ -14,9 +14,6 @@ export abstract class Collection<Document extends CollectionDocument> {
     private collection: MeteorCollection;
     private statics: Document[] = [];
 
-    /**
-     * @param  {CollectionProps} {collection}
-     */
     constructor({ collection }: CollectionProps) {
         this.collection = Meteor.collection(collection);
     }
