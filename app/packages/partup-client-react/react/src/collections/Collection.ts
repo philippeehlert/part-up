@@ -1,4 +1,4 @@
-import { Meteor } from 'utils/Meteor';
+import { Meteor, MeteorCollection } from 'utils/Meteor';
 import { uniqBy } from 'lodash';
 
 export interface CollectionProps {
@@ -9,31 +9,53 @@ export interface CollectionDocument {
     _id: string;
 }
 
-export class Collection<Document extends CollectionDocument> {
+export abstract class Collection<Document extends CollectionDocument> {
 
-    private collection: string = '';
+    private collection: MeteorCollection;
     private statics: Document[] = [];
 
+    /**
+     * @param  {CollectionProps} {collection}
+     */
     constructor({ collection }: CollectionProps) {
-        this.collection = collection;
+        this.collection = Meteor.collection(collection);
     }
 
-    public find = (...args: any[]): Document[] => {
-        return Meteor.collection(this.collection).find(...args) as Document[];
+    /**
+     * @param  {any[]} ...args
+     * @returns Document[]
+     */
+    public find = (selector: Object = {}, options: Object = {}): Document[] => {
+        return this.collection.find(selector, options) as Document[];
     }
 
-    public findOne = (...args: any[]): Document | undefined => {
-        return this.find(...args).pop() as Document;
+    /**
+     * @param  {any[]} ...args
+     * @returns Document
+     */
+    public findOne = (selector: Object = {}, options: Object = {}): Document | undefined => {
+        return this.find(selector, options).pop() as Document | undefined;
     }
 
+    /**
+     * @returns Document[]
+     */
     public findStatic = (): Document[] => {
         return this.statics as Document[];
     }
 
+    /**
+     * @param  {string} documentId
+     * @returns Document
+     */
     public findOneStatic = (documentId: string): Document | undefined => {
-        return this.statics.find((document) => document._id === documentId) as Document;
+        return this.statics.find((document) => document._id === documentId) as Document | undefined;
     }
 
+    /**
+     * @param  {Document[]} newStatics
+     * @returns void
+     */
     public updateStatics = (newStatics: Document[]): void => {
         this.statics = uniqBy([
             ...this.statics,

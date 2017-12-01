@@ -53,7 +53,7 @@ export class Fetcher<FetcherData = any> {
             this.onChange();
 
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
     }
 

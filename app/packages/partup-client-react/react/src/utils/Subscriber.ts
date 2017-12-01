@@ -38,11 +38,10 @@ export class Subscriber {
     }
 
     /**
-     * Subscribe to the provided subscriptions.
-     *
-     * @throws Throws Error when adding duplicate subscriptions.
+     * @param  {any[]} ...parameters
+     * @returns Promise
      */
-    public async subscribe(...parameters: any[]) {
+    public subscribe = (...parameters: any[]): Promise<void> => {
         return new Promise((resolve, reject) => {
 
             const subscription = Meteor.subscribe(this.subscription, ...parameters, {
@@ -63,29 +62,43 @@ export class Subscriber {
         });
     }
 
-    public unsubscribe() {
+    /**
+     * @returns void
+     */
+    public unsubscribe = (): void => {
         if (this.activeSubscription) this.activeSubscription.stop();
         if (this.tracker) Meteor.ddp.off('changed', this.onDataChange);
     }
 
-    public destroy() {
+    /**
+     * @returns void
+     */
+    public destroy = (): void => {
         this.unsubscribe();
         this.onChange = () => {
             //
         };
     }
 
-    private onDataChange = (event: DDPEvent) => {
+    /**
+     * @param  {DDPEvent} event
+     * @returns void
+     */
+    private onDataChange = (event: DDPEvent): void => {
         defer(() => this.onChange(event));
     }
 
-    private track = (subscription: Subscription) => {
+    /**
+     * @param  {Subscription} subscription
+     * @returns void
+     */
+    private track = (subscription: Subscription): void => {
         if (this.tracker) Meteor.ddp.off('changed', this.onDataChange);
         this.tracker = Meteor.ddp.on('changed', this.onDataChange);
         console.log('tracker', this.tracker);
     }
 
-    private onChange: Function = () => {
+    private onChange: Function = (): void => {
         //
     }
 }
