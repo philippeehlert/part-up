@@ -1,15 +1,15 @@
 import { Meteor, getLoginToken } from 'utils/Meteor';
 
 interface QueryParameters {
-    [param: string]: any
+    [param: string]: any;
 }
 
 interface FetcherOptions<FetcherData = {[key: string]: any}> {
-    route: string
-    query?: QueryParameters
-    onChange?: Function
-    transformData?: (data: any) => FetcherData
-    onResponse?: (data: any) => void
+    route: string;
+    query?: QueryParameters;
+    onChange?: Function;
+    transformData?: (data: any) => FetcherData;
+    onResponse?: (data: any) => void;
 }
 
 export class Fetcher<FetcherData = any> {

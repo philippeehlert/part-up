@@ -3,22 +3,30 @@ import './UpdateTileMeta.css';
 import * as React from 'react';
 import * as c from 'classnames';
 import * as moment from 'moment';
+import { ConversationUpdate } from 'collections/Updates';
+import { SystemAvatar } from 'components/Avatar/SystemAvatar';
+import { UserAvatar } from 'components/Avatar/UserAvatar';
 
 interface Props {
     className?: string;
-    postedAt: Date|string;
-    avatar: JSX.Element;
+    update: ConversationUpdate;
 }
 
 export class UpdateTileMeta extends React.Component<Props, {}> {
 
     public render() {
-        const { postedAt, children, avatar } = this.props;
+        const { update, children } = this.props;
+        const { created_at, upper } = update;
 
         return (
             <div className={this.getClassNames()}>
                 <div className={`pur-UpdateTileMeta__author-avatar`}>
-                    {avatar}
+                    { update.system && (
+                        <SystemAvatar />
+                     ) }
+                     { !update.system && (
+                        <UserAvatar user={upper} />
+                     ) }
                 </div>
                 <div className={`pur-UpdateTileMeta__pur-UpdateTileMeta__info`}>
                     <h4 className={`pur-UpdateTileMeta__created-info`}>
@@ -26,9 +34,9 @@ export class UpdateTileMeta extends React.Component<Props, {}> {
                     </h4>
                     <time
                         className={`pur-UpdateTileMeta__created-at`}
-                        dateTime={postedAt.toString()}
+                        dateTime={created_at.toString()}
                     >
-                        { moment(postedAt).format('H:mm ddd MMMM YYYY') }
+                        { moment(created_at).format('H:mm ddd MMMM YYYY') }
                     </time>
                 </div>
             </div>

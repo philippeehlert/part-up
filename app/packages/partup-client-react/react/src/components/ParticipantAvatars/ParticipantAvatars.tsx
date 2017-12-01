@@ -2,8 +2,8 @@ import './ParticipantAvatars.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import { User } from 'types/User';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
+import { User } from 'collections/Users';
 
 interface Props {
     className?: string

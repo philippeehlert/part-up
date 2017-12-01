@@ -1,6 +1,6 @@
-import { Collection } from 'collections/Collection';
+import { Collection, CollectionDocument } from 'collections/Collection';
 
-interface Activity {
+export interface Activity extends CollectionDocument {
     _id: string;
 }
 

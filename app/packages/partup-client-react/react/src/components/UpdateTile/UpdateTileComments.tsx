@@ -77,13 +77,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
         const { showAllComments } = this.state;
 
         const amountOfCommentToShow = showAllComments ? comments_count : collapsedMax;
-        const commentComponents = comments.map((comment: any) => {
-            if (comment.type === 'motivation') {
-                return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
-            }
+        const commentComponents = comments
+            .filter(({ type }) => type !== 'system')
+            .map((comment: any) => {
+                if (comment.type === 'motivation') {
+                    return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
+                }
 
-            return <Comment key={comment._id} comment={comment} />;
-        });
+                return <Comment key={comment._id} comment={comment} />;
+            });
 
         return (
             <div className={`pur-UpdateTileComments__container`}>

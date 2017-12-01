@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import { Collection, CollectionDocument } from 'collections/Collection';
 
-interface Image extends CollectionDocument {
+export interface Image extends CollectionDocument {
     store: string;
 }
 

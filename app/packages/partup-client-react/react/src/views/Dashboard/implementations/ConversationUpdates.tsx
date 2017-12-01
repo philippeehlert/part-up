@@ -16,8 +16,6 @@ import { Spinner } from 'components/Spinner/Spinner';
 import { InfiniteScroll } from 'components/InfiniteScroll/InfiniteScroll';
 import { Tile } from 'components/Tile/Tile';
 import { UpdateTile } from 'components/UpdateTile/UpdateTile';
-import { SystemAvatar } from 'components/Avatar/SystemAvatar';
-import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { UpdateTileComments } from 'components/UpdateTile/UpdateTileComments';
 import { UpdateTileMeta } from 'components/UpdateTile/UpdateTileMeta';
 import { UpdateTileContent } from 'components/UpdateTile/UpdateTileContent';
@@ -60,6 +58,10 @@ import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
 import { Subscriber } from 'utils/Subscriber';
+import { Users } from 'collections/Users';
+import { Activities } from 'collections/Activities';
+import { Lanes } from 'collections/Lanes';
+import { Updates, Update, ConversationUpdate } from 'collections/Updates';
 
 export class ConversationUpdates extends React.Component {
 
@@ -84,35 +86,30 @@ export class ConversationUpdates extends React.Component {
         onResponse: (data: any) => {
             Images.updateStatics(data['cfs.images.filerecord']);
             Partups.updateStatics(data.partups || []);
-            this.subscribeToComments(data);
+            Users.updateStatics(data.users);
+            Activities.updateStatics(data.activities);
+            Lanes.updateStatics(data.lanes);
+            Updates.updateStatics(data.updates);
+            this.subscribeToUpdateComments(data.updates);
         },
         transformData: (data: any) => {
             const {
                 updates = [],
-                partups = [],
-                users = [],
-                activities = [],
-                lanes = [],
             }: {
-                updates: any[],
-                partups: any[],
-                users: any[],
-                activities: any[],
-                lanes: any[],
+                updates: Update[],
             } = data;
 
-            activities.forEach((activity) => {
-                activity.lane = lanes.find(({ _id }) => _id === activity.lane_id);
-            });
+            const conversationUpdates = updates.map((update: Update) => {
+                return {
+                    partup: Partups.findOneStatic(update.partup_id) || {},
+                    activity: Activities.findOneStatic(update._id, 'update_id') || {},
+                    upper: Users.findOneStatic(update.upper_id) || {},
+                    ...update,
+                };
+            }) as ConversationUpdate[];
 
             return {
-                updates: updates.map((update: any) => ({
-                    ...update,
-                    comments: (update.comments || []).filter(({ type }: any) => type !== 'system'),
-                    partup: partups.find(({ _id }) => update.partup_id === _id),
-                    upper: users.find(({ _id }) => update.upper_id === _id),
-                    activity: activities.find(({ update_id }) => update_id === update._id),
-                })),
+                conversationUpdates,
             };
         },
     });
@@ -127,11 +124,10 @@ export class ConversationUpdates extends React.Component {
         onChange: () => this.forceUpdate(),
     });
 
-    public subscribeToComments = async (data: any) => {
-        const updateIds = data.updates.map((update: any) => update._id);
+    public subscribeToUpdateComments = async (updates: Update[]) => {
+        const updateIds = updates.map((update: Update) => update._id);
 
-        await this.updatesCommentsSubscriber.subscribe(updateIds);
-        console.log('ready', this.updatesCommentsSubscriber);
+        await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
 
     public componentWillMount() {
@@ -147,7 +143,7 @@ export class ConversationUpdates extends React.Component {
     public render() {
         const { data, loading } = this.conversationsFetcher;
         const { data: partupsData } = this.partupsFetcher;
-        const { updates = [] } = data;
+        const { conversationUpdates = [] } = data;
         const { partups = [] } = partupsData;
 
         const partupOptions = this.getPartupOptions(partups);
@@ -173,20 +169,18 @@ export class ConversationUpdates extends React.Component {
                     </FillInTheBlanks>
                 </FilteredListControls>
                 <FilteredListItems>
-                    { loading && !updates.length && (
+                    { loading && !conversationUpdates.length && (
                         <Spinner />
                     ) }
                     <InfiniteScroll loadMore={this.loadMore}>
-                        { !!updates.length && updates.map((update: any) => {
-                            const upper = update.upper;
+                        { (conversationUpdates || []).map((update: ConversationUpdate) => {
                             return (
                                 <Tile title={update.partup.name} key={update._id}>
                                     <UpdateTile>
                                         <UpdateTileMeta
-                                            avatar={update.system ? <SystemAvatar /> : <UserAvatar user={upper} />}
-                                            postedAt={update.created_at}
+                                            update={update}
                                         >
-                                            { this.renderUpdateTitle(update, get(upper, 'profile.name')) }
+                                            { this.renderUpdateTitle(update, get(update, 'upper.profile.name')) }
                                         </UpdateTileMeta>
                                         { this.shouldRenderUpdateComponent(update) && (
                                             <UpdateTileContent>
@@ -333,7 +327,7 @@ export class ConversationUpdates extends React.Component {
         }[type]();
     }
 
-    private renderUpdateComponent({ type, ...update }: {type: string, typeData: {[key: string]: any}}) {
+    private renderUpdateComponent({ type, ...update }: {type: string, type_data: {[key: string]: any}}) {
 
         const table = {
             changed_region:                       (data: any) => <ChangedRegion data={data} />,
@@ -380,7 +374,7 @@ export class ConversationUpdates extends React.Component {
         return table[type](update);
     }
 
-    private renderUpdateTitle({ type, typeData }: {type: string, typeData: {[key: string]: any}}, upperName: string) {
+    private renderUpdateTitle({ type, type_data }: {type: string, type_data: {[key: string]: any}}, upperName: string) {
 
         const map = {
             changed_region:                       (postee: any) => `${postee} changed the part-up location`,
@@ -423,7 +417,7 @@ export class ConversationUpdates extends React.Component {
             system_supporters_removed:            (postee: any) => `${postee} is not a supporter anymore`,
         };
 
-        return map[type](upperName, typeData);
+        return map[type](upperName, type_data);
     }
 
     private getPartupOptions(partups: any) {

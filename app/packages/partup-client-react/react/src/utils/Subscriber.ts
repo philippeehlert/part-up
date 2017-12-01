@@ -95,7 +95,6 @@ export class Subscriber {
     private track = (subscription: Subscription): void => {
         if (this.tracker) Meteor.ddp.off('changed', this.onDataChange);
         this.tracker = Meteor.ddp.on('changed', this.onDataChange);
-        console.log('tracker', this.tracker);
     }
 
     private onChange: Function = (): void => {

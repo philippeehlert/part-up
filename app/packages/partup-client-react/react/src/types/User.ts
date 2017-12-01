@@ -60,12 +60,3 @@ export interface Profile {
     };
     tiles: Array<string>;
 }
-
-export interface User {
-    _id: string;
-    emails: Array<Email>;
-    profile: Profile;
-    _version: number;
-    upperOf: Array<string>;
-    supporterOf: Array<string>;
-}

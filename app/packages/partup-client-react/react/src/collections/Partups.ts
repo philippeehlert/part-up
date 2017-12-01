@@ -2,8 +2,9 @@ import { get } from 'lodash';
 
 import { CollectionDocument, Collection } from 'collections/Collection';
 
-interface Partup extends CollectionDocument {
+export interface Partup extends CollectionDocument {
     store: string;
+    name: string;
 }
 
 class PartupsCollection extends Collection<Partup> {

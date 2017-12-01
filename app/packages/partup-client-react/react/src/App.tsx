@@ -6,7 +6,6 @@ import {
     Switch,
     Route,
 } from 'react-router-dom';
-import { User } from 'types/User';
 import { error, success } from 'utils/notify';
 import { routes, activeRoutes, onRouteChange } from 'utils/router';
 import { View } from 'components/View/View';
@@ -15,6 +14,7 @@ import { Router } from 'components/Router/Router';
 import { NotificationsManager } from 'components/NotificationsManager/NotificationsManager';
 import { Dashboard } from 'views/Dashboard/Dashboard';
 import { Home } from 'views/Home/Home';
+import { User } from 'collections/Users';
 
 const dev = process.env.REACT_APP_DEV;
 

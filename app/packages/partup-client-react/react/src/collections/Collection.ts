@@ -45,8 +45,8 @@ export abstract class Collection<Document extends CollectionDocument> {
      * @param  {string} documentId
      * @returns Document
      */
-    public findOneStatic = (documentId: string): Document | undefined => {
-        return this.statics.find((document) => document._id === documentId) as Document | undefined;
+    public findOneStatic = (documentId: string, findBy: string = '_id'): Document | undefined => {
+        return this.statics.find((document) => document[findBy] === documentId) as Document | undefined;
     }
 
     /**

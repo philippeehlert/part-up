@@ -82,10 +82,21 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters, ac
 
 Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
     check(updateIds, [String]);
-
+    
     this.unblock();
 
+    const selector = {
+        _id: {$in: updateIds},
+    };
+
+    const options = {
+        fields: {
+            comments: 1,
+            comments_count: 1,
+        },
+    };
+
     return {
-        find: () => Updates.find({_id: {$in: updateIds}}, {fields: {comments: 1, comments_count: 1}}),
+        find: () => Updates.find(selector, options),
     }
 });
