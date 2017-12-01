@@ -36,7 +36,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
     public render() {
         const { user, update } = this.props;
-        const { comments_count = 0 } = Updates.findOne({ _id: update._id });
+        const { comments_count = 0 } = Updates.findOne({ _id: update._id }) || {};
         const { showCommentBox } = this.state;
 
         return (
@@ -73,7 +73,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
     private renderComments() {
         const { update, collapsedMax } = this.props;
-        const { comments = [], comments_count = 0 } = Updates.findOne({ _id: update._id });
+        const { comments = [], comments_count = 0 } = Updates.findOne({ _id: update._id }) || {};
         const { showAllComments } = this.state;
 
         const amountOfCommentToShow = showAllComments ? comments_count : collapsedMax;

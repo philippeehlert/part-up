@@ -20,7 +20,7 @@ export class Activity extends React.Component<Props, {}> {
         if (!data) return this.renderDeleted();
 
         const lane = get(data, 'lane');
-        const partupSlug = Partups.getSlug(data.partup_id);
+        const partupSlug = Partups.getSlugById(data.partup_id);
 
         return (
             <div className={this.getClassNames()}>

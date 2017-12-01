@@ -2,7 +2,7 @@ import './UserAvatar.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import { findOne, getUrl, findOneStatic } from 'collections/Images';
+import { Images } from 'collections/Images';
 import { get } from 'lodash';
 import { User } from 'types/User';
 
@@ -20,9 +20,9 @@ export class UserAvatar extends React.Component<Props, {}> {
         const { user, userAvatarImageId } = this.props;
         const imageId = get(user, 'profile.image') || userAvatarImageId;
 
-        const image = findOne({ _id: imageId }) || findOneStatic(imageId);
+        const image = Images.findOne({ _id: imageId }) || Images.findOneStatic(imageId);
 
-        const imageUrl = getUrl(image, '360x360');
+        const imageUrl = Images.getUrl(image, '360x360');
 
         return (
             <div className={this.getClassNames()}>

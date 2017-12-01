@@ -82,8 +82,8 @@ export class ConversationUpdates extends React.Component {
         },
         onChange: () => this.forceUpdate(),
         onResponse: (data: any) => {
-            Images.updateStatic(data['cfs.images.filerecord']);
-            Partups.updateStatic(data.partups || []);
+            Images.updateStatics(data['cfs.images.filerecord']);
+            Partups.updateStatics(data.partups || []);
             this.subscribeToComments(data);
         },
         transformData: (data: any) => {
