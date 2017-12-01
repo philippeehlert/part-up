@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 Meteor.methods({
     /**
      * Insert an Activity
@@ -141,25 +143,21 @@ Meteor.methods({
                 lane.removeActivity(activity._id);
             }
 
-            const { images, documents } = activity.files;
-            if (images && images.length) {
-                _.each(images, (id) => {
-                    Meteor.call('images.remove', id, function (error) {
-                        if (error) {
-                            throw error;
-                        }
-                    });
+            const { images = [], documents = [] } = _.get(activity, 'files', {});
+            _.each(images, (id) => {
+                Meteor.call('images.remove', id, function (error) {
+                    if (error) {
+                        throw error;
+                    }
                 });
-            }
-            if (documents && documents.length) {
-                _.each(documents, (id) => {
-                    Meteor.call('files.remove', id, function (error) {
-                        if (error) {
-                            throw error;
-                        }
-                    });
+            });
+            _.each(documents, (id) => {
+                Meteor.call('files.remove', id, function (error) {
+                    if (error) {
+                        throw error;
+                    }
                 });
-            }
+            });
 
             activity.remove();
 
