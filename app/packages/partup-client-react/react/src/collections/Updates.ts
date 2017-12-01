@@ -1,7 +1,7 @@
-// import { get } from 'lodash';
-import { Meteor } from 'utils/Meteor';
-
 import { User } from 'types/User';
+import { Collection } from 'collections/Collection';
+import { Partups } from 'collections/Partups';
+import { Users } from 'collections/Users';
 
 export interface UpperUser {
     chats: Array<string>,
@@ -31,7 +31,7 @@ export interface Update {
         [type: string]: any,
     },
     comments?: Array<Comment>
-    comments_count: number,
+    comments_count?: number,
     created_at: Date,
     updated_at: Date,
     upper_data: Array<any>,
@@ -39,41 +39,33 @@ export interface Update {
     partup: any,
 }
 
-export function getUpdatesForLoggedInUser(): Array<Update> {
-    const updates = Meteor.collection('updates').find() as Array<Update>;
-
-    return updates.map((update) => {
-
-        return {
-            ...update,
-            partup: Meteor.collection('partups').findOne({ _id: update.partup_id }),
-            createdBy: getUpdateCreator(update),
-        };
-    });
-}
-
-function getUpdateCreator(update: Update) {
+const getUpdateCreator = (update: Update) => {
     if (update.upper_id) {
-        return Meteor.collection('users').findOne({ _id: update.upper_id });
+        return Users.findOne({ _id: update.upper_id });
     }
 
     if (update.partup_id) {
-        return Meteor.collection('partups').findOne({ _id: update.partup_id });
+        return Partups.findOne({ _id: update.partup_id });
     }
 
     return null;
 }
 
-export function find(...args: any[]) {
-    return Meteor.collection('updates').find(...args) as Array<Update>;
+class UpdatesCollection extends Collection<Update> {
+
+    public getUpdatesForLoggedInUser = (): Update[] => {
+        const updates = this.find();
+
+        return updates.map((update: Update) => {
+            return {
+                ...update,
+                partup: Partups.findOne({ _id: update.partup_id }),
+                createdBy: getUpdateCreator(update),
+            };
+        });
+    }
 }
 
-export function findOne(...args: any[]) {
-    return Meteor.collection('updates').findOne(...args) || {} as Update;
-}
-
-export const Updates = {
-    getUpdatesForLoggedInUser,
-    find,
-    findOne,
-};
+export const Updates = new UpdatesCollection({
+    collection: 'updates',
+});
