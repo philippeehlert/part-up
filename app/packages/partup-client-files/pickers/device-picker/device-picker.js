@@ -87,5 +87,5 @@ Template.devicePicker.onRendered(function() {
 
 Template.devicePicker.onDestroyed(function() {
     clearTimeout(this.initTimeout);
-    this.uploader.destroy();
+    (this.uploader && this.uploader.destroy());
 });

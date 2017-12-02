@@ -14,6 +14,7 @@ Package.onUse(function(api) {
         'ecmascript',
         'templating',
         'partup-lib',
+        'partup-client-forms',
         'partup-client-dropdowns',
         'reactive-dict',
         'reactive-var',
@@ -183,7 +184,6 @@ Package.onUse(function(api) {
             'app/partup/update/update.js',
             'app/partup/updates/message-form/message-form.html',
             'app/partup/updates/message-form/message-form.js',
-            'app/partup/updates/message-form/markdown-support/markdown-support.html',
 
             // App:partup-activities
             'app/partup/activities/activities.html',
@@ -191,8 +191,8 @@ Package.onUse(function(api) {
             'app/partup/activities/activity/activity.html',
             'app/partup/activities/activity/activity.js',
             'app/partup/activities/activity/form/placeholders.js',
-            'app/partup/activities/activity/form/form.html',
-            'app/partup/activities/activity/form/form.js',
+            'app/partup/activities/activity/form/activity.html',
+            'app/partup/activities/activity/form/activity.js',
             'app/partup/activities/activity/view/view.html',
             'app/partup/activities/activity/view/view.js',
             'app/partup/activities/newactivity-restricted/newactivity-restricted.html',

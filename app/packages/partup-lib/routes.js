@@ -448,7 +448,10 @@ Router.route('/partups/:slug/updates/:update_id', {
     data: function() {
         return {
             partupId: Partup.client.strings.partupSlugToId(this.params.slug),
-            updateId: this.params.update_id
+            updateId: this.params.update_id,
+            state: {
+                fe: this.params.query.fe && this.params.query.fe.toBool(),
+            },
         };
     }
 });

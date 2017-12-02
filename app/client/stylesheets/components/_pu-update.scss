@@ -1,6 +1,19 @@
 .pu-update {
     @extend %clearfix;
 
+    .extra-margin {
+        margin-top: 16px;
+    }
+
+    .pu-commentfield {
+        padding: em(5) em(10) em(10) em(10);
+        border: 2px solid #eee;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        margin-top: -3px;
+    }
+
+
     > aside, > section {
         position: relative;
         float: none;
@@ -28,10 +41,9 @@
 
     > section {
         > header {
-            width: calc(100% - 110px);
-            margin-left: 110px;
-            margin-top: -40px;
-
+            margin-left: 115px;
+            margin-top: -42px;
+            
             @extend %clearfix;
 
             h3 {
@@ -39,9 +51,8 @@
                 font-size: 15px;
                 color: $color-secondary;
                 font-weight: 600;
+                margin-left: 10px;
                 margin-top: 8px;
-                margin-bottom: -5px;
-                max-width: 75%;
 
                 a {
                     color: $color-secondary;
@@ -82,12 +93,12 @@
             }
         }
 
-        > footer {
+        footer {
             .pu-sub-view-all-comments-button {
                 font-size: 14px;
                 color: $color-text-subtle;
-                margin-top: 15px - 5px;
-                margin-bottom: -19px;
+                margin-top: 5px;
+                // margin-bottom: -10px;
 
                 a {
                     color: $color-text-subtle;
@@ -155,6 +166,7 @@
 
         > aside {
             width: 130px;
+            margin-top: -8px;
 
             .pu-sub-time {
                 margin-left: 29px;
@@ -167,7 +179,12 @@
             > header {
                 position: relative;
                 margin: 0;
+                margin-bottom: 16px;
                 width: auto;
+
+                h3 {
+                    margin-top: 0px;
+                }
             }
         }
     }

@@ -43,5 +43,14 @@ Meteor.methods({
         }
         throw new Meteor.Error(400, 'unauthorized');
     },
+    'images.get_many'(ids) {
+        check(ids, [String]);
+        this.unblock();
 
+        if (Meteor.user()) {
+            const cursor = Images.find({ _id: { $in: ids } });
+            return cursor.fetch();
+        }
+        throw new Meteor.Error(401, 'unauthorized');
+    },
 });

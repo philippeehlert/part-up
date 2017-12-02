@@ -243,14 +243,6 @@
     }
 
     &-message {
-        figure {
-            margin-top: 20px;
-            margin-bottom: -4px;
-
-            .pu-image {
-                margin: 0;
-            }
-        }
 
         .pu-sub-useractions {
             transition: opacity 0.2s, height 0.2s, margin-bottom 0.2s, padding-top 0.2s;

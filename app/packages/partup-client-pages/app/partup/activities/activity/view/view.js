@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import {strings} from 'meteor/partup-client-base';
+import { setTimeout } from 'timers';
 
 /*************************************************************/
 /* Widget initial */
@@ -6,14 +8,59 @@ import {strings} from 'meteor/partup-client-base';
 Template.ActivityView.onCreated(function() {
     var template = this;
 
+    this.activityId = template.data.activity ? template.data.activity._id : template.data.activity_id;
+    this.activity = this.data.activity;
+
     template.activityDropdownOpen = new ReactiveVar(false);
 
     template.expanded = new ReactiveVar(!!template.data.EXPANDED || !!template.data.CREATE_PARTUP);
 
     template.updateContribution = function(contribution, cb) {
-        var activityId = template.data.activity ? template.data.activity._id : template.data.activity_id;
-        Meteor.call('contributions.update', activityId, contribution, cb);
+        Meteor.call('contributions.update', template.activityId, contribution, cb);
     };
+
+    this.contributionsReady = new ReactiveVar(false);
+
+    if (this.activityId) {
+        template.contributionSub = template.subscribe('contributions.for_activity', this.activityId, {
+            onReady() {
+                template.contributionsReady.set(true);
+            },
+        });
+    } else {
+        this.contributionsReady.set(true);
+    }
+
+    if (this.activity && this.activity.files) {
+        template.imageSub = template.subscribe('images.many', this.activity.files.images);
+        template.fileSub = template.subscribe('files.many', this.activity.files.documents);
+    }
+
+    this.update = Updates.findOne({ _id: this.data.updateId || get(Template.instance(), 'data.activity.update_id') });
+    template.hidden = {
+        comments: new ReactiveVar(template.data.BOARDVIEW || (!template.data.EXPANDED && !_.get(this.update, 'comments_count'))),
+        files: new ReactiveVar(!template.data.FILES_EXPANDED),
+    };
+
+    if (template.data.COMMENTS_EXPANDED) {
+        template.autorun(() => {
+            const x = template.data.COMMENTS_EXPANDED.get();
+            if (x !== undefined) {
+                template.hidden.comments.set(!x);
+            }
+        });
+    }
+});
+
+Template.ActivityView.onRendered(function() {
+    if (this.data.EXPANDED && !this.hidden.comments.get()) {
+        const commentEl = this.find('[data-commentfield]');
+        if (commentEl) {
+            setTimeout(() => {
+                $(commentEl).focus();
+            }, 150);
+        }
+    }
 });
 
 /*************************************************************/
@@ -22,6 +69,13 @@ Template.ActivityView.onCreated(function() {
 Template.ActivityView.helpers({
     activityDropdownOpen: function() {
         return Template.instance().activityDropdownOpen;
+    },
+    hide() {
+        const { files, comments } = Template.instance().hidden;
+        return {
+            files: files.get(),
+            comments: comments.get(),
+        };
     },
     renderWithMarkdown() {
         return function (text) {
@@ -32,26 +86,27 @@ Template.ActivityView.helpers({
         return function(text) {
             // Because truncateHtmlString accepts only html we first need to process the description.
             // This is not an elegant solution but it works for now.
-            let htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description')
-            let maxDescriptionLength = 55
-            return strings.truncateHtmlString(htmlText, maxDescriptionLength)
-        }
+            const htmlText = strings.renderToMarkdownWithEmoji(text, 'pu-sub-description');
+            const maxDescriptionLength = 55;
+            return strings.truncateHtmlString(htmlText, maxDescriptionLength);
+        };
     },
     partup: function() {
         if (!this.activity) return;
         return Partups.findOne(this.activity.partup_id);
     },
     contributions: function() {
-        if (!this.activity || this.contribution_id) return;
-
-        return Contributions.findForActivity(this.activity, {
-            archived: false
-        }).fetch();
+        if (!this.activity || this.contribution_id) return undefined;
+        return Contributions.find({ activity_id: this.activity._id, archived: { $ne: true } });
     },
     contribution: function() {
         if (!this.contribution_id) return;
 
         return Contributions.findOne(this.contribution_id);
+    },
+    isContributing() {
+        const instance = Template.instance();
+        return Contributions.find({ activity_id: instance.activityId, upper_id: Meteor.userId(), archived: { $ne: true } }).count();
     },
     expanded: function() {
         return Template.instance().expanded.get();
@@ -60,7 +115,7 @@ Template.ActivityView.helpers({
         return this.EXPANDABLE && !Template.instance().expanded.get() && !this.contribution_id;
     },
     showEditButton: function() {
-        return !this.READONLY && this.isUpper //&& Template.instance().expanded.get();
+        return !this.READONLY && this.isUpper;
     },
     showMetaData: function() {
         return (this.activity && this.activity.end_date) || this.COMMENTS_LINK;
@@ -116,28 +171,101 @@ Template.ActivityView.helpers({
         return newComments.length;
     },
     lane: function() {
-        var activity = this.activity;
-        var partup = Partups.findOne(this.activity.partup_id);
-
-        if (!partup.board_view) return false;
-
-        return Lanes.findOne({_id: activity.lane_id});
+        const laneId = get(this.activity, 'lane_id');
+        if (laneId) {
+            const partupId = get(this.activity, 'partup_id') || this.partupId;
+            if (get(Partups.findOne({ _id: partupId }), 'board_view')) {
+                return Lanes.findOne({ _id: laneId });
+            }
+        }
     },
     updateDetail: function() {
         return Router.current().route.getName() === 'partup-update';
-    }
+    },
+    files() {
+        const { files } = this.activity;
+        return files || undefined;
+    },
+    fileCount() {
+        const { files } = this.activity;
+        return files ? _.concat(files.images, files.documents).length : 0;
+    },
+    dropdownData() {
+        const instance = Template.instance();
+        const self = this;
+        return {
+            isContributing() {
+                return Contributions.find({ activity_id: instance.activityId, upper_id: Meteor.userId(), archived: { $ne: true } }).count();
+            },
+            activity() {
+                return self.activity;
+            },
+        };
+    },
 });
 
 /*************************************************************/
 /* Widget events */
 /*************************************************************/
 Template.ActivityView.events({
-    'click [data-activity-dropdown]': function(event, template) {
+    'click [data-detail]'(event, templateInstance) {
+        // Don't do anything when already on detail.
+        if (this.EXPANDED) {
+            return true;
+        }
+
+        const partup = Partups.findOne({ _id: templateInstance.data.activity.partup_id });
+        const detailIsFiles = $(event.target.closest('[data-detail]')).data('detail');
+
+        if (templateInstance.data.BOARDVIEW || (templateInstance.data.EXPANDABLE && !templateInstance.expanded.get())) {
+            Router.go('partup-update', {
+                slug: partup.slug,
+                update_id: templateInstance.data.updateId || templateInstance.data.activity.update_id,
+            }, {
+                query: `fe=${detailIsFiles === 'files'}`,
+            });
+        }
+    },
+    'click [data-toggle]'(event, templateInstance) {
+        // This will get triggered before [data-detail] above.
+        // we don't want to expand when on boardview.
+        if (this.BOARDVIEW) {
+            return true;
+        }
+
+        const who = $(event.target).data('toggle');
+        const hide = templateInstance.hidden[who];
+        const newVal = hide.get();
+        if (hide) {
+            hide.set(!hide.get());
+        }
+
+        if (who === 'comments') {
+            setTimeout(() => {
+                const commentElement = templateInstance.find('[data-commentfield]');
+                if (commentElement) {
+                    newVal ? $(commentElement).focus() : $(commentElement).blur();
+                }
+            }, 150);
+        }
+    },
+    'click [data-dropdown-open]': function(event, template) {
         event.preventDefault();
         template.activityDropdownOpen.set(true);
     },
-    'click [data-activity-edit]': function(event, template) {
-        template.data.edit.set(true);
+    'click [data-edit]': function(event, template) {
+        const open = () => {
+            Partup.client.popup.open({
+                id: `edit-activity-${template.activity._id}`,
+            });
+        };
+        if (!Meteor.userId()) {
+            Intent.go({ route: 'login' }, function(user) {
+                if (user) open();
+            });
+        } else {
+            open();
+        }
     },
     'click [data-activity-expander]': function(event, template) {
         var partup = Partups.findOne({_id: template.data.activity.partup_id});
@@ -159,6 +287,8 @@ Template.ActivityView.events({
         var contribute = function() {
             var partup = Partups.findOne({_id: template.data.activity.partup_id});
 
+            template.activityDropdownOpen.set(false)
+
             if (!partup) {
                 Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
                 return;
@@ -175,7 +305,6 @@ Template.ActivityView.events({
                             motivation: result.comment
                         }, function(error) {
                             if (error) {
-                                console.error(error);
                                 return;
                             }
 
@@ -190,19 +319,18 @@ Template.ActivityView.events({
 
                 return;
             }
-
-            template.updateContribution({}, function(error) {
+            template.updateContribution({}, function(error, result) {
                 if (error) {
-                    console.error(error);
                     return;
                 }
 
-                analytics.track('new contribution', {
-                    partupId: partup._id,
-                    userId: Meteor.userId(),
-                    userType: 'upper'
-                });
-
+                try {
+                    analytics.track('new contribution', {
+                        partupId: partup._id,
+                        userId: Meteor.userId(),
+                        userType: 'upper'
+                    });
+                } catch (e) {}
             });
         };
 
@@ -227,7 +355,7 @@ Template.ActivityView.events({
             }
         });
     },
-    'click [data-activity-archive]': (event, template) => {
+    'click [data-archive]': (event, template) => {
         Meteor.call('activities.archive', template.data.activity._id, function(error) {
             if (error) {
                 Partup.client.notify.error(error.reason)
@@ -235,7 +363,7 @@ Template.ActivityView.events({
             template.activityDropdownOpen.set(false)
         })
     },
-    'click [data-activity-unarchive]': (event, template) => {
+    'click [data-unarchive]': (event, template) => {
         Meteor.call('activities.unarchive', template.data.activity._id, function(error) {
             if (error) {
                 Partup.client.notify.error(error.reason)
@@ -272,4 +400,4 @@ Template.activityActionsDropdown.helpers({
     showEditButton: function() {
         return !this.READONLY && this.isUpper;
     }
-})
+});

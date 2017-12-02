@@ -1,0 +1,36 @@
+.pu-file {
+    list-style: none;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    
+    @include goingLarge(800) {
+        position: relative;
+        width: auto;
+        min-width: 250px;
+        max-width: 300px;
+        height: 68px;
+        padding: em(10);
+        border-radius: em(5);
+        background: #eee;
+    }
+
+    &-figure {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &-meta {
+        display: inline-block;
+        vertical-align: top;
+        width: 76%;
+
+        > h6 {
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

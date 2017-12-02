@@ -26,6 +26,7 @@ Template.app_partup_update.onCreated(function() {
             computation.stop();
         }
     });
+
     var updateId;
     template.autorun(function(computation) {
         var data = Template.currentData();

@@ -14,6 +14,7 @@ Template.app_partup_updates.onCreated(function() {
             template.loadingUpdates.set(false);
         },
     });
+    
 
     // Updates model
     template.updates = {

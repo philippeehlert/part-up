@@ -14,6 +14,10 @@ Template.registerHelper('partupDateNormal', function(date) {
     return moment(date).format('LL');
 });
 
+Template.registerHelper('partupDateShort', function (date) {
+    return moment(date).format('ll');
+});
+
 Template.registerHelper('partupDateFull', function(date) {
     return moment(date).format('LLL');
 });

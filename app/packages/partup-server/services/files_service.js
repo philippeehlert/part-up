@@ -33,6 +33,7 @@ Partup.server.services.files = {
             meta: options ? options.meta : {},
             service: 'partup',
             link: Partup.helpers.url.getFileUrl(guid),
+            bytes: body.length,
         };
 
         s3.putObjectSync({ Key: `files/${guid}`, Body: body, ContentType: file.type });

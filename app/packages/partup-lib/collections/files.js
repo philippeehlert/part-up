@@ -41,7 +41,8 @@ Files.getForUpdate = function (updateId) {
     });
 };
 
-Files.many = function(ids) {
+Files.get = (ids) => {
+    ids = Array.isArray(ids) ? ids : [ids];
     return new Promise((resolve, reject) => {
         if (ids) {
             const files = Files.find({ _id: { $in: ids } });

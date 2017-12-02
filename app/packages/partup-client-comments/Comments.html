@@ -1,24 +1,22 @@
  <template name="Comments">
     <!-- Comments -->
     <footer class="pu-commentfield">
-        {{# if state.showComments }}
+        <!-- {{# if state.showComments }} -->
         <!-- View all n comments -->
-            {{# if partupOneIsTrue FULLVIEW data.shownComments.length }}
+            <!-- {{# if partupOneIsTrue FULLVIEW data.shownComments.length }} -->
                 <p class="pu-sub-view-all-comments-button">
-
-                    {{# unless FULLVIEW }}
-                        <a href="
-                            {{ #if partupContainsOne update.type 'partups_newuser' }}
+                    <!-- {{# unless FULLVIEW }} -->
+                        <a href="{{ #if partupContainsOne update.type 'partups_newuser' }}
                                 {{pathFor route='profile' _id=user_id }}
                             {{else}}
                                 {{pathFor route='partup-update' slug=partup.slug update_id=update._id }}
-                            {{/if}}
-                        ">{{_ 'widgetcommentfield-comment-totalcomments' count=state.commentCount}}</a>
+                            {{/if}}">{{_ 'widgetcommentfield-comment-totalcomments' count=state.commentCount}}</a>
                         <span class="pu-sub-seperator"></span>
-                    {{/ unless }}
+                    <!-- {{/ unless }} -->
                     <!-- focus button -->
                     <a href="#" data-expand-comments class="pu-sub-action">{{_ 'widgetcommentfield-comment-button'}}</a>
                     {{# if FULLVIEW }}
+                    {{#unless HIDE_SYSTEM_MESSAGES }}
                         {{# if state.systemCount }}
                             <span class="pu-sub-seperator"></span>
                             <a href="#" data-toggle-systemmessages>
@@ -29,15 +27,17 @@
                                 {{/ if }}
                             </a>
                         {{/ if }}
-                    {{/ if }}
+                    {{/unless }}
+                    {{/if }}
                 </p>
-            {{/ if }}
+            <!-- {{/ if }} -->
 
             <!-- Comments list -->
+            {{#if data.shownComments }}
             <ul class="pu-list pu-list-comments" data-comments-container>
                 {{# each data.shownComments }}
                     {{# if isSystemMessage }}
-                        <!-- {{# if state.showSystemMessages}} -->
+                        {{# if state.showSystemMessages}}
                         <li class="pu-comment pu-comment-systemmessage">
                             <figure class="pu-sub-line"></figure>
                             <div>
@@ -48,7 +48,7 @@
                                 <time title="{{ partupDateFull created_at }}" datetime="{{ created_at.toISOString }}">{{ partupDateComment created_at }}</time>
                             </div>
                         </li>
-                        <!-- {{/if}} -->
+                        {{/if}}
                     {{ else }}
                         <li class="pu-comment" {{ isUserComment }}>
                             <a href="{{ pathFor 'profile' _id=creator._id }}">
@@ -90,7 +90,8 @@
                     {{/ if }}
                 {{/ each }}
             </ul>
-        {{/ if }}
+            {{/if }}
+        <!-- {{/ if }} -->
 
         <!-- Add comment field -->
         {{#autoForm schema=formSchema id=state.commentFormId class='pu-state-expanded' }}
@@ -107,7 +108,7 @@
                     {{# if isMotivation }}
                         {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment data-validate-keyup=""}}
                     {{ else }}
-                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows autofocus=''}}
+                        {{> afFieldInput type='textarea' name='content' class='pu-textarea pu-textarea-grow pu-sub-comment' data-commentfield="" data-submit="return" placeholder=placeholders.comment rows=state.messageRows }}
                     {{/ if }}
                     {{#if state.messageTooLong}}
                         <span class="pu-sub-error">{{_ 'widgetcommentfield-comment-maxreached'}}</span>
