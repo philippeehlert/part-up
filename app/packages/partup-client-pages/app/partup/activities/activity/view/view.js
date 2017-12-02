@@ -215,7 +215,7 @@ Template.ActivityView.events({
         }
 
         const partup = Partups.findOne({ _id: templateInstance.data.activity.partup_id });
-        const detailIsFiles = $(event.target.closest('[data-detail]')).data('detail');
+        const detailIsFiles = $($(event.target).closest('[data-detail]')).data('detail');
 
         if (templateInstance.data.BOARDVIEW || (templateInstance.data.EXPANDABLE && !templateInstance.expanded.get())) {
             Router.go('partup-update', {
@@ -287,8 +287,6 @@ Template.ActivityView.events({
         var contribute = function() {
             var partup = Partups.findOne({_id: template.data.activity.partup_id});
 
-            template.activityDropdownOpen.set(false)
-
             if (!partup) {
                 Partup.client.notify.error('Couldn\'t proceed your contribution. Please try again!');
                 return;
@@ -334,6 +332,7 @@ Template.ActivityView.events({
             });
         };
 
+        template.activityDropdownOpen.set(false);
         if (Meteor.user()) {
             contribute();
         } else {
@@ -341,8 +340,6 @@ Template.ActivityView.events({
                 contribute();
             });
         }
-
-        template.activityDropdownOpen.set(false);
     },
     'click [data-invite]': function(event, template) {
         event.preventDefault();
