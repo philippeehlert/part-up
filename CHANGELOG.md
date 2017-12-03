@@ -1,3 +1,18 @@
+<a name="2.37.0"></a>
+# [2.37.0](https://github.com/part-up/part-up/compare/2.36.5...2.37.0) (2017-11-20)
+
+
+### Bug Fixes
+
+* **client:** Update SortableJS to 1.7.0 ([c86f2a4](https://github.com/part-up/part-up/commit/c86f2a4))
+
+
+### Features
+
+* **client:** Update VWO script ([e363647](https://github.com/part-up/part-up/commit/e363647))
+
+
+
 <a name="2.36.5"></a>
 ## [2.36.5](https://github.com/part-up/part-up/compare/2.36.4...2.36.5) (2017-11-08)
 
