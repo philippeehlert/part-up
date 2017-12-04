@@ -9,9 +9,9 @@ export interface CollectionDocument {
     _id: string;
 }
 
-interface MergedDocument {
-    __document: any;
-    __staticDocument: any;
+interface MergedDocument<D> {
+    __document: D;
+    __staticDocument: D;
 }
 
 export abstract class Collection<Document extends CollectionDocument> {
@@ -41,28 +41,28 @@ export abstract class Collection<Document extends CollectionDocument> {
         return find(this.statics, matches(selector)) as Document | undefined;
     }
 
-    public findOneAny = (selector: Object = {}, options: Object = {}, preferStatic: Boolean = false): (Document & MergedDocument) | undefined => {
-        const document = this.findOne(selector, options) || {};
-        const staticDocument = this.findOneStatic(selector) || {};
+    public findOneAny = (selector: Object = {}, options: Object = {}, preferStatic: Boolean = false): Document & MergedDocument<Document> => {
+        const document = this.findOne(selector, options);
+        const staticDocument = this.findOneStatic(selector);
 
-        if (!document && !staticDocument) return undefined;
+        // if (!document && !staticDocument) return {};
 
         // preferStatic flag switches document with staticDocument for overrides
         if (preferStatic) {
             return {
-                ...document,
-                ...staticDocument,
+                ...(document || {}),
+                ...(staticDocument || {}),
                 __document: document,
                 __staticDocument: staticDocument,
-            } as Document & MergedDocument;
+            } as Document & MergedDocument<Document>;
         }
 
         return {
-            ...staticDocument,
-            ...document,
+            ...(staticDocument || {}),
+            ...(document || {}),
             __document: document,
             __staticDocument: staticDocument,
-        } as Document & MergedDocument;
+        } as Document & MergedDocument<Document>;
     }
 
     public updateStatics = (newStatics: Document[]): void => {
