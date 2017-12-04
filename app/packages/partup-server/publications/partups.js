@@ -35,15 +35,17 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
 
     const userId = parameters.query.userId || this.userId;
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+    const partupFields = { _id: 1, name: 1, image: 1, uppers: 1 };
 
     // find partups for user
     let partupsCursor;
     if (parameters.query.partupId) {
-        partupsCursor = Partups.guardedFind(userId, { _id: { $in: [parameters.query.partupId] }});
+        partupsCursor = Partups.guardedFind(userId, { _id: { $in: [parameters.query.partupId] }}, { fields: partupFields });
     } else {
         partupsCursor = Partups.findPartupsIdsForUser(user, {
             upperOnly: parameters.query.upperOnly || false,
             supporterOnly: parameters.query.supporterOnly || false,
+            fields: partupFields,
         }, userId);
     }
 

@@ -879,7 +879,9 @@ Partups.findPartupsIdsForUser = function (user, options, loggedInUserId) {
 
 	var selector = { _id: { $in: ids } };
 
-	return this.guardedFind(loggedInUserId, selector, {fields: { _id: 1, name: 1, image: 1, uppers: 1 }});
+    var fields = options.fields;
+
+	return this.guardedFind(loggedInUserId, selector, {fields});
 };
 
 Partups.findStatsForAdmin = function () {

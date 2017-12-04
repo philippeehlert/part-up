@@ -1,7 +1,7 @@
 import { Collection, CollectionDocument } from 'collections/Collection';
 import { Partups, Partup } from 'collections/Partups';
 import { Users, User } from 'collections/Users';
-import { Activity } from 'components/Activity/Activity';
+import { Activity } from 'collections/Activities';
 
 export interface UpperUser {
     chats: Array<string>;

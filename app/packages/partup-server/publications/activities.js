@@ -43,20 +43,40 @@ Meteor.publishComposite('activities.from_partup', function(partupId, accessToken
  * @param {String} partupId
  * @param {String} accessToken
  */
-Meteor.publishComposite('activities.me', function(accessToken) {
-    if (accessToken) check(accessToken, String);
+Meteor.routeComposite('/activities/me', function(request, parameters) {
 
-    this.unblock();
+    const userId = parameters.query.userId || this.userId;
+
+    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+
+    const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1 }}, userId);
+    const partupIds = partupsCursor.map(({_id}) => _id);
+    const activityCursor = Activities.findForPartupIds(partupIds);
+    const activityIds = activityCursor.map(({_id}) => _id);
+    const contributionCursor = Contributions.find({
+        activity_id: { $in: activityIds },
+    });
+
+    const userIds = contributionCursor.map(({upper_id}) => upper_id);
+    const usersCursor = Meteor.users.find(
+        { _id: { $in: userIds } },
+        { fields: { '_id': 1, 'profile.name': 1, 'profile.image': 1 }},
+    );
+
+    const imagesCursor = Images.findForCursors([{
+        cursor: usersCursor,
+        imageKey: 'profile.image',
+    }])
 
     return {
-        find: function() {
-            const partups = Partups.guardedFind(this.userId, {}, {fields: { _id: 1 }}, accessToken).fetch();
-            const ids = partups.map((partup) => partup._id);
-
-            if (!partups.length) return;
-
-            return Activities.findForPartupIds(ids);
-        },
+        find: () => Meteor.users.find({_id: userId}),
+        children: [
+            {find: () => partupsCursor},
+            {find: () => activityCursor},
+            {find: () => contributionCursor},
+            {find: () => usersCursor},
+            {find: () => imagesCursor},
+        ],
     };
 });
 

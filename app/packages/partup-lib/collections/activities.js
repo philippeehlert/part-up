@@ -177,6 +177,10 @@ Activities.findForPartupIds = function(partupIds, options, parameters) {
     options = options || {};
     parameters = parameters || {};
 
+    options.sort = {
+        end_date: 1,
+    };
+
     const selector = {
         partup_id: { $in: partupIds },
         end_date: { $gte: new Date() },
