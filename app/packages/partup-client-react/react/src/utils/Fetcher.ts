@@ -1,27 +1,28 @@
 import { Meteor, getLoginToken } from 'utils/Meteor';
+import { uniqBy } from 'lodash';
 
 interface QueryParameters {
     [param: string]: any;
 }
 
-interface FetcherOptions<FetcherData = {[key: string]: any}> {
+interface FetcherOptions<FetcherResponseData = any, FetcherData = {[key: string]: any}> {
     route: string;
     query?: QueryParameters;
     onChange?: Function;
-    transformData?: (data: any) => FetcherData;
-    onResponse?: (data: any) => void;
+    transformData?: (data: FetcherResponseData) => FetcherData;
+    onResponse?: (data: FetcherResponseData) => void;
 }
 
-export class Fetcher<FetcherData = any> {
+export class Fetcher<FetcherResponseData = any, FetcherData = any> {
 
     public data: FetcherData;
     public loading: boolean = false;
 
-    private rawData: any;
+    private rawData: Partial<FetcherResponseData>;
     private route: string;
     private query: QueryParameters = {};
 
-    constructor({ route, query, onChange, transformData, onResponse }: FetcherOptions<FetcherData>) {
+    constructor({ route, query, onChange, transformData, onResponse }: FetcherOptions<FetcherResponseData, FetcherData>) {
         this.route = route;
         this.query = query || this.query;
         this.onChange = onChange || this.onChange;
@@ -31,57 +32,31 @@ export class Fetcher<FetcherData = any> {
     }
 
     public async fetch(additionalQueryParams: QueryParameters = {}) {
-        this.setLoading(true);
-
-        const baseUrl = !process.env.REACT_APP_DEV ? '/' : 'http://localhost:3000/';
-
-        const params = {
-            token: getLoginToken(),
-            userId: Meteor.userId(),
-            ...this.query,
-            ...additionalQueryParams,
-        };
 
         try {
-            const response = await window.fetch(`${baseUrl}${this.route}/?${this.toQueryParams(params)}`);
-            const responseJson = await response.json();
+            const responseJson = await this.makeRequest(additionalQueryParams);
 
-            this.rawData = responseJson;
-            this.onResponse(this.rawData); // call onresponse hook
-            this.data = this.transformData(this.rawData);
-            this.setLoading(false);
-            this.onChange();
+            return this.handleResponse(responseJson, (responseData) => responseData);
 
         } catch (err) {
             throw err;
         }
     }
 
-    public async fetchMore(additionalQueryParams: QueryParameters, mergeData: (oldData: any, newData: any) => any) {
-        this.setLoading(true);
-
-        const baseUrl = !process.env.REACT_APP_DEV ? '/' : 'http://localhost:3000/';
-
-        const params = {
-            token: getLoginToken(),
-            userId: Meteor.userId(),
-            ...this.query,
-            ...additionalQueryParams,
-        };
+    public async fetchMore(
+        additionalQueryParams: QueryParameters,
+        mergeData: (
+            oldData: Partial<FetcherResponseData>,
+            newData: Partial<FetcherResponseData>) => Partial<FetcherResponseData>,
+        ) {
 
         try {
-            const response = await window.fetch(`${baseUrl}${this.route}/?${this.toQueryParams(params)}`);
-            const responseJson = await response.json();
+            const responseJson = await this.makeRequest(additionalQueryParams);
 
-            this.rawData = mergeData(this.rawData, responseJson);
-
-            this.onResponse(this.rawData); // call onresponse hook
-            this.data = this.transformData(this.rawData);
-            this.setLoading(false);
-            this.onChange();
+            return this.handleResponse(responseJson, (responseData) => mergeData(this.rawData, responseData));
 
         } catch (err) {
-            throw new Error(err);
+            throw err;
         }
 
     }
@@ -92,6 +67,34 @@ export class Fetcher<FetcherData = any> {
         };
         this.transformData = (data: any) => data;
         this.data = {} as FetcherData;
+    }
+
+    private async makeRequest(additionalQueryParams: QueryParameters) {
+        const params = {
+            token: getLoginToken(),
+            userId: Meteor.userId(),
+            ...this.query,
+            ...additionalQueryParams,
+        };
+
+        const baseUrl = !process.env.REACT_APP_DEV ? '/' : 'http://localhost:3000/';
+
+        this.setLoading(true);
+
+        const response = await window.fetch(`${baseUrl}${this.route}/?${this.toQueryParams(params)}`);
+        const responseJson = await response.json() as FetcherResponseData;
+
+        return responseJson;
+    }
+
+    private handleResponse(responseJson: FetcherResponseData, merge: (d: FetcherResponseData) => Partial<FetcherResponseData>) {
+        this.onResponse(responseJson); // call onresponse hook
+        this.rawData = merge(responseJson);
+        this.data = this.transformData(this.rawData);
+        this.setLoading(false);
+        this.onChange();
+
+        return this.rawData;
     }
 
     private setLoading(value: boolean) {
@@ -110,5 +113,24 @@ export class Fetcher<FetcherData = any> {
     }
 
     private transformData: (data: any) => FetcherData = (data: any) => data;
-    private onResponse: (data: any) => void = (data: any) => data;
+    private onResponse: (data: FetcherResponseData) => void = (data: FetcherResponseData) => data;
+}
+
+export function mergeDataByKey(key: string, done: () => void, attribute: string = '_id') {
+    return (oldData: any, newData: any) => {
+        if (!newData[key] || !newData[key].length) {
+            done();
+
+            return {
+                [key]: oldData[key],
+            };
+        }
+
+        return {
+            [key]: uniqBy([
+                ...oldData[key],
+                ...(newData[key] || []),
+            ], attribute),
+        };
+    };
 }

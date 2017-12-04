@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { get, uniqBy } from 'lodash';
+import { get } from 'lodash';
 import { AppContext } from 'App';
-import { Images } from 'collections/Images';
-import { Partups } from 'collections/Partups';
-import { Fetcher } from 'utils/Fetcher';
+import { Images, Image } from 'collections/Images';
+import { Partups, Partup } from 'collections/Partups';
+import { Fetcher, mergeDataByKey } from 'utils/Fetcher';
 
 import { FilteredList } from 'components/FilteredList/FilteredList';
 import { FilteredListControls } from 'components/FilteredList/FilteredListControls';
@@ -58,10 +58,19 @@ import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
 import { Subscriber } from 'utils/Subscriber';
-import { Users } from 'collections/Users';
-import { Activities } from 'collections/Activities';
-import { Lanes } from 'collections/Lanes';
+import { Users, User } from 'collections/Users';
+import { Activities, Activity } from 'collections/Activities';
+import { Lanes, Lane } from 'collections/Lanes';
 import { Updates, Update, ConversationUpdate } from 'collections/Updates';
+
+interface FetcherResponse {
+    'cfs.images.filerecord': Image[],
+    partups: Partup[],
+    users: User[],
+    activities: Activity[],
+    lanes: Lane[],
+    updates: Update[],
+}
 
 export class ConversationUpdates extends React.Component {
 
@@ -76,23 +85,32 @@ export class ConversationUpdates extends React.Component {
     private skip = 0;
     private fetchedAll = false;
 
-    private conversationsFetcher = new Fetcher({
+    private conversationsFetcher = new Fetcher<FetcherResponse, {conversationUpdates: ConversationUpdate[]}>({
         route: 'partups/updates',
         query: {
             limit: 20,
             skip: 0,
         },
         onChange: () => this.forceUpdate(),
-        onResponse: (data: any) => {
-            Images.updateStatics(data['cfs.images.filerecord']);
-            Partups.updateStatics(data.partups || []);
-            Users.updateStatics(data.users);
-            Activities.updateStatics(data.activities);
-            Lanes.updateStatics(data.lanes);
-            Updates.updateStatics(data.updates);
-            this.subscribeToUpdateComments(data.updates);
+        onResponse: (data) => {
+            const {
+                'cfs.images.filerecord': images = [],
+                partups = [],
+                users = [],
+                activities = [],
+                lanes = [],
+                updates = [],
+            } = data;
+
+            Images.updateStatics(images);
+            Partups.updateStatics(partups);
+            Users.updateStatics(users);
+            Activities.updateStatics(activities);
+            Lanes.updateStatics(lanes);
+            Updates.updateStatics(updates);
+            if (updates.length) this.subscribeToUpdateComments(updates);
         },
-        transformData: (data: any) => {
+        transformData: (data) => {
             const {
                 updates = [],
             }: {
@@ -100,6 +118,7 @@ export class ConversationUpdates extends React.Component {
             } = data;
 
             const conversationUpdates = updates.map((update: Update) => {
+                // console.log(update)
                 return {
                     partup: Partups.findOneStatic(update.partup_id) || {},
                     activity: Activities.findOneStatic(update._id, 'update_id') || {},
@@ -247,38 +266,9 @@ export class ConversationUpdates extends React.Component {
         await this.conversationsFetcher.fetchMore({
             ...this.filters,
             skip: this.skip,
-        }, (oldData, newData) => {
-            if (!newData.updates) {
-                this.fetchedAll = true;
-            }
-
-            return {
-                ['cfs.images.filerecord']: uniqBy([
-                    ...oldData['cfs.images.filerecord'],
-                    ...newData['cfs.images.filerecord'],
-                ], '_id'),
-                updates: uniqBy([
-                    ...oldData.updates,
-                    ...(newData.updates || []),
-                ], '_id'),
-                partups: uniqBy([
-                    ...oldData.partups,
-                    ...(newData.partups || []),
-                ], '_id'),
-                users: uniqBy([
-                    ...oldData.users,
-                    ...(newData.users || []),
-                ], '_id'),
-                activities: uniqBy([
-                    ...oldData.activities,
-                    ...(newData.activities || []),
-                ], '_id'),
-                lanes: uniqBy([
-                    ...oldData.lanes,
-                    ...(newData.lanes || []),
-                ], '_id'),
-            };
-        });
+        }, mergeDataByKey('updates', () => {
+            this.fetchedAll = true;
+        }));
 
         done();
     }

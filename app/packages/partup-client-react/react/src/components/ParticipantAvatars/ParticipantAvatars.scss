@@ -1,3 +1,16 @@
 .pur-ParticipantAvatars {
-
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    .pur-UserAvatar {
+        width: 34px;
+        height: 34px;
+        border: 2px solid #fff;
+        margin-right: -12px;
+        &:first-child {
+            // margin-right: 0;
+        }
+    }
 }
