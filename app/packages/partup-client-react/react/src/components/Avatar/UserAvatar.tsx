@@ -20,7 +20,7 @@ export class UserAvatar extends React.Component<Props, {}> {
         const { user, userAvatarImageId } = this.props;
         const imageId = get(user, 'profile.image') || userAvatarImageId;
 
-        const image = Images.findOne({ _id: imageId }) || Images.findOneStatic(imageId);
+        const image = Images.findOneAny({ _id: imageId });
 
         const imageUrl = Images.getUrl(image, '360x360');
 

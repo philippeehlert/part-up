@@ -23,7 +23,7 @@ export class Activity extends React.Component<Props, State> {
     };
 
     public componentWillMount() {
-        const activity = Activities.findOneStatic({ _id: this.props._id });
+        const activity = Activities.findOneAny({ _id: this.props._id });
 
         this.setState({
             activity,
