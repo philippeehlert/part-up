@@ -1,5 +1,5 @@
 import { Meteor, MeteorCollection } from 'utils/Meteor';
-import { uniqBy } from 'lodash';
+import { uniqBy, find, filter, matches } from 'lodash';
 
 export interface CollectionProps {
     collection: string;
@@ -18,41 +18,24 @@ export abstract class Collection<Document extends CollectionDocument> {
         this.collection = Meteor.collection(collection);
     }
 
-    /**
-     * @param  {any[]} ...args
-     * @returns Document[]
-     */
     public find = (selector: Object = {}, options: Object = {}): Document[] => {
         return this.collection.find(selector, options) as Document[];
     }
 
-    /**
-     * @param  {any[]} ...args
-     * @returns Document
-     */
     public findOne = (selector: Object = {}, options: Object = {}): Document | undefined => {
         return this.find(selector, options).pop() as Document | undefined;
     }
 
-    /**
-     * @returns Document[]
-     */
-    public findStatic = (): Document[] => {
-        return this.statics as Document[];
+    // uses _.matches so it can only be used with a selector
+    public findStatic = (selector: Object = {}): Document[] => {
+        return filter(this.statics, matches(selector)) as Document[];
     }
 
-    /**
-     * @param  {string} documentId
-     * @returns Document
-     */
-    public findOneStatic = (documentId: string, findBy: string = '_id'): Document | undefined => {
-        return this.statics.find((document) => document[findBy] === documentId) as Document | undefined;
+    // uses _.matches so it can only be used with a selector
+    public findOneStatic = (selector: Object = {}): Document | undefined => {
+        return find(this.statics, matches(selector)) as Document | undefined;
     }
 
-    /**
-     * @param  {Document[]} newStatics
-     * @returns void
-     */
     public updateStatics = (newStatics: Document[]): void => {
         this.statics = uniqBy([
             ...this.statics,

@@ -120,9 +120,9 @@ export class ConversationUpdates extends React.Component {
             const conversationUpdates = updates.map((update: Update) => {
                 // console.log(update)
                 return {
-                    partup: Partups.findOneStatic(update.partup_id) || {},
-                    activity: Activities.findOneStatic(update._id, 'update_id') || {},
-                    upper: Users.findOneStatic(update.upper_id) || {},
+                    partup: Partups.findOneStatic({ _id: update.partup_id }) || {},
+                    activity: Activities.findOneStatic({ update_id: update._id }) || {},
+                    upper: Users.findOneStatic({ _id: update.upper_id }) || {},
                     ...update,
                 };
             }) as ConversationUpdate[];
