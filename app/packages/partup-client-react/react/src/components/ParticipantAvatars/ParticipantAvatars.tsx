@@ -20,7 +20,7 @@ export class ParticipantAvatars extends React.Component<Props, {}> {
         return (
             <div className={this.getClassNames()}>
                 {participants.map(participant => (
-                    <UserAvatar user={participant} />
+                    <UserAvatar key={participant._id} user={participant} />
                 ))}
             </div>
         );

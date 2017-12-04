@@ -127,17 +127,17 @@ export class ActivitiesView extends React.Component<Props> {
                             <InfiniteScroll loadMore={this.loadMore}>
                                 <FilteredListSection title={`This week`}>
                                     { groupedActivities.thisWeek.map(activity => (
-                                        <ActivityTile activity={activity} />
+                                        <ActivityTile key={activity._id} activity={activity} />
                                     )) }
                                 </FilteredListSection>
                                 <FilteredListSection title={`Next week`}>
                                     { groupedActivities.nextWeek.map(activity => (
-                                        <ActivityTile activity={activity} />
+                                        <ActivityTile key={activity._id} activity={activity} />
                                     )) }
                                 </FilteredListSection>
                                 <FilteredListSection title={`Later`}>
                                     { groupedActivities.later.map(activity => (
-                                        <ActivityTile activity={activity} />
+                                        <ActivityTile key={activity._id} activity={activity} />
                                     )) }
                                 </FilteredListSection>
                             </InfiniteScroll>
