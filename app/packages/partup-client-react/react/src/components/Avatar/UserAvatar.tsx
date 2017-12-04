@@ -4,10 +4,10 @@ import * as React from 'react';
 import * as c from 'classnames';
 import { Images } from 'collections/Images';
 import { get } from 'lodash';
-import { User } from 'collections/Users';
+import { UserDocument } from 'collections/Users';
 
 interface Props {
-    user?: User;
+    user?: UserDocument;
     userAvatarImageId?: string;
     className?: string;
     small?: boolean;

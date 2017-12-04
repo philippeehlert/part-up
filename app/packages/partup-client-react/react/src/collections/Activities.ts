@@ -1,14 +1,15 @@
 import { Collection, CollectionDocument } from 'collections/Collection';
 
-export interface Activity extends CollectionDocument {
+export interface ActivityDocument extends CollectionDocument {
     _id: string;
+    description: string;
     end_date: Date;
     name: string;
     partup_id: string;
     update_id: string;
 }
 
-class ActivitiesCollection extends Collection<Activity> {
+class ActivitiesCollection extends Collection<ActivityDocument> {
 
 }
 

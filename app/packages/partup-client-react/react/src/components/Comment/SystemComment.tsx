@@ -5,7 +5,7 @@ import * as c from 'classnames';
 import * as moment from 'moment';
 import { translate } from 'utils/translate';
 
-import { Comment as CommentType } from 'collections/Updates';
+import { UpdateCommentSubDocument as CommentType } from 'collections/Updates';
 
 interface Props {
     comment: CommentType;

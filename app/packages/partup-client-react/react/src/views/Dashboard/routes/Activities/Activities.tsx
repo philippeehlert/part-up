@@ -12,11 +12,11 @@ import { FilteredListSection } from 'components/FilteredList/FilteredListSection
 import { Icon } from 'components/Icon/Icon';
 import { Button } from 'components/Button/Button';
 import { Fetcher, mergeDataByKey } from 'utils/Fetcher';
-import { Contributions, Contribution } from 'collections/Contributions';
-import { Images, Image } from 'collections/Images';
-import { Partups, Partup } from 'collections/Partups';
-import { Users, User } from 'collections/Users';
-import { Activities, Activity } from 'collections/Activities';
+import { Contributions, ContributionDocument } from 'collections/Contributions';
+import { Images, ImageDocument } from 'collections/Images';
+import { Partups, PartupDocument } from 'collections/Partups';
+import { Users, UserDocument } from 'collections/Users';
+import { Activities, ActivityDocument } from 'collections/Activities';
 import { Spinner } from 'components/Spinner/Spinner';
 import { InfiniteScroll } from 'components/InfiniteScroll/InfiniteScroll';
 
@@ -25,17 +25,17 @@ interface Props extends RouteComponentProps<any> {
 }
 
 interface GroupedActivities {
-    thisWeek: Activity[],
-    nextWeek: Activity[],
-    later: Activity[],
+    thisWeek: ActivityDocument[],
+    nextWeek: ActivityDocument[],
+    later: ActivityDocument[],
 }
 
 interface FetcherResponse {
-    'cfs.images.filerecord': Image[],
-    partups: Partup[],
-    users: User[],
-    activities: Activity[],
-    contributions: Contribution[],
+    'cfs.images.filerecord': ImageDocument[],
+    partups: PartupDocument[],
+    users: UserDocument[],
+    activities: ActivityDocument[],
+    contributions: ContributionDocument[],
 }
 
 export class ActivitiesView extends React.Component<Props> {

@@ -7,20 +7,20 @@ import { Link } from 'components/Router/Link';
 import { Icon } from 'components/Icon/Icon';
 import { PopoverMenu } from 'components/PopoverMenu/PopoverMenu';
 import { ParticipantAvatars } from 'components/ParticipantAvatars/ParticipantAvatars';
-import { Activity } from 'collections/Activities';
-import { Partups, Partup } from 'collections/Partups';
+import { ActivityDocument } from 'collections/Activities';
+import { Partups, PartupDocument } from 'collections/Partups';
 import { Contributions } from 'collections/Contributions';
-import { User, Users } from 'collections/Users';
+import { UserDocument, Users } from 'collections/Users';
 
 interface Props {
     className?: string
-    activity: Activity
+    activity: ActivityDocument
 }
 
 export class ActivityTile extends React.Component<Props, {}> {
 
-    private partup: Partup | undefined;
-    private contributers: User[] | undefined;
+    private partup: PartupDocument | undefined;
+    private contributers: UserDocument[] | undefined;
 
     public componentWillMount() {
         const { activity } = this.props;
@@ -29,7 +29,7 @@ export class ActivityTile extends React.Component<Props, {}> {
         this.contributers = Contributions
             .findStatic()
             .map(({ upper_id }) => Users.findOne(upper_id))
-            .reverse() as User[]; // Reverse the array because the row is reversed in css.
+            .reverse() as UserDocument[]; // Reverse the array because the row is reversed in css.
     }
 
     public render() {

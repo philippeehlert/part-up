@@ -36,6 +36,13 @@ export abstract class Collection<Document extends CollectionDocument> {
         return find(this.statics, matches(selector)) as Document | undefined;
     }
 
+    public findOneAny = (selector: Object = {}, options: Object = {}): Document | undefined => {
+        const document = this.findOne(selector, options);
+        const staticDocument = this.findOneStatic(selector);
+
+        return document || staticDocument;
+    }
+
     public updateStatics = (newStatics: Document[]): void => {
         this.statics = uniqBy([
             ...this.statics,

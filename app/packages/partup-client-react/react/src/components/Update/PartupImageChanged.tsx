@@ -6,10 +6,11 @@ import { get } from 'lodash';
 import { Icon } from 'components/Icon/Icon';
 
 import { Images } from 'collections/Images';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class PartupImageChanged extends React.Component<Props, {}> {

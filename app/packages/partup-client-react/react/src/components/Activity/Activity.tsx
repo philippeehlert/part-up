@@ -5,22 +5,39 @@ import { get } from 'lodash';
 import { Partups } from 'collections/Partups';
 
 import { Link } from 'components/Router/Link';
+import { Activities, ActivityDocument } from 'collections/Activities';
 
 interface Props {
     className?: string;
     _id: string;
-    data: any;
 }
 
-export class Activity extends React.Component<Props, {}> {
+interface State {
+    activity: ActivityDocument | undefined;
+}
+
+export class Activity extends React.Component<Props, State> {
+
+    public state: State = {
+        activity: undefined,
+    };
+
+    public componentWillMount() {
+        const activity = Activities.findOneStatic({ _id: this.props._id });
+
+        this.setState({
+            activity,
+        });
+    }
 
     public render() {
-        const { _id, data } = this.props;
+        const { _id } = this.props;
+        const { activity } = this.state;
 
-        if (!data) return this.renderDeleted();
+        if (!activity) return this.renderDeleted();
 
-        const lane = get(data, 'lane');
-        const partupSlug = Partups.getSlugById(data.partup_id);
+        const lane = get(activity, 'lane');
+        const partupSlug = Partups.getSlugById(activity.partup_id);
 
         return (
             <div className={this.getClassNames()}>
@@ -34,12 +51,12 @@ export class Activity extends React.Component<Props, {}> {
                         className={'pur-Activity__header__title-link'}
                         to={`/partups/${partupSlug}/updates/${_id}`}
                         target={'_partup'}>
-                        { data.name }
+                        { activity.name }
                     </Link>
                 </div>
-                { data.description && (
+                { activity.description && (
                     <div className={`pur-Activity__content`}>
-                        { data.description }
+                        { activity.description }
                     </div>
                 ) }
             </div>

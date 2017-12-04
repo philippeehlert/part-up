@@ -3,11 +3,11 @@ import './ParticipantAvatars.css';
 import * as React from 'react';
 import * as c from 'classnames';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
-import { User } from 'collections/Users';
+import { UserDocument } from 'collections/Users';
 
 interface Props {
     className?: string
-    participants: User[]
+    participants: UserDocument[]
 }
 
 export class ParticipantAvatars extends React.Component<Props, {}> {

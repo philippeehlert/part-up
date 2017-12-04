@@ -4,10 +4,11 @@ import * as React from 'react';
 import * as c from 'classnames';
 import { get } from 'lodash';
 import { Icon } from 'components/Icon/Icon';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class PartupTagChanged extends React.Component<Props, {}> {

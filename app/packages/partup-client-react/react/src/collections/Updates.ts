@@ -1,9 +1,9 @@
 import { Collection, CollectionDocument } from 'collections/Collection';
-import { Partups, Partup } from 'collections/Partups';
-import { Users, User } from 'collections/Users';
-import { Activity } from 'collections/Activities';
+import { Partups } from 'collections/Partups';
+import { Users, UserDocument } from 'collections/Users';
+import { ActivityDocument } from 'collections/Activities';
 
-export interface UpperUser {
+export interface UpdateUpperUserSubDocument {
     chats: Array<string>;
     completeness: number;
     networks: Array<string>;
@@ -13,7 +13,7 @@ export interface UpperUser {
     upperOf: Array<string>;
 }
 
-export interface Comment {
+export interface UpdateCommentSubDocument {
     _id: string;
     content: string;
     created_at: Date;
@@ -26,29 +26,28 @@ export interface Comment {
     updated_at: Date;
 }
 
-export interface Update extends CollectionDocument {
+export interface UpdateDocument extends CollectionDocument {
     upper_id: string;
     partup_id: string;
     type: string;
     type_data: {
         [type: string]: any;
     };
-    comments?: Array<Comment>
+    comments?: Array<UpdateCommentSubDocument>
     comments_count?: number;
     created_at: Date;
     updated_at: Date;
     upper_data: Array<any>;
-    createdBy?: User & UpperUser|any;
+    createdBy?: UserDocument & UpdateUpperUserSubDocument|any;
     system: boolean;
 }
 
-export interface ConversationUpdate extends Update {
-    partup: Partup;
-    upper: User;
-    activity: Activity;
+export interface ConversationUpdateDocument extends UpdateDocument {
+    upper: UserDocument;
+    activity: ActivityDocument;
 }
 
-const getUpdateCreator = (update: Update) => {
+const getUpdateCreator = (update: UpdateDocument) => {
     if (update.upper_id) {
         return Users.findOne({ _id: update.upper_id });
     }
@@ -60,12 +59,12 @@ const getUpdateCreator = (update: Update) => {
     return null;
 };
 
-class UpdatesCollection extends Collection<Update> {
+class UpdatesCollection extends Collection<UpdateDocument> {
 
-    public getUpdatesForLoggedInUser = (): Update[] => {
+    public getUpdatesForLoggedInUser = (): UpdateDocument[] => {
         const updates = this.find();
 
-        return updates.map((update: Update) => {
+        return updates.map((update: UpdateDocument) => {
             return {
                 ...update,
                 partup: Partups.findOne({ _id: update.partup_id }),

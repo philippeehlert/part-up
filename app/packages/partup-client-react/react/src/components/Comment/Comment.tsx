@@ -5,7 +5,7 @@ import * as c from 'classnames';
 import { get } from 'lodash';
 import * as moment from 'moment';
 
-import { Comment as CommentType } from 'collections/Updates';
+import { UpdateCommentSubDocument as CommentType } from 'collections/Updates';
 import { decode } from 'utils/mentions';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { HTMLText } from 'components/HTMLText/HTMLText';

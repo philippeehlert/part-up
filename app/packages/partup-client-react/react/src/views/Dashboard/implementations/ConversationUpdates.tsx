@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { AppContext } from 'App';
-import { Images, Image } from 'collections/Images';
-import { Partups, Partup } from 'collections/Partups';
+import { Images, ImageDocument } from 'collections/Images';
+import { Partups, PartupDocument } from 'collections/Partups';
 import { Fetcher, mergeDataByKey } from 'utils/Fetcher';
 
 import { FilteredList } from 'components/FilteredList/FilteredList';
@@ -58,18 +58,18 @@ import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
 import { Subscriber } from 'utils/Subscriber';
-import { Users, User } from 'collections/Users';
-import { Activities, Activity } from 'collections/Activities';
-import { Lanes, Lane } from 'collections/Lanes';
-import { Updates, Update, ConversationUpdate } from 'collections/Updates';
+import { Users, UserDocument } from 'collections/Users';
+import { Activities, ActivityDocument } from 'collections/Activities';
+import { Lanes, LaneDocument } from 'collections/Lanes';
+import { Updates, UpdateDocument, ConversationUpdateDocument } from 'collections/Updates';
 
 interface FetcherResponse {
-    'cfs.images.filerecord': Image[],
-    partups: Partup[],
-    users: User[],
-    activities: Activity[],
-    lanes: Lane[],
-    updates: Update[],
+    'cfs.images.filerecord': ImageDocument[],
+    partups: PartupDocument[],
+    users: UserDocument[],
+    activities: ActivityDocument[],
+    lanes: LaneDocument[],
+    updates: UpdateDocument[],
 }
 
 export class ConversationUpdates extends React.Component {
@@ -85,7 +85,7 @@ export class ConversationUpdates extends React.Component {
     private skip = 0;
     private fetchedAll = false;
 
-    private conversationsFetcher = new Fetcher<FetcherResponse, {conversationUpdates: ConversationUpdate[]}>({
+    private conversationsFetcher = new Fetcher<FetcherResponse, {conversationUpdates: ConversationUpdateDocument[]}>({
         route: 'partups/updates',
         query: {
             limit: 20,
@@ -114,18 +114,17 @@ export class ConversationUpdates extends React.Component {
             const {
                 updates = [],
             }: {
-                updates: Update[],
+                updates: UpdateDocument[],
             } = data;
 
-            const conversationUpdates = updates.map((update: Update) => {
+            const conversationUpdates = updates.map((update: UpdateDocument) => {
                 // console.log(update)
                 return {
-                    partup: Partups.findOneStatic({ _id: update.partup_id }) || {},
                     activity: Activities.findOneStatic({ update_id: update._id }) || {},
                     upper: Users.findOneStatic({ _id: update.upper_id }) || {},
                     ...update,
                 };
-            }) as ConversationUpdate[];
+            }) as ConversationUpdateDocument[];
 
             return {
                 conversationUpdates,
@@ -143,8 +142,8 @@ export class ConversationUpdates extends React.Component {
         onChange: () => this.forceUpdate(),
     });
 
-    public subscribeToUpdateComments = async (updates: Update[]) => {
-        const updateIds = updates.map((update: Update) => update._id);
+    public subscribeToUpdateComments = async (updates: UpdateDocument[]) => {
+        const updateIds = updates.map((update: UpdateDocument) => update._id);
 
         await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
@@ -192,9 +191,11 @@ export class ConversationUpdates extends React.Component {
                         <Spinner />
                     ) }
                     <InfiniteScroll loadMore={this.loadMore}>
-                        { (conversationUpdates || []).map((update: ConversationUpdate) => {
+                        { (conversationUpdates || []).map((update: ConversationUpdateDocument) => {
+                            const partup = Partups.findOneStatic({ _id: update.partup_id }) || { name: '' };
+
                             return (
-                                <Tile title={update.partup.name} key={update._id}>
+                                <Tile title={partup.name} key={update._id}>
                                     <UpdateTile>
                                         <UpdateTileMeta
                                             update={update}
@@ -320,45 +321,45 @@ export class ConversationUpdates extends React.Component {
     private renderUpdateComponent({ type, ...update }: {type: string, type_data: {[key: string]: any}}) {
 
         const table = {
-            changed_region:                       (data: any) => <ChangedRegion data={data} />,
-            partups_contributions_accepted:       (data: any) => <ContributionAccepted data={data} />,
-            partups_contributions_added:          (data: any) => <ContributionAdded data={data} />,
-            partups_contributions_changed:        (data: any) => <ContributionChanged />,
-            partups_contributions_comments_added: (data: any) => <ContributionCommentAdded />,
-            partups_contributions_proposed:       (data: any) => <ContributionProposed />,
-            partups_contributions_removed:        (data: any) => <ContributionRemoved />,
-            network_private:                      (data: any) => <NetworkPrivate />,
-            network_public:                       (data: any) => <NetworkPublic />,
-            partups_activities_added:             (data: any) => <PartupActivityAdded data={data} />,
-            partups_activities_archived:          (data: any) => <PartupActivityArchived data={data} />,
-            partups_activities_changed:           (data: any) => <PartupActivityChanged data={data} />,
-            partups_activities_comments_added:    (data: any) => <PartupActivityCommentAdded data={data} />,
-            partups_activities_removed:           (data: any) => <PartupActivityRemoved data={data} />,
-            partups_activities_unarchived:        (data: any) => <PartupActivityUnarchived data={data} />,
-            partups_archived:                     (data: any) => <PartupArchived data={data} />, // no update content
-            partups_budget_changed:               (data: any) => <PartupBudgetChanged />,
-            partups_comments_added:               (data: any) => <PartupCommentAdded />, // no update content
-            partups_created:                      (data: any) => <PartupCreated data={data} />, // no update content
-            partups_description_changed:          (data: any) => <PartupDescriptionChanged data={data} />,
-            partups_end_date_changed:             (data: any) => <PartupEndDateChanged data={data} />,
-            partups_image_changed:                (data: any) => <PartupImageChanged data={data} />,
-            partups_invited:                      (data: any) => <PartupInvited data={data} />, // no update content
-            partups_location_changed:             (data: any) => <PartupLocationChanged />,
-            partups_message_added:                (data: any) => <PartupMessageAdded data={data} />,
-            partups_name_changed:                 (data: any) => <PartupNameChanged data={data} />,
-            partups_partner_rejected:             (data: any) => <PartupPartnerRejected />,
-            partups_partner_request:              (data: any) => <PartupPartnerRequest />,
-            partup_partner_request:               (data: any) => <PartupPartnerRequest />,
-            partups_ratings_changed:              (data: any) => <PartupRatingChanged />,
-            partups_ratings_inserted:             (data: any) => <PartupRatingInserted />,
-            partups_supporters_added:             (data: any) => <PartupSupporterAdded data={data} />, // no update content
-            partups_tags_added:                   (data: any) => <PartupTagAdded data={data} />,
-            partups_tags_changed:                 (data: any) => <PartupTagChanged data={data} />,
-            partups_tags_removed:                 (data: any) => <PartupTagRemoved data={data} />,
-            partups_unarchived:                   (data: any) => <PartupUnarchived data={data} />, // no update content
-            partups_uppers_added:                 (data: any) => <PartupUpperAdded data={data} />, // no update content
-            rated:                                (data: any) => <Rated />,
-            system_supporters_removed:            (data: any) => <SystemSupporterRemoved />,
+            changed_region:                       (data: UpdateDocument) => <ChangedRegion data={data} />,
+            partups_contributions_accepted:       (data: UpdateDocument) => <ContributionAccepted data={data} />,
+            partups_contributions_added:          (data: UpdateDocument) => <ContributionAdded data={data} />,
+            partups_contributions_changed:        (data: UpdateDocument) => <ContributionChanged />,
+            partups_contributions_comments_added: (data: UpdateDocument) => <ContributionCommentAdded />,
+            partups_contributions_proposed:       (data: UpdateDocument) => <ContributionProposed />,
+            partups_contributions_removed:        (data: UpdateDocument) => <ContributionRemoved />,
+            network_private:                      (data: UpdateDocument) => <NetworkPrivate />,
+            network_public:                       (data: UpdateDocument) => <NetworkPublic />,
+            partups_activities_added:             (data: UpdateDocument) => <PartupActivityAdded data={data} />,
+            partups_activities_archived:          (data: UpdateDocument) => <PartupActivityArchived data={data} />,
+            partups_activities_changed:           (data: UpdateDocument) => <PartupActivityChanged data={data} />,
+            partups_activities_comments_added:    (data: UpdateDocument) => <PartupActivityCommentAdded data={data} />,
+            partups_activities_removed:           (data: UpdateDocument) => <PartupActivityRemoved data={data} />,
+            partups_activities_unarchived:        (data: UpdateDocument) => <PartupActivityUnarchived data={data} />,
+            partups_archived:                     (data: UpdateDocument) => <PartupArchived data={data} />, // no update content
+            partups_budget_changed:               (data: UpdateDocument) => <PartupBudgetChanged />,
+            partups_comments_added:               (data: UpdateDocument) => <PartupCommentAdded />, // no update content
+            partups_created:                      (data: UpdateDocument) => <PartupCreated data={data} />, // no update content
+            partups_description_changed:          (data: UpdateDocument) => <PartupDescriptionChanged data={data} />,
+            partups_end_date_changed:             (data: UpdateDocument) => <PartupEndDateChanged data={data} />,
+            partups_image_changed:                (data: UpdateDocument) => <PartupImageChanged data={data} />,
+            partups_invited:                      (data: UpdateDocument) => <PartupInvited data={data} />, // no update content
+            partups_location_changed:             (data: UpdateDocument) => <PartupLocationChanged />,
+            partups_message_added:                (data: UpdateDocument) => <PartupMessageAdded data={data} />,
+            partups_name_changed:                 (data: UpdateDocument) => <PartupNameChanged data={data} />,
+            partups_partner_rejected:             (data: UpdateDocument) => <PartupPartnerRejected />,
+            partups_partner_request:              (data: UpdateDocument) => <PartupPartnerRequest />,
+            partup_partner_request:               (data: UpdateDocument) => <PartupPartnerRequest />,
+            partups_ratings_changed:              (data: UpdateDocument) => <PartupRatingChanged />,
+            partups_ratings_inserted:             (data: UpdateDocument) => <PartupRatingInserted />,
+            partups_supporters_added:             (data: UpdateDocument) => <PartupSupporterAdded data={data} />, // no update content
+            partups_tags_added:                   (data: UpdateDocument) => <PartupTagAdded data={data} />,
+            partups_tags_changed:                 (data: UpdateDocument) => <PartupTagChanged data={data} />,
+            partups_tags_removed:                 (data: UpdateDocument) => <PartupTagRemoved data={data} />,
+            partups_unarchived:                   (data: UpdateDocument) => <PartupUnarchived data={data} />, // no update content
+            partups_uppers_added:                 (data: UpdateDocument) => <PartupUpperAdded data={data} />, // no update content
+            rated:                                (data: UpdateDocument) => <Rated />,
+            system_supporters_removed:            (data: UpdateDocument) => <SystemSupporterRemoved />,
         };
 
         return table[type](update);

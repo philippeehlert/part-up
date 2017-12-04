@@ -2,12 +2,12 @@ import { get } from 'lodash';
 
 import { CollectionDocument, Collection } from 'collections/Collection';
 
-export interface Partup extends CollectionDocument {
+export interface PartupDocument extends CollectionDocument {
     store: string;
     name: string;
 }
 
-class PartupsCollection extends Collection<Partup> {
+class PartupsCollection extends Collection<PartupDocument> {
 
     public getSlugById = (partupId: string) => {
         const partup = this.findOne({ _id: partupId });

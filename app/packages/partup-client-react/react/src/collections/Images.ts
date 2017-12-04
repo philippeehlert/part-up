@@ -1,13 +1,13 @@
 import { get } from 'lodash';
 import { Collection, CollectionDocument } from 'collections/Collection';
 
-export interface Image extends CollectionDocument {
+export interface ImageDocument extends CollectionDocument {
     store: string;
 }
 
-class ImagesCollection extends Collection<Image> {
+class ImagesCollection extends Collection<ImageDocument> {
 
-    public getUrl = (image?: Image, store: string = '360x360'): string => {
+    public getUrl = (image?: ImageDocument, store: string = '360x360'): string => {
         const imageKey = get(image, `copies[${store}].key`);
 
         if (!imageKey) return '';

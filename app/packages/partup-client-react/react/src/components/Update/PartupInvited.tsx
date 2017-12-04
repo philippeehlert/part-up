@@ -2,10 +2,11 @@ import './PartupInvited.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class PartupInvited extends React.Component<Props, {}> {

@@ -6,10 +6,11 @@ import { translate } from 'utils/translate';
 import { get } from 'lodash';
 import { HTMLText } from 'components/HTMLText/HTMLText';
 import { decode } from 'utils/mentions';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class PartupMessageAdded extends React.Component<Props, {}> {

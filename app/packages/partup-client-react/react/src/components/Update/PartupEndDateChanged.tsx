@@ -5,10 +5,11 @@ import * as c from 'classnames';
 import { get } from 'lodash';
 import * as moment from 'moment';
 import { Icon } from 'components/Icon/Icon';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class PartupEndDateChanged extends React.Component<Props, {}> {

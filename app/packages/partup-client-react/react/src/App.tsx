@@ -14,7 +14,7 @@ import { Router } from 'components/Router/Router';
 import { NotificationsManager } from 'components/NotificationsManager/NotificationsManager';
 import { Dashboard } from 'views/Dashboard/Dashboard';
 import { Home } from 'views/Home/Home';
-import { User } from 'collections/Users';
+import { UserDocument } from 'collections/Users';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -59,12 +59,12 @@ class Container extends React.Component<Props, {}> {
 }
 
 interface State {
-    user?: User;
+    user?: UserDocument;
     loginFailed: boolean;
 }
 
 export interface AppContext {
-    user?: User;
+    user?: UserDocument;
     refetchUser: Function;
 }
 

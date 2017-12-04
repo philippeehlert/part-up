@@ -1,11 +1,11 @@
 import { Collection, CollectionDocument } from 'collections/Collection';
 
-export interface Contribution extends CollectionDocument {
+export interface ContributionDocument extends CollectionDocument {
     upper_id: string;
     activity_id: string;
 }
 
-class ContributionsCollection extends Collection<Contribution> {
+class ContributionsCollection extends Collection<ContributionDocument> {
 
 }
 

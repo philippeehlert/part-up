@@ -2,10 +2,11 @@ import './ContributionAdded.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
+import { UpdateDocument } from 'collections/Updates';
 
 interface Props {
     className?: string;
-    data: any;
+    data: UpdateDocument;
 }
 
 export class ContributionAdded extends React.Component<Props, {}> {

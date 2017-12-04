@@ -1,13 +1,13 @@
 import { Collection, CollectionDocument } from 'collections/Collection';
 import { Profile } from 'types/User';
 
-export interface User extends CollectionDocument {
+export interface UserDocument extends CollectionDocument {
     profile: Profile;
     upperOf: Array<string>;
     supporterOf: Array<string>;
 }
 
-class UsersCollection extends Collection<User> {
+class UsersCollection extends Collection<UserDocument> {
 
 }
 

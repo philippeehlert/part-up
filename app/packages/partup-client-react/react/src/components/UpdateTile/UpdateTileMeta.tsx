@@ -3,13 +3,13 @@ import './UpdateTileMeta.css';
 import * as React from 'react';
 import * as c from 'classnames';
 import * as moment from 'moment';
-import { ConversationUpdate } from 'collections/Updates';
+import { ConversationUpdateDocument } from 'collections/Updates';
 import { SystemAvatar } from 'components/Avatar/SystemAvatar';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
 
 interface Props {
     className?: string;
-    update: ConversationUpdate;
+    update: ConversationUpdateDocument;
 }
 
 export class UpdateTileMeta extends React.Component<Props, {}> {
