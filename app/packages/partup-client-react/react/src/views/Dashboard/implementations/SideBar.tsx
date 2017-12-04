@@ -129,7 +129,7 @@ export class SideBar extends React.Component<Props> {
             },
             {
                 to: `${baseUrl}/recommendations`,
-                icon: <Icon name={'globe'} />,
+                icon: <Icon name={'recommended'} />,
                 counter: <Counter count={3} />,
                 label:  `Aanbevolen voor jou`,
             },

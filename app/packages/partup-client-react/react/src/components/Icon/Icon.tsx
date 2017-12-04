@@ -58,6 +58,7 @@ type IconName =
     | 'plus'
     | 'profile-card'
     | 'question'
+    | 'recommended'
     | 'search'
     | 'share'
     | 'show'
