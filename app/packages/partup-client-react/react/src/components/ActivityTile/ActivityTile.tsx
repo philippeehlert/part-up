@@ -25,7 +25,7 @@ export class ActivityTile extends React.Component<Props, {}> {
     public componentWillMount() {
         const { activity } = this.props;
 
-        this.partup = Partups.findOneStatic(activity.partup_id);
+        this.partup = Partups.findOneStatic({ _id: activity.partup_id });
         this.contributers = Contributions
             .findStatic()
             .map(({ upper_id }) => Users.findOne(upper_id))
