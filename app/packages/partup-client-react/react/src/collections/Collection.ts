@@ -41,13 +41,16 @@ export abstract class Collection<Document extends CollectionDocument> {
         return find(this.statics, matches(selector)) as Document | undefined;
     }
 
-    public findOneAny = (selector: Object = {}, options: Object = {}, preferStatic: Boolean = false): Document & MergedDocument<Document> => {
+    public findOneAny = (
+        selector: Object = {},
+        options: Object = {},
+        preferStatic: Boolean = false): Document & MergedDocument<Document> | undefined => {
         const document = this.findOne(selector, options);
         const staticDocument = this.findOneStatic(selector);
 
-        // if (!document && !staticDocument) return {};
+        if (!document && !staticDocument) return undefined;
 
-        // preferStatic flag switches document with staticDocument for overrides
+        // preferStatic flag switches document with staticDocument for Object.assign order
         if (preferStatic) {
             return {
                 ...(document || {}),
