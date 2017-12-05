@@ -32,7 +32,9 @@ export abstract class Collection<Document extends CollectionDocument> {
     }
 
     // uses _.matches so it can only be used with a selector
-    public findStatic = (selector: Object = {}): Document[] => {
+    public findStatic = (selector?: Object): Document[] => {
+        if (!selector) return this.statics;
+
         return filter(this.statics, matches(selector)) as Document[];
     }
 

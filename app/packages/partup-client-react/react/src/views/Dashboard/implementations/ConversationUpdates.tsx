@@ -107,7 +107,7 @@ export class ConversationUpdates extends React.Component {
             Activities.updateStatics(activities);
             Lanes.updateStatics(lanes);
             Updates.updateStatics(updates);
-            if (updates.length) this.subscribeToUpdateComments(updates);
+            this.subscribeToUpdateComments();
         },
         transformData: (data) => {
             const {
@@ -141,8 +141,8 @@ export class ConversationUpdates extends React.Component {
         onChange: () => this.forceUpdate(),
     });
 
-    public subscribeToUpdateComments = async (updates: UpdateDocument[]) => {
-        const updateIds = updates.map((update: UpdateDocument) => update._id);
+    public subscribeToUpdateComments = async () => {
+        const updateIds = Updates.findStatic().map((update: UpdateDocument) => update._id);
 
         await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
@@ -155,6 +155,7 @@ export class ConversationUpdates extends React.Component {
     public componentWillUnmount() {
         this.conversationsFetcher.destroy();
         this.partupsFetcher.destroy();
+        this.updatesCommentsSubscriber.destroy();
     }
 
     public render() {
