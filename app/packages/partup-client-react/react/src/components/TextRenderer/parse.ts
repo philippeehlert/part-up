@@ -51,11 +51,11 @@ type CustomTextParseFunction = (s: string) => string;
 export class TextParser {
 
     public parsed: string;
-    public rawText: string;
+    public raw: string;
 
     constructor({ text }: { text: string }) {
-        this.rawText = text;
-        this.parsed = this.rawText;
+        this.raw = text;
+        this.parsed = this.raw;
     }
 
     public mentions = (): TextParser => {

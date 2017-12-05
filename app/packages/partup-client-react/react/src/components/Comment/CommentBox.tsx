@@ -2,19 +2,21 @@ import './CommentBox.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
-import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { Input } from 'components/Form/Input';
 import { Button } from 'components/Button/Button';
 import { Form } from 'components/Form/Form';
 
 interface Props {
-    className?: string
-    onSubmit: (e: any, fields: any) => void
-    poster: any
+    className?: string;
+    onSubmit: (e: any, fields: any) => void;
+    defaultValue?: string;
+    avatar?: JSX.Element;
+    onBlur?: Function;
+    autoFocus?: boolean;
 }
 
 interface State {
-    showSendButton: boolean
+    showSendButton: boolean;
 }
 
 export class CommentBox extends React.Component<Props, State> {
@@ -26,11 +28,18 @@ export class CommentBox extends React.Component<Props, State> {
     private inputElement: Input|null = null;
 
     public render() {
-        const { poster } = this.props;
+        const { defaultValue, avatar, autoFocus } = this.props;
 
         return (
-            <Form className={this.getClassNames()} onSubmit={this.onSubmit}>
-                <UserAvatar user={poster} className={`pur-CommentBox__avatar`} small square />
+            <Form
+                className={this.getClassNames()}
+                onSubmit={this.onSubmit}
+                onBlur={this.onBlur}>
+                { avatar && (
+                    <div className={`pur-CommentBox__avatar`}>
+                        { avatar }
+                    </div>
+                ) }
                 <Input
                     className={`pur-CommentBox__input`}
                     type={`text`}
@@ -38,6 +47,8 @@ export class CommentBox extends React.Component<Props, State> {
                     ref={el => this.inputElement = el}
                     placeholder={`Schrijf een reactie`}
                     onFocus={this.showSendButton}
+                    defaultValue={defaultValue}
+                    autoFocus={autoFocus}
                 />
                 {this.state.showSendButton && (
                     <Button type={`submit`} className={`pur-CommentBox__submit-button`}>
@@ -60,6 +71,14 @@ export class CommentBox extends React.Component<Props, State> {
         if (this.inputElement) this.inputElement.clear();
 
         if (onSubmit) onSubmit(event, fields);
+    }
+
+    private onBlur = (event: React.FocusEvent<any>) => {
+        const { onBlur } = this.props;
+
+        if (event.relatedTarget) return;
+
+        if (onBlur) onBlur(event);
     }
 
     private getClassNames() {

@@ -8,12 +8,13 @@ import { Comment } from 'components/Comment/Comment';
 import { Clickable } from 'components/Button/Clickable';
 import { CommentBox } from 'components/Comment/CommentBox';
 import { Meteor } from 'utils/Meteor';
+import { Users } from 'collections/Users';
+import { UserAvatar } from 'components/Avatar/UserAvatar';
 
 interface Props {
     className?: string;
     collapsedMax?: number;
     update: any;
-    user: any;
 }
 
 interface State {
@@ -35,9 +36,10 @@ export class UpdateTileComments extends React.Component<Props, State> {
     private commentBoxComponent: CommentBox|null = null;
 
     public render() {
-        const { user, update } = this.props;
+        const { update } = this.props;
         const { comments_count = 0 } = Updates.findOne({ _id: update._id }) || {};
         const { showCommentBox } = this.state;
+        const user = Users.findLoggedInUser();
 
         return (
             <div className={this.getClassNames()}>
@@ -61,7 +63,13 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
                 {showCommentBox && (
                     <CommentBox
-                        poster={user}
+                        avatar={
+                            <UserAvatar
+                                user={user}
+                                className={`pur-CommentBox__avatar`}
+                                small
+                                square />
+                        }
                         ref={el => this.commentBoxComponent = el}
                         onSubmit={this.submitComment}
                         className={`put-UpdateTileComments__comment-box`}
@@ -84,7 +92,12 @@ export class UpdateTileComments extends React.Component<Props, State> {
                     return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
                 }
 
-                return <Comment key={comment._id} comment={comment} />;
+                return (
+                    <Comment
+                        onSubmit={this.submitEditComment}
+                        key={comment._id}
+                        comment={comment} />
+                );
             });
 
         return (
@@ -120,6 +133,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
         const { update } = this.props;
 
         Meteor.call('updates.comments.insert', update._id, {
+            content: comment.trim(),
+        });
+    }
+
+    private submitEditComment = (e: Event, { comment, commentId }: {comment: string, commentId: string}) => {
+        e.preventDefault();
+        const { update } = this.props;
+
+        Meteor.call('updates.comments.update', update._id, commentId, {
             content: comment.trim(),
         });
     }

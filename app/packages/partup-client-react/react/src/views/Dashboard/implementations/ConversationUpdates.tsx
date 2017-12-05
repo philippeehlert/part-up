@@ -165,7 +165,6 @@ export class ConversationUpdates extends React.Component {
         const { partups = [] } = partupsData;
 
         const partupOptions = this.getPartupOptions(partups);
-        const { user } = this.context;
 
         return (
             <FilteredList>
@@ -208,7 +207,6 @@ export class ConversationUpdates extends React.Component {
                                             </UpdateTileContent>
                                         )}
                                         <UpdateTileComments
-                                            user={user}
                                             update={update}
                                         />
                                     </UpdateTile>

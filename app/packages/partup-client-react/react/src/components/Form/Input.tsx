@@ -2,14 +2,17 @@ import './Input.css';
 
 import * as React from 'react';
 import * as c from 'classnames';
+import { defer } from 'lodash';
 
 interface Props {
     className?: string;
     type: string;
     name: string;
     placeholder?: string;
-    onFocus?: () => void
-    onBlur?: () => void
+    onFocus?: Function;
+    onBlur?: Function;
+    defaultValue?: string;
+    autoFocus?: boolean;
 }
 
 export class Input extends React.Component<Props, {}> {
@@ -21,8 +24,8 @@ export class Input extends React.Component<Props, {}> {
             type,
             name,
             placeholder,
-            onFocus,
-            onBlur,
+            defaultValue,
+            autoFocus,
         } = this.props;
 
         return (
@@ -32,8 +35,10 @@ export class Input extends React.Component<Props, {}> {
                 ref={el => this.element = el}
                 placeholder={placeholder}
                 className={this.getClassNames()}
-                onFocus={onFocus ? onFocus : undefined}
-                onBlur={onBlur ? onBlur : undefined}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                defaultValue={defaultValue}
+                autoFocus={autoFocus}
             />
         );
     }
@@ -46,6 +51,26 @@ export class Input extends React.Component<Props, {}> {
         if (this.element) {
             this.element.focus();
         }
+    }
+
+    private onFocus = (event: React.SyntheticEvent<any>) => {
+        const { onFocus } = this.props;
+
+        defer(() => {
+            if (this.element && this.element.value) {
+                const val = this.element.value;
+                this.element.value = '';
+                this.element.value = val;
+            }
+        });
+
+        if (onFocus) onFocus(event);
+    }
+
+    private onBlur = (event: React.SyntheticEvent<any>) => {
+        const { onBlur } = this.props;
+
+        if (onBlur) onBlur(event);
     }
 
     private getClassNames() {
