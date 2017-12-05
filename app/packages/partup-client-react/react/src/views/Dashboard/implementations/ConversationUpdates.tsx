@@ -63,12 +63,12 @@ import { Lanes, LaneDocument } from 'collections/Lanes';
 import { Updates, UpdateDocument, ConversationUpdateDocument } from 'collections/Updates';
 
 interface FetcherResponse {
-    'cfs.images.filerecord': ImageDocument[],
-    partups: PartupDocument[],
-    users: UserDocument[],
-    activities: ActivityDocument[],
-    lanes: LaneDocument[],
-    updates: UpdateDocument[],
+    'cfs.images.filerecord': ImageDocument[];
+    partups: PartupDocument[];
+    users: UserDocument[];
+    activities: ActivityDocument[];
+    lanes: LaneDocument[];
+    updates: UpdateDocument[];
 }
 
 export class ConversationUpdates extends React.Component {

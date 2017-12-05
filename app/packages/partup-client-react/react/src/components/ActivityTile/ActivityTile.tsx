@@ -16,9 +16,9 @@ import { Meteor } from 'utils/Meteor';
 import { AppContext } from 'App';
 
 interface Props {
-    className?: string
-    activity: ActivityDocument
-    onChange: () => void
+    className?: string;
+    activity: ActivityDocument;
+    onChange: () => void;
 }
 
 export class ActivityTile extends React.PureComponent<Props, {}> {

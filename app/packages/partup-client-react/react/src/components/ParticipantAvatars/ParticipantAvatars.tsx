@@ -6,8 +6,8 @@ import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { UserDocument } from 'collections/Users';
 
 interface Props {
-    className?: string
-    participants: UserDocument[]
+    className?: string;
+    participants: UserDocument[];
 }
 
 export class ParticipantAvatars extends React.PureComponent<Props, {}> {

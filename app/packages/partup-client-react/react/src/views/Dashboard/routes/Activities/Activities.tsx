@@ -25,17 +25,17 @@ interface Props extends RouteComponentProps<any> {
 }
 
 interface GroupedActivities {
-    thisWeek: ActivityDocument[],
-    nextWeek: ActivityDocument[],
-    later: ActivityDocument[],
+    thisWeek: ActivityDocument[];
+    nextWeek: ActivityDocument[];
+    later: ActivityDocument[];
 }
 
 interface FetcherResponse {
-    'cfs.images.filerecord': ImageDocument[],
-    partups: PartupDocument[],
-    users: UserDocument[],
-    activities: ActivityDocument[],
-    contributions: ContributionDocument[],
+    'cfs.images.filerecord': ImageDocument[];
+    partups: PartupDocument[];
+    users: UserDocument[];
+    activities: ActivityDocument[];
+    contributions: ContributionDocument[];
 }
 
 export class ActivitiesView extends React.Component<Props> {

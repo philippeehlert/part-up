@@ -33,7 +33,7 @@ export interface UpdateDocument extends CollectionDocument {
     type_data: {
         [type: string]: any;
     };
-    comments?: Array<UpdateCommentSubDocument>
+    comments?: Array<UpdateCommentSubDocument>;
     comments_count?: number;
     created_at: Date;
     updated_at: Date;

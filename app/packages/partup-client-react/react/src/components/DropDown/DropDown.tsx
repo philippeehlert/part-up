@@ -5,11 +5,11 @@ import * as c from 'classnames';
 import { Icon } from 'components/Icon/Icon';
 
 interface DropDownItem {
-    isActive: boolean,
-    label: JSX.Element|Element|string,
-    value: string,
-    leftChild: JSX.Element|Element|string|number,
-    rightChild: JSX.Element|Element|string|number,
+    isActive: boolean;
+    label: JSX.Element|Element|string;
+    value: string;
+    leftChild: JSX.Element|Element|string|number;
+    rightChild: JSX.Element|Element|string|number;
 }
 
 interface Props {
