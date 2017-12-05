@@ -69,8 +69,6 @@ type IconName =
     | 'video'
     | 'warning';
 
-
-
 export const Icon: React.SFC<Props> = ({ name, onClick, className }) => {
     const classNames = c('pur-Icon', className, {});
 

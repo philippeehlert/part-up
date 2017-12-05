@@ -57,7 +57,7 @@ export class ActivitiesView extends React.Component<Props> {
     private activitiesFetcher = new Fetcher<FetcherResponse, {groupedActivities: GroupedActivities}>({
         route: 'activities/me',
         query: {
-            ...this.defaultQueryVars
+            ...this.defaultQueryVars,
         },
         onChange: () => this.forceUpdate(),
         onResponse: (data) => {
