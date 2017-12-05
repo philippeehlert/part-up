@@ -48,12 +48,16 @@ export class ActivitiesView extends React.Component<Props> {
         filterByArchived: false,
     };
 
+    private defaultQueryVars = {
+        limit: 20,
+        skip: 0,
+        ...this.filters,
+    };
+
     private activitiesFetcher = new Fetcher<FetcherResponse, {groupedActivities: GroupedActivities}>({
         route: 'activities/me',
         query: {
-            limit: 20,
-            skip: 0,
-            ...this.filters,
+            ...this.defaultQueryVars
         },
         onChange: () => this.forceUpdate(),
         onResponse: (data) => {
@@ -108,6 +112,17 @@ export class ActivitiesView extends React.Component<Props> {
         const { data, loading } = this.activitiesFetcher;
         const { groupedActivities } = data;
 
+        const renderActivity = (activity: ActivityDocument) => (
+            <ActivityTile
+                key={activity._id}
+                activity={activity}
+                onChange={() => this.activitiesFetcher.fetch({
+                    skip: this.skip,
+                    ...this.filters,
+                })}
+            />
+        );
+
         return (
             <ContentView>
 
@@ -131,19 +146,13 @@ export class ActivitiesView extends React.Component<Props> {
                         ) : (
                             <InfiniteScroll loadMore={this.loadMore}>
                                 <FilteredListSection title={`This week`}>
-                                    { groupedActivities.thisWeek.map(activity => (
-                                        <ActivityTile key={activity._id} activity={activity} />
-                                    )) }
+                                    { groupedActivities.thisWeek.map(renderActivity) }
                                 </FilteredListSection>
                                 <FilteredListSection title={`Next week`}>
-                                    { groupedActivities.nextWeek.map(activity => (
-                                        <ActivityTile key={activity._id} activity={activity} />
-                                    )) }
+                                    { groupedActivities.nextWeek.map(renderActivity) }
                                 </FilteredListSection>
                                 <FilteredListSection title={`Later`}>
-                                    { groupedActivities.later.map(activity => (
-                                        <ActivityTile key={activity._id} activity={activity} />
-                                    )) }
+                                    { groupedActivities.later.map(renderActivity) }
                                 </FilteredListSection>
                             </InfiniteScroll>
                         )}

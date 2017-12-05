@@ -18,6 +18,7 @@ import { AppContext } from 'App';
 interface Props {
     className?: string
     activity: ActivityDocument
+    onChange: () => void
 }
 
 export class ActivityTile extends React.PureComponent<Props, {}> {
@@ -25,6 +26,7 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
     public static contextTypes = {
         user: PropTypes.object,
     };
+
     public context: AppContext;
 
     private partup: PartupDocument | undefined;
@@ -108,15 +110,17 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
     }
 
     private archiveActivity = () => {
-        const { activity: { _id } } = this.props;
+        const { activity: { _id }, onChange } = this.props;
 
         Meteor.call('activities.archive', _id);
+        onChange();
     }
 
     private unarchiveActivity = () => {
-        const { activity: { _id } } = this.props;
+        const { activity: { _id }, onChange } = this.props;
 
         Meteor.call('activities.unarchive', _id);
+        onChange();
     }
 
     private getClassNames() {
