@@ -69,30 +69,15 @@ type IconName =
     | 'video'
     | 'warning';
 
-export class Icon extends React.Component<Props, {}> {
 
-    public render() {
-        const { name } = this.props;
 
-        return (
-            <i
-            className={this.getClassNames()}
-            onClick={this.onClick}
+export const Icon: React.SFC<Props> = ({ name, onClick, className }) => {
+    const classNames = c('pur-Icon', className, {});
+
+    return (
+        <i
+            className={classNames}
+            onClick={onClick}
             dangerouslySetInnerHTML={{ __html: icons[name] }} />
-        );
-    }
-
-    private onClick = (event: React.MouseEvent<HTMLElement>) => {
-        const { onClick } = this.props;
-
-        if (onClick) onClick(event);
-    }
-
-    private getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Icon', className, {
-
-        });
-    }
-}
+    );
+};

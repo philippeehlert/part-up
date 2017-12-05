@@ -15,7 +15,7 @@ interface State {
     topPosition: number
 }
 
-export class PopoverMenu extends React.Component<Props, State> {
+export class PopoverMenu extends React.PureComponent<Props, State> {
 
     public state: State = {
         shown: false,
