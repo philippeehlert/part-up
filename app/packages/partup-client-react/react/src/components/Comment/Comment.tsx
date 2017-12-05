@@ -6,9 +6,8 @@ import { get } from 'lodash';
 import * as moment from 'moment';
 
 import { UpdateCommentSubDocument as CommentType } from 'collections/Updates';
-import { decode } from 'utils/mentions';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
-import { HTMLText } from 'components/HTMLText/HTMLText';
+import { CommentText } from 'components/TextRenderer/CommentText';
 
 interface Props {
     comment: CommentType;
@@ -40,7 +39,8 @@ export class Comment extends React.Component<Props, {}> {
                             <span>{` `}{prefix}</span>
                         ) }
                         {` `}
-                        <HTMLText html={decode(comment.content)} wrapComponent={'span'}/>
+                        <CommentText
+                            text={comment.content} />
                     </p>
                     <time className={`pur-Comment__postedAt`}>
                         { moment(comment.created_at).format('ddd, MMMM [om] h:mm') }
