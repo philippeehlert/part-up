@@ -49,7 +49,7 @@ Meteor.routeComposite('/activities/me', function(request, parameters) {
 
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
-    const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1 }}, userId);
+    const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 }}, userId);
     const partupIds = partupsCursor.map(({_id}) => _id);
     const activityCursor = Activities.findForPartupIds(partupIds);
     const activityIds = activityCursor.map(({_id}) => _id);

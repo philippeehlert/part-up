@@ -35,7 +35,7 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
 
     const userId = parameters.query.userId || this.userId;
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
-    const partupFields = { _id: 1, name: 1, image: 1, uppers: 1 };
+    const partupFields = { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 };
 
     // find partups for user
     let partupsCursor;
