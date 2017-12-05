@@ -11,7 +11,7 @@ class PartupsCollection extends Collection<PartupDocument> {
 
     public getSlugById = (partupId: string) => {
         const partup = this.findOne({ _id: partupId });
-        const staticPartup = this.findOneStatic(partupId);
+        const staticPartup = this.findOneStatic({ _id: partupId });
 
         return get(partup, 'slug', get(staticPartup, 'slug')) as string;
     }
