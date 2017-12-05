@@ -9,7 +9,7 @@ interface Props {
     html: string;
 }
 
-export class HTMLText extends React.Component<Props, {}> {
+export class HTMLText extends React.PureComponent<Props, {}> {
 
     public render() {
         const { html } = this.props;
@@ -17,8 +17,8 @@ export class HTMLText extends React.Component<Props, {}> {
 
         return (
             <Wrap
-            className={this.getClassNames()}
-            dangerouslySetInnerHTML={{ __html: html }} />
+                className={this.getClassNames()}
+                dangerouslySetInnerHTML={{ __html: html }} />
         );
     }
 
