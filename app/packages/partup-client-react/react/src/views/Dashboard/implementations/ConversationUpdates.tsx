@@ -5,7 +5,6 @@ import { AppContext } from 'App';
 import { Images, ImageDocument } from 'collections/Images';
 import { Partups, PartupDocument } from 'collections/Partups';
 import { Fetcher, mergeDataByKey } from 'utils/Fetcher';
-
 import { FilteredList } from 'components/FilteredList/FilteredList';
 import { FilteredListControls } from 'components/FilteredList/FilteredListControls';
 import { FillInTheBlanks } from 'components/FillInTheBlanks/FillInTheBlanks';

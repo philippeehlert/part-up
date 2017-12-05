@@ -7,7 +7,7 @@
  *
  * @return {String}
  */
-export function decode(message: string) {
+export function decode(message: string): string {
     return message.replace(/\[Supporters:(?:([^\]]+))?\]/g, (m: string, users: string) => {
         // decode supporter mentions
         return `<a data-hovercontainer="HoverContainer_upperList" data-hovercontainer-context="${

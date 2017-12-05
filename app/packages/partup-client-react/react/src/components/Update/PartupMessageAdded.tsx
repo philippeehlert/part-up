@@ -4,9 +4,8 @@ import * as React from 'react';
 import * as c from 'classnames';
 import { translate } from 'utils/translate';
 import { get } from 'lodash';
-import { HTMLText } from 'components/HTMLText/HTMLText';
-import { decode } from 'utils/mentions';
 import { UpdateDocument } from 'collections/Updates';
+import { UpdateText } from 'components/TextRenderer/UpdateText';
 
 interface Props {
     className?: string;
@@ -30,7 +29,7 @@ export class PartupMessageAdded extends React.Component<Props, {}> {
             return translate('update-type-partups_message_added-system-welcome_message-content');
         }
 
-        return <HTMLText html={decode(get(type_data, 'new_value'))} />;
+        return <UpdateText text={get(type_data, 'new_value')} />;
     }
 
     private getClassNames() {
