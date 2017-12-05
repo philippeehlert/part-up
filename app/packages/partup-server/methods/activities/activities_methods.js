@@ -198,17 +198,19 @@ Meteor.methods({
      */
     'activities.archive': function(activityId) {
         check(activityId, String);
-
+        console.log('ARCHIVE');
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
         if (activity.isRemoved()) throw new Meteor.Error(404, 'activity_could_not_be_found');
+        console.log('ARCHIVE1');
 
         var partup = Partups.findOneOrFail({_id: activity.partup_id});
 
         if (!upper || !partup.hasUpper(upper._id)) {
             throw new Meteor.Error(401, 'unauthorized');
         }
+        console.log('ARCHIVE2');
 
         try {
             Activities.update(activityId, {$set: {archived: true}});
@@ -218,11 +220,14 @@ Meteor.methods({
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_activities_archived');
 
             Event.emit('partups.activities.archived', upper._id, activity);
+            console.log('ARCHIVE3 GOOD');
 
             return {
                 _id: activity._id
             };
         } catch (error) {
+            console.log('ARCHIVE3 ERR');
+
             Log.error(error);
             throw new Meteor.Error(500, 'activity_could_not_be_archived');
         }

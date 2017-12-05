@@ -2,6 +2,7 @@ import './ActivityTile.css';
 
 import * as moment from 'moment';
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import * as c from 'classnames';
 import { Link } from 'components/Router/Link';
 import { Icon } from 'components/Icon/Icon';
@@ -11,6 +12,8 @@ import { ActivityDocument } from 'collections/Activities';
 import { Partups, PartupDocument } from 'collections/Partups';
 import { Contributions } from 'collections/Contributions';
 import { UserDocument, Users } from 'collections/Users';
+import { Meteor } from 'utils/Meteor';
+import { AppContext } from 'App';
 
 interface Props {
     className?: string
@@ -19,13 +22,21 @@ interface Props {
 
 export class ActivityTile extends React.PureComponent<Props, {}> {
 
+    public static contextTypes = {
+        user: PropTypes.object,
+    };
+    public context: AppContext;
+
     private partup: PartupDocument | undefined;
     private contributers: UserDocument[] | undefined;
+    private canArchive: boolean;
 
     public componentWillMount() {
         const { activity } = this.props;
 
         this.partup = Partups.findOneStatic({ _id: activity.partup_id });
+
+        this.canArchive = this.context.user ? Partups.hasUpper(activity.partup_id, this.context.user._id) : false;
         this.contributers = Contributions
             .findStatic()
             .map(({ upper_id }) => Users.findOne(upper_id))
@@ -41,6 +52,28 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
             <Link key={1} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>,
             <Link key={2} leftChild={<Icon name={'person-plus'} />}>Ik nodig iemand uit</Link>,
         ];
+
+        if (this.canArchive) {
+            menuLinks.push(
+                !activity.archived ? (
+                    <Link
+                        key={3}
+                        leftChild={<Icon name={'person-plus'} />}
+                        onClick={this.archiveActivity}
+                    >
+                        Archiveer activiteit
+                    </Link>
+                ) : (
+                    <Link
+                        key={4}
+                        leftChild={<Icon name={'person-plus'} />}
+                        onClick={this.unarchiveActivity}
+                    >
+                        Onarchiveer activiteit
+                    </Link>
+                ),
+            );
+        }
 
         return (
             <div className={this.getClassNames()}>
@@ -72,6 +105,18 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
                 </div>
             </div>
         );
+    }
+
+    private archiveActivity = () => {
+        const { activity: { _id } } = this.props;
+
+        Meteor.call('activities.archive', _id);
+    }
+
+    private unarchiveActivity = () => {
+        const { activity: { _id } } = this.props;
+
+        Meteor.call('activities.unarchive', _id);
     }
 
     private getClassNames() {

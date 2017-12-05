@@ -187,7 +187,7 @@ Activities.findForPartupIds = function(partupIds, options, parameters) {
     };
 
     if (parameters.hasOwnProperty('archived')) {
-        selector.archived = !!parameters.archived;
+        selector.archived = parameters.archived;
     }
 
     return this.guardedFind(null, selector, options);

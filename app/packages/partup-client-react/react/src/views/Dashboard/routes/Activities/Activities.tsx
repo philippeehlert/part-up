@@ -4,9 +4,9 @@ import { RouteComponentProps } from 'react-router';
 import { ContentView } from 'components/View/ContentView';
 import { FilteredListItems } from 'components/FilteredList/FilteredListItems';
 import { FilteredList } from 'components/FilteredList/FilteredList';
-// import { FilteredListControls } from 'components/FilteredList/FilteredListControls';
-// import { Select } from 'components/Form/Select';
-// import { Blank } from 'components/FillInTheBlanks/Blank';
+import { FilteredListControls } from 'components/FilteredList/FilteredListControls';
+import { Select } from 'components/Form/Select';
+import { Blank } from 'components/FillInTheBlanks/Blank';
 import { ActivityTile } from 'components/ActivityTile/ActivityTile';
 import { FilteredListSection } from 'components/FilteredList/FilteredListSection';
 import { Icon } from 'components/Icon/Icon';
@@ -43,11 +43,17 @@ export class ActivitiesView extends React.Component<Props> {
     private skip = 0;
     private fetchedAll = false;
 
+    private filters: {[key: string]: any} = {
+        filterByActive: true,
+        filterByArchived: false,
+    };
+
     private activitiesFetcher = new Fetcher<FetcherResponse, {groupedActivities: GroupedActivities}>({
         route: 'activities/me',
         query: {
             limit: 20,
             skip: 0,
+            ...this.filters,
         },
         onChange: () => this.forceUpdate(),
         onResponse: (data) => {
@@ -111,15 +117,14 @@ export class ActivitiesView extends React.Component<Props> {
                 </Button>
 
                 <FilteredList>
-                    {/* <FilteredListControls>
+                    <FilteredListControls>
                         <Blank label={'Toon'}>
                             <Select options={[
-                                { label: 'Actief', value: 'filterByAll', onChange: () => console.log('filterByAll') },
-                                { label: 'Partner', value: 'filterByPartner', onChange: () => console.log('filterByPartner') },
-                                { label: 'Supporter', value: 'filterBySupporter', onChange: () => console.log('filterBySupporter') },
+                                { label: 'Actief', value: 'filterByActive', onChange: this.filterBy('filterByActive') },
+                                { label: 'Gearchiveerd', value: 'filterByArchived', onChange: this.filterBy('filterByArchived') },
                             ]} />
                         </Blank>
-                    </FilteredListControls> */}
+                    </FilteredListControls>
                     <FilteredListItems hasSubSections>
                         { (loading || !groupedActivities) ? (
                             <Spinner />
@@ -157,10 +162,29 @@ export class ActivitiesView extends React.Component<Props> {
 
         await this.activitiesFetcher.fetchMore({
             skip: this.skip,
+            ...this.filters,
         }, mergeDataByKey('activities', () => {
             this.fetchedAll = true;
         }));
 
         done();
+    }
+
+    private filterBy = (filterByKey: string) => async () => {
+        this.skip = 0,
+        this.filters = {
+            ...(Object.keys(this.filters).reduce((filters, key) => {
+                filters[key] = false;
+                return filters;
+            }, {})),
+            [filterByKey]: true,
+        };
+
+        this.fetchedAll = false;
+
+        await this.activitiesFetcher.fetch({
+            skip: this.skip,
+            ...this.filters,
+        });
     }
 }

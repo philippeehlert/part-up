@@ -46,12 +46,12 @@ Meteor.publishComposite('activities.from_partup', function(partupId, accessToken
 Meteor.routeComposite('/activities/me', function(request, parameters) {
 
     const userId = parameters.query.userId || this.userId;
-
+    const archived = parameters.query && parameters.query.filterByArchived === 'true';
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
     const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 }}, userId);
     const partupIds = partupsCursor.map(({_id}) => _id);
-    const activityCursor = Activities.findForPartupIds(partupIds);
+    const activityCursor = Activities.findForPartupIds(partupIds, {}, { archived });
     const activityIds = activityCursor.map(({_id}) => _id);
     const contributionCursor = Contributions.find({
         activity_id: { $in: activityIds },
@@ -66,7 +66,7 @@ Meteor.routeComposite('/activities/me', function(request, parameters) {
     const imagesCursor = Images.findForCursors([{
         cursor: usersCursor,
         imageKey: 'profile.image',
-    }])
+    }]);
 
     return {
         find: () => Meteor.users.find({_id: userId}),

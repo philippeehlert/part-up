@@ -7,6 +7,7 @@ export interface ActivityDocument extends CollectionDocument {
     name: string;
     partup_id: string;
     update_id: string;
+    archived: boolean;
 }
 
 class ActivitiesCollection extends Collection<ActivityDocument> {
