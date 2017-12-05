@@ -141,6 +141,7 @@ export class Comment extends React.Component<Props, State> {
 
     private onRemove = (event: React.SyntheticEvent<any>) => {
         event.preventDefault();
+        event.stopPropagation();
 
         const { onRemove, comment } = this.props;
 
