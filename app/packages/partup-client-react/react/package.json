@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "emoji-js": "^3.4.0",
     "get-form-data": "^1.2.5",
     "i18next": "^10.0.7",
     "jquery": "^3.2.1",
@@ -16,6 +17,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
     "react-web-meteor": "^0.2.3",
+    "showdown": "^1.8.4",
     "spin": "^0.0.1"
   },
   "scripts": {
@@ -42,6 +44,7 @@
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.0.8",
     "@types/react-select": "^1.0.59",
+    "@types/showdown": "^1.7.2",
     "babel-cli": "^6.26.0",
     "fs-extra": "^4.0.2",
     "svgo": "^0.7.2",
