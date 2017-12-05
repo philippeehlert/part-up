@@ -17,7 +17,7 @@ interface Props {
     activity: ActivityDocument
 }
 
-export class ActivityTile extends React.Component<Props, {}> {
+export class ActivityTile extends React.PureComponent<Props, {}> {
 
     private partup: PartupDocument | undefined;
     private contributers: UserDocument[] | undefined;
@@ -35,6 +35,8 @@ export class ActivityTile extends React.Component<Props, {}> {
     public render() {
         const { activity } = this.props;
 
+        const partupSlug = Partups.getSlugById(activity.partup_id);
+
         const menuLinks = [
             <Link key={1} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>,
             <Link key={2} leftChild={<Icon name={'person-plus'} />}>Ik nodig iemand uit</Link>,
@@ -43,11 +45,23 @@ export class ActivityTile extends React.Component<Props, {}> {
         return (
             <div className={this.getClassNames()}>
                 <header className={`pur-ActivityTile__header`}>
-                    <Link className={`pur-ActivityTile__title`}>{activity.name}</Link>
+                    <Link
+                        to={`/partups/${partupSlug}/updates/${activity._id}`}
+                        target={`_partup`}
+                        className={`pur-ActivityTile__title`}
+                    >
+                        {activity.name}
+                    </Link>
                     <div className={`pur-ActivityTile__meta-info`}>
                         <time className={`pur-ActivityTile__timestamp`}>{moment(activity.end_date).format('D MMMM YYYY')}</time>
                         {` | `}
-                        <Link className={`pur-ActivityTile__partup-link`}>{this.partup && this.partup.name}</Link>
+                        <Link
+                            to={`/partups/${partupSlug}`}
+                            target={`_partup`}
+                            className={`pur-ActivityTile__partup-link`}
+                        >
+                            {this.partup && this.partup.name}
+                        </Link>
                     </div>
                 </header>
                 <PopoverMenu className={`pur-ActivityTile__menu`} items={menuLinks}>
