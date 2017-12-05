@@ -94,6 +94,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
                 return (
                     <Comment
+                        onRemove={this.removeComment}
                         onSubmit={this.submitEditComment}
                         key={comment._id}
                         comment={comment} />
@@ -144,6 +145,13 @@ export class UpdateTileComments extends React.Component<Props, State> {
         Meteor.call('updates.comments.update', update._id, commentId, {
             content: comment.trim(),
         });
+    }
+
+    private removeComment = (e: Event, { commentId }: {commentId: string}) => {
+        e.preventDefault();
+        const { update } = this.props;
+
+        Meteor.call('updates.comments.remove', update._id, commentId);
     }
 
     private getClassNames() {

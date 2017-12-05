@@ -10,6 +10,7 @@ import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { CommentText } from 'components/TextRenderer/CommentText';
 import { CommentBox } from 'components/Comment/CommentBox';
 import { Users } from 'collections/Users';
+import { Fragment } from 'react';
 
 interface Props {
     comment: CommentType;
@@ -18,6 +19,7 @@ interface Props {
     onClick?: Function;
     onSubmit?: Function;
     onBlur?: Function;
+    onRemove?: Function;
 }
 
 interface State {
@@ -60,9 +62,7 @@ export class Comment extends React.Component<Props, State> {
                             <CommentText
                                 text={comment.content} />
                         </p>
-                        <time className={`pur-Comment__postedAt`}>
-                            { moment(comment.created_at).format('ddd, MMMM [om] h:mm') }
-                        </time>
+                        { this.renderFooter() }
                     </div>
                 ) }
                 { editing && (
@@ -79,13 +79,38 @@ export class Comment extends React.Component<Props, State> {
         );
     }
 
-    private onClick = (event: React.SyntheticEvent<any>): void => {
-        const { onClick, comment } = this.props;
-        const { editing } = this.state;
-
+    private commentIsLiggedInUserComment = () => {
+        const { comment } = this.props;
         const user = Users.findLoggedInUser();
 
-        if (user && comment.creator._id === user._id) {
+        return !!(user && comment.creator._id === user._id);
+    }
+
+    private renderFooter = () => {
+        const { comment } = this.props;
+
+        return (
+            <time className={`pur-Comment__postedAt`}>
+                { moment(comment.created_at).format('ddd, MMMM [om] h:mm') }
+                { this.commentIsLiggedInUserComment() && (
+                    <Fragment>
+                        {` - `}
+                        <span
+                            className={`pur-Comment__postedAt__remove`}
+                            onClick={this.onRemove}>
+                            remove
+                        </span>
+                    </Fragment>
+                 ) }
+            </time>
+        );
+    }
+
+    private onClick = (event: React.SyntheticEvent<any>): void => {
+        const { onClick } = this.props;
+        const { editing } = this.state;
+
+        if (this.commentIsLiggedInUserComment()) {
             this.setState({
                 editing: !editing,
             });
@@ -112,6 +137,14 @@ export class Comment extends React.Component<Props, State> {
         });
 
         if (onBlur) onBlur(event);
+    }
+
+    private onRemove = (event: React.SyntheticEvent<any>) => {
+        event.preventDefault();
+
+        const { onRemove, comment } = this.props;
+
+        if (onRemove) onRemove(event, { commentId: comment._id });
     }
 
     private getClassNames() {

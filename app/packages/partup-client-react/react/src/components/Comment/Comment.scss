@@ -21,5 +21,13 @@
         font-size: 11px;
         color: $pur-color-dusty-gray;
         font-weight: bold;
+
+        &__remove {
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
