@@ -41,10 +41,9 @@ export abstract class Collection<Document extends CollectionDocument> {
         return find(this.statics, matches(selector)) as Document | undefined;
     }
 
-    public findOneAny = (
-        selector: Object = {},
-        options: Object = {},
-        preferStatic: Boolean = false): Document & MergedDocument<Document> | undefined => {
+    public findOneAny = (selector: Object = {}, options: Object = {}, preferStatic: Boolean = false):
+        Document & MergedDocument<Document> | undefined => {
+
         const document = this.findOne(selector, options);
         const staticDocument = this.findOneStatic(selector);
 
