@@ -88,7 +88,11 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
                         {activity.name}
                     </Link>
                     <div className={`pur-ActivityTile__meta-info`}>
-                        <time className={`pur-ActivityTile__timestamp`}>{moment(activity.end_date).format('D MMMM YYYY')}</time>
+                        <time className={`pur-ActivityTile__timestamp`}>
+                            { activity.end_date ? (
+                                moment(activity.end_date).format('D MMMM YYYY')
+                            ) : ('Geen datum')}
+                        </time>
                         {` | `}
                         <Link
                             to={`/partups/${partupSlug}`}
