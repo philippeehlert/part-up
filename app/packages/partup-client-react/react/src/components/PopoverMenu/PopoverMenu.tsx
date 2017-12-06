@@ -5,14 +5,14 @@ import * as c from 'classnames';
 import { Portal } from 'components/PortalManager/Portal';
 
 interface Props {
-    className?: string
-    items: (JSX.Element|string)[]
+    className?: string;
+    items: (JSX.Element|string)[];
 }
 
 interface State {
-    shown: boolean
-    leftPosition: number
-    topPosition: number
+    shown: boolean;
+    leftPosition: number;
+    topPosition: number;
 }
 
 export class PopoverMenu extends React.PureComponent<Props, State> {

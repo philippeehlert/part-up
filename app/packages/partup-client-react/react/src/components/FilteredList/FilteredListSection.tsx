@@ -4,8 +4,8 @@ import * as React from 'react';
 import * as c from 'classnames';
 
 interface Props {
-    className?: string
-    title?: string
+    className?: string;
+    title?: string;
 }
 
 export class FilteredListSection extends React.Component<Props, {}> {
