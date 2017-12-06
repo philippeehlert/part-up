@@ -173,36 +173,21 @@ Activities.findForPartup = function(partup, options, parameters) {
  * @param {Contribution} contribution
  * @return {Mongo.Cursor}
  */
-Activities.findForPartupIds = function(partupIds, options, parameters) {
+Activities.findForActivityIds = function(activityIds, options, parameters) {
     options = options || {};
     parameters = parameters || {};
-
-    options.sort = {
-        end_date: 1,
-    };
-
-    const selector = {
-        partup_id: { $in: partupIds },
-        $or: [{ end_date: { $gte: new Date()} }, { end_date: null }],
-    };
-
-    if (parameters.hasOwnProperty('archived')) {
-        selector.archived = parameters.archived;
-    }
-
-    console.log(options)
 
     return this.aggregate([
         {
             $match: {
-                partup_id: { $in: partupIds },
+                _id: { $in: activityIds },
                 $or: [{ end_date: { $gte: new Date()} }, { end_date: null }],
                 archived: parameters.archived,
             },
         },
         {
             $project: {
-                nlt: { $ifNull: ['$end_date', new Date('9000-01-01')] },
+                nlt: { $ifNull: ['$end_date', new Date('2030-01-01')] },
                 document: '$$ROOT',
             },
         },

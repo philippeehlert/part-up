@@ -55,13 +55,22 @@ Meteor.routeComposite('/activities/me', function(request, parameters) {
 
     const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 }}, userId);
     const partupIds = partupsCursor.map(({_id}) => _id);
-    const activityCursor = Activities.findForPartupIds(partupIds, options, { archived });
-    const activityIds = activityCursor.map(({_id}) => _id);
+
+    // Get contributions that
+    const userContributionCursor = Contributions.find({
+        partup_id: { $in: partupIds },
+        upper_id: userId,
+    });
+
+    const activityIds = [...new Set(userContributionCursor.map(({ activity_id }) => activity_id))];
+
+    const activityCursor = Activities.findForActivityIds(activityIds, options, { archived });
+
     const contributionCursor = Contributions.find({
         activity_id: { $in: activityIds },
     });
 
-    const userIds = contributionCursor.map(({upper_id}) => upper_id);
+    const userIds = contributionCursor.map(({ upper_id }) => upper_id);
     const usersCursor = Meteor.users.find(
         { _id: { $in: userIds } },
         { fields: { '_id': 1, 'profile.name': 1, 'profile.image': 1 }},
