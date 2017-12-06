@@ -66,13 +66,12 @@ export class UpdateTileComments extends React.Component<Props, State> {
                         avatar={
                             <UserAvatar
                                 user={user}
-                                className={`pur-CommentBox__avatar`}
                                 small
                                 square />
                         }
                         ref={el => this.commentBoxComponent = el}
                         onSubmit={this.submitComment}
-                        className={`put-UpdateTileComments__comment-box`}
+                        className={`pur-UpdateTileComments__comment-box`}
                     />
                 )}
             </div>

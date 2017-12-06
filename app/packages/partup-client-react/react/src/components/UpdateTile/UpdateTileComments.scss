@@ -32,4 +32,9 @@
     &__more-commments {
         font-size: 14px;
     }
+
+    &__comment-box {
+        margin: 0 getSpacing(1.5) getSpacing(1.5) getSpacing(1.5);
+
+    }
 }

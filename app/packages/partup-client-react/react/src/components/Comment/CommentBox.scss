@@ -3,10 +3,14 @@
 
     display: flex;
     align-items: center;
-    margin: 0 getSpacing(1.5) getSpacing(1.5) getSpacing(1.5);
 
     &__avatar {
-        margin-right: getSpacing(1);
+        margin-right: 8px;
+
+        > .pur-UserAvatar {
+            width: 32px;
+            height: 32px;
+        }
     }
 
     &__submit-button {
