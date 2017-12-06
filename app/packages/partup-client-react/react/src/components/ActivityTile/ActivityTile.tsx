@@ -103,7 +103,7 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
                     <Icon name={'menu'} />
                 </PopoverMenu>
                 <div className={`pur-ActivityTile__participants`}>
-                    <ParticipantAvatars participants={this.contributers ? this.contributers : []} />
+                    <ParticipantAvatars participants={this.contributers ? this.contributers.slice(0, 5) : []} />
                 </div>
             </div>
         );
