@@ -9,7 +9,7 @@ interface Props {
     html: string;
 }
 
-export class HTMLText extends React.PureComponent<Props, {}> {
+export class HTMLText extends React.Component<Props, {}> {
 
     public render() {
         const { html } = this.props;

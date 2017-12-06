@@ -21,7 +21,7 @@ interface Props {
     onChange: () => void;
 }
 
-export class ActivityTile extends React.PureComponent<Props, {}> {
+export class ActivityTile extends React.Component<Props, {}> {
 
     public static contextTypes = {
         user: PropTypes.object,

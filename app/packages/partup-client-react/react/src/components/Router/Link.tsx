@@ -16,7 +16,7 @@ interface Props {
     target?: TargetType;
 }
 
-export class Link extends React.PureComponent<Props, {}> {
+export class Link extends React.Component<Props, {}> {
 
     public static contextTypes = {
         router: PropTypes.object,

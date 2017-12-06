@@ -10,7 +10,7 @@ interface Props {
     participants: UserDocument[];
 }
 
-export class ParticipantAvatars extends React.PureComponent<Props, {}> {
+export class ParticipantAvatars extends React.Component<Props, {}> {
 
     public render() {
         const {

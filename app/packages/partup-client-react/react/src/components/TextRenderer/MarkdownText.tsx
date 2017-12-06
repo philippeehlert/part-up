@@ -9,7 +9,7 @@ interface Props {
     text: string;
 }
 
-export class MarkdownText extends React.PureComponent<Props, {}> {
+export class MarkdownText extends React.Component<Props, {}> {
 
     public render() {
         const markdownText = this.parseText();

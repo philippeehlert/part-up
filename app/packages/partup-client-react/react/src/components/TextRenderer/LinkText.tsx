@@ -9,7 +9,7 @@ interface Props {
     text: string;
 }
 
-export class LinkText extends React.PureComponent<Props, {}> {
+export class LinkText extends React.Component<Props, {}> {
 
     public render() {
         const linkedText = this.parseText();

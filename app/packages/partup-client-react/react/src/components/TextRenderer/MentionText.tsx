@@ -9,7 +9,7 @@ interface Props {
     text: string;
 }
 
-export class MentionText extends React.PureComponent<Props, {}> {
+export class MentionText extends React.Component<Props, {}> {
 
     public render() {
         const mentionText = this.parseText();
