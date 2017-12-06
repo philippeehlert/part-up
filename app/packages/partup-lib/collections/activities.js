@@ -183,14 +183,33 @@ Activities.findForPartupIds = function(partupIds, options, parameters) {
 
     const selector = {
         partup_id: { $in: partupIds },
-        end_date: { $gte: new Date() },
+        $or: [{ end_date: { $gte: new Date()} }, { end_date: null }],
     };
 
     if (parameters.hasOwnProperty('archived')) {
         selector.archived = parameters.archived;
     }
 
-    return this.guardedFind(null, selector, options);
+    console.log(options)
+
+    return this.aggregate([
+        {
+            $match: {
+                partup_id: { $in: partupIds },
+                $or: [{ end_date: { $gte: new Date()} }, { end_date: null }],
+                archived: parameters.archived,
+            },
+        },
+        {
+            $project: {
+                nlt: { $ifNull: ['$end_date', new Date('9000-01-01')] },
+                document: '$$ROOT',
+            },
+        },
+        {$sort: { 'nlt': 1 }},
+        {$skip: options.skip},
+        {$limit: options.limit},
+    ]).map(({ document }) => document);
 };
 
 

@@ -31,17 +31,17 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
 
     private partup: PartupDocument | undefined;
     private contributers: UserDocument[] | undefined;
-    private canArchive: boolean;
+    private isUpper: boolean;
 
     public componentWillMount() {
         const { activity } = this.props;
 
         this.partup = Partups.findOneStatic({ _id: activity.partup_id });
 
-        this.canArchive = this.context.user ? Partups.hasUpper(activity.partup_id, this.context.user._id) : false;
-        this.contributers = Contributions
-            .findStatic()
-            .map(({ upper_id }) => Users.findOne(upper_id))
+        this.isUpper = this.context.user ? Partups.hasUpper(activity.partup_id, this.context.user._id) : false;
+
+        this.contributers = Contributions.findStatic({ activity_id: activity._id })
+            .map(({ upper_id }) => Users.findOneStatic({ _id: upper_id }))
             .reverse() as UserDocument[]; // Reverse the array because the row is reversed in css.
     }
 
@@ -51,11 +51,11 @@ export class ActivityTile extends React.PureComponent<Props, {}> {
         const partupSlug = Partups.getSlugById(activity.partup_id);
 
         const menuLinks = [
-            <Link key={1} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>,
             <Link key={2} leftChild={<Icon name={'person-plus'} />}>Ik nodig iemand uit</Link>,
         ];
 
-        if (this.canArchive) {
+        if (this.isUpper) {
+            menuLinks.unshift(<Link key={1} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>);
             menuLinks.push(
                 !activity.archived ? (
                     <Link

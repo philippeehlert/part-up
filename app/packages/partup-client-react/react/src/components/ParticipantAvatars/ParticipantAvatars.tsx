@@ -16,7 +16,7 @@ export class ParticipantAvatars extends React.PureComponent<Props, {}> {
         const {
             participants,
         } = this.props;
-
+        console.log(participants)
         return (
             <div className={this.getClassNames()}>
                 {participants.map(participant => (

@@ -28,7 +28,7 @@ export abstract class Collection<Document extends CollectionDocument> {
     }
 
     public findOne = (selector: Object = {}, options: Object = {}): Document | undefined => {
-        return this.find(selector, options).pop() as Document | undefined;
+        return (this.find(selector, options) || []).pop() as Document | undefined;
     }
 
     // uses _.matches so it can only be used with a selector
