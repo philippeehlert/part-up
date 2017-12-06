@@ -56,7 +56,7 @@ import { PartupUnarchived } from 'components/Update/PartupUnarchived';
 import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
-import { Subscriber } from 'utils/Subscriber';
+import { Subscriber, trackCollection } from 'utils/Subscriber';
 import { Users, UserDocument } from 'collections/Users';
 import { Activities, ActivityDocument } from 'collections/Activities';
 import { Lanes, LaneDocument } from 'collections/Lanes';
@@ -139,6 +139,9 @@ export class ConversationUpdates extends React.Component {
     private updatesCommentsSubscriber = new Subscriber({
         subscription: 'updates.comments_by_update_ids',
         onChange: () => this.forceUpdate(),
+        track: trackCollection('updates', (event) => {
+            console.log('NEW UPDATE', event);
+        }),
     });
 
     public subscribeToUpdateComments = async () => {
