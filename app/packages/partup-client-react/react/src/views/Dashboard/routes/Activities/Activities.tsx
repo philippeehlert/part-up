@@ -85,10 +85,9 @@ export class ActivitiesView extends React.Component<Props> {
 
             return {
                 groupedActivities: activities.reduce((groupedActivities, activity) => {
-
-                    if (moment(activity.end_date).isSame(now, 'week')) {
+                    if (activity.end_date && moment(activity.end_date).isSame(now, 'week')) {
                         groupedActivities.thisWeek.push(activity);
-                    } else if (moment(activity.end_date).isSame(nextWeek, 'week')) {
+                    } else if (activity.end_date && moment(activity.end_date).isSame(nextWeek, 'week')) {
                         groupedActivities.nextWeek.push(activity);
                     } else {
                         groupedActivities.later.push(activity);
