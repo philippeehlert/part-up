@@ -56,7 +56,7 @@ import { PartupUnarchived } from 'components/Update/PartupUnarchived';
 import { PartupUpperAdded } from 'components/Update/PartupUpperAdded';
 import { Rated } from 'components/Update/Rated';
 import { SystemSupporterRemoved } from 'components/Update/SystemSupporterRemoved';
-import { Subscriber, trackCollection } from 'utils/Subscriber';
+import { Subscriber } from 'utils/Subscriber';
 import { Users, UserDocument } from 'collections/Users';
 import { Activities, ActivityDocument } from 'collections/Activities';
 import { Lanes, LaneDocument } from 'collections/Lanes';
@@ -64,6 +64,8 @@ import { Updates, UpdateDocument, ConversationUpdateDocument } from 'collections
 import { DropDown } from 'components/DropDown/DropDown';
 import { PartupAvatar } from 'components/Avatar/PartupAvatar';
 import { translate } from 'utils/translate';
+import { Tracker } from 'utils/Tracker';
+import { NewIndicator } from 'components/Indicator/NewIndicator';
 
 interface FetcherResponse {
     'cfs.images.filerecord': ImageDocument[];
@@ -74,13 +76,25 @@ interface FetcherResponse {
     updates: UpdateDocument[];
 }
 
-export class ConversationUpdates extends React.Component {
+interface Props {
+    onNewIndicatorClick?: Function;
+}
+
+interface State {
+    newConversationUpdates: number;
+}
+
+export class ConversationUpdates extends React.Component<Props, State> {
 
     public static contextTypes = {
         user: PropTypes.object,
     };
 
     public context: AppContext;
+
+    public state: State = {
+        newConversationUpdates: 0,
+    };
 
     private filters: {[key: string]: any} = {};
 
@@ -142,10 +156,36 @@ export class ConversationUpdates extends React.Component {
     private updatesCommentsSubscriber = new Subscriber({
         subscription: 'updates.comments_by_update_ids',
         onChange: () => this.forceUpdate(),
-        track: trackCollection('updates', (event) => {
-            // tslint:disable-next-line:no-console
-            console.log('NEW UPDATE', event);
-        }),
+    });
+
+    private updateTracker = new Tracker<UpdateDocument>({
+        collection: 'updates',
+        onChange: (event) => {
+            const { currentDocument, changedFields } = event;
+            const { newConversationUpdates } = this.state;
+
+            if (!currentDocument || !changedFields) return;
+
+            const {
+                comments_count: oldCount = 0,
+            } = currentDocument;
+            const {
+                comments_count: newCount = 0,
+                comments = [],
+            } = changedFields;
+
+            if (oldCount >= newCount) return;
+
+            const user = Users.findLoggedInUser();
+            const lastComment = comments.pop();
+
+            if (!lastComment || !user) return;
+            if (user._id === lastComment.creator._id) return;
+
+            this.setState({
+                newConversationUpdates: newConversationUpdates + 1,
+            });
+        },
     });
 
     public subscribeToUpdateComments = async () => {
@@ -161,6 +201,7 @@ export class ConversationUpdates extends React.Component {
 
     public componentWillUnmount() {
         this.conversationsFetcher.destroy();
+        this.updateTracker.destroy();
         this.partupsFetcher.destroy();
         this.updatesCommentsSubscriber.destroy();
     }
@@ -170,6 +211,7 @@ export class ConversationUpdates extends React.Component {
         const { data: partupsData } = this.partupsFetcher;
         const { conversationUpdates = [] } = data;
         const { partups = [] } = partupsData;
+        const { newConversationUpdates } = this.state;
 
         const partupOptions = this.getPartupOptions(partups);
 
@@ -212,6 +254,12 @@ export class ConversationUpdates extends React.Component {
                     </FillInTheBlanks>
                 </FilteredListControls>
                 <FilteredListItems>
+                    { newConversationUpdates > 0 && (
+                        <NewIndicator
+                            onClick={this.onNewIndicatorClick}>
+                            { `Er zijn ${newConversationUpdates} nieuwe updates` }
+                        </NewIndicator>
+                    ) }
                     { loading && !conversationUpdates.length && (
                         <Spinner />
                     ) }
@@ -245,7 +293,19 @@ export class ConversationUpdates extends React.Component {
         );
     }
 
-    private filterBy(type: 'filterByAll' | 'filterByPartner'| 'filterBySupporter') {
+    private onNewIndicatorClick = (event: React.SyntheticEvent<any>) => {
+        const { onNewIndicatorClick } = this.props;
+
+        this.setState({
+            newConversationUpdates: 0,
+        });
+
+        this.conversationsFetcher.fetch();
+
+        if (onNewIndicatorClick) onNewIndicatorClick(event);
+    }
+
+    private filterBy(type: 'filterByAll' | 'filterByPartner' | 'filterBySupporter') {
         this.skip = 0;
         this.fetchedAll = false;
 
