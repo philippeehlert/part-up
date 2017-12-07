@@ -100,7 +100,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                                 moment(activity.end_date).format('D MMMM YYYY')
                             ) : ('Geen datum')}
                         </time>
-                        {` | `}
+                        <span className={`pur-ActivityTile__seperator`}>{` | `}</span>
                         <Link
                             to={`/partups/${partupSlug}`}
                             target={`_partup`}
