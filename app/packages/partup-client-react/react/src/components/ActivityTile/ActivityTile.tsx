@@ -183,7 +183,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                     </ModalPortal>
                 )}
             />
-        )
+        );
     }
 
     private archiveActivity = () => {
