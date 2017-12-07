@@ -192,12 +192,12 @@ export class ActivitiesView extends React.Component<Props> {
                         <Blank label={translate('pur-dashboard-activities-filter_by_archived_label')}>
                             <Select options={[
                                 {
-                                    label: translate('pur-dashboard-activities-filter_by_archived'),
+                                    label: translate('pur-dashboard-activities-filter_by_active'),
                                     value: 'filterByActive',
                                     onChange: this.filterBy('filterByActive'),
                                 },
                                 {
-                                    label: translate('pur-dashboard-activities-filter_by_unarchived'),
+                                    label: translate('pur-dashboard-activities-filter_by_archived'),
                                     value: 'filterByArchived',
                                     onChange: this.filterBy('filterByArchived'),
                                 },
