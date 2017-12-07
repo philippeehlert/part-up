@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as moment from 'moment';
 import { Meteor, onLogin, onLoginFailure } from 'utils/Meteor';
 import { Subscriber } from 'utils/Subscriber';
 import {
@@ -15,6 +16,7 @@ import { NotificationsManager } from 'components/NotificationsManager/Notificati
 import { Dashboard } from 'views/Dashboard/Dashboard';
 import { Home } from 'views/Home/Home';
 import { UserDocument } from 'collections/Users';
+import { get } from 'lodash';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -98,12 +100,22 @@ export class App extends React.Component<Props, State> {
         await this.userSubscription.subscribe();
         this.refetchUser();
 
-        onLogin(() => {
+        onLogin(async () => {
             this.setState({ loginFailed: false });
             this.refetchUser();
+            const user = Meteor.user();
+
+            const locale = get(user, 'profile.settings.locale') || 'en';
+
+            if (locale !== 'en') {
+                await import(`moment/locale/${locale}`);
+            }
+
+            moment.locale(locale);
+
             success({
                 title: 'Login success',
-                content: `Successfully logged in as ${Meteor.user().profile.name}`,
+                content: `Successfully logged in as ${user.profile.name}`,
             });
         });
 
