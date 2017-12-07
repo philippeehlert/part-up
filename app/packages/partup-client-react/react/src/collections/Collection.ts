@@ -5,46 +5,48 @@ export interface CollectionProps {
     collection: string;
 }
 
+export type CollectionDocumentId = string;
+
 export interface CollectionDocument {
-    _id: string;
+    _id: CollectionDocumentId;
 }
 
-interface MergedDocument<D> {
-    __document: D;
-    __staticDocument: D;
+interface MergedDocument<CD> {
+    __document: CD;
+    __staticDocument: CD;
 }
 
-export abstract class Collection<Document extends CollectionDocument> {
+export abstract class Collection<CD extends CollectionDocument> {
 
     private collection: MeteorCollection;
-    private statics: Document[] = [];
+    private statics: CD[] = [];
 
     constructor({ collection }: CollectionProps) {
         this.collection = Meteor.collection(collection);
     }
 
-    public find = (selector: Object = {}, options: Object = {}): Document[] => {
-        return this.collection.find(selector, options) as Document[];
+    public find = (selector: Object = {}, options: Object = {}): CD[] => {
+        return this.collection.find(selector, options) as CD[];
     }
 
-    public findOne = (selector: Object = {}, options: Object = {}): Document | undefined => {
-        return (this.find(selector, options) || []).pop() as Document | undefined;
+    public findOne = (selector: Object = {}, options: Object = {}): CD | undefined => {
+        return (this.find(selector, options) || []).pop() as CD | undefined;
     }
 
     // uses _.matches so it can only be used with a selector
-    public findStatic = (selector?: Object): Document[] => {
+    public findStatic = (selector?: Object): CD[] => {
         if (!selector) return this.statics;
 
-        return filter(this.statics, matches(selector)) as Document[];
+        return filter(this.statics, matches(selector)) as CD[];
     }
 
     // uses _.matches so it can only be used with a selector
-    public findOneStatic = (selector: Object = {}): Document | undefined => {
-        return find(this.statics, matches(selector)) as Document | undefined;
+    public findOneStatic = (selector: Object = {}): CD | undefined => {
+        return find(this.statics, matches(selector)) as CD | undefined;
     }
 
     public findOneAny = (selector: Object = {}, options: Object = {}, preferStatic: Boolean = false):
-        Document & MergedDocument<Document> | undefined => {
+        CD & MergedDocument<CD> | undefined => {
 
         const document = this.findOne(selector, options);
         const staticDocument = this.findOneStatic(selector);
@@ -58,7 +60,7 @@ export abstract class Collection<Document extends CollectionDocument> {
                 ...(staticDocument || {}),
                 __document: document,
                 __staticDocument: staticDocument,
-            } as Document & MergedDocument<Document>;
+            } as CD & MergedDocument<CD>;
         }
 
         return {
@@ -66,10 +68,10 @@ export abstract class Collection<Document extends CollectionDocument> {
             ...(document || {}),
             __document: document,
             __staticDocument: staticDocument,
-        } as Document & MergedDocument<Document>;
+        } as CD & MergedDocument<CD>;
     }
 
-    public updateStatics = (newStatics: Document[]): void => {
+    public updateStatics = (newStatics: CD[]): void => {
         this.statics = uniqBy([
             ...this.statics,
             ...newStatics,

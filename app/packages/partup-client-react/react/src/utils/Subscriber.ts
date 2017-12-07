@@ -1,7 +1,7 @@
 import { Meteor } from 'utils/Meteor';
-import { defer, filter } from 'lodash';
+import { defer } from 'lodash';
 
-interface DDPEvent {
+interface SubscriberDDPEvent {
     id: string;
     collection: string;
     msg: string;
@@ -13,27 +13,10 @@ interface DDPEvent {
     };
 }
 
-interface CollectionChangeEvent {
-    collection: string;
-    _id: string;
-    fields?: {
-        [param: string]: any;
-    };
-}
-
-type CollectionTrackerHandler = (event: CollectionChangeEvent) => void;
-
-interface CollectionTracker {
-    name: string;
-    handler: CollectionTrackerHandler;
-}
-type CollectionTrackerCreator = (collection: string, handler: CollectionTrackerHandler) => CollectionTracker;
-
 interface SubscriberOptions {
     subscription: string;
     onChange?: Function;
     onAdd?: Function;
-    track?: Array<CollectionTracker> | CollectionTracker;
 }
 
 interface Subscription {
@@ -41,13 +24,6 @@ interface Subscription {
     ready: Function;
     stop: Function;
 }
-
-export const trackCollection: CollectionTrackerCreator = (name, callback) => {
-    return {
-        name,
-        handler: callback,
-    };
-};
 
 export class Subscriber {
 
@@ -57,13 +33,10 @@ export class Subscriber {
 
     private changeTracker: any = undefined;
 
-    private trackers: Array<CollectionTracker> = [];
-
-    constructor({ subscription, onChange, onAdd, track }: SubscriberOptions) {
+    constructor({ subscription, onChange, onAdd }: SubscriberOptions) {
         this.subscription = subscription;
         this.onChange = onChange || this.onChange;
         this.onAdd = onAdd || this.onAdd;
-        if (track) this.attachTrackers(track);
     }
 
     public subscribe = (...parameters: any[]): Promise<void> => {
@@ -98,32 +71,10 @@ export class Subscriber {
         };
     }
 
-    private onDataChange = (event: DDPEvent): void => {
+    private onDataChange = (event: SubscriberDDPEvent): void => {
         defer(() => {
             this.onChange(event);
-            this.triggerTrackers(event);
         });
-    }
-
-    private attachTrackers = (track: Array<CollectionTracker> | CollectionTracker): void => {
-        if (Array.isArray(track)) {
-            track.forEach((tracker) => {
-                this.attachTracker(tracker);
-            });
-        } else {
-            this.attachTracker(track);
-        }
-    }
-
-    private attachTracker = (tracker: CollectionTracker): void => {
-        this.trackers.push(tracker);
-    }
-
-    private triggerTrackers = (event: DDPEvent): void => {
-        const { collection, id: _id, fields } = event;
-
-        const triggers = filter(this.trackers, { name: collection });
-        triggers.forEach((tracker) => tracker.handler({ _id, collection, fields }));
     }
 
     private track = (subscription: Subscription): void => {
