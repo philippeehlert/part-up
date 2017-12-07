@@ -51,7 +51,14 @@ export class ActivityTile extends React.Component<Props, {}> {
         const partupSlug = Partups.getSlugById(activity.partup_id);
 
         const menuLinks = [
-            <Link key={2} leftChild={<Icon name={'person-plus'} />}>Ik nodig iemand uit</Link>,
+            <Link
+                key={2}
+                to={`/partups/${partupSlug}/invite-for-activity/${activity._id}`}
+                target={`_partup`}
+                leftChild={<Icon name={'person-plus'} />}
+            >
+                Ik nodig iemand uit
+            </Link>,
         ];
 
         if (this.isUpper) {
