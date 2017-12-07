@@ -47,13 +47,17 @@ Meteor.routeComposite('/activities/me', function(request, parameters) {
 
     const userId = parameters.query.userId || this.userId;
     const archived = parameters.query && parameters.query.filterByArchived === 'true';
-    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1 } });
 
     const options = {};
     options.limit = parseInt(lodash.get(parameters, 'query.limit')) || 25;
     options.skip = parseInt(lodash.get(parameters, 'query.skip')) || 0;
 
-    const partupsCursor = Partups.findPartupsIdsForUser(user, {fields: { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 }}, userId);
+    const partupsCursor = Partups.find({
+        _id: { $in: user.upperOf },
+    }, {
+        fields: { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 },
+    });
     const partupIds = partupsCursor.map(({_id}) => _id);
 
     // Get contributions that
