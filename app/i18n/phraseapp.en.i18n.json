@@ -1886,5 +1886,51 @@
   "widgetcommentfield-comment-totalcomments": "__count__ comment",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
   "widgetcommentfield-comment-viewall-button": "View all %s comments",
-  "pur-dashboard-conversations-button-new-message": "New message - test"
+
+  "pur-dashboard-conversations-button-new-message": "New message",
+  "pur-dashboard-conversations-new_conversation_modal-title" : "Submit a new message",
+  "pur-dashboard-conversations-new_conversation_modal-cancel_button" : "Cancel",
+  "pur-dashboard-conversations-new_conversation_modal-submit_button" : "Submit",
+  "pur-dashboard-conversations-filter_by_partup_type_label": "Show updates as",
+  "pur-dashboard-conversations-filter_all_type_label": "All",
+  "pur-dashboard-conversations-filter_partner_type_label": "Partner",
+  "pur-dashboard-conversations-filter_supporter_type_label": "Supporter",
+  "pur-dashboard-conversations-filter_blank_seperator": "from",
+  "pur-dashboard-conversations-filter_all_partups_label": "All Partups",
+
+  "pur-dashboard-update_tile-comment_count": "__comments_count__ comments",
+  "pur-dashboard-update_tile-comment": "comment",
+  "pur-dashboard-update_tile-motivation_prefix": "'s motivation is:",
+
+  "pur-dashboard-comment_box-comment_placeholder": "Write a comment",
+  "pur-dashboard-comment_box-comment_comment": "comment",
+  "pur-dashboard-comment-edit": "edit",
+  "pur-dashboard-comment-remove": "remove",
+  "pur-dashboard-comment-at_time_marker": "at",
+
+  "pur-dashboard-activities-button-new-activity": "New activity",  
+  "pur-dashboard-activities-new_conversation_modal-title" : "Add a new activity",
+  "pur-dashboard-activities-new_conversation_modal-cancel_button" : "Cancel",
+  "pur-dashboard-activities-new_conversation_modal-submit_button" : "Add",
+  "pur-dashboard-activities-filter_by_archived_label": "Show",
+  "pur-dashboard-activities-filter_by_archived": "Archived",
+  "pur-dashboard-activities-filter_by_unarchived": "Unarchived",
+  "pur-dashboard-activities-this_week": "This week",
+  "pur-dashboard-activities-next_week": "Next week",
+  "pur-dashboard-activities-later": "Later",
+
+  "pur-dashboard-activity_tile-link-comment": "Comment",
+  "pur-dashboard-activity_tile-link-invite": "Invite someone",
+  "pur-dashboard-activity_tile-link-archive": "Archive activity",
+  "pur-dashboard-activity_tile-link-unarchive": "Unarchive activity",
+  "pur-dashboard-activity_tile-link-edit": "Edit activity",
+  "pur-dashboard-activity_tile-edit_modal-title": "Edit __activity__",
+  "pur-dashboard-activity_tile-edit_modal-cancel_button": "cancel",
+  "pur-dashboard-activity_tile-edit_modal-submit_button": "Edit",
+  "pur-dashboard-activity_tile-no-date": "No date",
+
+  "pur-dashboard-side-bar-conversations": "Conversations",
+  "pur-dashboard-side-bar-activities": "My activities",
+  "pur-dashboard-side-bar-invites": "My invites",
+  "pur-dashboard-side-bar-recommendations": "Recommended for you"
 }

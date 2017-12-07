@@ -11,6 +11,7 @@ import { CommentText } from 'components/TextRenderer/CommentText';
 import { CommentBox } from 'components/Comment/CommentBox';
 import { Users } from 'collections/Users';
 import { Fragment } from 'react';
+import { translate } from 'utils/translate';
 
 interface Props {
     comment: CommentType;
@@ -91,14 +92,14 @@ export class Comment extends React.Component<Props, State> {
 
         return (
             <time className={`pur-Comment__postedAt`}>
-                { moment(comment.created_at).format('ddd, MMMM [om] h:mm') }
+                { moment(comment.created_at).format(`ddd, MMMM [${translate('pur-dashboard-comment-at_time_marker')}] h:mm`) }
                 { this.commentIsLiggedInUserComment() && (
                     <Fragment>
                         {` - `}
                         <span
                             className={`pur-Comment__postedAt__remove`}
                             onClick={this.onRemove}>
-                            remove
+                            {translate('pur-dashboard-comment-remove')}
                         </span>
                     </Fragment>
                  ) }

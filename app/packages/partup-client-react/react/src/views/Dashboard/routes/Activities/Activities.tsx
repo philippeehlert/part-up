@@ -32,6 +32,7 @@ import { Input } from 'components/Form/Input';
 import { ModalFooter } from 'components/Modal/ModalFooter';
 import { List } from 'components/List/List';
 import { ListItem } from 'components/List/ListItem';
+import { translate } from 'utils/translate';
 
 interface Props extends RouteComponentProps<any> {
     //
@@ -143,7 +144,7 @@ export class ActivitiesView extends React.Component<Props> {
                         <Button
                             onClick={open}
                             leftChild={<Icon name={'chart'} />}>
-                            Nieuwe activiteit
+                            {translate('pur-dashboard-activities-button-new-activity')}
                         </Button>
                     )}
                     renderPortal={(close) => (
@@ -156,7 +157,7 @@ export class ActivitiesView extends React.Component<Props> {
                                 <ModalWindow>
                                     <ModalHeader
                                         onClose={close}
-                                        title={'Plaats een nieuw bericht'} />
+                                        title={translate('pur-dashboard-activities-new_conversation_modal-title')} />
                                     <ModalContent>
                                         <FieldCollection>
                                             <FieldSet>
@@ -169,10 +170,14 @@ export class ActivitiesView extends React.Component<Props> {
                                     <ModalFooter>
                                         <List horizontal>
                                             <ListItem alignRight>
-                                                <Button type={'button'} onClick={close}>Annuleren</Button>
+                                                <Button type={'button'} onClick={close}>
+                                                    {translate('pur-dashboard-activities-new_conversation_modal-cancel_button')}
+                                                </Button>
                                             </ListItem>
                                             <ListItem alignRight>
-                                                <Button type={'submit'}>Plaats bericht</Button>
+                                                <Button type={'submit'}>
+                                                    {translate('pur-dashboard-activities-new_conversation_modal-submit_button')}
+                                                </Button>
                                             </ListItem>
                                         </List>
                                     </ModalFooter>
@@ -184,10 +189,18 @@ export class ActivitiesView extends React.Component<Props> {
 
                 <FilteredList>
                     <FilteredListControls>
-                        <Blank label={'Toon'}>
+                        <Blank label={translate('pur-dashboard-activities-filter_by_archived_label')}>
                             <Select options={[
-                                { label: 'Actief', value: 'filterByActive', onChange: this.filterBy('filterByActive') },
-                                { label: 'Gearchiveerd', value: 'filterByArchived', onChange: this.filterBy('filterByArchived') },
+                                {
+                                    label: translate('pur-dashboard-activities-filter_by_archived'),
+                                    value: 'filterByActive',
+                                    onChange: this.filterBy('filterByActive'),
+                                },
+                                {
+                                    label: translate('pur-dashboard-activities-filter_by_unarchived'),
+                                    value: 'filterByArchived',
+                                    onChange: this.filterBy('filterByArchived'),
+                                },
                             ]} />
                         </Blank>
                     </FilteredListControls>
@@ -196,13 +209,13 @@ export class ActivitiesView extends React.Component<Props> {
                             <Spinner />
                         ) : (
                             <InfiniteScroll loadMore={this.loadMore}>
-                                <FilteredListSection title={`This week`}>
+                                <FilteredListSection title={translate(`pur-dashboard-activities-this_week`)}>
                                     { groupedActivities.thisWeek.map(renderActivity) }
                                 </FilteredListSection>
-                                <FilteredListSection title={`Next week`}>
+                                <FilteredListSection title={translate(`pur-dashboard-activities-next_week`)}>
                                     { groupedActivities.nextWeek.map(renderActivity) }
                                 </FilteredListSection>
-                                <FilteredListSection title={`Later`}>
+                                <FilteredListSection title={translate(`pur-dashboard-activities-later`)}>
                                     { groupedActivities.later.map(renderActivity) }
                                 </FilteredListSection>
                             </InfiniteScroll>

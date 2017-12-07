@@ -10,6 +10,7 @@ import { CommentBox } from 'components/Comment/CommentBox';
 import { Meteor } from 'utils/Meteor';
 import { Users } from 'collections/Users';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
+import { translate } from 'utils/translate';
 
 interface Props {
     className?: string;
@@ -48,14 +49,14 @@ export class UpdateTileComments extends React.Component<Props, State> {
                         className={`pur-UpdateTileComments__control-reactions`}
                         onClick={this.toggleAllComments}
                     >
-                        { comments_count } reactie
+                        {translate('pur-dashboard-update_tile-comment_count', { comments_count })}
                     </Clickable>
                     {` • `}
                     <Clickable
                         className={`pur-UpdateTileComments__control-respond-link`}
                         onClick={this.handleCommentClick}
                     >
-                        Reageren
+                        {translate('pur-dashboard-update_tile-comment')}
                     </Clickable>
                 </div>
 
@@ -88,7 +89,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
             .filter(({ type }) => type !== 'system')
             .map((comment: any) => {
                 if (comment.type === 'motivation') {
-                    return <Comment prefix={`'s motivation is:`} key={comment._id} comment={comment} />;
+                    return <Comment prefix={translate('pur-dashboard-update_tile-motivation_prefix')} key={comment._id} comment={comment} />;
                 }
 
                 return (

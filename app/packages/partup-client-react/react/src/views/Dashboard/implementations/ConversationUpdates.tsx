@@ -63,6 +63,7 @@ import { Lanes, LaneDocument } from 'collections/Lanes';
 import { Updates, UpdateDocument, ConversationUpdateDocument } from 'collections/Updates';
 import { DropDown } from 'components/DropDown/DropDown';
 import { PartupAvatar } from 'components/Avatar/PartupAvatar';
+import { translate } from 'utils/translate';
 
 interface FetcherResponse {
     'cfs.images.filerecord': ImageDocument[];
@@ -176,17 +177,33 @@ export class ConversationUpdates extends React.Component {
             <FilteredList>
                 <FilteredListControls>
                     <FillInTheBlanks>
-                        <Blank label={'Toon updates als'}>
+                        <Blank label={translate('pur-dashboard-conversations-filter_by_partup_type_label')}>
                             <Select options={[
-                                { label: 'Alle', value: 'filterByAll', onChange: () => this.filterBy('filterByAll') },
-                                { label: 'Partner', value: 'filterByPartner', onChange: () => this.filterBy('filterByPartner') },
-                                { label: 'Supporter', value: 'filterBySupporter', onChange: () => this.filterBy('filterBySupporter') },
+                                {
+                                    label: translate('pur-dashboard-conversations-filter_all_type_label'),
+                                    value: 'filterByAll',
+                                    onChange: () => this.filterBy('filterByAll'),
+                                },
+                                {
+                                    label: translate('pur-dashboard-conversations-filter_partner_type_label'),
+                                    value: 'filterByPartner',
+                                    onChange: () => this.filterBy('filterByPartner'),
+                                },
+                                {
+                                    label: translate('pur-dashboard-conversations-filter_supporter_type_label'),
+                                    value: 'filterBySupporter',
+                                    onChange: () => this.filterBy('filterBySupporter'),
+                                },
                             ]} />
                         </Blank>
-                        <Blank label={'van'}>
+                        <Blank label={translate('pur-dashboard-conversations-filter_blank_seperator')}>
                             <DropDown
                                 options={[
-                                    { label: 'Alle partups', value: 'all', isActive: true },
+                                    { label:
+                                        translate('pur-dashboard-conversations-filter_all_partups_label'),
+                                        value: 'all',
+                                        isActive: true,
+                                    },
                                     ...partupOptions,
                                 ]}
                                 onChange={(option) => this.filterByPartup(option.value)}
@@ -375,44 +392,45 @@ export class ConversationUpdates extends React.Component {
     private renderUpdateTitle({ type, type_data }: {type: string, type_data: {[key: string]: any}}, upperName: string) {
 
         const map = {
-            changed_region:                       (postee: any) => `${postee} changed the part-up location`,
-            network_private:                      (postee: any) => `${postee} made this part-up visible for invited uppers only`,
-            network_public:                       (postee: any) => `${postee} made this part-up visible for everyone`,
-            partups_activities_added:             (postee: any) => `${postee} added an activity`,
-            partups_activities_archived:          (postee: any) => `${postee} archived an activity`,
-            partups_activities_changed:           (postee: any) => `${postee} changed an activity`,
-            partups_activities_comments_added:    (postee: any) => `${postee} commented on an activity`,
-            partups_activities_removed:           (postee: any) => `${postee} removed an activity`,
-            partups_activities_unarchived:        (postee: any) => `${postee} reactivated an activity`,
-            partups_archived:                     (postee: any) => `${postee} archived the part-up`,
-            partups_budget_changed:               (postee: any) => `${postee} changed the budget`,
-            partups_comments_added:               (postee: any) => `${postee} commented`,
-            partups_contributions_accepted:       (postee: any) => `${postee} accepted a contribution to '__activity__'`,
-            partups_contributions_added:          (postee: any) => `${postee} will work on '__activity__'`,
-            partups_contributions_changed:        (postee: any) => `${postee} changed a contribution to '__activity__'`,
-            partups_contributions_comments_added: (postee: any) => `${postee} commented on a contribution`,
-            partups_contributions_proposed:       (postee: any) => `${postee} proposed to contribute to '__activity__'`,
-            partups_contributions_removed:        (postee: any) => `${postee} removed a contribution from '__activity__'`,
-            partups_created:                      (postee: any) => `${postee} created the part-up`,
-            partups_description_changed:          (postee: any) => `${postee} changed the part-up description`,
-            partups_end_date_changed:             (postee: any) => `${postee} changed the end date`,
-            partups_image_changed:                (postee: any) => `${postee} changed the part-up picture`,
-            partups_invited:                      (postee: any) => `${postee} invited __invitee_names__ for this part-up`,
-            partups_location_changed:             (postee: any) => `${postee} changed the part-up region`,
-            partups_message_added:                (postee: any) => `${postee} added a message`,
-            partups_name_changed:                 (postee: any) => `${postee} changed the part-up title`,
-            partups_partner_rejected:             (postee: any) => `${postee} was declined as partner in this part-up`,
-            partups_partner_request:              (postee: any) => `${postee} wants to become partner in this part-up`,
-            partups_ratings_changed:              (postee: any) => `${postee} changed the rating for __contributor__ on '__activity__'`,
-            partups_ratings_inserted:             (postee: any) => `${postee} rated the contribution of __contributor__ on '__activity__'`,
-            partups_supporters_added:             (postee: any) => `${postee} is supporter now`,
-            partups_tags_added:                   (postee: any) => `${postee} added a label`,
-            partups_tags_changed:                 (postee: any) => `${postee} changed a label`,
-            partups_tags_removed:                 (postee: any) => `${postee} removed a label`,
-            partups_unarchived:                   (postee: any) => `${postee} reactivated the part-up`,
-            partups_uppers_added:                 (postee: any) => `${postee} is partner in this part-up now`,
-            rated:                                (postee: any) => `${postee} rated __contributor__ on '__activity__'`,
-            system_supporters_removed:            (postee: any) => `${postee} is not a supporter anymore`,
+            changed_region:                       (postee: any) => translate('update-type-changed_region-title', { name: postee }),
+            network_private:                      (postee: any) => translate('update-type-network_private-title', { name: postee }),
+            network_public:                       (postee: any) => translate('update-type-network_public-title', { name: postee }),
+            partups_activities_added:             (postee: any) => translate('update-type-partups_activities_added-title', { name: postee }),
+            partups_activities_archived:          (postee: any) => translate('update-type-partups_activities_archived-title', { name: postee }),
+            partups_activities_changed:           (postee: any) => translate('update-type-partups_activities_changed-title', { name: postee }),
+            partups_activities_comments_added:    (postee: any) => translate('update-type-partups_activities_comments_added-title', { name: postee }),
+            partups_activities_removed:           (postee: any) => translate('update-type-partups_activities_removed-title', { name: postee }),
+            partups_activities_unarchived:        (postee: any) => translate('update-type-partups_activities_unarchived-title', { name: postee }),
+            partups_archived:                     (postee: any) => translate('update-type-partups_archived-title', { name: postee }),
+            partups_budget_changed:               (postee: any) => translate('update-type-partups_budget_changed-title', { name: postee }),
+            partups_comments_added:               (postee: any) => translate('update-type-partups_comments_added-title', { name: postee }),
+            partups_contributions_accepted:       (postee: any) => translate('update-type-partups_contributions_accepted-title', { name: postee }),
+            partups_contributions_added:          (postee: any) => translate('update-type-partups_contributions_added-title', { name: postee }),
+            partups_contributions_changed:        (postee: any) => translate('update-type-partups_contributions_changed-title', { name: postee }),
+            // tslint:disable-next-line
+            partups_contributions_comments_added: (postee: any) => translate('update-type-partups_contributions_comments_added-title', { name: postee }),
+            partups_contributions_proposed:       (postee: any) => translate('update-type-partups_contributions_proposed-title', { name: postee }),
+            partups_contributions_removed:        (postee: any) => translate('update-type-partups_contributions_removed-title', { name: postee }),
+            partups_created:                      (postee: any) => translate('update-type-partups_created-title', { name: postee }),
+            partups_description_changed:          (postee: any) => translate('update-type-partups_description_changed-title', { name: postee }),
+            partups_end_date_changed:             (postee: any) => translate('update-type-partups_end_date_changed-title', { name: postee }),
+            partups_image_changed:                (postee: any) => translate('update-type-partups_image_changed-title', { name: postee }),
+            partups_invited:                      (postee: any) => translate('update-type-partups_invited-title', { name: postee }),
+            partups_location_changed:             (postee: any) => translate('update-type-partups_location_changed-title', { name: postee }),
+            partups_message_added:                (postee: any) => translate('update-type-partups_message_added-title', { name: postee }),
+            partups_name_changed:                 (postee: any) => translate('update-type-partups_name_changed-title', { name: postee }),
+            partups_partner_rejected:             (postee: any) => translate('update-type-partups_partner_rejected-title', { name: postee }),
+            partups_partner_request:              (postee: any) => translate('update-type-partups_partner_request-title', { name: postee }),
+            partups_ratings_changed:              (postee: any) => translate('update-type-partups_ratings_changed-title', { name: postee }),
+            partups_ratings_inserted:             (postee: any) => translate('update-type-partups_ratings_inserted-title', { name: postee }),
+            partups_supporters_added:             (postee: any) => translate('update-type-partups_supporters_added-title', { name: postee }),
+            partups_tags_added:                   (postee: any) => translate('update-type-partups_tags_added-title', { name: postee }),
+            partups_tags_changed:                 (postee: any) => translate('update-type-partups_tags_changed-title', { name: postee }),
+            partups_tags_removed:                 (postee: any) => translate('update-type-partups_tags_removed-title', { name: postee }),
+            partups_unarchived:                   (postee: any) => translate('update-type-partups_unarchived-title', { name: postee }),
+            partups_uppers_added:                 (postee: any) => translate('update-type-partups_uppers_added-title', { name: postee }),
+            rated:                                (postee: any) => translate('update-type-rated-title', { name: postee }),
+            system_supporters_removed:            (postee: any) => translate('update-type-system_supporters_removed-title', { name: postee }),
         };
 
         return map[type](upperName, type_data);

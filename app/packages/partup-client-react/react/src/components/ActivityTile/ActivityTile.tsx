@@ -28,6 +28,7 @@ import { ModalFooter } from 'components/Modal/ModalFooter';
 import { List } from 'components/List/List';
 import { ListItem } from 'components/List/ListItem';
 import { Button } from 'components/Button/Button';
+import { translate } from 'utils/translate';
 
 interface Props {
     className?: string;
@@ -68,7 +69,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                 target={`_partup`}
                 leftChild={<Icon name={'chat'} />}
             >
-                Reageer
+                {translate('pur-dashboard-activity_tile-link-comment')}
             </Link>,
             this.renderEditModalLink(),
             <Link
@@ -77,7 +78,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                 target={`_partup`}
                 leftChild={<Icon name={'person-plus'} />}
             >
-                Ik nodig iemand uit
+                {translate('pur-dashboard-activity_tile-link-invite')}
             </Link>,
             !activity.archived ? (
                 <Link
@@ -85,7 +86,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                     leftChild={<Icon name={'archive'} />}
                     onClick={this.archiveActivity}
                 >
-                    Archiveer activiteit
+                    {translate('pur-dashboard-activity_tile-link-archive')}
                 </Link>
             ) : (
                 <Link
@@ -93,7 +94,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                     leftChild={<Icon name={'archive'} />}
                     onClick={this.unarchiveActivity}
                 >
-                    Onarchiveer activiteit
+                    {translate('pur-dashboard-activity_tile-link-unarchive')}
                 </Link>
             ),
         ];
@@ -112,7 +113,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                         <time className={`pur-ActivityTile__timestamp`}>
                             { activity.end_date ? (
                                 moment(activity.end_date).format('D MMMM YYYY')
-                            ) : ('Geen datum')}
+                            ) : (translate('pur-dashboard-activity_tile-no-date'))}
                         </time>
                         <span className={`pur-ActivityTile__seperator`}>{` | `}</span>
                         <Link
@@ -145,7 +146,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                         leftChild={<Icon name={'pencil'} />}
                         onClick={open}
                     >
-                        Wijzig activiteit
+                        {translate('pur-dashboard-activity_tile-link-edit')}
                     </Link>
                 )}
                 renderPortal={(close) => (
@@ -158,7 +159,7 @@ export class ActivityTile extends React.Component<Props, {}> {
                             <ModalWindow>
                                 <ModalHeader
                                     onClose={close}
-                                    title={`${activity.name} bewerken`} />
+                                    title={translate('pur-dashboard-activity_tile-edit_modal-title', { activity: activity.name })} />
                                 <ModalContent>
                                     <FieldCollection>
                                         <FieldSet>
@@ -171,10 +172,14 @@ export class ActivityTile extends React.Component<Props, {}> {
                                 <ModalFooter>
                                     <List horizontal>
                                         <ListItem alignRight>
-                                            <Button type={'button'} onClick={close}>Annuleren</Button>
+                                            <Button type={'button'} onClick={close}>
+                                                {translate('pur-dashboard-activity_tile-edit_modal-cancel_button')}
+                                            </Button>
                                         </ListItem>
                                         <ListItem alignRight>
-                                            <Button type={'submit'}>Plaats bericht</Button>
+                                            <Button type={'submit'}>
+                                                {translate('pur-dashboard-activity_tile-edit_modal-submit_button')}
+                                            </Button>
                                         </ListItem>
                                     </List>
                                 </ModalFooter>

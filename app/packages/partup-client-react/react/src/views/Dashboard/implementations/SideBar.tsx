@@ -12,6 +12,7 @@ import { MenuLink } from 'components/Router/MenuLink';
 import { Icon } from 'components/Icon/Icon';
 import { Counter } from 'components/Counter/Counter';
 import { ListItem } from 'components/List/ListItem';
+import { translate } from 'utils/translate';
 
 interface Props {
     className?: string;
@@ -113,25 +114,25 @@ export class SideBar extends React.Component<Props> {
                 to: `${baseUrl}`,
                 icon: <Icon name={'message'} />,
                 counter: <Counter count={25} />,
-                label: `Gesprekken`,
+                label: translate('pur-dashboard-side-bar-conversations'),
             },
             {
                 to: `${baseUrl}/activities`,
                 icon: <Icon name={'chart'} />,
                 counter: <Counter count={4} />,
-                label: `Mijn activiteiten`,
+                label: translate('pur-dashboard-side-bar-activities'),
             },
             {
                 to: `${baseUrl}/invites`,
                 icon: <Icon name={'person-plus'} />,
                 counter: <Counter count={5} />,
-                label:  `Mijn uitnodigingen`,
+                label: translate('pur-dashboard-side-bar-invites'),
             },
             {
                 to: `${baseUrl}/recommendations`,
                 icon: <Icon name={'recommended'} />,
                 counter: <Counter count={3} />,
-                label:  `Aanbevolen voor jou`,
+                label: translate('pur-dashboard-side-bar-recommendations'),
             },
         ];
     }

@@ -16,9 +16,9 @@
     <script>
         ;(async () => {
             try {
-                const enRes = await fetch('en-translation.json');
+                const enRes = await fetch('/en-translation.json');
                 const enJson = await enRes.json();
-                const nlRes = await fetch('nl-translation.json');
+                const nlRes = await fetch('/nl-translation.json');
                 const nlJson = await nlRes.json();
 
                 i18next.init({

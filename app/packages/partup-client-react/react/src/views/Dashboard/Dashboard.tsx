@@ -75,7 +75,7 @@ export class Dashboard extends React.Component<Props, {}> {
                                 <ModalWindow>
                                     <ModalHeader
                                         onClose={close}
-                                        title={'Plaats een nieuw bericht'} />
+                                        title={translate('pur-dashboard-conversations-new_conversation_modal-title')} />
                                     <ModalContent>
                                         <FieldCollection>
                                             <FieldSet>
@@ -88,10 +88,14 @@ export class Dashboard extends React.Component<Props, {}> {
                                     <ModalFooter>
                                         <List horizontal>
                                             <ListItem alignRight>
-                                                <Button type={'button'} onClick={close}>Annuleren</Button>
+                                                <Button type={'button'} onClick={close}>
+                                                    {translate('pur-dashboard-conversations-new_conversation_modal-cancel_button')}
+                                                </Button>
                                             </ListItem>
                                             <ListItem alignRight>
-                                                <Button type={'submit'}>Plaats bericht</Button>
+                                                <Button type={'submit'}>
+                                                    {translate('pur-dashboard-conversations-new_conversation_modal-submit_button')}
+                                                </Button>
                                             </ListItem>
                                         </List>
                                     </ModalFooter>

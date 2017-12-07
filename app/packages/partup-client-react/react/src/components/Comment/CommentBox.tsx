@@ -5,6 +5,7 @@ import * as c from 'classnames';
 import { Input } from 'components/Form/Input';
 import { Button } from 'components/Button/Button';
 import { Form } from 'components/Form/Form';
+import { translate } from 'utils/translate';
 
 interface Props {
     className?: string;
@@ -45,14 +46,14 @@ export class CommentBox extends React.Component<Props, State> {
                     type={`text`}
                     name={`comment`}
                     ref={el => this.inputElement = el}
-                    placeholder={`Schrijf een reactie`}
+                    placeholder={translate('pur-dashboard-comment_box-comment_placeholder')}
                     onFocus={this.showSendButton}
                     defaultValue={defaultValue}
                     autoFocus={autoFocus}
                 />
                 {this.state.showSendButton && (
                     <Button type={`submit`} className={`pur-CommentBox__submit-button`}>
-                        Reageer
+                        {translate('pur-dashboard-comment_box-comment_comment')}
                     </Button>
                 )}
             </Form>
