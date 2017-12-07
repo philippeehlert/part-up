@@ -52,7 +52,15 @@ export class ActivityTile extends React.Component<Props, {}> {
 
         const menuLinks = [
             <Link
-                key={2}
+                key={1}
+                to={`/partups/${partupSlug}/updates/${activity.update_id}`}
+                target={`_partup`}
+                leftChild={<Icon name={'chat'} />}
+            >
+                Reageer
+            </Link>,
+            <Link
+                key={3}
                 to={`/partups/${partupSlug}/invite-for-activity/${activity._id}`}
                 target={`_partup`}
                 leftChild={<Icon name={'person-plus'} />}
@@ -62,20 +70,20 @@ export class ActivityTile extends React.Component<Props, {}> {
         ];
 
         if (this.isUpper) {
-            menuLinks.unshift(<Link key={1} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>);
+            menuLinks.unshift(<Link key={2} leftChild={<Icon name={'pencil'} />}>Wijzig activiteit</Link>);
             menuLinks.push(
                 !activity.archived ? (
                     <Link
-                        key={3}
-                        leftChild={<Icon name={'person-plus'} />}
+                        key={4}
+                        leftChild={<Icon name={'archive'} />}
                         onClick={this.archiveActivity}
                     >
                         Archiveer activiteit
                     </Link>
                 ) : (
                     <Link
-                        key={4}
-                        leftChild={<Icon name={'person-plus'} />}
+                        key={5}
+                        leftChild={<Icon name={'archive'} />}
                         onClick={this.unarchiveActivity}
                     >
                         Onarchiveer activiteit
@@ -88,7 +96,7 @@ export class ActivityTile extends React.Component<Props, {}> {
             <div className={this.getClassNames()}>
                 <header className={`pur-ActivityTile__header`}>
                     <Link
-                        to={`/partups/${partupSlug}/updates/${activity._id}`}
+                        to={`/partups/${partupSlug}/updates/${activity.update_id}`}
                         target={`_partup`}
                         className={`pur-ActivityTile__title`}
                     >

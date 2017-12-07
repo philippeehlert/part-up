@@ -140,6 +140,7 @@ export class ConversationUpdates extends React.Component {
         subscription: 'updates.comments_by_update_ids',
         onChange: () => this.forceUpdate(),
         track: trackCollection('updates', (event) => {
+            // tslint:disable-next-line:no-console
             console.log('NEW UPDATE', event);
         }),
     });
