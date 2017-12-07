@@ -61,6 +61,8 @@ import { Users, UserDocument } from 'collections/Users';
 import { Activities, ActivityDocument } from 'collections/Activities';
 import { Lanes, LaneDocument } from 'collections/Lanes';
 import { Updates, UpdateDocument, ConversationUpdateDocument } from 'collections/Updates';
+import { DropDown } from 'components/DropDown/DropDown';
+import { PartupAvatar } from 'components/Avatar/PartupAvatar';
 
 interface FetcherResponse {
     'cfs.images.filerecord': ImageDocument[];
@@ -182,10 +184,13 @@ export class ConversationUpdates extends React.Component {
                             ]} />
                         </Blank>
                         <Blank label={'van'}>
-                            <Select options={[
-                                { label: 'Alle partups', value: 'all' },
-                                ...partupOptions,
-                            ]} onChange={(ev) => this.filterByPartup(ev.currentTarget.value)} />
+                            <DropDown
+                                options={[
+                                    { label: 'Alle partups', value: 'all', isActive: true },
+                                    ...partupOptions,
+                                ]}
+                                onChange={(option) => this.filterByPartup(option.value)}
+                            />
                         </Blank>
                     </FillInTheBlanks>
                 </FilteredListControls>
@@ -413,8 +418,8 @@ export class ConversationUpdates extends React.Component {
         return map[type](upperName, type_data);
     }
 
-    private getPartupOptions(partups: any) {
-        return partups.filter(({ _id }: any) => {
+    private getPartupOptions(partups: PartupDocument[]) {
+        return partups.filter(({ _id }) => {
             if (!this.context.user || (!this.filters.supporterOnly && !this.filters.upperOnly)) {
                 return true;
             }
@@ -428,9 +433,13 @@ export class ConversationUpdates extends React.Component {
             }
 
             return false;
-        }).map((partup: any) => ({
-            label: partup.name,
-            value: partup._id,
-        }));
+        }).map((partup) => {
+            return {
+                leftChild: <PartupAvatar partup={partup} />,
+                label: partup.name,
+                isActive: false,
+                value: partup._id,
+            };
+        });
     }
 }

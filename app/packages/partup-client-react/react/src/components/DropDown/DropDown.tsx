@@ -5,11 +5,11 @@ import * as c from 'classnames';
 import { Icon } from 'components/Icon/Icon';
 
 interface DropDownItem {
-    isActive: boolean;
+    isActive?: boolean;
     label: JSX.Element|Element|string;
     value: string;
-    leftChild: JSX.Element|Element|string|number;
-    rightChild: JSX.Element|Element|string|number;
+    leftChild?: JSX.Element|Element|string|number;
+    rightChild?: JSX.Element|Element|string|number;
 }
 
 interface Props {
@@ -32,7 +32,7 @@ export class DropDown extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const activeIndex = this.props.options.findIndex(({ isActive }) => isActive);
+        const activeIndex = this.props.options.findIndex(({ isActive }) => !!isActive);
 
         this.state = {
             isExpanded: false,

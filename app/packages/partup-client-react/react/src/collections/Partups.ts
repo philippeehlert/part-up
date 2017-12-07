@@ -5,6 +5,7 @@ import { CollectionDocument, Collection } from 'collections/Collection';
 export interface PartupDocument extends CollectionDocument {
     store: string;
     name: string;
+    image: string;
 }
 
 class PartupsCollection extends Collection<PartupDocument> {
