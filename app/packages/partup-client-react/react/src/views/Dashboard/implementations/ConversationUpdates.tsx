@@ -214,6 +214,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
         this.updateTracker.destroy();
         this.partupsFetcher.destroy();
         this.updatesCommentsSubscriber.destroy();
+        this.newUpdatesSubscriber.destroy();
     }
 
     public render() {
