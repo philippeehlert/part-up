@@ -103,14 +103,10 @@ start() {
       echo -e "███████████████████████████████████████████████████████████████${NC}"
     else
       echo -e "${YELLOW}███████████████████████████████████████████████████████████████"
-      echo -e "█ Installing and building partup-client-react package...      █"
       echo -e "█ Run ${BLUE}./start --react-dev${YELLOW} to work on the react environment    █"
       echo -e "█ Use the ${BLUE}--once${YELLOW} flag to disable the Meteor watcher           █"
       echo -e "█ (recommended when working on the react codebase)            █"
       echo -e "███████████████████████████████████████████████████████████████${NC}"
-      cd "$APP/packages/partup-client-react/react" 
-      npm install --silent --unsafe-perm
-      npm run build
     fi
     
     if [ "$REACT_DEV" ]; then    
