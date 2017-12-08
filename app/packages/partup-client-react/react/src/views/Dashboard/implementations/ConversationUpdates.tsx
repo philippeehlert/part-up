@@ -305,11 +305,9 @@ export class ConversationUpdates extends React.Component<Props, State> {
     }
 
     private triggerNewUpdate = () => {
-        const { newConversationUpdates } = this.state;
-
-        this.setState({
+        this.setState(({ newConversationUpdates }: State) => ({
             newConversationUpdates: newConversationUpdates + 1,
-        });
+        }));
     }
 
     private onNewIndicatorClick = (event: React.SyntheticEvent<any>) => {
