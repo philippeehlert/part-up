@@ -287,6 +287,19 @@ Updates.findForPartupsIds = function(partupIds, parameters, userId) {
                 {archived_at: {$exists: false}},
                 {deleted_at: {$exists: false}}
             ];
+        } else if (filter === 'new-conversations') {
+            selector.updated_at = {
+                $gte: parameters.dateFrom,
+            };
+            selector.$or = [
+                {type: 'partups_message_added'},
+                {type: 'partups_activities_comments_added'},
+                {comments_count: {$gt: 0}}
+            ];
+            selector.$and = [
+                {archived_at: {$exists: false}},
+                {deleted_at: {$exists: false}}
+            ];
         }
     }
 

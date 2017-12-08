@@ -101,13 +101,13 @@ Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
     }
 });
 
-
-Meteor.publishComposite('updates.new_conversations', function() {
+Meteor.publishComposite('updates.new_conversations', function({dateFrom}) {
     const partupFields = { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 };
     const partupsCursor = Partups.guardedFind(this.userId, {}, { fields: partupFields });
     const partupIds = partupsCursor.map(({_id}) => _id);
     const updatesCursor = Updates.findForPartupsIds(partupIds, {
-        filter: 'conversations',
+        filter: 'new-conversations',
+        dateFrom: dateFrom,
         sort: { updated_at: -1 },
         fields: {
             _id: 1,

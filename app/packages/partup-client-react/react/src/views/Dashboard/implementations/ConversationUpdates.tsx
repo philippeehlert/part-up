@@ -158,13 +158,24 @@ export class ConversationUpdates extends React.Component<Props, State> {
         onChange: () => this.forceUpdate(),
     });
 
+    private newUpdatesSubscriber = new Subscriber({
+        subscription: 'updates.new_conversations',
+    });
+
     private updateTracker = new Tracker<UpdateDocument>({
         collection: 'updates',
         onChange: (event) => {
             const { currentDocument, changedFields } = event;
-            const { newConversationUpdates } = this.state;
+            const { state: { ready: newUpdatesReady } } = this.newUpdatesSubscriber;
+            const { state: { ready: updateCommentsReady } } = this.updatesCommentsSubscriber;
 
-            if (!currentDocument || !changedFields) return;
+            if (!newUpdatesReady || !updateCommentsReady) return;
+
+            if (!currentDocument) {
+                return this.triggerNewUpdate();
+            }
+
+            if (!changedFields) return;
 
             const {
                 comments_count: oldCount = 0,
@@ -182,9 +193,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
             if (!lastComment || !user) return;
             if (user._id === lastComment.creator._id) return;
 
-            this.setState({
-                newConversationUpdates: newConversationUpdates + 1,
-            });
+            this.triggerNewUpdate();
         },
     });
 
@@ -197,6 +206,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
     public componentWillMount() {
         this.conversationsFetcher.fetch();
         this.partupsFetcher.fetch();
+        this.newUpdatesSubscriber.subscribe({ dateFrom: new Date() });
     }
 
     public componentWillUnmount() {
@@ -257,10 +267,10 @@ export class ConversationUpdates extends React.Component<Props, State> {
                     { newConversationUpdates > 0 && (
                         <NewIndicator
                             onClick={this.onNewIndicatorClick}>
-                            { `Er zijn ${newConversationUpdates} nieuwe updates` }
+                            { `${newConversationUpdates} nieuwe update(s)` }
                         </NewIndicator>
                     ) }
-                    { loading && !conversationUpdates.length && (
+                    { loading && (!conversationUpdates.length || newConversationUpdates === 0) && (
                         <Spinner />
                     ) }
                     <InfiniteScroll loadMore={this.loadMore}>
@@ -291,6 +301,14 @@ export class ConversationUpdates extends React.Component<Props, State> {
                 </FilteredListItems>
             </FilteredList>
         );
+    }
+
+    private triggerNewUpdate = () => {
+        const { newConversationUpdates } = this.state;
+
+        this.setState({
+            newConversationUpdates: newConversationUpdates + 1,
+        });
     }
 
     private onNewIndicatorClick = (event: React.SyntheticEvent<any>) => {
