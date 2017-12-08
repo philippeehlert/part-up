@@ -25,7 +25,15 @@ interface Subscription {
     stop: Function;
 }
 
+interface SubscriberState {
+    ready: boolean;
+}
+
 export class Subscriber {
+
+    public state: SubscriberState = {
+        ready: false,
+    };
 
     private subscription: string = '';
 
@@ -41,13 +49,24 @@ export class Subscriber {
 
     public subscribe = (...parameters: any[]): Promise<void> => {
         return new Promise((resolve, reject) => {
+
+            if (this.state.ready) {
+                this.setState({
+                    ready: false,
+                });
+            }
+
             const subscription = Meteor.subscribe(this.subscription, ...parameters, {
                 onReady: () => {
-                    this.onChange();
+                    this.setState({
+                        ready: true,
+                    });
                     resolve();
                 },
                 onStop: () => {
-                    this.onChange();
+                    this.setState({
+                        ready: false,
+                    });
                     reject();
                 },
             }) as Subscription;
@@ -75,6 +94,14 @@ export class Subscriber {
         defer(() => {
             this.onChange(event);
         });
+    }
+
+    private setState = (newState: Partial<SubscriberState>) => {
+        this.state = {
+            ...this.state,
+            ...newState,
+        };
+        this.onChange();
     }
 
     private track = (subscription: Subscription): void => {
