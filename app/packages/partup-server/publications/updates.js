@@ -82,7 +82,7 @@ Meteor.publishComposite('updates.from_partup', function(partupId, parameters, ac
 
 Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
     check(updateIds, [String]);
-    
+
     this.unblock();
 
     const selector = {
@@ -99,4 +99,23 @@ Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
     return {
         find: () => Updates.find(selector, options),
     }
+});
+
+
+Meteor.publishComposite('updates.new_conversations', function() {
+    const partupFields = { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 };
+    const partupsCursor = Partups.guardedFind(this.userId, {}, { fields: partupFields });
+    const partupIds = partupsCursor.map(({_id}) => _id);
+    const updatesCursor = Updates.findForPartupsIds(partupIds, {
+        filter: 'conversations',
+        sort: { updated_at: -1 },
+        fields: {
+            _id: 1,
+            updated_at: 1,
+        },
+    });
+
+    return {
+        find: () => updatesCursor,
+    };
 });
