@@ -1937,5 +1937,17 @@
   "pur-dashboard-side-bar-conversations": "Gesprekken",
   "pur-dashboard-side-bar-activities": "Mijn activiteiten",
   "pur-dashboard-side-bar-invites": "Mijn uitnodigingen",
-  "pur-dashboard-side-bar-recommendations": "Aanbevolen voor jou"
+  "pur-dashboard-side-bar-recommendations": "Aanbevolen voor jou",
+
+  "pur-dashboard-invites-filter_by_type-label": "Toon uitnodigingen",
+  "pur-dashboard-invites-filter_by_all": "Alle types",
+  "pur-dashboard-invites-filter_by_activities": "Activiteiten",
+  "pur-dashboard-invites-filter_by_partups": "Partups",
+  "pur-dashboard-invites-filter_by_tribes": "Tribes",
+
+  "pur-dashboard-invite_tile-title-partup": "__inviter__ heeft je op <strong>__date__</strong> uitgenodigd mee te doen aan de <strong>part-up</strong>:",
+  "pur-dashboard-invites-subtitle-partup": "Je bent nog geen partner in deze part-up. Door te accepteren wordt je hier automatisch partner van.",
+  "pur-dashboard-invite_tile-title-activity": "__inviter__ heeft je op <strong>__date__</strong> uitgenodigd mee te doen in de part-up <strong>__partup__</strong> aan de <strong>activiteit</strong>:",
+  "pur-dashboard-invite_tile-title-network": "__inviter__ heeft je op <strong>__date__</strong> uitgenodigd mee te doen aan de <strong>tribe</strong>:"
+
 }

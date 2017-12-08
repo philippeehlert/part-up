@@ -4,7 +4,8 @@ import * as React from 'react';
 import * as c from 'classnames';
 
 interface Props {
-    title: JSX.Element|string;
+    title: string;
+    subTitle?: string;
     className?: string;
 }
 
@@ -14,14 +15,16 @@ export class Tile extends React.Component<Props, {}> {
         const {
             children,
             title,
+            subTitle,
         } = this.props;
 
         return (
             <div className={this.getClassNames()}>
-                <h4 className={`pur-Tile__title`}>{ title }</h4>
+                <h4 className={`pur-Tile__title`} dangerouslySetInnerHTML={{ __html: `<span>${title}</span>` }}/>
                 <div className={`pur-Tile__content`}>
                     { children }
                 </div>
+                {subTitle && <p className={`pur-Tile__subtitle`}>{subTitle}</p>}
             </div>
         );
     }

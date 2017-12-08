@@ -32,7 +32,10 @@
                     interpolation: {
                         prefix: '__',
                         suffix: '__',
+                        prefixEscaped: '||',
+                        suffixEscaped: '||',
                     },
+
                     parseMissingKeyHandler: (key) => 'missing:' + key,
                 });
             } catch(err) {

@@ -15,9 +15,18 @@
         font-weight: 600;
         color: $pur-color-dusty-gray;
         margin-bottom: 6px;
+        strong {
+            font-weight: bold;
+            color: #494949;
+        }
+    }
+
+    &__subtitle {
+        font-size: 12px;
+        margin: 6px 0 -6px 0;
+        color: #999999;
     }
 
     &__content {
-
     }
 }

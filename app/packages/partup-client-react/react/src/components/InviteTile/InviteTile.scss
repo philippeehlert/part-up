@@ -1,0 +1,30 @@
+.pur-InviteTile {
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
+    @import "stylesheets/border-radius";
+
+    background: $pur-color-white;
+    border: 2px solid $pur-color-gallery;
+    border-radius: $pur-border-radius-controls;
+    padding: getSpacing(1.5);
+    display: flex;
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+
+        flex: 1;
+        .pur-Link__content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            font-size: 15px;
+            font-weight: 600;
+
+            > *:first-child {
+                margin-right: getSpacing(1);
+            }
+        }
+    }
+}

@@ -21,7 +21,7 @@ export class PartupAvatar extends React.Component<Props, State> {
 
         return (
             <div className={this.getClassNames()}>
-                <img src={imageUrl} className={`pur-UserAvatar__image`} />
+                <img src={imageUrl} className={`pur-PartupAvatar__image`} />
             </div>
         );
     }
