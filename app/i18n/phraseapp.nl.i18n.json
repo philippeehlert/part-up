@@ -1890,5 +1890,52 @@
   "widgetcommentfield-comment-systemmessage-show": "Laat meldingen zien",
   "widgetcommentfield-comment-totalcomments": "__count__ reactie",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ reacties",
-  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties"
+  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
+
+  "pur-dashboard-conversations-button-new-message": "Nieuw bericht",
+  "pur-dashboard-conversations-new_conversation_modal-title" : "Plaats bericht",
+  "pur-dashboard-conversations-new_conversation_modal-cancel_button" : "Annuleer",
+  "pur-dashboard-conversations-new_conversation_modal-submit_button" : "Plaatsen",
+  "pur-dashboard-conversations-filter_by_partup_type_label": "Toon updates als",
+  "pur-dashboard-conversations-filter_all_type_label": "Alle",
+  "pur-dashboard-conversations-filter_partner_type_label": "Partner",
+  "pur-dashboard-conversations-filter_supporter_type_label": "Supporter",
+  "pur-dashboard-conversations-filter_blank_seperator": "van",
+  "pur-dashboard-conversations-filter_all_partups_label": "Alle Partups",
+
+  "pur-dashboard-update_tile-comment_count": "__comments_count__ reacties",
+  "pur-dashboard-update_tile-comment": "reageer",
+  "pur-dashboard-update_tile-motivation_prefix": "'s motivatie is:",
+
+  "pur-dashboard-comment_box-comment_placeholder": "Schrijf een reactie",
+  "pur-dashboard-comment_box-comment_comment": "reageer",
+  "pur-dashboard-comment-edit": "bewerk",
+  "pur-dashboard-comment-remove": "verwijder",
+  "pur-dashboard-comment-at_time_marker": "om",
+
+  "pur-dashboard-activities-button-new-activity": "Nieuwe activiteit",
+  "pur-dashboard-activities-new_conversation_modal-title" : "Plaats een nieuwe activiteit",
+  "pur-dashboard-activities-new_conversation_modal-cancel_button" : "Annuleer",
+  "pur-dashboard-activities-new_conversation_modal-submit_button" : "Plaatsen",
+  "pur-dashboard-activities-filter_by_archived_label": "Toon",
+  "pur-dashboard-activities-filter_by_active": "Actief",
+  "pur-dashboard-activities-filter_by_archived": "Gearchiveerd",
+  "pur-dashboard-activities-this_week": "Deze week",
+  "pur-dashboard-activities-next_week": "Volgende week",
+  "pur-dashboard-activities-later": "Later",
+
+  "pur-dashboard-activity_tile-link-comment": "Reageer",
+  "pur-dashboard-activity_tile-link-invite": "Nodig iemand uit",
+  "pur-dashboard-activity_tile-link-archive": "Archiveer activiteit",
+  "pur-dashboard-activity_tile-link-unarchive": "Dearchiveer activiteit",
+  "pur-dashboard-activity_tile-link-edit": "Bewerk activiteit",
+  "pur-dashboard-activity_tile-edit_modal-title": "Bewerk __activity__",
+  "pur-dashboard-activity_tile-edit_modal-cancel_button": "Annuleer",
+  "pur-dashboard-activity_tile-edit_modal-submit_button": "Bewerk",
+  "pur-dashboard-activity_tile-no-date": "Geen datum",
+
+  "pur-dashboard-side-bar-conversations": "Gesprekken",
+  "pur-dashboard-side-bar-activities": "Mijn activiteiten",
+  "pur-dashboard-side-bar-invites": "Mijn uitnodigingen",
+  "pur-dashboard-side-bar-recommendations": "Aanbevolen voor jou"
 }
