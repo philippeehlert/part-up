@@ -10,4 +10,13 @@
     &--has-sub-sections {
         padding: 0;
     }
+
+    .pur-Indicator {
+        margin-bottom: getSpacing(2);
+    }
+
+    .pur-Spinner {
+        margin: 0 auto;
+        margin-bottom: getSpacing(2);
+    }
 }
