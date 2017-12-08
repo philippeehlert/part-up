@@ -1921,8 +1921,11 @@
   "pur-dashboard-activities-filter_by_active": "Actief",
   "pur-dashboard-activities-filter_by_archived": "Gearchiveerd",
   "pur-dashboard-activities-this_week": "Deze week",
+  "pur-dashboard-activities-this_week-no_activities": "Geen activiteiten deze week",
   "pur-dashboard-activities-next_week": "Volgende week",
+  "pur-dashboard-activities-next_week-no_activities": "Geen activiteiten volgende week",
   "pur-dashboard-activities-later": "Later",
+  "pur-dashboard-activities-later-no_activities": "Geen activiteiten later",
 
   "pur-dashboard-activity_tile-link-comment": "Reageer",
   "pur-dashboard-activity_tile-link-invite": "Nodig iemand uit",

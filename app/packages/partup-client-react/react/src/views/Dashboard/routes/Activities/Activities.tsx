@@ -210,13 +210,22 @@ export class ActivitiesView extends React.Component<Props> {
                         ) : (
                             <InfiniteScroll loadMore={this.loadMore}>
                                 <FilteredListSection title={translate(`pur-dashboard-activities-this_week`)}>
-                                    { groupedActivities.thisWeek.map(renderActivity) }
+                                    { !groupedActivities.thisWeek.length && (
+                                        translate('pur-dashboard-activities-this_week-no_activities')
+                                    ) }
+                                    { !!groupedActivities.thisWeek.length && groupedActivities.thisWeek.map(renderActivity) }
                                 </FilteredListSection>
                                 <FilteredListSection title={translate(`pur-dashboard-activities-next_week`)}>
-                                    { groupedActivities.nextWeek.map(renderActivity) }
+                                    { !groupedActivities.nextWeek.length && (
+                                        translate('pur-dashboard-activities-next_week-no_activities')
+                                    ) }
+                                    { !!groupedActivities.nextWeek.length && groupedActivities.nextWeek.map(renderActivity) }
                                 </FilteredListSection>
                                 <FilteredListSection title={translate(`pur-dashboard-activities-later`)}>
-                                    { groupedActivities.later.map(renderActivity) }
+                                    { !groupedActivities.later.length && (
+                                        translate('pur-dashboard-activities-later-no_activities')
+                                    ) }
+                                    { !!groupedActivities.later.length && groupedActivities.later.map(renderActivity) }
                                 </FilteredListSection>
                             </InfiniteScroll>
                         )}

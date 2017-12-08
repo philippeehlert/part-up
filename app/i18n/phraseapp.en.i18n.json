@@ -1916,8 +1916,11 @@
   "pur-dashboard-activities-filter_by_active": "Active",
   "pur-dashboard-activities-filter_by_archived": "Archived",
   "pur-dashboard-activities-this_week": "This week",
+  "pur-dashboard-activities-this_week-no_activities": "No activities this week",
   "pur-dashboard-activities-next_week": "Next week",
+  "pur-dashboard-activities-next_week-no_activities": "No activities next week",
   "pur-dashboard-activities-later": "Later",
+  "pur-dashboard-activities-later-no_activities": "No activities later",
 
   "pur-dashboard-activity_tile-link-comment": "Comment",
   "pur-dashboard-activity_tile-link-invite": "Invite someone",
