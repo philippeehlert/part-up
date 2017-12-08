@@ -102,18 +102,31 @@ Meteor.publishComposite('updates.comments_by_update_ids', function(updateIds) {
 });
 
 Meteor.publishComposite('updates.new_conversations', function({dateFrom}) {
-    const partupFields = { _id: 1, name: 1, image: 1, uppers: 1, slug: 1 };
-    const partupsCursor = Partups.guardedFind(this.userId, {}, { fields: partupFields });
-    const partupIds = partupsCursor.map(({_id}) => _id);
-    const updatesCursor = Updates.findForPartupsIds(partupIds, {
-        filter: 'new-conversations',
-        dateFrom: dateFrom,
-        sort: { updated_at: -1 },
-        fields: {
-            _id: 1,
-            updated_at: 1,
-        },
-    });
+    const user = Meteor.user();
+
+    const partupIds = [
+        ...(user.upperOf || []),
+        ...(user.supporterOf || []),
+    ];
+
+    const options = {
+        sort: {updated_at: -1},
+        fields: {_id: 1, updated_at: 1},
+    };
+
+    const selector = {
+        $or: [
+            {type: 'partups_message_added'},
+            {type: 'partups_activities_comments_added'},
+            {comments_count: {$gt: 0}},
+        ],
+        archived_at: {$exists: false},
+        deleted_at: {$exists: false},
+        updated_at: {$gte: dateFrom},
+        partup_id: {$in: partupIds},
+    };
+
+    const updatesCursor = Updates.find(selector, options);
 
     return {
         find: () => updatesCursor,
