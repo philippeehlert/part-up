@@ -8,25 +8,12 @@ interface Props {
     count: number;
 }
 
-export class Counter extends React.Component<Props, {}> {
+export const Counter: React.SFC<Props> = ({ count, className }) => {
+    const classNames = c('pur-Counter', {}, className);
 
-    public render() {
-        const {
-            count,
-        } = this.props;
-
-        return (
-            <div className={this.getClassNames()}>
-                { count }
-            </div>
-        );
-    }
-
-    private getClassNames() {
-        const { className } = this.props;
-
-        return c('pur-Counter', className, {
-
-        });
-    }
-}
+    return (
+        <span className={classNames}>
+            {count}
+        </span>
+    );
+};
