@@ -1,22 +1,8 @@
 import { Meteor } from 'utils/Meteor';
-import { defer } from 'lodash';
-
-interface SubscriberDDPEvent {
-    id: string;
-    collection: string;
-    msg: string;
-    fields?: {
-        [param: string]: any;
-    };
-    cleared?: {
-        [param: string]: any;
-    };
-}
 
 interface SubscriberOptions {
     subscription: string;
-    onChange?: Function;
-    onAdd?: Function;
+    onStateChange?: Function;
 }
 
 interface Subscription {
@@ -39,12 +25,9 @@ export class Subscriber {
 
     private activeSubscription: any = undefined;
 
-    private changeTracker: any = undefined;
-
-    constructor({ subscription, onChange, onAdd }: SubscriberOptions) {
+    constructor({ subscription, onStateChange }: SubscriberOptions) {
         this.subscription = subscription;
-        this.onChange = onChange || this.onChange;
-        this.onAdd = onAdd || this.onAdd;
+        this.onStateChange = onStateChange || this.onStateChange;
     }
 
     public subscribe = (...parameters: any[]): Promise<void> => {
@@ -73,27 +56,18 @@ export class Subscriber {
 
             if (this.activeSubscription) this.activeSubscription.stop();
             this.activeSubscription = subscription;
-
-            this.track(subscription);
         });
     }
 
     public unsubscribe = (): void => {
         if (this.activeSubscription) this.activeSubscription.stop();
-        if (this.changeTracker) Meteor.ddp.off('changed', this.onDataChange);
     }
 
     public destroy = (): void => {
         this.unsubscribe();
-        this.onChange = () => {
+        this.onStateChange = () => {
             //
         };
-    }
-
-    private onDataChange = (event: SubscriberDDPEvent): void => {
-        defer(() => {
-            this.onChange(event);
-        });
     }
 
     private setState = (newState: Partial<SubscriberState>) => {
@@ -101,19 +75,10 @@ export class Subscriber {
             ...this.state,
             ...newState,
         };
-        this.onChange();
+        this.onStateChange();
     }
 
-    private track = (subscription: Subscription): void => {
-        if (this.changeTracker) Meteor.ddp.off('changed', this.onDataChange);
-        this.changeTracker = Meteor.ddp.on('changed', this.onDataChange);
-    }
-
-    private onChange: Function = (): void => {
-        //
-    }
-
-    private onAdd: Function = (): void => {
+    private onStateChange: Function = (): void => {
         //
     }
 }

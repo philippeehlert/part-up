@@ -155,7 +155,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
 
     private updatesCommentsSubscriber = new Subscriber({
         subscription: 'updates.comments_by_update_ids',
-        onChange: () => this.forceUpdate(),
+        onStateChange: () => this.forceUpdate(),
     });
 
     private newUpdatesSubscriber = new Subscriber({
@@ -170,6 +170,8 @@ export class ConversationUpdates extends React.Component<Props, State> {
             const { state: { ready: updateCommentsReady } } = this.updatesCommentsSubscriber;
 
             if (!newUpdatesReady || !updateCommentsReady) return;
+
+            this.forceUpdate();
 
             if (!currentDocument) {
                 return this.triggerNewUpdate();
@@ -188,7 +190,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
             if (oldCount >= newCount) return;
 
             const user = Users.findLoggedInUser();
-            const lastComment = comments.pop();
+            const lastComment = comments[comments.length - 1];
 
             if (!lastComment || !user) return;
             if (user._id === lastComment.creator._id) return;

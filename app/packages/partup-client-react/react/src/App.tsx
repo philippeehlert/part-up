@@ -84,7 +84,7 @@ export class App extends React.Component<Props, State> {
 
     private userSubscription = new Subscriber({
         subscription: 'users.loggedin',
-        onChange: () => this.forceUpdate(),
+        onStateChange: () => this.forceUpdate(),
     });
 
     public getChildContext(): AppContext {
