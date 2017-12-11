@@ -163,8 +163,6 @@ export class InvitesView extends React.Component<Props> {
             [filterByKey]: true,
         };
 
-        console.log(this.filters)
-
         this.fetchedAll = false;
 
         await this.invitesFetcher.fetch({
