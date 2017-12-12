@@ -32,6 +32,10 @@ body {
     &--react {
         .pu-modal, .pu-app {
             position: relative;
+            z-index: 2;
+            &.velocity-animating {
+                z-index: 3;
+            }
         }
     }
 }
