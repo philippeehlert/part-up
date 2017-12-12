@@ -5,6 +5,7 @@ import { Subscriber } from 'utils/Subscriber';
 import { UpdateDocument } from 'collections/Updates';
 import { Tracker } from 'utils/Tracker';
 import { Partups } from 'collections/Partups';
+import { Users } from 'collections/Users';
 
 interface Props {
     className?: string;
@@ -31,12 +32,16 @@ export class ConversationsCount extends React.PureComponent<Props, State> {
 
             if (!ready) return;
 
-            const userId = 'pbnjsmy75oDNP3vok';
+            const user = Users.findLoggedInUser();
+
+            if (!user) {
+                return;
+            }
 
             const partups = Partups.find({
                 upper_data: {
                     $elemMatch: {
-                        _id: userId,
+                        _id: user._id,
                         new_updates: { $exists: true, $not: { $size: 0 } },
                     },
                 },
@@ -44,7 +49,7 @@ export class ConversationsCount extends React.PureComponent<Props, State> {
 
             const updateIds = new Set(
                 partups.map(({ upper_data }) => {
-                    const upperData = upper_data.find(({ _id }) => _id === userId);
+                    const upperData = upper_data.find(({ _id }) => _id === user._id);
 
                     return upperData ? upperData.new_updates : [];
                 }).reduce((x, y) => x.concat(y), []),
