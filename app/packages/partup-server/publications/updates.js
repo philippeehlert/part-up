@@ -148,7 +148,7 @@ Meteor.publishComposite('updates.new_conversations_count', function({dateFrom}) 
     return {
         find: () => partupsWithUpdatesForUser,
         children: [
-            {find: ({upper_data}) => Updates.find({_id: {$in: upper_data.find(({_id}) => _id === user._id).new_updates || []}})},
+            {find: ({upper_data}) => Updates.find({_id: {$in: upper_data.find(({_id}) => _id === user._id).new_updates || []}}, {fields: {_id: 1}})},
         ],
     };
 });

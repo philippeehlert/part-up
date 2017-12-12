@@ -195,6 +195,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
                 _id: { $in: Array.from(updateIds) },
                 updated_at: { $gte: newUpdatesBoundary },
             });
+
             if (updates.length) {
                 this.setState({
                     newConversationUpdates: updates.length,

@@ -100,3 +100,33 @@ Meteor.routeComposite('/activities/me', function(request, parameters) {
     };
 });
 
+
+Meteor.publishComposite('activities.updated_activities', function() {
+    const user = Meteor.user();
+
+    const selector = {
+        upper_data: {
+            $elemMatch: {
+                _id: user._id,
+                new_updates: { $exists: true, $not: {$size: 0} },
+            },
+        },
+    };
+
+    const partupsWithUpdatesForUser = Partups.find(selector, { fields: { _id: 1, upper_data: 1 } });
+
+    return {
+        find: () => partupsWithUpdatesForUser,
+        children: [
+            {find: ({upper_data}) => Updates.find({
+                _id: { $in: upper_data.find(({_id}) => _id === user._id).new_updates || [] },
+                type: 'partups_contributions_added',
+            }, {
+                fields: {
+                    _id: 1,
+                    type: 1,
+                },
+            })},
+        ],
+    };
+});

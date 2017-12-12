@@ -88,3 +88,17 @@ Meteor.routeComposite('invites/me', function(request, parameters) {
         ],
     };
 });
+
+Meteor.publishComposite('invites.new_invites_count', function({dateFrom}) {
+    const user = Meteor.user();
+
+    const selector = {
+        invitee_id: user._id,
+    };
+
+    const invitesCursor = Invites.find(selector, {fields: {_id: 1, invitee_id: 1}});
+
+    return {
+        find: () => invitesCursor,
+    };
+});

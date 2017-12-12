@@ -13,6 +13,8 @@ import { Icon } from 'components/Icon/Icon';
 import { ListItem } from 'components/List/ListItem';
 import { translate } from 'utils/translate';
 import { ConversationsCount } from 'views/Dashboard/implementations/ConversationsCount';
+import { InvitesCount } from 'views/Dashboard/implementations/InvitesCount';
+import { ActivitiesCount } from 'views/Dashboard/implementations/ActivitiesCount';
 
 interface Props {
     className?: string;
@@ -119,13 +121,13 @@ export class SideBar extends React.Component<Props> {
             {
                 to: `${baseUrl}/activities`,
                 icon: <Icon name={'chart'} />,
-                counter: '',
+                counter: <ActivitiesCount />,
                 label: translate('pur-dashboard-side-bar-activities'),
             },
             {
                 to: `${baseUrl}/invites`,
                 icon: <Icon name={'person-plus'} />,
-                counter: '',
+                counter: <InvitesCount />,
                 label: translate('pur-dashboard-side-bar-invites'),
             },
         ];
