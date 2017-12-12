@@ -18,6 +18,8 @@ import { Home } from 'views/Home/Home';
 import { UserDocument } from 'collections/Users';
 import { get } from 'lodash';
 
+import 'moment/locale/nl';
+
 const dev = process.env.REACT_APP_DEV;
 
 interface Props {
@@ -106,10 +108,6 @@ export class App extends React.Component<Props, State> {
             const user = Meteor.user();
 
             const locale = get(user, 'profile.settings.locale') || 'en';
-
-            if (locale !== 'en') {
-                await import(`moment/locale/${locale}`);
-            }
 
             moment.locale(locale);
 
