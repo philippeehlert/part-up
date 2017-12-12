@@ -82,6 +82,7 @@ interface Props {
 
 interface State {
     newConversationUpdates: number;
+    newUpdatesBoundary: Date;
 }
 
 export class ConversationUpdates extends React.Component<Props, State> {
@@ -94,6 +95,7 @@ export class ConversationUpdates extends React.Component<Props, State> {
 
     public state: State = {
         newConversationUpdates: 0,
+        newUpdatesBoundary: new Date(),
     };
 
     private filters: {[key: string]: any} = {};
@@ -163,39 +165,40 @@ export class ConversationUpdates extends React.Component<Props, State> {
     });
 
     private updateTracker = new Tracker<UpdateDocument>({
-        collection: 'updates',
+        collection: 'partups',
         onChange: (event) => {
-            const { currentDocument, changedFields } = event;
-            const { state: { ready: newUpdatesReady } } = this.newUpdatesSubscriber;
-            const { state: { ready: updateCommentsReady } } = this.updatesCommentsSubscriber;
-
-            if (!newUpdatesReady || !updateCommentsReady) return;
-
-            this.forceUpdate();
-
-            if (!currentDocument) {
-                return this.triggerNewUpdate();
-            }
-
-            if (!changedFields) return;
-
-            const {
-                comments_count: oldCount = 0,
-            } = currentDocument;
-            const {
-                comments_count: newCount = 0,
-                comments = [],
-            } = changedFields;
-
-            if (oldCount >= newCount) return;
+            const { newUpdatesBoundary } = this.state;
 
             const user = Users.findLoggedInUser();
-            const lastComment = comments[comments.length - 1];
 
-            if (!lastComment || !user) return;
-            if (user._id === lastComment.creator._id) return;
+            if (!user) return;
 
-            this.triggerNewUpdate();
+            const partups = Partups.find({
+                upper_data: {
+                    $elemMatch: {
+                        _id: user._id,
+                        new_updates: { $exists: true, $not: { $size: 0 } },
+                    },
+                },
+            });
+
+            const updateIds = new Set(
+                partups.map(({ upper_data }) => {
+                    const upperData = upper_data.find(({ _id }) => _id === user._id);
+
+                    return upperData ? upperData.new_updates : [];
+                }).reduce((x, y) => x.concat(y), []),
+            );
+
+            const updates = Updates.find({
+                _id: { $in: Array.from(updateIds) },
+                updated_at: { $gte: newUpdatesBoundary },
+            });
+            if (updates.length) {
+                this.setState({
+                    newConversationUpdates: updates.length,
+                });
+            }
         },
     });
 
@@ -206,9 +209,10 @@ export class ConversationUpdates extends React.Component<Props, State> {
     }
 
     public componentWillMount() {
+        const { newUpdatesBoundary } = this.state;
         this.conversationsFetcher.fetch();
         this.partupsFetcher.fetch();
-        this.newUpdatesSubscriber.subscribe({ dateFrom: new Date() });
+        this.newUpdatesSubscriber.subscribe({ dateFrom: newUpdatesBoundary });
     }
 
     public componentWillUnmount() {
@@ -306,17 +310,12 @@ export class ConversationUpdates extends React.Component<Props, State> {
         );
     }
 
-    private triggerNewUpdate = () => {
-        this.setState(({ newConversationUpdates }: State) => ({
-            newConversationUpdates: newConversationUpdates + 1,
-        }));
-    }
-
     private onNewIndicatorClick = (event: React.SyntheticEvent<any>) => {
         const { onNewIndicatorClick } = this.props;
 
         this.setState({
             newConversationUpdates: 0,
+            newUpdatesBoundary: new Date(),
         });
 
         this.conversationsFetcher.fetch();
