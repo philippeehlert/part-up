@@ -4,9 +4,6 @@ import { Counter } from 'components/Counter/Counter';
 import { Subscriber } from 'utils/Subscriber';
 import { UpdateDocument } from 'collections/Updates';
 import { Tracker } from 'utils/Tracker';
-// import { Meteor } from 'utils/Meteor';
-// import { Partups } from 'collections/Partups';
-// import { Meteor } from 'utils/Meteor';
 import { Partups } from 'collections/Partups';
 
 interface Props {
