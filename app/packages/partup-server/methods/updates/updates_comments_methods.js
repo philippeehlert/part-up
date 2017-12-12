@@ -11,8 +11,8 @@ Meteor.methods({
 
         this.unblock();
 
-        var upper = Meteor.user();
-        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+        // var upper = Meteor.user();
+        // if (!upper) throw new Meteor.Error(401, 'unauthorized');
 
         var update = Updates.findOneOrFail(updateId);
 

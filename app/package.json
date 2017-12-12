@@ -22,7 +22,8 @@
     "marked": "^0.3.6",
     "meteor-node-stubs": "~0.2.11",
     "pluralize": "^4.0.0",
-    "sanitize-html": "~1.14.1"
+    "sanitize-html": "~1.14.1",
+    "faker":"^4.1.0"
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
