@@ -13,7 +13,7 @@ export const Counter: React.SFC<Props> = ({ count, className }) => {
 
     return (
         <span className={classNames}>
-            {count}
+            {count ? count : null}
         </span>
     );
 };
