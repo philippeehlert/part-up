@@ -126,9 +126,29 @@ Meteor.publishComposite('updates.new_conversations', function({dateFrom}) {
         partup_id: {$in: partupIds},
     };
 
-    const updatesCursor = Updates.find(selector, options);
+    return {
+        find: () => Updates.find(selector, options),
+    };
+});
+
+Meteor.publishComposite('updates.new_conversations_count', function({dateFrom}) {
+    const user = Meteor.user();
+
+    const selector = {
+        upper_data: {
+            $elemMatch: {
+                _id: user._id,
+                new_updates: { $exists: true, $not: {$size: 0} },
+            },
+        },
+    };
+
+    const partupsWithUpdatesForUser = Partups.find(selector, { fields: { _id: 1, upper_data: 1 } });
 
     return {
-        find: () => updatesCursor,
+        find: () => partupsWithUpdatesForUser,
+        children: [
+            {find: ({upper_data}) => Updates.find({_id: {$in: upper_data.find(({_id}) => _id === user._id).new_updates || []}})},
+        ],
     };
 });

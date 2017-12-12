@@ -13,6 +13,7 @@ import { Icon } from 'components/Icon/Icon';
 import { Counter } from 'components/Counter/Counter';
 import { ListItem } from 'components/List/ListItem';
 import { translate } from 'utils/translate';
+import { ConversationsCount } from 'views/Dashboard/implementations/ConversationsCount';
 
 interface Props {
     className?: string;
@@ -113,7 +114,7 @@ export class SideBar extends React.Component<Props> {
             {
                 to: `${baseUrl}`,
                 icon: <Icon name={'message'} />,
-                counter: <Counter count={25} />,
+                counter: <ConversationsCount />,
                 label: translate('pur-dashboard-side-bar-conversations'),
             },
             {
