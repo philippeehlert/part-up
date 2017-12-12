@@ -66,6 +66,7 @@ import { PartupAvatar } from 'components/Avatar/PartupAvatar';
 import { translate } from 'utils/translate';
 import { Tracker } from 'utils/Tracker';
 import { NewIndicator } from 'components/Indicator/NewIndicator';
+import { Counter } from 'components/Counter/Counter';
 
 interface FetcherResponse {
     'cfs.images.filerecord': ImageDocument[];
@@ -515,6 +516,8 @@ export class ConversationUpdates extends React.Component<Props, State> {
     }
 
     private getPartupOptions(partups: PartupDocument[]) {
+        const user = this.context.user as UserDocument;
+
         return partups.filter(({ _id }) => {
             if (!this.context.user || (!this.filters.supporterOnly && !this.filters.upperOnly)) {
                 return true;
@@ -530,8 +533,19 @@ export class ConversationUpdates extends React.Component<Props, State> {
 
             return false;
         }).map((partup) => {
+
+            let amountOfUpdates = 0;
+            if (partup.upper_data && partup.upper_data.length) {
+                const upperData = partup.upper_data.find(({ _id }) => _id === user._id);
+
+                if (upperData) {
+                    amountOfUpdates = upperData.new_updates.length;
+                }
+            }
+
             return {
                 leftChild: <PartupAvatar partup={partup} />,
+                rightChild: <Counter highlighted count={amountOfUpdates} />,
                 label: partup.name,
                 isActive: false,
                 value: partup._id,

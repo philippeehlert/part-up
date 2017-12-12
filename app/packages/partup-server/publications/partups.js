@@ -9,7 +9,7 @@ Meteor.routeComposite('/partups/me', function(request, parameters) {
     const partupsCursor = Partups.guardedFind(user, { _id: { $in: [
         ...(user.upperOf || []),
         ...(user.supporterOf || []),
-    ]}}, {fields: {_id: 1, name: 1, image: 1}, sort: { popularity: -1 }});
+    ]}}, {fields: {_id: 1, name: 1, image: 1, upper_data: 1}, sort: { popularity: -1 }});
 
     return {
         find: () => partupsCursor,
