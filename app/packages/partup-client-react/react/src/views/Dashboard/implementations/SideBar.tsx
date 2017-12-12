@@ -10,7 +10,6 @@ import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { DropDown } from 'components/DropDown/DropDown';
 import { MenuLink } from 'components/Router/MenuLink';
 import { Icon } from 'components/Icon/Icon';
-import { Counter } from 'components/Counter/Counter';
 import { ListItem } from 'components/List/ListItem';
 import { translate } from 'utils/translate';
 import { ConversationsCount } from 'views/Dashboard/implementations/ConversationsCount';
@@ -120,20 +119,14 @@ export class SideBar extends React.Component<Props> {
             {
                 to: `${baseUrl}/activities`,
                 icon: <Icon name={'chart'} />,
-                counter: <Counter count={4} />,
+                counter: '',
                 label: translate('pur-dashboard-side-bar-activities'),
             },
             {
                 to: `${baseUrl}/invites`,
                 icon: <Icon name={'person-plus'} />,
-                counter: <Counter count={5} />,
+                counter: '',
                 label: translate('pur-dashboard-side-bar-invites'),
-            },
-            {
-                to: `${baseUrl}/recommendations`,
-                icon: <Icon name={'recommended'} />,
-                counter: <Counter count={3} />,
-                label: translate('pur-dashboard-side-bar-recommendations'),
             },
         ];
     }
