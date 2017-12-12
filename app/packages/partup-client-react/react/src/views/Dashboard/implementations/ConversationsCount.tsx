@@ -45,7 +45,6 @@ export class ConversationsCount extends React.PureComponent<Props, State> {
                 },
             });
 
-
             const updateIds = new Set(
                 partups.map(({ upper_data }) => {
                     const upperData = upper_data.find(({ _id }) => _id === userId);
