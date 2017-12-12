@@ -1,5 +1,6 @@
 import { CollectionDocument } from 'collections/Collection';
 import { Meteor } from 'utils/Meteor';
+import { defer } from 'lodash';
 
 interface MeteorDDPEvent<F> {
     id: string;
@@ -50,7 +51,7 @@ export class Tracker<CD extends CollectionDocument> {
             currentDocument,
         };
 
-        this.tracker(changeEvent);
+        defer(() => this.tracker(changeEvent));
     }
 
     private onDataChange = (event: MeteorDDPEvent<Partial<CD>>): void => {
