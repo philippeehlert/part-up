@@ -5,6 +5,8 @@ declare global {
         TAPi18n: any;
         i18next: any;
         Meteor: any;
+        RENDER_REACT: any;
+        UNRENDER_REACT: any;
     }
 }
 
@@ -16,10 +18,9 @@ import {
 } from 'react-router-dom';
 
 import { onStartup } from 'utils/Meteor';
-import { onRender } from 'utils/onRender';
 import { routes, getCurrentIndex } from 'utils/router';
 
-import { App } from './App';
+import { App, renderInstanceType } from './App';
 
 import './index.css';
 
@@ -32,15 +33,35 @@ if (dev) {
     Router = MemoryRouter;
 }
 
-onStartup(() => {
-    onRender((root: HTMLElement) => {
+window.RENDER_REACT = (rootEl: string, instance: renderInstanceType) => {
+    const root = document.getElementById(rootEl);
+
+    if (!root) return;
+
+    window.console.log(rootEl, instance);
+
+    onStartup(() => {
         ReactDOM.render(
             <Router
                 initialEntries={routes}
                 initialIndex={getCurrentIndex()}>
-                <App />
+                <App render={instance} />
             </Router>,
-            root as HTMLElement,
+            root,
         );
     });
-});
+};
+
+window.UNRENDER_REACT = (rootEl: string) => {
+    const root = document.getElementById(rootEl);
+
+    if (!root) return;
+
+    ReactDOM.unmountComponentAtNode(root);
+};
+
+if (dev) {
+    onStartup(() => {
+        window.RENDER_REACT('react-root', 'home');
+    });
+}

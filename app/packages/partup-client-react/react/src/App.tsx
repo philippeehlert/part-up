@@ -8,13 +8,12 @@ import {
     Route,
 } from 'react-router-dom';
 import { error, success } from 'utils/notify';
-import { routes, activeRoutes, onRouteChange } from 'utils/router';
+import { onRouteChange } from 'utils/router';
 import { View } from 'components/View/View';
 import { DevelopmentNavigation } from 'implementations/DevelopmentNavigation';
 import { Router } from 'components/Router/Router';
 import { NotificationsManager } from 'components/NotificationsManager/NotificationsManager';
 import { Dashboard } from 'views/Dashboard/Dashboard';
-import { Home } from 'views/Home/Home';
 import { UserDocument } from 'collections/Users';
 import { get } from 'lodash';
 
@@ -72,7 +71,13 @@ export interface AppContext {
     refetchUser: Function;
 }
 
-export class App extends React.Component<Props, State> {
+export type renderInstanceType = 'home' | 'partup-start';
+
+interface AppProps extends Props {
+    render: renderInstanceType;
+}
+
+export class App extends React.Component<AppProps, State> {
 
     public static childContextTypes = {
         user: PropTypes.object,
@@ -146,17 +151,40 @@ export class App extends React.Component<Props, State> {
             );
         }
 
+        if (dev) {
+            return (
+                <Container>
+                    <Switch>
+                        <Route path={'/home'} component={Dashboard}/>
+                        <Route path={'/partup-start'} render={() => <div>Start</div>}/>
+                    </Switch>
+                    <NotificationsManager />
+                </Container>
+            );
+        }
+
         return (
             <Container>
-                <Switch>
-                    <Route path={'/home'} component={Dashboard}/>
-                    { routes.filter((route) => !activeRoutes.includes(route)).map((route, index) => (
-                        <Route key={index} path={route} component={Home} />
-                    )) }
-                </Switch>
+                {this.renderInstance()}
                 <NotificationsManager />
             </Container>
         );
+
+    }
+
+    private renderInstance = () => {
+        const { render } = this.props;
+
+        window.console.log(render);
+
+        switch (render) {
+        case 'home':
+            return <Route path={'/'} component={Dashboard}/>;
+        case 'partup-start':
+            return <Route path={'/'} render={() => <div>Start</div>}/>;
+        default:
+            return undefined;
+        }
     }
 
     private refetchUser = () => {

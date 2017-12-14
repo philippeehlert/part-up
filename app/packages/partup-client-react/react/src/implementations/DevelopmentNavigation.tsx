@@ -20,6 +20,11 @@ export class DevelopmentNavigation extends React.Component {
                             dashboard
                         </MainNavLink>
                     </ListItem>
+                    <ListItem>
+                        <MainNavLink to={'/partup-start'}>
+                            partup-start
+                        </MainNavLink>
+                    </ListItem>
                     <ListItem alignRight>
                         <span style={{ padding: '15px', display: 'block' }}>
                             Partup React Development Environment

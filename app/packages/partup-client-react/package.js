@@ -35,7 +35,7 @@ Package.onUse((api) => {
 
     if (!process.env.REACT_DEV) {
         jsfiles = glob.sync('./react/build/static/js/main.*.js', options);
-        
+
         console.log('> Adding javascript\n', jsfiles.join('\n\t\t'));
     } else {
         console.log('> Skipping js files in --react-dev mode.');
@@ -58,6 +58,9 @@ Package.onUse((api) => {
 
     api.addFiles([
         'blaze/ReactDashboard.html',
+        'blaze/ReactDashboard.js',
+        'blaze/ReactPartupStart.html',
+        'blaze/ReactPartupStart.js',
     ].concat(jsfiles), 'client');
 
     console.log('> Done.');
