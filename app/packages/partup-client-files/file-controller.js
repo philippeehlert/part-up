@@ -46,9 +46,6 @@ class _FileController {
         // In the case of an existing entity we can't yet remove it from the collection (user can still press cancel)
         // We store the references the user removes here and clean up afterwards, see 'removeAllFilesBesides'
         this.removedFromCache = new ReactiveVar([]);
-
-        // internal sub handler
-        this._subs = {};
     }
     
     /**
@@ -59,7 +56,6 @@ class _FileController {
      * @param {File} file dropbox or googledrive file, see 'Partup.helpers.files.FILE_SERVICES'
      */
     insertFileToCollection(file) {
-        const self = this;
         const baseError = {
             caller: 'fileController:insertFileToCollection',
         };
@@ -71,59 +67,38 @@ class _FileController {
                         Partup.helpers.files.FILE_SERVICES.DROPBOX,
                         Partup.helpers.files.FILE_SERVICES.GOOGLEDRIVE,
                     ];
-                    if (!file.service || !_.includes(allowedServices, file.service)) {
-                        reject({
+                    if (!_.includes(allowedServices, file.service)) {
+                        return reject({
                             ...baseError,
                             code: 1,
                             message: `this file has an invalid file service: '${file.service}', see 'Partup.helpers.files.FILE_SERVICES' for more information`,
                         });
-                    } else if (Partup.helpers.files.isImage(file)) {
-                        Meteor.call('images.insertByUrl', file, function(error, result) {
-                            if (error) {
-                                reject(error);
-                            } else if (!result || !result._id) {
-                                reject({
-                                    ...baseError,
-                                    code: 1,
-                                    message: "meteor method 'images.insertByUrl' failed, no _id in result",
-                                });
-                            } else {
-                                const imageId = result._id;
-
-                                self._subs[imageId] = Meteor.subscribe('images.one', imageId, {
-                                    onReady() {
-                                        const insertedImage = Images.findOne(imageId);
-
-                                        if (insertedImage) {
-                                            resolve(insertedImage);
-                                        } else {
-                                            reject({
-                                                ...baseError,
-                                                code: 1,
-                                                message: `cannot find image with _id: ${imageId} after inserting`,
-                                            });
-                                        }
-                                    },
-                                });
-                            }
-                        });
-                    } else {
-                        Meteor.call('files.insert', file, function(error, result) {
-                            if (error) {
-                                reject(error);
-                            } else if (!result || !result._id) {
-                                reject({
-                                    ...baseError,
-                                    message: "method 'files.insert' failed, no _id in result",
-                                });
-                            } else {
-                                // Don't need to fetch dropbox or drive files, all data is already present.
-                                resolve(Object.assign({
-                                    _id: result._id,
-                                }, file));
-                            }
-                        });
                     }
+                    
+                    const collection = Partup.helpers.files.isImage(file) ? 'images' : 'files';
+                    
+                    Meteor.call(`${collection}.insert`, file, function (error, { _id }) {
+                        if (!_id) {
+                            reject(error || {
+                                ...baseError,
+                                code: 1,
+                                message: `meteor method ${collection}.insert' failed, no _id in result`,
+                            });
+                        }
+                        if (collection === 'images') {
+                            Meteor.call(`${collection}.get`, _id, function (err, res) {
+                                if (res && res.length) {
+                                    resolve(...res);
+                                } else {
+                                    reject(err);
+                                }
+                            });
+                        } else {
+                            resolve(Object.assign({
+                                _id,
+                            }, file));
+                        }
+                    });
                 } else {
                     reject({
                         ...baseError,
@@ -301,17 +276,8 @@ class _FileController {
         this.removedFromCache.set([]);
     }
 
-    clearAllSubscribtions() {
-        _.each(this._subs, sub => sub.stop());
-
-        while (this._subs && this._subs.length) {
-            this._subs.pop();
-        }
-    }
-
     reset() {
         this.clearFileCache();
-        this.clearAllSubscribtions();
         this.uploading.set(false);
     }
 

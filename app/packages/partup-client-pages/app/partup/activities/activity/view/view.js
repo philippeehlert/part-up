@@ -19,26 +19,13 @@ Template.ActivityView.onCreated(function() {
         Meteor.call('contributions.update', template.activityId, contribution, cb);
     };
 
-    this.contributionsReady = new ReactiveVar(false);
+    this.contributionsReady = new ReactiveVar(true);
 
-    if (this.activityId) {
-        template.contributionSub = template.subscribe('contributions.for_activity', this.activityId, {
-            onReady() {
-                template.contributionsReady.set(true);
-            },
-        });
-    } else {
-        this.contributionsReady.set(true);
-    }
 
-    if (this.activity && this.activity.files) {
-        template.imageSub = template.subscribe('images.many', this.activity.files.images);
-        template.fileSub = template.subscribe('files.many', this.activity.files.documents);
-    }
 
     this.update = Updates.findOne({ _id: this.data.updateId || get(Template.instance(), 'data.activity.update_id') });
     template.hidden = {
-        comments: new ReactiveVar(template.data.BOARDVIEW || (!template.data.EXPANDED && !_.get(this.update, 'comments_count'))),
+        comments: new ReactiveVar(template.data.BOARDVIEW || (template.data.EXPANDED && !_.get(this.update, 'comments_count'))),
         files: new ReactiveVar(!template.data.FILES_EXPANDED),
     };
 
@@ -194,11 +181,14 @@ Template.ActivityView.helpers({
         const instance = Template.instance();
         const self = this;
         return {
+            activity() {
+                return self.activity;
+            },
             isContributing() {
                 return Contributions.find({ activity_id: instance.activityId, upper_id: Meteor.userId(), archived: { $ne: true } }).count();
             },
-            activity() {
-                return self.activity;
+            isUpper() {
+                return User(Meteor.user()).isPartnerInPartup(get(self.activity, 'partup_id') || self.partupId);
             },
         };
     },
@@ -236,17 +226,39 @@ Template.ActivityView.events({
         const who = $(event.target).data('toggle');
         const hide = templateInstance.hidden[who];
         const newVal = hide.get();
-        if (hide) {
-            hide.set(!hide.get());
-        }
 
-        if (who === 'comments') {
+        const toggleHide = () => {
+            if (hide) {
+                hide.set(!hide.get());
+            }
+        };
+
+        const setFocus = () => {
             setTimeout(() => {
-                const commentElement = templateInstance.find('[data-commentfield]');
-                if (commentElement) {
-                    newVal ? $(commentElement).focus() : $(commentElement).blur();
+                const $commentElement = $(templateInstance.find('[data-commentfield]'));
+                if ($commentElement) {
+                    const method = newVal ? 'focus' : 'blur';
+                    $commentElement[method]();
                 }
             }, 150);
+        };
+
+        if (who === 'comments') {
+            if (!Meteor.user() && templateInstance.update.comments_count < 1) {
+                Intent.go({
+                    route: 'login',
+                }, function () {
+                    if (Meteor.user()) {
+                        toggleHide();
+                        setFocus();
+                    }
+                });
+            } else {
+                toggleHide();
+                setFocus();
+            }
+        } else {
+            toggleHide();
         }
     },
     'click [data-dropdown-open]': function(event, template) {
@@ -306,11 +318,13 @@ Template.ActivityView.events({
                                 return;
                             }
 
-                            analytics.track('new contribution', {
-                                partupId: partup._id,
-                                userId: Meteor.userId(),
-                                userType: 'supporter'
-                            });
+                            try {
+                                analytics.track('new contribution', {
+                                    partupId: partup._id,
+                                    userId: Meteor.userId(),
+                                    userType: 'supporter'
+                                });
+                            } catch (err) { }
                         });
                     }
                 });
@@ -394,7 +408,7 @@ Template.activityActionsDropdown.helpers({
 
         return true;
     },
-    showEditButton: function() {
-        return !this.READONLY && this.isUpper;
-    }
+    // showEditButton: function() {
+    //     return !this.READONLY && this.isUpper;
+    // }
 });

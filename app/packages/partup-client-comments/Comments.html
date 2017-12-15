@@ -4,6 +4,7 @@
         <!-- {{# if state.showComments }} -->
         <!-- View all n comments -->
             <!-- {{# if partupOneIsTrue FULLVIEW data.shownComments.length }} -->
+                {{#unless POPUP }}
                 <p class="pu-sub-view-all-comments-button">
                     <!-- {{# unless FULLVIEW }} -->
                         <a href="{{ #if partupContainsOne update.type 'partups_newuser' }}
@@ -30,9 +31,11 @@
                     {{/unless }}
                     {{/if }}
                 </p>
+                {{/unless }}
             <!-- {{/ if }} -->
 
             <!-- Comments list -->
+            {{#unless POPUP}}
             {{#if data.shownComments }}
             <ul class="pu-list pu-list-comments" data-comments-container>
                 {{# each data.shownComments }}
@@ -91,6 +94,7 @@
                 {{/ each }}
             </ul>
             {{/if }}
+            {{/unless}}
         <!-- {{/ if }} -->
 
         <!-- Add comment field -->

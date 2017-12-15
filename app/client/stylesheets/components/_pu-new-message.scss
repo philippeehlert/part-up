@@ -48,10 +48,6 @@
             margin: em(0);
             text-align: center;
 
-            .pu-button-text-subtle {
-                width: auto;
-            }
-
             &:last-child {
                 margin-bottom: em(20);
 
@@ -59,6 +55,17 @@
                     margin-bottom: em(0);
                 }
             }
+
+            .pu-button-text-subtle {
+                width: auto;
+            }
+
+            .pu-button-disabled {
+                background: grey;
+                position: relative;
+            }
+
+            
         }
     }
 }

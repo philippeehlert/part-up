@@ -35,14 +35,6 @@ Template.app_partup_activities.onCreated(function() {
         }
     };
 
-    // Partup findOne and activities subscription
-    template.activities.loading.set(true);
-    template.subscribe('activities.from_partup', template.data.partupId, {
-        onReady: function() {
-            template.activities.loading.set(false);
-        }
-    });
-
     template.createNewActivity = function(laneId) {
         var userId = Meteor.userId();
         var proceed = function() {

@@ -188,15 +188,16 @@ AutoForm.hooks({
             const self = this;
             const messageForm = Template.instance().parent();
 
-            if (messageForm.fileController.uploading.get()) {
-                Partup.client.notify.info(TAPi18n.__('files-uploading'));
-                return false;
-            }
             if (messageForm.isSubmitting.get()) {
                 return false;
             }
 
             messageForm.isSubmitting.set(true);
+
+            if (messageForm.fileController.uploading.get()) {
+                Partup.client.notify.info(TAPi18n.__('files-uploading'));
+                return false;
+            }
             Partup.client.updates.setWaitForUpdate(true);
 
             const formData = _.assignIn(insertDoc, {
@@ -249,15 +250,15 @@ AutoForm.hooks({
             const self = this;
             const messageForm = Template.instance().parent();
 
+            if (messageForm.isSubmitting.get()) {
+                return false;
+            }
+            messageForm.isSubmitting.set(true);
+
             if (messageForm.fileController.uploading.get()) {
                 Partup.client.notify.info(TAPi18n.__('files-uploading'));
                 return false;
             }
-            if (messageForm.isSubmitting.get()) {
-                return false;
-            }
-
-            messageForm.isSubmitting.set(true);
 
             const formData = _.assignIn(insertDoc, {
                 text: messageForm.mentionsInput.getValue(),

@@ -1,3 +1,7 @@
+import {
+    flatMap,
+} from 'lodash';
+
 Meteor.methods({
 
     /**
@@ -8,6 +12,21 @@ Meteor.methods({
      * @return {String} imageId
      */
     'images.insertByUrl'(file) {
+        check(file, Partup.schemas.entities.file);
+        this.unblock();
+
+        const request = HTTP.get(file.link, { npmRequestOptions: { encoding: null } });
+        const fileBody = new Buffer(request.content, 'binary');
+        const image = Partup.server.services.images.upload(file.name, fileBody, file.type, {
+            id: file._id,
+        });
+        return {
+            _id: image._id,
+        };
+    },
+
+    // Duplicate because of file-controller.js -> insertFileToCllection.
+    'images.insert'(file) {
         check(file, Partup.schemas.entities.file);
         this.unblock();
 
@@ -43,7 +62,9 @@ Meteor.methods({
         }
         throw new Meteor.Error(400, 'unauthorized');
     },
-    'images.get_many'(ids) {
+    'images.get'(...ids) {
+        ids = flatMap(ids);
+
         check(ids, [String]);
         this.unblock();
 
