@@ -1,7 +1,6 @@
 Template.ImageGallery.onCreated(function() {
     var template = this;
 
-    this.subscribe('images.many', this.images);
 });
 Template.ImageGallery.helpers({
     popupId: function() {

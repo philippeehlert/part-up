@@ -216,10 +216,12 @@
 
 <template name="activityActionsDropdown">
     <ul class="pu-list-dropdown ignore-drag">
+        {{#if isUpper }}
         <ul>
             <li class="pu-dropdown-item">
                 <a data-edit>{{_ 'edit' }}</a>
             </li>
+            
             <li class="pu-dropdown-item">
                 {{#if activity.archived }}
                     <a data-unarchive>{{_ 'unarchive' }}</a>
@@ -228,6 +230,7 @@
                 {{/if }}
             </li>
         </ul>
+        {{/if }}
         <ul>
             {{#unless isContributing }}
                 <li class="pu-dropdown-item">

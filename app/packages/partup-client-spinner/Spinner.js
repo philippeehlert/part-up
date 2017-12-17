@@ -10,6 +10,7 @@
  */
 
 Template.Spinner.rendered = function() {
+
     var options = lodash.cloneDeep(Partup.client.spinner.defaultOptions);
 
     if (this.data) {

@@ -1,6 +1,7 @@
 // import Sortable from 'sortablejs'; //'./node_modules/sortablejs/Sortable.min'
 import _ from 'lodash';
-import Sortable from './Sortable'
+import Sortable from './Sortable';
+import { setTimeout } from 'timers';
 
 Template.BoardView.onCreated(function () {
     var template = this;
@@ -26,11 +27,10 @@ Template.BoardView.onCreated(function () {
         });
     });
 
-    template.subscribe('board.for_partup_id', partupId, {
-        onReady() {
-            template.loaded.set(true);
-        },
-    });
+    // TODO: This hack makes dragging cards possible after moving the sub to the partup template.
+    setTimeout(() => {
+        template.loaded.set(true);
+    }, 1300);
 
     var arraysAreTheSame = function (arr1, arr2) {
         return JSON.stringify(arr1) === JSON.stringify(arr2);
@@ -147,6 +147,7 @@ Template.BoardView.onCreated(function () {
 
     template.createBoard = function () {
         var boardElement = template.$('[data-sortable-board]')[0];
+        if (!boardElement) return;
 
         template.sortableBoard = Sortable.create(boardElement, {
             group: {
@@ -181,7 +182,7 @@ Template.BoardView.onCreated(function () {
         const boardWrapEdges = $boardWrap[0].getBoundingClientRect();
         const currentScrollLeft = $boardWrap.scrollLeft();
 
-        const evt = touchEvt ? touchEvt : originalEvent;
+        const evt = touchEvt || originalEvent;
 
         if (evt.clientX <= (boardWrapEdges.left + scrollOffsetMargin)) {
             $boardWrap.scrollLeft(currentScrollLeft - 10);
@@ -245,6 +246,7 @@ Template.BoardView.onCreated(function () {
     template.updateLanesCollection = function () {
         var board = Boards.findOne();
         if (!board) return;
+
         var lanes = (board && board.lanes || []).map(function (laneId, laneIndex) {
             var lane = Lanes.findOne(laneId);
             if (!lane) return [];
@@ -257,6 +259,7 @@ Template.BoardView.onCreated(function () {
 
             return lane;
         });
+
         template.lanesCollection.set(lanes);
     };
 
@@ -289,6 +292,7 @@ Template.BoardView.onCreated(function () {
 
             return lane;
         });
+
         template.lanesCollection.set(lanes);
     });
 });
@@ -386,6 +390,9 @@ Template.BoardView.helpers({
     },
     isUpper: function () {
         return Template.instance().userIsUpper();
+    },
+    loaded() {
+        return Template.instance().loaded.get();
     }
 });
 

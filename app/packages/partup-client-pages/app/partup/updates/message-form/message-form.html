@@ -34,7 +34,7 @@
                     </button>
                 </li>
                 <li>
-                    <button class="pu-button {{#if isSubmitting}}disabled{{/if }}" data-submit>
+                    <button class="pu-button {{#if isSubmitting}}pu-state-loading{{/if }}" data-submit>
                         <span>
                             {{#if isExistingUpdate }}
                                 {{_ 'pages-app-partup-updates-editmessage-submit'}}
@@ -42,7 +42,7 @@
                                 {{_ 'pages-app-partup-updates-newmessage-submit'}}
                             {{/if }}
                             {{#if isSubmitting }}
-                                {{> Spinner }}
+                                {{> Spinner type='small' }}
                             {{/if }}
                         </span>
                     </button>
