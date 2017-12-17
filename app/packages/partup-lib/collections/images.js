@@ -102,7 +102,7 @@ Images.findForUpdate = function(update) {
 };
 
 Images.findForActivity = function (activity) {
-    const { images = [] } = get(activity, 'files');
+    const { images = [] } = get(activity, 'files') || {};
     return Images.find({ _id: { $in: images } });
 };
 

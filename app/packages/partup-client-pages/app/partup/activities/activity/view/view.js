@@ -19,10 +19,6 @@ Template.ActivityView.onCreated(function() {
         Meteor.call('contributions.update', template.activityId, contribution, cb);
     };
 
-    this.contributionsReady = new ReactiveVar(true);
-
-
-
     this.update = Updates.findOne({ _id: this.data.updateId || get(Template.instance(), 'data.activity.update_id') });
     template.hidden = {
         comments: new ReactiveVar(template.data.BOARDVIEW || (template.data.EXPANDED && !_.get(this.update, 'comments_count'))),
@@ -218,7 +214,7 @@ Template.ActivityView.events({
     },
     'click [data-toggle]'(event, templateInstance) {
         // This will get triggered before [data-detail] above.
-        // we don't want to expand when on boardview.
+        // we don't want to expand when on boardview but go to the detail instead.
         if (this.BOARDVIEW) {
             return true;
         }
@@ -382,33 +378,4 @@ Template.ActivityView.events({
             template.activityDropdownOpen.set(false)
         })
     }
-});
-
-Template.activityActionsDropdown.helpers({
-    showInviteButton: function() {
-        if (this.contribution_id) return false;
-        if (this.READONLY) return false;
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        return true;
-    },
-    showContributeButton: function() {
-        if (this.contribution_id) return false;
-        if (this.READONLY) return false;
-
-        var user = Meteor.user();
-        if (!user) return false;
-
-        var contributions = Contributions.findForActivity(this.activity).fetch();
-        for (var i = 0; i < contributions.length; i++) {
-            if (contributions[i].upper_id === user._id && !contributions[i].archived) return false;
-        }
-
-        return true;
-    },
-    // showEditButton: function() {
-    //     return !this.READONLY && this.isUpper;
-    // }
 });

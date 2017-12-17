@@ -345,13 +345,6 @@ Template.app_partup_updates.helpers({
     updatesLoadingMore: function() {
         return Template.instance().updates.infinite_scroll_loading.get();
     },
-    loadingUpdates() {
-        const instance = Template.instance();
-        return instance.data.defaultFilter === 'conversations' ?
-            instance.updates.loading.get() :
-            // uhhh?
-            instance.updates.loading.get(); // (instance.updates.view.get() || []).length === 0; // This is dangerous if there are no updates. Every partup has at least the very first 'partup_created' update.
-    },
 });
 
 /**
