@@ -22,7 +22,7 @@ Files.findForUpdate = function(update) {
 };
 
 Files.findForActivity = function (activity) {
-    const { documents = [] } = get(activity, 'files');
+    const { documents = [] } = get(activity, 'files') || {};
     return Files.find({ _id: { $in: documents } });
 };
 
