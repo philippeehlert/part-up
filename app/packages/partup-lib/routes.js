@@ -449,20 +449,20 @@ Router.route('/partups/:slug', {
     }
 });
 
-Router.route('/partups/:slug/start', {
-    name: 'partup-start',
-    where: 'client',
-    yieldRegions: {
-        'app': { to: 'main' },
-        'app_partup': { to: 'app' },
-        'app_partup_start': { to: 'app_partup' }
-    },
-    data: function() {
-        return {
-            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
-        };
-    },
-});
+// Router.route('/partups/:slug/start', {
+//     name: 'partup-start',
+//     where: 'client',
+//     yieldRegions: {
+//         'app': { to: 'main' },
+//         'app_partup': { to: 'app' },
+//         'app_partup_start': { to: 'app_partup' }
+//     },
+//     data: function() {
+//         return {
+//             partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+//         };
+//     },
+// });
 
 Router.route('/partups/:slug/updates/:update_id', {
     name: 'partup-update',

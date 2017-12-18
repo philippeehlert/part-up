@@ -185,9 +185,6 @@ Package.onUse(function(api) {
             'app/partup/update/update.html',
             'app/partup/update/update.js',
 
-            'app/partup/start/start.html',
-            'app/partup/start/start.js',
-
             // App:partup-activities
             'app/partup/activities/activities.html',
             'app/partup/activities/activities.js',

@@ -7,11 +7,6 @@ Template.PartupNavigationSelector.onCreated(function() {
     var partup = template.data.partup;
 
     template.options = [{
-        name: TAPi18n.__('pages-app-partup-menu_start'),
-        route: 'start',
-        slug: partupSlug,
-        icon: 'recommendation'
-    },{
         name: TAPi18n.__('pages-app-partup-menu_conversations'),
         route: 'partup',
         slug: partupSlug,
