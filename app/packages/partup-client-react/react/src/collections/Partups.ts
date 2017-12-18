@@ -12,6 +12,12 @@ export interface PartupDocument extends CollectionDocument {
     name: string;
     image: string;
     upper_data: UpperDataSubDocument[];
+    description: string;
+    tags: string[];
+    creator_id: string;
+    expected_result: string;
+    motivation: string;
+    network_id: string;
 }
 
 class PartupsCollection extends Collection<PartupDocument> {

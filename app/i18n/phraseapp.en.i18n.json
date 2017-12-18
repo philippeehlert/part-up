@@ -1948,5 +1948,13 @@
   "pur-dashboard-invite_tile-title-partup": "__inviter__ has invited you to participate in a <strong>part-up</strong> on <strong>__date__</strong>",
   "pur-dashboard-invites-subtitle-partup": "Je bent nog geen partner in deze part-up. Door te accepteren wordt je hier automatisch partner van.",
   "pur-dashboard-invite_tile-title-activity": "__inviter__ has invited you to participate on an <strong>activity</strong> in the part-up __partup__ on <strong>__date__</strong>",
-  "pur-dashboard-invite_tile-title-network": "__inviter__ has invited you to participate in a <strong>tribe</strong> on <strong>__date__</strong>"
+  "pur-dashboard-invite_tile-title-network": "__inviter__ has invited you to participate in a <strong>tribe</strong> on <strong>__date__</strong>",
+  
+  "pur-partup-start-onboarding_tile-text": "In this <strong>part-up</strong>, a small team collaborates to tackle a specific challenge. The expected result contributes to the purpose of the tribe __tribe__. <strong>Become partner</strong> to join the team and work together on the challenge. Or <strong>become a supporter</strong> to stay up to date and help the team with your insights.",
+  "pur-partup-start-onboarding_tile-dismiss": "Dismiss",
+  "pur-partup-start-invite_header-inviter": "__inviter__ invited you on <strong>__invited_at__</strong> to this part-up.",
+  "pur-partup-start-description_tile-challenge": "The Challenge",
+  "pur-partup-start-description_tile-expected_result": "Expected Result",
+  "pur-partup-start-description_tile-motivation_placeholder": "The founder of this part-up has not given a motivation.",
+  "pur-partup-start-description_tile-motivation_text": "Motivation of the part-up"
 }

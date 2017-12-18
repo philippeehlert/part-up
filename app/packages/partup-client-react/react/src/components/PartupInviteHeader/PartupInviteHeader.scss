@@ -1,0 +1,14 @@
+.pur-PartupInviteHeader {
+    color: #292929;
+    font-size: 14px;
+    strong {
+        font-weight: bold;
+    }
+    .pur-Link {
+        font-weight: bold;
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

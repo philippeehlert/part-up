@@ -33,19 +33,17 @@ if (dev) {
     Router = MemoryRouter;
 }
 
-window.RENDER_REACT = (rootEl: string, instance: renderInstanceType) => {
+window.RENDER_REACT = (rootEl: string, instance: renderInstanceType, metaData: Object) => {
     const root = document.getElementById(rootEl);
 
     if (!root) return;
-
-    window.console.log(rootEl, instance);
 
     onStartup(() => {
         ReactDOM.render(
             <Router
                 initialEntries={routes}
                 initialIndex={getCurrentIndex()}>
-                <App render={instance} />
+                <App render={instance} data={metaData} />
             </Router>,
             root,
         );

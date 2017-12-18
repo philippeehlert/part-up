@@ -5,7 +5,7 @@ import * as c from 'classnames';
 
 interface Props {
     className?: string;
-    onClick: Function;
+    onClick?: Function;
 }
 
 export class Clickable extends React.Component<Props, {}> {

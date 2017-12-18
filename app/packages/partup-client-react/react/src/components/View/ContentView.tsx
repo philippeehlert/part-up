@@ -7,6 +7,7 @@ import { View } from './View';
 
 interface Props {
     className?: string;
+    noPadding?: boolean;
 }
 
 export class ContentView extends React.Component<Props, {}> {
@@ -24,10 +25,10 @@ export class ContentView extends React.Component<Props, {}> {
     }
 
     private getClassNames() {
-        const { className } = this.props;
+        const { className, noPadding } = this.props;
 
         return c('pur-ContentView', className, {
-
+            'pur-ContentView--no-padding': noPadding,
         });
     }
 }

@@ -15,6 +15,99 @@ Meteor.routeComposite('/partups/me', function(request, parameters) {
         find: () => partupsCursor,
     }
 });
+
+
+Meteor.routeComposite('/partups/start', function(request, parameters) {
+    const userId = parameters.query.userId || this.userId;
+    const partupId = parameters.query.partupId;
+
+    const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
+
+    const partupsCursor = Partups.guardedFind(user, { _id: partupId }, {
+        fields: {
+            _id: 1,
+            name: 1,
+            image: 1,
+            upper_data: 1,
+            tags: 1,
+            slug: 1,
+            description: 1,
+            expected_result: 1,
+            motivation: 1,
+            network_id: 1,
+            uppers: 1,
+            creator_id: 1,
+            starred_updates: 1,
+        },
+    });
+
+    const partup = partupsCursor.fetch()[0];
+
+    const starredUpdates = Updates.find({
+        _id: {$in: partup.starred_updates || []},
+    }, {
+        sort: { updated_at: -1 },
+        fields: { comments: 0 },
+    });
+
+    const updateUserIds = starredUpdates.map(({upper_id}) => upper_id);
+
+    const starredUpdatesIds = starredUpdates.map(({_id}) => _id);
+    const networksCursor = Networks.find({_id: partup.network_id }, {fields: {_id: 1, name: 1}});
+
+    const invitesCursor = Invites.find({
+        partup_id: partupId,
+        invitee_id: user._id,
+        type: 'partup_existing_upper',
+    });
+
+    const userIds = Array.from(new Set([
+        partup.creator_id,
+        ...(partup.uppers || []),
+        ...(updateUserIds || []),
+    ]));
+
+    const usersCursor = Meteor.users.find({_id: {$in: userIds}}, {fields: {'_id': 1, 'name': 1, 'image': 1, 'profile.image': 1, 'profile.name': 1}});
+
+    // find all activities for userPartupUpdates
+    const activitiesCursor = Activities.findForUpdateIds(starredUpdatesIds);
+    const activityLaneIds = activitiesCursor.map(({lane_id}) => lane_id);
+
+    // find lanes for activities
+    const lanesCursor = Lanes.find({_id: {$in: activityLaneIds}});
+
+    // find all asociated images for collections
+    const imagesCursor = Images.findForCursors([{
+        cursor: usersCursor,
+        imageKey: 'profile.image',
+    }, {
+        cursor: partupsCursor,
+        imageKey: 'image',
+    }, {
+        cursor: starredUpdates,
+        imageKey: 'type_data.old_image',
+    }, {
+        cursor: starredUpdates,
+        imageKey: 'type_data.new_image',
+    }, {
+        cursor: starredUpdates,
+        imageKey: 'type_data.images',
+    }]);
+
+    return {
+        find: () => Meteor.users.find({_id: userId}),
+        children: [
+            {find: () => partupsCursor},
+            {find: () => invitesCursor},
+            {find: () => usersCursor},
+            {find: () => imagesCursor},
+            {find: () => networksCursor},
+            {find: () => starredUpdates},
+            {find: () => activitiesCursor},
+            {find: () => lanesCursor},
+        ],
+    };
+});
 /**
  * Gets all conversation updates for a user's partup.
  */
@@ -55,9 +148,6 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
     const partupUpperIds = lodash.flattenDeep(partupUpperArrays);
     const partupUniqueUpperIds = lodash.uniq(partupUpperIds);
 
-    // find all users for partups
-    const usersCursor = Meteor.users.find({_id: {$in: partupUniqueUpperIds}}, {fields: {'_id': 1, 'profile.image': 1, 'profile.name': 1}});
-
     // find all updates for user partups
     const updatesCursor = Updates.findForPartupsIds(partupIds, {
         filter: 'conversations',
@@ -65,7 +155,16 @@ Meteor.routeComposite('/partups/updates', function(request, parameters) {
         fields: { comments: 0 },
         ...options,
     });
+
     const updateIds = updatesCursor.map(({_id}) => _id);
+    const updateUserIds = updatesCursor.map(({upper_id}) => upper_id);
+    // find all users for partups
+    const userIds = Array.from(new Set([
+        ...(partupUniqueUpperIds || []),
+        ...(updateUserIds || []),
+    ]));
+
+    const usersCursor = Meteor.users.find({_id: {$in: userIds}}, {fields: {'_id': 1, 'name': 1, 'image': 1, 'profile.image': 1, 'profile.name': 1}});
 
     // find all activities for userPartupUpdates
     const activitiesCursor = Activities.findForUpdateIds(updateIds);

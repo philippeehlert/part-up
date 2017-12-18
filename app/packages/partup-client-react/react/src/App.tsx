@@ -14,6 +14,7 @@ import { DevelopmentNavigation } from 'implementations/DevelopmentNavigation';
 import { Router } from 'components/Router/Router';
 import { NotificationsManager } from 'components/NotificationsManager/NotificationsManager';
 import { Dashboard } from 'views/Dashboard/Dashboard';
+import { Start } from 'views/Partup/Start';
 import { UserDocument } from 'collections/Users';
 import { get } from 'lodash';
 
@@ -75,6 +76,7 @@ export type renderInstanceType = 'home' | 'partup-start';
 
 interface AppProps extends Props {
     render: renderInstanceType;
+    data: any;
 }
 
 export class App extends React.Component<AppProps, State> {
@@ -152,11 +154,18 @@ export class App extends React.Component<AppProps, State> {
         }
 
         if (dev) {
+            const partupId = 'zcJyRkPhTNqQjNKEZ';
+
             return (
                 <Container>
                     <Switch>
                         <Route path={'/home'} component={Dashboard}/>
-                        <Route path={'/partup-start'} render={() => <div>Start</div>}/>
+                        <div style={{ display: 'flex' }}>
+                            <div style={{ flex: '0 0 400px', height: '100vh', background: '#eeeeee' }} />
+                            <div style={{ flex: '1', height: '100vh', padding: '2.5em', background: '#e6e6e6' }}>
+                                <Route path={'/partup-start'} render={(props) => <Start {...props} partupId={partupId} />} />
+                            </div>
+                        </div>
                     </Switch>
                     <NotificationsManager />
                 </Container>
@@ -173,15 +182,13 @@ export class App extends React.Component<AppProps, State> {
     }
 
     private renderInstance = () => {
-        const { render } = this.props;
-
-        window.console.log(render);
+        const { render, data } = this.props;
 
         switch (render) {
         case 'home':
-            return <Route path={'/'} component={Dashboard}/>;
+            return <Route path={'/'} component={Dashboard} />;
         case 'partup-start':
-            return <Route path={'/'} render={() => <div>Start</div>}/>;
+            return <Route path={'/'} render={(props) => <Start {...props} partupId={data.partupId} />} />;
         default:
             return undefined;
         }

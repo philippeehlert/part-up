@@ -12,4 +12,8 @@
     @media screen and (min-width: 925px) {
         padding: 25px 95px;
     }
+
+    &--no-padding {
+        padding: 0;
+    }
 }

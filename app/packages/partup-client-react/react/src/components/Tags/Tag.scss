@@ -1,0 +1,27 @@
+.pur-Tag {
+    @import "stylesheets/spacings";
+
+    position: relative;
+    display: flex;
+    background: #e6e6e6;
+    font-size: 14px;
+    line-height: 1;
+    padding: getSpacing(0.5) 0 getSpacing(0.5) getSpacing(0.5);
+    white-space: nowrap;
+    height: 24px;
+    font-weight: 600;
+
+    &:after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        right: -5px;
+        top: -5px;
+        display: inline-block;
+        width: 11px;
+        height: calc(100% + 10px);
+        z-index: 1;
+        border-radius: 50%;
+        background-color: #e6e6e6;
+    }
+}
