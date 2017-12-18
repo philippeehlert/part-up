@@ -186,7 +186,7 @@ export class App extends React.Component<AppProps, State> {
 
         switch (render) {
         case 'home':
-            return <Route path={'/'} component={Dashboard} />;
+            return <Route path={'/home'} component={Dashboard} />;
         case 'partup-start':
             return <Route path={'/'} render={(props) => <Start {...props} partupId={data.partupId} />} />;
         default:

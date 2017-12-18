@@ -21,14 +21,17 @@
     &__content {
         flex: 1;
     }
+}
 
-    &:hover {
+// Overwrite reset.css:53
+a.pur-Link:hover {
+    @import "stylesheets/colors";
+
+    text-decoration: underline;
+    color: $pur-color-sunshade;;
+
+    &__content {
+        color: $pur-color-sunshade;
         text-decoration: underline;
-        color: $pur-color-sunshade;;
-
-        &__content {
-            color: $pur-color-sunshade;
-            text-decoration: underline;
-        }
     }
 }
