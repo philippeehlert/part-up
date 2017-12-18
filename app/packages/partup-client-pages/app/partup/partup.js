@@ -1,3 +1,7 @@
+import {
+    get,
+} from 'lodash';
+
 Template.app_partup.onCreated(function () {
     const template = this;
 
@@ -16,6 +20,8 @@ Template.app_partup.onCreated(function () {
 
     template.loading = {
         partup: new ReactiveVar(true),
+        board: new ReactiveVar(true),
+        activities: new ReactiveVar(true),
     };
 
     const sidebarCookie = Cookies.get('partup_sidebar_expanded');
@@ -56,8 +62,16 @@ Template.app_partup.onCreated(function () {
     });
 
     template.subscribe('updates.from_partup', template.data.partupId);
-    template.subscribe('board.for_partup_id', template.data.partupId);
-    template.subscribe('activities.from_partup', template.data.partupId);
+    template.subscribe('board.for_partup_id', template.data.partupId, {
+        onReady() {
+            template.loading.board.set(false);
+        },
+    });
+    template.subscribe('activities.from_partup', template.data.partupId, {
+        onReady() {
+            template.loading.activities.set(false);
+        },
+    });
 });
 
 Template.app_partup.helpers({
@@ -68,7 +82,13 @@ Template.app_partup.helpers({
         return Template.instance().partup.get();
     },
     partupLoaded() {
-        return !Template.instance().loading.partup.get();
+        const { loading, partup } = Template.instance();
+
+        if (ActiveRoute.name(/partup-activities/) && get(partup.get(), 'board_view', false)) {
+            return !loading.partup.get() && !loading.board.get() && !loading.activities.get();
+        }
+
+        return !loading.partup.get();
     },
     sidebarExpanded() {
         return Template.instance().sidebarExpanded.get();

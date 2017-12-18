@@ -1,7 +1,4 @@
-// import Sortable from 'sortablejs'; //'./node_modules/sortablejs/Sortable.min'
-import _ from 'lodash';
 import Sortable from './Sortable';
-import { setTimeout } from 'timers';
 
 Template.BoardView.onCreated(function () {
     var template = this;
@@ -26,11 +23,6 @@ Template.BoardView.onCreated(function () {
             }
         });
     });
-
-    // TODO: This hack makes dragging cards possible after moving the sub to the partup template.
-    setTimeout(() => {
-        template.loaded.set(true);
-    }, 1300);
 
     var arraysAreTheSame = function (arr1, arr2) {
         return JSON.stringify(arr1) === JSON.stringify(arr2);
@@ -295,6 +287,10 @@ Template.BoardView.onCreated(function () {
 
         template.lanesCollection.set(lanes);
     });
+});
+
+Template.BoardView.onRendered(function () {
+    this.loaded.set(true);
 });
 
 Template.BoardView.onDestroyed(function () {
