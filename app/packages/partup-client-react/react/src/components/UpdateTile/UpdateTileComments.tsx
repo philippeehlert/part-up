@@ -15,6 +15,7 @@ import { translate } from 'utils/translate';
 interface Props {
     className?: string;
     collapsedMax?: number;
+    hideCommentBox?: boolean;
     update: any;
 }
 
@@ -31,7 +32,7 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
     public state: State = {
         showAllComments: false,
-        showCommentBox: true,
+        showCommentBox: !this.props.hideCommentBox ? true : false,
     };
 
     private commentBoxComponent: CommentBox|null = null;

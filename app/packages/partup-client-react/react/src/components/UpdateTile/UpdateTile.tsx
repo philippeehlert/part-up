@@ -53,6 +53,7 @@ interface Props {
     className?: string;
     update: ConversationUpdateDocument;
     isStarred?: boolean;
+    hideCommentBox?: boolean;
 }
 
 export class UpdateTile extends React.Component<Props, {}> {
@@ -61,6 +62,7 @@ export class UpdateTile extends React.Component<Props, {}> {
         const {
             update,
             isStarred,
+            hideCommentBox,
         } = this.props;
 
         return (
@@ -78,6 +80,7 @@ export class UpdateTile extends React.Component<Props, {}> {
                 )}
                 <UpdateTileComments
                     update={update}
+                    hideCommentBox={hideCommentBox}
                 />
             </div>
         );
