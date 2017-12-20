@@ -11,10 +11,11 @@ import { PartupOnboardingTile } from 'components/PartupOnboardingTile/PartupOnbo
 import { ContentView } from 'components/View/ContentView';
 import { Networks, NetworkDocument } from 'collections/Networks';
 import { PartupInviteHeader } from 'components/PartupInviteHeader/PartupInviteHeader';
-import { UpdateTile } from 'components/UpdateTile/UpdateTile';
-import { Updates, ConversationUpdateDocument } from 'collections/Updates';
+import { Updates, ConversationUpdateDocument, UpdateDocument } from 'collections/Updates';
 import { Lanes, LaneDocument } from 'collections/Lanes';
 import { Activities, ActivityDocument } from 'collections/Activities';
+import { StarredUpdates } from 'components/StarredUpdates/StarredUpdates';
+import { Subscriber } from 'utils/Subscriber';
 
 interface RouteParams {}
 
@@ -65,6 +66,8 @@ export class Start extends React.Component<Props, State> {
             Updates.updateStatics(updates);
             Activities.updateStatics(activities);
             Lanes.updateStatics(lanes);
+
+            this.subscribeToUpdateComments();
         },
         transformData: (data) => {
             return {
@@ -75,6 +78,11 @@ export class Start extends React.Component<Props, State> {
         },
     });
 
+    private updatesCommentsSubscriber = new Subscriber({
+        subscription: 'updates.comments_by_update_ids',
+        onStateChange: () => this.forceUpdate(),
+    });
+
     public componentWillMount() {
         const { partupId } = this.props;
 
@@ -82,6 +90,7 @@ export class Start extends React.Component<Props, State> {
     }
 
     public componentWillUnmount() {
+        this.updatesCommentsSubscriber.destroy();
         this.partupsFetcher.destroy();
     }
 
@@ -107,11 +116,18 @@ export class Start extends React.Component<Props, State> {
                     </React.Fragment>
                 )}
                 <PartupDescriptionTile partup={partup} />
-
-                <div style={{ padding: '10px', background: '#eee' }}>
-                    {starredUpdates.map(update => <UpdateTile key={update._id} update={update} />)}
-                </div>
+                { starredUpdates.length ? (
+                    <StarredUpdates updates={starredUpdates} />
+                ) : (
+                    <p>Er zijn nog geen starred updates.</p>
+                ) }
             </ContentView>
         );
+    }
+
+    private subscribeToUpdateComments = async () => {
+        const updateIds = Updates.findStatic().map((update: UpdateDocument) => update._id);
+
+        await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
 }

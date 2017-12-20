@@ -40,7 +40,7 @@ export class PartupInviteHeader extends React.Component<Props, State> {
                     {this.inviter.profile.name}
                 </Link>,
             ),
-            invited_at: moment(invite.created_at).format('D MM YYYY'),
+            invited_at: moment(invite.created_at).format('D MMMM YYYY'),
             interpolation: { escapeValue: false },
         }).replace('||', '__');
     }

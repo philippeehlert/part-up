@@ -47,10 +47,12 @@ import { UpdateTileComments } from 'components/UpdateTile/UpdateTileComments';
 import { translate } from 'utils/translate';
 import { Partups, PartupDocument } from 'collections/Partups';
 import { Users, UserDocument } from 'collections/Users';
+import { Icon } from 'components/Icon/Icon';
 
 interface Props {
     className?: string;
     update: ConversationUpdateDocument;
+    isStarred?: boolean;
 }
 
 export class UpdateTile extends React.Component<Props, {}> {
@@ -58,10 +60,14 @@ export class UpdateTile extends React.Component<Props, {}> {
     public render() {
         const {
             update,
+            isStarred,
         } = this.props;
 
         return (
             <div className={this.getClassNames()}>
+                {isStarred && (
+                    <Icon name={`recommended`} className={`pur-UpdateTile__starred-icon`} />
+                )}
                 <UpdateTileMeta update={update}>
                     { this.renderUpdateTitle(update, this.getPosterName()) }
                 </UpdateTileMeta>
@@ -85,7 +91,6 @@ export class UpdateTile extends React.Component<Props, {}> {
         }
 
         return (Partups.findOneAny({ _id: update.partup_id }) as PartupDocument).name;
-        // get(update, 'upper.profile.name');
     }
 
     private getClassNames() {
