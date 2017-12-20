@@ -7,31 +7,21 @@
     display: inline-flex;
     justify-content: space-between;
     text-decoration: none;
-    line-height: normal;
-    transition: color 100ms;
+
+    &:hover {
+        text-decoration: underline;
+        color: $pur-color-sunshade;
+    }
 
     &__left-child + &__content {
         margin-left: 10px;
     }
 
-    &__content + &__right-child{
+    &__content + &__right-child {
         margin-left: 10px;
     }
 
     &__content {
         flex: 1;
-    }
-}
-
-// Overwrite reset.css:53
-a.pur-Link:hover {
-    @import "stylesheets/colors";
-
-    text-decoration: underline;
-    color: $pur-color-sunshade;;
-
-    &__content {
-        color: $pur-color-sunshade;
-        text-decoration: underline;
     }
 }
