@@ -7,7 +7,7 @@ import {
     Switch,
     Route,
 } from 'react-router-dom';
-import { error, success } from 'utils/notify';
+import { error } from 'utils/notify';
 import { onRouteChange } from 'utils/router';
 import { View } from 'components/View/View';
 import { DevelopmentNavigation } from 'implementations/DevelopmentNavigation';
@@ -117,11 +117,6 @@ export class App extends React.Component<AppProps, State> {
             const locale = get(user, 'profile.settings.locale') || 'en';
 
             moment.locale(locale);
-
-            success({
-                title: 'Login success',
-                content: `Successfully logged in as ${user.profile.name}`,
-            });
         });
 
         onLoginFailure(() => {
@@ -141,16 +136,8 @@ export class App extends React.Component<AppProps, State> {
     public render() {
         const { loginFailed, user } = this.state;
 
-        if (loginFailed) {
-            return (
-                <div>TODO: Login failed Please login @ partup</div>
-            );
-        }
-
-        if (!user) {
-            return (
-                <div>TODO: Empty state</div>
-            );
+        if (loginFailed || !user) {
+            return null;
         }
 
         if (dev) {
