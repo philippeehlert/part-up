@@ -445,6 +445,15 @@ Router.route('/partups/:slug', {
             Session.set('partup_access_token_for_partup', partupId);
         }
 
+        const user = Meteor.user();
+        const redirectedBefore = Session.get(`redirected_to_onboarding-${partupId}`);
+
+        if (!redirectedBefore && (!user || !User(user).isSupporterInPartup(partupId) || !User(user).isPartnerInPartup(partupId))) {
+            Session.set(`redirected_to_onboarding-${partupId}`, true);
+            this.redirect(`/partups/${this.params.slug}/start`);
+            return;
+        }
+
         this.next();
     }
 });
@@ -458,6 +467,9 @@ Router.route('/partups/:slug/start', {
         'app_partup_start': { to: 'app_partup' }
     },
     data: function() {
+        var partupId = Partup.client.strings.partupSlugToId(this.params.slug);
+        Session.set(`redirected_to_onboarding-${partupId}`, true);
+
         return {
             partupId: Partup.client.strings.partupSlugToId(this.params.slug),
         };
