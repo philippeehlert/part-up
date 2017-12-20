@@ -36,6 +36,12 @@
             {{#if screenWidthEqualOrAbove '810' }}
                 <ul class="pu-list pu-list-horizontal">
                     <li>
+                        <a href="{{pathFor 'partup-start' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-start' class='pu-state-active'}}">
+                            <i class="picon-recommended"></i>
+                            {{_ 'pages-app-partup-menu_start'}}
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{pathFor 'partup' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup' class='pu-state-active'}}">
                             <i class="picon-message"></i>
                             {{_ 'pages-app-partup-menu_conversations'}}
