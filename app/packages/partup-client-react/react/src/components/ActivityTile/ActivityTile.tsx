@@ -154,7 +154,7 @@ export class ActivityTile extends React.Component<Props, {}> {
 
                         <Form onSubmit={(e: any, fields: any) => {
                             // tslint:disable-next-line:no-console
-                            console.log(fields);
+                            window.console.log(fields);
                         }}>
                             <ModalWindow>
                                 <ModalHeader

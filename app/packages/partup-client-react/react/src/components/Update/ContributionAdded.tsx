@@ -12,8 +12,6 @@ interface Props {
 export class ContributionAdded extends React.Component<Props, {}> {
 
     public render() {
-        // tslint:disable-next-line:no-console
-        console.log(this.props.data);
         return (
             <div className={this.getClassNames()}>
                 {`contribution_added`}

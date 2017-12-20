@@ -12,9 +12,6 @@ interface Props {
 export class ChangedRegion extends React.Component<Props, {}> {
 
     public render() {
-        // tslint:disable-next-line:no-console
-        console.log(this.props.data);
-
         return (
             <div className={this.getClassNames()}>
                 {`changed_region`}

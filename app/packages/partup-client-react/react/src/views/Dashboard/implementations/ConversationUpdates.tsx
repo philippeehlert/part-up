@@ -95,7 +95,6 @@ export class ConversationUpdates extends React.Component<Props, State> {
             } = data;
 
             const conversationUpdates = updates.map((update: UpdateDocument) => {
-                // console.log(update)
                 return {
                     activity: Activities.findOneStatic({ update_id: update._id }) || {},
                     upper: Users.findOneStatic({ _id: update.upper_id }) || {},
