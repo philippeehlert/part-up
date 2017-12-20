@@ -52,7 +52,7 @@ Template.app_partup.onCreated(function () {
                     }
                     return template.partup.set(partup);
                 }
-                
+
                 return Router.pageNotFound('partup');
             },
         });
@@ -93,6 +93,9 @@ Template.app_partup.helpers({
     scrollHorizontal() {
         return Router.current().route.getName() === 'partup-activities' && (Template.instance().partup.get() && Template.instance().partup.get().board_view);
     },
+    partupStartClassName() {
+        return Router.current().route.getName() === 'partup-start' && 'pu-partup-start';
+    }
 });
 
 Template.app_partup.events({

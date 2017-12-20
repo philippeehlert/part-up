@@ -10,7 +10,7 @@ Template.PartupNavigationSelector.onCreated(function() {
         name: TAPi18n.__('pages-app-partup-menu_start'),
         route: 'start',
         slug: partupSlug,
-        icon: 'recommendation'
+        icon: 'recommended'
     },{
         name: TAPi18n.__('pages-app-partup-menu_conversations'),
         route: 'partup',

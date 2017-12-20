@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'partup-icons';
-    src: url("/fonts/icons/partup-icons.woff2?v=1512752415864"), url("/fonts/icons/partup-icons.woff?v=1512752415864"), url("/fonts/icons/partup-icons.ttf?v=1512752415864");
+    src: url("/fonts/icons/partup-icons.woff2?v=1513777198371"), url("/fonts/icons/partup-icons.woff?v=1513777198371"), url("/fonts/icons/partup-icons.ttf?v=1513777198371");
     font-weight: normal;
     font-style: normal;
 }
 
-.picon-archive, .picon-arrow-down, .picon-arrow-left, .picon-arrow-right, .picon-arrow-up, .picon-bell, .picon-calendar-check, .picon-caret-down, .picon-caret-left, .picon-caret-right, .picon-caret-slim-down, .picon-caret-slim-left, .picon-caret-slim-right, .picon-caret-slim-up, .picon-caret-up, .picon-chart, .picon-chat, .picon-check, .picon-checkbox, .picon-cog, .picon-crossroad, .picon-documents, .picon-download, .picon-drive, .picon-dropbox, .picon-facebook, .picon-globe, .picon-home, .picon-info-2, .picon-info, .picon-instagram, .picon-linkedin, .picon-location, .picon-lock-closed, .picon-lock-open, .picon-megaphone, .picon-message, .picon-monitor, .picon-monkeytail, .picon-network, .picon-pencil, .picon-person-plus, .picon-photo, .picon-plus, .picon-profile-card, .picon-question, .picon-search, .picon-share, .picon-show, .picon-times, .picon-twitter, .picon-unarchive, .picon-upload, .picon-video, .picon-warning {
+.picon-archive, .picon-arrow-down, .picon-arrow-left, .picon-arrow-right, .picon-arrow-up, .picon-bell, .picon-calendar-check, .picon-caret-down, .picon-caret-left, .picon-caret-right, .picon-caret-slim-down, .picon-caret-slim-left, .picon-caret-slim-right, .picon-caret-slim-up, .picon-caret-up, .picon-chart, .picon-chat, .picon-check, .picon-checkbox, .picon-cog, .picon-crossroad, .picon-documents, .picon-download, .picon-drive, .picon-dropbox, .picon-facebook, .picon-globe, .picon-home, .picon-info-2, .picon-info, .picon-instagram, .picon-linkedin, .picon-location, .picon-lock-closed, .picon-lock-open, .picon-megaphone, .picon-message, .picon-monitor, .picon-monkeytail, .picon-network, .picon-pencil, .picon-person-plus, .picon-photo, .picon-plus, .picon-profile-card, .picon-question, .picon-recommended, .picon-search, .picon-share, .picon-show, .picon-times, .picon-twitter, .picon-unarchive, .picon-upload, .picon-video, .picon-warning {
     font-family: 'partup-icons';
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -252,47 +252,52 @@ $picon-question-content: '\e02e';
     content: $picon-question-content;
 }
 
-$picon-search-content: '\e02f';
+$picon-recommended-content: '\e02f';
+.picon-recommended:before {
+    content: $picon-recommended-content;
+}
+
+$picon-search-content: '\e030';
 .picon-search:before {
     content: $picon-search-content;
 }
 
-$picon-share-content: '\e030';
+$picon-share-content: '\e031';
 .picon-share:before {
     content: $picon-share-content;
 }
 
-$picon-show-content: '\e031';
+$picon-show-content: '\e032';
 .picon-show:before {
     content: $picon-show-content;
 }
 
-$picon-times-content: '\e032';
+$picon-times-content: '\e033';
 .picon-times:before {
     content: $picon-times-content;
 }
 
-$picon-twitter-content: '\e033';
+$picon-twitter-content: '\e034';
 .picon-twitter:before {
     content: $picon-twitter-content;
 }
 
-$picon-unarchive-content: '\e034';
+$picon-unarchive-content: '\e035';
 .picon-unarchive:before {
     content: $picon-unarchive-content;
 }
 
-$picon-upload-content: '\e035';
+$picon-upload-content: '\e036';
 .picon-upload:before {
     content: $picon-upload-content;
 }
 
-$picon-video-content: '\e036';
+$picon-video-content: '\e037';
 .picon-video:before {
     content: $picon-video-content;
 }
 
-$picon-warning-content: '\e037';
+$picon-warning-content: '\e038';
 .picon-warning:before {
     content: $picon-warning-content;
 }

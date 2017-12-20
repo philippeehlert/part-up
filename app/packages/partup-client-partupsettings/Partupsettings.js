@@ -18,6 +18,12 @@ var formPlaceholders = {
     description: function() {
         return TAPi18n.__('partupsettings-form-description-placeholder');
     },
+    expected_result: function() {
+        return TAPi18n.__('partupsettings-form-expected_result-placeholder');
+    },
+    motivation: function() {
+        return TAPi18n.__('partupsettings-form-motivation-placeholder');
+    },
     tags_input: function() {
         return TAPi18n.__('partupsettings-form-tags_input-placeholder');
     },
@@ -33,6 +39,8 @@ Template.Partupsettings.onCreated(function() {
     var template = this;
 
     template.nameCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.partup_name.max);
+    template.expectedResultCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.expected_result.max);
+    template.motivationCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.motivation.max);
     template.descriptionCharactersLeft = new ReactiveVar(Partup.schemas.entities.partup._schema.description.max);
     template.selectedPrivacyLabel = new ReactiveVar('partupsettings-form-privacy-public');
     template.selectedLocation = new ReactiveVar();
@@ -46,7 +54,7 @@ Template.Partupsettings.onCreated(function() {
     template.formId = template.data.FORM_ID;
     template.preselectedNetwork = new ReactiveVar(undefined);
     template.locationHasValueVar = new ReactiveVar(undefined);
-    
+
     // Handlers for the ImageSystem template
     template.imageId = new ReactiveVar();
     template.focuspoint = new ReactiveDict();
@@ -176,6 +184,9 @@ Template.Partupsettings.helpers({
     },
     descriptionCharactersLeft: function() {
         return Template.instance().descriptionCharactersLeft.get();
+    },
+    expectedResultCharactersLeft: function() {
+        return Template.instance().expectedResultCharactersLeft.get();
     },
     selectedPrivacyLabel: function() {
         return Template.instance().selectedPrivacyLabel.get();

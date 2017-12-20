@@ -38,7 +38,9 @@
                     <li>
                         <a href="{{pathFor 'partup-start' slug=partup.slug}}" class="pu-button pu-button-nav {{ isActiveRoute name='partup-start' class='pu-state-active'}}">
                             <i class="picon-recommended"></i>
-                            {{_ 'pages-app-partup-menu_start'}}
+                            {{#unless isPartnerOrSupporter currentUser}}
+                                {{_ 'pages-app-partup-menu_start'}}
+                            {{/unless }}
                         </a>
                     </li>
                     <li>

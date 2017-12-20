@@ -67,7 +67,7 @@
             </div>
         </label>
 
-        <!-- Description -->
+        <!-- Description ("challange") -->
         <label class="pu-formfield">
             <span class="pu-label">
                 {{_ 'partupsettings-form-description-label'}}
@@ -85,7 +85,47 @@
                 <span class="pu-sub-error">{{ afFieldMessage name='description' }}</span>
             </div>
         </label>
+        
+        <!-- Excpected result -->
+        <label class="pu-formfield">
+            <span class="pu-label">
+                {{_ 'partupsettings-form-expected_result-label'}}
+                <a class="pu-hint">
+                    {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.expected_result.max}}
+                        {{_ 'partupsettings-form-name-validation-left' expectedResultCharactersLeft }}
+                    {{else}}
+                        {{_ 'partupsettings-form-name-validation' Partup.schemas.entities.partup._schema.expected_result.max }}
+                    {{/if}}
+                </a>
+            </span>
 
+            <div class="pu-sub-validations {{#if afFieldIsInvalid name='expected_result' }}pu-state-invalid{{/if}}">
+                <span class="pu-sub-input">{{> afFieldInput name='expected_result' placeholder=formPlaceholders.expected_result class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.expected_result.max" data-characters-left-var="expectedResultCharactersLeft" }}</span>
+                <span class="pu-sub-error">{{ afFieldMessage name='expected_result' }}</span>
+            </div>
+        </label>
+        {{# with partup }}
+            {{#if isCreatedBy currentUser }}
+                <!-- Motivation -->
+                <label class="pu-formfield">
+                    <span class="pu-label">
+                        {{_ 'partupsettings-form-motivation-label'}}
+                        <a class="pu-hint">
+                            {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.motivation.max}}
+                                {{_ 'partupsettings-form-name-validation-left' expectedResultCharactersLeft }}
+                            {{else}}
+                                {{_ 'partupsettings-form-name-validation' Partup.schemas.entities.partup._schema.motivation.max }}
+                            {{/if}}
+                        </a>
+                    </span>
+
+                    <div class="pu-sub-validations {{#if afFieldIsInvalid name='motivation' }}pu-state-invalid{{/if}}">
+                        <span class="pu-sub-input">{{> afFieldInput name='motivation' placeholder=formPlaceholders.motivation class="pu-textarea"  rows=3  data-max="Partup.schemas.entities.partup._schema.motivation.max" data-characters-left-var="motivationCharactersLeft" }}</span>
+                        <span class="pu-sub-error">{{ afFieldMessage name='motivation' }}</span>
+                    </div>
+                </label>
+            {{/if}}
+        {{/with}}
         <!-- Tags -->
         <label class="pu-formfield">
             <span class="pu-label">

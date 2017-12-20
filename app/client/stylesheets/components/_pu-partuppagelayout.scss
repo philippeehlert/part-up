@@ -86,7 +86,7 @@ $partup-navigation-compact-height: em(60);
                     padding-right: 20px;
                     background-color: #eee;
                 }
-                
+
                 .pu-sticky-button::after {
                     content: "";
                     width: 2px;
@@ -119,7 +119,7 @@ $partup-navigation-compact-height: em(60);
                     @include transform-origin(5px);
                 }
             }
-            
+
             .pu-nav-right {
                 width: calc(100% - #{$nav-left-collapsed});
                 padding: 0em em(25);
@@ -223,17 +223,17 @@ $partup-navigation-compact-height: em(60);
         position:relative;
         z-index:0;
         background-color: #fff;
-        
+
         @include transition(all .3s);
 
         &-reduced {
             filter: brightness(89%);
             pointer-events: none;
-            
+
             a:hover {
                 cursor: default;
             }
-    
+
             @include goingLarge(810) {
                 width: calc(100vw - #{$sidebar-width});
                 margin-left: $sidebar-width;
@@ -247,6 +247,7 @@ $partup-navigation-compact-height: em(60);
                 }
             }
         }
+
     }
 
     .content-vertical,
@@ -256,6 +257,10 @@ $partup-navigation-compact-height: em(60);
         padding: em(40);
         position: relative;
         z-index: 0;
+
+        &.pu-partup-start {
+            background-color: #e6e6e6;
+        }
     }
 
     .content-vertical {
