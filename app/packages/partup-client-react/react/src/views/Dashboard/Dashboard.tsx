@@ -1,32 +1,13 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
-import { translate } from 'utils/translate';
-
 import { ActivitiesView } from 'views/Dashboard/routes/Activities/Activities';
 import { InvitesView } from 'views/Dashboard/routes/Invites/Invites';
 import { RecommendationsView } from 'views/Dashboard/routes/Recommendations/Recommendations';
-
 import { SideBar } from 'views/Dashboard/implementations/SideBar';
 import { ConversationUpdates } from 'views/Dashboard/implementations/ConversationUpdates';
-
 import { SideBarView } from 'components/SideBarView/SideBarView';
 import { ContentView } from 'components/View/ContentView';
-import { PortalManager } from 'components/PortalManager/PortalManager';
-import { Button } from 'components/Button/Button';
-import { Icon } from 'components/Icon/Icon';
-import { ModalPortal } from 'components/Modal/ModalPortal';
-import { Form } from 'components/Form/Form';
-import { FieldCollection } from 'components/Form/FieldCollection';
-import { FieldSet } from 'components/Form/FieldSet';
-import { Label } from 'components/Form/Label';
-import { Input } from 'components/Form/Input';
-import { List } from 'components/List/List';
-import { ModalWindow } from 'components/Modal/ModalWindow';
-import { ModalHeader } from 'components/Modal/ModalHeader';
-import { ModalContent } from 'components/Modal/ModalContent';
-import { ModalFooter } from 'components/Modal/ModalFooter';
-import { ListItem } from 'components/List/ListItem';
 
 interface Props extends RouteComponentProps<any> {}
 
@@ -57,7 +38,7 @@ export class Dashboard extends React.Component<Props, {}> {
     private renderMaster() {
         return (
             <ContentView>
-                <PortalManager
+                {/* <PortalManager
                     renderHandler={(open) => (
                         <Button
                             onClick={open}
@@ -103,7 +84,7 @@ export class Dashboard extends React.Component<Props, {}> {
                             </Form>
                         </ModalPortal>
                     )}
-                />
+                /> */}
                 <ConversationUpdates />
             </ContentView>
         );

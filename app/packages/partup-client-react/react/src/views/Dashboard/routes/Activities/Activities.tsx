@@ -9,8 +9,6 @@ import { Select } from 'components/Form/Select';
 import { Blank } from 'components/FillInTheBlanks/Blank';
 import { ActivityTile } from 'components/ActivityTile/ActivityTile';
 import { FilteredListSection } from 'components/FilteredList/FilteredListSection';
-import { Icon } from 'components/Icon/Icon';
-import { Button } from 'components/Button/Button';
 import { Fetcher, mergeDataByKey } from 'utils/Fetcher';
 import { Contributions, ContributionDocument } from 'collections/Contributions';
 import { Images, ImageDocument } from 'collections/Images';
@@ -19,19 +17,6 @@ import { Users, UserDocument } from 'collections/Users';
 import { Activities, ActivityDocument } from 'collections/Activities';
 import { Spinner } from 'components/Spinner/Spinner';
 import { InfiniteScroll } from 'components/InfiniteScroll/InfiniteScroll';
-import { PortalManager } from 'components/PortalManager/PortalManager';
-import { ModalPortal } from 'components/Modal/ModalPortal';
-import { Form } from 'components/Form/Form';
-import { ModalWindow } from 'components/Modal/ModalWindow';
-import { ModalHeader } from 'components/Modal/ModalHeader';
-import { ModalContent } from 'components/Modal/ModalContent';
-import { FieldCollection } from 'components/Form/FieldCollection';
-import { FieldSet } from 'components/Form/FieldSet';
-import { Label } from 'components/Form/Label';
-import { Input } from 'components/Form/Input';
-import { ModalFooter } from 'components/Modal/ModalFooter';
-import { List } from 'components/List/List';
-import { ListItem } from 'components/List/ListItem';
 import { translate } from 'utils/translate';
 
 interface Props extends RouteComponentProps<any> {
@@ -139,7 +124,7 @@ export class ActivitiesView extends React.Component<Props> {
         return (
             <ContentView>
 
-                <PortalManager
+                {/* <PortalManager
                     renderHandler={(open) => (
                         <Button
                             onClick={open}
@@ -185,7 +170,7 @@ export class ActivitiesView extends React.Component<Props> {
                             </Form>
                         </ModalPortal>
                     )}
-                />
+                /> */}
 
                 <FilteredList>
                     <FilteredListControls>
