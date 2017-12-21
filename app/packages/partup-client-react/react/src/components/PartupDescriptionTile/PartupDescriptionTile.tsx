@@ -39,14 +39,15 @@ export class PartupDescriptionTile extends React.Component<Props, State> {
                         {translate('pur-partup-start-description_tile-challenge')}
                     </h6>
                     <p className={`pur-PartupDescriptionTile__description-text`}>{ partup.description }</p>
-                    {partup.expected_result && (
-                        <React.Fragment>
-                            <h6 className={`pur-PartupDescriptionTile__description-title`}>
-                                {translate('pur-partup-start-description_tile-expected_result')}
-                            </h6>
-                            <p className={`pur-PartupDescriptionTile__description-text`}>{ partup.expected_result }</p>
-                        </React.Fragment>
-                    )}
+                    <h6 className={`pur-PartupDescriptionTile__description-title`}>
+                        {translate('pur-partup-start-description_tile-expected_result')}
+                    </h6>
+                    <p className={`pur-PartupDescriptionTile__description-text`}>
+                        { partup.expected_result
+                            ? partup.expected_result
+                            : translate('pur-partup-start-description_tile-expected_result_placeholder')
+                        }
+                    </p>
                     <Tags className={`pur-PartupDescriptionTile__tags`} tags={partup.tags}/>
                 </div>
                 <div className={`pur-PartupDescriptionTile__founder-text`}>

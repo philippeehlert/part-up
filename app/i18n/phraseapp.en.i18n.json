@@ -1959,6 +1959,7 @@
   "pur-partup-start-invite_header-inviter": "__inviter__ invited you on <strong>__invited_at__</strong> to this part-up.",
   "pur-partup-start-description_tile-challenge": "The Challenge",
   "pur-partup-start-description_tile-expected_result": "Expected Result",
+  "pur-partup-start-description_tile-expected_result_placeholder": "No expected results were added.",
   "pur-partup-start-description_tile-motivation_placeholder": "The founder of this part-up has not given a motivation.",
   "pur-partup-start-description_tile-motivation_text": "Motivation of the part-up"
 }

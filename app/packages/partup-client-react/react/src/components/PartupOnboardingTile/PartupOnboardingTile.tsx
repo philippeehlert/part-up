@@ -9,10 +9,12 @@ import { Clickable } from 'components/Button/Clickable';
 import { PartupDocument } from 'collections/Partups';
 import { translate } from 'utils/translate';
 import { Networks, NetworkDocument } from 'collections/Networks';
+import { openPartupTakeModel, joinPartupAsSupporter } from 'utils/partupGlobals';
 
 interface Props {
     className?: string;
     partup: PartupDocument;
+    onActionTaken: () => void
 }
 
 export class PartupOnboardingTile extends React.Component<Props> {
@@ -25,6 +27,7 @@ export class PartupOnboardingTile extends React.Component<Props> {
     }
 
     public render() {
+        const { partup } = this.props;
 
         return (
             <div className={this.getClassNames()}>
@@ -32,8 +35,18 @@ export class PartupOnboardingTile extends React.Component<Props> {
                     __html: translate('pur-partup-start-onboarding_tile-text', { tribe: this.network.name }),
                 }} />
                 <Row className={`pur-PartupOnboardingTile__buttons`}>
-                    <Button leftChild={<Icon name={'person-plus'} />}>{translate('pages-app-partup-become_partner')}</Button>
-                    <Button leftChild={<Icon name={'megaphone'} />}>{translate('pages-app-partup-supporters_join')}</Button>
+                    <Button
+                        leftChild={<Icon name={'person-plus'} />}
+                        onClick={() => this.takeAction(openPartupTakeModel)}
+                    >
+                        {translate('pages-app-partup-become_partner')}
+                    </Button>
+                    <Button
+                        leftChild={<Icon name={'megaphone'} />}
+                        onClick={() => this.takeAction(joinPartupAsSupporter.bind(null, partup._id))}
+                    >
+                        {translate('pages-app-partup-supporters_join')}
+                    </Button>
                     <Clickable className={`pur-PartupOnboardingTile__dismiss-button`}>
                         {translate('pur-partup-start-onboarding_tile-dismiss')}
                     </Clickable>
@@ -48,5 +61,13 @@ export class PartupOnboardingTile extends React.Component<Props> {
         return c('pur-PartupOnboardingTile', {
             // 'pur-PartupOnboardingTile--modifier-class': boolean,
         }, className);
+    }
+
+    private takeAction = (action: Function) => {
+        const { onActionTaken } = this.props;
+
+        action();
+
+        if (onActionTaken) onActionTaken();
     }
 }

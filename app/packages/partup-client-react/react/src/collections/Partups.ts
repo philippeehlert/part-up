@@ -18,6 +18,7 @@ export interface PartupDocument extends CollectionDocument {
     expected_result: string;
     motivation: string;
     network_id: string;
+    pending_partners: string[];
 }
 
 class PartupsCollection extends Collection<PartupDocument> {

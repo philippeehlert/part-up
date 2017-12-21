@@ -25,6 +25,10 @@ class UsersCollection extends Collection<UserDocument> {
         return false;
     }
 
+    public isPendingPartnerOfPartup(user: UserDocument, partup: PartupDocument) {
+        return !!(partup.pending_partners || []).find(id => id === user._id);
+    }
+
 }
 
 export const Users = new UsersCollection({

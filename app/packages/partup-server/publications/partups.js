@@ -38,6 +38,7 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
             uppers: 1,
             creator_id: 1,
             starred_updates: 1,
+            pending_partners: 1,
         },
     });
 

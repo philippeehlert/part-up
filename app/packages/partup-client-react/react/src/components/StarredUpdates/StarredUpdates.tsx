@@ -20,12 +20,17 @@ export class StarredUpdates extends React.Component<Props, State> {
         return (
             <div className={this.getClassNames()}>
                 <h4 className={`pur-StarredUpdates__title`}>Starred updates</h4>
-                {updates.map(update => <UpdateTile
-                    key={update._id}
-                    hideCommentBox
-                    isStarred
-                    update={update}
-                />)}
+
+                {updates.length ? (
+                    updates.map(update => <UpdateTile
+                        key={update._id}
+                        hideCommentBox
+                        isStarred
+                        update={update}
+                    />)
+                ) : (
+                    <p>Er zijn nog geen starred updates.</p>
+                )}
             </div>
         );
     }

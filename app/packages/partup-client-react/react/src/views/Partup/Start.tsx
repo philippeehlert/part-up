@@ -24,7 +24,9 @@ interface Props extends RouteComponentProps<RouteParams> {
     partupId: string;
 }
 
-interface State {}
+interface State {
+    showOnboardingTile: boolean;
+}
 
 interface FetcherResponse {
     partups: PartupDocument[];
@@ -38,6 +40,10 @@ interface FetcherResponse {
 }
 
 export class Start extends React.Component<Props, State> {
+
+    public state: State = {
+        showOnboardingTile: true,
+    };
 
     private partupsFetcher = new Fetcher<FetcherResponse, {
         partup: PartupDocument|null,
@@ -97,30 +103,30 @@ export class Start extends React.Component<Props, State> {
     public render() {
         const { data, loading } = this.partupsFetcher;
         const partup = data.partup as PartupDocument;
-        const { invite, starredUpdates } = data;
+        const { invite, starredUpdates = [] } = data;
+        const { showOnboardingTile } = this.state;
 
         if (loading || !data) {
             return <Spinner />;
         }
 
-        const userIsAMember = Users.isSuporterOfUpperOfPartup(Users.findLoggedInUser() as UserDocument, partup);
+        const user = Users.findLoggedInUser() as UserDocument;
+        const userIsAMemberOrPending =
+            Users.isSuporterOfUpperOfPartup(user, partup) ||
+            Users.isPendingPartnerOfPartup(user, partup);
 
         return (
             <ContentView noPadding>
-                {!userIsAMember && (
+                {!userIsAMemberOrPending && (
                     <React.Fragment>
                         {invite && (
                             <PartupInviteHeader invite={invite} />
                         )}
-                        <PartupOnboardingTile partup={partup} />
+                        {showOnboardingTile && <PartupOnboardingTile partup={partup} onActionTaken={this.dismissOnboardingTile} />}
                     </React.Fragment>
                 )}
                 <PartupDescriptionTile partup={partup} />
-                { starredUpdates.length ? (
-                    <StarredUpdates updates={starredUpdates} />
-                ) : (
-                    <p>Er zijn nog geen starred updates.</p>
-                ) }
+                <StarredUpdates updates={starredUpdates} />
             </ContentView>
         );
     }
@@ -130,4 +136,8 @@ export class Start extends React.Component<Props, State> {
 
         await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
+
+    private dismissOnboardingTile = () => this.setState({
+        showOnboardingTile: false,
+    })
 }
