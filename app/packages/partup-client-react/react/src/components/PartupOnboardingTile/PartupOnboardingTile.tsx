@@ -30,7 +30,7 @@ export class PartupOnboardingTile extends React.Component<Props> {
     }
 
     public render() {
-        const { partup } = this.props;
+        const { partup, invite } = this.props;
 
         return (
             <div className={this.getClassNames()}>
@@ -50,9 +50,11 @@ export class PartupOnboardingTile extends React.Component<Props> {
                     >
                         {translate('pages-app-partup-supporters_join')}
                     </Button>
-                    <Clickable className={`pur-PartupOnboardingTile__dismiss-button`} onClick={this.handleOnDismissClick}>
-                        {translate('pur-partup-start-onboarding_tile-dismiss')}
-                    </Clickable>
+                    {invite && (
+                        <Clickable className={`pur-PartupOnboardingTile__dismiss-button`} onClick={this.handleOnDismissClick}>
+                            {translate('pur-partup-start-onboarding_tile-dismiss')}
+                        </Clickable>
+                    )}
                 </Row>
             </div>
         );
