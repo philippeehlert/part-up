@@ -119,5 +119,55 @@ Meteor.methods({
             Log.error(error);
             throw new Meteor.Error(400, 'partup_message_could_not_be_removed');
         }
-    }
+    },
+
+    /**
+     * Star an update message.
+     *
+     * @param {string} messageId
+     */
+    'updates.messages.star': function(messageId) {
+        check(messageId, String);
+
+        this.unblock();
+
+        const upper = Meteor.user();
+
+        const message = Updates.findOne({_id: messageId }, {field: { _id: 1, partup_id: 1 }});
+        const partupId = message.partup_id;
+
+        if (!message || !upper || !User(upper).isPartnerInPartup(partupId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Partups.update(partupId, { $push: { starred_updates: message._id }});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_message_could_not_be_starred');
+        }
+    },
+
+    /**
+     * Star an update message.
+     *
+     * @param {string} messageId
+     */
+    'updates.messages.unstar': function(messageId) {
+        check(messageId, String);
+
+        this.unblock();
+
+        const upper = Meteor.user();
+
+        const message = Updates.findOne({_id: messageId }, {field: { _id: 1, partup_id: 1 }});
+        const partupId = message.partup_id;
+
+        if (!message || !upper || !User(upper).isPartnerInPartup(partupId)) throw new Meteor.Error(401, 'unauthorized');
+
+        try {
+            Partups.update(partupId, { $pull: { starred_updates: message._id }});
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'partup_message_could_not_be_starred');
+        }
+    },
 });

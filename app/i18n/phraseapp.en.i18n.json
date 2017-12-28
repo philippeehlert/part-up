@@ -161,6 +161,7 @@
   "boardview-add-activity-button": "Add activity",
   "boardview-new-input-placeholder": "Add title",
   "comment-field-content-system_activities_archived": "archived the activity",
+  "comment-field-content-system_invite_dismissed": "dismissed the invite",
   "comment-field-content-system_activities_removed": "removed the activity",
   "comment-field-content-system_activities_unarchived": "reactivated the activity",
   "comment-field-content-system_activities_updated": "updated the activity",

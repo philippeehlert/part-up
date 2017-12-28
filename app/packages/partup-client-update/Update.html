@@ -20,10 +20,16 @@
 
         </aside>
         <section>
-
             <!-- Title & first comment button -->
             <header>
                 <h3>
+                    {{#if update.isPartnerInPartup }}
+                        {{#if update.updateIsStarred}}
+                            <a class="pu-star-update" data-unstar-update><i class="picon-recommended" style="color: #ffa725"></i></a>
+                        {{ else }}
+                            <a class="pu-star-update" data-star-update><i class="picon-recommended" style="color: #ccc"></i></a>
+                        {{/if}}
+                    {{/if }}
                     {{#if LINK }}
                         <a href="{{ metadata.path }}">{{ update.title }}</a>
                     {{else}}
@@ -48,6 +54,8 @@
 
                     {{/ if }}
                 {{/ if }}
+
+
             </header>
 
             <!-- - - - - - - - - - - TYPES START - - - - - - - - - - -->

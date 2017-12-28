@@ -1,6 +1,11 @@
 .pu-update {
     @extend %clearfix;
 
+    .pu-star-update {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
     > aside, > section {
         position: relative;
         float: none;

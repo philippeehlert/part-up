@@ -705,6 +705,38 @@ Meteor.methods({
         }
     },
 
+    'partups.dismiss_invite': function(inviteId, partupId) {
+        this.unblock();
+
+        const partup = Partups.findOneOrFail(partupId);
+
+        const upper = Meteor.user();
+
+        if (!upper) throw new Meteor.Error(401, 'unauthorized');
+
+        const update = Updates.findOne({
+            upper_id: upper._id,
+            partup_id: partup._id,
+            type: 'partups_invited',
+        });
+
+        if (!update) throw new Meteor.Error(404, 'update_could_not_be_found');
+
+        const invite = Invites.findOneOrFail(inviteId);
+
+        try {
+            // Update the update type
+            Invites.update(invite._id, {$set: {dismissed: true}});
+
+            // Post system message
+            Partup.server.services.system_messages.send(upper, update._id, 'system_invite_dismissed', {update_timestamp: false});
+
+        } catch (error) {
+            Log.error(error);
+            throw new Meteor.Error(400, 'invite_request_could_not_be_dismissed');
+        }
+    },
+
    /**
     * Returns partup stats to superadmins only
     */
