@@ -1,0 +1,69 @@
+.pu-carousel {
+    width: 100%;
+    height: 225px;
+    position: relative;
+    margin-bottom: 0;
+
+    .slick-slide {
+        height: 225px;
+        iframe, img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .pu-sub-picture {
+        height: 225px;
+        width: 100%;
+        background-size: cover;
+        background-color: #292929;
+    }
+
+    .pu-carousel-next, .pu-carousel-prev {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: #ffa725;
+        margin-top: -15px;
+        border: 0;
+        outline: 0;
+        color: #fff;
+        top: 50%;
+        &:hover {
+            background: #ff9901;
+        }
+    }
+
+    .pu-carousel-next {
+        right: 0;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+    }
+
+    .pu-carousel-prev {
+        left: 0;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+    }
+
+    .slick-dots {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5px;
+        width: auto;
+        li button:before {
+            font-size: 9px;
+            color: #cccccc;
+            opacity: 1!important;
+        }
+        li button &:hover {
+            color: #ffa725;
+        }
+        .slick-active button:before {
+            color: #ffa725;
+        }
+        .slick-active button &:hover {
+            color: #ff9901;
+        }
+    }
+}

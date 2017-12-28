@@ -2,11 +2,17 @@
 
     <header class="pu-partupheader {{#if partup.archived_at}}pu-partupheader-archived{{/if}}">
         {{#if screenWidthEqualOrBelow '810'}}
-            <button class="pu-sticky-button float-right" data-toggle-sidebar>
+            <button class="pu-sticky-button pu-sticky-button-absolute" data-toggle-sidebar>
                 <i class="picon-times"></i>
             </button>
         {{/if }}
-        <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
+
+        {{#if hasHighlightImages }}
+            {{> app_partup_carousel }}
+        {{else}}
+            <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
+        {{/if}}
+
         {{#if partup.archived_at}}
             <div class="pu-state-message">
                 <h3>{{_ 'pages-app-partup-archive-info' }} <strong>{{ partupDateOnly partup.archived_at }}</strong></h3>

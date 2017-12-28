@@ -19,6 +19,17 @@
 /*************************************************************/
 Template.Update.onCreated(function() {
     var template = this;
+    var updateId = template.data.updateId;
+    var update = Updates.findOne({_id: updateId});
+
+    if (update) {
+        var partup = Partups.findOne({_id: update.partup_id});
+
+        if (partup) {
+            template.updateIsStarred = new ReactiveVar(partup && partup.starred_updates && partup.starred_updates.includes(updateId));
+        }
+    }
+
     template.commentInputFieldExpanded = new ReactiveVar(false);
     template.showCommentClicked = new ReactiveVar(false);
 });
@@ -119,6 +130,14 @@ Template.Update.helpers({
                 return partup.uppers.indexOf(user._id) > -1;
             },
 
+            isPartnerInPartup: function() {
+                return User(user).isPartnerInPartup(partup._id);
+            },
+
+            updateIsStarred: function() {
+                return template.updateIsStarred.get();
+            },
+
             systemMessageContent: function() {
                 return Partup.client.strings.newlineToBreak(TAPi18n.__('update-type-partups_message_added-system-' + self.type + '-content'));
             },
@@ -149,9 +168,37 @@ Template.Update.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Update.events({
+    'click [data-star-update]': function(event, template) {
+        event.preventDefault();
+
+        const updateId = this.updateId;
+        template.updateIsStarred.set(true);
+
+        Meteor.call('updates.messages.star', updateId, function(error, result) {
+            if (error) {
+                template.updateIsStarred.set(false);
+                Partup.client.notify.error(error.reason);
+                return;
+            }
+        });
+    },
+    'click [data-unstar-update]': function(event, template) {
+        event.preventDefault();
+
+        const updateId = this.updateId;
+        template.updateIsStarred.set(false);
+
+        Meteor.call('updates.messages.unstar', updateId, function(error, result) {
+            if (error) {
+                template.updateIsStarred.set(true);
+                Partup.client.notify.error(error.reason);
+                return;
+            }
+        });
+    },
     'click [data-expand-comment-field]': function(event, template) {
         event.preventDefault();
-   
+
         var updateId = this.updateId;
         var proceed = function() {
             template.commentInputFieldExpanded.set(true);

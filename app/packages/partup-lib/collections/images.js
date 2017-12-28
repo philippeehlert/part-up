@@ -14,6 +14,15 @@ Images = new Meteor.Collection('cfs.images.filerecord'); // Collection name is f
  * @return {Mongo.Cursor}
  */
 Images.findForPartup = function(partup) {
+    if (partup.highlighted && partup.highlighted.length > 0) {
+        const highlighted = partup.highlighted
+            .filter((({type}) => type === 'image'))
+            .map(({id}) => id);
+
+        const imageIds = [partup.image, ...highlighted];
+        return Images.find({_id: {$in: imageIds}}, {limit: 5});
+    }
+
     return Images.find({_id: partup.image}, {limit: 1});
 };
 
@@ -139,7 +148,7 @@ Images.findForCursors = function(cursors, options) {
 
         return accumilator.concat(curr);
     }, []).filter(function(item) {
-        
+
         return !!item;
     });
     return Images.find({_id: { $in: imageIds}}, options)

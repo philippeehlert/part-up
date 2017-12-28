@@ -1,0 +1,21 @@
+<template name="app_partup_carousel">
+  <div class="pu-carousel">
+    {{#each images}}
+        {{#if typeIsVideo type}}
+          {{#if isYoutubeVideo videoType}}
+            <div><iframe class="yt-player" data-video={{@index}} width="400" height="225" src="https://www.youtube.com/embed/{{videoId}}?rel=0&showinfo=0&enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
+          {{else}}
+            <div>
+              <iframe class="vim-player" data-video={{@index}} src="https://player.vimeo.com/video/{{videoId}}" width="400" height="225" frameborder="0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>        
+          {{/if}}
+        {{else}}
+          {{#if firstIndex @index}}
+            <div><figure class="pu-sub-picture" style="background-image: url('{{ partupImageUrl id=id store='1200x520' }}');" data-partupcover-focuspoint></figure></div>
+          {{else}}
+            <div><img src="{{ partupImageUrl id=id store='1200x520' }}" width="400px" /></div>      
+          {{/if}}
+        {{/if}}
+    {{/each }}
+  </div>
+</template>

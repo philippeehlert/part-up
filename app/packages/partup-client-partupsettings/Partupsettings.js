@@ -150,6 +150,7 @@ Template.Partupsettings.onRendered(function() {
 });
 
 Template.Partupsettings.helpers({
+
     imageId() {
         return Template.instance().imageId;
     },
