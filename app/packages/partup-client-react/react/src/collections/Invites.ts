@@ -9,6 +9,7 @@ export interface InviteDocument extends CollectionDocument {
     network_id?: string;
     activity_id?: string;
     partup_id?: string;
+    dismissed?: boolean;
 }
 
 class InvitesCollection extends Collection<InviteDocument> {

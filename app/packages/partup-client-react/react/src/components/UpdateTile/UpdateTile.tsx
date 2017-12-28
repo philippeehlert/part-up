@@ -78,10 +78,12 @@ export class UpdateTile extends React.Component<Props, {}> {
                         { this.renderUpdateComponent(update) }
                     </UpdateTileContent>
                 )}
-                <UpdateTileComments
-                    update={update}
-                    hideCommentBox={hideCommentBox}
-                />
+                {this.shouldRenderUpdateComments(update) && (
+                    <UpdateTileComments
+                        update={update}
+                        hideCommentBox={hideCommentBox}
+                    />
+                )}
             </div>
         );
     }
@@ -102,6 +104,11 @@ export class UpdateTile extends React.Component<Props, {}> {
         return c('pur-UpdateTile', className, {
 
         });
+    }
+
+    private shouldRenderUpdateComments(update: any) {
+        const isContribution = update.type.includes('partups_contributions_');
+        return !(update.system || isContribution);
     }
 
     private shouldRenderUpdateComponent({ type }: {type: string}) {

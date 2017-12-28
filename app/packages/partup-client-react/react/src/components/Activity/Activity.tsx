@@ -33,7 +33,6 @@ export class Activity extends React.Component<Props, State> {
     }
 
     public render() {
-        const { _id } = this.props;
         const { activity } = this.state;
 
         if (!activity) return this.renderDeleted();
@@ -51,7 +50,7 @@ export class Activity extends React.Component<Props, State> {
                     ) }
                     <Link
                         className={'pur-Activity__header__title-link'}
-                        to={`/partups/${partupSlug}/updates/${_id}`}
+                        to={`/partups/${partupSlug}/updates/${activity.update_id}`}
                         target={'_partup'}>
                         { activity.name }
                     </Link>

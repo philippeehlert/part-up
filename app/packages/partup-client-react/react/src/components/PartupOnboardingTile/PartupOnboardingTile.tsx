@@ -10,11 +10,14 @@ import { PartupDocument } from 'collections/Partups';
 import { translate } from 'utils/translate';
 import { Networks, NetworkDocument } from 'collections/Networks';
 import { openPartupTakeModel, joinPartupAsSupporter } from 'utils/partupGlobals';
+import { InviteDocument } from 'collections/Invites';
+import { Meteor } from 'utils/Meteor';
 
 interface Props {
     className?: string;
     partup: PartupDocument;
-    onActionTaken: () => void
+    invite?: InviteDocument|null;
+    onActionTaken: () => void;
 }
 
 export class PartupOnboardingTile extends React.Component<Props> {
@@ -47,7 +50,7 @@ export class PartupOnboardingTile extends React.Component<Props> {
                     >
                         {translate('pages-app-partup-supporters_join')}
                     </Button>
-                    <Clickable className={`pur-PartupOnboardingTile__dismiss-button`}>
+                    <Clickable className={`pur-PartupOnboardingTile__dismiss-button`} onClick={this.handleOnDismissClick}>
                         {translate('pur-partup-start-onboarding_tile-dismiss')}
                     </Clickable>
                 </Row>
@@ -61,6 +64,15 @@ export class PartupOnboardingTile extends React.Component<Props> {
         return c('pur-PartupOnboardingTile', {
             // 'pur-PartupOnboardingTile--modifier-class': boolean,
         }, className);
+    }
+
+    private handleOnDismissClick = () => {
+        const { invite, onActionTaken } = this.props;
+
+        if (invite) {
+            Meteor.call('partups.dismiss_invite', invite._id, invite.partup_id);
+            if (onActionTaken) onActionTaken();
+        }
     }
 
     private takeAction = (action: Function) => {

@@ -104,31 +104,48 @@ export class Start extends React.Component<Props, State> {
         const { data, loading } = this.partupsFetcher;
         const partup = data.partup as PartupDocument;
         const { invite, starredUpdates = [] } = data;
-        const { showOnboardingTile } = this.state;
 
         if (loading || !data) {
             return <Spinner />;
         }
 
+        return (
+            <ContentView noPadding>
+                {invite && (
+                    <PartupInviteHeader invite={invite} />
+                )}
+                <PartupDescriptionTile partup={partup} />
+                {this.shouldShowOnboardingTile() && (
+                    <PartupOnboardingTile invite={invite} partup={partup} onActionTaken={this.dismissOnboardingTile} />
+                )}
+                <StarredUpdates updates={starredUpdates} />
+            </ContentView>
+        );
+    }
+
+    private shouldShowOnboardingTile() {
+        const { data } = this.partupsFetcher;
+        const { invite } = data;
+        const { showOnboardingTile } = this.state;
+        const partup = data.partup as PartupDocument;
         const user = Users.findLoggedInUser() as UserDocument;
         const userIsAMemberOrPending =
             Users.isSuporterOfUpperOfPartup(user, partup) ||
             Users.isPendingPartnerOfPartup(user, partup);
 
-        return (
-            <ContentView noPadding>
-                {!userIsAMemberOrPending && (
-                    <React.Fragment>
-                        {invite && (
-                            <PartupInviteHeader invite={invite} />
-                        )}
-                        {showOnboardingTile && <PartupOnboardingTile partup={partup} onActionTaken={this.dismissOnboardingTile} />}
-                    </React.Fragment>
-                )}
-                <PartupDescriptionTile partup={partup} />
-                <StarredUpdates updates={starredUpdates} />
-            </ContentView>
-        );
+        if (!showOnboardingTile) {
+            return false;
+        }
+
+        if (userIsAMemberOrPending) {
+            return false;
+        }
+
+        if (invite && !invite.dismissed) {
+            return false;
+        }
+
+        return true;
     }
 
     private subscribeToUpdateComments = async () => {
