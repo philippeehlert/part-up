@@ -1,31 +1,33 @@
 import { Meteor } from 'utils/Meteor';
 
 declare var analytics: any;
+declare var Intent: any;
+declare var Partup: any;
 
 export const openPartupTakeModel = () => {
     if (Meteor.user()) {
-        (window as any).Partup.client.popup.open({
+        Partup.client.popup.open({
             id: 'take-part',
         });
     } else {
-        (window as any).Intent.go({
-            route: 'login'
+        Intent.go({
+            route: 'login',
         }, (user: any) => {
             if (user) {
-                (window as any).Partup.client.popup.open({
-                    id: 'take-part'
+                Partup.client.popup.open({
+                    id: 'take-part',
                 });
             }
         });
     }
-}
+};
 
 export const joinPartupAsSupporter = (partupId: any) => {
     if (Meteor.user()) {
         becomeSupporter(partupId);
     } else {
-        (window as any).Intent.go({
-            route: 'login'
+        Intent.go({
+            route: 'login',
         }, (user: any) => {
             if (user) {
                 becomeSupporter(partupId);
