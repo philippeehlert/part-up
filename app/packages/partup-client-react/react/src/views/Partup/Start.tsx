@@ -129,8 +129,13 @@ export class Start extends React.Component<Props, State> {
         const { showOnboardingTile } = this.state;
         const partup = data.partup as PartupDocument;
         const user = Users.findLoggedInUser() as UserDocument;
+
+        if (!user) {
+            return false;
+        }
+
         const userIsAMemberOrPending =
-            Users.isSuporterOfUpperOfPartup(user, partup) ||
+            Users.isSupporterOfUpperOfPartup(user, partup) ||
             Users.isPendingPartnerOfPartup(user, partup);
 
         if (!showOnboardingTile) {
