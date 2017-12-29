@@ -111,8 +111,8 @@ export class Start extends React.Component<Props, State> {
 
         return (
             <ContentView noPadding>
-                {invite && (
-                    <PartupInviteHeader invite={invite} />
+                {this.shouldShowInviteHeader() && (
+                    <PartupInviteHeader invite={invite as InviteDocument} />
                 )}
                 <PartupDescriptionTile partup={partup} />
                 {this.shouldShowOnboardingTile() && (
@@ -121,6 +121,23 @@ export class Start extends React.Component<Props, State> {
                 <StarredUpdates updates={starredUpdates} />
             </ContentView>
         );
+    }
+
+    private shouldShowInviteHeader() {
+        const { data } = this.partupsFetcher;
+        const user = Users.findLoggedInUser() as UserDocument;
+        const partup = data.partup as PartupDocument;
+        const { invite } = data;
+
+        if (!user) {
+            return false;
+        }
+
+        const userIsAMemberOrPending =
+            Users.isSupporterOfUpperOfPartup(user, partup) ||
+            Users.isPendingPartnerOfPartup(user, partup);
+
+        return invite && !userIsAMemberOrPending;
     }
 
     private shouldShowOnboardingTile() {
@@ -146,7 +163,7 @@ export class Start extends React.Component<Props, State> {
             return false;
         }
 
-        if (invite && !invite.dismissed) {
+        if (invite && invite.dismissed) {
             return false;
         }
 
