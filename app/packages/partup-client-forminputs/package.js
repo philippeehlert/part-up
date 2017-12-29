@@ -11,6 +11,7 @@ Package.onUse(function(api) {
         'reactive-var',
         'partup-lib',
         'ecmascript',
+        'momentjs:moment',
     ], 'client');
 
     api.addFiles([

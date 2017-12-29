@@ -1,0 +1,71 @@
+.pu-newmessage {
+
+    .pu-hint {
+        float: right;
+        padding: em(2) em(0);
+
+        &:hover {
+            color: #999;
+        }
+    }
+
+    .pu-new-message-input-wrap {
+        position: relative;
+
+        .pu-textarea {
+            padding-bottom: 35px;
+            border-bottom-left-radius: em(0);
+            border-bottom-right-radius: em(0);
+        }
+        
+        .markdown-support {
+            display: inline-block;
+            position: absolute;
+            bottom: em(15);
+            right: em(15);
+        }
+
+        > textarea {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    .pu-file-picker-wrap {
+        position: relative;
+        border: 2px solid #bfbfbf;
+        border-top: 0;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        margin-top: -2px;
+    }
+
+    .pu-list-buttons {
+        margin-right: em(10);
+        margin-bottom: em(10);
+
+        > li {
+            margin: em(0);
+            text-align: center;
+
+            &:last-child {
+                margin-bottom: em(20);
+
+                @include goingLarge(768) {
+                    margin-bottom: em(0);
+                }
+            }
+
+            .pu-button-text-subtle {
+                width: auto;
+            }
+
+            .pu-button-disabled {
+                background: grey;
+                position: relative;
+            }
+
+            
+        }
+    }
+}

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 Meteor.methods({
     /**
      * Insert an Activity
@@ -7,14 +9,15 @@ Meteor.methods({
      */
     'activities.insert': function(partupId, fields) {
         check(partupId, String);
-        check(fields, Partup.schemas.forms.startActivities);
+        check(fields, Partup.schemas.forms.activity);
+
         var upper = Meteor.user();
         var partup = Partups.findOneOrFail({_id: partupId});
         if (!upper || !partup.hasUpper(upper._id)) throw new Meteor.Error(401, 'unauthorized');
 
         try {
             var activity = Partup.transformers.activity.fromForm(fields, upper._id, partupId);
-
+            
             // Insert activity
             activity._id = Activities.insert(activity);
 
@@ -139,6 +142,22 @@ Meteor.methods({
                 var lane = Lanes.findOneOrFail(activity.lane_id);
                 lane.removeActivity(activity._id);
             }
+
+            const { images = [], documents = [] } = _.get(activity, 'files', {});
+            _.each(images, (id) => {
+                Meteor.call('images.remove', id, function (error) {
+                    if (error) {
+                        throw error;
+                    }
+                });
+            });
+            _.each(documents, (id) => {
+                Meteor.call('files.remove', id, function (error) {
+                    if (error) {
+                        throw error;
+                    }
+                });
+            });
 
             activity.remove();
 

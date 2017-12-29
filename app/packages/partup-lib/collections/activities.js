@@ -1,7 +1,7 @@
 /**
  * @ignore
  */
-var Activity = function(document) {
+Activity = function(document) {
     _.extend(this, document);
 };
 

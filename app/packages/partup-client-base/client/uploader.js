@@ -369,7 +369,7 @@ const createPlupload = function (browseButton, container, filesAddedHandler, upl
         silverlight_xap_url: '../uploader/plupload/runtimes/Moxie.xap',   // '../../../public/files/silverlight/Moxie.xap',
 
         filters: {
-            max_file_size: '10mb',
+            max_file_size: Partup.helpers.files.max_file_size,
             prevent_duplicates: true,
             mime_types: [
                 {title: 'Custom', extensions: Partup.helpers.fileUploader.allowedExtensions.ie.join(',')}

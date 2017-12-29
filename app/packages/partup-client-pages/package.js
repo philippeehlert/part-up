@@ -14,12 +14,14 @@ Package.onUse(function(api) {
         'ecmascript',
         'templating',
         'partup-lib',
+        'partup-client-forms',
         'partup-client-dropdowns',
         'reactive-dict',
         'reactive-var',
         'aldeed:autoform',
         'yogiben:autoform-tags',
-        'http'
+        'http',
+        'partup-client-files',
     ], 'client');
 
     var clientFiles = {
@@ -180,10 +182,10 @@ Package.onUse(function(api) {
             // App:partup-updates
             'app/partup/updates/updates.html',
             'app/partup/updates/updates.js',
-            'app/partup/updates/newmessage/newmessage.html',
-            'app/partup/updates/newmessage/newmessage.js',
             'app/partup/update/update.html',
             'app/partup/update/update.js',
+            'app/partup/updates/message-form/message-form.html',
+            'app/partup/updates/message-form/message-form.js',
 
             // App:partup-start
             'app/partup/start/start.html',
@@ -199,8 +201,8 @@ Package.onUse(function(api) {
             'app/partup/activities/activity/activity.html',
             'app/partup/activities/activity/activity.js',
             'app/partup/activities/activity/form/placeholders.js',
-            'app/partup/activities/activity/form/form.html',
-            'app/partup/activities/activity/form/form.js',
+            'app/partup/activities/activity/form/activity.html',
+            'app/partup/activities/activity/form/activity.js',
             'app/partup/activities/activity/view/view.html',
             'app/partup/activities/activity/view/view.js',
             'app/partup/activities/newactivity-restricted/newactivity-restricted.html',

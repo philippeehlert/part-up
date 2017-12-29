@@ -26,6 +26,7 @@ Template.app_partup_update.onCreated(function() {
             computation.stop();
         }
     });
+
     var updateId;
     template.autorun(function(computation) {
         var data = Template.currentData();
@@ -97,5 +98,5 @@ Template.app_partup_update.helpers({
     isActivityUpdate: function() {
         var update = Updates.findOne({_id: Template.instance().data.updateId});
         return !!(lodash.get(update, 'type_data.activity_id'));
-    }
+    },
 });

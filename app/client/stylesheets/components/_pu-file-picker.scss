@@ -1,0 +1,307 @@
+
+.pu-file-picker {
+
+    .header {
+        position: relative;
+        padding: em(10);
+
+        .expand-picker {
+            background: $color-primary;
+
+            > span {
+                display: inline-block;
+                font-size: 15px;
+                padding-right: em(10);
+                @include user-select(none);
+            }
+
+            &:hover, &:active, &:visited, &:link {
+                background: $color-primary;
+            }
+
+            .picon-caret-down, .picon-caret-up {
+                background: $color-primary;
+                color: white;
+            }
+        }
+
+        .remaining {
+            display: block;
+            margin-top: em(12);
+            margin-right: em(10.5);
+            text-align: center;
+            color: gray;
+            font-size: 0.8em;
+
+            @include goingLarge(600) {
+                position: absolute;
+                right: em(11);
+                top: 23%;
+            }
+
+            > strong {
+                font-size: 1.1em;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .content {
+        margin: em(10);
+        max-height: em(1000);
+        transition: max-height .5s linear;
+
+        &-collapsed {
+            margin: em(0);
+            max-height: em(0);
+
+            .drop-area, .browse-list-wrap {
+                display: none;
+            }
+        }
+
+        .drop-area {
+            padding: em(7.5);
+            border: dashed 2px #d8d8d8;
+            border-bottom: 0;
+            border-radius: em(5);
+
+            &-active {
+                border-color: #b6b6b6;
+            }
+
+            .file-list {
+                list-style: none;
+                padding: em(0);
+                display: block;
+
+                &-placeholder {
+                    text-align: center;
+                    display: block;
+                    padding: em(25) em(15);
+                }
+
+                > li {
+                    display: inline-block;
+                    padding: em(5);
+                    vertical-align: top;
+
+                    @include goingLarge(600) {
+                        width: 49%;
+                    }
+
+                    .file-wrap {
+                        display: block;
+                        width: 50px;
+                        height: 50px;
+                        padding: em(0);
+                        overflow: hidden;
+                        white-space: nowrap;
+
+                        @include goingLarge(600) {
+                            position: relative;
+                            width: 100%;
+                            height: 68px;
+                            padding: em(10);
+                            background: white;
+                            border-radius: em(5);
+                        }
+
+                        &-small {
+                            width: 36px;
+
+                            @include goingLarge(600) {
+                                width: 100%;
+                            }
+                        }
+
+                        &-loading {
+                            background: transparent;
+                            border: dashed 2px #bababa;
+                            padding: em(9);
+                            
+                            @include goingLarge(600) {
+                                padding: em(17) em(14);
+                            }
+                        }
+
+                        &:hover {
+                            .file-name-wrap {
+                                height: 40px;
+                                position: absolute;
+                                bottom: -40px;
+                                left: -2px;
+                                right: -2px;
+                                background: white;
+                                z-index: 2;
+                                border-bottom-left-radius: em(5);
+                                border-bottom-right-radius: em(5);
+                                padding: em(2) em(0) em(0) em(10);
+
+                                @include goingLarge(600) {
+                                    height: auto;
+                                    position: static;
+                                    position: initial;
+                                    background: none;
+                                    border-bottom-left-radius: em(0);
+                                    border-bottom-right-radius: em(0);
+                                    padding: em(0);
+                                }
+                            }
+
+                            .file-remove {
+                                display: block;
+                                display: initial;
+                                z-index: 2;
+                            }
+                        }
+
+                        > div {
+                            display: inline-block;
+                            vertical-align: middle;
+
+                            &:first-child {
+                                position: relative;
+
+                                @include goingLarge(600) {
+                                    position: static;
+                                    position: initial;
+                                }
+                            }
+                        }
+
+                        .file-remove {
+                            display: none;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            background: #bababa;
+                            width: em(20);
+                            height: em(20);
+                            line-height: em(20);
+                            text-align: center;
+                            cursor: pointer;
+                        }
+
+                        .file-name-wrap {
+                            display: inline-block;
+                            vertical-align: middle;
+                            
+                            @include goingLarge(600) {
+                                width: 80%;
+                            }
+
+                            .file-name {
+                                padding: em(5);
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .browse-list-wrap {
+            background: #bababa;
+            border-bottom-left-radius: em(5);
+            border-bottom-right-radius: em(5);
+            height: 40px;
+
+            .list-prefix {
+                display: none;
+                width: 170px;
+                line-height: 40px;
+                vertical-align: middle;
+                color: white;
+                padding-left: em(15);
+
+                @include goingLarge(680) {
+                    display: inline-block;
+                }
+            }
+
+            .browse-list {
+                padding: em(5);
+                width: 100%;
+                height: 40px;
+                display: table;
+                table-layout: fixed;
+                list-style: none;
+
+                // This is the parent of the .browse-list, required because of the .list-prefix
+                &-inline {
+                    display: inline-block;
+                    width: 100%;
+
+                    @include goingLarge(680) {
+                        width: calc(100% - 180px);
+                        vertical-align: middle;
+                    }
+                }
+
+                > li {
+                    position: relative;
+                    display: table-cell;
+                    text-align: center;
+                    margin: em(0);
+                    padding: em(3) em(0) em(0) em(0);
+
+                    &:before, &:after {
+                        content: '';
+                        position: absolute;
+                        top: em(4);
+                        bottom: em(4);
+                        background: white;
+                    }
+
+                    &:before {
+                        left: 0;
+                        width: em(0);
+
+                        @include goingLarge(680) {
+                            width: 2px;
+                        }
+                    }
+
+                    &:after {
+                        right: 0;
+                        width: 2px;
+
+                        @include goingLarge(680) {
+                            width: em(0);
+                        }
+                    }
+
+                    &:last-child:after {
+                        width: em(0);
+                    }
+
+                    .browse-list-button {
+                        display: block;
+                        padding: 0;
+                        color: white;
+                        text-decoration: none;
+
+                        @include goingLarge(600) {
+                            padding: em(0) em(10) em(0) em(0);
+
+                            > i {
+                                padding: em(0) em(4);
+                            }
+                        }
+
+                        > span {
+                            display: inline-block;
+                            font-size: 15px;
+                            font-weight: bold;
+                            vertical-align: top;
+                            @include user-select(none);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

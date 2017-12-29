@@ -1,6 +1,5 @@
 Template.app_partup_activities.onCreated(function() {
     var template = this;
-
     template.partup = Partups.findOne(template.data.partupId);
 
     template.activities = {
@@ -20,7 +19,7 @@ Template.app_partup_activities.onCreated(function() {
             var activities = Activities
                 .findForPartup(template.partup, {}, {archived: !!options.archived})
                 .fetch()
-                .filter(function(activity, idx) {
+            .filter(function(activity, idx) {
                     if (filter === 'my-activities')
                         return activity.creator_id && activity.creator_id === Meteor.user()._id;
 
@@ -35,14 +34,6 @@ Template.app_partup_activities.onCreated(function() {
             return activities;
         }
     };
-
-    // Partup findOne and activities subscription
-    template.activities.loading.set(true);
-    template.subscribe('activities.from_partup', template.data.partupId, {
-        onReady: function() {
-            template.activities.loading.set(false);
-        }
-    });
 
     template.createNewActivity = function(laneId) {
         var userId = Meteor.userId();

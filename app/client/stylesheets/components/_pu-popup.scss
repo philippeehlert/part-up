@@ -2,16 +2,23 @@
     $border-radius: 4px;
 
     max-width: 700px;
-    margin: 0 15px;
+    // margin: 0 15px;
     background-color: $color-background-secondary;
     border-radius: $border-radius;
     position: absolute;
-    top: 20%;
-    right: 0;
-    left: 0;
+    top: 5%;
+    right: 4.5%;
+    left: 2.5%;
     transform: translate3d(0, -20px, 0);
-    margin-bottom: 40px;
     transition: transform $animation-duration;
+
+    @include goingLarge(1000) {
+        max-width: auto;
+        width: 700px;
+        top: 10%;
+        left: 0%;
+        right: 0%;
+    }
 
     > header {
         background-color: $color-background;

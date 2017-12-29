@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import sanitizeHTML from 'sanitize-html';
+
+import { $ } from 'meteor/jquery';
+
 import sanitizeConfig from './_sanitizeConfig';
 
 Partup.client.html = {
@@ -25,6 +28,36 @@ Partup.client.html = {
                 '*': ['class'],
             },
             allowedSchemas: ['http', 'https', 'mailto'],
+        });
+    },
+
+    // this might not be the right place to put this...
+    // use, droppable.apply(htmlEl, [args]);
+    droppable(activeClass) {
+        const self = this.jquery ? this : $(this);
+        let ignoreLeave = false;
+
+        self.on('dragenter', function(event) {
+            if (event.target !== this) {
+                ignoreLeave = true;
+            }
+            self.addClass(activeClass);
+        }).on('dragleave', function(event) {
+            if (ignoreLeave) {
+                ignoreLeave = false;
+                return;
+            }
+            self.removeClass(activeClass);
+        }).on('dragend', function () {
+            self.removeClass(activeClass);
+        }).on('drop', function () {
+            self.removeClass(activeClass);
+        });
+
+        self.children().each((child) => {
+            $(child).on('dragleave', function (event) {
+                event.stopPropagation();
+            });
         });
     },
 };

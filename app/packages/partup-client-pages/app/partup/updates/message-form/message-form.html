@@ -1,0 +1,53 @@
+<template name="messageForm">
+    {{#autoForm
+        id=form.id
+        schema=form.schema
+        doc=form.doc
+        class="pu-form pu-form-popup pu-newmessage" }}
+        
+        <a class="pu-hint">
+            {{_ 'activity-form-description-validation-left' charactersRemaining.text }}
+        </a>
+        <section class="pu-new-message-input-wrap">
+            {{> afFieldInput 
+                name="text"
+                placeholder=""
+                class="pu-textarea"
+                rows=6
+                autofocus=""
+                data-message-input="" }}
+
+            <div class="markdown-support">
+                {{> markdownSupport }}
+            </div>
+        </section>
+
+        <section class="pu-file-picker-wrap">
+            {{> filePicker controller=fileController }}
+        </section>
+        
+        <footer>
+            <ul class="pu-list pu-list-right pu-list-horizontal pu-list-buttons">
+                <li>
+                    <button class="pu-button pu-button-text pu-button-text-subtle" data-dismiss>
+                        {{_ 'pages-app-partup-updates-newmessage-close'}}
+                    </button>
+                </li>
+                <li>
+                    <button class="pu-button {{#if isSubmitting}}pu-state-loading{{/if }}" data-submit>
+                        <span>
+                            {{#if isExistingUpdate }}
+                                {{_ 'pages-app-partup-updates-editmessage-submit'}}
+                            {{ else }}
+                                {{_ 'pages-app-partup-updates-newmessage-submit'}}
+                            {{/if }}
+                            {{#if isSubmitting }}
+                                {{> Spinner type='small' }}
+                            {{/if }}
+                        </span>
+                    </button>
+                </li>
+            </ul>            
+        </footer>
+    {{/autoForm}}
+</template>

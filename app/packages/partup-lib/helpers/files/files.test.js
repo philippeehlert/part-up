@@ -109,20 +109,20 @@ import './files';
         });
     });
 
-    Tinytest.add('getExtension throws when no . in filename and no mime', function(test) {
-        test.throws(function() {
-            Partup.helpers.files.getExtension({ name: 'filename' });
-        });
-    });
+    // Tinytest.add('getExtension throws when no . in filename and no mime', function(test) {
+    //     test.throws(function() {
+    //         Partup.helpers.files.getExtension({ name: 'filename' });
+    //     });
+    // });
 
-    Tinytest.add('getExtension no valid name and type throws error', function(test) {
-        test.throws(function() {
-            Partup.helpers.files.getExtension({
-                name: 'invalid',
-                type: 'invalid'
-            });
-        });
-    });
+    // Tinytest.add('getExtension no valid name and type throws error', function(test) {
+    //     test.throws(function() {
+    //         Partup.helpers.files.getExtension({
+    //             name: 'invalid',
+    //             type: 'invalid'
+    //         });
+    //     });
+    // });
 
     // getCategory
 
@@ -162,16 +162,20 @@ import './files';
         expect(Partup.helpers.files.isImage({ name: 'image.jpg', type: 'invalid' })).to.equal(true);
     });
 
-    Tinytest.add('isImage throws on file without valid name and mime', function(test) {
-        test.throws(function() {
-            Partup.helpers.files.isImage({ name: 'image', type: 'image' });
-        });
-    });
+    // Tinytest.add('isImage throws on file without valid name and mime', function(test) {
+    //     test.throws(function() {
+    //         Partup.helpers.files.isImage({ name: 'image', type: 'image' });
+    //     });
+    // });
 
     // getSvgIcon
 
     Tinytest.add("getSvgIcon returns icon when FileInfo has icon", function() {
         expect(Partup.helpers.files.getSvgIcon({ name: 'filename.doc', type: 'application/msword' })).to.equal('doc.svg');
+    });
+
+    Tinytest.add("getSvgIcon returns icon when multiple FileInfo objects found", function () {
+        expect(Partup.helpers.files.getSvgIcon({ type: 'application/gzip' })).to.equal('zip.svg');
     });
 
     // toUploadFilter

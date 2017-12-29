@@ -3,45 +3,39 @@ $iconWidth: 36px;
 $iconHeight: 48px;
 
 .icons-2-layout {
-    a:last-child {
-        margin-left: 5px;
-    }
-
-    a {
-        width: 49.13%;
+    li {
+        width: 49.5%;
     }
 }
 
 .icons-1-layout {
-    a {
-        width: 100%;
-    }
-}
-
-.icons-1-layout {
-    a {
+    li {
         width: 100%;
     }
 }
 
 ul.document-icons {
     padding: 0;
-    margin: 10px 0;
+    margin: 5px auto;
     list-style-type: none;
+    display: block;
 
     a {
         border-radius: 4px;
         background: #eeeeee;
-        display: inline-block;
+        display: block;
+        width: 100%;
+        height: 68px;
         text-decoration: none;
         padding: $outerMargin;
         color: black;
     }
 
     li {
-        display: inline;
+        display: inline-block;
         margin: 0;
-        padding: 0;
+        padding: 5px;
+        min-width: 250px;
 
         figure {
             background-color: transparent;
@@ -55,16 +49,23 @@ ul.document-icons {
             font-size: 16px;
             padding: 0;
             margin: 0;
+            
 
             &.file-name {
                 font-weight: bold;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                width: 50%;
             }
 
+            &.file-service {
+                display: inline-block;
+                color: darkgrey;
+                font-style: italic;
+                padding-left: em(5);
+            }
             &.file-bytes {
+                display: inline-block;
                 color: gray;
             }
         }
@@ -74,6 +75,7 @@ ul.document-icons {
 .file-download {
     float: right;
     margin-right: $outerMargin;
+    padding-left: em(10);
 }
 
 .file-icon {

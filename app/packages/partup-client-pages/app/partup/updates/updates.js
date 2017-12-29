@@ -7,6 +7,9 @@ Template.app_partup_updates.onCreated(function() {
 
     template.partup = Partups.findOne(template.data.partupId);
 
+    this.loadingUpdates = new ReactiveVar(false);
+  
+
     // Updates model
     template.updates = {
 
@@ -117,7 +120,8 @@ Template.app_partup_updates.onCreated(function() {
         resetLimit: function() {
             template.updates.limit.set(template.updates.STARTING_LIMIT);
             template.updates.end_reached.set(false);
-        }
+        },
+
     };
 
     Partup.client.events.on('partup:updates:message_added', template.updates.updateView);

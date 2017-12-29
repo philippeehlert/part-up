@@ -41,16 +41,14 @@
 
                 {{# if update.mayComment }}
                     {{# if metadata.is_contribution }}
-
                         <!-- When the update is a contribution-update, link to the activity -->
                         <a class="pu-button pu-button-text" href="{{ metadata.path }}">{{_ 'update-comment-button' }}</a>
-
                     {{ else }}
 
                         <!-- Only show the comment button when the update is commentable -->
-                        {{# if update.showCommentButton }}
+                        <!-- {{# if update.showCommentButton }}
                                 <a class="pu-button pu-button-text" data-expand-comment-field>{{_ 'update-comment-button' }}</a>
-                        {{/ if }}
+                        {{/ if }} -->
 
                     {{/ if }}
                 {{/ if }}
@@ -76,7 +74,7 @@
             {{# if update.data.isActivityUpdate }}
                 {{#with update.data.type_data }}
                     <section>
-                        {{> Activity activity=update.activityData EXPANDABLE=update.isDetail EXPANDED=update.isDetail UPDATE_LINK=update.isNotDetail READONLY=update.isNotDetail isUpper=update.isUpper }}
+                        {{> Activity activity=update.activityData EXPANDABLE=update.isDetail EXPANDED=update.isDetail UPDATE_LINK=update.isNotDetail READONLY=update.isNotDetail isUpper=update.isUpper FILES_EXPANDED=update.FILES_EXPANDED COMMENTS_EXPANDED=commentsExpanded }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -85,7 +83,7 @@
             {{#if update.data.isContributionUpdate }}
                 {{#with update.data.type_data }}
                     <section>
-                        {{> Activity activity=update.activityData contribution_id=contribution_id COMPACT=true EXPANDED=true READONLY=true }}
+                        {{> Activity activity=update.activityData contribution_id=contribution_id COMPACT=true EXPANDED=true READONLY=true FILES_EXPANDED=FILES_EXPANDED COMMENTS_EXPANDED=commentsExpanded }}
                     </section>
                 {{/with}}
             {{/if }}
@@ -94,7 +92,9 @@
 
             <!-- Comments -->
             {{#if update.commentable }}
+            {{#unless update.data.isActivityUpdate }}
                 {{> Comments update=update.data showCommentClicked=update.showCommentClicked FULLVIEW=update.isDetail SHOW_COMMENTS=SHOW_COMMENTS LIMIT=COMMENT_LIMIT }}
+            {{/unless }}
             {{/if }}
         </section>
     </section>

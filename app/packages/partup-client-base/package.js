@@ -15,14 +15,13 @@ Package.onUse(function (api) {
         'templating',
         'tracker',
         'reactive-var',
-        'reactive-dict'
+        'reactive-dict',
     ], ['client']);
 
     api.addFiles([
 
         // 'uploader/plupload/plupload.js', //For debugging purposes only!
         'uploader/pluploader.js',
-
         
         'client/base-64-polyfill.js',
         'client/url-polyfill.js',
@@ -102,7 +101,6 @@ Package.onUse(function (api) {
         'helpers/footerToggle.js',
         'helpers/newlineToBreak.js',
         'helpers/onrendered.js',
-        'helpers/tagsQuerySearch.js',
         'helpers/currentUserId.js',
         'helpers/Autolinkjs.js',
         'helpers/autolink.js',
@@ -122,13 +120,37 @@ Package.onUse(function (api) {
         'views/dangerouslyRenderHTML/dangerouslyRenderHTML.html',
         'views/dangerouslyRenderHTML/dangerouslyRenderHTML.js',
 
+        'components/Tag.html',
+        'components/Tag.js',
+
         'bootstrap.js',
         'analytics.js',
-        'marketo.js'
+        'marketo.js',
 
+
+        // 'client/logger/plogger.js'
     ], ['client']);
 
     api.export('strings');
     api.export('Pluploader');
+    // api.export('plogger');
 
 });
+
+// Package.onTest(function (api) {
+//     api.use([
+//         'ecmascript',
+//         'modules',
+//         'chrismbeckett:toastr',
+//         'tinytest',
+//         'practicalmeteor:chai',
+//     ]);
+
+//     api.addFiles([
+//         'client/logger/formats/no.test.js',
+//         'client/logger/formats/tapi18n.test.js',
+//         'client/logger/transports/console.test.js',
+//         'client/logger/transports/toastr.test.js',
+//         'client/logger/plogger.test.js',
+//     ], ['client']);
+// });

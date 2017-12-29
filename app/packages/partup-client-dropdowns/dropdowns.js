@@ -96,6 +96,7 @@ Meteor.startup(function() {
 
     Meteor.autorun(function() {
         var active = ClientDropdowns.partupNavigationSubmenuActive.get();
+
         ClientDropdowns.ajustBrightness(active);
     });
 });

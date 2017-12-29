@@ -2,7 +2,7 @@
  @name Partup.constants
  @memberof Partup.factories
  */
-Partup.constants.EMAIL_FROM = process.env.PARTUP_EMAIL_FROM || 'Part-up <team@part-up.com>';
+Partup.constants.EMAIL_FROM = process.env.PARTUP_EMAIL_FROM || 'Part-up <notifications@part-up.com>';
 Partup.constants.CRON_DIGEST = process.env.PARTUP_CRON_DIGEST || 'at 09:00am every weekday';
 Partup.constants.CRON_ENDDATE_REMINDER = process.env.PARTUP_CRON_ENDDATE_REMINDER || 'every 1 hour on the 10th minute';
 Partup.constants.CRON_PROGRESS = process.env.PARTUP_CRON_PROGRESS || 'every 1 hour on the 15th minute';

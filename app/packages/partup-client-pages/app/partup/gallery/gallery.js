@@ -1,5 +1,6 @@
 Template.ImageGallery.onCreated(function() {
     var template = this;
+
 });
 Template.ImageGallery.helpers({
     popupId: function() {

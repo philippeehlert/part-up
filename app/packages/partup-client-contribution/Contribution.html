@@ -69,16 +69,16 @@
                     {{ else }}
                         <p class="pu-contribution-none">{{_ 'contribution-none' }}</p>
                     {{/ if }}
-                    {{# if contribution.verified }}
+                    <!-- {{# if contribution.verified }}
                         {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                     {{ else }}
                         <div class="pu-ratings">
                             <p class="pu-sub-no-rating pu-sub-unverified">{{_ 'contribution-unverified' }}</p>
                         </div>
-                    {{/ if }}
+                    {{/ if }} -->
                 </div>
             {{ else }}
-                <div class="pu-contribution">
+                <div class="pu-contribution {{#unless contribution.verified}}unverified{{/unless }}">
                     <a href="{{ pathFor 'profile' _id=upper._id }}" data-hovercontainer="HoverContainer_upper" data-hovercontainer-context="{{ contribution.upper_id }}">
                         <img src="{{ partupImageUrl id=upper.profile.image store='80x80' }}" alt="" class="pu-avatar pu-avatar-small">
                     </a>
@@ -89,22 +89,18 @@
                             {{# if contribution.rate }}{{ contribution.rate }} {{ rateTranslation }} {{/ if }}
                         </p>
                     {{/ if }}
-                    {{# if contribution.verified }}
+                    <!-- {{# if contribution.verified }}
                         {{> Ratings contribution=contribution ratings=ratings READONLY=READONLY }}
                     {{ else }}
                         <div class="pu-ratings">
                             <p class="pu-sub-no-rating pu-sub-unverified">{{_ 'contribution-unverified' }}</p>
                         </div>
-                    {{/ if }}
+                    {{/ if }} -->
 
                     {{# if canVerifyContribution }}
-                    <div class="pu-sub-acceptbuttons pu-row">
-                        <div class="cell">
-                            <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
-                        </div>
-                        <div class="cell last stretch">
-                            <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
-                        </div>
+                    <div class="pu-sub-acceptbuttons">
+                        <a class="pu-button pu-button-text pu-button-text-subtle" data-contribution-reject>{{_ 'contribution-reject'}}</a>
+                        <a class="pu-button" data-contribution-accept>{{_ 'contribution-accept'}}</a>
                     </div>
                     {{/ if }}
                 </div>

@@ -43,7 +43,9 @@
                                         <ul class="pu-list pu-list-horizontal pu-list-tags">
                                             {{#each .}}
                                                 <li>
-                                                    <a href="#" class="pu-tag">{{tag}}</a>
+                                                    {{#Tag}}
+                                                        {{tag}}
+                                                    {{/Tag}}
                                                 </li>
                                             {{/each}}
                                         </ul>
@@ -75,7 +77,9 @@
                                         <ul class="pu-list pu-list-horizontal pu-list-tags">
                                             {{#each tags}}
                                                 <li>
-                                                    <a href="#" class="pu-tag">{{.}}</a>
+                                                    {{#Tag context="discover-partups" query=.}}
+                                                        {{.}}
+                                                    {{/Tag}}
                                                 </li>
                                             {{/each}}
                                         </ul>

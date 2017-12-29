@@ -1,18 +1,18 @@
 <template name="Activity">
-    {{# if showForm }}
+    {{#if partupIsPopupActive editActivityFormId }}
+        {{#contentFor "PopupTitle" }}
+            {{_ "activity-form-title-edit"}}
+        {{/contentFor }}
+        {{#contentFor region="PopupContent" data=activity }}
+            {{> activityForm }}
+        {{/contentFor }}
+    {{/if}}
 
-        {{> ActivityForm
-            activity=activity
-            edit=edit
-            CREATE=CREATE
-            POPUP=POPUP
-            CREATE_PARTUP=CREATE_PARTUP
-            createCallback=createCallback
-            partupId=partupId
-        }}
+    {{#if CREATE }}
+        {{> activityForm CREATE=true createCallback=createCallback partupId=partupId }}
+    {{/if }}
 
-    {{ else }}
-
+    {{#unless showForm }}
         {{> ActivityView
             activity=activity
             contribution_id=contribution_id
@@ -26,7 +26,7 @@
             UPDATE_LINK=UPDATE_LINK
             isUpper=isUpper
             BOARDVIEW=BOARDVIEW
-        }}
-
-    {{/ if }}
+            FILES_EXPANDED=FILES_EXPANDED
+            COMMENTS_EXPANDED=COMMENTS_EXPANDED }}
+    {{/unless }}
 </template>

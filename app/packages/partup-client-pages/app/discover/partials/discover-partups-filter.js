@@ -34,7 +34,17 @@ Template.app_discover_partups_filter.onCreated(function() {
 
     template.tribeSelectorOpen = new ReactiveVar(false);
     template.languageSelectorOpen = new ReactiveVar(false);
+
 });
+
+Template.app_discover_partups_filter.onRendered(function() {
+    const prefill = Partup.client.discover.getPrefill('textSearch');
+    if (prefill) {
+        this.searchQuery.set(prefill);
+        $('[data-search-query]').val(prefill);
+    }
+});
+
 Template.app_discover_partups_filter.onDestroyed(function() {
     var template = this;
 

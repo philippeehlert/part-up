@@ -30,18 +30,18 @@ Meteor.methods({
                 }
 
                 Contributions.update(contribution._id, {$set: newContribution});
-
+                
                 if (newContribution.motivation) {
                     Meteor.call('updates.comments.insert', activity.update_id, newContribution.motivation);
                 }
-
+                
                 // Post system message
                 var cause = false;
-
+                
                 if (contribution.archived && !newContribution.archived) {
                     cause = 'archived';
                 }
-
+                
                 // When there's a cause, it means that the system_message will be created somewhere else
                 if (!cause) {
                     Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_updated', {update_timestamp: false});
@@ -60,7 +60,6 @@ Meteor.methods({
                     Meteor.call('updates.comments.insert', activity.update_id, newContribution.motivation);
                 }
             }
-
             return newContribution;
         } catch (error) {
             Log.error(error);
@@ -167,20 +166,6 @@ Meteor.methods({
 
         try {
             Contributions.update(contribution._id, {$set: {archived: true}});
-
-            // Check if this was the user's last contribution to this Partup. If so, remove from partner list and add as supporter.
-            var contributionsLeft = Contributions.find({
-                partup_id: contribution.partup_id,
-                upper_id: upper._id,
-                verified: true,
-                archived: {$ne: true}
-            }).count();
-            if (!contributionsLeft) {
-                var partup = Partups.findOneOrFail(contribution.partup_id);
-                if (!partup.isCreatedBy(upper)) {
-                    partup.makePartnerSupporter(upper._id);
-                }
-            }
 
             // Post system message
             Partup.server.services.system_messages.send(upper, activity.update_id, 'system_contributions_removed', {update_timestamp: false});

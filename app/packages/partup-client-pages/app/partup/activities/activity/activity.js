@@ -25,31 +25,6 @@
 Template.Activity.onCreated(function() {
     this.edit = new ReactiveVar(false);
     this.showContributions = new ReactiveVar(false);
-
-    var self = this;
-    this.autorun(function() {
-        if (!Partup.client.focuslayer.state.get()) {
-            self.edit.set(false);
-        }
-    });
-
-    this.autorun(function() {
-        if (self.edit.get()) {
-            Partup.client.focuslayer.enable();
-
-            // scroll
-            var DELAY = 100;
-            Meteor.setTimeout(function() {
-                var elm = self.find('[data-activity-id]');
-                if (!Partup.client.scroll.inView(elm)) {
-                    Partup.client.scroll.to(elm, -170, {duration: 500});
-                }
-            }, DELAY);
-
-        } else {
-            Partup.client.focuslayer.disable();
-        }
-    });
 });
 
 /*************************************************************/
@@ -64,5 +39,8 @@ Template.Activity.helpers({
     },
     showForm: function() {
         return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
-    }
+    },
+    editActivityFormId() {
+        return this.activity ? `edit-activity-${this.activity._id}` : undefined;
+    },
 });

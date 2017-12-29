@@ -6,13 +6,13 @@
             <section class="pu-coverheader {{#if data.network.archived_at}}pu-coverheader-dark{{/if}}" data-header-navigate>
                 <div class="pu-wrap pu-wrap-columnlayout pu-tribeheader">
                     {{# with data.network }}
+                        <span class="pu-button pu-button-darktext"><i class="picon-show"></i><span>{{_ 'pages-app-network-tab-button-showstart' }}</span></span>
                         <figure class="pu-avatar pu-avatar-square" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='360x360'}}');{{/with }}">
                         </figure>
                         <h1>
                             {{ name }}
                             {{#if archived_at}}<span class="pu-sub-archived"><i class="picon-warning"></i> {{_ 'pages-app-network-start-label-archived' }} <strong>{{ partupDateOnly archived_at }}</strong></span>{{/if}}
                         </h1>
-                        <span class="pu-button pu-button-darktext"><i class="picon-show"></i><span>{{_ 'pages-app-network-tab-button-showstart' }}</span></span>
                     {{ else }}
                         {{> Spinner color='inverted'}}
                     {{/ with }}

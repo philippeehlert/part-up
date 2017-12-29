@@ -9,14 +9,17 @@
   "scripts": {
     "lint": "eslint"
   },
+  "engines": {
+    "node": "0.10.36"
+  },
   "dependencies": {
-    "HTMLString": "^1.0.7",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "enum": "^2.4.0",
     "highlight.js": "^9.6.0",
     "jquery": "^3.2.1",
+    "HTMLString": "^1.0.7",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "meteor-node-stubs": "~0.2.11",
@@ -36,5 +39,18 @@
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-meteor": "^4.1.4",
     "eslint-plugin-react": "^7.1.0"
+  },
+  "eslintConfig": {
+    "extends": "@meteorjs/eslint-config-meteor",
+    "rules": {
+      "no-undef": 0,
+      "indent": [
+        2,
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ]
+    }
   }
 }

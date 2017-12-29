@@ -3,13 +3,13 @@
 
         <div class="pu-sub-timelineline" style="{{# with containerHeightVar.get }}height: {{ . }}px;{{/ with }}"></div>
 
-        <!-- new message popup -->
+        <!-- messageForm popup -->
         {{#if partupIsPopupActive 'new-message' }}
             {{#contentFor "PopupTitle"}}
                 {{_ 'pages-app-partup-updates-newmessage-title'}}
             {{/contentFor}}
             {{#contentFor region="PopupContent" data=.}}
-                {{> app_partup_updates_newmessage }}
+                {{> messageForm }}
             {{/contentFor}}
         {{/if}}
 
@@ -45,8 +45,7 @@
         </header>
 
         <div>
-
-            {{#unless updatesLoading}}
+            {{#unless updatesLoading }}
                 <!-- Reveal new updates -->
                 {{#if newUpdatesCount }}
                     <section class="pu-update pu-sub-revealupdatesbutton">
@@ -57,8 +56,6 @@
 
                 <!-- For each update -->
                 {{#each updates }}
-
-
                     <!-- If the updates doesn't belong to the new updates, draw a line -->
                     {{# if partupEquals showNewUpdatesSeparator 'top' }}
                         <div class="pu-sub-newupdatesseparator pu-state-active">
@@ -104,7 +101,12 @@
 
                 {{/each }}
 
-            {{/ unless }}
+
+            {{ else }}
+                <div style="margin:50px 0px 20px 90px;">
+                    {{> Loader }}
+                </div>
+            {{/unless }}
 
             {{#unless updatesEndReached}}
                 <button class="pu-temporary-loadmore pu-button pu-button-secondary {{#if partupOneIsTrue updatesLoadingMore updatesLoading}}pu-state-disabled pu-state-loading{{/if}}" data-trigger-load>

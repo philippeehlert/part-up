@@ -1,18 +1,17 @@
 <template name="app_partup_activities">
     <div class="pu-composition pu-composition-partupdetailactivities{{#if boardViewEnabled }} pu-composition-partupdetailactivities-board{{/if}}">
 
-        <!-- new activity popup -->
         {{#if partupIsPopupActive 'new-activity' }}
-            {{#contentFor region="PopupContent" data=.}}
-                {{#contentFor "PopupTitle"}}
-                    {{_ "pages-app-partup-activities-newactivity_title"}}
-                {{/contentFor}}
-                {{# if isUpper }}
-                    {{> Activity CREATE=true POPUP=true partupId=partupId createCallback=createCallback }}
+            {{#contentFor "PopupTitle" }}
+                {{_ "activity-form-title-new"}}
+            {{/contentFor }}
+            {{#contentFor region="PopupContent" data=. }}
+                {{#if isUpper }}
+                    {{> activityForm }}
                 {{ else }}
-                    {{> app_partup_activities_newactivity_restricted partupId=partupId }}
-                {{/ if }}
-            {{/contentFor}}
+                    {{> app_partup_activities_newactivity_restricted }}
+                {{/if }}
+            {{/contentFor }}
         {{/if}}
 
         <!-- Header buttons -->

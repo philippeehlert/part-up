@@ -1,0 +1,123 @@
+.pu-form-popup {
+
+    .pu-form {
+
+        &-label {
+            display: block;
+            position: relative;
+            margin-top: em(20);
+
+            &:first-child {
+                margin-top: em(0);
+            }
+
+            &-title {
+                display: block;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 25px;
+                margin-bottom: em(3);
+            }
+        }
+
+        &-input, &-textarea {
+            display: block;
+            width: 100%;
+            padding: em(12);
+            border: 2px solid #ccc;
+            background: #fff;
+            border-radius: em(5);
+            color: #000;
+            font-size: em(16);
+            font-family: "proxima-nova";
+            color: #292929;
+        }
+
+        &-input {
+            height: 42px;
+            font-size: 16px;
+            line-height: 19px;
+
+            &-message {
+
+            }
+        }
+
+        &-textarea {
+            height: auto;
+            min-height: em(130);
+            line-height: em(20);
+            overflow-x: hidden;
+            padding-bottom: em(27);
+        }
+
+        &-validation {
+
+        }
+
+        &-input-invalid {
+
+        }
+
+        &-footer {
+            display: block;
+            margin: em(20) em(0) em(0) em(0);
+            padding-bottom: em(20);
+            text-align: right;
+
+            @include goingLarge(768) {
+                padding-bottom: em(0);
+            }
+
+            > ul {
+                display: inline-block;
+                list-style: none;
+                margin: em(0);
+                padding: em(0);
+    
+                > li {
+                    display: inline-block;
+                }
+            }
+
+            .left {
+                float: left;
+            }
+        }
+        
+    }
+
+    .pu-hint:hover {
+        color: #999;
+    }
+
+    .pu-state-invalid {
+        .pu-form-input {
+            border-color: #e87677;
+        }
+    }
+
+    .pu-sub-input-clickable {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .markdown-support {
+        display: inline-block;
+        position: absolute;
+        bottom: em(5);
+        right: em(19);
+        bottom: em(6);
+        z-index:1;
+    }
+
+    .pu-file-picker-wrap {
+        position: relative;
+        border: 2px solid #bfbfbf;
+        border-top: 0;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        margin-top: -2px;
+    }
+}

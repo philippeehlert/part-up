@@ -3,6 +3,8 @@
  * @name Users
  */
 
+import { get } from 'lodash';
+
 //N.B.: Meteor.users is already defined by meteor
 
 // Deny updating the profile object from client
@@ -428,9 +430,8 @@ User = function(user) {
          * @member {Function}
          * @return {Boolean}
          */
-        isPartnerInPartup: function(partupId) {
-            var upperOf = user.upperOf || [];
-            return upperOf.indexOf(partupId) > -1;
+        isPartnerInPartup(partupId) {
+            return (get(user, 'upperOf') || []).indexOf(partupId) > -1;
         },
 
         /**

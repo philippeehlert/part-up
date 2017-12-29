@@ -86,8 +86,7 @@ Template.app_profile.helpers({
                 return viewable;
             },
             chatIdWithCurrentUser: function() {
-                return Chats
-                    .findForUser(Meteor.userId(), {private: true})
+                return (Chats.findForUser(Meteor.userId(), {private: true}) || [])
                     .map(function(chat) {
                         return chat._id;
                     })

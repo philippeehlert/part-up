@@ -1,12 +1,19 @@
 .pu-contribution {
     border-top: 2px solid $color-border-light;
-    padding: 15px 0;
+    padding: 10px 0px;
+
+    &.unverified {
+        img {
+            -webkit-filter: grayscale(50%);
+            filter: grayscale(50%);
+        }
+    }
 
     .pu-sub-acceptbuttons {
-        margin-top: 15px;
+        float: right;
 
         .pu-button-text {
-            margin-left: 15px;
+            margin-right: 10px;
         }
     }
 
@@ -40,16 +47,22 @@
 
     a {
         text-decoration: none;
+        display: inline-block;
+        height: 40px;
+        vertical-align: middle;
+
+        > img {
+            display: block;
+            margin: 5px 5px 5px 0px;
+        }
     }
 
     &:first-child {
         border-top: 0;
-        padding-top: 0;
     }
 
     &:last-child {
         border-top: 0;
-        padding-bottom: 0;
     }
 
     &-none {
@@ -73,6 +86,7 @@
             position: relative;
             line-height: 30px;
             text-align: center;
+            pointer-events: none;
 
             &:before {
                 content: "";
@@ -94,6 +108,7 @@
                 color: #fff;
                 opacity: 0;
                 transition: opacity 0.2s ease-out;
+                pointer-events: none;
             }
         }
 

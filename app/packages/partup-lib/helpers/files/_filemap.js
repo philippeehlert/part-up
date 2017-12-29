@@ -16,7 +16,7 @@ export default _filemap = [
                         bytes: '424D',
                         size: 2,
                         offset: 0,
-                    }
+                    },
                 ],
             },
             {
@@ -54,7 +54,7 @@ export default _filemap = [
                         size: 4,
                         offset: 0,
                     },
-                ]
+                ],
             },
             {
                 extension: 'jpeg',
@@ -80,7 +80,7 @@ export default _filemap = [
                         size: 4,
                         offset: 0,
                     },
-                ]
+                ],
             },
             {
                 extension: 'png',
@@ -90,7 +90,7 @@ export default _filemap = [
                         bytes: '89504E470D0A1A0A',
                         size: 8,
                         offset: 0,
-                    }
+                    },
                 ],
             },
             {
@@ -101,7 +101,7 @@ export default _filemap = [
                         bytes: '52494646', // + filesize + 57 45 42 50, don't know how to do this yet.
                         size: 4,
                         offset: 0,
-                    }
+                    },
                 ],
             },
             {
@@ -112,8 +112,8 @@ export default _filemap = [
                         bytes: '49492A00',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'tiff',
@@ -123,8 +123,8 @@ export default _filemap = [
                         bytes: '49492A00',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
         ],
     },
@@ -257,7 +257,7 @@ export default _filemap = [
                         bytes: 'ECA5C100',
                         size: 4,
                         offset: 512,
-                    }
+                    },
                 ],
             },
             {
@@ -278,8 +278,8 @@ export default _filemap = [
                         bytes: '504B0708',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'dotx',
@@ -299,8 +299,8 @@ export default _filemap = [
                         bytes: '504B0708',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'odt',
@@ -320,8 +320,8 @@ export default _filemap = [
                         bytes: '504B0708',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'rtf',
@@ -331,8 +331,8 @@ export default _filemap = [
                         bytes: '7B5C72746631',
                         size: 6,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'pdf',
@@ -342,9 +342,9 @@ export default _filemap = [
                     {
                         bytes: '25504446',
                         size: 4,
-                        offset: 0
-                    }
-                ]
+                        offset: 0,
+                    },
+                ],
             },
             {
                 extension: 'txt',
@@ -354,13 +354,16 @@ export default _filemap = [
                         bytes: '464F524Dnnnnnnnn46545854',
                         size: 12,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'pages',
                 mime: 'application/vnd.apple.pages',
-            }
+            },
+            {
+                mime: 'application/vnd.google-apps.document',
+            },
         ],
     },
     {
@@ -375,8 +378,8 @@ export default _filemap = [
                         bytes: 'D0CF11E0A1B11AE1',
                         size: 8,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'pptx',
@@ -396,8 +399,8 @@ export default _filemap = [
                         bytes: '504B0708',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'pps',
@@ -407,8 +410,8 @@ export default _filemap = [
                         bytes: 'D0CF11E0A1B11AE1',
                         size: 8,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
             },
             {
                 extension: 'ppsx',
@@ -432,8 +435,11 @@ export default _filemap = [
                         bytes: '504B0708',
                         size: 4,
                         offset: 0,
-                    }
-                ]
+                    },
+                ],
+            },
+            {
+                mime: 'application/vnd.google-apps.presentation',
             },
         ],
     },
@@ -501,8 +507,11 @@ export default _filemap = [
             {
                 extension: 'numbers',
                 mime: 'application/vnd.apple.numbers', // Some systems read it as `application/zip`
-            }
-        ], 
+            },
+            {
+                mime: 'application/vnd.google-apps.spreadsheet',
+            },
+        ],
     },
     {
         category: 'archive',
