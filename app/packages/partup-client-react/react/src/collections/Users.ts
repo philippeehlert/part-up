@@ -15,12 +15,12 @@ class UsersCollection extends Collection<UserDocument> {
         return Meteor.user() as UserDocument | undefined;
     }
 
-    public isSuporterOfUpperOfPartup(user: UserDocument, partup: PartupDocument) {
-        if (!user) {
+    public isSupporterOfUpperOfPartup(user: UserDocument, partup: PartupDocument) {
+        if (!user || !partup) {
             return false;
         }
 
-        const partupIds = [ ...user.supporterOf, ...user.upperOf ];
+        const partupIds = [ ...(user.supporterOf || []), ...(user.upperOf || []) ];
 
         if (partupIds.includes(partup._id)) {
             return true;
@@ -30,7 +30,7 @@ class UsersCollection extends Collection<UserDocument> {
     }
 
     public isPendingPartnerOfPartup(user: UserDocument, partup: PartupDocument) {
-        if (!user) {
+        if (!user || !partup) {
             return false;
         }
 
