@@ -23,7 +23,7 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
 
     const user = Meteor.users.findOne(userId, { fields: { _id: 1, upperOf: 1, supporterOf: 1 } });
 
-    const partupsCursor = Partups.guardedFind(user, { _id: partupId }, {
+    const partupsCursor = Partups.find({ _id: partupId }, {
         fields: {
             _id: 1,
             name: 1,
@@ -58,7 +58,7 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
 
     const invitesCursor = Invites.find({
         partup_id: partupId,
-        invitee_id: user._id,
+        invitee_id: user ? user._id : null,
         type: 'partup_existing_upper',
     });
 
@@ -96,9 +96,8 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
     }]);
 
     return {
-        find: () => Meteor.users.find({_id: userId}),
+        find: () => partupsCursor,
         children: [
-            {find: () => partupsCursor},
             {find: () => invitesCursor},
             {find: () => usersCursor},
             {find: () => imagesCursor},

@@ -16,6 +16,10 @@ class UsersCollection extends Collection<UserDocument> {
     }
 
     public isSuporterOfUpperOfPartup(user: UserDocument, partup: PartupDocument) {
+        if (!user) {
+            return false;
+        }
+
         const partupIds = [ ...user.supporterOf, ...user.upperOf ];
 
         if (partupIds.includes(partup._id)) {
@@ -26,6 +30,10 @@ class UsersCollection extends Collection<UserDocument> {
     }
 
     public isPendingPartnerOfPartup(user: UserDocument, partup: PartupDocument) {
+        if (!user) {
+            return false;
+        }
+
         return !!(partup.pending_partners || []).find(id => id === user._id);
     }
 

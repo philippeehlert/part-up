@@ -134,12 +134,6 @@ export class App extends React.Component<AppProps, State> {
     }
 
     public render() {
-        const { loginFailed, user } = this.state;
-
-        if (loginFailed || !user) {
-            return null;
-        }
-
         if (dev) {
             const partupId = 'zcJyRkPhTNqQjNKEZ';
 
@@ -171,14 +165,23 @@ export class App extends React.Component<AppProps, State> {
     private renderInstance = () => {
         const { render, data } = this.props;
 
-        switch (render) {
-        case 'home':
-            return <Route path={'/home'} component={Dashboard} />;
-        case 'partup-start':
+        // Not a logged in route
+        if (render === 'partup-start') {
             return <Route path={'/'} render={(props) => <Start {...props} partupId={data.partupId} />} />;
-        default:
-            return undefined;
         }
+
+        // Logged in routes.
+        const { loginFailed, user } = this.state;
+
+        if (loginFailed || !user) {
+            return null;
+        }
+
+        if (render === 'home') {
+            return <Route path={'/home'} component={Dashboard} />;
+        }
+
+        return undefined;
     }
 
     private refetchUser = () => {
