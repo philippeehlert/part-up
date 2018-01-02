@@ -448,7 +448,7 @@ Router.route('/partups/:slug', {
         const user = Meteor.user();
         const redirectedBefore = Session.get(`redirected_to_onboarding-${partupId}`);
 
-        if (user && (User(user).isSupporterInPartup(partupId) || User(user).isPartnerInPartup(partupId))) {
+        if (user && User(user).isPartnerInPartup(partupId)) {
             this.next();
             return;
         }
