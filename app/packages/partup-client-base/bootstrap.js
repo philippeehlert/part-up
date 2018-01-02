@@ -71,6 +71,22 @@ Meteor.startup(function() {
         });
     });
 
+    let userHasLoggedIn = false;
+    let userDidLogin = false;
+    Meteor.autorun(function() {
+        const user = Meteor.user();
+        const loggingIn = Meteor.loggingIn();
+
+        if (!loggingIn && userDidLogin && user && window.REACT_USER_LOGIN) {
+            window.REACT_USER_LOGIN();
+        } else if (!user && userHasLoggedIn && window.REACT_USER_LOGOUT) {
+            window.REACT_USER_LOGOUT();
+        }
+
+        userDidLogin = loggingIn;
+        userHasLoggedIn = !!user;
+    });
+
     /*************************************************************/
     /* Router animation */
     /*************************************************************/

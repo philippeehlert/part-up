@@ -83,8 +83,12 @@ onStartup(() => {
         Meteor.connect(`${protocol === 'https:' ? 'wss:' : 'ws:'}//${host}/websocket`);
     }
 
-    Meteor._loginWithToken(getLoginToken());
+    loginWithMeteorToken();
 });
+
+export function loginWithMeteorToken() {
+    Meteor._loginWithToken(getLoginToken());
+}
 
 export function getLoginToken() {
     if (process.env.REACT_APP_DEV) {
@@ -99,6 +103,10 @@ export function onLogin(cb: Function) {
     if (Meteor.user()) return cb();
 
     Meteor.Accounts.onLogin(cb);
+}
+
+export function onLogout() {
+    window.localStorage.removeItem('reactnativemeteor_usertoken')
 }
 
 export function onLoginFailure(cb: Function) {

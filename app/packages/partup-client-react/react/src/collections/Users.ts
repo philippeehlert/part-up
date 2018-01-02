@@ -37,6 +37,14 @@ class UsersCollection extends Collection<UserDocument> {
         return !!(partup.pending_partners || []).find(id => id === user._id);
     }
 
+    public isFounderOfPartup(user: UserDocument, partup: PartupDocument) {
+        if (!user || !partup) {
+            return false;
+        }
+
+        return partup.creator_id === user._id;
+    }
+
 }
 
 export const Users = new UsersCollection({

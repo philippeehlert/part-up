@@ -7,6 +7,8 @@ declare global {
         Meteor: any;
         RENDER_REACT: any;
         UNRENDER_REACT: any;
+        REACT_USER_LOGIN: any;
+        REACT_USER_LOGOUT: any;
     }
 }
 
@@ -23,6 +25,7 @@ import { routes, getCurrentIndex } from 'utils/router';
 import { App, renderInstanceType } from './App';
 
 import './index.css';
+import { Dispatcher } from 'utils/Dispatcher';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -56,6 +59,16 @@ window.UNRENDER_REACT = (rootEl: string) => {
     if (!root) return;
 
     ReactDOM.unmountComponentAtNode(root);
+};
+
+export const userDispatcher = new Dispatcher();
+
+window.REACT_USER_LOGIN = () => {
+    userDispatcher.dispatch('login', {});
+};
+
+window.REACT_USER_LOGOUT = () => {
+    userDispatcher.dispatch('logout', {});
 };
 
 if (dev) {

@@ -148,18 +148,22 @@ export class Start extends React.Component<Props, State> {
         const user = Users.findLoggedInUser() as UserDocument;
 
         if (!user) {
-            return false;
+            return true;
         }
-
-        const userIsAMemberOrPending =
-            Users.isSupporterOfUpperOfPartup(user, partup) ||
-            Users.isPendingPartnerOfPartup(user, partup);
 
         if (!showOnboardingTile) {
             return false;
         }
 
-        if (userIsAMemberOrPending) {
+        if (Users.isSupporterOfUpperOfPartup(user, partup)) {
+            return false;
+        }
+
+        if (Users.isPendingPartnerOfPartup(user, partup)) {
+            return false;
+        }
+
+        if (Users.isFounderOfPartup(user, partup)) {
             return false;
         }
 
@@ -176,7 +180,10 @@ export class Start extends React.Component<Props, State> {
         await this.updatesCommentsSubscriber.subscribe(updateIds, { system: false });
     }
 
-    private dismissOnboardingTile = () => this.setState({
-        showOnboardingTile: false,
-    })
+    private dismissOnboardingTile = () => {
+
+        // this.setState({
+        //     showOnboardingTile: false,
+        // })
+    }
 }

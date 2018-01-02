@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import * as moment from 'moment';
-import { Meteor, onLogin, onLoginFailure } from 'utils/Meteor';
+import { Meteor, onLogin, onLoginFailure, loginWithMeteorToken, onLogout } from 'utils/Meteor';
 import { Subscriber } from 'utils/Subscriber';
 import {
     Switch,
@@ -19,6 +19,7 @@ import { UserDocument } from 'collections/Users';
 import { get } from 'lodash';
 
 import 'moment/locale/nl';
+import { userDispatcher } from 'index';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -131,6 +132,16 @@ export class App extends React.Component<AppProps, State> {
 
     public componentWillMount() {
         this.loadData();
+
+        loginWithMeteorToken();
+
+        userDispatcher.subscribe('login', this.userLoginHandler);
+        userDispatcher.subscribe('logout', this.userLogoutHandler);
+    }
+
+    public componentWillUnmount() {
+        userDispatcher.unsubscribe('login', this.userLoginHandler);
+        userDispatcher.unsubscribe('logout', this.userLogoutHandler);
     }
 
     public render() {
@@ -187,6 +198,20 @@ export class App extends React.Component<AppProps, State> {
     private refetchUser = () => {
         this.setState({
             user: Meteor.user(),
+        });
+    }
+
+    private userLoginHandler = () => {
+        loginWithMeteorToken();
+    }
+
+    private userLogoutHandler = () => {
+        Meteor.logout();
+
+        onLogout();
+
+        this.setState({
+            user: undefined,
         });
     }
 }
