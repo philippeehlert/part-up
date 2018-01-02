@@ -24,7 +24,7 @@ export class StarredUpdates extends React.Component<Props, State> {
                 {updates.length ? (
                     updates.map(update => <UpdateTile
                         key={update._id}
-                        hideCommentBox
+                        hideComments
                         isStarred
                         update={update}
                     />)

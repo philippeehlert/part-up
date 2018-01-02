@@ -53,7 +53,7 @@ interface Props {
     className?: string;
     update: ConversationUpdateDocument;
     isStarred?: boolean;
-    hideCommentBox?: boolean;
+    hideComments?: boolean;
 }
 
 export class UpdateTile extends React.Component<Props, {}> {
@@ -62,7 +62,7 @@ export class UpdateTile extends React.Component<Props, {}> {
         const {
             update,
             isStarred,
-            hideCommentBox,
+            hideComments,
         } = this.props;
 
         return (
@@ -81,7 +81,7 @@ export class UpdateTile extends React.Component<Props, {}> {
                 {this.shouldRenderUpdateComments(update) && (
                     <UpdateTileComments
                         update={update}
-                        hideCommentBox={hideCommentBox}
+                        hideComments={hideComments}
                         redirectCommentIntent
                     />
                 )}

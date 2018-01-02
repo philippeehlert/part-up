@@ -17,7 +17,7 @@ import { Partups } from 'collections/Partups';
 interface Props {
     className?: string;
     collapsedMax?: number;
-    hideCommentBox?: boolean;
+    hideComments?: boolean;
     update: any;
     redirectCommentIntent?: boolean;
 }
@@ -41,17 +41,17 @@ export class UpdateTileComments extends React.Component<Props, State> {
     private commentBoxComponent: CommentBox|null = null;
 
     public render() {
-        const { update, hideCommentBox } = this.props;
+        const { update, hideComments } = this.props;
         const { comments_count = 0 } = Updates.findOne({ _id: update._id }) || {};
         const { showCommentBox } = this.state;
         const user = Users.findLoggedInUser();
-        const canComment = !hideCommentBox && showCommentBox;
+        const canComment = !hideComments && showCommentBox;
 
         return (
             <div className={this.getClassNames()}>
                 { this.renderCommentControls() }
 
-                { comments_count > 0 && this.renderComments() }
+                { !hideComments && (comments_count > 0) && this.renderComments() }
 
                 {canComment && (
                     <CommentBox
@@ -161,15 +161,15 @@ export class UpdateTileComments extends React.Component<Props, State> {
     }
 
     private onCommentCountClick = () => {
-        const { hideCommentBox } = this.props;
+        const { hideComments } = this.props;
 
-        if (!hideCommentBox) this.toggleAllComments();
+        if (!hideComments) this.toggleAllComments();
     }
 
     private onCommentLinkClick = () => {
-        const { hideCommentBox } = this.props;
+        const { hideComments } = this.props;
 
-        if (!hideCommentBox) this.handleCommentClick();
+        if (!hideComments) this.handleCommentClick();
     }
 
     private toggleAllComments = () => {
