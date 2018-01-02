@@ -20,6 +20,7 @@ import { get } from 'lodash';
 
 import 'moment/locale/nl';
 import { userDispatcher } from 'index';
+import { Tracker } from 'utils/Tracker';
 
 const dev = process.env.REACT_APP_DEV;
 
@@ -97,6 +98,17 @@ export class App extends React.Component<AppProps, State> {
         onStateChange: () => this.forceUpdate(),
     });
 
+    private currentUserTracker = new Tracker<UserDocument>({
+        collection: 'users',
+        onChange: (event) => {
+            if (!event.currentDocument) return;
+
+            if (event.currentDocument._id === Meteor.userId()) {
+                this.forceUpdate();
+            }
+        },
+    });
+
     public getChildContext(): AppContext {
         const { user } = this.state;
 
@@ -140,13 +152,14 @@ export class App extends React.Component<AppProps, State> {
     }
 
     public componentWillUnmount() {
+        this.currentUserTracker.destroy();
         userDispatcher.unsubscribe('login', this.userLoginHandler);
         userDispatcher.unsubscribe('logout', this.userLogoutHandler);
     }
 
     public render() {
         if (dev) {
-            const partupId = 'zcJyRkPhTNqQjNKEZ';
+            const partupId = 'gJngF65ZWyS9f3NDE';
 
             return (
                 <Container>
