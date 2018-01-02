@@ -63,6 +63,8 @@
     }
 
     @media screen and (max-width: 600px) {
+        flex-direction: column;
+
         &__description {
             flex-direction: column;
             margin: 0 0 getSpacing(3) 0;
