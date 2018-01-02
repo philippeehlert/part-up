@@ -1,5 +1,4 @@
 Template.app_partup_carousel.onCreated(function() {
-    window.console.log('Created carousel', this);
 
     const partupId = this.data.partupId;
     const partup = Partups.findOne(partupId);
@@ -12,7 +11,7 @@ Template.app_partup_carousel.onCreated(function() {
     this.images = images;
 });
 
-Template.app_partup_carousel.rendered = function() {
+Template.app_partup_carousel.onRendered(function() {
     const template = this;
 
     if (this.images.length) {
@@ -23,6 +22,8 @@ Template.app_partup_carousel.rendered = function() {
                 arrows: true,
                 prevArrow: '<button type="button" class="pu-carousel-prev"><i class="picon-caret-slim-left"></i></button>',
                 nextArrow: '<button type="button" class="pu-carousel-next"><i class="picon-caret-slim-right"></i></button>',
+                autoplay: true,
+                autoplaySpeed: 10000,
                 onBeforeChange: (carousel, currentIndex) => {
                     const current = template.images[currentIndex];
                     if (current && current.type === 'video') {
@@ -34,7 +35,7 @@ Template.app_partup_carousel.rendered = function() {
             });
         }, 0);
     }
-};
+});
 
 Template.app_partup_carousel.helpers({
     typeIsVideo: (type) => type === 'video',
