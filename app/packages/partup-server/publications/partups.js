@@ -42,7 +42,7 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
         },
     });
 
-    const partup = partupsCursor.fetch()[0];
+    const partup = partupsCursor.fetch().pop();
 
     const starredUpdates = Updates.find({
         _id: {$in: partup.starred_updates || []},
