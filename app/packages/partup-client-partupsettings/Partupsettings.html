@@ -112,7 +112,7 @@
                         {{_ 'partupsettings-form-motivation-label'}}
                         <a class="pu-hint">
                             {{#if partupLowerThan nameCharactersLeft Partup.schemas.entities.partup._schema.motivation.max}}
-                                {{_ 'partupsettings-form-name-validation-left' expectedResultCharactersLeft }}
+                                {{_ 'partupsettings-form-name-validation-left' motivationCharactersLeft }}
                             {{else}}
                                 {{_ 'partupsettings-form-name-validation' Partup.schemas.entities.partup._schema.motivation.max }}
                             {{/if}}
