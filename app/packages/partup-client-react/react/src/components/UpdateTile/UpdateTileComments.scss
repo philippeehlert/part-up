@@ -8,13 +8,15 @@
         color: $pur-color-dusty-gray;
     }
 
-    &__control-reactions.pur-Clickable {
+    &__control-reactions.pur-Clickable,
+    &__control-reactions.pur-Link {
         font-size: 14px;
         color: $pur-color-dusty-gray;
         margin-right: 5px;
     }
 
-    &__control-respond-link.pur-Clickable {
+    &__control-respond-link.pur-Clickable,
+    &__control-respond-link.pur-Link {
         font-size: 14px;
         margin-left: 5px;
     }

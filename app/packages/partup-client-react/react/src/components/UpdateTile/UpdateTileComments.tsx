@@ -11,12 +11,15 @@ import { Meteor } from 'utils/Meteor';
 import { Users } from 'collections/Users';
 import { UserAvatar } from 'components/Avatar/UserAvatar';
 import { translate } from 'utils/translate';
+import { Link } from 'components/Router/Link';
+import { Partups } from 'collections/Partups';
 
 interface Props {
     className?: string;
     collapsedMax?: number;
     hideCommentBox?: boolean;
     update: any;
+    redirectCommentIntent?: boolean;
 }
 
 interface State {
@@ -32,38 +35,25 @@ export class UpdateTileComments extends React.Component<Props, State> {
 
     public state: State = {
         showAllComments: false,
-        showCommentBox: !this.props.hideCommentBox ? true : false,
+        showCommentBox: true,
     };
 
     private commentBoxComponent: CommentBox|null = null;
 
     public render() {
-        const { update } = this.props;
+        const { update, hideCommentBox } = this.props;
         const { comments_count = 0 } = Updates.findOne({ _id: update._id }) || {};
         const { showCommentBox } = this.state;
         const user = Users.findLoggedInUser();
+        const canComment = !hideCommentBox && showCommentBox;
 
         return (
             <div className={this.getClassNames()}>
-                <div className={`pur-UpdateTileComments__controls`}>
-                    <Clickable
-                        className={`pur-UpdateTileComments__control-reactions`}
-                        onClick={this.toggleAllComments}
-                    >
-                        {translate('pur-dashboard-update_tile-comment_count', { comments_count })}
-                    </Clickable>
-                    {` • `}
-                    <Clickable
-                        className={`pur-UpdateTileComments__control-respond-link`}
-                        onClick={this.handleCommentClick}
-                    >
-                        {translate('pur-dashboard-update_tile-comment')}
-                    </Clickable>
-                </div>
+                { this.renderCommentControls() }
 
                 { comments_count > 0 && this.renderComments() }
 
-                {showCommentBox && (
+                {canComment && (
                     <CommentBox
                         avatar={
                             <UserAvatar
@@ -78,6 +68,52 @@ export class UpdateTileComments extends React.Component<Props, State> {
                 )}
             </div>
         );
+    }
+
+    private renderCommentControls() {
+        const { update, redirectCommentIntent } = this.props;
+        const { comments_count = 0, partup_id = '' } = update;
+        const partupSlug = Partups.getSlugById(partup_id);
+
+        if (redirectCommentIntent) {
+            return (
+                <div className={`pur-UpdateTileComments__controls`}>
+                    <Link
+                        className={`pur-UpdateTileComments__control-reactions`}
+                        target={'_partup'}
+                        to={`/partups/${partupSlug}/updates/${update._id}`}
+                    >
+                        {translate('pur-dashboard-update_tile-comment_count', { comments_count })}
+                    </Link>
+                    {` • `}
+                    <Link
+                        className={`pur-UpdateTileComments__control-respond-link`}
+                        target={'_partup'}
+                        to={`/partups/${partupSlug}/updates/${update._id}`}
+                    >
+                        {translate('pur-dashboard-update_tile-comment')}
+                    </Link>
+                </div>
+            );
+        }
+
+        return (
+            <div className={`pur-UpdateTileComments__controls`}>
+                <Clickable
+                    className={`pur-UpdateTileComments__control-reactions`}
+                    onClick={this.onCommentCountClick}
+                >
+                    {translate('pur-dashboard-update_tile-comment_count', { comments_count })}
+                </Clickable>
+                {` • `}
+                <Clickable
+                    className={`pur-UpdateTileComments__control-respond-link`}
+                    onClick={this.onCommentLinkClick}
+                >
+                    {translate('pur-dashboard-update_tile-comment')}
+                </Clickable>
+            </div>
+        )
     }
 
     private renderComments() {
@@ -122,6 +158,18 @@ export class UpdateTileComments extends React.Component<Props, State> {
                 if (this.commentBoxComponent) this.commentBoxComponent.focus();
             });
         }
+    }
+
+    private onCommentCountClick = () => {
+        const { hideCommentBox } = this.props;
+
+        if (!hideCommentBox) this.toggleAllComments();
+    }
+
+    private onCommentLinkClick = () => {
+        const { hideCommentBox } = this.props;
+
+        if (!hideCommentBox) this.handleCommentClick();
     }
 
     private toggleAllComments = () => {

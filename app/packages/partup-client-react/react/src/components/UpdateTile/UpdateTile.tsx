@@ -82,6 +82,7 @@ export class UpdateTile extends React.Component<Props, {}> {
                     <UpdateTileComments
                         update={update}
                         hideCommentBox={hideCommentBox}
+                        redirectCommentIntent
                     />
                 )}
             </div>
