@@ -159,8 +159,8 @@ export class Start extends React.Component<Props, State> {
             return false;
         }
 
-        if (invite && !invite.dismissed) {
-            return true;
+        if (invite && invite.dismissed) {
+            return false;
         }
 
         if (Users.isSupporterOfUpperOfPartup(user, partup)) {
