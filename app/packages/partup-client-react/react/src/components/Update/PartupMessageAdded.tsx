@@ -6,6 +6,8 @@ import { translate } from 'utils/translate';
 import { get } from 'lodash';
 import { UpdateDocument } from 'collections/Updates';
 import { UpdateText } from 'components/TextRenderer/UpdateText';
+import { Documents } from 'components/Documents/Documents';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 interface Props {
     className?: string;
@@ -29,7 +31,13 @@ export class PartupMessageAdded extends React.Component<Props, {}> {
             return translate('update-type-partups_message_added-system-welcome_message-content');
         }
 
-        return <UpdateText text={get(type_data, 'new_value')} />;
+        return (
+            <React.Fragment>
+                <UpdateText text={get(type_data, 'new_value')} />
+                {type_data.images && <ImageGallery images={type_data.images} />}
+                {type_data.documents && <Documents documents={type_data.documents} />}
+            </React.Fragment>
+        );
     }
 
     private getClassNames() {

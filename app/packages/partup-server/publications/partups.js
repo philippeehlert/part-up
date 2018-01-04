@@ -52,9 +52,20 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
     });
 
     const updateUserIds = starredUpdates.map(({upper_id}) => upper_id);
+    const updateFileIds = starredUpdates.fetch()
+        .filter(({ type_data }) => type_data && type_data.documents)
+        .map(({ type_data }) => type_data.documents)
+        .reduce((x, y) => x.concat(y), []);
+    const updateImageIds = starredUpdates.fetch()
+        .filter(({ type_data }) => type_data && type_data.images)
+        .map(({ type_data }) => type_data.images)
+        .reduce((x, y) => x.concat(y), []);
 
     const starredUpdatesIds = starredUpdates.map(({_id}) => _id);
     const networksCursor = Networks.find({_id: partup.network_id }, {fields: {_id: 1, name: 1}});
+
+    const filesCursor = Files.find({_id: {$in: updateFileIds || []}});
+    const updateImageCursor = Images.find({_id: {$in: updateImageIds || []}});
 
     const invitesCursor = Invites.find({
         partup_id: partupId,
@@ -95,12 +106,15 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
         imageKey: 'type_data.images',
     }]);
 
+
     return {
         find: () => partupsCursor,
         children: [
             {find: () => invitesCursor},
+            {find: () => filesCursor},
             {find: () => usersCursor},
             {find: () => imagesCursor},
+            {find: () => updateImageCursor},
             {find: () => networksCursor},
             {find: () => starredUpdates},
             {find: () => activitiesCursor},

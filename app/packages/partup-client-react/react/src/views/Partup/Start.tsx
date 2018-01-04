@@ -16,6 +16,7 @@ import { Lanes, LaneDocument } from 'collections/Lanes';
 import { Activities, ActivityDocument } from 'collections/Activities';
 import { StarredUpdates } from 'components/StarredUpdates/StarredUpdates';
 import { Subscriber } from 'utils/Subscriber';
+import { FileDocument, Files } from 'collections/Files';
 
 interface RouteParams {}
 
@@ -32,6 +33,7 @@ interface FetcherResponse {
     partups: PartupDocument[];
     users: UserDocument[];
     'cfs.images.filerecord': ImageDocument[];
+    'cfs.files.filerecord': FileDocument[];
     invites: InviteDocument[];
     networks: NetworkDocument[];
     updates: ConversationUpdateDocument[];
@@ -55,6 +57,7 @@ export class Start extends React.Component<Props, State> {
         onResponse: (data) => {
             const {
                 'cfs.images.filerecord': images = [],
+                'cfs.files.filerecord': files = [],
                 partups = [],
                 users = [],
                 invites = [],
@@ -72,6 +75,7 @@ export class Start extends React.Component<Props, State> {
             Updates.updateStatics(updates);
             Activities.updateStatics(activities);
             Lanes.updateStatics(lanes);
+            Files.updateStatics(files);
 
             this.subscribeToUpdateComments();
         },
@@ -183,6 +187,6 @@ export class Start extends React.Component<Props, State> {
     private dismissOnboardingTile = () => {
         this.setState({
             showOnboardingTile: false,
-        })
+        });
     }
 }
