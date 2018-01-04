@@ -11,9 +11,9 @@
           {{/if}}
         {{else}}
           {{#if firstIndex @index}}
-            <div><figure class="pu-sub-picture" style="background-image: url('{{ partupImageUrl id=id store='1200x520' }}');" data-partupcover-focuspoint></figure></div>
+            <div><a href="{{ partupImageUrl id=id store='1200x520' }}" target="_blank" rel="noopener"><figure class="pu-sub-picture" style="background-image: url('{{ partupImageUrl id=id store='1200x520' }}');" data-partupcover-focuspoint></figure></a></div>
           {{else}}
-            <div><img src="{{ partupImageUrl id=id store='1200x520' }}" width="400px" /></div>      
+            <div><a href="{{ partupImageUrl id=id store='1200x520' }}" target="_blank" rel="noopener"><img src="{{ partupImageUrl id=id store='1200x520' }}" width="400px" /></a></div>
           {{/if}}
         {{/if}}
     {{/each }}

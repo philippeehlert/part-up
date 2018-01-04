@@ -70,9 +70,11 @@ export class Fetcher<FetcherResponseData = any, FetcherData = any> {
     }
 
     private async makeRequest(additionalQueryParams: QueryParameters) {
+        const userId = window.localStorage.getItem('Meteor.userId') || Meteor.userId();
+
         const params = {
             token: getLoginToken(),
-            userId: Meteor.userId(),
+            userId: userId,
             ...this.query,
             ...additionalQueryParams,
         };

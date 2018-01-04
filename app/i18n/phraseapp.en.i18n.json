@@ -1984,5 +1984,6 @@
   "pur-partup-start-description_tile-expected_result": "Expected Result",
   "pur-partup-start-description_tile-expected_result_placeholder": "No expected results were added.",
   "pur-partup-start-description_tile-motivation_placeholder": "The founder of this part-up has not given a motivation.",
-  "pur-partup-start-description_tile-motivation_text": "Motivation of the part-up"
+  "pur-partup-start-description_tile-motivation_text": "Motivation of the part-up",
+  "pur-partup-start-error-too_many_starred_updates": "Cannot star more than 5 updates, please unstar one first."
 }

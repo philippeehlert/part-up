@@ -159,6 +159,10 @@ export class Start extends React.Component<Props, State> {
             return false;
         }
 
+        if (invite && !invite.dismissed) {
+            return true;
+        }
+
         if (Users.isSupporterOfUpperOfPartup(user, partup)) {
             return false;
         }
@@ -168,10 +172,6 @@ export class Start extends React.Component<Props, State> {
         }
 
         if (Users.isFounderOfPartup(user, partup)) {
-            return false;
-        }
-
-        if (invite && invite.dismissed) {
             return false;
         }
 

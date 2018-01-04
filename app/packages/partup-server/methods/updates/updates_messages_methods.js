@@ -157,8 +157,13 @@ Meteor.methods({
 
         const message = Updates.findOne({_id: messageId }, {field: { _id: 1, partup_id: 1 }});
         const partupId = message.partup_id;
+        const partup = Partups.findOne(partupId, {fields: {starred_updates: 1}});
 
-        if (!message || !upper || !User(upper).isPartnerInPartup(partupId)) throw new Meteor.Error(401, 'unauthorized');
+        if (!message || !partup || !upper || !User(upper).isPartnerInPartup(partupId)) throw new Meteor.Error(401, 'unauthorized');
+
+        if (partup.starred_updates && partup.starred_updates.length >= 5) {
+            throw new Meteor.Error(400, 'partup_message_too_many_stars');
+        }
 
         try {
             Partups.update(partupId, { $push: { starred_updates: message._id }});

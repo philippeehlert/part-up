@@ -194,7 +194,11 @@ Template.Update.events({
         Meteor.call('updates.messages.star', updateId, function(error, result) {
             if (error) {
                 template.updateIsStarred.set(false);
-                Partup.client.notify.error(error.reason);
+                if (error.reason === 'partup_message_too_many_stars') {
+                    Partup.client.notify.error('');
+                } else {
+                    Partup.client.notify.error('Could not star update');
+                }
                 return;
             }
         });
@@ -208,7 +212,11 @@ Template.Update.events({
         Meteor.call('updates.messages.unstar', updateId, function(error, result) {
             if (error) {
                 template.updateIsStarred.set(true);
-                Partup.client.notify.error(error.reason);
+                if (error.reason) {
+                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
+                } else {
+                    Partup.client.notify.error('Could not star update');
+                }
                 return;
             }
         });

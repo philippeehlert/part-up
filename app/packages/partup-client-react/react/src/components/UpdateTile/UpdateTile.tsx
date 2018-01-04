@@ -90,13 +90,13 @@ export class UpdateTile extends React.Component<Props, {}> {
     }
 
     private getPosterName() {
-        const { update } = this.props;
+        const { update, isStarred } = this.props;
 
         if (update.upper_id) {
             return (Users.findOneAny({ _id: update.upper_id }) as UserDocument).profile.name;
         }
 
-        return (Partups.findOneAny({ _id: update.partup_id }) as PartupDocument).name;
+        return isStarred ? 'Part-up' : (Partups.findOneAny({ _id: update.partup_id }) as PartupDocument).name;
     }
 
     private getClassNames() {
