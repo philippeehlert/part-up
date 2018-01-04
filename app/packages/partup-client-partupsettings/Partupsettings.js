@@ -150,7 +150,21 @@ Template.Partupsettings.onRendered(function() {
 });
 
 Template.Partupsettings.helpers({
+    shouldShowMotiviation: function() {
+        const isCreate = this.CREATE;
 
+        console.log(isCreate);
+
+        if (isCreate) {
+            return true;
+        }
+
+        if (!this.currentPartup || !Meteor.user()) {
+            return false;
+        }
+
+        return this.currentPartup.creator_id === Meteor.user()._id;
+    },
     imageId() {
         return Template.instance().imageId;
     },
@@ -188,6 +202,9 @@ Template.Partupsettings.helpers({
     },
     expectedResultCharactersLeft: function() {
         return Template.instance().expectedResultCharactersLeft.get();
+    },
+    motivationCharactersLeft: function() {
+        return Template.instance().motivationCharactersLeft.get();
     },
     selectedPrivacyLabel: function() {
         return Template.instance().selectedPrivacyLabel.get();

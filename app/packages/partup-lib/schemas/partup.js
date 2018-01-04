@@ -17,12 +17,13 @@ var partupBaseSchema = new SimpleSchema({
     expected_result: {
         type: String,
         min: 10,
-        max: 250
+        max: 250,
     },
     motivation: {
         type: String,
         min: 10,
-        max: 250
+        max: 250,
+        optional: true,
     },
     currency: {
         type: String,
