@@ -134,11 +134,6 @@ export class App extends React.Component<AppProps, State> {
 
         onLoginFailure(() => {
             this.setState({ loginFailed: true });
-            error({
-                title: 'Login failed',
-                content: 'Failed to login...',
-                error: new Error('Login failed'),
-            });
         });
     }
 
