@@ -77,11 +77,5 @@ export class PartupOnboardingTile extends React.Component<Props> {
         }
     }
 
-    private takeAction = (action: Function) => {
-        const { onActionTaken } = this.props;
-
-        action();
-
-        if (onActionTaken) onActionTaken();
-    }
+    private takeAction = (action: Function) => action();
 }

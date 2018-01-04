@@ -137,7 +137,7 @@ export class Start extends React.Component<Props, State> {
             Users.isSupporterOfUpperOfPartup(user, partup) ||
             Users.isPendingPartnerOfPartup(user, partup);
 
-        return invite && !userIsAMemberOrPending;
+        return invite && !invite.dismissed && !userIsAMemberOrPending;
     }
 
     private shouldShowOnboardingTile() {
@@ -181,9 +181,8 @@ export class Start extends React.Component<Props, State> {
     }
 
     private dismissOnboardingTile = () => {
-
-        // this.setState({
-        //     showOnboardingTile: false,
-        // })
+        this.setState({
+            showOnboardingTile: false,
+        })
     }
 }

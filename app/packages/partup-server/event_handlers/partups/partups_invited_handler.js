@@ -19,7 +19,8 @@ Event.on('invites.inserted.partup', function(inviter, partup, invitee, searchQue
         // Create a new update
         var updateType = 'partups_invited';
         var updateTypeData = {
-            invitee_names: [User(invitee).getFirstname()]
+            invitee_names: [User(invitee).getFirstname()],
+            invitee_ids: [invitee._id],
         };
         var update = Partup.factories.updatesFactory.make(inviter._id, partup._id, updateType, updateTypeData);
         Updates.insert(update);

@@ -7,7 +7,6 @@ import {
     Switch,
     Route,
 } from 'react-router-dom';
-import { error } from 'utils/notify';
 import { onRouteChange } from 'utils/router';
 import { View } from 'components/View/View';
 import { DevelopmentNavigation } from 'implementations/DevelopmentNavigation';
