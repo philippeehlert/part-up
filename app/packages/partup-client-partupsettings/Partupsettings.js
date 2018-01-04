@@ -153,8 +153,6 @@ Template.Partupsettings.helpers({
     shouldShowMotiviation: function() {
         const isCreate = this.CREATE;
 
-        console.log(isCreate);
-
         if (isCreate) {
             return true;
         }
