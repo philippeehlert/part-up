@@ -64,9 +64,6 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
     const starredUpdatesIds = starredUpdates.map(({_id}) => _id);
     const networksCursor = Networks.find({_id: partup.network_id }, {fields: {_id: 1, name: 1}});
 
-    const filesCursor = Files.find({_id: {$in: updateFileIds || []}});
-    const updateImageCursor = Images.find({_id: {$in: updateImageIds || []}});
-
     const invitesCursor = Invites.find({
         partup_id: partupId,
         invitee_id: user ? user._id : null,
@@ -84,6 +81,26 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
     // find all activities for userPartupUpdates
     const activitiesCursor = Activities.findForUpdateIds(starredUpdatesIds);
     const activityLaneIds = activitiesCursor.map(({lane_id}) => lane_id);
+    const activityImageIds = activitiesCursor
+        .fetch()
+        .filter(({ files }) => files && files.images)
+        .map(({ files }) => files.images)
+        .reduce((x, y) => x.concat(y), []);
+    const activityFilesIds = activitiesCursor
+        .fetch()
+        .filter(({ files }) => files && files.documents)
+        .map(({ files }) => files.documents)
+        .reduce((x, y) => x.concat(y), []);
+
+    const filesCursor = Files.find({_id: {$in: [
+        ...(updateFileIds || []),
+        ...(activityFilesIds || []),
+    ]}});
+
+    const additionalImagesCursor = Images.find({_id: {$in: [
+        ...(updateImageIds || []),
+        ...(activityImageIds || []),
+    ]}});
 
     // find lanes for activities
     const lanesCursor = Lanes.find({_id: {$in: activityLaneIds}});
@@ -111,10 +128,10 @@ Meteor.routeComposite('/partups/start', function(request, parameters) {
         find: () => partupsCursor,
         children: [
             {find: () => invitesCursor},
-            {find: () => filesCursor},
             {find: () => usersCursor},
             {find: () => imagesCursor},
-            {find: () => updateImageCursor},
+            {find: () => additionalImagesCursor},
+            {find: () => filesCursor},
             {find: () => networksCursor},
             {find: () => starredUpdates},
             {find: () => activitiesCursor},
