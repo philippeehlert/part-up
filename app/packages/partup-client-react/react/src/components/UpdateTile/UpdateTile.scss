@@ -14,4 +14,8 @@
         right: 15px;
         color: $pur-color-sunshade;
     }
+
+    &--is-starred .pur-UpdateTileMeta {
+        padding-right: 40px;
+    }
 }

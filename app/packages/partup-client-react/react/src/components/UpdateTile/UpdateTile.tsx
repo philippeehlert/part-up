@@ -100,10 +100,10 @@ export class UpdateTile extends React.Component<Props, {}> {
     }
 
     private getClassNames() {
-        const { className } = this.props;
+        const { className, isStarred } = this.props;
 
         return c('pur-UpdateTile', className, {
-
+            'pur-UpdateTile--is-starred': isStarred,
         });
     }
 
