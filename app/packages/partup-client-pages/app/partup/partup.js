@@ -46,6 +46,10 @@ Template.app_partup.onCreated(function () {
         const partupId = Template.currentData().partupId;
         const accessToken = Session.get('partup_access_token');
 
+        if (typeof partupId !== 'string') {
+            return Router.pageNotFound('partup');
+        }
+
         Meteor.subscribe('partups.one', partupId, accessToken, {
             onReady() {
                 const partup = Partups.findOne(partupId);
@@ -59,18 +63,10 @@ Template.app_partup.onCreated(function () {
                 return Router.pageNotFound('partup');
             },
         });
-    });
 
-    template.subscribe('updates.from_partup', template.data.partupId);
-    template.subscribe('board.for_partup_id', template.data.partupId, {
-        onReady() {
-            template.loading.board.set(false);
-        },
-    });
-    template.subscribe('activities.from_partup', template.data.partupId, {
-        onReady() {
-            template.loading.activities.set(false);
-        },
+        template.subscribe('updates.from_partup', partupId, {}, accessToken);
+        template.subscribe('board.for_partup_id', partupId, accessToken);
+        template.subscribe('activities.from_partup', partupId, accessToken);
     });
 });
 

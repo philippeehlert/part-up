@@ -1,21 +1,37 @@
-Part-up
-=================
+# Part-up
 
 [Join the conversation of the Platform Development tribe on Part-up](https://part-up.com/tribes/development/chat)
 
 ## Installation
 
-- Clone this repository
-- Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
-- Copy the file `config/development/env.sh.dist` to `config/development/env.sh`
-- Run `npm start` (in the root folder of the app)
-- App running at: http://localhost:3000/
-- If you want to contribute to Part-up please read [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md)
+* Clone this repository
+* Ensure [meteor](https://www.meteor.com/install) & [node](https://nodejs.org/en/) are installed
+* Copy the file `config/development/env.sh.dist` to `config/development/env.sh`
+* Run `npm start` (in the root folder of the app)
+* App running at: http://localhost:3000/
+* If you want to contribute to Part-up please read [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRIBUTING.md)
 
 ### Optional installation steps
 
-- If you want to do something with an icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
-- If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
+* If you want to do something with an icon, be sure that [imagemagick](http://www.imagemagick.org/) is installed (OS X: `brew install imagemagick`).
+* If you want developer credentials (for an AWS bucket / Social login etc..) install [ansible](https://valdhaus.co/writings/ansible-mac-osx/): `brew install ansible` and decrypt `config/development/env.sh-encrypted` to `config/development/env.sh`.
+
+### Code formatting
+
+We use [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) for code formatting to maintain the same code style across the app.
+Here's a `vscode Settings.json` example to make them work well together and will format the code on save:
+
+```JSON
+{
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "eslint.autoFixOnSave": true,
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+}
+```
 
 ## Working with Meteor
 
@@ -23,9 +39,9 @@ All of our meteor code can be found in the `app` directory. In here we are worki
 
 There are three main packages,
 
-- **partup-client-base** *client helpers*;
-- **partup-lib** *shared between client and server*;
-- **partup-server** *server code*.
+* **partup-client-base** _client helpers_;
+* **partup-lib** _shared between client and server_;
+* **partup-server** _server code_.
 
 if you need to create a new package please check this [guide](https://themeteorchef.com/tutorials/writing-a-package)
 
@@ -41,7 +57,7 @@ Layouts are the top-level templates. They can contain a header, current page pla
 
 #### Pages
 
-We export all pages as a single package ***partup-client-pages***. A page can contain components with page-specific functionality and make use of multiple widgets. A page, in fact, only represents a composition. Therefore, the scss file should only contain position defenitions of the inside components. Pages are directly bound to routes and should handle any navigation functionality. Pages are also responsible for handling state *(e.g. subscriptions)* and pass handlers to components that live outside the page package.
+We export all pages as a single package **_partup-client-pages_**. A page can contain components with page-specific functionality and make use of multiple widgets. A page, in fact, only represents a composition. Therefore, the scss file should only contain position defenitions of the inside components. Pages are directly bound to routes and should handle any navigation functionality. Pages are also responsible for handling state _(e.g. subscriptions)_ and pass handlers to components that live outside the page package.
 
 #### Widgets
 
@@ -80,37 +96,41 @@ Refer to [CONTRIBUTING.md](https://github.com/part-up/part-up/blob/master/CONTRI
 
 We have fixture data to test part-up locally in `partup-server`.
 
-- the following users are created automatically (all with password "user"):
-    - user@example.com
-    - john@example.com
-    - judy@example.com
-    - admin@example.com
+* the following users are created automatically (all with password "user"):
+  * user@example.com
+  * john@example.com
+  * judy@example.com
+  * admin@example.com
 
 ### Unit and integration testing
+
 `npm run test:watch`
 
 ### End to end test
+
 `npm run test:e2e`
 
 ### Unit testing
+
 `meteor run --test`
 
 ## DevOps
 
 ### Quick deployment
-- `cd devops`
-- `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
+
+* `cd devops`
+* `./devops provision <environment> all --tags=app` (provide the SHA hash of the commit to be deployed, make sure it is build by Jenkins upfront)
 
 ### MongoDB
 
-- Connecting: `mongo "<host>/<database>" -u "<user>" -p "<password>"`
-- Dumping: `mongodump "<host>" --db "<database>" -u "<user>" -p "<password>" -o \`date +%s\``
-- Restoring: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>"`
-- Restoring Meteor LoginServiceConfiguration: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>" -c "meteor_accounts_loginServiceConfiguration" <bson file from dump>`
-- Emptying all Collections (run in mongo shell): `db.getCollectionNames().forEach(function(collectionName) { db[collectionName].remove({}); });`
-- Make user (super)admin: `db.users.update({ '_id': '<insertuseridhere>' }, { $set: { 'roles': ['admin'] } })`
-- Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
-- Overwrite the language of a specific part-up: `db.getCollection('partups').find({'_id':'<<partupid>>'},{$set: {'language':'nl'}});`
+* Connecting: `mongo "<host>/<database>" -u "<user>" -p "<password>"`
+* Dumping: `mongodump "<host>" --db "<database>" -u "<user>" -p "<password>" -o \`date +%s\``
+* Restoring: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>"`
+* Restoring Meteor LoginServiceConfiguration: `mongorestore "<host>" --db "<database>" -u "<user>" -p "<password>" -c "meteor_accounts_loginServiceConfiguration" <bson file from dump>`
+* Emptying all Collections (run in mongo shell): `db.getCollectionNames().forEach(function(collectionName) { db[collectionName].remove({}); });`
+* Make user (super)admin: `db.users.update({ '_id': '<insertuseridhere>' }, { $set: { 'roles': ['admin'] } })`
+* Find faulty / wrongly uploaded pictures: `db.getCollection('cfs.images.filerecord').find({'copies':{$exists:false}})`
+* Overwrite the language of a specific part-up: `db.getCollection('partups').find({'_id':'<<partupid>>'},{$set: {'language':'nl'}});`
 
 <!--
 ## Required server environment variables
@@ -136,19 +156,19 @@ KADIRA_APP_ID
 KADIRA_APP_SECRET
 METEOR_SETTINGS = {"public":{"analyticsSettings":{"Google Analytics":{"trackingId":""}}}}
 GOOGLE_API_KEY
-``` 
+```
 -->
 
 ## Data dumps
 
 ### Clean userdump
-- regular mongo dump command
-- unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
-- `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
-- `cat users.bson-clean.json | sed 's/hashedToken" : "[^"]*"/hashedToken" : ""/g' > users.bson-clean-2.json`
-- `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
-- `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
 
+* regular mongo dump command
+* unpack bson `for f in *.bson; do bsondump "$f" > "$f.json"; done`
+* `cat users.bson.json | sed 's/accessToken" : "[^"]*"/accessToken" : ""/g' > users.bson-clean.json`
+* `cat users.bson-clean.json | sed 's/hashedToken" : "[^"]*"/hashedToken" : ""/g' > users.bson-clean-2.json`
+* `cat users.bson-clean-2.json | sed 's/bcrypt" : "[^"]*"/bcrypt" : ""/g' > users.bson-clean-3.json`
+* `cat users.bson-clean-3.json | sed 's/token" : "[^"]*"/token" : ""/g' > users.bson-clean-4.json`
 
 ## Phraseapp translation
 

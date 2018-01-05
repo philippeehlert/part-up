@@ -13,15 +13,15 @@
     "node": "0.10.36"
   },
   "dependencies": {
+    "HTMLString": "^1.0.7",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "enum": "^2.4.0",
     "highlight.js": "^9.6.0",
     "jquery": "^3.2.1",
-    "HTMLString": "^1.0.7",
     "lodash": "^4.17.4",
-    "marked": "^0.3.6",
+    "marked": "^0.3.9",
     "meteor-node-stubs": "~0.2.11",
     "pluralize": "^4.0.0",
     "prop-types": "^15.6.0",
@@ -38,19 +38,38 @@
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-meteor": "^4.1.4",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "prettier": "^1.9.2"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor",
     "rules": {
       "no-undef": 0,
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "no-return-assign": [
+        "error",
+        "except-parens"
+      ],
       "indent": [
         2,
-        4,
+        2,
         {
           "SwitchCase": 1
         }
       ]
     }
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "eslintIntegration": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }
