@@ -33,16 +33,20 @@ Template.PartupCarouselUploader.helpers({
             button: 'data-image-browse',
             input: 'data-image-input',
             onFileChange: (event) => {
-
                 const currentItems = template.items.get();
                 if (currentItems.length >= maxItems) {
                     Partup.client.notify.error('Cannot add more than 4 photos or videos, please remove one first.');
                     return;
                 }
 
-                Partup.client.uploader.eachFile(event, function(file) {
-                    template.uploadingPhoto.set(true);
+                Partup.client.uploader.eachFile(event, function(file, index, type) {
+                    if (type !== 'image') {
+                        Partup.client.notify.error('Please upload only images.');
+                        template.uploadingPhoto.set(false);
+                        return;
+                    }
 
+                    template.uploadingPhoto.set(true);
                     Partup.client.uploader.uploadImage(file, function(error, image) {
                         if (error) {
                             Partup.client.notify.error(TAPi18n.__('profilesettings-form-image-error'));
