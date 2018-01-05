@@ -5,265 +5,270 @@ $partup-navigation-compact-height: em(60);
 // -----------------------
 
 .pu-partuplayout {
-    white-space: nowrap;
+  white-space: nowrap;
+  -ms-overflow-x: hidden;
+  -ms-overflow-y: hidden;
 
-    &-navigation {
-        position: relative;
+  &-navigation {
+    position: relative;
 
-        &-behind {
-            @include goingSmall(810) {
-                filter: brightness(89%);
-                pointer-events: none;
+    &-behind {
+      @include goingSmall(810) {
+        filter: brightness(89%);
+        pointer-events: none;
 
-                a, button {
-                    cursor: default;
-                }
-            }
+        a,
+        button {
+          cursor: default;
         }
+      }
+    }
 
-        .pu-navigation {
+    .pu-navigation {
+      margin: 0;
+      padding: 0;
+
+      &-compact {
+        .no-margin {
+          > li {
             margin: 0;
             padding: 0;
 
-            &-compact {
-                .no-margin {
-                    > li {
-                        margin: 0;
-                        padding: 0;
-
-                        &:last-child {
-                            margin-right: em(30);
-                        }
-
-                        .picon-cog {
-                            margin-right:em(0);
-                        }
-                    }
-                }
+            &:last-child {
+              margin-right: em(30);
             }
 
-            .pu-nav-left,
-            .pu-nav-right {
-                height:100%;
-                display: inline-block;
-                position: relative;
-                vertical-align: top;
+            .picon-cog {
+              margin-right: em(0);
             }
-            .pu-nav-left {
-                @include goingLarge(980) {
-                    width: $sidebar-width;
-                }
-
-                .pu-nav-group-title {
-                    margin-top: em(10);
-                    margin-left: em(40);
-                    overflow: hidden;
-
-                    a {
-                        overflow: hidden;
-                        text-decoration: none;
-
-                        .pu-avatar {
-                            display: inline-block;
-                            margin-right: em(10);
-                        }
-                    }
-                    div {
-                        display: inline-block;
-                    }
-
-                    p {
-                        color: $color-text;
-                    }
-
-                    .title {
-                        width: calc(100% - 55px);
-                        cursor: pointer;
-                    }
-                }
-                .pu-sticky-button {
-                    height:100%;
-                    padding-right: 20px;
-                    background-color: #eee;
-                }
-                
-                .pu-sticky-button::after {
-                    content: "";
-                    width: 2px;
-                    display: block;
-                    position: absolute;
-                    top: 10px;
-                    right: 0;
-                    bottom: 10px;
-                    background-color: #ccc;
-                }
-                #sidebar-info {
-                    display: block;
-
-                    @include goingLarge(810) {
-                        display: none;
-                    }
-                }
-                #sidebar-chevron {
-                    display: none;
-                    margin-left:5px;
-                    @include transition-duration(.3s);
-
-                    @include goingLarge(810) {
-                        display: block;
-                    }
-                }
-                .chevron-rotated {
-                    margin-left: 0px;
-                    @include transform(rotate(180deg));
-                    @include transform-origin(5px);
-                }
-            }
-            
-            .pu-nav-right {
-                width: calc(100% - #{$nav-left-collapsed});
-                padding: 0em em(25);
-
-                @include goingLarge(980) {
-                    width: calc(100% - #{$sidebar-width});
-                }
-
-                .pu-dropdown-expand {
-                    width: calc(100% - #{em(100)});
-                    padding: em(10) 0 0 0;
-                    display:inline-block;
-
-                    @include goingLarge(600) {
-                        width: calc(100% - #{em(150)});
-                    }
-                }
-                .pu-button-nav.middle {
-                    border: none;
-                    box-shadow: none;
-                    padding: 12px 15px;
-
-                    &:hover {
-                        border: none;
-                        box-shadow: none;
-                    }
-                }
-                .pu-button-nav.pu-state-active {
-                    border-color: $color-primary;
-                }
-                .pu-list-horizontal-right {
-                    display: block;
-                    position: absolute;
-                    right: 0px;
-                    top: 0px;
-                }
-
-                .pu-dropdownie {
-                    .pu-list-horizontal {
-                        float: none;
-                    }
-
-                    &-cog {
-                        @include transform(translateX(-39%));
-                    }
-                    &-share {
-                        @include transform-origin(100% 0);
-                        @include transform(translateX(-63%));
-                    }
-                }
-
-                .arrow-right {
-                    .pu-sub-arrow {
-                        left: auto;
-                        right: 20px;
-                    }
-                }
-            }
+          }
         }
-    }
+      }
 
-    &-sidebar,
-    &-content {
-        height: calc(100vh - #{em(120)});
-        display: inline-block;
-        vertical-align: top;
-        white-space: normal;
-        overflow: hidden;
-    }
-
-    &-sidebar {
-        width: 95%;
-        max-width: $sidebar-width;
-        height: calc(100vh - #{$partup-navigation-compact-height});
-        position: absolute;
-        left: em(0);
-        top:em(0);
-        z-index:11;
-        overflow-y: scroll;
-        @include transform(translateX(-100%));
-        @include transition(transform .3s);
-
-        @include goingLarge(810) {
-            width: $sidebar-width;
-            height: calc(100vh - #{em(120)}); // find solution for -> // calc(#{$page-header} - #{$partup-navigation-compact-height}));
-            top: $partup-navigation-compact-height;
-        }
-
-        &-expanded {
-            @include transform(translateX(0%));
-            @include transition(transform .3s);
-        }
-
-        .pu-sticky-button {
-            margin-top:10px;
-        }
-    }
-
-    &-content {
-        width: 100vw;
-        position:relative;
-        z-index:0;
-        background-color: #fff;
-        
-        @include transition(all .3s);
-
-        &-reduced {
-            filter: brightness(89%);
-            pointer-events: none;
-            
-            a:hover {
-                cursor: default;
-            }
-    
-            @include goingLarge(810) {
-                width: calc(100vw - #{$sidebar-width});
-                margin-left: $sidebar-width;
-                filter: none;
-                pointer-events: auto;
-
-                @include transition(all .3s);
-
-                a:hover {
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-
-    .content-vertical,
-    .content-horizontal {
-        width: 100%;
+      .pu-nav-left,
+      .pu-nav-right {
         height: 100%;
-        padding: em(40);
+        display: inline-block;
         position: relative;
-        z-index: 0;
+        vertical-align: top;
+      }
+      .pu-nav-left {
+        @include goingLarge(980) {
+          width: $sidebar-width;
+        }
+
+        .pu-nav-group-title {
+          margin-top: em(10);
+          margin-left: em(40);
+          overflow: hidden;
+
+          a {
+            overflow: hidden;
+            text-decoration: none;
+
+            .pu-avatar {
+              display: inline-block;
+              margin-right: em(10);
+            }
+          }
+          div {
+            display: inline-block;
+          }
+
+          p {
+            color: $color-text;
+          }
+
+          .title {
+            width: calc(100% - 55px);
+            cursor: pointer;
+          }
+        }
+        .pu-sticky-button {
+          height: 100%;
+          padding-right: 20px;
+          background-color: #eee;
+        }
+
+        .pu-sticky-button::after {
+          content: '';
+          width: 2px;
+          display: block;
+          position: absolute;
+          top: 10px;
+          right: 0;
+          bottom: 10px;
+          background-color: #ccc;
+        }
+        #sidebar-info {
+          display: block;
+
+          @include goingLarge(810) {
+            display: none;
+          }
+        }
+        #sidebar-chevron {
+          display: none;
+          margin-left: 5px;
+          @include transition-duration(0.3s);
+
+          @include goingLarge(810) {
+            display: block;
+          }
+        }
+        .chevron-rotated {
+          margin-left: 0px;
+          @include transform(rotate(180deg));
+          @include transform-origin(5px);
+        }
+      }
+
+      .pu-nav-right {
+        width: calc(100% - #{$nav-left-collapsed});
+        padding: 0em em(25);
+
+        @include goingLarge(980) {
+          width: calc(100% - #{$sidebar-width});
+        }
+
+        .pu-dropdown-expand {
+          width: calc(100% - #{em(100)});
+          padding: em(10) 0 0 0;
+          display: inline-block;
+
+          @include goingLarge(600) {
+            width: calc(100% - #{em(150)});
+          }
+        }
+        .pu-button-nav.middle {
+          border: none;
+          box-shadow: none;
+          padding: 12px 15px;
+
+          &:hover {
+            border: none;
+            box-shadow: none;
+          }
+        }
+        .pu-button-nav.pu-state-active {
+          border-color: $color-primary;
+        }
+        .pu-list-horizontal-right {
+          display: block;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+
+        .pu-dropdownie {
+          .pu-list-horizontal {
+            float: none;
+          }
+
+          &-cog {
+            @include transform(translateX(-39%));
+          }
+          &-share {
+            @include transform-origin(100% 0);
+            @include transform(translateX(-63%));
+          }
+        }
+
+        .arrow-right {
+          .pu-sub-arrow {
+            left: auto;
+            right: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  &-sidebar,
+  &-content {
+    height: calc(100vh - #{em(120)});
+    display: inline-block;
+    vertical-align: top;
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  &-sidebar {
+    width: 95%;
+    max-width: $sidebar-width;
+    height: calc(100vh - #{$partup-navigation-compact-height});
+    position: absolute;
+    left: em(0);
+    top: em(0);
+    z-index: 11;
+    overflow-y: scroll;
+    @include transform(translateX(-100%));
+    @include transition(transform 0.3s);
+
+    @include goingLarge(810) {
+      width: $sidebar-width;
+      height: calc(
+        100vh - #{em(120)}
+      ); // find solution for -> // calc(#{$page-header} - #{$partup-navigation-compact-height}));
+      top: $partup-navigation-compact-height;
     }
 
-    .content-vertical {
-        overflow-x: hidden;
-        overflow-y: scroll;
+    &-expanded {
+      @include transform(translateX(0%));
+      @include transition(transform 0.3s);
     }
 
-    .content-horizontal {
-        overflow: scroll;
+    .pu-sticky-button {
+      margin-top: 10px;
     }
+  }
+
+  &-content {
+    width: 100vw;
+    position: relative;
+    z-index: 0;
+    background-color: #fff;
+
+    @include transition(all 0.3s);
+
+    &-reduced {
+      filter: brightness(89%);
+      pointer-events: none;
+
+      a:hover {
+        cursor: default;
+      }
+
+      @include goingLarge(810) {
+        width: calc(100vw - #{$sidebar-width});
+        margin-left: $sidebar-width;
+        filter: none;
+        pointer-events: auto;
+
+        @include transition(all 0.3s);
+
+        a:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .content-vertical,
+  .content-horizontal {
+    width: 100%;
+    height: 100%;
+    padding: em(40);
+    position: relative;
+    z-index: 0;
+  }
+
+  .content-vertical {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  .content-horizontal {
+    overflow: scroll;
+  }
 }
