@@ -27,11 +27,26 @@ Template.app_partup_carousel.onRendered(function() {
                 onBeforeChange: (carousel, currentIndex) => {
                     const current = template.images[currentIndex];
                     if (current && current.type === 'video') {
-                        template.$(`[data-video="${currentIndex}"]`).each((index, video) => {
-                            video.src = video.src;
+                        template.$(`[data-video="${currentIndex}"] .video-layer`).removeClass('hide');
+                        template.$(`[data-video="${currentIndex}"] iframe`).each((index, video) => {
+                            video.src = video.src.replace('&autoplay=1', '');
                         });
                     }
+                },
+            });
+
+            $('.pu-carousel .video-layer').on('click', function(event) {
+                $(this).addClass('hide');
+                const iframe = $(this).next();
+
+                if (iframe.length) {
+                    iframe[0].src = iframe[0].src + '&autoplay=1';
+                    $('.pu-carousel').slickPause();
                 }
+            });
+
+            $('.pu-carousel-prev, .pu-carousel-next, .slick-dots li').on('click', function() {
+                $('.pu-carousel').slickPlay();
             });
         }, 0);
     }

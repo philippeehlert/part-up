@@ -3,10 +3,11 @@
     {{#each images}}
         {{#if typeIsVideo type}}
           {{#if isYoutubeVideo videoType}}
-            <div><iframe class="yt-player" data-video={{@index}} width="400" height="225" src="https://www.youtube.com/embed/{{videoId}}?rel=0&showinfo=0&enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
+            <div data-video={{@index}}><div class="video-layer"></div><iframe class="yt-player"  width="400" height="225" src="https://www.youtube.com/embed/{{videoId}}?rel=0&showinfo=0&enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe></div>
           {{else}}
-            <div>
-              <iframe class="vim-player" data-video={{@index}} src="https://player.vimeo.com/video/{{videoId}}" width="400" height="225" frameborder="0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div data-video={{@index}}>
+              <div class="video-layer"></div>
+              <iframe class="vim-player"  src="https://player.vimeo.com/video/{{videoId}}?" width="400" height="225" frameborder="0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>        
           {{/if}}
         {{else}}
