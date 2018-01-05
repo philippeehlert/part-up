@@ -224,11 +224,20 @@
             
             <li class="pu-dropdown-item">
                 {{#if activity.archived }}
-                    <a data-unarchive>{{_ 'unarchive' }}</a>
+                <a data-unarchive>{{_ 'unarchive' }}</a>
                 {{ else }}
-                    <a data-archive>{{_ 'archive' }}</a>
+                <a data-archive>{{_ 'archive' }}</a>
                 {{/if }}
             </li>
+            {{#if updateIsStarred }}
+                <li class="pu-dropdown-item">
+                    <a data-unstar-activity>Unstar</a>
+                </li>
+            {{ else }}
+                <li class="pu-dropdown-item">
+                    <a data-star-activity>Star</a>
+                </li>
+            {{/if}}
         </ul>
         {{/if }}
         <ul>

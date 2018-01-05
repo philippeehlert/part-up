@@ -243,43 +243,89 @@
     }
 
     &-message {
+        .more-options {
+            cursor: pointer;
 
-        .pu-sub-useractions {
-            transition: opacity 0.2s, height 0.2s, margin-bottom 0.2s, padding-top 0.2s;
-            opacity: 0;
-            padding-top: 0px;
-            margin-bottom: 0px;
-            height: 0px;
+            svg {
+                float: right;
+                clear: both;
+                position: relative;
+                top: -13px;
+                left: 8px;
+            }
 
-            a {
-                font-size: 11px;
-                color: $color-text-subtle;
-                text-decoration: none;
+            .pu-dropdownie {
+                position: absolute;
+                top: em(30);
+                right: em(-2);
+                padding: em(0);
+                font-size: 14px;
 
-                span {
-                    text-decoration: underline;
+                .pu-sub-arrow {
+                    display: none;
                 }
 
-                &:first-child:after {
-                    content: "•";
-                    margin-left: 5px;
-                    margin-right: 5px;
-                }
+                .pu-list-dropdown {
+                    min-width: em(140);
+                    padding: em(0);
 
-                &:last-child:after {
-                    content: "";
+                    list-style: none;
+                    position: relative;
+                    padding: em(0);
+
+                    .pu-dropdown-item {
+                        > a {
+                            display: block;
+                            padding: em(8) em(10);
+                            color: $color-text;
+                            text-decoration: none;
+                        }
+
+                        &:hover {
+                            background: $color-background-secondary;
+                        }
+                    }
+
                 }
             }
         }
 
-        &:hover {
-            .pu-sub-useractions {
-                opacity: 1;
-                height: 25px;
-                padding-top: 10px;
-                margin-bottom: -5px;
-            }
-        }
+        // .pu-sub-useractions {
+        //     transition: opacity 0.2s, height 0.2s, margin-bottom 0.2s, padding-top 0.2s;
+        //     opacity: 0;
+        //     padding-top: 0px;
+        //     margin-bottom: 0px;
+        //     height: 0px;
+
+        //     a {
+        //         font-size: 11px;
+        //         color: $color-text-subtle;
+        //         text-decoration: none;
+
+        //         span {
+        //             text-decoration: underline;
+        //         }
+
+        //         &:first-child:after {
+        //             content: "•";
+        //             margin-left: 5px;
+        //             margin-right: 5px;
+        //         }
+
+        //         &:last-child:after {
+        //             content: "";
+        //         }
+        //     }
+        // }
+
+        // &:hover {
+        //     .pu-sub-useractions {
+        //         opacity: 1;
+        //         height: 25px;
+        //         padding-top: 10px;
+        //         margin-bottom: -5px;
+        //     }
+        // }
     }
 
     @media screen and (min-width: $breakpoint-tablet) {

@@ -185,42 +185,6 @@ Template.Update.helpers({
 /* Widget events */
 /*************************************************************/
 Template.Update.events({
-    'click [data-star-update]': function(event, template) {
-        event.preventDefault();
-
-        const updateId = this.updateId;
-        template.updateIsStarred.set(true);
-
-        Meteor.call('updates.messages.star', updateId, function(error, result) {
-            if (error) {
-                template.updateIsStarred.set(false);
-                if (error.reason === 'partup_message_too_many_stars') {
-                    Partup.client.notify.error('');
-                } else {
-                    Partup.client.notify.error('Could not star update');
-                }
-                return;
-            }
-        });
-    },
-    'click [data-unstar-update]': function(event, template) {
-        event.preventDefault();
-
-        const updateId = this.updateId;
-        template.updateIsStarred.set(false);
-
-        Meteor.call('updates.messages.unstar', updateId, function(error, result) {
-            if (error) {
-                template.updateIsStarred.set(true);
-                if (error.reason) {
-                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
-                } else {
-                    Partup.client.notify.error('Could not star update');
-                }
-                return;
-            }
-        });
-    },
     'click [data-expand-comment-field]': function(event, template) {
         event.preventDefault();
 
@@ -248,6 +212,7 @@ Template.Update.events({
         }
     },
     'click [data-edit-message]': function(event, template) {
+        console.log('clicked', template);
         event.preventDefault();
         Partup.client.popup.open({
             id: 'edit-message-' + template.data.updateId
