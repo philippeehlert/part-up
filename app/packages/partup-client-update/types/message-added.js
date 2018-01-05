@@ -57,8 +57,6 @@ Template.update_partups_message_added.events({
     },
     'click [data-star-message]': function(event, template) {
         event.preventDefault();
-
-        console.log('star', template);
         const updateId = template.data._id;
         template.updateIsStarred.set(true);
 
@@ -70,8 +68,11 @@ Template.update_partups_message_added.events({
                 } else {
                     Partup.client.notify.error('Could not star update');
                 }
+
                 return;
             }
+
+            Partup.client.notify.success('Update starred');
         });
 
         template.dropdownOpen.set(false);
@@ -79,7 +80,6 @@ Template.update_partups_message_added.events({
     'click [data-unstar-message]': function(event, template) {
         event.preventDefault();
 
-        console.log('star', template);
         const updateId = template.data._id;
         template.updateIsStarred.set(false);
 
@@ -91,8 +91,11 @@ Template.update_partups_message_added.events({
                 } else {
                     Partup.client.notify.error('Could not star update');
                 }
+
                 return;
             }
+
+            Partup.client.notify.success('Update unstarred');
         });
 
         template.dropdownOpen.set(false);

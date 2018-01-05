@@ -401,6 +401,7 @@ Template.ActivityView.events({
                 }
                 return;
             }
+            Partup.client.notify.success('Update starred');
         });
 
         template.activityDropdownOpen.set(false);
@@ -421,6 +422,7 @@ Template.ActivityView.events({
                 }
                 return;
             }
+            Partup.client.notify.success('Update unstarred');
         });
 
         template.activityDropdownOpen.set(false);
