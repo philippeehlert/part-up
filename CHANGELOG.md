@@ -1,3 +1,15 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/part-up/part-up/compare/3.0.0...3.0.1) (2017-12-17)
+
+
+### Bug Fixes
+
+* **meteor:** Set default value for files ([cf03f06](https://github.com/part-up/part-up/commit/cf03f06))
+* **subscription:** Set default value for images to empty array ([d2f75d4](https://github.com/part-up/part-up/commit/d2f75d4))
+* **subscriptions:** (Re)move and replace subscriptions ([d13cad1](https://github.com/part-up/part-up/commit/d13cad1))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/part-up/part-up/compare/2.37.0...3.0.0) (2017-12-03)
 
