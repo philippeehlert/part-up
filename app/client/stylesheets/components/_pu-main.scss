@@ -1,8 +1,6 @@
 html,
 body,
-.pu-main,
-.pu-main .pu-app,
-.pu-main .pu-modal {
+.pu-main {
     height: 100%;
 }
 
@@ -28,6 +26,16 @@ body {
 
         &.velocity-animating {
             z-index: 1;
+        }
+    }
+
+    &--react {
+        .pu-modal, .pu-app {
+            position: relative;
+            z-index: 2;
+            &.velocity-animating {
+                z-index: 3;
+            }
         }
     }
 }

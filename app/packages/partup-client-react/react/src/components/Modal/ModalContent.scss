@@ -1,0 +1,8 @@
+.pur-ModalContent {
+    @import "stylesheets/spacings";
+    padding: getSpacing(4);
+
+    + .pur-ModalFooter {
+        padding-top: getSpacing(0);
+    }
+}

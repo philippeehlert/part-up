@@ -13,6 +13,10 @@ Template.ActivityView.onCreated(function() {
 
     template.activityDropdownOpen = new ReactiveVar(false);
 
+    const partup = Partups.findOne(template.activity.partup_id);
+    const updateId = get(template, 'activity.update_id');
+    template.updateIsStarred = new ReactiveVar(partup && partup.starred_updates && partup.starred_updates.includes(updateId));
+
     template.expanded = new ReactiveVar(!!template.data.EXPANDED || !!template.data.CREATE_PARTUP);
 
     template.updateContribution = function(contribution, cb) {
@@ -185,6 +189,9 @@ Template.ActivityView.helpers({
             },
             isUpper() {
                 return User(Meteor.user()).isPartnerInPartup(get(self.activity, 'partup_id') || self.partupId);
+            },
+            updateIsStarred() {
+                return instance.updateIsStarred.get();
             },
         };
     },
@@ -377,5 +384,43 @@ Template.ActivityView.events({
             }
             template.activityDropdownOpen.set(false)
         })
-    }
+    },
+    'click [data-star-activity]': function(event, template) {
+        event.preventDefault();
+
+        const updateId = get(template, 'activity.update_id');
+        template.updateIsStarred.set(true);
+
+        Meteor.call('updates.messages.star', updateId, function(error, result) {
+            if (error) {
+                template.updateIsStarred.set(false);
+                if (error.reason === 'partup_message_too_many_stars') {
+                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
+                } else {
+                    Partup.client.notify.error('Could not star update');
+                }
+                return;
+            }
+            Partup.client.notify.success('Update starred');
+        });
+
+        template.activityDropdownOpen.set(false);
+    },
+    'click [data-unstar-activity]': function(event, template) {
+        event.preventDefault();
+
+        const updateId = get(template, 'activity.update_id');
+        template.updateIsStarred.set(false);
+
+        Meteor.call('updates.messages.unstar', updateId, function(error, result) {
+            if (error) {
+                template.updateIsStarred.set(true);
+                Partup.client.notify.error('Could not unstar update');
+                return;
+            }
+            Partup.client.notify.success('Update unstarred');
+        });
+
+        template.activityDropdownOpen.set(false);
+    },
 });

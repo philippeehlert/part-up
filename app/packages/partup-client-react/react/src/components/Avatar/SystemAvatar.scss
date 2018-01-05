@@ -1,0 +1,14 @@
+.pur-SystemAvatar {
+    background-image: url('/images/system-avatar.png');
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    display: inline-block;
+    background-size: cover;
+
+    &--small {
+        width: 30px;
+        height: 30px;
+    }
+}

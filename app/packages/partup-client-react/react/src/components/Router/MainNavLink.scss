@@ -1,0 +1,24 @@
+.pur-NavLink.pur-MainNavLink {
+    @import "stylesheets/fonts";
+
+    font-family: $pur-font-secondary;
+    height: 60px;
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    padding: 16px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: capitalize;
+
+    span {
+        font-family: $pur-font-secondary;
+    }
+
+    &--is-active {
+        color: #fff;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}

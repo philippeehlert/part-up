@@ -1,0 +1,41 @@
+.pur-UpdateTileComments {
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
+
+    &__controls {
+        font-size: 14px;
+        padding: getSpacing(1.5);
+        color: $pur-color-dusty-gray;
+    }
+
+    &__control-reactions.pur-Clickable,
+    &__control-reactions.pur-Link {
+        font-size: 14px;
+        color: $pur-color-dusty-gray;
+        margin-right: 5px;
+    }
+
+    &__control-respond-link.pur-Clickable,
+    &__control-respond-link.pur-Link {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+
+    &__container {
+        padding: getSpacing(1.5);
+        border-top: 2px solid $pur-color-gallery;
+
+        & > * + * {
+            margin-top: getSpacing();
+        }
+    }
+
+    &__more-commments {
+        font-size: 14px;
+    }
+
+    &__comment-box {
+        padding: 0 getSpacing(1.5) getSpacing(1.5) getSpacing(1.5);
+    }
+}

@@ -21,6 +21,9 @@ Package.onUse(function(api) {
         'BoardSwitch.html',
         'BoardSwitch.js',
 
+        'PartupCarouselUploader.html',
+        'PartupCarouselUploader.js',
+
         'Partupsettings.html',
         'Partupsettings.js'
 

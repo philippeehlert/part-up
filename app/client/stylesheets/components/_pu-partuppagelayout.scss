@@ -261,6 +261,10 @@ $partup-navigation-compact-height: em(60);
     padding: em(40);
     position: relative;
     z-index: 0;
+
+    &.pu-partup-start {
+        background-color: #e6e6e6;
+    }
   }
 
   .content-vertical {

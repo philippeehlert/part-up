@@ -118,6 +118,22 @@ Activities.findForUpdate = function(update) {
 };
 
 /**
+ * Find activity for an update
+ *
+ * @memberOf Activities
+ * @param {Update} update
+ * @return {Mongo.Cursor|Void}
+ */
+Activities.findForUpdateIds = function(updateIds) {
+    options = options || {};
+    parameters = parameters || {};
+
+    const selector = {update_id: {$in: updateIds} }
+
+    return this.guardedFind(null, selector, options);
+};
+
+/**
  * Find activity for contribution
  *
  * @memberOf Activities
@@ -149,6 +165,38 @@ Activities.findForPartup = function(partup, options, parameters) {
 
     return this.guardedFind(null, selector, options);
 };
+
+/**
+ * Find activities for partup ids.
+ *
+ * @memberOf Activities
+ * @param {Contribution} contribution
+ * @return {Mongo.Cursor}
+ */
+Activities.findForActivityIds = function(activityIds, options, parameters) {
+    options = options || {};
+    parameters = parameters || {};
+
+    return this.aggregate([
+        {
+            $match: {
+                _id: { $in: activityIds },
+                $or: [{ end_date: { $gte: new Date()} }, { end_date: null }],
+                archived: parameters.archived,
+            },
+        },
+        {
+            $project: {
+                nlt: { $ifNull: ['$end_date', new Date('2030-01-01')] },
+                document: '$$ROOT',
+            },
+        },
+        {$sort: { 'nlt': 1 }},
+        {$skip: options.skip},
+        {$limit: options.limit},
+    ]).map(({ document }) => document);
+};
+
 
 /**
  * Modified version of Collection.find that makes sure the

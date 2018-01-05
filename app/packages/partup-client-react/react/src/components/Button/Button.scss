@@ -1,0 +1,50 @@
+.pur-Button {
+    @import "stylesheets/colors";
+    @import "stylesheets/fonts";
+    background-color: $pur-color-sunshade;
+    border: 0;
+    border-radius: 4px;
+    height: 40px;
+    padding: 11px 15px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: $pur-font-primary;
+    outline: 0;
+    transition: background-color 100ms;
+    display: inline-block;
+
+    &__left-child + &__content {
+        margin-left: 10px;
+    }
+
+    &__content + &__right-child{
+        margin-left: 10px;
+    }
+
+    &__left-child {
+        float: left;
+    }
+
+    &__content {
+        line-height: 1em;
+        vertical-align: bottom;
+    }
+
+    &__right-child {
+        float: right;
+    }
+
+    &__left-child, &__content, &__right-child {
+        display: inline-block;
+        font-size: 15px;
+    }
+
+    &:hover {
+        background-color: darken($pur-color-sunshade, 10%);
+    }
+
+    &:active {
+        transform: translateY(2px);
+    }
+}

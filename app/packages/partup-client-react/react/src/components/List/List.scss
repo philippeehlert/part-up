@@ -1,0 +1,21 @@
+.pur-List {
+    @import "stylesheets/spacings";
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &--horizontal {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &--spaced {
+        .pur-ListItem + .pur-ListItem {
+            margin-left: getSpacing(1);
+            &--align-right {
+                margin-left: auto;
+            }
+        }
+    }
+}

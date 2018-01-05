@@ -840,104 +840,128 @@ Partups.findUpperPartupsForUser = function(user, parameters, loggedInUserId) {
  * @param {String} loggedInUserId Server side only
  * @return {Cursor}
  */
-Partups.findSupporterPartupsForUser = function(user, parameters, loggedInUserId) {
-    user = user || {};
-    parameters = parameters || {};
+Partups.findSupporterPartupsForUser = function (user, parameters, loggedInUserId) {
+	user = user || {};
+	parameters = parameters || {};
 
-    var supporterOf = user.supporterOf || [];
+	var supporterOf = user.supporterOf || [];
 
-    var selector = { _id: { $in: supporterOf } };
-    var options = {};
+	var selector = { _id: { $in: supporterOf } };
+	var options = {};
 
-    if (parameters.count) {
-        options.count = true;
+	if (parameters.count) {
+		options.count = true;
+	} else {
+		options.skip = parseInt(parameters.skip);
+		options.limit = parseInt(parameters.limit);
+		options.sort = parameters.sort || { popularity: -1 };
+	}
+
+	if (parameters.network_id) {
+		selector.network_id = parameters.network_id;
+	}
+
+	selector.archived_at = { $exists: parameters.archived };
+
+	var result = this.guardedFind(loggedInUserId, selector, options);
+	return result;
+};
+
+Partups.findPartupsIdsForUser = function (user, options, loggedInUserId) {
+	user = user || {};
+    options = options || {};
+
+    let ids = [];
+    const supporterOfIds = user.supporterOf || [];
+    const upperOfIds = user.upperOf || [];
+
+    if (options.supporterOnly) {
+        ids = supporterOfIds;
+    } else if (options.upperOnly) {
+        ids = upperOfIds;
     } else {
-        options.skip = parseInt(parameters.skip);
-        options.limit = parseInt(parameters.limit);
-        options.sort = parameters.sort || { popularity: -1 };
+        ids = ids.concat(supporterOfIds, upperOfIds);
     }
 
-    if (parameters.network_id) {
-        selector.network_id = parameters.network_id;
-    }
+	var selector = { _id: { $in: ids } };
 
-    selector.archived_at = { $exists: parameters.archived };
+    var fields = options.fields;
 
-    var result = this.guardedFind(loggedInUserId, selector, options);
-    return result;
+	return this.guardedFind(loggedInUserId, selector, {fields});
 };
 
-Partups.findStatsForAdmin = function() {
-    var partups = this.find({});
-    results = {
-        'total': 0,
-        'open': 0,
-        'private': 0,
-        'networkopen': 0,
-        'networkinvite': 0,
-        'networkclosed': 0
-    };
-    partups.forEach(function(partup) {
-        switch (partup.privacy_type) {
-            case 1:
-                results.open++;
-                break;
-            case 2:
-                results.private++;
-                break;
-            case 3:
-                results.networkopen++;
-                break;
-            case 4:
-                results.networkinvite++;
-                break;
-            case 5:
-                results.networkclosed++;
-                break;
+Partups.findStatsForAdmin = function () {
+	var partups = this.find({});
+	results = {
+		'total': 0,
+		'open': 0,
+		'private': 0,
+		'networkopen': 0,
+		'networkinvite': 0,
+		'networkclosed': 0
+	};
+	partups.forEach(function (partup) {
+		switch (partup.privacy_type) {
+			case 1:
+				results.open++;
+				break;
+			case 2:
+				results.private++;
+				break;
+			case 3:
+				results.networkopen++;
+				break;
+			case 4:
+				results.networkinvite++;
+				break;
+			case 5:
+				results.networkclosed++;
+				break;
 
-        }
-        results.total++;
-    });
-    return results;
+		}
+		results.total++;
+	});
+	return results;
 };
 
-Partups.findForAdminList = function(selector, options) {
-    selector = selector || {};
+Partups.findForAdminList = function (selector, options) {
+	selector = selector || {};
 
-    var limit = options.limit;
-    var page = options.page;
-    return this.find(selector, {
-        fields: {
-            '_id': 1,
-            'slug': 1,
-            'name': 1,
-            'description': 1,
-            'creator_id': 1,
-            'created_at': 1,
-            'archived_at': 1,
-            'network_id': 1,
-            'language': 1
-        },
-        sort: { 'created_at': -1 },
-        limit: limit,
-        skip: limit * page
-    });
+	var limit = options.limit;
+	var page = options.page;
+	return this.find(selector, {
+		fields: {
+			'_id': 1,
+			'slug': 1,
+			'name': 1,
+			'description': 1,
+			'creator_id': 1,
+			'created_at': 1,
+			'archived_at': 1,
+			'network_id': 1,
+			'language': 1
+		},
+		sort: { 'created_at': -1 },
+		limit: limit,
+		skip: limit * page
+	});
 };
 
-Partups.findForMenu = function(userId, ids, options) {
-    check(userId, String);
+Partups.findForMenu = function (userId, ids, options) {
+	check(userId, String);
 
-    const partupFields = {
-        fields: {
-            name: 1,
-            network_id: 1,
-            slug: 1,
-            image: 1,
-            upper_data: { $elemMatch: { _id: userId } }
-        }
-    };
-    const partupOptions = Object.assign({}, options, partupFields);
+	const partupFields = {
+		fields: {
+			name: 1,
+			network_id: 1,
+			slug: 1,
+			image: 1,
+			upper_data: { $elemMatch: { _id: userId } }
+		}
+	};
+	const partupOptions = Object.assign({}, options, partupFields);
 
-    return this.guardedFind(userId, { $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
-        partupOptions);
+	return this.guardedFind(userId,
+		{ $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
+		partupOptions);
 }

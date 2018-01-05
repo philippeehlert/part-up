@@ -1,0 +1,38 @@
+.pur-PopoverMenu {
+    position: relative;
+    &__button {
+        border: 0;
+        padding: 5px;
+        background: transparent;
+        font-size: 16px;
+        color: #494949;
+    }
+
+    &__container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: auto;
+        background: #fff;
+        border-radius: 4px;
+        border: 2px solid #ccc;
+        z-index: 1;
+
+        > * {
+            padding: 15px 0;
+            margin: 0 15px;
+            font-size: 16px;
+            color: #494949;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+                color: #494949;
+            }
+        }
+        > * + * {
+            border-top: 2px solid #ccc;
+        }
+    }
+}

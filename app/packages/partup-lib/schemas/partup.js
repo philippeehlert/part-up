@@ -14,6 +14,17 @@ var partupBaseSchema = new SimpleSchema({
         min: 10,
         max: 250
     },
+    expected_result: {
+        type: String,
+        min: 10,
+        max: 250,
+    },
+    motivation: {
+        type: String,
+        min: 10,
+        max: 250,
+        optional: true,
+    },
     currency: {
         type: String,
         optional: true,
@@ -84,6 +95,34 @@ var partupBaseSchema = new SimpleSchema({
     },
     image: {
         type: String
+    },
+    highlighted: {
+        type: [Object],
+        optional: true,
+        maxCount: 4,
+    },
+    'highlighted.$.id': {
+        type: String,
+        optional: true,
+    },
+    'highlighted.$.type': {
+        type: String,
+    },
+    'highlighted.$.thumb': {
+        type: String,
+        optional: true,
+    },
+    'highlighted.$.videoType': {
+        type: String,
+        optional: true,
+    },
+    'highlighted.$.videoId': {
+        type: String,
+        optional: true,
+    },
+    'highlighted.$.url': {
+        type: String,
+        optional: true,
     },
     network_id: {
         type: String,
@@ -209,6 +248,12 @@ Partup.schemas.entities.partup = new SimpleSchema([partupBaseSchema, {
     'upper_data.$.new_updates': {
         type: [String],
         optional: true
+    },
+    starred_updates: {
+        type: [String],
+        optional: true,
+        regEx: SimpleSchema.RegEx.Id,
+        maxCount: 5
     }
 }]);
 

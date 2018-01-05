@@ -1,0 +1,76 @@
+.pur-PartupDescriptionTile {
+    @import "stylesheets/spacings";
+
+    padding: getSpacing(3);
+    background: #fff;
+    display: flex;
+    border-radius: 3px;
+
+    &__description {
+        flex: 2;
+        border-right: 2px solid #e6e6e6;
+        margin-right: getSpacing(3);
+        padding-right: getSpacing(3);
+    }
+
+    &__description-title {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    &__description-text {
+        font-size: 14px;
+    }
+
+    &__description-text + &__description-title {
+        margin-top: getSpacing(1.5);
+    }
+
+    &__tags.pur-Tags {
+        margin-top: getSpacing(2);
+    }
+
+    &__founder-text {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    &__founder-motivation {
+        margin-bottom: getSpacing(2);
+        font-size: 14px;
+    }
+
+    &__founder {
+        display: flex;
+        align-items: center;
+    }
+
+    &__founder-info {
+        margin-left: getSpacing(1);
+    }
+
+    &__founder-name {
+        font-size: 16px;
+        line-height: 1em;
+        font-weight: 600;
+    }
+
+    &__founder-subtext {
+        font-size: 12px;
+        line-height: 1em;
+        color: #999;
+    }
+
+    @media screen and (max-width: 600px) {
+        display: block;
+
+        &__description {
+            display: block;
+            margin: 0 0 getSpacing(3) 0;
+            padding: 0 0 getSpacing(3) 0;
+            border-right: 0;
+            border-bottom: 2px solid #e6e6e6;
+        }
+    }
+}

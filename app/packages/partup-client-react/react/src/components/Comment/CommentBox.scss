@@ -1,0 +1,24 @@
+.pur-CommentBox {
+    @import "stylesheets/spacings";
+
+    display: flex;
+    align-items: center;
+
+    &__avatar {
+        margin-right: 8px;
+
+        > .pur-UserAvatar {
+            width: 32px;
+            height: 32px;
+            flex: 0 0 32px;
+        }
+    }
+
+    &__submit-button {
+        margin-left: getSpacing(1);
+    }
+
+    &__input {
+        flex: 1;
+    }
+}

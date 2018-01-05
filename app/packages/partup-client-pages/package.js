@@ -67,6 +67,8 @@ Package.onUse(function(api) {
             // 'app/home/partials/call-to-action.js',
 
             // App:discover
+            'app/dashboard/dashboard.html',
+            'app/dashboard/dashboard.js',
             'app/discover/discover.html',
             'app/discover/discover.js',
             'app/discover/tabs/discover-partups.html',
@@ -184,6 +186,14 @@ Package.onUse(function(api) {
             'app/partup/update/update.js',
             'app/partup/updates/message-form/message-form.html',
             'app/partup/updates/message-form/message-form.js',
+
+            // App:partup-start
+            'app/partup/start/start.html',
+            'app/partup/start/start.js',
+
+            // App:partup-carousel
+            'app/partup/carousel/carousel.html',
+            'app/partup/carousel/carousel.js',
 
             // App:partup-activities
             'app/partup/activities/activities.html',

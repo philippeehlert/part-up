@@ -241,3 +241,56 @@ Updates.findForPartup = function(partup, parameters, userId) {
 
     return this.find(selector, options);
 };
+
+Updates.findForPartupsIds = function(partupIds, parameters, userId) {
+    parameters = parameters || {};
+
+    if (Meteor.isClient && !userId) {
+        userId = Meteor.userId();
+    }
+
+    var selector = {partup_id: {$in: partupIds} };
+    var options = {sort: {updated_at: -1}};
+
+    options.limit = parseInt(parameters.limit) || 25;
+    options.skip = parseInt(parameters.skip) || 0;
+
+    if (parameters.fields) {
+        options.fields = parameters.fields;
+    }
+
+    if (parameters.filter) {
+        var filter = parameters.filter;
+
+        if (filter === 'my-updates') {
+            selector.upper_id = userId;
+        } else if (filter === 'activities') {
+            selector.type = {$regex: '.*activities.*'};
+        } else if (filter === 'partup-changes') {
+            var regex = '.*(tags|end_date|name|description|image|budget).*';
+            selector.type = {$regex: regex};
+        } else if (filter === 'messages') {
+            selector.type = {$regex: '.*message.*'};
+        } else if (filter === 'contributions') {
+            selector.type = {$regex: '.*contributions.*'};
+        } else if (filter === 'documents-links') {
+            selector.$or = [{has_documents: true}, {has_links: true}];
+        } else if (filter === 'documents') {
+            selector.has_documents = true;
+        } else if (filter === 'links') {
+            selector.has_links = true;
+        } else if (filter === 'conversations') {
+            selector.$or = [
+                {type: 'partups_message_added'},
+                {type: 'partups_activities_comments_added'},
+                {comments_count: {$gt: 0}}
+            ];
+            selector.$and = [
+                {archived_at: {$exists: false}},
+                {deleted_at: {$exists: false}}
+            ];
+        }
+    }
+
+    return this.find(selector, options);
+};

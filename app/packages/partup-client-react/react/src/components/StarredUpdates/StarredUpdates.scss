@@ -1,0 +1,17 @@
+.pur-StarredUpdates {
+    padding: 15px;
+    background: #eee;
+
+    &__title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .pur-UpdateTile {
+        border: 0;
+    }
+
+    .pur-UpdateTile + .pur-UpdateTile {
+        margin-top: 15px;
+    }
+}

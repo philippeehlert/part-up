@@ -1,6 +1,11 @@
 .pu-update {
     @extend %clearfix;
 
+    .pu-star-update {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
     .extra-margin {
         margin-top: 16px;
     }
@@ -43,7 +48,7 @@
         > header {
             margin-left: 115px;
             margin-top: -42px;
-            
+
             @extend %clearfix;
 
             h3 {
@@ -51,7 +56,6 @@
                 font-size: 15px;
                 color: $color-secondary;
                 font-weight: 600;
-                margin-left: 10px;
                 margin-top: 8px;
 
                 a {

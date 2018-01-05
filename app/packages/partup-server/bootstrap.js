@@ -59,6 +59,7 @@ Meteor.startup(function() {
 
     // Add security headers..
     WebApp.rawConnectHandlers.use(function(req, res, next) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
         var secureRequest = req.connection.encrypted || (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'].startsWith('https'));
         if (secureRequest) {
             res.setHeader('Strict-Transport-Security', 'max-age=31536000; preload');

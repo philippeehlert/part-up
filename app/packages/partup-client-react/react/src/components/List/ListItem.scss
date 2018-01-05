@@ -1,0 +1,12 @@
+.pur-ListItem {
+    margin: 0;
+    padding: 0;
+
+    &--stretch {
+        flex: 1;
+    }
+
+    &--align-right {
+        margin-left: auto;
+    }
+}

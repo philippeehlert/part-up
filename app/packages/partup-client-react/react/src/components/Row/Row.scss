@@ -1,0 +1,10 @@
+.pur-Row {
+    @import "stylesheets/spacings";
+
+    display: flex;
+    flex-wrap: wrap;
+
+    > * + * {
+        margin-left: getSpacing(1);
+    }
+}

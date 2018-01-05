@@ -127,6 +127,9 @@ sergeyt:typeahead@0.11.1_8
 partup-client-network-settings-landing
 dynamic-import@0.2.0
 partup-client-imagesystem
+partup-client-react
+meteorhacks:aggregate
+udondan:slick
 partup-client-files
 partup-client-forms
 staringatlights:fast-render

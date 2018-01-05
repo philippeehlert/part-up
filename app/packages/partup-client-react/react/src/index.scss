@@ -1,0 +1,30 @@
+.pur-React {
+    @import "stylesheets/fonts";
+    * {
+        font-family: $pur-font-primary;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    &--root {
+        position: relative;
+        z-index: 1;
+    }
+
+    &--portal {
+        position: absolute;
+        z-index: 10;
+    }
+}
+
+// .react-partup-start-root {
+//     width: calc(100% + 5em);
+//     position: relative;
+//     top: -2.5em;
+//     left: -2.5em;
+//     background: #e6e6e6;
+// }
+
+.pur-React {
+    background: #fff;
+    min-height: calc(100vh - 60px);
+}

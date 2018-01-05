@@ -205,6 +205,8 @@
 @import "components/twitter-typeahead";
 @import "components/velocity-status-widget";
 @import "components/pu-tags-input";
+@import "components/pu-carousel";
+@import "components/pu-partup-carousel-uploader";
 
 // layouts etc (these stylesheets override existing partup components)
 // TODO move to other folder
@@ -274,3 +276,5 @@
 @import "pages/tribestart/tribestart-paragraph";
 @import "pages/tribestart/tribestart-anchorfix";
 @import "pages/tribestart/tribestart-contentblock";
+
+@import "{partup-client-react}/react-app-style"

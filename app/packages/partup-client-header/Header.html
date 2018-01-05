@@ -12,7 +12,6 @@
     <ul class="pu-list pu-list-horizontal pu-list-with-right-items">
         <li class="pu-sub-logo">{{> Header_logo }}</li>
         <li class="pu-sub-tribes">{{> Header_Tribes }}</li>
-        <li class="pu-sub-hidesmallscreen pu-sub-tribes">{{> DropdownMenu }}</li>
         <li class="pu-sub-align-right">{{> DropdownChatNotifications label=chatlabel }}</li>
         <li class="pu-sub-align-right">{{> DropdownNotifications label=notificationslabel }}</li>
         <li class="pu-sub-align-right">{{> DropdownProfile label=currentUser.profile.name image=currentUser.profile.image }}</li>
@@ -23,14 +22,10 @@
     <ul class="pu-list pu-list-horizontal pu-list-with-right-items">
         <li class="pu-sub-logo">{{> Header_logo }}</li>
         <li class="pu-sub-tribes">{{> Header_Tribes }}</li>
-        {{#if partupRoute 'home'}}
-            <li class="pu-sub-more pu-sub-more-loggedout pu-sub-align-right">{{> DropdownLanguageSelector }}</li>
-        {{else}}
-            <li class="pu-sub-more pu-sub-more-loggedout">{{> DropdownMenu }}</li>
-            <li class="pu-sub-align-right pu-sub-hidesmallscreen">
-                <a href="{{ pathFor 'register' }}" class="pu-button pu-button-header pu-button-header-text" data-register>{{_ 'header-desktop-signup' }}</a>
-            </li>
-        {{/if}}
+        <li class="pu-sub-more pu-sub-more-loggedout">{{> DropdownMenu }}</li>
+        <li class="pu-sub-align-right pu-sub-hidesmallscreen">
+            <a href="{{ pathFor 'register' }}" class="pu-button pu-button-header pu-button-header-text" data-register>{{_ 'header-desktop-signup' }}</a>
+        </li>
         <li class="pu-sub-align-right">
             <a href="{{ pathFor 'login' }}" class="pu-button pu-button-header pu-button-header-text" data-login>{{_ 'header-desktop-login' }}</a>
         </li>

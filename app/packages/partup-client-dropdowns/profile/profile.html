@@ -1,7 +1,6 @@
 <template name="DropdownProfile">
     <button class="pu-button pu-button-header pu-button-header-avatar {{#if menuOpen}}pu-button-header-avatar-active{{/if}}" data-toggle-menu="profile">
         <figure class="pu-avatar pu-avatar-small" style="{{#with image }}background-image:url('{{ partupImageUrl id=. store='80x80'}}');{{/with }}"></figure>
-        <span>{{ label }}</span>
     </button>
     <div class="pu-dropdown {{#if menuOpen}}pu-dropdown-active{{/if}} pu-dropdown-simple" data-clickoutside-close style="left: auto; right: -12px;">
 
@@ -15,6 +14,23 @@
         <ul class="pu-list">
             <li><a href="{{ pathFor route='profile' _id=currentUser._id }}">{{_ 'dropdowns-profile-button-myprofile'}}</a></li>
             <li><a href="#" data-settings>{{_ 'dropdowns-profile-button-settings'}}</a></li>
+        </ul>
+        <ul class="pu-list">
+            <li><a href="{{_ 'footer-menu-company-blog-url' }}" target="_blank" rel="noopener">{{_ 'footer-menu-company-blog'}}</a></li>
+            <li><a href="{{_ 'footer-menu-company-about-url' }}">{{_ 'footer-menu-company-about'}}</a></li>
+        </ul>
+        <ul class="pu-list">
+            <li><a href="{{_ 'more-menu-list-for-ios-url' }}" target="_blank" rel="noopener">{{_ 'more-menu-list-for-ios'}}</a></li>
+            <li><a href="{{_ 'more-menu-list-for-android-url' }}" target="_blank" rel="noopener">{{_ 'more-menu-list-for-android'}}</a></li>
+            <li><a href="{{_ 'footer-menu-company-community-url'}}">{{_ 'footer-menu-company-community'}}</a></li>
+        </ul>
+        <ul class="pu-list">
+            <!-- Commented for later use with handbook.part-up.com, see issue #868 -->
+            <!--<li><a href="{{_ 'footer-menu-company-contact-url'}}">{{_ 'footer-menu-company-contact'}}</a></li>-->
+            <li><a href="#" data-help-intercom>{{_ 'pages-app-home-footer-help'}}</a></li>
+            <li><a href="{{_ 'pages-app-home-footer-wiki-link'}}" target="_blank" rel="noopener">{{_ 'pages-app-home-footer-wiki'}}</a></li>
+            <li><a href="{{_ 'pages-app-home-footer-videos-link'}}">{{_ 'pages-app-home-footer-videos'}}</a></li>
+            <li><a href="{{_ 'pages-app-home-footer-feedback-link'}}">{{_ 'pages-app-home-footer-feedback'}}</a></li>
         </ul>
         <ul class="pu-list">
             <li><a href="#" data-logout>{{_ 'dropdowns-profile-button-logout'}}</a></li>

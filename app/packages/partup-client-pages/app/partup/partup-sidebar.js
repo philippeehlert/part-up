@@ -51,6 +51,11 @@ Template.app_partup_sidebar.helpers({
         return partup;
     },
 
+    hasHighlightImages: function() {
+        var partup = Partups.findOne(this.partupId);
+        return partup && partup.highlighted && partup.highlighted.length > 0;
+    },
+
     numberOfSupporters: function() {
         var partup = Partups.findOne(this.partupId);
         if (!partup) return '...';

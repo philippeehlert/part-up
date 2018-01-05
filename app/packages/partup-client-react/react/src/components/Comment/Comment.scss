@@ -1,0 +1,33 @@
+.pur-Comment {
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
+
+    display: flex;
+
+    &__avatar {
+        margin-right: getSpacing();
+        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+    }
+
+    &__content {
+        font-size: 14px;
+        word-break: break-all;
+        flex: 1;
+    }
+
+    &__postedAt {
+        font-size: 11px;
+        color: $pur-color-dusty-gray;
+        font-weight: bold;
+
+        &__remove {
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

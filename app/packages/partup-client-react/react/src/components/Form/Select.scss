@@ -1,0 +1,15 @@
+.pur-Select {
+    position: relative;
+    padding: 10px 15px;
+    border: 2px solid #eeeeee;
+    color: #999999;
+    font-size: 16px;
+    font-weight: 600;
+    appearance: none;
+    background: #fff;
+    max-width: 250px;
+
+    &:after {
+        content: '>';
+    }
+}

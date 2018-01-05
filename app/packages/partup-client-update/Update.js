@@ -19,6 +19,17 @@
 /*************************************************************/
 Template.Update.onCreated(function() {
     var template = this;
+    var updateId = template.data.updateId;
+    var update = Updates.findOne({_id: updateId});
+
+    if (update) {
+        var partup = Partups.findOne({_id: update.partup_id});
+
+        if (partup) {
+            template.updateIsStarred = new ReactiveVar(partup && partup.starred_updates && partup.starred_updates.includes(updateId));
+        }
+    }
+
     template.commentInputFieldExpanded = new ReactiveVar(false);
     template.showCommentClicked = new ReactiveVar(false);
     template.commentsExpanded = new ReactiveVar(undefined, (oldVal, newVal) => {
@@ -130,6 +141,14 @@ Template.Update.helpers({
                 return partup.uppers.indexOf(user._id) > -1;
             },
 
+            isPartnerInPartup: function() {
+                return User(user).isPartnerInPartup(partup._id);
+            },
+
+            updateIsStarred: function() {
+                return template.updateIsStarred.get();
+            },
+
             systemMessageContent: function() {
                 return Partup.client.strings.newlineToBreak(TAPi18n.__('update-type-partups_message_added-system-' + self.type + '-content'));
             },
@@ -168,7 +187,7 @@ Template.Update.helpers({
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
         event.preventDefault();
-   
+
         var updateId = this.updateId;
         var proceed = function() {
             template.commentsExpanded.set(true);
@@ -193,6 +212,7 @@ Template.Update.events({
         }
     },
     'click [data-edit-message]': function(event, template) {
+        console.log('clicked', template);
         event.preventDefault();
         Partup.client.popup.open({
             id: 'edit-message-' + template.data.updateId

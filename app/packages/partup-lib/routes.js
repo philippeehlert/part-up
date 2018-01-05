@@ -14,9 +14,9 @@ Router.configure({
     layoutTemplate: 'main',
     state: function() {
         return {
-            type: 'default'
+            type: 'default',
         };
-    }
+    },
 });
 
 /*************************************************************/
@@ -27,12 +27,24 @@ Router.route('', {
     where: 'client',
     yieldRegions: {
         'app': { to: 'main' },
-        'app_home': { to: 'app' }
+        'app_home': { to: 'app' },
     },
     onBeforeAction: function() {
-        Partup.client.windowTitle.setContextName("Home");
+        Partup.client.windowTitle.setContextName('Home');
         this.next();
-    }
+    },
+});
+
+/*************************************************************/
+/* Dashboard */
+/*************************************************************/
+Router.route('/home', {
+    name: 'dashboard',
+    where: 'client',
+    yieldRegions: {
+        'app': { to: 'main' },
+        'app_dashboard': { to: 'app' },
+    },
 });
 
 /*************************************************************/
@@ -44,12 +56,12 @@ Router.route('/discover', {
     yieldRegions: {
         'app': { to: 'main' },
         'app_discover': { to: 'app' },
-        'app_discover_tribes': { to: 'app_discover' }
+        'app_discover_tribes': { to: 'app_discover' },
     },
     onBeforeAction: function() {
         Partup.client.windowTitle.setContextName('Discover');
         this.next();
-    }
+    },
 });
 
 /*************************************************************/
@@ -433,8 +445,40 @@ Router.route('/partups/:slug', {
             Session.set('partup_access_token_for_partup', partupId);
         }
 
+        const user = Meteor.user();
+        const redirectedBefore = Session.get(`redirected_to_onboarding-${partupId}`);
+
+        if (user && User(user).isPartnerInPartup(partupId)) {
+            this.next();
+            return;
+        }
+
+        if (!redirectedBefore) {
+            Session.set(`redirected_to_onboarding-${partupId}`, true);
+            this.redirect(`/partups/${this.params.slug}/start`);
+            return;
+        }
+
         this.next();
     }
+});
+
+Router.route('/partups/:slug/start', {
+    name: 'partup-start',
+    where: 'client',
+    yieldRegions: {
+        'app': { to: 'main' },
+        'app_partup': { to: 'app' },
+        'app_partup_start': { to: 'app_partup' }
+    },
+    data: function() {
+        var partupId = Partup.client.strings.partupSlugToId(this.params.slug);
+        Session.set(`redirected_to_onboarding-${partupId}`, true);
+
+        return {
+            partupId: Partup.client.strings.partupSlugToId(this.params.slug),
+        };
+    },
 });
 
 Router.route('/partups/:slug/updates/:update_id', {

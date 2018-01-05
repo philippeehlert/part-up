@@ -1,12 +1,12 @@
 @font-face {
-    font-family: "partup-icons";
-    src: url("/fonts/icons/partup-icons.woff2?v=1481721394166") format("woff2"), url("/fonts/icons/partup-icons.woff?v=1481721394166") format("woff"), url("/fonts/icons/partup-icons.ttf?v=1481721394166") format("truetype");
+    font-family: 'partup-icons';
+    src: url("/fonts/icons/partup-icons.woff2?v=1513777198371"), url("/fonts/icons/partup-icons.woff?v=1513777198371"), url("/fonts/icons/partup-icons.ttf?v=1513777198371");
     font-weight: normal;
     font-style: normal;
 }
 
-.picon-archive, .picon-arrow-down, .picon-arrow-left, .picon-arrow-right, .picon-arrow-up, .picon-bell, .picon-calendar-check, .picon-caret-down, .picon-caret-left, .picon-caret-right, .picon-caret-slim-down, .picon-caret-slim-left, .picon-caret-slim-right, .picon-caret-slim-up, .picon-caret-up, .picon-chart, .picon-chat, .picon-check, .picon-checkbox, .picon-cog, .picon-crossroad, .picon-documents, .picon-download, .picon-drive, .picon-dropbox, .picon-facebook, .picon-globe, .picon-info-2, .picon-info, .picon-instagram, .picon-linkedin, .picon-location, .picon-lock-closed, .picon-lock-open, .picon-megaphone, .picon-message, .picon-monitor, .picon-monkeytail, .picon-network, .picon-pencil, .picon-person-plus, .picon-photo, .picon-plus, .picon-profile-card, .picon-question, .picon-search, .picon-share, .picon-show, .picon-times, .picon-twitter, .picon-unarchive, .picon-upload, .picon-video, .picon-warning {
-    font-family: "partup-icons";
+.picon-archive, .picon-arrow-down, .picon-arrow-left, .picon-arrow-right, .picon-arrow-up, .picon-bell, .picon-calendar-check, .picon-caret-down, .picon-caret-left, .picon-caret-right, .picon-caret-slim-down, .picon-caret-slim-left, .picon-caret-slim-right, .picon-caret-slim-up, .picon-caret-up, .picon-chart, .picon-chat, .picon-check, .picon-checkbox, .picon-cog, .picon-crossroad, .picon-documents, .picon-download, .picon-drive, .picon-dropbox, .picon-facebook, .picon-globe, .picon-home, .picon-info-2, .picon-info, .picon-instagram, .picon-linkedin, .picon-location, .picon-lock-closed, .picon-lock-open, .picon-megaphone, .picon-message, .picon-monitor, .picon-monkeytail, .picon-network, .picon-pencil, .picon-person-plus, .picon-photo, .picon-plus, .picon-profile-card, .picon-question, .picon-recommended, .picon-search, .picon-share, .picon-show, .picon-times, .picon-twitter, .picon-unarchive, .picon-upload, .picon-video, .picon-warning {
+    font-family: 'partup-icons';
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
@@ -21,326 +21,284 @@
     font-size: 1em;
 }
 
-$picon-archive-content: "";
 
+$picon-archive-content: '\e001';
 .picon-archive:before {
     content: $picon-archive-content;
 }
 
-$picon-arrow-down-content: "";
-
+$picon-arrow-down-content: '\e002';
 .picon-arrow-down:before {
     content: $picon-arrow-down-content;
 }
 
-$picon-arrow-left-content: "";
-
+$picon-arrow-left-content: '\e003';
 .picon-arrow-left:before {
     content: $picon-arrow-left-content;
 }
 
-$picon-arrow-right-content: "";
-
+$picon-arrow-right-content: '\e004';
 .picon-arrow-right:before {
     content: $picon-arrow-right-content;
 }
 
-$picon-arrow-up-content: "";
-
+$picon-arrow-up-content: '\e005';
 .picon-arrow-up:before {
     content: $picon-arrow-up-content;
 }
 
-$picon-bell-content: "";
-
+$picon-bell-content: '\e006';
 .picon-bell:before {
     content: $picon-bell-content;
 }
 
-$picon-calendar-check-content: "";
-
+$picon-calendar-check-content: '\e007';
 .picon-calendar-check:before {
     content: $picon-calendar-check-content;
 }
 
-$picon-caret-down-content: "";
-
+$picon-caret-down-content: '\e008';
 .picon-caret-down:before {
     content: $picon-caret-down-content;
 }
 
-$picon-caret-left-content: "";
-
+$picon-caret-left-content: '\e009';
 .picon-caret-left:before {
     content: $picon-caret-left-content;
 }
 
-$picon-caret-right-content: "";
-
+$picon-caret-right-content: '\e00a';
 .picon-caret-right:before {
     content: $picon-caret-right-content;
 }
 
-$picon-caret-slim-down-content: "";
-
+$picon-caret-slim-down-content: '\e00b';
 .picon-caret-slim-down:before {
     content: $picon-caret-slim-down-content;
 }
 
-$picon-caret-slim-left-content: "";
-
+$picon-caret-slim-left-content: '\e00c';
 .picon-caret-slim-left:before {
     content: $picon-caret-slim-left-content;
 }
 
-$picon-caret-slim-right-content: "";
-
+$picon-caret-slim-right-content: '\e00d';
 .picon-caret-slim-right:before {
     content: $picon-caret-slim-right-content;
 }
 
-$picon-caret-slim-up-content: "";
-
+$picon-caret-slim-up-content: '\e00e';
 .picon-caret-slim-up:before {
     content: $picon-caret-slim-up-content;
 }
 
-$picon-caret-up-content: "";
-
+$picon-caret-up-content: '\e00f';
 .picon-caret-up:before {
     content: $picon-caret-up-content;
 }
 
-$picon-chart-content: "";
-
+$picon-chart-content: '\e010';
 .picon-chart:before {
     content: $picon-chart-content;
 }
 
-$picon-chat-content: "";
-
+$picon-chat-content: '\e011';
 .picon-chat:before {
     content: $picon-chat-content;
 }
 
-$picon-check-content: "";
-
+$picon-check-content: '\e012';
 .picon-check:before {
     content: $picon-check-content;
 }
 
-$picon-checkbox-content: "";
-
+$picon-checkbox-content: '\e013';
 .picon-checkbox:before {
     content: $picon-checkbox-content;
 }
 
-$picon-cog-content: "";
-
+$picon-cog-content: '\e014';
 .picon-cog:before {
     content: $picon-cog-content;
 }
 
-$picon-crossroad-content: "";
-
+$picon-crossroad-content: '\e015';
 .picon-crossroad:before {
     content: $picon-crossroad-content;
 }
 
-$picon-documents-content: "";
-
+$picon-documents-content: '\e016';
 .picon-documents:before {
     content: $picon-documents-content;
 }
 
-$picon-download-content: "";
-
+$picon-download-content: '\e017';
 .picon-download:before {
     content: $picon-download-content;
 }
 
-$picon-drive-content: "";
-
+$picon-drive-content: '\e018';
 .picon-drive:before {
     content: $picon-drive-content;
 }
 
-$picon-dropbox-content: "";
-
+$picon-dropbox-content: '\e019';
 .picon-dropbox:before {
     content: $picon-dropbox-content;
 }
 
-$picon-facebook-content: "";
-
+$picon-facebook-content: '\e01a';
 .picon-facebook:before {
     content: $picon-facebook-content;
 }
 
-$picon-globe-content: "";
-
+$picon-globe-content: '\e01b';
 .picon-globe:before {
     content: $picon-globe-content;
 }
 
-$picon-info-2-content: "";
+$picon-home-content: '\e01c';
+.picon-home:before {
+    content: $picon-home-content;
+}
 
+$picon-info-2-content: '\e01d';
 .picon-info-2:before {
     content: $picon-info-2-content;
 }
 
-$picon-info-content: "";
-
+$picon-info-content: '\e01e';
 .picon-info:before {
     content: $picon-info-content;
 }
 
-$picon-instagram-content: "";
-
+$picon-instagram-content: '\e01f';
 .picon-instagram:before {
     content: $picon-instagram-content;
 }
 
-$picon-linkedin-content: "";
-
+$picon-linkedin-content: '\e020';
 .picon-linkedin:before {
     content: $picon-linkedin-content;
 }
 
-$picon-location-content: "";
-
+$picon-location-content: '\e021';
 .picon-location:before {
     content: $picon-location-content;
 }
 
-$picon-lock-closed-content: "";
-
+$picon-lock-closed-content: '\e022';
 .picon-lock-closed:before {
     content: $picon-lock-closed-content;
 }
 
-$picon-lock-open-content: "";
-
+$picon-lock-open-content: '\e023';
 .picon-lock-open:before {
     content: $picon-lock-open-content;
 }
 
-$picon-megaphone-content: "";
-
+$picon-megaphone-content: '\e024';
 .picon-megaphone:before {
     content: $picon-megaphone-content;
 }
 
-$picon-message-content: "";
-
+$picon-message-content: '\e025';
 .picon-message:before {
     content: $picon-message-content;
 }
 
-$picon-monitor-content: "";
-
+$picon-monitor-content: '\e026';
 .picon-monitor:before {
     content: $picon-monitor-content;
 }
 
-$picon-monkeytail-content: "";
-
+$picon-monkeytail-content: '\e027';
 .picon-monkeytail:before {
     content: $picon-monkeytail-content;
 }
 
-$picon-network-content: "";
-
+$picon-network-content: '\e028';
 .picon-network:before {
     content: $picon-network-content;
 }
 
-$picon-pencil-content: "";
-
+$picon-pencil-content: '\e029';
 .picon-pencil:before {
     content: $picon-pencil-content;
 }
 
-$picon-person-plus-content: "";
-
+$picon-person-plus-content: '\e02a';
 .picon-person-plus:before {
     content: $picon-person-plus-content;
 }
 
-$picon-photo-content: "";
-
+$picon-photo-content: '\e02b';
 .picon-photo:before {
     content: $picon-photo-content;
 }
 
-$picon-plus-content: "";
-
+$picon-plus-content: '\e02c';
 .picon-plus:before {
     content: $picon-plus-content;
 }
 
-$picon-profile-card-content: "";
-
+$picon-profile-card-content: '\e02d';
 .picon-profile-card:before {
     content: $picon-profile-card-content;
 }
 
-$picon-question-content: "";
-
+$picon-question-content: '\e02e';
 .picon-question:before {
     content: $picon-question-content;
 }
 
-$picon-search-content: "";
+$picon-recommended-content: '\e02f';
+.picon-recommended:before {
+    content: $picon-recommended-content;
+}
 
+$picon-search-content: '\e030';
 .picon-search:before {
     content: $picon-search-content;
 }
 
-$picon-share-content: "";
-
+$picon-share-content: '\e031';
 .picon-share:before {
     content: $picon-share-content;
 }
 
-$picon-show-content: "";
-
+$picon-show-content: '\e032';
 .picon-show:before {
     content: $picon-show-content;
 }
 
-$picon-times-content: "";
-
+$picon-times-content: '\e033';
 .picon-times:before {
     content: $picon-times-content;
 }
 
-$picon-twitter-content: "";
-
+$picon-twitter-content: '\e034';
 .picon-twitter:before {
     content: $picon-twitter-content;
 }
 
-$picon-unarchive-content: "";
-
+$picon-unarchive-content: '\e035';
 .picon-unarchive:before {
     content: $picon-unarchive-content;
 }
 
-$picon-upload-content: "";
-
+$picon-upload-content: '\e036';
 .picon-upload:before {
     content: $picon-upload-content;
 }
 
-$picon-video-content: "";
-
+$picon-video-content: '\e037';
 .picon-video:before {
     content: $picon-video-content;
 }
 
-$picon-warning-content: "";
-
+$picon-warning-content: '\e038';
 .picon-warning:before {
     content: $picon-warning-content;
 }
+

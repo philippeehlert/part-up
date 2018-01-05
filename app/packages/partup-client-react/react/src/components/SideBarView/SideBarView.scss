@@ -1,0 +1,34 @@
+.pur-SideBarView {
+    &__sidebar {
+        font-size: 15px;
+        background-color: #eeeeee;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 650px) {
+        $sideBarWidth: 282px;
+
+        &__sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            width: $sideBarWidth;
+            overflow-y: auto;
+        }
+
+        &__content {
+            margin-left: $sideBarWidth;
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        $sideBarWidth: 372px;
+
+        &__sidebar {
+            width: $sideBarWidth;
+        }
+        &__content {
+            margin-left: $sideBarWidth;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+.pur-Tags {
+    @import "stylesheets/spacings";
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    &__tag {
+        margin-right: getSpacing(1);
+        margin-top: 3px;
+    }
+
+    &__tag:last-child {
+        margin-right: 0;
+    }
+}

@@ -1,0 +1,13 @@
+.pur-Indicator {
+    @import "stylesheets/fonts";
+    @import "stylesheets/spacings";
+    @import "stylesheets/border-radius";
+
+    background-color: #ccc;
+    padding: getSpacing(1);
+    text-align: center;
+    color: #fff;
+    border-radius: $pur-border-radius-standard;
+    font-family: $pur-font-secondary;
+    font-size: 15px;
+}

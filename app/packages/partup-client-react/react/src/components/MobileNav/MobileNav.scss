@@ -1,0 +1,18 @@
+.pur-MobileNav {
+    @import "stylesheets/spacings";
+
+    padding: getSpacing(1) getSpacing(1.5);
+
+    .pur-DropDown {
+        width: 100%;
+        .pur-DropDown__button-control {
+            width: 100%;
+            color: #333;
+            background-color: #dcdcdc;
+        }
+
+        &--is-expanded .pur-DropDown__button-control {
+            background-color: #fff;
+        }
+    }
+}

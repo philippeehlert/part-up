@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Production css -->
+    <link rel="stylesheet" type="text/css" class="__meteor-css__" href="http://localhost:3000/merged-stylesheets.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+    </style>
+    <!-- React-dev Polyfill for translation START -->
+    <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+    <script>
+        ;(async () => {
+            try {
+                const enRes = await fetch('/en-translation.json');
+                const enJson = await enRes.json();
+                const nlRes = await fetch('/nl-translation.json');
+                const nlJson = await nlRes.json();
+
+                i18next.init({
+                    lng: 'en',
+                    resources: {
+                        en: { translation: enJson },
+                        nl: { translation: nlJson },
+                    },
+                    whitelist: ['en', 'nl'],
+                    nonExplicitWhitelist: true,
+                    interpolation: {
+                        prefix: '__',
+                        suffix: '__',
+                        prefixEscaped: '||',
+                        suffixEscaped: '||',
+                    },
+
+                    parseMissingKeyHandler: (key) => 'missing:' + key,
+                });
+            } catch(err) {
+                console.log(err);
+                throw err;
+            }
+        })();
+    </script>
+    <!-- React-dev Polyfill for translation END -->
+    <title>Part-up React Development</title>
+  </head>
+    <body>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
+        <div class="pur-React pur-React--root" id="react-root"></div>
+        <div class="pur-React pur-React--portal" id="react-portal-root"></div>
+    </body>
+</html>

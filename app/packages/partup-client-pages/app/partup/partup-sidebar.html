@@ -2,11 +2,17 @@
 
     <header class="pu-partupheader {{#if partup.archived_at}}pu-partupheader-archived{{/if}}">
         {{#if screenWidthEqualOrBelow '810'}}
-            <button class="pu-sticky-button float-right" data-toggle-sidebar>
+            <button class="pu-sticky-button pu-sticky-button-absolute" data-toggle-sidebar>
                 <i class="picon-times"></i>
             </button>
         {{/if }}
-        <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
+
+        {{#if hasHighlightImages }}
+            {{> app_partup_carousel }}
+        {{else}}
+            <figure class="pu-sub-picture" style="{{#with partup.image }}background-image: url('{{ partupImageUrl id=. store='1200x520' }}');{{/with}}" data-partupcover-focuspoint></figure>
+        {{/if}}
+
         {{#if partup.archived_at}}
             <div class="pu-state-message">
                 <h3>{{_ 'pages-app-partup-archive-info' }} <strong>{{ partupDateOnly partup.archived_at }}</strong></h3>
@@ -19,19 +25,14 @@
         <div class="pu-sub-metadata">
             <ul class="pu-list pu-list-horizontal pu-list-spaced">
                 {{# if showTakePartButton }}
-                    <li>
+                    {{#if isPendingPartner}}
                         <!-- take part popup -->
-                        {{#if isPendingPartner}}
+                        <li>
                             <button type='button' class="pu-button pu-button-pending">
                                 <i class="picon-person-plus"></i> {{_ 'pages-app-partup-become_partner-pending' }}
                             </button>
-                        {{else}}
-                        <a class="pu-button" data-open-takepart-popup>
-                            <i class="picon-person-plus"></i>
-                            {{_ 'pages-app-partup-become_partner' }}
-                        </a>
-                        {{/if}}
-                    </li>
+                        </li>
+                    {{/if}}
 
                     {{#if partupIsPopupActive 'take-part' }}
                         {{#contentFor region="PopupTitle"}}
@@ -49,20 +50,10 @@
                     </li>
                 {{/if}}
             </ul>
-            <p class="pu-sub-abstract">{{> dangerouslyRenderHTML HTML=partup.description transform=format }}</p>
             <ul class="pu-list pu-partup-meta">
                 <li><i class="picon-calendar-check"></i> {{_ 'pages-app-partup-active-untill-info'}} {{statusText.activeTill}}</li>
                 <li><i class="picon-location"></i> {{statusText.location}}</li>
                 <li><i class="picon-lock-{{# if statusText.privacy.open }}open{{else}}closed{{/if}}"></i> {{statusText.privacy.text}}</li>
-            </ul>
-            <ul class="pu-list pu-list-horizontal pu-list-tags">
-                {{#each partup.tags }}
-                    <li>
-                        {{#Tag type="inverted"}}
-                            {{ . }}
-                        {{/Tag}}
-                    </li>
-                {{/each }}
             </ul>
         </div>
     </header>
@@ -109,11 +100,6 @@
                             <a data-leavesupporters class="pu-button pu-button-smallicon">
                                 <i class="picon-times"></i>
                                 {{_ 'pages-app-partup-supporters_leave' }}
-                            </a>
-                        {{ else }}
-                            <a data-joinsupporters class="pu-button">
-                                <i class="picon-megaphone"></i>
-                                {{_ 'pages-app-partup-supporters_join' }}
                             </a>
                         {{/if}}
                     {{/unless}}

@@ -1,0 +1,22 @@
+.pur-FilteredListItems {
+    @import "stylesheets/spacings";
+
+    padding: getSpacing(2);
+
+    .pur-Tile + .pur-Tile {
+        margin-top: getSpacing(1);
+    }
+
+    &--has-sub-sections {
+        padding: 0;
+    }
+
+    .pur-Indicator {
+        margin-bottom: getSpacing(2);
+    }
+
+    .pur-Spinner {
+        margin: 0 auto;
+        margin-bottom: getSpacing(2);
+    }
+}

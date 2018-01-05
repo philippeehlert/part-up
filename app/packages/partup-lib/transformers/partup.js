@@ -18,6 +18,8 @@ Partup.transformers.partup = {
             partup_name: partup.name,
             _id: partup._id,
             description: partup.description,
+            expected_result: partup.expected_result,
+            highlighted: partup.highlighted,
             type: partup.type,
             type_commercial_budget: partup.type_commercial_budget,
             type_organization_budget: partup.type_organization_budget,
@@ -31,6 +33,10 @@ Partup.transformers.partup = {
             phase: partup.phase,
             board_view: partup.board_view
         };
+
+        if (partup.motivation) {
+            fields.motivation = partup.motivation;
+        }
 
         // Determine privacy type
         if (partup.privacy_type === Partups.privacy_types.PUBLIC) {
@@ -65,6 +71,8 @@ Partup.transformers.partup = {
             // form fields
             name: fields.partup_name,
             description: fields.description,
+            expected_result: fields.expected_result,
+            highlighted: fields.highlighted,
             type: fields.type,
             type_commercial_budget: fields.type_commercial_budget,
             type_organization_budget: fields.type_organization_budget,
@@ -76,6 +84,10 @@ Partup.transformers.partup = {
             phase: fields.phase,
             board_view: fields.board_view
         };
+
+        if (fields.motivation) {
+            partup.motivation = fields.motivation;
+        }
 
         var newLocation = Partup.services.location.locationInputToLocation(fields.location_input);
         if (newLocation) partup.location = newLocation;

@@ -1,0 +1,62 @@
+.pur-Activity {
+    @import "stylesheets/border-radius";
+    @import "stylesheets/spacings";
+    @import "stylesheets/colors";
+
+    padding: getSpacing(1.5);
+    border: 2px solid $pur-color-gallery;
+    border-radius: $pur-border-radius-controls;
+
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        &__lane {
+            display: inline-block;
+            position: relative;
+            height: 30px;
+            padding: 8px 6px 6px 8px;
+            background-color: #eeeeee;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 16px;
+            color: #292929;
+            border-radius: 2px;
+            text-decoration: none;
+            margin-right: 0;
+            text-transform: lowercase;
+            transition: background-color 0.15s;
+            white-space: nowrap;
+            margin-right: 10px;
+        }
+
+        &__title-link {
+            width: 100%;
+            font-size: 20px;
+            font-weight: 700;
+            color: #292929;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__content {
+        line-height: 1.56em;
+    }
+
+    &__deleted-label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #292929;
+        opacity: 0.3;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+}

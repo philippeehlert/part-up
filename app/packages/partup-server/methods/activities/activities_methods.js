@@ -217,7 +217,6 @@ Meteor.methods({
      */
     'activities.archive': function(activityId) {
         check(activityId, String);
-
         var upper = Meteor.user();
         var activity = Activities.findOneOrFail(activityId);
 
@@ -242,6 +241,7 @@ Meteor.methods({
                 _id: activity._id
             };
         } catch (error) {
+
             Log.error(error);
             throw new Meteor.Error(500, 'activity_could_not_be_archived');
         }

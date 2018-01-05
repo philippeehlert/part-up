@@ -7,6 +7,11 @@ Template.PartupNavigationSelector.onCreated(function() {
     var partup = template.data.partup;
 
     template.options = [{
+        name: TAPi18n.__('pages-app-partup-menu_start'),
+        route: 'partup-start',
+        slug: partupSlug,
+        icon: 'recommended'
+    },{
         name: TAPi18n.__('pages-app-partup-menu_conversations'),
         route: 'partup',
         slug: partupSlug,
@@ -39,9 +44,9 @@ Template.PartupNavigationSelector.onCreated(function() {
 
     var defaultOption = template.options[0];
 
-    if (template.data.default === 'partup') defaultOption = template.options[0];
-    if (template.data.default === 'partup-activities') defaultOption = template.options[1];
-    if (template.data.default === 'partup-documents') defaultOption = template.options[2];
+    if (template.data.default === 'partup') defaultOption = template.options[1];
+    if (template.data.default === 'partup-activities') defaultOption = template.options[2];
+    if (template.data.default === 'partup-documents') defaultOption = template.options[3];
 
     template.selectedOption = new ReactiveVar(defaultOption, function(oldRoute, newRoute) {
         if (oldRoute === newRoute) return;

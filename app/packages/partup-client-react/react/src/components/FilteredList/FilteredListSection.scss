@@ -1,0 +1,20 @@
+.pur-FilteredListSection {
+    @import "stylesheets/spacings";
+
+    &__title {
+        background: #eeeeee;
+        padding: getSpacing(1) getSpacing(1.5);
+        color: #999999;
+        width: 100%;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    &__content {
+        padding: getSpacing(2);
+
+        > * + * {
+            margin-top: getSpacing(1);
+        }
+    }
+}

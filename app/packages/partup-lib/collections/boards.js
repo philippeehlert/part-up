@@ -65,6 +65,6 @@ Boards = new Mongo.Collection('boards', {
  * @return {Mongo.Cursor}
  */
 Boards.findForPartup = function(partup, userId) {
-    if (!partup.isViewableByUser(userId)) return null;
+    if (!partup || !partup.isViewableByUser(userId)) return null;
     return Boards.find({_id: partup.board_id}, {limit: 1});
 };
