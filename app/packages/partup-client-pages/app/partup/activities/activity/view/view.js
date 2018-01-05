@@ -395,7 +395,7 @@ Template.ActivityView.events({
             if (error) {
                 template.updateIsStarred.set(false);
                 if (error.reason === 'partup_message_too_many_stars') {
-                    Partup.client.notify.error('');
+                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
                 } else {
                     Partup.client.notify.error('Could not star update');
                 }
@@ -415,11 +415,7 @@ Template.ActivityView.events({
         Meteor.call('updates.messages.unstar', updateId, function(error, result) {
             if (error) {
                 template.updateIsStarred.set(true);
-                if (error.reason) {
-                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
-                } else {
-                    Partup.client.notify.error('Could not star update');
-                }
+                Partup.client.notify.error('Could not unstar update');
                 return;
             }
             Partup.client.notify.success('Update unstarred');
