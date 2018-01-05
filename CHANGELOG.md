@@ -1,12 +1,127 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/part-up/part-up/compare/3.0.1...3.1.0) (2017-12-19)
+
+
+### Bug Fixes
+
+* **boardview:** Replace timeout by loading state ([e9ecdcd](https://github.com/part-up/part-up/commit/e9ecdcd))
+* **client:** Return when no valid partupId found ([4c5b8b1](https://github.com/part-up/part-up/commit/4c5b8b1))
+* **dropdown:** show login button ([0314503](https://github.com/part-up/part-up/commit/0314503))
+* **react:** fix react routing ([ccfd68b](https://github.com/part-up/part-up/commit/ccfd68b))
+* **startpage:** disable start page (temporary) ([9409309](https://github.com/part-up/part-up/commit/9409309))
+
+
+### Features
+
+* **meteor:** Update to Meteor 1.6 ([a94bc9b](https://github.com/part-up/part-up/commit/a94bc9b))
+* **start-page:** add start page components ([6a485c5](https://github.com/part-up/part-up/commit/6a485c5))
+* **upgrade:** Upgraded node in docker file ([e7ef0e8](https://github.com/part-up/part-up/commit/e7ef0e8))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/part-up/part-up/compare/3.0.0...3.0.1) (2017-12-17)
 
 
 ### Bug Fixes
 
+* **activities:** only query partups that the user is partner of ([34a6c98](https://github.com/part-up/part-up/commit/34a6c98))
+* **activities:** placeholder ([804ce7d](https://github.com/part-up/part-up/commit/804ce7d))
+* **Activities:** don't default to today when end_date does not exist ([17d90c5](https://github.com/part-up/part-up/commit/17d90c5))
+* **Activities:** fix react key warnings ([8114d4d](https://github.com/part-up/part-up/commit/8114d4d))
+* **Activities:** only query activities that the user contributes to ([0afb38b](https://github.com/part-up/part-up/commit/0afb38b))
+* **activity:** add if statement block because activity could be undefined ([87706f9](https://github.com/part-up/part-up/commit/87706f9))
+* **Activity:** use collection find selector for filter ([0365351](https://github.com/part-up/part-up/commit/0365351))
+* **app:** layer react below pu-app ([4129380](https://github.com/part-up/part-up/commit/4129380))
+* **App:** don't use dynamic imports ([f33833f](https://github.com/part-up/part-up/commit/f33833f))
+* **avatar:** fixed comments avatar ([71ab36c](https://github.com/part-up/part-up/commit/71ab36c))
+* **collection:** extends mergedDocument with document ([47337d7](https://github.com/part-up/part-up/commit/47337d7))
+* **collection:** styling fix ([087e016](https://github.com/part-up/part-up/commit/087e016))
+* **ConversationsCount:** use the current loged in user ([22c9751](https://github.com/part-up/part-up/commit/22c9751))
+* **ConversationUpdates:** use collections for counting new updates ([815efc8](https://github.com/part-up/part-up/commit/815efc8))
+* **header:** icon and translation ([b5316ed](https://github.com/part-up/part-up/commit/b5316ed))
+* **i18n:** use correct keys ([b315738](https://github.com/part-up/part-up/commit/b315738))
+* **linting:** fixed linitng errors ([1b98c96](https://github.com/part-up/part-up/commit/1b98c96))
 * **meteor:** Set default value for files ([cf03f06](https://github.com/part-up/part-up/commit/cf03f06))
+* **MobileNav:** fix mobile navigation dropdown ([60ab12c](https://github.com/part-up/part-up/commit/60ab12c))
+* **NavigationBar:** improve mobile layout ([e14ff7b](https://github.com/part-up/part-up/commit/e14ff7b))
+* **partups:** query slug field for partup urls ([57ec229](https://github.com/part-up/part-up/commit/57ec229))
+* **PartupsCollection:** use correct _id selector ([d516a4b](https://github.com/part-up/part-up/commit/d516a4b))
+* **reactapp:** fix base z-index issue ([af6292a](https://github.com/part-up/part-up/commit/af6292a))
+* **start:** remove npm install from start script ([401e248](https://github.com/part-up/part-up/commit/401e248))
+* **state:** manage state with functional ([b026bbf](https://github.com/part-up/part-up/commit/b026bbf))
+* **style:** fix stylesheet ([94e9f8e](https://github.com/part-up/part-up/commit/94e9f8e))
+* **subscriber:** removed ondatachange from subscriber for seperation of concern ([a771611](https://github.com/part-up/part-up/commit/a771611))
 * **subscription:** Set default value for images to empty array ([d2f75d4](https://github.com/part-up/part-up/commit/d2f75d4))
 * **subscriptions:** (Re)move and replace subscriptions ([d13cad1](https://github.com/part-up/part-up/commit/d13cad1))
+* **Tracker:** defer change handler ([4235403](https://github.com/part-up/part-up/commit/4235403))
+* **types:** renamed types to typedefinitions ([84efba6](https://github.com/part-up/part-up/commit/84efba6))
+* **typing:** better typing for colection and subscriber ([ed0a11d](https://github.com/part-up/part-up/commit/ed0a11d))
+* **typing:** fixed all document typing names to prevent conflicts ([710f9e0](https://github.com/part-up/part-up/commit/710f9e0))
+* **updates:** destroy subscriber ([34f4b87](https://github.com/part-up/part-up/commit/34f4b87))
+* **updates:** fixed comments subscription ([84d5eb4](https://github.com/part-up/part-up/commit/84d5eb4))
+
+
+### Features
+
+* **activities:** fetch activity data for view ([ad13524](https://github.com/part-up/part-up/commit/ad13524))
+* **activities:** get activities where user is contributing ([0bc01a4](https://github.com/part-up/part-up/commit/0bc01a4))
+* **Activities:** add ability to archive and unarchive activities ([a2d3d68](https://github.com/part-up/part-up/commit/a2d3d68))
+* **Activities:** add edit modals ([6802e2a](https://github.com/part-up/part-up/commit/6802e2a))
+* **Activities:** rerender the view after an activity changes ([3a7e967](https://github.com/part-up/part-up/commit/3a7e967))
+* **ActivityTile:** add invite link ([914b1dd](https://github.com/part-up/part-up/commit/914b1dd))
+* **ActivityTile:** add partup links ([2a7f67e](https://github.com/part-up/part-up/commit/2a7f67e))
+* **ActivityTile:** limit participants to 5 ([ea3d7e7](https://github.com/part-up/part-up/commit/ea3d7e7))
+* **ActivityTile:** make tiles responsive for mobile ([c0e0fad](https://github.com/part-up/part-up/commit/c0e0fad))
+* **ActivityTile:** show no date message when date is not present ([7e66ac7](https://github.com/part-up/part-up/commit/7e66ac7))
+* **ActivtyTile:** add links for comment and invite ([18844b0](https://github.com/part-up/part-up/commit/18844b0))
+* **collection:** better finder for collection using lodash ([d274841](https://github.com/part-up/part-up/commit/d274841))
+* **collection:** findOneAny finds a document in both minimongo and the statics and returns a merged document of both (with minimongo document as leading) ([280a059](https://github.com/part-up/part-up/commit/280a059))
+* **collection:** peferStatic flag ([f50b2a8](https://github.com/part-up/part-up/commit/f50b2a8))
+* **comment:** remove comment (sort of) works ([6ed9642](https://github.com/part-up/part-up/commit/6ed9642))
+* **comments:** edit comments ([bd76d0e](https://github.com/part-up/part-up/commit/bd76d0e))
+* **comments:** stopropagation to prevent unnessecary edit ([9f74336](https://github.com/part-up/part-up/commit/9f74336))
+* **Conversations:** Add count for conversations ([9a0461d](https://github.com/part-up/part-up/commit/9a0461d))
+* **ConversationUpdates:** add count to partups dropdown ([dcd2ed7](https://github.com/part-up/part-up/commit/dcd2ed7))
+* **ConversationUpdates:** add partup images to partup selector ([8754dea](https://github.com/part-up/part-up/commit/8754dea))
+* **Counter:** don't display counter when value is 0 ([61f5872](https://github.com/part-up/part-up/commit/61f5872))
+* **i18n:** add translations ([f42dc73](https://github.com/part-up/part-up/commit/f42dc73))
+* **i18n:** add translations for en ([86f1db2](https://github.com/part-up/part-up/commit/86f1db2))
+* **i18n:** set moment locale based on user profile settings ([d9991e3](https://github.com/part-up/part-up/commit/d9991e3))
+* **Icons:** add recommended icon ([f24da89](https://github.com/part-up/part-up/commit/f24da89))
+* **indicator:** indicator ([f4d05bf](https://github.com/part-up/part-up/commit/f4d05bf))
+* **Invites:** add invites page ([d7af1cc](https://github.com/part-up/part-up/commit/d7af1cc))
+* **main:** mainjs for the weekend ([14ed2bf](https://github.com/part-up/part-up/commit/14ed2bf))
+* **mainjs:** main js update for staging env ([c2871b8](https://github.com/part-up/part-up/commit/c2871b8))
+* **newIndicator:** indicator for new stuff ([1729b4b](https://github.com/part-up/part-up/commit/1729b4b))
+* **newUpdates:** indicator ([ca8f247](https://github.com/part-up/part-up/commit/ca8f247))
+* **react:** change react rendering to allow react to be rendered in a deep blaze view ([587d675](https://github.com/part-up/part-up/commit/587d675))
+* **sideBar:** add activity and invite count ([58683f9](https://github.com/part-up/part-up/commit/58683f9))
+* **SideBar:** remove recommendatiosn and count ([5b507c9](https://github.com/part-up/part-up/commit/5b507c9))
+* **subscriber:** ready state ([0a2edcd](https://github.com/part-up/part-up/commit/0a2edcd))
+* **textrenderer:** comments ([3924b27](https://github.com/part-up/part-up/commit/3924b27))
+* **textrenderer:** dependencies ([68c0c00](https://github.com/part-up/part-up/commit/68c0c00))
+* **textrenderer:** emoji ([6d781a3](https://github.com/part-up/part-up/commit/6d781a3))
+* **textrenderer:** html ([cbd6cba](https://github.com/part-up/part-up/commit/cbd6cba))
+* **textrenderer:** links ([7bdfcbf](https://github.com/part-up/part-up/commit/7bdfcbf))
+* **textrenderer:** markdown ([6a8c37b](https://github.com/part-up/part-up/commit/6a8c37b))
+* **textrenderer:** parser ([6a3ec9c](https://github.com/part-up/part-up/commit/6a3ec9c))
+* **textrenderer:** updates ([f4a9f45](https://github.com/part-up/part-up/commit/f4a9f45))
+* **textRenderer:** mentions ([5aea387](https://github.com/part-up/part-up/commit/5aea387))
+* **tracker:** collection tracker ([f915f1d](https://github.com/part-up/part-up/commit/f915f1d))
+* **tracker:** ondataAdded trigger ([9536d0b](https://github.com/part-up/part-up/commit/9536d0b))
+* **updates:** added tracker for new updates ([1ab12a1](https://github.com/part-up/part-up/commit/1ab12a1))
+* **updates:** new update ssubscription ([d4b54ea](https://github.com/part-up/part-up/commit/d4b54ea))
+* **updates:** new updates indicator (WIP) ([884be56](https://github.com/part-up/part-up/commit/884be56))
+* **updates:** new updates publicstion fix ([7b7124c](https://github.com/part-up/part-up/commit/7b7124c))
+* **updates:** new updates subscription ([0241011](https://github.com/part-up/part-up/commit/0241011))
+* **users:** findLoggedInUser helper ([ada6211](https://github.com/part-up/part-up/commit/ada6211))
+* **yarn:** update lock file ([92a170f](https://github.com/part-up/part-up/commit/92a170f))
+
+
+### Performance Improvements
+
+* **Components:** use SFC and pure components ([bffcdfe](https://github.com/part-up/part-up/commit/bffcdfe))
 
 
 
@@ -22,18 +137,56 @@
 * **avatar:** fixed avatar error on click ([e880e72](https://github.com/part-up/part-up/commit/e880e72))
 * **background:** fixed dropdown toggle for a notification ([a98e440](https://github.com/part-up/part-up/commit/a98e440))
 * **build:** Sanitize-HTML version locked to not include 'postcss' ([c17db9a](https://github.com/part-up/part-up/commit/c17db9a))
-* **email:** Changed from email address to notifications@part-up.com ([762ac6b](https://github.com/part-up/part-up/commit/762ac6b))
+* **collection:** collections refactoring ([7eb7175](https://github.com/part-up/part-up/commit/7eb7175))
+* **collections:** mage collection an abstract so it cannot be used without extending ([d3815d6](https://github.com/part-up/part-up/commit/d3815d6))
+* **email:** Changed from email address to notifications[@part](https://github.com/part)-up.com ([762ac6b](https://github.com/part-up/part-up/commit/762ac6b))
 * **email:** Email address fix for invite by email for activities, partups & tribes ([7168af2](https://github.com/part-up/part-up/commit/7168af2))
+* **images:** images collection integration ([efc8dee](https://github.com/part-up/part-up/commit/efc8dee))
+* **meteor:** better on login handling ([0529464](https://github.com/part-up/part-up/commit/0529464))
+* **meteorcollection:** fixed typing for meteor collection ([3f99daf](https://github.com/part-up/part-up/commit/3f99daf))
 * **meurs:** fixed meurs strength test results [#975](https://github.com/part-up/part-up/issues/975) ([5ecf090](https://github.com/part-up/part-up/commit/5ecf090))
 * **network:** fix infinite scroll ([5549424](https://github.com/part-up/part-up/commit/5549424))
 * **network:** fixed uppers count ([5f714c3](https://github.com/part-up/part-up/commit/5f714c3))
+* **package.js:** don't package js when building in react-dev mode ([f4a6919](https://github.com/part-up/part-up/commit/f4a6919))
+* **react:** add margin to components in content view ([cc346b7](https://github.com/part-up/part-up/commit/cc346b7))
+* **react:** fix index of dropdowns ([4ae332b](https://github.com/part-up/part-up/commit/4ae332b))
+* **react:** fix margins and link styling ([0540db8](https://github.com/part-up/part-up/commit/0540db8))
+* **react:** show the last two comment, not first ([5fc4b13](https://github.com/part-up/part-up/commit/5fc4b13))
+* **subscriber:** subscriber typing ([7e98b44](https://github.com/part-up/part-up/commit/7e98b44))
 * **tags:** refactored tags and tags search to trigger properly for discover pages [#780](https://github.com/part-up/part-up/issues/780) ([9bc1282](https://github.com/part-up/part-up/commit/9bc1282))
+* **updates:** Created conversationupdate type for conversationupdates ([3e1c6fe](https://github.com/part-up/part-up/commit/3e1c6fe))
+* **user:** user type fixed ([76d1e4f](https://github.com/part-up/part-up/commit/76d1e4f))
 
 
 ### Features
 
+* **activities:** activities collection ([6c9b2dc](https://github.com/part-up/part-up/commit/6c9b2dc))
 * **activity:** Rework activity design ([119ab68](https://github.com/part-up/part-up/commit/119ab68))
+* **collection:** generic collection class for creating and finding in collections ([b8f1f6c](https://github.com/part-up/part-up/commit/b8f1f6c))
+* **CommentBox:** show commentbox by default and allow focus ([481c9a9](https://github.com/part-up/part-up/commit/481c9a9))
+* **comments:** clear comment box on submit ([7e5ec8b](https://github.com/part-up/part-up/commit/7e5ec8b))
+* **InfiniteScroll:** trigger infinite scroll earlier ([71c4caf](https://github.com/part-up/part-up/commit/71c4caf))
+* **main:** new main.js before the weekend ([ba6c932](https://github.com/part-up/part-up/commit/ba6c932))
+* **partups:** partups collection integration ([fba9e0b](https://github.com/part-up/part-up/commit/fba9e0b))
+* **react:** add activity publication ([b1d8706](https://github.com/part-up/part-up/commit/b1d8706))
+* **react:** add base activity tile and styling ([f4ad924](https://github.com/part-up/part-up/commit/f4ad924))
+* **react:** add comment box component ([69d4c4f](https://github.com/part-up/part-up/commit/69d4c4f))
+* **react:** add correct comment link styling ([b7805d6](https://github.com/part-up/part-up/commit/b7805d6))
+* **react:** add icon typings ([0b207e0](https://github.com/part-up/part-up/commit/0b207e0))
+* **react:** add mention styling ([56f5583](https://github.com/part-up/part-up/commit/56f5583))
+* **react:** add square avatar styling ([63d799e](https://github.com/part-up/part-up/commit/63d799e))
+* **react:** add update comment empty state ([9bb36ea](https://github.com/part-up/part-up/commit/9bb36ea))
+* **react:** allow user to place comments on update ([0bc784d](https://github.com/part-up/part-up/commit/0bc784d))
+* **react:** format newlines ([0a81313](https://github.com/part-up/part-up/commit/0a81313))
+* **react:** only fetch relevant information for conversations ([f52cb25](https://github.com/part-up/part-up/commit/f52cb25))
+* **react:** update control link styling ([f48f3e2](https://github.com/part-up/part-up/commit/f48f3e2))
+* **subscriber:** updated subscriber to work with only 1 subscription ([52ad6be](https://github.com/part-up/part-up/commit/52ad6be))
 * **tags:** fixed tribe tag search ([6fe8eb5](https://github.com/part-up/part-up/commit/6fe8eb5))
+* **UpdateComments:** filter out system comments ([6a36aa8](https://github.com/part-up/part-up/commit/6a36aa8))
+* **updates:** added find and findone ([ca4a37a](https://github.com/part-up/part-up/commit/ca4a37a))
+* **updates:** comments publication ([52be7bb](https://github.com/part-up/part-up/commit/52be7bb))
+* **updates:** updates collection integration ([f04dae3](https://github.com/part-up/part-up/commit/f04dae3))
+* **users:** users collection integration ([8b460c4](https://github.com/part-up/part-up/commit/8b460c4))
 
 
 ### BREAKING CHANGES
@@ -49,11 +202,16 @@
 ### Bug Fixes
 
 * **client:** Update SortableJS to 1.7.0 ([c86f2a4](https://github.com/part-up/part-up/commit/c86f2a4))
+* **filters:** position blanks in column on mobile ([15987ad](https://github.com/part-up/part-up/commit/15987ad))
+* **partups:** remove console.log ([9533557](https://github.com/part-up/part-up/commit/9533557))
+* **react-package:** import build css from react ([e011ded](https://github.com/part-up/part-up/commit/e011ded))
 
 
 ### Features
 
 * **client:** Update VWO script ([e363647](https://github.com/part-up/part-up/commit/e363647))
+* **conversations:** add infinite scroll ([444789c](https://github.com/part-up/part-up/commit/444789c))
+* **partups:** add filtering ([0c92047](https://github.com/part-up/part-up/commit/0c92047))
 
 
 
@@ -73,14 +231,50 @@
 
 ### Bug Fixes
 
-* **$schema:** LinkedInUrl validator now accepts company urls ([44baf16](https://github.com/part-up/part-up/commit/44baf16)), closes [#1378](https://github.com/part-up/part-up/issues/1378)
+* **$schema:** LinkedInUrl validator now accepts company urls ([44baf16](https://github.com/part-up/part-up/commit/44baf16))
 * **client:** Change cursor to pointer when hovering chevron ([10be6e7](https://github.com/part-up/part-up/commit/10be6e7))
-* **client:** Change text area of new message ([1057bc7](https://github.com/part-up/part-up/commit/1057bc7)), closes [#1383](https://github.com/part-up/part-up/issues/1383)
+* **client:** Change text area of new message ([1057bc7](https://github.com/part-up/part-up/commit/1057bc7))
 * **client:** Do not automatically show comment input ([7de34e3](https://github.com/part-up/part-up/commit/7de34e3))
 * **client:** Make activity-card chevron clickable on firefox ([9b417a7](https://github.com/part-up/part-up/commit/9b417a7))
 * **client:** Properly extract file icon when multiple info objects found ([46f07e7](https://github.com/part-up/part-up/commit/46f07e7))
 * **client:** Remove autofocus on comment field for IE ([215978c](https://github.com/part-up/part-up/commit/215978c))
+* **conversations:** fixed limit of conversations ([ebf8780](https://github.com/part-up/part-up/commit/ebf8780))
+* **dev:** missing key handler ([803d4f2](https://github.com/part-up/part-up/commit/803d4f2))
+* **dropdown:** fixed dropdown so it overflows aiuto ([c40be4f](https://github.com/part-up/part-up/commit/c40be4f))
+* **dropdown:** use template variable ([bdda22f](https://github.com/part-up/part-up/commit/bdda22f))
 * **files:** Add google presentation to allowed file types ([93cabb0](https://github.com/part-up/part-up/commit/93cabb0))
+* **link:** fixed link navigation ([fc8b9a8](https://github.com/part-up/part-up/commit/fc8b9a8))
+* **link:** target _partup to open partup links ([d365a0f](https://github.com/part-up/part-up/commit/d365a0f))
+* **main:** added mainjs final file ([43d2fc6](https://github.com/part-up/part-up/commit/43d2fc6))
+* **main.js:** fixed mainjs ([2cd2eb0](https://github.com/part-up/part-up/commit/2cd2eb0))
+* **navigation-bar:** make sure nav bar is on top ([8c64102](https://github.com/part-up/part-up/commit/8c64102))
+* **package:** updated main.html root of react and added css build step to package ([174f9b7](https://github.com/part-up/part-up/commit/174f9b7))
+* **partups:** fixed partup publication ([dc286da](https://github.com/part-up/part-up/commit/dc286da))
+* **router:** fixed conflicts with iron router ([0667945](https://github.com/part-up/part-up/commit/0667945))
+* **start:** start with verbose mode (--verbose) ([74781a9](https://github.com/part-up/part-up/commit/74781a9))
+* **versions:** reverted all versions to old meteor ([4a64a8c](https://github.com/part-up/part-up/commit/4a64a8c))
+
+
+### Features
+
+* **activities:** render activities ([d893c7b](https://github.com/part-up/part-up/commit/d893c7b))
+* **avatar:** systemavatar and useravantar ([6113ec5](https://github.com/part-up/part-up/commit/6113ec5))
+* **conversations:** add all conversation components ([4af9e4d](https://github.com/part-up/part-up/commit/4af9e4d))
+* **conversations:** add filtered list component ([d14c804](https://github.com/part-up/part-up/commit/d14c804))
+* **fetcher:** fetcher loading state ([7adb64d](https://github.com/part-up/part-up/commit/7adb64d))
+* **form:** form components ([2664065](https://github.com/part-up/part-up/commit/2664065))
+* **i18n:** i18n integration and polyfill for react-dev ([c8ee69b](https://github.com/part-up/part-up/commit/c8ee69b))
+* **main:** mainjs update ([f89a230](https://github.com/part-up/part-up/commit/f89a230))
+* **main:** mainjs update ([56c540c](https://github.com/part-up/part-up/commit/56c540c))
+* **mainjs:** update main.js for testing ([a38ebad](https://github.com/part-up/part-up/commit/a38ebad))
+* **mentions:** mentions parser ([f4789a5](https://github.com/part-up/part-up/commit/f4789a5))
+* **react:** add filtered list component ([c872ed3](https://github.com/part-up/part-up/commit/c872ed3))
+* **react:** add skip and limit to conversations ([5c39c8b](https://github.com/part-up/part-up/commit/5c39c8b))
+* **react:** add update tiles ([a150343](https://github.com/part-up/part-up/commit/a150343))
+* **server:** add route composit for getting user conversation updates ([7d3ffde](https://github.com/part-up/part-up/commit/7d3ffde))
+* **spinner:** added loader ([639c7e7](https://github.com/part-up/part-up/commit/639c7e7))
+* **toaster:** toaster ([cbfa60b](https://github.com/part-up/part-up/commit/cbfa60b))
+* **updates:** Render update types (WIP) ([f904041](https://github.com/part-up/part-up/commit/f904041))
 
 
 
@@ -91,6 +285,25 @@
 ### Bug Fixes
 
 * **client:** Add update subscription to update template for all updates tab ([a012210](https://github.com/part-up/part-up/commit/a012210))
+* **css:** fixed css imports ([9dd80de](https://github.com/part-up/part-up/commit/9dd80de))
+* **form:** added example import ([12e82f0](https://github.com/part-up/part-up/commit/12e82f0))
+* **modal:** added form code example ([527c4d6](https://github.com/part-up/part-up/commit/527c4d6))
+* **modal:** fixed modal file structure ([94bb63e](https://github.com/part-up/part-up/commit/94bb63e))
+* **navlink:** navlink component that acts on current active route ([a1aa031](https://github.com/part-up/part-up/commit/a1aa031))
+* **portal:** fixed portal import ([c8233a4](https://github.com/part-up/part-up/commit/c8233a4))
+* **react:** fix sass variables ([d8b20e7](https://github.com/part-up/part-up/commit/d8b20e7))
+* **sidebar:** fixed navitem (uses router NavLink) ([798813b](https://github.com/part-up/part-up/commit/798813b))
+* **view:** remove min-height ([683c88b](https://github.com/part-up/part-up/commit/683c88b))
+
+
+### Features
+
+* **dropdown:** remove select and add dropdown ([bcf8394](https://github.com/part-up/part-up/commit/bcf8394))
+* **modal:** standardized modal (with portal and portalmanager) ([a2014dc](https://github.com/part-up/part-up/commit/a2014dc))
+* **react:** add counter component ([94430fb](https://github.com/part-up/part-up/commit/94430fb))
+* **react:** add react select ([94df7dc](https://github.com/part-up/part-up/commit/94df7dc))
+* **react:** implement navigation dropdown ([4668734](https://github.com/part-up/part-up/commit/4668734))
+* **react-nav:** set the current route as the active route ([db6e288](https://github.com/part-up/part-up/commit/db6e288))
 
 
 
@@ -121,22 +334,58 @@
 
 ### Bug Fixes
 
-* **$browser:** This fixes the new lane input on firefox ([c503493](https://github.com/part-up/part-up/commit/c503493)), closes [#1160](https://github.com/part-up/part-up/issues/1160)
+* **$browser:** This fixes the new lane input on firefox ([c503493](https://github.com/part-up/part-up/commit/c503493))
 * **$client:** do not always load all updates and activities ([b10b19c](https://github.com/part-up/part-up/commit/b10b19c))
 * **$meteor:** Changes the request access and join button of a tribe startpage ([865ea5c](https://github.com/part-up/part-up/commit/865ea5c))
-* **$meteor:** Fixes the upper hover container for partup tiles ([3fbe69c](https://github.com/part-up/part-up/commit/3fbe69c)), closes [#1314](https://github.com/part-up/part-up/issues/1314)
+* **$meteor:** Fixes the upper hover container for partup tiles ([3fbe69c](https://github.com/part-up/part-up/commit/3fbe69c))
+* **baseline:** fixed some issues with meteor connection ([e521390](https://github.com/part-up/part-up/commit/e521390))
+* **button:** fixed buttons and links ([bffa482](https://github.com/part-up/part-up/commit/bffa482))
 * **client:** Add compatibility for IE in css attributes ([5abae65](https://github.com/part-up/part-up/commit/5abae65))
 * **client:** Make css compatible with firefox ([c2a128a](https://github.com/part-up/part-up/commit/c2a128a))
+* **dev:** fixed start script for react development ([bc472b3](https://github.com/part-up/part-up/commit/bc472b3))
 * **dev:** Reencypted env ([36e6a94](https://github.com/part-up/part-up/commit/36e6a94))
 * **email:** Add via partup noreply to invite sender ([fa8a3cb](https://github.com/part-up/part-up/commit/fa8a3cb))
+* **icons:** fixed icon generation script and output json ([91a6d03](https://github.com/part-up/part-up/commit/91a6d03))
+* **icons:** integration in sidebar ([3cfabba](https://github.com/part-up/part-up/commit/3cfabba))
+* **icons:** updated icons script to include optimize step ([4e62fc9](https://github.com/part-up/part-up/commit/4e62fc9))
+* **images:** images implementation ([f4aa80e](https://github.com/part-up/part-up/commit/f4aa80e))
+* **jquery:** saved to paclage.json ([4d1cd4e](https://github.com/part-up/part-up/commit/4d1cd4e))
+* **linting:** fixed some linting issues ([1cc6e6b](https://github.com/part-up/part-up/commit/1cc6e6b))
+* **nav:** fixed navigation structure ([cfb55e3](https://github.com/part-up/part-up/commit/cfb55e3))
+* **reac:** fix linting issues ([17502f7](https://github.com/part-up/part-up/commit/17502f7))
+* **react:** fix npm run build ([d1631ce](https://github.com/part-up/part-up/commit/d1631ce))
+* **react:** fixed initial commands to startup react env ([c5c99f8](https://github.com/part-up/part-up/commit/c5c99f8))
+* **react:** remove css files from repo ([9ecfbb9](https://github.com/part-up/part-up/commit/9ecfbb9))
+* **react-app:** fix for packager ([2d2f58e](https://github.com/part-up/part-up/commit/2d2f58e))
+* **readme:** readme update ([d0968f8](https://github.com/part-up/part-up/commit/d0968f8))
+* **router:** listen to active route and add a modifier class to cancel out some styling ([66927fa](https://github.com/part-up/part-up/commit/66927fa))
 * **style:** Code style change ([950eef8](https://github.com/part-up/part-up/commit/950eef8))
 * **style:** Code style fixes ([5d09b92](https://github.com/part-up/part-up/commit/5d09b92))
 
 
 ### Features
 
+* **baseline:** eslinting, react rendering inside blaze template with memory routing to circumvent iron-router ([5696083](https://github.com/part-up/part-up/commit/5696083))
 * **client:** Implement client side logger ([093a791](https://github.com/part-up/part-up/commit/093a791))
-* **client:** Rework file-picker templates ([e70aabf](https://github.com/part-up/part-up/commit/e70aabf)), closes [#1276](https://github.com/part-up/part-up/issues/1276)
+* **client:** Rework file-picker templates ([e70aabf](https://github.com/part-up/part-up/commit/e70aabf))
+* **editorconfig:** add ts settings ([ed7267a](https://github.com/part-up/part-up/commit/ed7267a))
+* **icons:** better feedback when generating icons ([fe39202](https://github.com/part-up/part-up/commit/fe39202))
+* **icons:** inline svg icons implementation ([7058551](https://github.com/part-up/part-up/commit/7058551))
+* **meteor:** added meteor data fetcher ([b561c76](https://github.com/part-up/part-up/commit/b561c76))
+* **modal:** WIP ([6cf8f86](https://github.com/part-up/part-up/commit/6cf8f86))
+* **react:** add active menu link state ([597f803](https://github.com/part-up/part-up/commit/597f803))
+* **react:** add base styling and login implementation ([7e793c7](https://github.com/part-up/part-up/commit/7e793c7))
+* **react:** add content view component ([35fd679](https://github.com/part-up/part-up/commit/35fd679))
+* **react:** add dev flag for fetcher ([0d5a85d](https://github.com/part-up/part-up/commit/0d5a85d))
+* **react:** add dev flag for meteor ([ac3cc82](https://github.com/part-up/part-up/commit/ac3cc82))
+* **react:** add fetcher and subscriber implementations ([72d6ca1](https://github.com/part-up/part-up/commit/72d6ca1))
+* **react:** add mobile nav and breakpoints ([84bd440](https://github.com/part-up/part-up/commit/84bd440))
+* **react:** add onReader ([daa357e](https://github.com/part-up/part-up/commit/daa357e))
+* **react:** add user type ([5313a0b](https://github.com/part-up/part-up/commit/5313a0b))
+* **react:** re-wrote all components to typescript ([67f306f](https://github.com/part-up/part-up/commit/67f306f))
+* **react:** render react next to blaze app and listen to routes to render the view ([7dce477](https://github.com/part-up/part-up/commit/7dce477))
+* **scss:** added old css and auto compile react-app-style.scss ([91a18cc](https://github.com/part-up/part-up/commit/91a18cc))
+* **subscriber:** subscriber wich can subscribe to multiple publications in meteor ([3daf664](https://github.com/part-up/part-up/commit/3daf664))
 
 
 ### Performance Improvements
@@ -154,12 +403,12 @@
 
 ### Bug Fixes
 
-* **$meteor:** Fixing the updateId commentForm selector when so focus in on the comment field ([433120d](https://github.com/part-up/part-up/commit/433120d)), closes [#332](https://github.com/part-up/part-up/issues/332)
+* **$meteor:** Fixing the updateId commentForm selector when so focus in on the comment field ([433120d](https://github.com/part-up/part-up/commit/433120d))
 * **$mobile:** Remove fastclick and file upload logging ([ba0bc73](https://github.com/part-up/part-up/commit/ba0bc73))
 * **client:** Added newline at end of file ([1161bc1](https://github.com/part-up/part-up/commit/1161bc1))
 * **client:** fix response on non-partner of a part-up trying to create new activity ([86e9799](https://github.com/part-up/part-up/commit/86e9799))
 * **client:** Partup.isEditableBy now returns false when input undefined ([1226bba](https://github.com/part-up/part-up/commit/1226bba))
-* **client:** Replace duplicate code by adding it to the User object. ([d7cc743](https://github.com/part-up/part-up/commit/d7cc743)), closes [#1169](https://github.com/part-up/part-up/issues/1169)
+* **client:** Replace duplicate code by adding it to the User object. ([d7cc743](https://github.com/part-up/part-up/commit/d7cc743))
 
 
 ### Features
@@ -188,10 +437,10 @@
 * **$partup:** Sidebar now shows the right date when a partup was archived ([ccd69e1](https://github.com/part-up/part-up/commit/ccd69e1))
 * **client:** A removed activity now doesn't show up the lanes anymore ([0922974](https://github.com/part-up/part-up/commit/0922974))
 * **client:** correct previous commit regarding focus ([632cc02](https://github.com/part-up/part-up/commit/632cc02))
-* **client:** focus on new activity modal ([62b42b3](https://github.com/part-up/part-up/commit/62b42b3)), closes [#1249](https://github.com/part-up/part-up/issues/1249)
-* **client:** Mentions in comments now correctly insert spaces after mention ([d8e674e](https://github.com/part-up/part-up/commit/d8e674e)), closes [#1300](https://github.com/part-up/part-up/issues/1300)
-* **client:** Set autofocus to activity modal input form ([980bd36](https://github.com/part-up/part-up/commit/980bd36)), closes [#1249](https://github.com/part-up/part-up/issues/1249)
-* **partup:** Unpartner button now has a partupID as argument ([c8a6051](https://github.com/part-up/part-up/commit/c8a6051)), closes [#1287](https://github.com/part-up/part-up/issues/1287)
+* **client:** focus on new activity modal ([62b42b3](https://github.com/part-up/part-up/commit/62b42b3))
+* **client:** Mentions in comments now correctly insert spaces after mention ([d8e674e](https://github.com/part-up/part-up/commit/d8e674e))
+* **client:** Set autofocus to activity modal input form ([980bd36](https://github.com/part-up/part-up/commit/980bd36))
+* **partup:** Unpartner button now has a partupID as argument ([c8a6051](https://github.com/part-up/part-up/commit/c8a6051))
 
 
 ### Features
@@ -213,13 +462,13 @@
 * **client:** Fix autolinker after update ([f517a1b](https://github.com/part-up/part-up/commit/f517a1b))
 * **client:** Fix nested conditional ([eea40b2](https://github.com/part-up/part-up/commit/eea40b2))
 * **client:** Remove partup access level public in closed tribe ([eabd0bd](https://github.com/part-up/part-up/commit/eabd0bd))
-* **client:** Show right partup-access level options in tribesettings ([d5712d2](https://github.com/part-up/part-up/commit/d5712d2)), closes [#1285](https://github.com/part-up/part-up/issues/1285)
+* **client:** Show right partup-access level options in tribesettings ([d5712d2](https://github.com/part-up/part-up/commit/d5712d2))
 * **client:** Simplify conditional for auto sidebar ([3076b85](https://github.com/part-up/part-up/commit/3076b85))
 
 
 ### Features
 
-* **client:** Auto hide sidebar on orientation change ([c9167e1](https://github.com/part-up/part-up/commit/c9167e1)), closes [#1280](https://github.com/part-up/part-up/issues/1280)
+* **client:** Auto hide sidebar on orientation change ([c9167e1](https://github.com/part-up/part-up/commit/c9167e1))
 
 
 
@@ -239,11 +488,11 @@
 * **button:** fixed button spinner styling ([83b7c4e](https://github.com/part-up/part-up/commit/83b7c4e))
 * **button:** trigger staging build ([993d8be](https://github.com/part-up/part-up/commit/993d8be))
 * **client:** Add min-width to add-lane-button ([e9e3093](https://github.com/part-up/part-up/commit/e9e3093))
-* **client:** Add touch delay on android for the boardview cards and lanes ([99f794b](https://github.com/part-up/part-up/commit/99f794b)), closes [#1201](https://github.com/part-up/part-up/issues/1201)
+* **client:** Add touch delay on android for the boardview cards and lanes ([99f794b](https://github.com/part-up/part-up/commit/99f794b))
 * **client:** Change touch delay back to 250ms for iOS ([fbf7c5f](https://github.com/part-up/part-up/commit/fbf7c5f))
-* **client:** Make `screenHelper` template helpers reactive ([5453dd4](https://github.com/part-up/part-up/commit/5453dd4)), closes [#1278](https://github.com/part-up/part-up/issues/1278)
+* **client:** Make `screenHelper` template helpers reactive ([5453dd4](https://github.com/part-up/part-up/commit/5453dd4))
 * **client:** New delay structure only for android ([224bc51](https://github.com/part-up/part-up/commit/224bc51))
-* **client:** Optimize boardview for mobile devices in landscape mode ([2789bb3](https://github.com/part-up/part-up/commit/2789bb3)), closes [#1239](https://github.com/part-up/part-up/issues/1239)
+* **client:** Optimize boardview for mobile devices in landscape mode ([2789bb3](https://github.com/part-up/part-up/commit/2789bb3))
 * **client:** Partup page would always respond with page not found ([02b2da9](https://github.com/part-up/part-up/commit/02b2da9))
 * **client:** Sanitize autolink messages before sending it to the dangerouslyRenderHTML template ([af57c0d](https://github.com/part-up/part-up/commit/af57c0d))
 * **config:** Remove old babel deps from meteor package.json ([389549f](https://github.com/part-up/part-up/commit/389549f))
@@ -273,21 +522,21 @@
 
 ### Features
 
-* **$client:** Increase character limit for tribe access levels ([0a8ee34](https://github.com/part-up/part-up/commit/0a8ee34)), closes [#914](https://github.com/part-up/part-up/issues/914)
+* **$client:** Increase character limit for tribe access levels ([0a8ee34](https://github.com/part-up/part-up/commit/0a8ee34))
 * **$uploader:** Add functions to files helper ([87ce0c9](https://github.com/part-up/part-up/commit/87ce0c9))
 * **$uploader:** Add functions to files helper ([726fe7e](https://github.com/part-up/part-up/commit/726fe7e))
 * **$uploader:** Change Pluploader to work better with the files helper ([43ae211](https://github.com/part-up/part-up/commit/43ae211))
 * **$uploader:** Change Pluploader to work better with the files helper ([0d324ec](https://github.com/part-up/part-up/commit/0d324ec))
-* **client:** Add rel=noopener attribute to link with target=_blank ([8386e9f](https://github.com/part-up/part-up/commit/8386e9f)), closes [#997](https://github.com/part-up/part-up/issues/997)
-* **client:** Auto hide sidebar when orientation changes to portrait mode ([352911c](https://github.com/part-up/part-up/commit/352911c)), closes [#1280](https://github.com/part-up/part-up/issues/1280)
+* **client:** Add rel=noopener attribute to link with target=_blank ([8386e9f](https://github.com/part-up/part-up/commit/8386e9f))
+* **client:** Auto hide sidebar when orientation changes to portrait mode ([352911c](https://github.com/part-up/part-up/commit/352911c))
 * **client:** Update AutolinkJS to 1.4.4 ([df1ce59](https://github.com/part-up/part-up/commit/df1ce59))
 * **dangerous-html:** Remove helper from invite tile ([42e4ca2](https://github.com/part-up/part-up/commit/42e4ca2))
-* **dangerous-html:** Remove helper where unnecessary ([97f093e](https://github.com/part-up/part-up/commit/97f093e)), closes [#1227](https://github.com/part-up/part-up/issues/1227) [#1235](https://github.com/part-up/part-up/issues/1235)
+* **dangerous-html:** Remove helper where unnecessary ([97f093e](https://github.com/part-up/part-up/commit/97f093e))
 * **dangerous-render:** Add autolink to strings instead of it only being a template helper ([f3f9b91](https://github.com/part-up/part-up/commit/f3f9b91))
 * **dangerous-render:** Allow rendering of data attributes ([d5395e1](https://github.com/part-up/part-up/commit/d5395e1))
 * **file-upload:** Refactor file upload for partupsettings ([684c04d](https://github.com/part-up/part-up/commit/684c04d))
 * **files:** Add tests for file helper ([299cfe3](https://github.com/part-up/part-up/commit/299cfe3))
-* **partups:** Tribe admins can now edit part-up settings within the tribe ([7030013](https://github.com/part-up/part-up/commit/7030013)), closes [#1176](https://github.com/part-up/part-up/issues/1176) [#1135](https://github.com/part-up/part-up/issues/1135)
+* **partups:** Tribe admins can now edit part-up settings within the tribe ([7030013](https://github.com/part-up/part-up/commit/7030013))
 * **uploader:** Add phraseapp translations ([7b1bcf5](https://github.com/part-up/part-up/commit/7b1bcf5))
 * **uploader:** Add phraseapp translations ([157d1ef](https://github.com/part-up/part-up/commit/157d1ef))
 * **uploader:** Make files route generic to handle all file types ([04aac50](https://github.com/part-up/part-up/commit/04aac50))
@@ -319,7 +568,7 @@
 * **partup-scroll:** Fix infinite scroll for updates ([9b0de03](https://github.com/part-up/part-up/commit/9b0de03))
 * **partup-sidebar:** Set state before render ([5fbcf3c](https://github.com/part-up/part-up/commit/5fbcf3c))
 * **pluploader:** cleanup import / package ([9811bec](https://github.com/part-up/part-up/commit/9811bec))
-* **render-html:** Apply template helper to rendered places ([a512f5b](https://github.com/part-up/part-up/commit/a512f5b)), closes [#1235](https://github.com/part-up/part-up/issues/1235)
+* **render-html:** Apply template helper to rendered places ([a512f5b](https://github.com/part-up/part-up/commit/a512f5b))
 * **sanitizer:** fixed faulty html transformer ([b08e793](https://github.com/part-up/part-up/commit/b08e793))
 * **sectors:** Re-add phrase key translations ([2b4f348](https://github.com/part-up/part-up/commit/2b4f348))
 * **translation:** Change sector finance key to match entity ([a112c04](https://github.com/part-up/part-up/commit/a112c04))
@@ -430,7 +679,7 @@
 
 ### Features
 
-* **chats:** Enable chats on tablets ([72aa872](https://github.com/part-up/part-up/commit/72aa872)), closes [#856](https://github.com/part-up/part-up/issues/856)
+* **chats:** Enable chats on tablets ([72aa872](https://github.com/part-up/part-up/commit/72aa872))
 
 
 
@@ -440,9 +689,9 @@
 
 ### Bug Fixes
 
-* **activity-board:** Only set delay on iOS and add css for overlow scroll ([bc0d4f7](https://github.com/part-up/part-up/commit/bc0d4f7)), closes [#1148](https://github.com/part-up/part-up/issues/1148)
-* **CSS:** Overwrite conflicting styles in bootstrap ([5619733](https://github.com/part-up/part-up/commit/5619733)), closes [#1068](https://github.com/part-up/part-up/issues/1068)
-* **mytribes:** Change menu to mobile version on all touch devices ([4f58371](https://github.com/part-up/part-up/commit/4f58371)), closes [#1149](https://github.com/part-up/part-up/issues/1149) [#1167](https://github.com/part-up/part-up/issues/1167)
+* **activity-board:** Only set delay on iOS and add css for overlow scroll ([bc0d4f7](https://github.com/part-up/part-up/commit/bc0d4f7))
+* **CSS:** Overwrite conflicting styles in bootstrap ([5619733](https://github.com/part-up/part-up/commit/5619733))
+* **mytribes:** Change menu to mobile version on all touch devices ([4f58371](https://github.com/part-up/part-up/commit/4f58371))
 * **mytribes:** Reset state on navigate ([70ae3ac](https://github.com/part-up/part-up/commit/70ae3ac))
 * **release:** package.json updated with current version. ([6443323](https://github.com/part-up/part-up/commit/6443323))
 
@@ -454,7 +703,7 @@
 
 ### Bug Fixes
 
-* **activity-board:** Delay now works on all devices ([f27838c](https://github.com/part-up/part-up/commit/f27838c)), closes [#860](https://github.com/part-up/part-up/issues/860)
+* **activity-board:** Delay now works on all devices ([f27838c](https://github.com/part-up/part-up/commit/f27838c))
 * **activity-board:** Disable delay for android ([c3da8e0](https://github.com/part-up/part-up/commit/c3da8e0))
 
 
@@ -462,7 +711,7 @@
 
 * **activity-board:** Change position calculations for horizontal scrolling ([2b65520](https://github.com/part-up/part-up/commit/2b65520))
 * **meteor:** Update meteor to 1.5.1 ([#1165](https://github.com/part-up/part-up/issues/1165)) ([ec81251](https://github.com/part-up/part-up/commit/ec81251))
-* **packages:** Update packages and remove old babel dependencies ([#1146](https://github.com/part-up/part-up/issues/1146)) ([2177236](https://github.com/part-up/part-up/commit/2177236)), closes [#1127](https://github.com/part-up/part-up/issues/1127)
+* **packages:** Update packages and remove old babel dependencies ([#1146](https://github.com/part-up/part-up/issues/1146)) ([2177236](https://github.com/part-up/part-up/commit/2177236))
 * **seo:** Added robots.txt ([b3a68bc](https://github.com/part-up/part-up/commit/b3a68bc))
 
 
@@ -475,7 +724,7 @@
 
 * **$browser:** CSV upload Checks for ; instead of , now ([4d2b4ce](https://github.com/part-up/part-up/commit/4d2b4ce))
 * **activity-board:** Allow events on filtered areas ([6856a62](https://github.com/part-up/part-up/commit/6856a62))
-* **activity-board:** Remove flickering of the scrollbar ([1ed2629](https://github.com/part-up/part-up/commit/1ed2629)), closes [#860](https://github.com/part-up/part-up/issues/860)
+* **activity-board:** Remove flickering of the scrollbar ([1ed2629](https://github.com/part-up/part-up/commit/1ed2629))
 * **activity-board:** Removed a console.log ([7d7160f](https://github.com/part-up/part-up/commit/7d7160f))
 * **chats:** fixed loader ([78f8eff](https://github.com/part-up/part-up/commit/78f8eff))
 * **font:** Change path open-sans italic ([49d4aca](https://github.com/part-up/part-up/commit/49d4aca))
@@ -487,7 +736,7 @@
 
 ### Features
 
-* **activity-board:** Activity cards are now dragable on mobile devices ([b0ae8b3](https://github.com/part-up/part-up/commit/b0ae8b3)), closes [#860](https://github.com/part-up/part-up/issues/860)
+* **activity-board:** Activity cards are now dragable on mobile devices ([b0ae8b3](https://github.com/part-up/part-up/commit/b0ae8b3))
 * **activity-board:** Add scroll on drag ([dd71a7c](https://github.com/part-up/part-up/commit/dd71a7c))
 * **activity-board:** Increase edge scroll margin ([32776b0](https://github.com/part-up/part-up/commit/32776b0))
 
@@ -543,17 +792,17 @@
 * **babel:** Remove babelrc files because meteor upgrade to 1.5 ([87a07ab](https://github.com/part-up/part-up/commit/87a07ab))
 * **bootstrap:** revert to older version of autoform-tags ([f659c4b](https://github.com/part-up/part-up/commit/f659c4b))
 * **fixtures:** Add user with special characters ([4a9716b](https://github.com/part-up/part-up/commit/4a9716b))
-* **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e)), closes [#1110](https://github.com/part-up/part-up/issues/1110)
+* **flickr:** Remove flickr package from platform ([48f205e](https://github.com/part-up/part-up/commit/48f205e))
 * **image-suggestion:** Remove image suggestion from partupsettings ([cacd1a1](https://github.com/part-up/part-up/commit/cacd1a1))
-* **mentions:** Match for special characters in regex ([c4edf1a](https://github.com/part-up/part-up/commit/c4edf1a)), closes [#479](https://github.com/part-up/part-up/issues/479)
+* **mentions:** Match for special characters in regex ([c4edf1a](https://github.com/part-up/part-up/commit/c4edf1a))
 * **meteor:** meteor upgrade 1.5 ([f4e4dd1](https://github.com/part-up/part-up/commit/f4e4dd1))
-* **tribes-menu:** Make sorting case-insensitive ([eb61d56](https://github.com/part-up/part-up/commit/eb61d56)), closes [#1109](https://github.com/part-up/part-up/issues/1109)
+* **tribes-menu:** Make sorting case-insensitive ([eb61d56](https://github.com/part-up/part-up/commit/eb61d56))
 
 
 ### Features
 
 * **fixtures:** Add a user with three words ([f22c650](https://github.com/part-up/part-up/commit/f22c650))
-* **mentions:** Support three words and start with two characters ([4458833](https://github.com/part-up/part-up/commit/4458833)), closes [#479](https://github.com/part-up/part-up/issues/479)
+* **mentions:** Support three words and start with two characters ([4458833](https://github.com/part-up/part-up/commit/4458833))
 * **sector-migrations:** Simplify migrations ([85631be](https://github.com/part-up/part-up/commit/85631be))
 * **sectors:** Add phrase-key translations ([5db17bf](https://github.com/part-up/part-up/commit/5db17bf))
 * **sectors:** simplify updating networks via migration ([10e79b0](https://github.com/part-up/part-up/commit/10e79b0))
@@ -566,10 +815,10 @@
 
 ### Bug Fixes
 
-* **browser:** A user joins a tribe when a partup is created by the user ([5e1076a](https://github.com/part-up/part-up/commit/5e1076a)), closes [#1021](https://github.com/part-up/part-up/issues/1021)
-* **browser:** CSV bulk invite now trims names and lowercases emails ([d05b087](https://github.com/part-up/part-up/commit/d05b087)), closes [#959](https://github.com/part-up/part-up/issues/959)
+* **browser:** A user joins a tribe when a partup is created by the user ([5e1076a](https://github.com/part-up/part-up/commit/5e1076a))
+* **browser:** CSV bulk invite now trims names and lowercases emails ([d05b087](https://github.com/part-up/part-up/commit/d05b087))
 * **browser:** partup_archived_by_upper is now correct in the dropdown ([d26ed08](https://github.com/part-up/part-up/commit/d26ed08))
-* **browser:** partup_archived_by_upper is now correct in the dropdown ([5d7696b](https://github.com/part-up/part-up/commit/5d7696b)), closes [#436](https://github.com/part-up/part-up/issues/436)
+* **browser:** partup_archived_by_upper is now correct in the dropdown ([5d7696b](https://github.com/part-up/part-up/commit/5d7696b))
 * **chat:** fixed "Notification bulb and counter shouldn't show when you are on that chat" [#843](https://github.com/part-up/part-up/issues/843) ([711b463](https://github.com/part-up/part-up/commit/711b463))
 * **chats:** fixed "Modal page does not load after refresh" for chat page [#973](https://github.com/part-up/part-up/issues/973) ([4de78fa](https://github.com/part-up/part-up/commit/4de78fa))
 * **comments:** fixed "[@mention](https://github.com/mention) dropdown under comment input field" [#821](https://github.com/part-up/part-up/issues/821) ([d6710f2](https://github.com/part-up/part-up/commit/d6710f2))
@@ -581,14 +830,14 @@
 * **release:** Added babel-preset-es2015 ([be81ab0](https://github.com/part-up/part-up/commit/be81ab0))
 * **release:** Moved imports to requires ([427d9d0](https://github.com/part-up/part-up/commit/427d9d0))
 * **release:** Moved imports to requires for gulp tasks ([7b26160](https://github.com/part-up/part-up/commit/7b26160))
-* **sectors:** Split migrations and change sector.insert error handling ([91214eb](https://github.com/part-up/part-up/commit/91214eb)), closes [#849](https://github.com/part-up/part-up/issues/849)
+* **sectors:** Split migrations and change sector.insert error handling ([91214eb](https://github.com/part-up/part-up/commit/91214eb))
 * **swarm:** fixed "Swarm admin can't add tribe" [#783](https://github.com/part-up/part-up/issues/783) ([e042511](https://github.com/part-up/part-up/commit/e042511))
 * **updates:** Mede mogelijk gemaakt door Prik ([d95c052](https://github.com/part-up/part-up/commit/d95c052))
 
 
 ### Features
 
-* **$browser:** Added instruction videos link to menus ([4e72562](https://github.com/part-up/part-up/commit/4e72562)), closes [#1090](https://github.com/part-up/part-up/issues/1090)
+* **$browser:** Added instruction videos link to menus ([4e72562](https://github.com/part-up/part-up/commit/4e72562))
 * **reset-password:** Phraseapp key for invalid password reset token ([5a70861](https://github.com/part-up/part-up/commit/5a70861))
 
 
@@ -620,18 +869,18 @@
 ### Bug Fixes
 
 * **file-upload:** Increase file size to 10mb ([090aa91](https://github.com/part-up/part-up/commit/090aa91))
-* **file-upload:** Make plupload default handler for MediaUploadButton ([700d687](https://github.com/part-up/part-up/commit/700d687)), closes [#1038](https://github.com/part-up/part-up/issues/1038)
+* **file-upload:** Make plupload default handler for MediaUploadButton ([700d687](https://github.com/part-up/part-up/commit/700d687))
 * **my-tribes:** Add tribe not involved in partup ([a774ee7](https://github.com/part-up/part-up/commit/a774ee7))
 * **mytribes:** Add tribes where user is not involved in part-ups ([7420d84](https://github.com/part-up/part-up/commit/7420d84))
 * **mytribes:** Fix merge conflict and fixtures for mytribes ([91acb49](https://github.com/part-up/part-up/commit/91acb49))
 * **mytribes:** Merge 'master' into 'fix-mytribes-menu' ([06f67c7](https://github.com/part-up/part-up/commit/06f67c7))
-* **style:** Remove underline from hyperlink hover ([703b1eb](https://github.com/part-up/part-up/commit/703b1eb)), closes [#1078](https://github.com/part-up/part-up/issues/1078)
+* **style:** Remove underline from hyperlink hover ([703b1eb](https://github.com/part-up/part-up/commit/703b1eb))
 
 
 ### Features
 
-* **activity:** Improve activity design ([6d77f31](https://github.com/part-up/part-up/commit/6d77f31)), closes [#1073](https://github.com/part-up/part-up/issues/1073)
-* **admin-panel:** Remove stats from admin overview ([687ab1c](https://github.com/part-up/part-up/commit/687ab1c)), closes [#1067](https://github.com/part-up/part-up/issues/1067)
+* **activity:** Improve activity design ([6d77f31](https://github.com/part-up/part-up/commit/6d77f31))
+* **admin-panel:** Remove stats from admin overview ([687ab1c](https://github.com/part-up/part-up/commit/687ab1c))
 * **sectors:** Add migration 41 ([66b0df3](https://github.com/part-up/part-up/commit/66b0df3))
 * **sectors:** Cleanup extra and commented code ([9ad6aa5](https://github.com/part-up/part-up/commit/9ad6aa5))
 * **sectors:** Tribe admins can now update sector in settings ([3c30aba](https://github.com/part-up/part-up/commit/3c30aba))
@@ -657,7 +906,7 @@
 
 * **doc-upload:** Temp commit- Add PoC for IE ([fcf3c43](https://github.com/part-up/part-up/commit/fcf3c43))
 * **mytribes-menu:** Add archived_at filter to tribes ([78f658e](https://github.com/part-up/part-up/commit/78f658e)), closes [#1060](https://github.com/part-up/part-up/issues/1060)
-* **mytribes-menu:** Add tribe sort and restore updates visible ([fc11cb4](https://github.com/part-up/part-up/commit/fc11cb4)), closes [#1061](https://github.com/part-up/part-up/issues/1061) [#1062](https://github.com/part-up/part-up/issues/1062)
+* **mytribes-menu:** Add tribe sort and restore updates visible ([fc11cb4](https://github.com/part-up/part-up/commit/fc11cb4))
 * **notifications:** trigger jenkins ([fb43ecf](https://github.com/part-up/part-up/commit/fb43ecf))
 * **toggle-notifications:** Change wrapper from button to div ([fa9cb13](https://github.com/part-up/part-up/commit/fa9cb13)), closes [#838](https://github.com/part-up/part-up/issues/838)
 
@@ -667,7 +916,7 @@
 * **activity-archive:** Change menu entry based on archive status and remove prompt to confirm ([ee91707](https://github.com/part-up/part-up/commit/ee91707)), closes [#1022](https://github.com/part-up/part-up/issues/1022)
 * **activity-archive:** Now close dropdown when (un)archive is clicked ([0e5e938](https://github.com/part-up/part-up/commit/0e5e938))
 * **activity-description:** Add comments to document code ([86e9086](https://github.com/part-up/part-up/commit/86e9086))
-* **activity-description:** Add truncate activity description in boardview ([0c8c960](https://github.com/part-up/part-up/commit/0c8c960)), closes [#871](https://github.com/part-up/part-up/issues/871)
+* **activity-description:** Add truncate activity description in boardview ([0c8c960](https://github.com/part-up/part-up/commit/0c8c960))
 * **archive-activity-card:** Add mark as complete to the dropdown of an activity card ([811e662](https://github.com/part-up/part-up/commit/811e662))
 * **invite-modal:** Remove extra spacing to header ([5ef73f0](https://github.com/part-up/part-up/commit/5ef73f0))
 * **sectors:** Change keys 'sector' to 'sector_id' on objects ([c6fda36](https://github.com/part-up/part-up/commit/c6fda36))
@@ -680,10 +929,10 @@
 
 ### Features
 
-* **invite-modal:** Make invite button visible for first tiles ([b54b7e1](https://github.com/part-up/part-up/commit/b54b7e1)), closes [#1055](https://github.com/part-up/part-up/issues/1055)
-* **mytribes-menu:** Add tribes the user is not a member of ([390662e](https://github.com/part-up/part-up/commit/390662e)), closes [#1050](https://github.com/part-up/part-up/issues/1050)
+* **invite-modal:** Make invite button visible for first tiles ([b54b7e1](https://github.com/part-up/part-up/commit/b54b7e1))
+* **mytribes-menu:** Add tribes the user is not a member of ([390662e](https://github.com/part-up/part-up/commit/390662e))
 * **mytribes-menu:** Fix check user is a member of the network ([50435fe](https://github.com/part-up/part-up/commit/50435fe))
-* **sectors:** Add Phrase Key and update sector filter on discover ([9652343](https://github.com/part-up/part-up/commit/9652343)), closes [#849](https://github.com/part-up/part-up/issues/849) [#949](https://github.com/part-up/part-up/issues/949)
+* **sectors:** Add Phrase Key and update sector filter on discover ([9652343](https://github.com/part-up/part-up/commit/9652343))
 * **sectors:** Change css so other lists are not affected by new changes ([1777c23](https://github.com/part-up/part-up/commit/1777c23))
 * **sitemap:** added baseurl to separate sitemap file ([994af9e](https://github.com/part-up/part-up/commit/994af9e))
 
@@ -696,8 +945,8 @@
 ### Bug Fixes
 
 * **board:** import sortable to boardview.js ([8ef9d0b](https://github.com/part-up/part-up/commit/8ef9d0b))
-* **invite-activity:** Filter email invites ([dfffb83](https://github.com/part-up/part-up/commit/dfffb83)), closes [#1038](https://github.com/part-up/part-up/issues/1038)
-* **marketo:** Change handle accept event ([fee542d](https://github.com/part-up/part-up/commit/fee542d)), closes [#1038](https://github.com/part-up/part-up/issues/1038)
+* **invite-activity:** Filter email invites ([dfffb83](https://github.com/part-up/part-up/commit/dfffb83))
+* **marketo:** Change handle accept event ([fee542d](https://github.com/part-up/part-up/commit/fee542d))
 * **sitemap:** removed filtering of partup/network privacy types [#1041](https://github.com/part-up/part-up/issues/1041) ([e7a6df7](https://github.com/part-up/part-up/commit/e7a6df7))
 * **tribe-navigation:** Change spacing navigation dropdown ([a73ba66](https://github.com/part-up/part-up/commit/a73ba66)), closes [#1038](https://github.com/part-up/part-up/issues/1038)
 
@@ -726,7 +975,7 @@
 
 * Git merge origin/feat-tribe-landingpage into feat-tribe-landingpage ([456886f](https://github.com/part-up/part-up/commit/456886f))
 * **marketo:** fixed script loading ([f5abc87](https://github.com/part-up/part-up/commit/f5abc87))
-* **tribe-landingpage:** Change background-image opacity tribe menu header ([a56303d](https://github.com/part-up/part-up/commit/a56303d)), closes [#699](https://github.com/part-up/part-up/issues/699)
+* **tribe-landingpage:** Change background-image opacity tribe menu header ([a56303d](https://github.com/part-up/part-up/commit/a56303d))
 * **tribe-landingpage:** Fix duplicate decleration by merge ([9418217](https://github.com/part-up/part-up/commit/9418217))
 * **tribe-landingpage:** Fix merge conflict in networks.js ([85b1f82](https://github.com/part-up/part-up/commit/85b1f82))
 
@@ -741,14 +990,14 @@
 * **document-upload:** Support for document and images in IE ([b0a920e](https://github.com/part-up/part-up/commit/b0a920e))
 * **marketo-script:** Renamed marketto to marketo ([acb2571](https://github.com/part-up/part-up/commit/acb2571))
 * **marketto:** Change doc.ready to window.load for performance ([147afb6](https://github.com/part-up/part-up/commit/147afb6))
-* **marketto:** Only activate when cookies accepted ([99c14a2](https://github.com/part-up/part-up/commit/99c14a2)), closes [#725](https://github.com/part-up/part-up/issues/725)
+* **marketto:** Only activate when cookies accepted ([99c14a2](https://github.com/part-up/part-up/commit/99c14a2))
 * **partup-cog:** Change styling and remove settings from old dropdown ([0ab58e7](https://github.com/part-up/part-up/commit/0ab58e7))
 * **partup-cog:** Fix styling for network cog caused declaring styles in a generic place ([569bbe5](https://github.com/part-up/part-up/commit/569bbe5))
-* **partup-conversations:** Add conversations route ([b0aa960](https://github.com/part-up/part-up/commit/b0aa960)), closes [#921](https://github.com/part-up/part-up/issues/921)
-* **partup-conversations:** Add conversations tab ([32d7750](https://github.com/part-up/part-up/commit/32d7750)), closes [#921](https://github.com/part-up/part-up/issues/921)
-* **partup-conversations:** Add phrase keys ([f693017](https://github.com/part-up/part-up/commit/f693017)), closes [#921](https://github.com/part-up/part-up/issues/921)
-* **partup-conversations:** Change name discussion to conversation ([84ff23d](https://github.com/part-up/part-up/commit/84ff23d)), closes [#921](https://github.com/part-up/part-up/issues/921)
-* **partup-conversations-tab:** Change picon to message ([1fb2b06](https://github.com/part-up/part-up/commit/1fb2b06)), closes [#921](https://github.com/part-up/part-up/issues/921)
+* **partup-conversations:** Add conversations route ([b0aa960](https://github.com/part-up/part-up/commit/b0aa960))
+* **partup-conversations:** Add conversations tab ([32d7750](https://github.com/part-up/part-up/commit/32d7750))
+* **partup-conversations:** Add phrase keys ([f693017](https://github.com/part-up/part-up/commit/f693017))
+* **partup-conversations:** Change name discussion to conversation ([84ff23d](https://github.com/part-up/part-up/commit/84ff23d))
+* **partup-conversations-tab:** Change picon to message ([1fb2b06](https://github.com/part-up/part-up/commit/1fb2b06))
 * **tribe-landingpage:** Change phrase keys ([991efec](https://github.com/part-up/part-up/commit/991efec))
 * **tribe-landingpage:** Merge locales to new format ([9194b88](https://github.com/part-up/part-up/commit/9194b88))
 
@@ -781,7 +1030,7 @@
 * **discussions:** added conversations filter with frontend dropdown test implementation [#921](https://github.com/part-up/part-up/issues/921) ([77be359](https://github.com/part-up/part-up/commit/77be359))
 * **document-upload:** Hiding the document upload button on mobile and tablet viewports ([408768f](https://github.com/part-up/part-up/commit/408768f))
 * **marketto:** Add marketto script to head ([1b112d4](https://github.com/part-up/part-up/commit/1b112d4))
-* **marketto:** Move loading code ([f844fd2](https://github.com/part-up/part-up/commit/f844fd2)), closes [#725](https://github.com/part-up/part-up/issues/725)
+* **marketto:** Move loading code ([f844fd2](https://github.com/part-up/part-up/commit/f844fd2))
 * **partup-cog:** Change dropdown to existing template ([9c1bfa5](https://github.com/part-up/part-up/commit/9c1bfa5)), closes [#711](https://github.com/part-up/part-up/issues/711)
 * **partup-navigation:** Change styling to work on all screen sizes ([dd3e1d2](https://github.com/part-up/part-up/commit/dd3e1d2))
 * **sitemap:** added swarms to sitemap ([9e91251](https://github.com/part-up/part-up/commit/9e91251))
@@ -903,7 +1152,7 @@
 * **tribe-header:** Add hover color to button icon ([8bf1d38](https://github.com/part-up/part-up/commit/8bf1d38))
 * **tribe-header:** Change tribe-header is clickable ([ea447a5](https://github.com/part-up/part-up/commit/ea447a5))
 * **tribe-header:** Clean commented link ([fbd1ee8](https://github.com/part-up/part-up/commit/fbd1ee8))
-* **tribe-menu:** Add menu to tribe header ([d63505c](https://github.com/part-up/part-up/commit/d63505c)), closes [#748](https://github.com/part-up/part-up/issues/748)
+* **tribe-menu:** Add menu to tribe header ([d63505c](https://github.com/part-up/part-up/commit/d63505c))
 * **tribe-menu:** Add support for small screen sizes ([b62fe20](https://github.com/part-up/part-up/commit/b62fe20))
 
 
@@ -984,7 +1233,7 @@
 ### Bug Fixes
 
 * **dropbox:** loading github and dropbox stuff in head after render ([125657a](https://github.com/part-up/part-up/commit/125657a))
-* **dropbox-chooser:** no async attr on script tag ([6b5d0b6](https://github.com/part-up/part-up/commit/6b5d0b6)), closes [#948](https://github.com/part-up/part-up/issues/948)
+* **dropbox-chooser:** no async attr on script tag ([6b5d0b6](https://github.com/part-up/part-up/commit/6b5d0b6))
 
 
 
@@ -1021,7 +1270,7 @@
 * **dropdown:** Close contribution detail on click ([#942](https://github.com/part-up/part-up/issues/942)) ([bc0506f](https://github.com/part-up/part-up/commit/bc0506f)), closes [#937](https://github.com/part-up/part-up/issues/937)
 * **language:** set language based on browser default by default, if the user is logged in the language will be set to the user preference ([8b27283](https://github.com/part-up/part-up/commit/8b27283))
 * **notification:** Bulb hides after click. ([6a28e35](https://github.com/part-up/part-up/commit/6a28e35))
-* **notification:** Bulb now hides when clicked. ([60c9f5d](https://github.com/part-up/part-up/commit/60c9f5d)), closes [#712](https://github.com/part-up/part-up/issues/712)
+* **notification:** Bulb now hides when clicked. ([60c9f5d](https://github.com/part-up/part-up/commit/60c9f5d))
 * **notification:** change arrow to normal function ([a40950c](https://github.com/part-up/part-up/commit/a40950c))
 * **scroll:** allow scroll beyond header ([e60c058](https://github.com/part-up/part-up/commit/e60c058)), closes [#924](https://github.com/part-up/part-up/issues/924)
 
@@ -1033,7 +1282,7 @@
 
 ### Features
 
-* **api:** Integration with Api Gateway added. ([#935](https://github.com/part-up/part-up/issues/935)) ([d59bef2](https://github.com/part-up/part-up/commit/d59bef2)), closes [#916](https://github.com/part-up/part-up/issues/916)
+* **api:** Integration with Api Gateway added. ([#935](https://github.com/part-up/part-up/issues/935)) ([d59bef2](https://github.com/part-up/part-up/commit/d59bef2))
 
 
 
@@ -1067,7 +1316,7 @@
 * Rollback new keys for untranslated buttons, we already had one for that ([1b340b1](https://github.com/part-up/part-up/commit/1b340b1))
 * **boardview:** fixed broken lane update after activity removal, fixing [#907](https://github.com/part-up/part-up/issues/907) ([12d0aed](https://github.com/part-up/part-up/commit/12d0aed))
 * The [data-clickoutside-close] had not sense on this type of dropdown ([#910](https://github.com/part-up/part-up/issues/910)) ([048820c](https://github.com/part-up/part-up/commit/048820c)), closes [#872](https://github.com/part-up/part-up/issues/872)
-* **footer:** change link targets ([#929](https://github.com/part-up/part-up/issues/929)) ([95e9934](https://github.com/part-up/part-up/commit/95e9934)), closes [#887](https://github.com/part-up/part-up/issues/887)
+* **footer:** change link targets ([#929](https://github.com/part-up/part-up/issues/929)) ([95e9934](https://github.com/part-up/part-up/commit/95e9934))
 * **swarm:** add image for video ([247cb46](https://github.com/part-up/part-up/commit/247cb46))
 * **swarm:** change second video url ([a1591c9](https://github.com/part-up/part-up/commit/a1591c9))
 
@@ -1735,7 +1984,7 @@
 ### Features
 
 * **becomepartner:** become partner accept and decline flow fully implemented ([1ee2685](https://github.com/part-up/part-up/commit/1ee2685))
-* **emails:** use notifications@part-up.com as sender of emails instead of info [#702](https://github.com/part-up/part-up/issues/702) ([0007b86](https://github.com/part-up/part-up/commit/0007b86))
+* **emails:** use notifications[@part](https://github.com/part)-up.com as sender of emails instead of info [#702](https://github.com/part-up/part-up/issues/702) ([0007b86](https://github.com/part-up/part-up/commit/0007b86))
 * **invite:** filter by invite in partup ([a178152](https://github.com/part-up/part-up/commit/a178152))
 * **invite:** filter on invited in network ([19c9807](https://github.com/part-up/part-up/commit/19c9807))
 * **invite:** implemented resend invite to tribe ([45ebdbe](https://github.com/part-up/part-up/commit/45ebdbe))
