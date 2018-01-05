@@ -7,7 +7,13 @@
     font-size: 14px;
 
     &__buttons {
-        margin-top: getSpacing(2);
+        margin-top: getSpacing(1);
+
+        .pur-Button {
+            margin-top: getSpacing(1);
+            margin-right: getSpacing(1);
+            margin-left: getSpacing(0);
+        }
     }
 
     &__dismiss-button {
