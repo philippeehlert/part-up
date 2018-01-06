@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-Template.activityForm.onCreated(function () {
+Template.activityForm.onCreated(function() {
     const instance = this;
 
     // --- internal state
@@ -23,8 +23,14 @@ Template.activityForm.onCreated(function () {
     const { name, description, files } = this.activity;
     const { documents = [], images = [] } = files || {};
 
-    this.charactersRemaining.set('name', (this.maxLength.name - (name ? name.length : 0)));
-    this.charactersRemaining.set('description', (this.maxLength.description - (description ? description.length : 0)));
+    this.charactersRemaining.set(
+        'name',
+        this.maxLength.name - (name ? name.length : 0)
+    );
+    this.charactersRemaining.set(
+        'description',
+        this.maxLength.description - (description ? description.length : 0)
+    );
 
     if (documents.length) {
         Meteor.call('files.get', documents, function(error, result) {
@@ -53,10 +59,7 @@ Template.activityForm.onCreated(function () {
         const { files } = this.activity;
         if (files) {
             this.fileController.removeAllFilesBesides(
-                _.concat(
-                    files.images,
-                    files.documents,
-                ),
+                _.concat(files.images, files.documents)
             );
         }
 
@@ -70,7 +73,7 @@ Template.activityForm.onCreated(function () {
         try {
             AutoForm.resetForm('newActivityForm');
             AutoForm.resetForm('editActivityForm');
-        } catch (error) { }
+        } catch (error) {}
     };
 
     this.destroy = () => {
@@ -78,11 +81,11 @@ Template.activityForm.onCreated(function () {
     };
 });
 
-Template.activityForm.onRendered(function () {
+Template.activityForm.onRendered(function() {
     $('[data-dismiss]').on('click', this.removeFiles);
 });
 
-Template.activityForm.onDestroyed(function () {
+Template.activityForm.onDestroyed(function() {
     this.destroy();
 });
 
@@ -91,7 +94,9 @@ Template.activityForm.helpers({
         const instance = Template.instance();
         const form = {
             id() {
-                return instance.activity._id ? 'editActivityForm' : 'newActivityForm';
+                return instance.activity._id
+                    ? 'editActivityForm'
+                    : 'newActivityForm';
             },
             schema() {
                 return Partup.schemas.forms.activity;
@@ -128,7 +133,7 @@ Template.activityForm.helpers({
     },
     isArchived() {
         return this.archived;
-    }
+    },
 });
 
 Template.activityForm.events({
@@ -138,7 +143,8 @@ Template.activityForm.events({
     },
     'input [maxlength]'(event, templateInstance) {
         const { target } = event;
-        const newVal = templateInstance.maxLength[target.name] - target.value.length;
+        const newVal =
+            templateInstance.maxLength[target.name] - target.value.length;
         templateInstance.charactersRemaining.set(target.name, newVal);
 
         if (target.name === 'description') {
@@ -146,26 +152,34 @@ Template.activityForm.events({
         }
     },
     'click [data-archive]'(event, templateInstance) {
-        Meteor.call('activities.archive', templateInstance.activity._id, function(error, result) {
-            if (result && result._id) {
-                templateInstance.removeFiles();
-                templateInstance.destroy();
+        Meteor.call(
+            'activities.archive',
+            templateInstance.activity._id,
+            function(error, result) {
+                if (result && result._id) {
+                    templateInstance.removeFiles();
+                    templateInstance.destroy();
+                }
+                if (Partup.client.popup.current.get()) {
+                    Partup.client.popup.close('edit-activity-$');
+                }
             }
-            if (Partup.client.popup.current.get()) {
-                Partup.client.popup.close('edit-activity-$');
-            }
-        });
+        );
     },
     'click [data-unarchive]'(event, templateInstance) {
         Meteor.call('activities.unarchive', templateInstance.activity._id);
     },
     'click [data-remove]'(event, templateInstance) {
-        Meteor.call('activities.remove', templateInstance.activity._id, function (error, result) {
-            templateInstance.destroy();
-            if (Partup.client.popup.current.get()) {
-                Partup.client.popup.close();
+        Meteor.call(
+            'activities.remove',
+            templateInstance.activity._id,
+            function(error, result) {
+                templateInstance.destroy();
+                if (Partup.client.popup.current.get()) {
+                    Partup.client.popup.close();
+                }
             }
-        });
+        );
     },
 });
 
@@ -175,7 +189,10 @@ AutoForm.hooks({
             const self = this;
             const activityForm = Template.instance().parent();
 
-            if (activityForm.fileController.uploading.get() || activityForm.isSubmitting.get()) {
+            if (
+                activityForm.fileController.uploading.get() ||
+                activityForm.isSubmitting.get()
+            ) {
                 return false;
             }
             activityForm.isSubmitting.set(true);
@@ -192,36 +209,45 @@ AutoForm.hooks({
             }
 
             activityForm.fileController.files.get().forEach((file) => {
-                const type = Partup.helpers.files.isImage(file) ? 'images' : 'documents';
+                const type = Partup.helpers.files.isImage(file)
+                    ? 'images'
+                    : 'documents';
                 formData.files[type].push(file._id);
             });
 
-            Meteor.call('activities.insert', activityForm.partupId, formData, function (error, result) {
-                if (Partup.client.popup.current.get()) {
-                    Partup.client.popup.close();
-                }
-
-                if (result && result._id) {
-                    try {
-                        analytics.track('activity inserted', {
-                            partupId: activityForm.partupId,
-                        });
-                        if (activityForm.data.createCallback && typeof activityForm.data.createCallback === 'function') {
-                            activityForm.data.createCallback(result._id);
-                        }
-                    } catch (err) {
-                        throw err;
+            Meteor.call(
+                'activities.insert',
+                activityForm.partupId,
+                formData,
+                function(error, result) {
+                    if (Partup.client.popup.current.get()) {
+                        Partup.client.popup.close();
                     }
-                    self.done();
-                } else if (error) {
-                    AutoForm.validateForm('newActivityForm');
-                    self.done(new Error(error.message));
-                    return;
-                }
 
-                AutoForm.resetForm('newActivityForm');
-                activityForm.reset();
-            });
+                    if (result && result._id) {
+                        try {
+                            analytics.track('activity inserted', {
+                                partupId: activityForm.partupId,
+                            });
+                            if (
+                                activityForm.data.createCallback &&
+                                typeof activityForm.data.createCallback ===
+                                    'function'
+                            ) {
+                                activityForm.data.createCallback(result._id);
+                            }
+                        } catch (err) {}
+                        self.done();
+                    } else if (error) {
+                        AutoForm.validateForm('newActivityForm');
+                        self.done(new Error(error.message));
+                        return;
+                    }
+
+                    AutoForm.resetForm('newActivityForm');
+                    activityForm.reset();
+                }
+            );
             return false;
         },
     },
@@ -230,7 +256,10 @@ AutoForm.hooks({
             const self = this;
             const activityForm = Template.instance().parent();
 
-            if (activityForm.fileController.uploading.get() || activityForm.isSubmitting.get()) {
+            if (
+                activityForm.fileController.uploading.get() ||
+                activityForm.isSubmitting.get()
+            ) {
                 return false;
             }
             activityForm.isSubmitting.set(true);
@@ -243,31 +272,38 @@ AutoForm.hooks({
             });
 
             activityForm.fileController.files.get().forEach((file) => {
-                const type = Partup.helpers.files.isImage(file) ? 'images' : 'documents';
+                const type = Partup.helpers.files.isImage(file)
+                    ? 'images'
+                    : 'documents';
                 formData.files[type].push(file._id);
             });
 
-            Meteor.call('activities.update', activityForm.activity._id, formData, function (error, result) {
-                if (Partup.client.popup.current.get().length) {
-                    Partup.client.popup.close();
-                }
-                if (result && result._id) {
-                    try {
-                        AutoForm.resetForm('editActivityForm');
-                    } catch (err) {
-                        throw err;
+            Meteor.call(
+                'activities.update',
+                activityForm.activity._id,
+                formData,
+                function(error, result) {
+                    if (Partup.client.popup.current.get().length) {
+                        Partup.client.popup.close();
                     }
-                    self.done();
-                } else if (error) {
-                    Partup.client.notify.error(error.message);
-                    AutoForm.validateForm('editActivityForm');
-                    self.done(new Error(error.message));
-                    return;
-                }
+                    if (result && result._id) {
+                        try {
+                            AutoForm.resetForm('editActivityForm');
+                        } catch (err) {
+                            throw err;
+                        }
+                        self.done();
+                    } else if (error) {
+                        Partup.client.notify.error(error.message);
+                        AutoForm.validateForm('editActivityForm');
+                        self.done(new Error(error.message));
+                        return;
+                    }
 
-                AutoForm.resetForm('editActivityForm');
-                activityForm.reset();
-            });
+                    AutoForm.resetForm('editActivityForm');
+                    activityForm.reset();
+                }
+            );
             return false;
         },
     },
