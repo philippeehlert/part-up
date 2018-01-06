@@ -38,14 +38,14 @@ Router.route('', {
 /*************************************************************/
 /* Dashboard */
 /*************************************************************/
-Router.route('/home', {
-    name: 'dashboard',
-    where: 'client',
-    yieldRegions: {
-        'app': { to: 'main' },
-        'app_dashboard': { to: 'app' },
-    },
-});
+// Router.route('/home', {
+//     name: 'dashboard',
+//     where: 'client',
+//     yieldRegions: {
+//         'app': { to: 'main' },
+//         'app_dashboard': { to: 'app' },
+//     },
+// });
 
 /*************************************************************/
 /* Discover */
