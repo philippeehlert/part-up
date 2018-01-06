@@ -1,13 +1,13 @@
-import {
-    get,
-} from 'lodash';
+import { get } from 'lodash';
 
-Template.app_partup.onCreated(function () {
+Template.app_partup.onCreated(function() {
     const template = this;
 
     template.network = new ReactiveVar(undefined);
     template.partup = new ReactiveVar(undefined, (oldVal, newVal) => {
-        template.network.set(newVal ? Networks.findOne(newVal.network_id) : undefined);
+        template.network.set(
+            newVal ? Networks.findOne(newVal.network_id) : undefined
+        );
         if (newVal) {
             // this throws an error on chrome about a subscription
             // It's very important to keep this in order for the updates to keep working
@@ -30,9 +30,14 @@ Template.app_partup.onCreated(function () {
             ? sidebarCookie.toBool()
             : !Partup.client.isMobile.isTabletOrMobile();
 
-    template.sidebarExpanded = new ReactiveVar(sidebarState, (oldVal, newVal) => {
-        Cookies.set('partup_sidebar_expanded', newVal, { expires: Infinity });
-    });
+    template.sidebarExpanded = new ReactiveVar(
+        sidebarState,
+        (oldVal, newVal) => {
+            Cookies.set('partup_sidebar_expanded', newVal, {
+                expires: Infinity,
+            });
+        }
+    );
 
     window.addEventListener('orientationchange', () => {
         if (screen.width < screen.height) {
@@ -42,7 +47,7 @@ Template.app_partup.onCreated(function () {
         }
     });
 
-    template.autorun(function () {
+    template.autorun(function() {
         const partupId = Template.currentData().partupId;
         const accessToken = Session.get('partup_access_token');
 
@@ -54,7 +59,12 @@ Template.app_partup.onCreated(function () {
             onReady() {
                 const partup = Partups.findOne(partupId);
                 if (partup) {
-                    if (!partup.isViewableByUser(Meteor.userId(), Session.get('partup_access_token'))) {
+                    if (
+                        !partup.isViewableByUser(
+                            Meteor.userId(),
+                            Session.get('partup_access_token')
+                        )
+                    ) {
                         return Router.pageNotFound('partup-closed');
                     }
                     return template.partup.set(partup);
@@ -63,10 +73,17 @@ Template.app_partup.onCreated(function () {
                 return Router.pageNotFound('partup');
             },
         });
-
         template.subscribe('updates.from_partup', partupId, {}, accessToken);
-        template.subscribe('board.for_partup_id', partupId, accessToken);
-        template.subscribe('activities.from_partup', partupId, accessToken);
+        template.subscribe('board.for_partup_id', partupId, accessToken, {
+            onReady() {
+                template.loading.board.set(false);
+            },
+        });
+        template.subscribe('activities.from_partup', partupId, accessToken, {
+            onReady() {
+                template.loading.activities.set(false);
+            },
+        });
     });
 });
 
@@ -80,8 +97,15 @@ Template.app_partup.helpers({
     partupLoaded() {
         const { loading, partup } = Template.instance();
 
-        if (ActiveRoute.name(/partup-activities/) && get(partup.get(), 'board_view', false)) {
-            return !loading.partup.get() && !loading.board.get() && !loading.activities.get();
+        if (
+            ActiveRoute.name(/partup-activities/) &&
+            get(partup.get(), 'board_view', false)
+        ) {
+            return (
+                !loading.partup.get() &&
+                !loading.board.get() &&
+                !loading.activities.get()
+            );
         }
 
         return !loading.partup.get();
@@ -90,16 +114,25 @@ Template.app_partup.helpers({
         return Template.instance().sidebarExpanded.get();
     },
     scrollHorizontal() {
-        return Router.current().route.getName() === 'partup-activities' && (Template.instance().partup.get() && Template.instance().partup.get().board_view);
+        return (
+            Router.current().route.getName() === 'partup-activities' &&
+            (Template.instance().partup.get() &&
+                Template.instance().partup.get().board_view)
+        );
     },
     partupStartClassName() {
-        return Router.current().route.getName() === 'partup-start' && 'pu-partup-start';
-    }
+        return (
+            Router.current().route.getName() === 'partup-start' &&
+            'pu-partup-start'
+        );
+    },
 });
 
 Template.app_partup.events({
     'click [data-toggle-sidebar]': (event, templateInstance) => {
         event.preventDefault();
-        templateInstance.sidebarExpanded.set(!templateInstance.sidebarExpanded.curValue);
+        templateInstance.sidebarExpanded.set(
+            !templateInstance.sidebarExpanded.curValue
+        );
     },
 });
