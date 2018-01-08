@@ -5,6 +5,9 @@
   "files.exclude": {
     "app/packages/partup-client-react/react/src/**/*.css": true
   },
+  "[json]": {
+    "editor.formatOnSave": false
+  },
   "[html]": {
     "editor.formatOnSave": false
   }
