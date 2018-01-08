@@ -1,5 +1,4 @@
 .pu-activity {
-
     // The design is created for the update timeline,
     // modifcations are done below the original design.
 
@@ -11,7 +10,7 @@
         &.hidden {
             display: none;
         }
-        
+
         &:first-child {
             border-top: 0;
         }
@@ -41,28 +40,24 @@
                     .pu-list-dropdown {
                         min-width: em(140);
                         padding: em(0);
-                        
-                        > ul {
-                            list-style: none;
-                            position: relative;
-                            padding: em(0);
+                        list-style: none;
+                        position: relative;
+                        padding: em(0);
 
-                            .pu-dropdown-item {
-                                > a {
-                                    display: block;
-                                    padding: em(8) em(10);
-                                    color: $color-text;
-                                    text-decoration: none;
-                                }
+                        .pu-dropdown-item {
+                            > a {
+                                display: block;
+                                padding: em(8) em(10);
+                                color: $color-text;
+                                text-decoration: none;
+                            }
 
-                                &:hover {
-                                    background: $color-background-secondary;
-                                }
+                            &:hover {
+                                background: $color-background-secondary;
                             }
                         }
                     }
                 }
-
             }
 
             .pu-sub-title {
@@ -76,7 +71,7 @@
                 > a {
                     color: rgb(41, 41, 41);
                 }
-    
+
                 .pu-tag {
                     margin: em(0) em(10) em(0) em(-2);
                     cursor: pointer;
@@ -151,7 +146,7 @@
                     &.date {
                         .meta-span {
                             padding-top: em(2);
-                            
+
                             time {
                                 margin: em(0);
                                 padding: em(2) em(0) em(0) em(0);
@@ -165,13 +160,14 @@
                         clear: both;
                         height: 33px;
                         padding: em(3) em(5) em(5) em(0);
-                        
+
                         .pu-btn {
                             height: 100%;
                             padding: em(0) em(10);
                             display: inline-block;
                             border: none;
                             background: transparent;
+                            font-family: $font-primary;
                             font-size: em(15);
                             vertical-align: top;
                             color: $color-secondary;
@@ -179,7 +175,7 @@
 
                             &:active {
                                 outline: none;
-                            } 
+                            }
                             &:focus {
                                 outline: none;
                             }
@@ -222,7 +218,8 @@
                                 }
                             }
 
-                            &-me, &-you {
+                            &-me,
+                            &-you {
                                 > span {
                                     display: inline-block;
                                     vertical-align: middle;
@@ -237,7 +234,7 @@
         &-contributions {
             @extend .pu-sub-section;
             padding: em(6) em(13);
-            
+
             .pu-avatar-stack {
                 height: em(35);
                 > li {
@@ -245,7 +242,7 @@
                     height: em(35);
                     margin-left: em(-15);
                     border: solid em(2) white;
-                    
+
                     &:first-child {
                         margin-left: em(0);
                     }
@@ -282,7 +279,6 @@
                         &.pu-sub-action {
                             display: none;
                         }
-
                     }
                     .pu-sub-seperator {
                         display: none;
@@ -315,9 +311,7 @@
     }
 
     &-board-card {
-
         .pu-sub-section {
-
             &-main {
                 .more-options {
                     > svg {
@@ -331,12 +325,11 @@
 
                     > a {
                         font-size: em(16);
-                        
+
                         &:hover {
                             text-decoration: underline;
                         }
                     }
-
                 }
                 .pu-paragraph {
                     margin-top: em(4);
@@ -370,7 +363,7 @@
                                 padding-top: em(6);
                             }
                         }
-    
+
                         &.files {
                             .picon {
                                 font-size: em(15);

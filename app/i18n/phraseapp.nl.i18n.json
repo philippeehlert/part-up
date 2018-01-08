@@ -1982,5 +1982,9 @@
   "widgetcommentfield-comment-systemmessage-show": "Laat meldingen zien",
   "widgetcommentfield-comment-totalcomments": "__count__ reactie",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ reacties",
-  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties"
+  "widgetcommentfield-comment-viewall-button": "Toon alle %s reacties",
+  "star": "Voeg ster toe",
+  "unstar": "Haal ster weg",
+  "pur-partup-start-starred-updates_title": "Belangrijkste updates",
+  "pur-partup-start-starred-updates_no-starred": "Er zijn nog geen updates met ster"
 }
