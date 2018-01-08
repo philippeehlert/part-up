@@ -3,8 +3,8 @@
  *
  * @memberOf Lanes
  */
-var Lane = function(document) {
-    _.extend(this, document);
+let Lane = function(document) {
+  _.extend(this, document);
 };
 
 /**
@@ -13,7 +13,7 @@ var Lane = function(document) {
  * @memberOf Lanes
  */
 Lane.prototype.addActivity = function(activityId) {
-    Lanes.update(this._id, {$addToSet: {activities: activityId}});
+  Lanes.update(this._id, { $addToSet: { activities: activityId } });
 };
 
 /**
@@ -22,21 +22,21 @@ Lane.prototype.addActivity = function(activityId) {
  * @memberOf Lanes
  */
 Lane.prototype.removeActivity = function(activityId) {
-    Lanes.update(this._id, {$pull: {activities: activityId}});
+  Lanes.update(this._id, { $pull: { activities: activityId } });
 };
 
 /**
  @namespace Lanes
  */
 Lanes = new Mongo.Collection('lanes', {
-    transform: function(document) {
-        return new Lane(document);
-    }
+  transform: function(document) {
+    return new Lane(document);
+  },
 });
 
 // Add indices
 if (Meteor.isServer) {
-    Lanes._ensureIndex('board_id');
+  Lanes._ensureIndex('board_id');
 }
 
 /**
@@ -47,5 +47,5 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor}
  */
 Lanes.findForBoard = function(board) {
-    return Lanes.find({board_id: board._id});
+  return Lanes.find({ board_id: board._id });
 };

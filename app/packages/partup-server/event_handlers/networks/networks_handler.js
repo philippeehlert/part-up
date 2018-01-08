@@ -2,167 +2,209 @@
  * Generate a notification for an upper when getting accepted for a network
  */
 Event.on('networks.accepted', function(userId, networkId, upperId) {
-    var network = Networks.findOneOrFail(networkId);
-    var acceptedUpper = Meteor.users.findOneOrFail(upperId);
-    if (!User(acceptedUpper).isActive()) return; // Ignore deactivated accounts
+  let network = Networks.findOneOrFail(networkId);
+  let acceptedUpper = Meteor.users.findOneOrFail(upperId);
+  if (!User(acceptedUpper).isActive()) return; // Ignore deactivated accounts
 
-    // Add upper to chat counter
-    var chat = Chats.findOne(network.chat_id);
-    if (chat) {
-        chat.addUserToCounter(acceptedUpper._id);
-    }
+  // Add upper to chat counter
+  let chat = Chats.findOne(network.chat_id);
+  if (chat) {
+    chat.addUserToCounter(acceptedUpper._id);
+  }
 
-    var notificationType = 'partups_networks_accepted';
+  let notificationType = 'partups_networks_accepted';
 
-    // Send notifications to accepted upper
-    var notificationOptions = {
-        userId: acceptedUpper._id,
-        type: notificationType,
-        typeData: {
-            network: {
-                _id: network._id,
-                name: network.name,
-                image: network.image,
-                slug: network.slug
-            }
-        }
-    };
+  // Send notifications to accepted upper
+  let notificationOptions = {
+    userId: acceptedUpper._id,
+    type: notificationType,
+    typeData: {
+      network: {
+        _id: network._id,
+        name: network.name,
+        image: network.image,
+        slug: network.slug,
+      },
+    },
+  };
 
-    Partup.server.services.notifications.send(notificationOptions);
+  Partup.server.services.notifications.send(notificationOptions);
 
-    // Set the email details
-    var emailOptions = {
-        type: notificationType,
-        toAddress: User(acceptedUpper).getEmail(),
-        subject: TAPi18n.__('emails-partups_networks_accepted-subject', {network: network.name}, User(acceptedUpper).getLocale()),
-        locale: User(acceptedUpper).getLocale(),
-        typeData: {
-            name: User(acceptedUpper).getFirstname(),
-            networkName: network.name,
-            url: Meteor.absoluteUrl() + 'tribes/' + network.slug,
-            unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + acceptedUpper.profile.settings.unsubscribe_email_token,
-            unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + acceptedUpper.profile.settings.unsubscribe_email_token
-        },
-        userEmailPreferences: acceptedUpper.profile.settings.email
-    };
+  // Set the email details
+  let emailOptions = {
+    type: notificationType,
+    toAddress: User(acceptedUpper).getEmail(),
+    subject: TAPi18n.__(
+      'emails-partups_networks_accepted-subject',
+      { network: network.name },
+      User(acceptedUpper).getLocale()
+    ),
+    locale: User(acceptedUpper).getLocale(),
+    typeData: {
+      name: User(acceptedUpper).getFirstname(),
+      networkName: network.name,
+      url: Meteor.absoluteUrl() + 'tribes/' + network.slug,
+      unsubscribeOneUrl:
+        Meteor.absoluteUrl() +
+        'unsubscribe-email-one/' +
+        notificationType +
+        '/' +
+        acceptedUpper.profile.settings.unsubscribe_email_token,
+      unsubscribeAllUrl:
+        Meteor.absoluteUrl() +
+        'unsubscribe-email-all/' +
+        acceptedUpper.profile.settings.unsubscribe_email_token,
+    },
+    userEmailPreferences: acceptedUpper.profile.settings.email,
+  };
 
-    // Send the email
-    Partup.server.services.emails.send(emailOptions, acceptedUpper);
+  // Send the email
+  Partup.server.services.emails.send(emailOptions, acceptedUpper);
 });
 
 /**
  * Generate a notification for the network admins when a new upper is pending
  */
 Event.on('networks.new_pending_upper', function(network, pendingUpper) {
-    var notificationType = 'partups_networks_new_pending_upper';
-    var admins = Meteor.users.find({_id: {$in: network.admins}});
+  let notificationType = 'partups_networks_new_pending_upper';
+  let admins = Meteor.users.find({ _id: { $in: network.admins } });
 
-    admins.forEach(function(admin) {
-        // Send notifications to network admin
-        var notificationOptions = {
-            userId: admin._id,
-            type: notificationType,
-            typeData: {
-                pending_upper: {
-                    _id: pendingUpper._id,
-                    name: pendingUpper.profile.name,
-                    image: pendingUpper.profile.image
-                },
-                network: {
-                    _id: network._id,
-                    name: network.name,
-                    image: network.image,
-                    slug: network.slug
-                }
-            }
-        };
+  admins.forEach(function(admin) {
+    // Send notifications to network admin
+    let notificationOptions = {
+      userId: admin._id,
+      type: notificationType,
+      typeData: {
+        pending_upper: {
+          _id: pendingUpper._id,
+          name: pendingUpper.profile.name,
+          image: pendingUpper.profile.image,
+        },
+        network: {
+          _id: network._id,
+          name: network.name,
+          image: network.image,
+          slug: network.slug,
+        },
+      },
+    };
 
-        Partup.server.services.notifications.send(notificationOptions);
+    Partup.server.services.notifications.send(notificationOptions);
 
-        // Set the email details
-        var emailOptions = {
-            type: notificationType,
-            toAddress: User(admin).getEmail(),
-            subject: TAPi18n.__('emails-partups_networks_new_pending_upper-subject', {
-                upper: pendingUpper.profile.name,
-                network: network.name
-            }, User(admin).getLocale()),
-            locale: User(admin).getLocale(),
-            typeData: {
-                name: User(admin).getFirstname(),
-                pendingUpperName: pendingUpper.profile.name,
-                networkName: network.name,
-                url: Meteor.absoluteUrl() + 'tribes/' + network.slug + '/settings/requests',
-                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + admin.profile.settings.unsubscribe_email_token,
-                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + admin.profile.settings.unsubscribe_email_token
-            },
-            userEmailPreferences: admin.profile.settings.email
-        };
+    // Set the email details
+    let emailOptions = {
+      type: notificationType,
+      toAddress: User(admin).getEmail(),
+      subject: TAPi18n.__(
+        'emails-partups_networks_new_pending_upper-subject',
+        {
+          upper: pendingUpper.profile.name,
+          network: network.name,
+        },
+        User(admin).getLocale()
+      ),
+      locale: User(admin).getLocale(),
+      typeData: {
+        name: User(admin).getFirstname(),
+        pendingUpperName: pendingUpper.profile.name,
+        networkName: network.name,
+        url:
+          Meteor.absoluteUrl() +
+          'tribes/' +
+          network.slug +
+          '/settings/requests',
+        unsubscribeOneUrl:
+          Meteor.absoluteUrl() +
+          'unsubscribe-email-one/' +
+          notificationType +
+          '/' +
+          admin.profile.settings.unsubscribe_email_token,
+        unsubscribeAllUrl:
+          Meteor.absoluteUrl() +
+          'unsubscribe-email-all/' +
+          admin.profile.settings.unsubscribe_email_token,
+      },
+      userEmailPreferences: admin.profile.settings.email,
+    };
 
-        // Send the email
-        Partup.server.services.emails.send(emailOptions, admin);
-    });
+    // Send the email
+    Partup.server.services.emails.send(emailOptions, admin);
+  });
 });
 
 /**
  * Generate a notification for the network uppers to notify the new upper
  */
 Event.on('networks.uppers.inserted', function(newUpper, network) {
-    // Add upper to chat counter
-    var chat = Chats.findOne(network.chat_id);
-    if (chat) {
-        chat.addUserToCounter(newUpper._id);
-    }
+  // Add upper to chat counter
+  let chat = Chats.findOne(network.chat_id);
+  if (chat) {
+    chat.addUserToCounter(newUpper._id);
+  }
 
-    var notificationType = 'partups_networks_new_upper';
+  let notificationType = 'partups_networks_new_upper';
 
-    // Send notifications to all uppers in network
-    var networkUppers = network.uppers || [];
-    Meteor.users.find({_id: {$in: networkUppers}}).forEach(function(networkUpper) {
-        if (!User(networkUpper).isActive()) return; // Ignore deactivated accounts
-        // Don't notify the upper that just joined
-        if (networkUpper._id === newUpper._id) return;
+  // Send notifications to all uppers in network
+  let networkUppers = network.uppers || [];
+  Meteor.users
+    .find({ _id: { $in: networkUppers } })
+    .forEach(function(networkUpper) {
+      if (!User(networkUpper).isActive()) return; // Ignore deactivated accounts
+      // Don't notify the upper that just joined
+      if (networkUpper._id === newUpper._id) return;
 
-        // Set-up notification options
-        var notificationOptions = {
-            userId: networkUpper._id,
-            type: notificationType,
-            typeData: {
-                upper: {
-                    _id: newUpper._id,
-                    name: newUpper.profile.name,
-                    image: newUpper.profile.image
-                },
-                network: {
-                    _id: network._id,
-                    name: network.name,
-                    image: network.image,
-                    slug: network.slug
-                }
-            }
-        };
+      // Set-up notification options
+      let notificationOptions = {
+        userId: networkUpper._id,
+        type: notificationType,
+        typeData: {
+          upper: {
+            _id: newUpper._id,
+            name: newUpper.profile.name,
+            image: newUpper.profile.image,
+          },
+          network: {
+            _id: network._id,
+            name: network.name,
+            image: network.image,
+            slug: network.slug,
+          },
+        },
+      };
 
-        Partup.server.services.notifications.send(notificationOptions);
+      Partup.server.services.notifications.send(notificationOptions);
 
-        // Set the email details
-        var emailOptions = {
-            type: notificationType,
-            toAddress: User(networkUpper).getEmail(),
-            subject: TAPi18n.__('emails-' + notificationType + '-subject', {network: network.name}, User(networkUpper).getLocale()),
-            locale: User(networkUpper).getLocale(),
-            typeData: {
-                name: User(networkUpper).getFirstname(),
-                upperName: newUpper.profile.name,
-                networkName: network.name,
-                url: Meteor.absoluteUrl() + 'tribes/' + network.slug + '/uppers',
-                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + networkUpper.profile.settings.unsubscribe_email_token,
-                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + networkUpper.profile.settings.unsubscribe_email_token
-            },
-            userEmailPreferences: networkUpper.profile.settings.email
-        };
+      // Set the email details
+      let emailOptions = {
+        type: notificationType,
+        toAddress: User(networkUpper).getEmail(),
+        subject: TAPi18n.__(
+          'emails-' + notificationType + '-subject',
+          { network: network.name },
+          User(networkUpper).getLocale()
+        ),
+        locale: User(networkUpper).getLocale(),
+        typeData: {
+          name: User(networkUpper).getFirstname(),
+          upperName: newUpper.profile.name,
+          networkName: network.name,
+          url: Meteor.absoluteUrl() + 'tribes/' + network.slug + '/uppers',
+          unsubscribeOneUrl:
+            Meteor.absoluteUrl() +
+            'unsubscribe-email-one/' +
+            notificationType +
+            '/' +
+            networkUpper.profile.settings.unsubscribe_email_token,
+          unsubscribeAllUrl:
+            Meteor.absoluteUrl() +
+            'unsubscribe-email-all/' +
+            networkUpper.profile.settings.unsubscribe_email_token,
+        },
+        userEmailPreferences: networkUpper.profile.settings.email,
+      };
 
-        // Send the email
-        Partup.server.services.emails.send(emailOptions, networkUpper);
+      // Send the email
+      Partup.server.services.emails.send(emailOptions, networkUpper);
     });
 });
 
@@ -170,55 +212,67 @@ Event.on('networks.uppers.inserted', function(newUpper, network) {
  * Generate a notification for all network admins to notify that an upper left
  */
 Event.on('networks.uppers.removed', function(upper, network) {
-    // Remove upper from chat counter
-    var chat = Chats.findOne(network.chat_id);
-    if (chat) {
-        chat.removeUserFromCounter(upper._id);
-    }
+  // Remove upper from chat counter
+  let chat = Chats.findOne(network.chat_id);
+  if (chat) {
+    chat.removeUserFromCounter(upper._id);
+  }
 
-    var notificationType = 'partups_networks_upper_left';
+  let notificationType = 'partups_networks_upper_left';
 
-    var admins = Meteor.users.find({_id: {$in: network.admins || []}});
+  let admins = Meteor.users.find({ _id: { $in: network.admins || [] } });
 
-    admins.forEach(function(networkAdmin) {
-        var notificationOptions = {
-            userId: networkAdmin._id,
-            type: notificationType,
-            typeData: {
-                upper: {
-                    _id: upper._id,
-                    name: upper.profile.name,
-                    image: upper.profile.image
-                },
-                network: {
-                    _id: network._id,
-                    name: network.name,
-                    image: network.image,
-                    slug: network.slug
-                }
-            }
-        };
+  admins.forEach(function(networkAdmin) {
+    let notificationOptions = {
+      userId: networkAdmin._id,
+      type: notificationType,
+      typeData: {
+        upper: {
+          _id: upper._id,
+          name: upper.profile.name,
+          image: upper.profile.image,
+        },
+        network: {
+          _id: network._id,
+          name: network.name,
+          image: network.image,
+          slug: network.slug,
+        },
+      },
+    };
 
-        Partup.server.services.notifications.send(notificationOptions);
+    Partup.server.services.notifications.send(notificationOptions);
 
-        // Set the email details
-        var emailOptions = {
-            type: notificationType,
-            toAddress: User(networkAdmin).getEmail(),
-            subject: TAPi18n.__('emails-' + notificationType + '-subject', {network: network.name}, User(networkAdmin).getLocale()),
-            locale: User(networkAdmin).getLocale(),
-            typeData: {
-                name: User(networkAdmin).getFirstname(),
-                upperName: upper.profile.name,
-                networkName: network.name,
-                url: Meteor.absoluteUrl() + 'tribes/' + network.slug + '/uppers',
-                unsubscribeOneUrl: Meteor.absoluteUrl() + 'unsubscribe-email-one/' + notificationType + '/' + networkAdmin.profile.settings.unsubscribe_email_token,
-                unsubscribeAllUrl: Meteor.absoluteUrl() + 'unsubscribe-email-all/' + networkAdmin.profile.settings.unsubscribe_email_token
-            },
-            userEmailPreferences: networkAdmin.profile.settings.email
-        };
+    // Set the email details
+    let emailOptions = {
+      type: notificationType,
+      toAddress: User(networkAdmin).getEmail(),
+      subject: TAPi18n.__(
+        'emails-' + notificationType + '-subject',
+        { network: network.name },
+        User(networkAdmin).getLocale()
+      ),
+      locale: User(networkAdmin).getLocale(),
+      typeData: {
+        name: User(networkAdmin).getFirstname(),
+        upperName: upper.profile.name,
+        networkName: network.name,
+        url: Meteor.absoluteUrl() + 'tribes/' + network.slug + '/uppers',
+        unsubscribeOneUrl:
+          Meteor.absoluteUrl() +
+          'unsubscribe-email-one/' +
+          notificationType +
+          '/' +
+          networkAdmin.profile.settings.unsubscribe_email_token,
+        unsubscribeAllUrl:
+          Meteor.absoluteUrl() +
+          'unsubscribe-email-all/' +
+          networkAdmin.profile.settings.unsubscribe_email_token,
+      },
+      userEmailPreferences: networkAdmin.profile.settings.email,
+    };
 
-        // Send the email
-        Partup.server.services.emails.send(emailOptions, networkAdmin);
-    });
+    // Send the email
+    Partup.server.services.emails.send(emailOptions, networkAdmin);
+  });
 });

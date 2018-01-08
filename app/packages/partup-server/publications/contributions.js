@@ -1,7 +1,6 @@
+Meteor.publish('contributions.for_activity', function(activityId) {
+  check(activityId, String);
+  this.unblock();
 
-Meteor.publish('contributions.for_activity', function (activityId) {
-    check(activityId, String);
-    this.unblock();
-
-    return Contributions.find({ activity_id: activityId });
+  return Contributions.find({ activity_id: activityId });
 });

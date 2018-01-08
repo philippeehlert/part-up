@@ -7,35 +7,35 @@ import { throttle } from 'lodash';
  */
 
 Partup.client.screen = {
-    _initialized: false,
+  _initialized: false,
 
-    init() {
-        if (!window || this._initialized) return;
-        const updateSize = throttle(this.triggerUpdate, 16);
+  init() {
+    if (!window || this._initialized) return;
+    const updateSize = throttle(this.triggerUpdate, 16);
 
-        window.addEventListener('resize', updateSize);
-        window.addEventListener('orientationchange', updateSize);
-        Meteor.defer(this.triggerUpdate);
+    window.addEventListener('resize', updateSize);
+    window.addEventListener('orientationchange', updateSize);
+    Meteor.defer(this.triggerUpdate);
 
-        this._initialized = true;
-    },
+    this._initialized = true;
+  },
 
-    /**
-     * Current size reactive dict
-     *
-     * @memberof Partup.client.screen
-     */
-    size: new ReactiveDict(),
+  /**
+   * Current size reactive dict
+   *
+   * @memberof Partup.client.screen
+   */
+  size: new ReactiveDict(),
 
-    /**
-     * Trigger a size update
-     *
-     * @memberof Partup.client.screen
-     */
-    triggerUpdate() {
-        Partup.client.screen.size.set('width', window.innerWidth);
-        Partup.client.screen.size.set('height', window.innerHeight);
-    },
+  /**
+   * Trigger a size update
+   *
+   * @memberof Partup.client.screen
+   */
+  triggerUpdate() {
+    Partup.client.screen.size.set('width', window.innerWidth);
+    Partup.client.screen.size.set('height', window.innerHeight);
+  },
 };
 
 Partup.client.screen.init();

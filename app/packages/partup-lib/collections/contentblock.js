@@ -1,8 +1,8 @@
 /**
  * @ignore
  */
-var ContentBlock = function(document) {
-    _.extend(this, document);
+let ContentBlock = function(document) {
+  _.extend(this, document);
 };
 
 /**
@@ -10,7 +10,7 @@ var ContentBlock = function(document) {
  @name ContentBlocks
  */
 ContentBlocks = new Mongo.Collection('contentblocks', {
-    transform: function(document) {
-        return new ContentBlock(document);
-    }
+  transform: function(document) {
+    return new ContentBlock(document);
+  },
 });

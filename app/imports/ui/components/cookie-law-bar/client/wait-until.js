@@ -7,7 +7,7 @@
  * @param {int} interval Number of milliseconds to wait between attempts (default 20ms)
  */
 
-export const waitUntil = function(isready, success, error, count, interval){
+export const waitUntil = function(isready, success, error, count, interval) {
   if (count === undefined) {
     count = 300;
   }
@@ -19,7 +19,7 @@ export const waitUntil = function(isready, success, error, count, interval){
     return;
   }
   // The call back isn't ready. We need to wait for it
-  setTimeout(function(){
+  setTimeout(function() {
     if (!count) {
       // We have run out of retries
       if (error !== undefined) {
@@ -27,7 +27,7 @@ export const waitUntil = function(isready, success, error, count, interval){
       }
     } else {
       // Try again
-      waitUntil(isready, success, error, count -1, interval);
+      waitUntil(isready, success, error, count - 1, interval);
     }
   }, interval);
 };

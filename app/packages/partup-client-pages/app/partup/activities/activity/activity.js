@@ -19,28 +19,28 @@
  */
 // jscs:enable
 
-/*************************************************************/
+/** ***********************************************************/
 /* Widget initial */
-/*************************************************************/
+/** ***********************************************************/
 Template.Activity.onCreated(function() {
-    this.edit = new ReactiveVar(false);
-    this.showContributions = new ReactiveVar(false);
+  this.edit = new ReactiveVar(false);
+  this.showContributions = new ReactiveVar(false);
 });
 
-/*************************************************************/
+/** ***********************************************************/
 /* Widget helpers */
-/*************************************************************/
+/** ***********************************************************/
 Template.Activity.helpers({
-    createCallback: function() {
-        return this.createCallback;
-    },
-    edit: function() {
-        return Template.instance().edit;
-    },
-    showForm: function() {
-        return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
-    },
-    editActivityFormId() {
-        return this.activity ? `edit-activity-${this.activity._id}` : undefined;
-    },
+  createCallback: function() {
+    return this.createCallback;
+  },
+  edit: function() {
+    return Template.instance().edit;
+  },
+  showForm: function() {
+    return !this.READONLY && (!!this.CREATE || Template.instance().edit.get());
+  },
+  editActivityFormId() {
+    return this.activity ? `edit-activity-${this.activity._id}` : undefined;
+  },
 });

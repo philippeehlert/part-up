@@ -9,11 +9,11 @@ Invites = new Mongo.Collection('invites');
 
 // Add indices
 if (Meteor.isServer) {
-    Invites._ensureIndex('type');
-    Invites._ensureIndex('network_id');
-    Invites._ensureIndex('inviter_id');
-    Invites._ensureIndex('invitee_id');
-    Invites._ensureIndex('activity_id');
+  Invites._ensureIndex('type');
+  Invites._ensureIndex('network_id');
+  Invites._ensureIndex('inviter_id');
+  Invites._ensureIndex('invitee_id');
+  Invites._ensureIndex('activity_id');
 }
 
 /**
@@ -24,7 +24,7 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor}
  */
 Invites.findForUser = function(user) {
-    return Invites.find({invitee_id: user._id});
+  return Invites.find({ invitee_id: user._id });
 };
 
 /**
@@ -35,7 +35,7 @@ Invites.findForUser = function(user) {
  * @return {Mongo.Cursor}
  */
 Invites.findForNetwork = function(network) {
-    return Invites.find({network_id: network._id});
+  return Invites.find({ network_id: network._id });
 };
 
 /**

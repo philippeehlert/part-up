@@ -6,28 +6,28 @@ import { _ } from 'meteor/underscore';
 import './ReloadBar.html';
 
 Tracker.autorun(function() {
-    var $reloadBar = jQuery('#reload-bar');
+  let $reloadBar = jQuery('#reload-bar');
 
-    if (Session.get('puWantsToReload')) {
-        $reloadBar.show();
-    } else {
-        $reloadBar.hide();
-    }
+  if (Session.get('puWantsToReload')) {
+    $reloadBar.show();
+  } else {
+    $reloadBar.hide();
+  }
 });
 
 Template.ReloadBar.onRendered(function() {
-    var $reloadBar = jQuery('#reload-bar');
+  let $reloadBar = jQuery('#reload-bar');
 
-    if (Session.get('puWantsToReload')) {
-        $reloadBar.show();
-    } else {
-        $reloadBar.hide();
-    }
+  if (Session.get('puWantsToReload')) {
+    $reloadBar.show();
+  } else {
+    $reloadBar.hide();
+  }
 });
 
 Template.ReloadBar.events({
-    'click .rb-enable': function(event) {
-        event.preventDefault();
-        location.reload(true);
-    }
+  'click .rb-enable': function(event) {
+    event.preventDefault();
+    location.reload(true);
+  },
 });

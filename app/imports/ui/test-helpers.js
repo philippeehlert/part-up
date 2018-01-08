@@ -13,7 +13,11 @@ const withDiv = function withDiv(callback) {
   }
 };
 
-export const withRenderedTemplate = function withRenderedTemplate(template, data, callback) {
+export const withRenderedTemplate = function withRenderedTemplate(
+  template,
+  data,
+  callback
+) {
   withDiv((el) => {
     const ourTemplate = _.isString(template) ? Template[template] : template;
     Blaze.renderWithData(ourTemplate, data, el);

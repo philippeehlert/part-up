@@ -3,8 +3,8 @@
  *
  * @memberOf Swarms
  */
-var Swarm = function(document) {
-    _.extend(this, document);
+let Swarm = function(document) {
+  _.extend(this, document);
 };
 
 /**
@@ -15,8 +15,8 @@ var Swarm = function(document) {
  * @return {Boolean}
  */
 Swarm.prototype.isSwarmAdmin = function(userId) {
-    if (!userId) return false;
-    return mout.lang.isString(userId) && (userId === this.admin_id);
+  if (!userId) return false;
+  return mout.lang.isString(userId) && userId === this.admin_id;
 };
 
 /**
@@ -27,10 +27,10 @@ Swarm.prototype.isSwarmAdmin = function(userId) {
  * @return {Boolean}
  */
 Swarm.prototype.isAdmin = function(userId) {
-    if (!userId) return false;
-    var user = Meteor.users.findOne({_id: userId});
-    if (!user) return false;
-    return this.isSwarmAdmin(userId) || User(user).isAdmin();
+  if (!userId) return false;
+  let user = Meteor.users.findOne({ _id: userId });
+  if (!user) return false;
+  return this.isSwarmAdmin(userId) || User(user).isAdmin();
 };
 
 /**
@@ -40,8 +40,8 @@ Swarm.prototype.isAdmin = function(userId) {
  * @param {String} networkId the id of the network to be added to the swarm
  */
 Swarm.prototype.addNetwork = function(networkId) {
-    Swarms.update(this._id, {$addToSet: {networks: networkId}});
-    Networks.update(networkId, {$addToSet: {swarms: this._id}});
+  Swarms.update(this._id, { $addToSet: { networks: networkId } });
+  Networks.update(networkId, { $addToSet: { swarms: this._id } });
 };
 
 /**
@@ -51,8 +51,8 @@ Swarm.prototype.addNetwork = function(networkId) {
  * @param {String} networkId the id of the network that is being removed from the swarm
  */
 Swarm.prototype.removeNetwork = function(networkId) {
-    Swarms.update(this._id, {$pull: {networks: networkId}});
-    Networks.update(networkId, {$pull: {swarms: this._id}});
+  Swarms.update(this._id, { $pull: { networks: networkId } });
+  Networks.update(networkId, { $pull: { swarms: this._id } });
 };
 
 /**
@@ -61,7 +61,7 @@ Swarm.prototype.removeNetwork = function(networkId) {
  * @memberOf Swarms
  */
 Swarm.prototype.increaseEmailShareCount = function() {
-    Swarms.update({_id: this._id}, {$inc: {'shared_count.email': 1}});
+  Swarms.update({ _id: this._id }, { $inc: { 'shared_count.email': 1 } });
 };
 
 /**
@@ -69,15 +69,15 @@ Swarm.prototype.increaseEmailShareCount = function() {
  @namespace Swarms
  */
 Swarms = new Mongo.Collection('swarms', {
-    transform: function(document) {
-        return new Swarm(document);
-    }
+  transform: function(document) {
+    return new Swarm(document);
+  },
 });
 
 // Add indices
 if (Meteor.isServer) {
-    Swarms._ensureIndex('slug');
-    Swarms._ensureIndex('admin_id');
+  Swarms._ensureIndex('slug');
+  Swarms._ensureIndex('admin_id');
 }
 
 /**
@@ -91,23 +91,32 @@ if (Meteor.isServer) {
  * @return {Cursor}
  */
 Swarms.guardedMetaFind = function(selector, options) {
-    selector = selector || {};
-    options = options || {};
+  selector = selector || {};
+  options = options || {};
 
-    // Make sure that if the callee doesn't pass the fields
-    // key used in the options parameter, we set it with
-    // the _id fields, so we do not publish all fields
-    // by default, which would be a security issue
-    options.fields = {_id: 1};
+  // Make sure that if the callee doesn't pass the fields
+  // key used in the options parameter, we set it with
+  // the _id fields, so we do not publish all fields
+  // by default, which would be a security issue
+  options.fields = { _id: 1 };
 
-    // The fields that should be available on each swarm
-    var unguardedFields = ['name', 'title', 'introduction', 'description', 'slug', 'image', 'networks', 'quotes'];
+  // The fields that should be available on each swarm
+  let unguardedFields = [
+    'name',
+    'title',
+    'introduction',
+    'description',
+    'slug',
+    'image',
+    'networks',
+    'quotes',
+  ];
 
-    unguardedFields.forEach(function(unguardedField) {
-        options.fields[unguardedField] = 1;
-    });
+  unguardedFields.forEach(function(unguardedField) {
+    options.fields[unguardedField] = 1;
+  });
 
-    return this.find(selector, options);
+  return this.find(selector, options);
 };
 
 /**
@@ -120,20 +129,20 @@ Swarms.guardedMetaFind = function(selector, options) {
  * @return {Mongo.Cursor}
  */
 Swarms.guardedFind = function(userId, selector, options) {
-    if (Meteor.isClient) return this.find(selector, options);
+  if (Meteor.isClient) return this.find(selector, options);
 
-    selector = selector || {};
-    options = options || {};
+  selector = selector || {};
+  options = options || {};
 
-    // The fields that should never be exposed
-    var guardedFields = [
-        //
-    ];
-    options.fields = options.fields || {};
+  // The fields that should never be exposed
+  let guardedFields = [
+    //
+  ];
+  options.fields = options.fields || {};
 
-    guardedFields.forEach(function(guardedField) {
-        options.fields[guardedField] = 0;
-    });
+  guardedFields.forEach(function(guardedField) {
+    options.fields[guardedField] = 0;
+  });
 
-    return this.find(selector, options);
+  return this.find(selector, options);
 };

@@ -3,8 +3,8 @@
  *
  * @memberOf Sectors
  */
-var Sector = function(document) {
-    _.extend(this, document);
+let Sector = function(document) {
+  _.extend(this, document);
 };
 
 /**
@@ -12,7 +12,7 @@ var Sector = function(document) {
  @name Sectors
  */
 Sectors = new Mongo.Collection('sectors', {
-    transform: function(document) {
-        return new Sector(document);
-    }
+  transform: function(document) {
+    return new Sector(document);
+  },
 });

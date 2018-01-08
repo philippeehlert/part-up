@@ -1,23 +1,21 @@
 Meteor.methods({
+  /**
+   * Get an autocompletion of cities
+   *
+   * @param {String} term
+   */
+  'google.cities.autocomplete': function(term) {
+    check(term, String);
 
-    /**
-     * Get an autocompletion of cities
-     *
-     * @param {String} term
-     */
-    'google.cities.autocomplete': function(term) {
-        check(term, String);
+    this.unblock();
 
-        this.unblock();
+    let results = Partup.server.services.google.searchCities(term);
 
-        var results = Partup.server.services.google.searchCities(term);
-
-        return results.map(function(result) {
-            return {
-                id: result.place_id,
-                city: result.description
-            };
-        });
-    }
-
+    return results.map(function(result) {
+      return {
+        id: result.place_id,
+        city: result.description,
+      };
+    });
+  },
 });

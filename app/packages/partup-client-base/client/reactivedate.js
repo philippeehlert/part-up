@@ -1,6 +1,6 @@
-var _now = new ReactiveVar(new Date());
+let _now = new ReactiveVar(new Date());
 Meteor.setInterval(function() {
-    _now.set(new Date());
+  _now.set(new Date());
 }, 1000);
 
 /**
@@ -10,5 +10,5 @@ Meteor.setInterval(function() {
  * @memberof Partup.client
  */
 Partup.client.reactiveDate = function() {
-    return _now.get();
+  return _now.get();
 };

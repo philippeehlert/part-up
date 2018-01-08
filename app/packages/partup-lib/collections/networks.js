@@ -2,25 +2,25 @@
  * @memberOf Networks
  * @private
  */
-var NETWORK_PUBLIC = 1;
+let NETWORK_PUBLIC = 1;
 /**
  * @memberOf Networks
  * @private
  */
-var NETWORK_INVITE = 2;
+let NETWORK_INVITE = 2;
 /**
  * @memberOf Networks
  * @private
  */
-var NETWORK_CLOSED = 3;
+let NETWORK_CLOSED = 3;
 
 /**
  * Network model
  *
  * @memberOf Networks
  */
-var Network = function(document) {
-    _.extend(this, document);
+let Network = function(document) {
+  _.extend(this, document);
 };
 
 /**
@@ -31,8 +31,8 @@ var Network = function(document) {
  * @return {Boolean}
  */
 Network.prototype.isNetworkAdmin = function(userId) {
-    if (!userId || !this.admins) return false;
-    return mout.lang.isString(userId) && (this.admins.indexOf(userId) > -1);
+  if (!userId || !this.admins) return false;
+  return mout.lang.isString(userId) && this.admins.indexOf(userId) > -1;
 };
 
 /**
@@ -43,10 +43,10 @@ Network.prototype.isNetworkAdmin = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isAdmin = function(userId) {
-    if (!userId) return false;
-    var user = Meteor.users.findOne({_id: userId});
-    if (!user) return false;
-    return this.isNetworkAdmin(userId) || User(user).isAdmin();
+  if (!userId) return false;
+  let user = Meteor.users.findOne({ _id: userId });
+  if (!user) return false;
+  return this.isNetworkAdmin(userId) || User(user).isAdmin();
 };
 
 /**
@@ -57,9 +57,9 @@ Network.prototype.isAdmin = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.hasMember = function(userId) {
-    if (!userId) return false;
-    var uppers = this.uppers || [];
-    return mout.lang.isString(userId) && uppers.indexOf(userId) > -1;
+  if (!userId) return false;
+  let uppers = this.uppers || [];
+  return mout.lang.isString(userId) && uppers.indexOf(userId) > -1;
 };
 
 /**
@@ -69,7 +69,7 @@ Network.prototype.hasMember = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isPublic = function() {
-    return this.privacy_type === NETWORK_PUBLIC;
+  return this.privacy_type === NETWORK_PUBLIC;
 };
 
 /**
@@ -79,7 +79,7 @@ Network.prototype.isPublic = function() {
  * @return {Boolean}
  */
 Network.prototype.isInvitational = function() {
-    return this.privacy_type === NETWORK_INVITE;
+  return this.privacy_type === NETWORK_INVITE;
 };
 
 /**
@@ -89,7 +89,7 @@ Network.prototype.isInvitational = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosed = function() {
-    return this.privacy_type === NETWORK_CLOSED;
+  return this.privacy_type === NETWORK_CLOSED;
 };
 
 /**
@@ -100,12 +100,12 @@ Network.prototype.isClosed = function() {
  * @return {Boolean}
  */
 Network.prototype.isClosedForUpper = function(upperId) {
-    if (this.isPublic()) return false;
-    if (!upperId) return true;
-    if (this.isAdmin(upperId)) return false;
-    if (this.hasMember(upperId)) return false;
+  if (this.isPublic()) return false;
+  if (!upperId) return true;
+  if (this.isAdmin(upperId)) return false;
+  if (this.hasMember(upperId)) return false;
 
-    return true;
+  return true;
 };
 
 /**
@@ -116,11 +116,11 @@ Network.prototype.isClosedForUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvited = function(upperId) {
-    if (!upperId) return false;
-    return !!Invites.findOne({
-        network_id: this._id,
-        invitee_id: upperId
-    });
+  if (!upperId) return false;
+  return !!Invites.findOne({
+    network_id: this._id,
+    invitee_id: upperId,
+  });
 };
 
 /**
@@ -131,8 +131,8 @@ Network.prototype.isUpperInvited = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvitePending = function(userId) {
-    if (!this.pending_uppers || !userId) return false;
-    return mout.lang.isString(userId) && this.pending_uppers.indexOf(userId) > -1;
+  if (!this.pending_uppers || !userId) return false;
+  return mout.lang.isString(userId) && this.pending_uppers.indexOf(userId) > -1;
 };
 
 /**
@@ -143,8 +143,8 @@ Network.prototype.isUpperInvitePending = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.canUpperInvite = function(upperId) {
-    if (!upperId) return false;
-    return this.hasMember(upperId);
+  if (!upperId) return false;
+  return this.hasMember(upperId);
 };
 
 /**
@@ -155,10 +155,10 @@ Network.prototype.canUpperInvite = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.canUpperJoin = function(upperId) {
-    if (!upperId) return false;
-    if (this.isPublic()) return true;
-    if (this.isUpperInvited(upperId)) return true;
-    return false;
+  if (!upperId) return false;
+  if (this.isPublic()) return true;
+  if (this.isUpperInvited(upperId)) return true;
+  return false;
 };
 
 /**
@@ -168,9 +168,12 @@ Network.prototype.canUpperJoin = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addUpper = function(upperId) {
-    Networks.update(this._id, {$addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
-    Meteor.users.update(upperId, {$addToSet: {networks: this._id}});
-    this.removeAllUpperInvites(upperId);
+  Networks.update(this._id, {
+    $addToSet: { uppers: upperId },
+    $inc: { upper_count: 1 },
+  });
+  Meteor.users.update(upperId, { $addToSet: { networks: this._id } });
+  this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -180,13 +183,13 @@ Network.prototype.addUpper = function(upperId) {
  * @param {String} upperId the user id of the user to be added
  */
 Network.prototype.addPendingUpper = function(upperId) {
-    // Check if user is already added as a pending upper
-    if (this.isUpperPending(upperId)) {
-        return false;
-    }
+  // Check if user is already added as a pending upper
+  if (this.isUpperPending(upperId)) {
+    return false;
+  }
 
-    Networks.update(this._id, {$addToSet: {pending_uppers: upperId}});
-    Meteor.users.update(upperId, {$addToSet: {pending_networks: this._id}});
+  Networks.update(this._id, { $addToSet: { pending_uppers: upperId } });
+  Meteor.users.update(upperId, { $addToSet: { pending_networks: this._id } });
 };
 
 /**
@@ -197,8 +200,11 @@ Network.prototype.addPendingUpper = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperPending = function(upperId) {
-    if (!upperId) return false;
-    return !!Networks.findOne({_id: this._id, pending_uppers: {'$in': [upperId]}});
+  if (!upperId) return false;
+  return !!Networks.findOne({
+    _id: this._id,
+    pending_uppers: { $in: [upperId] },
+  });
 };
 
 /**
@@ -209,18 +215,22 @@ Network.prototype.isUpperPending = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isUpperInvitedByAdmin = function(upperId) {
-    if (!upperId) return false;
-    var invitedByAdmin = false;
-    var invites = Invites.find({type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER, network_id: this._id, invitee_id: upperId});
-    var self = this;
+  if (!upperId) return false;
+  let invitedByAdmin = false;
+  let invites = Invites.find({
+    type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+    network_id: this._id,
+    invitee_id: upperId,
+  });
+  let self = this;
 
-    // A user can be invited multiple times, so check all of them
-    invites.forEach(function(invite) {
-        // Set variable to true when matching the criteria
-        if (self.isAdmin(invite.inviter_id)) invitedByAdmin = true;
-    });
+  // A user can be invited multiple times, so check all of them
+  invites.forEach(function(invite) {
+    // Set variable to true when matching the criteria
+    if (self.isAdmin(invite.inviter_id)) invitedByAdmin = true;
+  });
 
-    return invitedByAdmin;
+  return invitedByAdmin;
 };
 
 /**
@@ -231,26 +241,34 @@ Network.prototype.isUpperInvitedByAdmin = function(upperId) {
  * @param {String} accessToken
  */
 Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
-    // Find and update the current invite
-    var invite = Invites.findOne({
-        type: Invites.INVITE_TYPE_NETWORK_EMAIL,
-        access_token: accessToken,
-        network_id: this._id
-    });
+  // Find and update the current invite
+  let invite = Invites.findOne({
+    type: Invites.INVITE_TYPE_NETWORK_EMAIL,
+    access_token: accessToken,
+    network_id: this._id,
+  });
 
-    if (!invite) return;
+  if (!invite) return;
 
-    Invites.update(invite._id, {$set: {
-        type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
-        invitee_id: upperId,
-        updated_at: new Date
-    }});
+  Invites.update(invite._id, {
+    $set: {
+      type: Invites.INVITE_TYPE_NETWORK_EXISTING_UPPER,
+      invitee_id: upperId,
+      updated_at: new Date(),
+    },
+  });
 
-    // Also remove the access token from the network and add the new invite to the network
-    Networks.update(this._id, {
-        $pull: {'access_tokens': accessToken},
-        $addToSet: {'invites': {_id: upperId, invited_by_id: invite.inviter_id, invited_at: invite.created_at}}
-    });
+  // Also remove the access token from the network and add the new invite to the network
+  Networks.update(this._id, {
+    $pull: { access_tokens: accessToken },
+    $addToSet: {
+      invites: {
+        _id: upperId,
+        invited_by_id: invite.inviter_id,
+        invited_at: invite.created_at,
+      },
+    },
+  });
 };
 
 /**
@@ -260,9 +278,16 @@ Network.prototype.convertAccessTokenToInvite = function(upperId, accessToken) {
  * @param {String} upperId the user id of the user that should be accepted
  */
 Network.prototype.acceptPendingUpper = function(upperId) {
-    Networks.update(this._id, {$pull: {pending_uppers: upperId}, $addToSet: {uppers: upperId}, $inc: {upper_count: 1}});
-    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}, $addToSet: {networks: this._id}});
-    this.removeAllUpperInvites(upperId);
+  Networks.update(this._id, {
+    $pull: { pending_uppers: upperId },
+    $addToSet: { uppers: upperId },
+    $inc: { upper_count: 1 },
+  });
+  Meteor.users.update(upperId, {
+    $pull: { pending_networks: this._id },
+    $addToSet: { networks: this._id },
+  });
+  this.removeAllUpperInvites(upperId);
 };
 
 /**
@@ -272,12 +297,12 @@ Network.prototype.acceptPendingUpper = function(upperId) {
  * @param {String} upperId the user id of the user that should be rejected
  */
 Network.prototype.rejectPendingUpper = function(upperId) {
-    Networks.update(this._id, {$pull: {pending_uppers: upperId}});
-    Invites.remove({
-        'network_id': this._id,
-        'invitee_id': upperId
-    });
-    Meteor.users.update(upperId, {$pull: {pending_networks: this._id}});
+  Networks.update(this._id, { $pull: { pending_uppers: upperId } });
+  Invites.remove({
+    network_id: this._id,
+    invitee_id: upperId,
+  });
+  Meteor.users.update(upperId, { $pull: { pending_networks: this._id } });
 };
 
 /**
@@ -287,22 +312,26 @@ Network.prototype.rejectPendingUpper = function(upperId) {
  * @param {String} upperId id of the user whose invites have to be removed
  */
 Network.prototype.removeAllUpperInvites = function(upperId) {
-    // Retrieve all invites for this upper on this network
-    Invites.find({network_id: this._id, invitee_id: upperId}).fetch().forEach(function(invite) {
-        Meteor.users.update(upperId, {$addToSet: {'profile.invited_data.invites': invite}});
+  // Retrieve all invites for this upper on this network
+  Invites.find({ network_id: this._id, invitee_id: upperId })
+    .fetch()
+    .forEach(function(invite) {
+      Meteor.users.update(upperId, {
+        $addToSet: { 'profile.invited_data.invites': invite },
+      });
     });
 
-    // Clear out the invites from Invites collection
-    Invites.remove({network_id: this._id, invitee_id: upperId});
+  // Clear out the invites from Invites collection
+  Invites.remove({ network_id: this._id, invitee_id: upperId });
 
-    // And don't forget the invites property of this network
-    var invites = this.invites || [];
-    var self = this;
-    invites.forEach(function(invite) {
-        if (invite._id === upperId) {
-            Networks.update(self._id, {$pull: {invites: invite}});
-        }
-    });
+  // And don't forget the invites property of this network
+  let invites = this.invites || [];
+  let self = this;
+  invites.forEach(function(invite) {
+    if (invite._id === upperId) {
+      Networks.update(self._id, { $pull: { invites: invite } });
+    }
+  });
 };
 
 /**
@@ -312,37 +341,40 @@ Network.prototype.removeAllUpperInvites = function(upperId) {
  * @param {String} upperId the user id of the user that is leaving the network
  */
 Network.prototype.leave = function(upperId) {
-    Networks.update(this._id, {$pull: {uppers: upperId}, $inc: {upper_count: -1}});
-    Meteor.users.update(upperId, {$pull: {networks: this._id}});
+  Networks.update(this._id, {
+    $pull: { uppers: upperId },
+    $inc: { upper_count: -1 },
+  });
+  Meteor.users.update(upperId, { $pull: { networks: this._id } });
 };
 
 Network.prototype.displayTags = function(slug) {
-    var maxTags = 5;
-    var tags = [];
-    var commonTags = this.common_tags || [];
-    var customTags = this.tags || [];
+  let maxTags = 5;
+  let tags = [];
+  let commonTags = this.common_tags || [];
+  let customTags = this.tags || [];
 
-    _.times(maxTags, function() {
-        var tag = commonTags.shift();
-        if (!tag) return;
-        tags.push({
-            tag: tag.tag,
-            networkSlug: slug || ''
-        });
+  _.times(maxTags, function() {
+    let tag = commonTags.shift();
+    if (!tag) return;
+    tags.push({
+      tag: tag.tag,
+      networkSlug: slug || '',
     });
+  });
 
-    if (tags.length === maxTags) return tags;
+  if (tags.length === maxTags) return tags;
 
-    _.times((maxTags - tags.length), function() {
-        var tag = customTags.shift();
-        if (!tag) return;
-        tags.push({
-            tag: tag,
-            networkSlug: slug || ''
-        });
+  _.times(maxTags - tags.length, function() {
+    let tag = customTags.shift();
+    if (!tag) return;
+    tags.push({
+      tag: tag,
+      networkSlug: slug || '',
     });
+  });
 
-    return tags;
+  return tags;
 };
 
 /**
@@ -352,7 +384,7 @@ Network.prototype.displayTags = function(slug) {
  * @param {String} upperId the user id of the user that is being added as an admin
  */
 Network.prototype.addAdmin = function(upperId) {
-    Networks.update(this._id, {$push: {admins: upperId}});
+  Networks.update(this._id, { $push: { admins: upperId } });
 };
 
 /**
@@ -362,7 +394,7 @@ Network.prototype.addAdmin = function(upperId) {
  * @param {String} upperId the user id of the user that is being removed from admins
  */
 Network.prototype.removeAdmin = function(upperId) {
-    Networks.update(this._id, {$pull: {admins: upperId}});
+  Networks.update(this._id, { $pull: { admins: upperId } });
 };
 
 /**
@@ -372,8 +404,11 @@ Network.prototype.removeAdmin = function(upperId) {
  * @param {String} contentBlockId
  */
 Network.prototype.hasContentBlock = function(contentBlockId) {
-    var contentBlocks = this.contentblocks || [];
-    return mout.lang.isString(contentBlockId) && contentBlocks.indexOf(contentBlockId) > -1;
+  let contentBlocks = this.contentblocks || [];
+  return (
+    mout.lang.isString(contentBlockId) &&
+    contentBlocks.indexOf(contentBlockId) > -1
+  );
 };
 
 /**
@@ -383,7 +418,7 @@ Network.prototype.hasContentBlock = function(contentBlockId) {
  * @param {String} upperId the user id of the user that is being added as a colleague
  */
 Network.prototype.addColleague = function(upperId) {
-    Networks.update(this._id, {$push: {colleagues: upperId}});
+  Networks.update(this._id, { $push: { colleagues: upperId } });
 };
 
 /**
@@ -393,7 +428,7 @@ Network.prototype.addColleague = function(upperId) {
  * @param {String} upperId the user id of the user that is being added as a colleague
  */
 Network.prototype.addColleagueCustomA = function(upperId) {
-    Networks.update(this._id, {$push: {colleagues_custom_a: upperId}});
+  Networks.update(this._id, { $push: { colleagues_custom_a: upperId } });
 };
 
 /**
@@ -403,7 +438,7 @@ Network.prototype.addColleagueCustomA = function(upperId) {
  * @param {String} upperId the user id of the user that is being added as a colleague
  */
 Network.prototype.addColleagueCustomB = function(upperId) {
-    Networks.update(this._id, {$push: {colleagues_custom_b: upperId}});
+  Networks.update(this._id, { $push: { colleagues_custom_b: upperId } });
 };
 
 /**
@@ -413,7 +448,7 @@ Network.prototype.addColleagueCustomB = function(upperId) {
  * @param {String} upperId the user id of the user that is being removed from colleagues
  */
 Network.prototype.removeColleague = function(upperId) {
-    Networks.update(this._id, {$pull: {colleagues: upperId}});
+  Networks.update(this._id, { $pull: { colleagues: upperId } });
 };
 
 /**
@@ -423,7 +458,7 @@ Network.prototype.removeColleague = function(upperId) {
  * @param {String} upperId the user id of the user that is being removed from colleagues
  */
 Network.prototype.removeColleagueCustomA = function(upperId) {
-    Networks.update(this._id, {$pull: {colleagues_custom_a: upperId}});
+  Networks.update(this._id, { $pull: { colleagues_custom_a: upperId } });
 };
 
 /**
@@ -433,7 +468,7 @@ Network.prototype.removeColleagueCustomA = function(upperId) {
  * @param {String} upperId the user id of the user that is being removed from colleagues
  */
 Network.prototype.removeColleagueCustomB = function(upperId) {
-    Networks.update(this._id, {$pull: {colleagues_custom_b: upperId}});
+  Networks.update(this._id, { $pull: { colleagues_custom_b: upperId } });
 };
 
 /**
@@ -444,8 +479,8 @@ Network.prototype.removeColleagueCustomB = function(upperId) {
  * @return {Boolean}
  */
 Network.prototype.isNetworkColleague = function(userId) {
-    if (!userId || !this.colleagues) return false;
-    return mout.lang.isString(userId) && (this.colleagues.indexOf(userId) > -1);
+  if (!userId || !this.colleagues) return false;
+  return mout.lang.isString(userId) && this.colleagues.indexOf(userId) > -1;
 };
 
 /**
@@ -456,8 +491,10 @@ Network.prototype.isNetworkColleague = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isNetworkColleagueCustomA = function(userId) {
-    if (!userId || !this.colleagues_custom_a) return false;
-    return mout.lang.isString(userId) && (this.colleagues_custom_a.indexOf(userId) > -1);
+  if (!userId || !this.colleagues_custom_a) return false;
+  return (
+    mout.lang.isString(userId) && this.colleagues_custom_a.indexOf(userId) > -1
+  );
 };
 
 /**
@@ -468,61 +505,67 @@ Network.prototype.isNetworkColleagueCustomA = function(userId) {
  * @return {Boolean}
  */
 Network.prototype.isNetworkColleagueCustomB = function(userId) {
-    if (!userId || !this.colleagues_custom_b) return false;
-    return mout.lang.isString(userId) && (this.colleagues_custom_b.indexOf(userId) > -1);
+  if (!userId || !this.colleagues_custom_b) return false;
+  return (
+    mout.lang.isString(userId) && this.colleagues_custom_b.indexOf(userId) > -1
+  );
 };
 
 Network.prototype.startPartupRestrictedToAdmins = function() {
-    if (this.hasOwnProperty('create_partup_restricted')) {
-        return this.create_partup_restricted;
-    } else {
-        return false;
-    }
+  if (this.hasOwnProperty('create_partup_restricted')) {
+    return this.create_partup_restricted;
+  } else {
+    return false;
+  }
 };
 
 Network.prototype.colleaguesRoleEnabled = function() {
-    if (this.hasOwnProperty('colleagues_default_enabled')) {
-        return this.colleagues_default_enabled;
-    } else {
-        return this.hasColleagues();
-    }
+  if (this.hasOwnProperty('colleagues_default_enabled')) {
+    return this.colleagues_default_enabled;
+  } else {
+    return this.hasColleagues();
+  }
 };
 
 Network.prototype.customARoleEnabled = function() {
-    return !!this.colleagues_custom_a_enabled;
+  return !!this.colleagues_custom_a_enabled;
 };
 
 Network.prototype.customBRoleEnabled = function() {
-    return !!this.colleagues_custom_b_enabled;
+  return !!this.colleagues_custom_b_enabled;
 };
 
 Network.prototype.hasColleagues = function() {
-    return !!(this.colleagues ? this.colleagues.length : false);
+  return !!(this.colleagues ? this.colleagues.length : false);
 };
 Network.prototype.hasColleaguesCustomA = function() {
-    return !!(this.colleagues_custom_a ? this.colleagues_custom_a.length : false);
+  return !!(this.colleagues_custom_a ? this.colleagues_custom_a.length : false);
 };
 Network.prototype.hasColleaguesCustomB = function() {
-    return !!(this.colleagues_custom_b ? this.colleagues_custom_b.length : false);
+  return !!(this.colleagues_custom_b ? this.colleagues_custom_b.length : false);
 };
 
 Network.prototype.hasPartupsWithColleaguesRoleEnabled = function(partups) {
-    var PartupsColleagues = (partups || []).filter(function(item) {
-        return item.privacy_type === 7;
-    });
-    return !!PartupsColleagues.length;
+  let PartupsColleagues = (partups || []).filter(function(item) {
+    return item.privacy_type === 7;
+  });
+  return !!PartupsColleagues.length;
 };
-Network.prototype.hasPartupsWithColleaguesCustomARoleEnabled = function(partups) {
-    var PartupsCustomA = (partups || []).filter(function(item) {
-        return item.privacy_type === 8;
-    });
-    return !!PartupsCustomA.length;
+Network.prototype.hasPartupsWithColleaguesCustomARoleEnabled = function(
+  partups
+) {
+  let PartupsCustomA = (partups || []).filter(function(item) {
+    return item.privacy_type === 8;
+  });
+  return !!PartupsCustomA.length;
 };
-Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(partups) {
-    var PartupsCustomB = (partups || []).filter(function(item) {
-        return item.privacy_type === 9;
-    });
-    return !!PartupsCustomB.length;
+Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(
+  partups
+) {
+  let PartupsCustomB = (partups || []).filter(function(item) {
+    return item.privacy_type === 9;
+  });
+  return !!PartupsCustomB.length;
 };
 
 /**
@@ -531,19 +574,22 @@ Network.prototype.hasPartupsWithColleaguesCustomBRoleEnabled = function(partups)
  * @memberOf Networks
  */
 Network.prototype.createPartupName = function(partupId, partupName) {
-    Networks.update({
-        _id: this._id,
-        'partup_names._id': {
-            $ne: partupId
-        }
-    }, {
-        $push: {
-            partup_names: {
-                _id: partupId,
-                name: partupName
-            }
-        }
-    });
+  Networks.update(
+    {
+      '_id': this._id,
+      'partup_names._id': {
+        $ne: partupId,
+      },
+    },
+    {
+      $push: {
+        partup_names: {
+          _id: partupId,
+          name: partupName,
+        },
+      },
+    }
+  );
 };
 
 /**
@@ -552,14 +598,17 @@ Network.prototype.createPartupName = function(partupId, partupName) {
  * @memberOf Networks
  */
 Network.prototype.updatePartupName = function(partupId, partupName) {
-    Networks.update({
-        _id: this._id,
-        'partup_names._id': partupId
-    }, {
-        $set: {
-            'partup_names.$.name': partupName
-        }
-    });
+  Networks.update(
+    {
+      '_id': this._id,
+      'partup_names._id': partupId,
+    },
+    {
+      $set: {
+        'partup_names.$.name': partupName,
+      },
+    }
+  );
 };
 
 /**
@@ -568,12 +617,15 @@ Network.prototype.updatePartupName = function(partupId, partupName) {
  * @memberOf Networks
  */
 Network.prototype.removePartupName = function(partupId) {
-    Networks.update({
-        _id: this._id,
-        'partup_names._id': partupId
-    }, {
-        $pull: {partup_names: {_id: partupId}}
-    });
+  Networks.update(
+    {
+      '_id': this._id,
+      'partup_names._id': partupId,
+    },
+    {
+      $pull: { partup_names: { _id: partupId } },
+    }
+  );
 };
 
 /**
@@ -581,18 +633,21 @@ Network.prototype.removePartupName = function(partupId) {
  @namespace Networks
  */
 Networks = new Mongo.Collection('networks', {
-    transform: function(document) {
-        return new Network(document);
-    }
+  transform: function(document) {
+    return new Network(document);
+  },
 });
 
 // Add indices
 if (Meteor.isServer) {
-    Networks._ensureIndex({'name': 'text', 'description': 'text'}, {language_override: 'idioma'});
-    Networks._ensureIndex('slug');
-    Networks._ensureIndex('admins');
-    Networks._ensureIndex('privacy_type');
-    Networks._ensureIndex('chat_id');
+  Networks._ensureIndex(
+    { name: 'text', description: 'text' },
+    { language_override: 'idioma' }
+  );
+  Networks._ensureIndex('slug');
+  Networks._ensureIndex('admins');
+  Networks._ensureIndex('privacy_type');
+  Networks._ensureIndex('chat_id');
 }
 
 /**
@@ -600,9 +655,9 @@ if (Meteor.isServer) {
  * @public
  */
 Networks.privacy_types = {
-    NETWORK_PUBLIC: NETWORK_PUBLIC,
-    NETWORK_INVITE: NETWORK_INVITE,
-    NETWORK_CLOSED: NETWORK_CLOSED
+  NETWORK_PUBLIC: NETWORK_PUBLIC,
+  NETWORK_INVITE: NETWORK_INVITE,
+  NETWORK_CLOSED: NETWORK_CLOSED,
 };
 
 /**
@@ -616,58 +671,58 @@ Networks.privacy_types = {
  * @return {Cursor}
  */
 Networks.guardedMetaFind = function(selector, options) {
-    selector = selector || {};
-    options = options || {};
+  selector = selector || {};
+  options = options || {};
 
-    // Make sure that if the callee doesn't pass the fields
-    // key used in the options parameter, we set it with
-    // the _id fields, so we do not publish all fields
-    // by default, which would be a security issue
-    options.fields = {_id: 1};
+  // Make sure that if the callee doesn't pass the fields
+  // key used in the options parameter, we set it with
+  // the _id fields, so we do not publish all fields
+  // by default, which would be a security issue
+  options.fields = { _id: 1 };
 
-    // The fields that should be available on each network
-    var unguardedFields = [
-        '_id',
-        'name',
-        'description',
-        'website',
-        'slug',
-        'icon',
-        'image',
-        'privacy_type',
-        'pending_uppers',
-        'invites',
-        'language',
-        'tags',
-        'location',
-        'stats',
-        'swarms',
-        'background_image',
-        'common_tags',
-        'most_active_partups',
-        'most_active_uppers',
-        'admins',
-        'archived_at',
-        'create_partup_restricted',
-        'colleagues_default_enabled',
-        'colleagues_custom_a_enabled',
-        'colleagues_custom_b_enabled',
-        'label_admins',
-        'label_colleagues',
-        'label_colleagues_custom_a',
-        'label_colleagues_custom_b',
-        'collegues',
-        'collegues_custom_a',
-        'collegues_custom_b',
-        'sector_id',
-        'content'
-    ];
+  // The fields that should be available on each network
+  let unguardedFields = [
+    '_id',
+    'name',
+    'description',
+    'website',
+    'slug',
+    'icon',
+    'image',
+    'privacy_type',
+    'pending_uppers',
+    'invites',
+    'language',
+    'tags',
+    'location',
+    'stats',
+    'swarms',
+    'background_image',
+    'common_tags',
+    'most_active_partups',
+    'most_active_uppers',
+    'admins',
+    'archived_at',
+    'create_partup_restricted',
+    'colleagues_default_enabled',
+    'colleagues_custom_a_enabled',
+    'colleagues_custom_b_enabled',
+    'label_admins',
+    'label_colleagues',
+    'label_colleagues_custom_a',
+    'label_colleagues_custom_b',
+    'collegues',
+    'collegues_custom_a',
+    'collegues_custom_b',
+    'sector_id',
+    'content',
+  ];
 
-    unguardedFields.forEach(function(unguardedField) {
-        options.fields[unguardedField] = 1;
-    });
+  unguardedFields.forEach(function(unguardedField) {
+    options.fields[unguardedField] = 1;
+  });
 
-    return this.find(selector, options);
+  return this.find(selector, options);
 };
 
 /**
@@ -680,83 +735,95 @@ Networks.guardedMetaFind = function(selector, options) {
  * @return {Cursor}
  */
 Networks.findForDiscover = function(
-    /** userId argument is deprectated */userId, options, parameters) {
-    var selector = {};
+  /** userId argument is deprectated */ userId,
+  options,
+  parameters
+) {
+  let selector = {};
 
-    options = options || {};
-    options.limit = options.limit ? parseInt(options.limit) : undefined;
-    options.skip = options.skip ? parseInt(options.skip) : 0;
-    options.sort = options.sort || {};
-    options.fields = options.fields || {};
+  options = options || {};
+  options.limit = options.limit ? parseInt(options.limit) : undefined;
+  options.skip = options.skip ? parseInt(options.skip) : 0;
+  options.sort = options.sort || {};
+  options.fields = options.fields || {};
 
-    parameters = parameters || {};
-    var sort = parameters.sort || undefined;
-    var textSearch = parameters.textSearch || undefined;
-    var locationId = parameters.locationId || undefined;
-    var language = parameters.language || undefined;
-    var type = parameters.type || undefined;
-    var sector_id = parameters.sector_id || undefined;
-    var notArchived = parameters.notArchived || undefined;
+  parameters = parameters || {};
+  let sort = parameters.sort || undefined;
+  let textSearch = parameters.textSearch || undefined;
+  let locationId = parameters.locationId || undefined;
+  let language = parameters.language || undefined;
+  let type = parameters.type || undefined;
+  let sector_id = parameters.sector_id || undefined;
+  let notArchived = parameters.notArchived || undefined;
 
-    if (sort) {
-        // Sort the networks from the newest to the oldest
-        if (sort === 'new') {
-            options.sort['created_at'] = -1;
-        }
-
-        // Sort the networks from the most popular to the least popular
-        if (sort === 'popular') {
-            options.sort['popularity'] = -1;
-        }
+  if (sort) {
+    // Sort the networks from the newest to the oldest
+    if (sort === 'new') {
+      options.sort['created_at'] = -1;
     }
 
-    // Filter the networks that match the text search
-    if (textSearch) {
-        Log.debug('Searching networks for [' + textSearch + ']');
-
-        //@TODO: investigate why full text search didn't work
-        //var textSearchSelector = {$text: {$search: textSearch}};
-        var nameSelector = {name: new RegExp('.*' + textSearch + '.*', 'i')};
-        var descriptionSelector = {description: new RegExp('.*' + textSearch + '.*', 'i')};
-        var tagSelector = {tags: {$in: [textSearch]}};
-        var partupNameSelector = {'partup_names.name': new RegExp('.*' + textSearch + '.*', 'i')};
-
-        //options.fields = {score: {$meta: 'textScore'}};
-        //options.sort['score'] = {$meta: 'textScore'};
-
-        selector.$or = [nameSelector, descriptionSelector, tagSelector, partupNameSelector];
+    // Sort the networks from the most popular to the least popular
+    if (sort === 'popular') {
+      options.sort['popularity'] = -1;
     }
+  }
 
-    // Filter the networks on language
-    if (language) {
-        selector['language'] = language;
-    }
+  // Filter the networks that match the text search
+  if (textSearch) {
+    Log.debug('Searching networks for [' + textSearch + ']');
 
-    // Filter the networks that are in a given location
-    if (locationId) {
-        selector['location.place_id'] = locationId;
-    }
+    // @TODO: investigate why full text search didn't work
+    // var textSearchSelector = {$text: {$search: textSearch}};
+    let nameSelector = { name: new RegExp('.*' + textSearch + '.*', 'i') };
+    let descriptionSelector = {
+      description: new RegExp('.*' + textSearch + '.*', 'i'),
+    };
+    let tagSelector = { tags: { $in: [textSearch] } };
+    let partupNameSelector = {
+      'partup_names.name': new RegExp('.*' + textSearch + '.*', 'i'),
+    };
 
-    // Filter on type
-    if (type) {
-        selector['type'] = type;
-    }
+    // options.fields = {score: {$meta: 'textScore'}};
+    // options.sort['score'] = {$meta: 'textScore'};
 
-    // Filter the networks on sector
-    if (sector_id) {
-        selector['sector_id'] = sector_id;
-    }
+    selector.$or = [
+      nameSelector,
+      descriptionSelector,
+      tagSelector,
+      partupNameSelector,
+    ];
+  }
 
-    if (notArchived) {
-        selector['archived_at'] = {$exists: false};
-    }
+  // Filter the networks on language
+  if (language) {
+    selector['language'] = language;
+  }
 
-    // Limit uppers array to 7 to remove excessive data
-    options.fields['uppers'] = {$slice: 7};
+  // Filter the networks that are in a given location
+  if (locationId) {
+    selector['location.place_id'] = locationId;
+  }
 
-    // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
-    // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
-    return this.guardedFind(null, selector, options);
+  // Filter on type
+  if (type) {
+    selector['type'] = type;
+  }
+
+  // Filter the networks on sector
+  if (sector_id) {
+    selector['sector_id'] = sector_id;
+  }
+
+  if (notArchived) {
+    selector['archived_at'] = { $exists: false };
+  }
+
+  // Limit uppers array to 7 to remove excessive data
+  options.fields['uppers'] = { $slice: 7 };
+
+  // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
+  // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
+  return this.guardedFind(null, selector, options);
 };
 
 /**
@@ -769,62 +836,84 @@ Networks.findForDiscover = function(
  * @return {Mongo.Cursor}
  */
 Networks.guardedFind = function(userId, selector, options) {
-    if (Meteor.isClient) return this.find(selector, options);
+  if (Meteor.isClient) return this.find(selector, options);
 
-    selector = selector || {};
-    options = options || {};
+  selector = selector || {};
+  options = options || {};
 
-    // The fields that should never be exposed
-    var guardedFields = [
-        'access_tokens',
-        'partup_names'
-    ];
-    if (!options.fields) {
-        options.fields = {};
-        guardedFields.forEach(function(guardedField) {
-            options.fields[guardedField] = 0;
-        });
+  // The fields that should never be exposed
+  let guardedFields = ['access_tokens', 'partup_names'];
+  if (!options.fields) {
+    options.fields = {};
+    guardedFields.forEach(function(guardedField) {
+      options.fields[guardedField] = 0;
+    });
+  } else {
+    guardedFields.forEach(function(guardedField) {
+      delete options.fields[guardedField];
+    });
+  }
+
+  let guardedCriterias = [];
+
+  if (selector['type']) {
+    if (selector['type'] == 'public') {
+      guardedCriterias.push({
+        privacy_type: { $in: [Networks.privacy_types.NETWORK_PUBLIC] },
+      });
+    } else if (selector['type'] == 'closed') {
+      guardedCriterias.push({
+        privacy_type: {
+          $in: [
+            Networks.privacy_types.NETWORK_INVITE,
+            Networks.privacy_types.NETWORK_CLOSED,
+          ],
+        },
+      });
     } else {
-        guardedFields.forEach(function(guardedField) {
-            delete options.fields[guardedField];
-        });
+      // Default to all types
+      guardedCriterias.push({
+        privacy_type: {
+          $in: [
+            Networks.privacy_types.NETWORK_PUBLIC,
+            Networks.privacy_types.NETWORK_INVITE,
+            Networks.privacy_types.NETWORK_CLOSED,
+          ],
+        },
+      });
     }
 
-    var guardedCriterias = [];
+    // Remove type from selector
+    delete selector.type;
+  } else {
+    // Only return open networks
+    guardedCriterias.push({
+      privacy_type: {
+        $in: [
+          Networks.privacy_types.NETWORK_PUBLIC,
+          Networks.privacy_types.NETWORK_INVITE,
+          Networks.privacy_types.NETWORK_CLOSED,
+        ],
+      },
+    });
+  }
 
-    if (selector['type']) {
-        if (selector['type'] == 'public') {
-            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC]}});
-        } else if (selector['type'] == 'closed') {
-            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
-        } else {
-            // Default to all types
-            guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
-        }
+  // Some extra rules that are only applicable to users that are logged in
+  if (userId) {
+    // The user is part of the network uppers, which means he has access anyway
+    guardedCriterias.push({ uppers: { $in: [userId] } });
 
-        // Remove type from selector
-        delete selector.type;
-    } else {
-        // Only return open networks
-        guardedCriterias.push({'privacy_type': {'$in': [Networks.privacy_types.NETWORK_PUBLIC, Networks.privacy_types.NETWORK_INVITE, Networks.privacy_types.NETWORK_CLOSED]}});
-    }
+    // Of course the admin of a network always has the needed rights
+    guardedCriterias.push({ admins: { $in: [userId] } });
+  }
 
-    // Some extra rules that are only applicable to users that are logged in
-    if (userId) {
-        // The user is part of the network uppers, which means he has access anyway
-        guardedCriterias.push({'uppers': {'$in': [userId]}});
+  // Guarding selector that needs to be fulfilled
+  let guardingSelector = { $or: guardedCriterias };
 
-        // Of course the admin of a network always has the needed rights
-        guardedCriterias.push({'admins': {'$in': [userId]}});
-    }
+  // Merge the selectors, so we still use the initial selector provided by the caller
+  let finalSelector = { $and: [guardingSelector, selector] };
 
-    // Guarding selector that needs to be fulfilled
-    var guardingSelector = {'$or': guardedCriterias};
-
-    // Merge the selectors, so we still use the initial selector provided by the caller
-    var finalSelector = {'$and': [guardingSelector, selector]};
-
-    return this.find(finalSelector, options);
+  return this.find(finalSelector, options);
 };
 
 /**
@@ -836,7 +925,7 @@ Networks.guardedFind = function(userId, selector, options) {
  * @return {Mongo.Cursor}
  */
 Networks.findForPartup = function(partup, userId) {
-    return Networks.guardedFind(userId, {_id: partup.network_id}, {limit: 1});
+  return Networks.guardedFind(userId, { _id: partup.network_id }, { limit: 1 });
 };
 
 /**
@@ -849,8 +938,8 @@ Networks.findForPartup = function(partup, userId) {
  * @return {Mongo.Cursor}
  */
 Networks.findForUser = function(user, userId, options) {
-    var networks = user.networks || [];
-    return Networks.guardedFind(userId, {_id: {'$in': networks}}, options);
+  let networks = user.networks || [];
+  return Networks.guardedFind(userId, { _id: { $in: networks } }, options);
 };
 
 /**
@@ -863,8 +952,14 @@ Networks.findForUser = function(user, userId, options) {
  * @return {Mongo.Cursor}
  */
 Networks.findUnarchivedForUser = function(user, userId, options) {
-    var networks = user.networks || [];
-    return Networks.guardedFind(userId, {$and: [{_id: {'$in': networks}}, {archived_at: {$exists: false}}]}, options);
+  let networks = user.networks || [];
+  return Networks.guardedFind(
+    userId,
+    {
+      $and: [{ _id: { $in: networks } }, { archived_at: { $exists: false } }],
+    },
+    options
+  );
 };
 
 /**
@@ -876,16 +971,18 @@ Networks.findUnarchivedForUser = function(user, userId, options) {
  * @return {Mongo.Cursor}
  */
 Networks.findForDiscoverFilter = function(
-    /** Deprecated, always passed as null */loggedInUserId, options) {
-    options = options || {};
+  /** Deprecated, always passed as null */ loggedInUserId,
+  options
+) {
+  options = options || {};
 
-    options.sort = options.sort || {};
-    //TODO: add sort rule for loggedInUserId existance in network.uppers
-    options.sort.upper_count = -1;
+  options.sort = options.sort || {};
+  // TODO: add sort rule for loggedInUserId existance in network.uppers
+  options.sort.upper_count = -1;
 
-    // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
-    // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
-    return Networks.guardedFind(null, {}, options);
+  // Because tribes are always visible and we don't want any user filter for discovering tribes 'null' is passed.
+  // If the user is set guardedFind() will include tribes where the user is admin or upper even when not requested in the filter.
+  return Networks.guardedFind(null, {}, options);
 };
 
 /**
@@ -897,24 +994,26 @@ Networks.findForDiscoverFilter = function(
  * @return {Mongo.Cursor}
  */
 Networks.findForSwarm = function(swarm, userId) {
-    var networks = swarm.networks || [];
-    return Networks.guardedFind(userId, {_id: {$in: networks}}, {});
+  let networks = swarm.networks || [];
+  return Networks.guardedFind(userId, { _id: { $in: networks } }, {});
 };
 
-Networks.findForMenu = function (userId, ids, options) {
-	check(userId, String);
+Networks.findForMenu = function(userId, ids, options) {
+  check(userId, String);
 
-	const networkFields = {
-		fields: {
-			_id: 1,
-			name: 1,
-			slug: 1,
-			image: 1
-		}
-	}
-	const networkOptions = Object.assign({}, options, networkFields);
+  const networkFields = {
+    fields: {
+      _id: 1,
+      name: 1,
+      slug: 1,
+      image: 1,
+    },
+  };
+  const networkOptions = Object.assign({}, options, networkFields);
 
-	return this.guardedFind(userId, 
-		{ $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
-		networkOptions);
-}
+  return this.guardedFind(
+    userId,
+    { $and: [{ _id: { $in: ids } }, { archived_at: { $exists: false } }] },
+    networkOptions
+  );
+};

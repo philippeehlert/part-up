@@ -1,3 +1,3 @@
 Template.registerHelper('footerEnabled', function() {
-    return Session.get('footerEnabled');
+  return Session.get('footerEnabled');
 });

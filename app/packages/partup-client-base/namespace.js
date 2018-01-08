@@ -3,10 +3,9 @@
  * @namespace Partup.client
  */
 Partup.client = {
-
-    /**
-     * This namespace contains constructors
-     * @namespace Partup.client.constructors
-     */
-    constructors: {}
+  /**
+   * This namespace contains constructors
+   * @namespace Partup.client.constructors
+   */
+  constructors: {},
 };

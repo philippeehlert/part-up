@@ -1,43 +1,54 @@
 Template.ReversedScroller.onRendered(function() {
-    var template = this;
+  let template = this;
 
-    template.handleScroll = function(event) {
-        event.preventDefault();
+  template.handleScroll = function(event) {
+    event.preventDefault();
 
-        var $element = $(this);
-        var elementScrollHeight = $element[0].scrollHeight;
-        var elementScrollTop = $element[0].scrollTop;
-        var elementOuterHeight = $element.outerHeight(true);
+    let $element = $(this);
+    let elementScrollHeight = $element[0].scrollHeight;
+    let elementScrollTop = $element[0].scrollTop;
+    let elementOuterHeight = $element.outerHeight(true);
 
-        // reversing scroll behaviour
-        if (event.originalEvent.deltaY) {
-            $element[0].scrollTop -= event.originalEvent.deltaY;
-        } else {
-            var delta = parseInt(event.originalEvent.wheelDelta || -event.originalEvent.detail);
-            if (elementScrollTop >= 0) $element.scrollTop(elementScrollTop + delta);
-        }
+    // reversing scroll behaviour
+    if (event.originalEvent.deltaY) {
+      $element[0].scrollTop -= event.originalEvent.deltaY;
+    } else {
+      let delta = parseInt(
+        event.originalEvent.wheelDelta || -event.originalEvent.detail
+      );
+      if (elementScrollTop >= 0) {
+        $element.scrollTop(elementScrollTop + delta);
+      }
+    }
 
-        // custom scroll event for ReversedScroller.onScroll handlers
-        var scrollEvent = {
-            top: {
-                offset: elementScrollHeight - elementOuterHeight - elementScrollTop,
-                reached: elementScrollHeight - elementScrollTop === elementOuterHeight
-            },
-            bottom: {
-                offset: elementScrollTop,
-                reached: elementScrollTop <= 0,
-            }
-        };
-
-        if (template.data.onScroll) template.data.onScroll(scrollEvent);
-
-        return false;
+    // custom scroll event for ReversedScroller.onScroll handlers
+    let scrollEvent = {
+      top: {
+        offset: elementScrollHeight - elementOuterHeight - elementScrollTop,
+        reached: elementScrollHeight - elementScrollTop === elementOuterHeight,
+      },
+      bottom: {
+        offset: elementScrollTop,
+        reached: elementScrollTop <= 0,
+      },
     };
 
-    template.$('[data-pu-reversed-scroller]').on('mousewheel DOMMouseScroll MozMousePixelScroll', template.handleScroll);
+    if (template.data.onScroll) template.data.onScroll(scrollEvent);
+
+    return false;
+  };
+
+  template
+    .$('[data-pu-reversed-scroller]')
+    .on('mousewheel DOMMouseScroll MozMousePixelScroll', template.handleScroll);
 });
 
 Template.ReversedScroller.onDestroyed(function() {
-    var template = this;
-    template.$('[data-pu-reversed-scroller]').off('mousewheel DOMMouseScroll MozMousePixelScroll', template.handleScroll);
+  let template = this;
+  template
+    .$('[data-pu-reversed-scroller]')
+    .off(
+      'mousewheel DOMMouseScroll MozMousePixelScroll',
+      template.handleScroll
+    );
 });

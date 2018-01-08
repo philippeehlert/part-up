@@ -1,5 +1,5 @@
 // For the collection events documentation, see [https://github.com/matb33/meteor-collection-hooks].
-var equal = Npm.require('deeper');
+let equal = Npm.require('deeper');
 
 /**
  * Generate a basic after insert handler.
@@ -8,10 +8,10 @@ var equal = Npm.require('deeper');
  * @return {function}
  * @ignore
  */
-var basicAfterInsert = function(namespace) {
-    return function(userId, document) {
-        Event.emit(namespace + '.inserted', userId, document);
-    };
+let basicAfterInsert = function(namespace) {
+  return function(userId, document) {
+    Event.emit(namespace + '.inserted', userId, document);
+  };
 };
 
 /**
@@ -22,26 +22,26 @@ var basicAfterInsert = function(namespace) {
  * @return {function}
  * @ignore
  */
-var basicAfterUpdate = function(namespace) {
-    return function(userId, document, fieldNames, modifier, options) {
-        Event.emit(namespace + '.updated', userId, document, this.previous);
+let basicAfterUpdate = function(namespace) {
+  return function(userId, document, fieldNames, modifier, options) {
+    Event.emit(namespace + '.updated', userId, document, this.previous);
 
-        if (this.previous) {
-            var previous = this.previous;
+    if (this.previous) {
+      let previous = this.previous;
 
-            fieldNames.forEach(function(key) {
-                var value = {
-                    'name': key,
-                    'old': previous[key],
-                    'new': document[key]
-                };
+      fieldNames.forEach(function(key) {
+        let value = {
+          name: key,
+          old: previous[key],
+          new: document[key],
+        };
 
-                if (equal(value.old, value.new)) return;
+        if (equal(value.old, value.new)) return;
 
-                Event.emit(namespace + '.' + key + '.changed', userId, document, value);
-            });
-        }
-    };
+        Event.emit(namespace + '.' + key + '.changed', userId, document, value);
+      });
+    }
+  };
 };
 
 /**
@@ -52,10 +52,10 @@ var basicAfterUpdate = function(namespace) {
  * @return {function}
  * @ignore
  */
-var basicAfterRemove = function(namespace) {
-    return function(userId, document) {
-        Event.emit(namespace + '.removed', userId, document);
-    };
+let basicAfterRemove = function(namespace) {
+  return function(userId, document) {
+    Event.emit(namespace + '.removed', userId, document);
+  };
 };
 
 // Partup Events
@@ -74,7 +74,7 @@ Activities.after.update(basicAfterUpdate('partups.activities'));
 Activities.after.remove(basicAfterRemove('partups.activities'));
 
 // Update Events
-Updates.hookOptions.after.update = {fetchPrevious: false};
+Updates.hookOptions.after.update = { fetchPrevious: false };
 Updates.after.insert(basicAfterInsert('partups.updates'));
 Updates.after.update(basicAfterUpdate('partups.updates'));
 Updates.after.remove(basicAfterRemove('partups.updates'));

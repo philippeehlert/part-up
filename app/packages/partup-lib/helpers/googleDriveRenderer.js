@@ -1,13 +1,11 @@
-var GoogleDriveRenderer = function () {
+let GoogleDriveRenderer = function() {
+  return {
+    createPreviewLinkFromDirectLink: createPreviewLinkFromDirectLink,
+  };
 
-    return {
-        createPreviewLinkFromDirectLink: createPreviewLinkFromDirectLink
-    };
-
-    function createPreviewLinkFromDirectLink(directLinkUrl) {
-        return directLinkUrl;
-    }
-
+  function createPreviewLinkFromDirectLink(directLinkUrl) {
+    return directLinkUrl;
+  }
 };
 
 Partup.helpers.GoogleDriveRenderer = GoogleDriveRenderer;

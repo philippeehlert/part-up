@@ -1,76 +1,74 @@
 Meteor.startup(function() {
-    if (process.env.NODE_ENV.match(/development|staging/)) {
+  if (process.env.NODE_ENV.match(/development|staging/)) {
+    if (!Tags.find().count()) {
+      Tags.insert({
+        _id: 'crowdfunding',
+      });
 
-        if (!Tags.find().count()) {
+      /* 2 */
+      Tags.insert({
+        _id: 'marketing',
+      });
 
-            Tags.insert({
-                '_id' : 'crowdfunding'
-            });
+      /* 3 */
+      Tags.insert({
+        _id: 'part-up',
+      });
 
-            /* 2 */
-            Tags.insert({
-                '_id' : 'marketing'
-            });
+      /* 4 */
+      Tags.insert({
+        _id: 'geld',
+      });
 
-            /* 3 */
-            Tags.insert({
-                '_id' : 'part-up'
-            });
+      /* 5 */
+      Tags.insert({
+        _id: 'design',
+      });
 
-            /* 4 */
-            Tags.insert({
-                '_id' : 'geld'
-            });
+      /* 6 */
+      Tags.insert({
+        _id: 'ux',
+      });
 
-            /* 5 */
-            Tags.insert({
-                '_id' : 'design'
-            });
+      /* 7 */
+      Tags.insert({
+        _id: 'photography',
+      });
 
-            /* 6 */
-            Tags.insert({
-                '_id' : 'ux'
-            });
+      /* 8 */
+      Tags.insert({
+        _id: 'nonprofit',
+      });
 
-            /* 7 */
-            Tags.insert({
-                '_id' : 'photography'
-            });
+      /* 9 */
+      Tags.insert({
+        _id: 'ing',
+      });
 
-            /* 8 */
-            Tags.insert({
-                '_id' : 'nonprofit'
-            });
+      /* 10 */
+      Tags.insert({
+        _id: 'financial',
+      });
 
-            /* 9 */
-            Tags.insert({
-                '_id' : 'ing'
-            });
+      /* 11 */
+      Tags.insert({
+        _id: 'organizational',
+      });
 
-            /* 10 */
-            Tags.insert({
-                '_id' : 'financial'
-            });
+      /* 12 */
+      Tags.insert({
+        _id: 'lifely',
+      });
 
-            /* 11 */
-            Tags.insert({
-                '_id' : 'organizational'
-            });
+      /* 13 */
+      Tags.insert({
+        _id: 'meetup',
+      });
 
-            /* 12 */
-            Tags.insert({
-                '_id' : 'lifely'
-            });
-
-            /* 13 */
-            Tags.insert({
-                '_id' : 'meetup'
-            });
-
-            /* 14 */
-            Tags.insert({
-                '_id' : 'meteor'
-            });
-        }
+      /* 14 */
+      Tags.insert({
+        _id: 'meteor',
+      });
     }
+  }
 });

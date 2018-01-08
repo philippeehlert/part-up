@@ -1,3 +1,3 @@
-Template.registerHelper("Partup", function () {
-    return Partup;
+Template.registerHelper('Partup', function() {
+  return Partup;
 });

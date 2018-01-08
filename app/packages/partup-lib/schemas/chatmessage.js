@@ -4,16 +4,16 @@
  * @memberof Partup.schemas
  * @private
  */
-var chatMessageBaseSchema = new SimpleSchema({
-    chat_id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
-    },
-    content: {
-        type: String,
-        min: 1,
-        max: 1000
-    }
+let chatMessageBaseSchema = new SimpleSchema({
+  chat_id: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+  },
+  content: {
+    type: String,
+    min: 1,
+    max: 1000,
+  },
 });
 
 /**
@@ -21,38 +21,44 @@ var chatMessageBaseSchema = new SimpleSchema({
  * @name chatMessage
  * @memberof Partup.schemas.entities
  */
-Partup.schemas.entities.chatMessage = new SimpleSchema([chatMessageBaseSchema, {
+Partup.schemas.entities.chatMessage = new SimpleSchema([
+  chatMessageBaseSchema,
+  {
     _id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
     },
     created_at: {
-        type: Date,
-        defaultValue: new Date()
+      type: Date,
+      defaultValue: new Date(),
     },
     creator_id: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Id
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
     },
     read_by: {
-        type: [String],
-        regEx: SimpleSchema.RegEx.Id
+      type: [String],
+      regEx: SimpleSchema.RegEx.Id,
     },
     seen_by: {
-        type: [String],
-        regEx: SimpleSchema.RegEx.Id
+      type: [String],
+      regEx: SimpleSchema.RegEx.Id,
     },
     updated_at: {
-        type: Date,
-        defaultValue: new Date()
-    }
-}]);
+      type: Date,
+      defaultValue: new Date(),
+    },
+  },
+]);
 
 /**
  * ChatMessage form schema
  * @name chatMessage
  * @memberof Partup.schemas.forms
  */
-Partup.schemas.forms.chatMessage = new SimpleSchema([chatMessageBaseSchema, {
+Partup.schemas.forms.chatMessage = new SimpleSchema([
+  chatMessageBaseSchema,
+  {
     //
-}]);
+  },
+]);

@@ -1,4 +1,4 @@
-var events = Npm.require('eventemitter2');
+let events = Npm.require('eventemitter2');
 
 /**
  * The global event emitter instance.
@@ -7,6 +7,6 @@ var events = Npm.require('eventemitter2');
  * @namespace Event
  */
 Event = new events.EventEmitter2({
-    wildcard: true,
-    delimiter: '.'
+  wildcard: true,
+  delimiter: '.',
 });

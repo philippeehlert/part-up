@@ -12,19 +12,23 @@
  *  access="sanitize_access" }}
  */
 Template.dangerouslyRenderHTML.onCreated(function() {
-    const { transform = html => html } = this.data;
-    this.transform = transform;
-    this.access = this.data.access;
+  const { transform = (html) => html } = this.data;
+  this.transform = transform;
+  this.access = this.data.access;
 });
 
 Template.dangerouslyRenderHTML.helpers({
-    render() {
-        const template = Template.instance();
-        const transformFunc = template.transform;
-        const transformedHTML = transformFunc(template.data.HTML);
-        const sanitizeAccess = template.access || Partup.client.html.SANITIZE_ACCESS.STANDARD;
-        const sanitizedHTML = Partup.client.html.sanitize(transformedHTML, sanitizeAccess);
+  render() {
+    const template = Template.instance();
+    const transformFunc = template.transform;
+    const transformedHTML = transformFunc(template.data.HTML);
+    const sanitizeAccess =
+      template.access || Partup.client.html.SANITIZE_ACCESS.STANDARD;
+    const sanitizedHTML = Partup.client.html.sanitize(
+      transformedHTML,
+      sanitizeAccess
+    );
 
-        return sanitizedHTML;
-    },
+    return sanitizedHTML;
+  },
 });

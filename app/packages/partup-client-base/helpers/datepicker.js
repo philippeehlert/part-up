@@ -1,3 +1,3 @@
 Template.registerHelper('partupDatepickerOptions', function() {
-    return Partup.client.datepicker.options;
+  return Partup.client.datepicker.options;
 });

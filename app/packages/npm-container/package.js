@@ -1,16 +1,16 @@
-var path = Npm.require('path');
-var fs = Npm.require('fs');
+let path = Npm.require('path');
+let fs = Npm.require('fs');
 
 Package.describe({
   summary: 'Contains all your npm dependencies',
   version: '1.2.0',
-  name: 'npm-container'
+  name: 'npm-container',
 });
 
-var packagesJsonFile = path.resolve('./packages.json');
+let packagesJsonFile = path.resolve('./packages.json');
 try {
-  var fileContent = fs.readFileSync(packagesJsonFile);
-  var packages = JSON.parse(fileContent.toString());
+  let fileContent = fs.readFileSync(packagesJsonFile);
+  let packages = JSON.parse(fileContent.toString());
   Npm.depends(packages);
 } catch (ex) {
   console.error('ERROR: packages.json parsing error [ ' + ex.message + ' ]');
@@ -24,7 +24,7 @@ Package.onUse(function(api) {
     api.addAssets('../../packages.json', 'server');
   } else {
     api.addFiles('../../packages.json', 'server', {
-      isAsset: true
+      isAsset: true,
     });
   }
 });

@@ -1,3 +1,3 @@
 Template.registerHelper('partupSanitize', function(text) {
-    return Partup.client.sanitize(text);
+  return Partup.client.sanitize(text);
 });

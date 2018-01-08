@@ -3,43 +3,44 @@
  @memberof Partup.helpers
  */
 Partup.helpers.url = {
-    stripWWW: function(url) {
-        return url.replace(/^www\./gi, '');
-    },
-    stripHTTP: function(url) {
-        return url.replace(/^.*?:\/\//gi, '');
-    },
-    capitalizeFirstLetter: function(string) {
-        if (!string) return '';
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-    getCleanUrl: function(url) {
-        return this.capitalizeFirstLetter(this.stripWWW(this.stripHTTP(url)));
-    },
-    addHTTP: function(url) {
-        if (!/^((http|https|ftp):\/\/)/.test(url)) {
-            url = 'http://' + url;
-        }
-        return url;
-    },
-    getImageUrl: function(image, store) {
-        store = store || '1200x520';
-        var imageKey = lodash.get(image, 'copies[' + store + '].key');
-        if (!imageKey) return undefined;
+  stripWWW: function(url) {
+    return url.replace(/^www\./gi, '');
+  },
+  stripHTTP: function(url) {
+    return url.replace(/^.*?:\/\//gi, '');
+  },
+  capitalizeFirstLetter: function(string) {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  },
+  getCleanUrl: function(url) {
+    return this.capitalizeFirstLetter(this.stripWWW(this.stripHTTP(url)));
+  },
+  addHTTP: function(url) {
+    if (!/^((http|https|ftp):\/\/)/.test(url)) {
+      url = 'http://' + url;
+    }
+    return url;
+  },
+  getImageUrl: function(image, store) {
+    store = store || '1200x520';
+    let imageKey = lodash.get(image, 'copies[' + store + '].key');
+    if (!imageKey) return undefined;
 
-        // staging acceptance production aws image url
-        return ['https://s3-',
-            mout.object.get(Meteor, 'settings.public.aws.region'),
-            '.amazonaws.com/',
-            mout.object.get(Meteor, 'settings.public.aws.bucket'),
-            '/',
-            store,
-            '/',
-            imageKey
-        ].join('');
-    },
+    // staging acceptance production aws image url
+    return [
+      'https://s3-',
+      mout.object.get(Meteor, 'settings.public.aws.region'),
+      '.amazonaws.com/',
+      mout.object.get(Meteor, 'settings.public.aws.bucket'),
+      '/',
+      store,
+      '/',
+      imageKey,
+    ].join('');
+  },
 
-    /*
+  /*
         supported formats are
         http://www.youtube.com/watch?v=0zM3nApSvMg&feature=feedrec_grec_index
         http://www.youtube.com/user/IngridMichaelsonVEVO#p/a/u/1/QdK8U-VIH_o
@@ -50,16 +51,16 @@ Partup.helpers.url = {
         http://youtu.be/0zM3nApSvMg
     */
 
-    getYoutubeIdFromUrl: function(url) {
-        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        var match = url.match(regExp);
-        if (match && match[2].length == 11) {
-            return match[2];
-        } else {
-            return false;
-        }
-    },
-    /*
+  getYoutubeIdFromUrl: function(url) {
+    let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    let match = url.match(regExp);
+    if (match && match[2].length == 11) {
+      return match[2];
+    } else {
+      return false;
+    }
+  },
+  /*
         supported formats are
         http://vimeo.com/6701902
         http://vimeo.com/670190233
@@ -74,28 +75,28 @@ Partup.helpers.url = {
         http://vimeo.com/channels/vimeogirls/66882931
     */
 
-    getVimeoIdFromUrl: function(url) {
-        var regExp = /(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/;
-        var match = url.match(regExp);
-        if (match && match[5]) {
-            return match[5];
-        } else {
-            return false;
-        }
-    },
+  getVimeoIdFromUrl: function(url) {
+    let regExp = /(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/;
+    let match = url.match(regExp);
+    if (match && match[5]) {
+      return match[5];
+    } else {
+      return false;
+    }
+  },
 
-    getFileUrl: function(fileGuid) {
-        const guid = typeof fileGuid === 'string' ?
-            fileGuid :
-        fileGuid.guid || fileGuid.name;
+  getFileUrl: function(fileGuid) {
+    const guid =
+      typeof fileGuid === 'string' ? fileGuid : fileGuid.guid || fileGuid.name;
 
-        // staging acceptance production aws image url
-        return ['https://s3-',
-            mout.object.get(Meteor, 'settings.public.aws.region'),
-            '.amazonaws.com/',
-            mout.object.get(Meteor, 'settings.public.aws.bucket'),
-            '/files/',
-            guid,
-        ].join('');
-    },
+    // staging acceptance production aws image url
+    return [
+      'https://s3-',
+      mout.object.get(Meteor, 'settings.public.aws.region'),
+      '.amazonaws.com/',
+      mout.object.get(Meteor, 'settings.public.aws.bucket'),
+      '/files/',
+      guid,
+    ].join('');
+  },
 };

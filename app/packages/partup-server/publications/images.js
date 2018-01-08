@@ -4,18 +4,18 @@
  * @param {String} networkId
  */
 Meteor.publish('images.one', function(imageId) {
-    check(imageId, String);
+  check(imageId, String);
 
-    this.unblock();
+  this.unblock();
 
-    return Images.find({_id: imageId}, {limit: 1});
+  return Images.find({ _id: imageId }, { limit: 1 });
 });
 
 Meteor.publish('images.many', function() {
-    this.unblock();
+  this.unblock();
 
-    if (Meteor.user()) {
-        return Images.find();
-    }
-    throw new Meteor.Error(0, 'unauthorized');
+  if (Meteor.user()) {
+    return Images.find();
+  }
+  throw new Meteor.Error(0, 'unauthorized');
 });

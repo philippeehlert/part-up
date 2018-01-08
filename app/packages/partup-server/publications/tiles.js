@@ -1,14 +1,12 @@
 Meteor.publishComposite('tiles.profile', function(upperId) {
-    check(upperId, String);
+  check(upperId, String);
 
-    this.unblock();
+  this.unblock();
 
-    return {
-        find: function() {
-            return Tiles.find({upper_id: upperId});
-        },
-        children: [
-            {find: Images.findForTile}
-        ]
-    };
+  return {
+    find: function() {
+      return Tiles.find({ upper_id: upperId });
+    },
+    children: [{ find: Images.findForTile }],
+  };
 });

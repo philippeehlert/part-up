@@ -1,21 +1,25 @@
 Meteor.publishComposite('contentblocks.by_network_slug', function(networkSlug) {
-    check(networkSlug, String);
+  check(networkSlug, String);
 
-    this.unblock();
+  this.unblock();
 
-    return {
-        find: function() {
-            return Networks.guardedFind(this.userId, {slug: networkSlug}, {limit: 1});
+  return {
+    find: function() {
+      return Networks.guardedFind(
+        this.userId,
+        { slug: networkSlug },
+        { limit: 1 }
+      );
+    },
+    children: [
+      {
+        find: function(network) {
+          return ContentBlocks.find({
+            _id: { $in: network.contentblocks || [] },
+          });
         },
-        children: [
-            {
-                find: function(network) {
-                    return ContentBlocks.find({_id: {$in: network.contentblocks || []}});
-                },
-                children: [
-                    {find: Images.findForContentBlock}
-                ]
-            }
-        ]
-    };
+        children: [{ find: Images.findForContentBlock }],
+      },
+    ],
+  };
 });

@@ -1,3 +1,3 @@
 Template.registerHelper('newlineToBreak', function(string) {
-    return Partup.client.strings.newlineToBreak(string);
+  return Partup.client.strings.newlineToBreak(string);
 });

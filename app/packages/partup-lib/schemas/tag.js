@@ -4,11 +4,11 @@
  * @memberof Partup.schemas
  * @private
  */
-var tagBaseSchema = new SimpleSchema({
-    _id: {
-        type: String,
-        max: 50
-    }
+let tagBaseSchema = new SimpleSchema({
+  _id: {
+    type: String,
+    max: 50,
+  },
 });
 
 /**
@@ -16,22 +16,28 @@ var tagBaseSchema = new SimpleSchema({
  * @name tag
  * @memberof Partup.schemas.entities
  */
-Partup.schemas.entities.tag = new SimpleSchema([tagBaseSchema, {
+Partup.schemas.entities.tag = new SimpleSchema([
+  tagBaseSchema,
+  {
     count: {
-        type: Number,
-        min: 0
+      type: Number,
+      min: 0,
     },
     created_at: {
-        type: Date,
-        defaultValue: new Date()
-    }
-}]);
+      type: Date,
+      defaultValue: new Date(),
+    },
+  },
+]);
 
 /**
  * tag form schema
  * @name tag
  * @memberof Partup.schemas.forms
  */
-Partup.schemas.forms.tag = new SimpleSchema([tagBaseSchema, {
+Partup.schemas.forms.tag = new SimpleSchema([
+  tagBaseSchema,
+  {
     //
-}]);
+  },
+]);

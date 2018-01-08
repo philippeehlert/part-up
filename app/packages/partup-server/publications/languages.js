@@ -3,9 +3,9 @@
  *
  */
 Meteor.publishComposite('languages.all', function() {
-    return {
-        find: function() {
-            return Languages.find();
-        }
-    };
+  return {
+    find: function() {
+      return Languages.find();
+    },
+  };
 });

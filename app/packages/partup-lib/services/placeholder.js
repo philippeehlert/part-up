@@ -3,6 +3,4 @@
  @name partup.services.placeholders
  @memberof Partup.services
  */
-Partup.services.placeholders = {
-
-};
+Partup.services.placeholders = {};

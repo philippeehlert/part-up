@@ -5,108 +5,104 @@
  * @memberof Partup.client
  */
 
-
 Partup.client.windowTitle = (function() {
+  let appName,
+    contextName,
+    defaultDelimiter,
+    isDisplayName,
+    notificationsCount,
+    windowTitle;
 
-  var appName,
-  contextName,
-  defaultDelimiter,
-  isDisplayName,
-  notificationsCount,
-  windowTitle;
-
-  init = function () {
-    appName = "Part-up";
-    contextName = "";
+  (init = function() {
+    appName = 'Part-up';
+    contextName = '';
     isDisplayName = true;
-    defaultDelimiter = " - ";
+    defaultDelimiter = ' - ';
     notificationsCount = 0;
-    windowTitle = "";
+    windowTitle = '';
 
     composeWindowTitle();
-  },
-  setAppName = function(isDisplayIn, nameIn) {
-    	names[numberIn] = nameIn;
+  }),
+  (setAppName = function(isDisplayIn, nameIn) {
+    names[numberIn] = nameIn;
 
-      composeWindowTitle();
-  },
-  setNotificationsCount = function(notificationsCountIn) {
+    composeWindowTitle();
+  }),
+  (setNotificationsCount = function(notificationsCountIn) {
     notificationsCount = notificationsCountIn;
 
     composeWindowTitle();
-  	return;
-  },
-  setContextName = function(contextNameIn) {
-  	contextName = contextNameIn;
+    return;
+  }),
+  (setContextName = function(contextNameIn) {
+    contextName = contextNameIn;
 
     composeWindowTitle();
-  	return;
-  },
-  composeWindowTitle = function() {
+    return;
+  }),
+  (composeWindowTitle = function() {
     if (notificationsCount > 0) {
-        windowTitle = '(' + notificationsCount + ') ' + appName;
+      windowTitle = '(' + notificationsCount + ') ' + appName;
     } else {
-        windowTitle = appName + "";
+      windowTitle = String(appName);
     }
 
-    if (contextName !== "") {
-
-      if (windowTitle == "") {
+    if (contextName !== '') {
+      if (windowTitle == '') {
         windowTitle = contextName;
       } else {
         windowTitle = windowTitle + defaultDelimiter + contextName;
       }
-
     }
 
     document.title = windowTitle;
     return;
-  };
+  });
   return {
-  	init: init,
+    init: init,
     setAppName: setAppName,
     setNotificationsCount: setNotificationsCount,
-    setContextName: setContextName
+    setContextName: setContextName,
   };
-}());
+})();
 
 Partup.client.windowTitle.init();
-var appName = 'Part-up';
-var contextName = '';
-var defaultDelimiter = ' - ';
-var notificationsCount = 0;
-var windowTitle = '';
+let appName = 'Part-up';
+let contextName = '';
+let defaultDelimiter = ' - ';
+let notificationsCount = 0;
+let windowTitle = '';
 
-var composeWindowTitle = function () {
-    if (notificationsCount > 0) {
-        windowTitle = '(' + notificationsCount + ') ' + appName;
+var composeWindowTitle = function() {
+  if (notificationsCount > 0) {
+    windowTitle = '(' + notificationsCount + ') ' + appName;
+  } else {
+    windowTitle = String(appName);
+  }
+
+  if (contextName !== '') {
+    if (windowTitle === '') {
+      windowTitle = contextName;
     } else {
-        windowTitle = appName + '';
+      windowTitle = windowTitle + defaultDelimiter + contextName;
     }
-
-    if (contextName !== '') {
-        if (windowTitle === '') {
-            windowTitle = contextName;
-        } else {
-            windowTitle = windowTitle + defaultDelimiter + contextName;
-        }
-    }
-    document.title = windowTitle;
+  }
+  document.title = windowTitle;
 };
 
-var setNotificationsCount = function (notificationsCountIn) {
-    notificationsCount = notificationsCountIn;
-    composeWindowTitle();
+var setNotificationsCount = function(notificationsCountIn) {
+  notificationsCount = notificationsCountIn;
+  composeWindowTitle();
 };
 
-var setContextName = function (contextNameIn) {
-    contextName = contextNameIn;
-    composeWindowTitle();
+var setContextName = function(contextNameIn) {
+  contextName = contextNameIn;
+  composeWindowTitle();
 };
 
 composeWindowTitle();
 
 Partup.client.windowTitle = {
-    setNotificationsCount: setNotificationsCount,
-    setContextName: setContextName
+  setNotificationsCount: setNotificationsCount,
+  setContextName: setContextName,
 };

@@ -23,16 +23,16 @@ Partup.helpers = {};
  @name partup.schemas
  */
 Partup.schemas = {
-    /**
+  /**
      @namespace schema.forms namespace
      @name partup.schemas.forms
      */
-    forms: {},
-    /**
+  forms: {},
+  /**
      @namespace schema.entities namespace
      @name partup.schemas.entities
      */
-    entities: {}
+  entities: {},
 };
 
 /**

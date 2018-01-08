@@ -2,16 +2,14 @@
  * Publish a list of swarms
  */
 Meteor.publishComposite('swarms.list', function() {
-    this.unblock();
+  this.unblock();
 
-    return {
-        find: function() {
-            return Swarms.guardedFind(this.userId);
-        },
-        children: [
-            {find: Images.findForSwarm}
-        ]
-    };
+  return {
+    find: function() {
+      return Swarms.guardedFind(this.userId);
+    },
+    children: [{ find: Images.findForSwarm }],
+  };
 });
 
 /**
@@ -20,35 +18,38 @@ Meteor.publishComposite('swarms.list', function() {
  * @param {String} swarmSlug
  */
 Meteor.publishComposite('swarms.one', function(swarmSlug) {
-    check(swarmSlug, String);
+  check(swarmSlug, String);
 
-    if (this.unblock) this.unblock();
+  if (this.unblock) this.unblock();
 
-    return {
-        find: function() {
-            return Swarms.guardedMetaFind({slug: swarmSlug}, {limit: 1});
+  return {
+    find: function() {
+      return Swarms.guardedMetaFind({ slug: swarmSlug }, { limit: 1 });
+    },
+    children: [
+      {
+        find: function(swarm) {
+          if (swarm.quotes.length > 0) {
+            let userIds = mout.array.map(swarm.quotes, function(quote) {
+              return quote.author._id;
+            });
+            return Meteor.users.findMultiplePublicProfiles(userIds);
+          }
         },
-        children: [
-            {
-                find: function(swarm) {
-                    if (swarm.quotes.length > 0) {
-                        var userIds = mout.array.map(swarm.quotes, function(quote) {
-                            return quote.author._id;
-                        });
-                        return Meteor.users.findMultiplePublicProfiles(userIds);
-                    }
-                }, children: [
-                    {find: Images.findForUser}
-                ]
-            },
-            {find: Images.findForSwarm},
-            {
-                find: function() {
-                    return Swarms.guardedFind(this.userId, {slug: swarmSlug}, {limit: 1});
-                }
-            }
-        ]
-    };
+        children: [{ find: Images.findForUser }],
+      },
+      { find: Images.findForSwarm },
+      {
+        find: function() {
+          return Swarms.guardedFind(
+            this.userId,
+            { slug: swarmSlug },
+            { limit: 1 }
+          );
+        },
+      },
+    ],
+  };
 });
 
 /**
@@ -58,44 +59,49 @@ Meteor.publishComposite('swarms.one', function(swarmSlug) {
  * @param {Object} parameters
  */
 Meteor.publishComposite('swarms.one.networks', function(swarmSlug, parameters) {
-    check(swarmSlug, String);
+  check(swarmSlug, String);
 
-    if (this.unblock) this.unblock();
+  if (this.unblock) this.unblock();
 
-    return {
-        find: function() {
-            return Swarms.guardedMetaFind({slug: swarmSlug}, {limit: 1});
+  return {
+    find: function() {
+      return Swarms.guardedMetaFind({ slug: swarmSlug }, { limit: 1 });
+    },
+    children: [
+      {
+        find: function(swarm) {
+          return Networks.guardedMetaFind(
+            { _id: { $in: swarm.networks } },
+            { limit: 25 }
+          );
         },
-        children: [
-            {find: function(swarm) {
-                return Networks.guardedMetaFind({_id: {$in: swarm.networks}}, {limit: 25});
-            }, children: [
-                {find: Images.findForNetwork}
-            ]}
-        ]
-    };
+        children: [{ find: Images.findForNetwork }],
+      },
+    ],
+  };
 });
 
 /**
  * Publish all swarms for admin panel
  */
 Meteor.publishComposite('swarms.admin_all', function() {
-    this.unblock();
+  this.unblock();
 
-    var user = Meteor.users.findOne(this.userId);
-    if (!User(user).isAdmin()) return;
+  let user = Meteor.users.findOne(this.userId);
+  if (!User(user).isAdmin()) return;
 
-    return {
-        find: function() {
-            return Swarms.find({});
+  return {
+    find: function() {
+      return Swarms.find({});
+    },
+    children: [
+      { find: Images.findForSwarm },
+      {
+        find: function(swarm) {
+          return Meteor.users.findSinglePublicProfile(swarm.admin_id);
         },
-        children: [
-            {find: Images.findForSwarm},
-            {find: function(swarm) {
-                return Meteor.users.findSinglePublicProfile(swarm.admin_id);
-            }, children: [
-                {find: Images.findForUser}
-            ]}
-        ]
-    };
+        children: [{ find: Images.findForUser }],
+      },
+    ],
+  };
 });

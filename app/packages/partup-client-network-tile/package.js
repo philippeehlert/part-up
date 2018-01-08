@@ -1,23 +1,12 @@
 Package.describe({
-    name: 'partup-client-network-tile',
-    version: '0.0.1',
-    summary: '',
-    documentation: null
+  name: 'partup-client-network-tile',
+  version: '0.0.1',
+  summary: '',
+  documentation: null,
 });
 
 Package.onUse(function(api) {
+  api.use(['templating', 'partup-lib', 'ecmascript'], 'client');
 
-    api.use([
-        'templating',
-        'partup-lib',
-        'ecmascript',
-    ], 'client');
-
-    api.addFiles([
-
-        'NetworkTile.html',
-        'NetworkTile.js'
-
-    ], 'client');
-
+  api.addFiles(['NetworkTile.html', 'NetworkTile.js'], 'client');
 });

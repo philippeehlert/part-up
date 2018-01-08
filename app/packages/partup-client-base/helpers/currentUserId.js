@@ -1,6 +1,6 @@
 Template.registerHelper('currentUserId', function() {
-    var user = Meteor.user();
-    if (!user) return;
+  let user = Meteor.user();
+  if (!user) return;
 
-    return user._id;
+  return user._id;
 });

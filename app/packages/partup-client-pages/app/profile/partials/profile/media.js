@@ -1,9 +1,9 @@
 Template.MediaTile.helpers({
-    embedSettings: function() {
-        return this.embedSettings();
-    },
+  embedSettings: function() {
+    return this.embedSettings();
+  },
 
-    isCurrentusersMediaTile: function() {
-        return this.upper_id === Meteor.userId();
-    }
+  isCurrentusersMediaTile: function() {
+    return this.upper_id === Meteor.userId();
+  },
 });

@@ -1,5 +1,5 @@
-var CountryLanguage = Npm.require('country-language');
-var d = Debug('services:language');
+let CountryLanguage = Npm.require('country-language');
+let d = Debug('services:language');
 
 /**
  @namespace Partup server language service
@@ -7,31 +7,48 @@ var d = Debug('services:language');
  @memberof Partup.server.services
  */
 Partup.server.services.language = {
-    /**
-     * Get native language name from a country code
-     *
-     * @param {String} languageCode
-     *
-     * @return {String}
-     */
-    nativeLanguageName: function(languageCode) {
-        return CountryLanguage.getLanguage(languageCode, function(error, languages) {
-            if (error) {
-                Log.error('Error while trying to get native language name from languageCode [' + languageCode + ']: ' + error);
-            } else {
-                var nativeName = languages.nativeName[0].toLocaleLowerCase();
+  /**
+   * Get native language name from a country code
+   *
+   * @param {String} languageCode
+   *
+   * @return {String}
+   */
+  nativeLanguageName: function(languageCode) {
+    return CountryLanguage.getLanguage(languageCode, function(
+      error,
+      languages
+    ) {
+      if (error) {
+        Log.error(
+          'Error while trying to get native language name from languageCode [' +
+            languageCode +
+            ']: ' +
+            error
+        );
+      } else {
+        let nativeName = languages.nativeName[0].toLocaleLowerCase();
 
-                d('Got language name [' + nativeName + '] from country code [' + languageCode + ']');
+        d(
+          'Got language name [' +
+            nativeName +
+            '] from country code [' +
+            languageCode +
+            ']'
+        );
 
-                return nativeName;
-            }
-        });
-    },
+        return nativeName;
+      }
+    });
+  },
 
-    addNewLanguage: function(languageCode) {
-        if (!Languages.findOne({_id: languageCode})) {
-            var nativeLanguageName = this.nativeLanguageName(languageCode);
-            Languages.insert({_id: languageCode, native_name: nativeLanguageName});
-        }
+  addNewLanguage: function(languageCode) {
+    if (!Languages.findOne({ _id: languageCode })) {
+      let nativeLanguageName = this.nativeLanguageName(languageCode);
+      Languages.insert({
+        _id: languageCode,
+        native_name: nativeLanguageName,
+      });
     }
+  },
 };

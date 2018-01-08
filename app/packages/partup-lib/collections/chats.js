@@ -3,43 +3,52 @@
  *
  * @memberOf Chats
  */
-var Chat = function(document) {
-    _.extend(this, document);
+let Chat = function(document) {
+  _.extend(this, document);
 };
 
 Chat.prototype.unreadCount = function() {
-    var countObject = _.find(this.counter || [], {user_id: Meteor.userId()}) || {};
-    return countObject.unread_count || 0;
+  let countObject =
+    _.find(this.counter || [], { user_id: Meteor.userId() }) || {};
+  return countObject.unread_count || 0;
 };
 
 Chat.prototype.hasUnreadMessages = function() {
-    var countObject = _.find(this.counter || [], {user_id: Meteor.userId()}) || {};
-    return !!countObject.unread_count;
+  let countObject =
+    _.find(this.counter || [], { user_id: Meteor.userId() }) || {};
+  return !!countObject.unread_count;
 };
 
 Chat.prototype.removeFull = function() {
-    Meteor.users.update({
-        chats: {
-            $in: [this._id]
-        }
-    }, {
-        $pull: {
-            chats: this._id
-        }
-    }, {
-        multi: true
-    });
+  Meteor.users.update(
+    {
+      chats: {
+        $in: [this._id],
+      },
+    },
+    {
+      $pull: {
+        chats: this._id,
+      },
+    },
+    {
+      multi: true,
+    }
+  );
 
-    Networks.update({
-        chat_id: this._id
-    }, {
-        $unset: {
-            chat_id: null
-        }
-    });
+  Networks.update(
+    {
+      chat_id: this._id,
+    },
+    {
+      $unset: {
+        chat_id: null,
+      },
+    }
+  );
 
-    ChatMessages.remove({chat_id: this._id});
-    Chats.remove({_id: this._id});
+  ChatMessages.remove({ chat_id: this._id });
+  Chats.remove({ _id: this._id });
 };
 
 /**
@@ -50,12 +59,20 @@ Chat.prototype.removeFull = function() {
  * @param {Date} typingDate the front-end date of when the user started typing
  */
 Chat.prototype.startedTyping = function(userId, typingDate) {
-    var typingObject = Chats.findOne({_id: this._id, 'started_typing.upper_id': userId});
-    if (typingObject) {
-        Chats.update({_id: this._id, 'started_typing.upper_id': userId}, {$set: {'started_typing.$.date': typingDate}});
-    } else {
-        Chats.update(this._id, {$push: {started_typing: {upper_id: userId, date: typingDate}}});
-    }
+  let typingObject = Chats.findOne({
+    '_id': this._id,
+    'started_typing.upper_id': userId,
+  });
+  if (typingObject) {
+    Chats.update(
+      { '_id': this._id, 'started_typing.upper_id': userId },
+      { $set: { 'started_typing.$.date': typingDate } }
+    );
+  } else {
+    Chats.update(this._id, {
+      $push: { started_typing: { upper_id: userId, date: typingDate } },
+    });
+  }
 };
 
 /**
@@ -65,7 +82,7 @@ Chat.prototype.startedTyping = function(userId, typingDate) {
  * @param {String} userId the id of the user that stopped typing
  */
 Chat.prototype.stoppedTyping = function(userId) {
-    Chats.update(this._id, {$pull: {started_typing: {upper_id: userId}}});
+  Chats.update(this._id, { $pull: { started_typing: { upper_id: userId } } });
 };
 
 /**
@@ -75,19 +92,22 @@ Chat.prototype.stoppedTyping = function(userId) {
  * @param {String} userId the id of the user that needs to be added
  */
 Chat.prototype.addUserToCounter = function(userId) {
-    Chats.update({
-        _id: this._id,
-        'counter.user_id': {
-            $ne: userId
-        }
-    }, {
-        $push: {
-            counter: {
-                user_id: userId,
-                unread_count: 0
-            }
-        }
-    });
+  Chats.update(
+    {
+      '_id': this._id,
+      'counter.user_id': {
+        $ne: userId,
+      },
+    },
+    {
+      $push: {
+        counter: {
+          user_id: userId,
+          unread_count: 0,
+        },
+      },
+    }
+  );
 };
 
 /**
@@ -97,29 +117,31 @@ Chat.prototype.addUserToCounter = function(userId) {
  * @param {String} creatorUserId the id of the creator of a message
  */
 Chat.prototype.incrementCounter = function(creatorUserId) {
-    var chat = Chats.findOneOrFail(this._id);
+  let chat = Chats.findOneOrFail(this._id);
 
-    // The counter array is sporadically empty, so fix that
-    if (chat.counter.length < 1) {
-        var chatUppers = Meteor.users.find({chats: {$in: [this._id]}}, {fields: {_id: 1}}).map(function(upper) {
-            return upper._id;
-        });
+  // The counter array is sporadically empty, so fix that
+  if (chat.counter.length < 1) {
+    let chatUppers = Meteor.users
+      .find({ chats: { $in: [this._id] } }, { fields: { _id: 1 } })
+      .map(function(upper) {
+        return upper._id;
+      });
 
-        var self = this;
-        chatUppers.forEach(function(upperId) {
-            self.addUserToCounter(upperId);
-        });
-
-        // Re-fetch chat object for further operations
-        chat = Chats.findOneOrFail(this._id);
-    }
-
-    chat.counter.forEach(function(counter) {
-        if (counter.user_id === creatorUserId) return;
-        counter.unread_count++
+    let self = this;
+    chatUppers.forEach(function(upperId) {
+      self.addUserToCounter(upperId);
     });
 
-    Chats.update(this._id, {$set: {counter: chat.counter}});
+    // Re-fetch chat object for further operations
+    chat = Chats.findOneOrFail(this._id);
+  }
+
+  chat.counter.forEach(function(counter) {
+    if (counter.user_id === creatorUserId) return;
+    counter.unread_count++;
+  });
+
+  Chats.update(this._id, { $set: { counter: chat.counter } });
 };
 
 /**
@@ -129,14 +151,17 @@ Chat.prototype.incrementCounter = function(creatorUserId) {
  * @param {String} userId the id of the user to reset
  */
 Chat.prototype.resetCounterForUser = function(userId) {
-    Chats.update({
-        _id: this._id,
-        'counter.user_id': userId
-    }, {
-        $set: {
-            'counter.$.unread_count': 0
-        }
-    });
+  Chats.update(
+    {
+      '_id': this._id,
+      'counter.user_id': userId,
+    },
+    {
+      $set: {
+        'counter.$.unread_count': 0,
+      },
+    }
+  );
 };
 
 /**
@@ -146,21 +171,24 @@ Chat.prototype.resetCounterForUser = function(userId) {
  * @param {String} userId the id of the user that needs to be removed
  */
 Chat.prototype.removeUserFromCounter = function(userId) {
-    Chats.update({
-        _id: this._id,
-        'counter.user_id': userId
-    }, {
-        $pull: {counter: {user_id: userId}}
-    });
+  Chats.update(
+    {
+      '_id': this._id,
+      'counter.user_id': userId,
+    },
+    {
+      $pull: { counter: { user_id: userId } },
+    }
+  );
 };
 
 /**
  @namespace Chats
  */
 Chats = new Mongo.Collection('chats', {
-    transform: function(document) {
-        return new Chat(document);
-    }
+  transform: function(document) {
+    return new Chat(document);
+  },
 });
 
 /**
@@ -175,33 +203,36 @@ Chats = new Mongo.Collection('chats', {
  * @return {Mongo.Cursor}
  */
 Chats.findForUser = function(userId, parameters, options) {
-    options = options || {};
-    parameters = parameters || {};
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
-    var chatIds = [];
+  options = options || {};
+  parameters = parameters || {};
+  let user = Meteor.users.findOne(userId);
+  if (!user) return;
+  let chatIds = [];
 
-    if (parameters.private) {
-        // Add the private chats
-        var userChats = user.chats || [];
-        chatIds = chatIds.concat(userChats);
-    }
+  if (parameters.private) {
+    // Add the private chats
+    let userChats = user.chats || [];
+    chatIds = chatIds.concat(userChats);
+  }
 
-    if (parameters.networks) {
-        // And now collect the tribe chats
-        var userNetworks = user.networks || [];
-        var networks = Networks.find({_id: {$in: userNetworks}, archived_at: {$exists: false}});
-        networks.forEach(function(network) {
-            if (network.chat_id) chatIds.push(network.chat_id);
-        });
-    }
+  if (parameters.networks) {
+    // And now collect the tribe chats
+    let userNetworks = user.networks || [];
+    let networks = Networks.find({
+      _id: { $in: userNetworks },
+      archived_at: { $exists: false },
+    });
+    networks.forEach(function(network) {
+      if (network.chat_id) chatIds.push(network.chat_id);
+    });
+  }
 
-    if (!options.sort) {
-        options.sort = {updated_at: -1};
-    }
+  if (!options.sort) {
+    options.sort = { updated_at: -1 };
+  }
 
-    // Return the IDs ordered by most recent
-    return Chats.find({_id: {$in: chatIds}}, options);
+  // Return the IDs ordered by most recent
+  return Chats.find({ _id: { $in: chatIds } }, options);
 };
 
 /**
@@ -216,19 +247,19 @@ Chats.findForUser = function(userId, parameters, options) {
  * @return {Mongo.Cursor}
  */
 Chats.findOneForUser = function(userId, chatId, options) {
-    options = options || {};
+  options = options || {};
 
-    var user = Meteor.users.findOne(userId);
-    if (!user) return;
+  let user = Meteor.users.findOne(userId);
+  if (!user) return;
 
-    if (!user.chats.indexOf(chatId) === -1) return;
+  if (!user.chats.indexOf(chatId) === -1) return;
 
-    if (!options.sort) {
-        options.sort = {updated_at: -1};
-    }
+  if (!options.sort) {
+    options.sort = { updated_at: -1 };
+  }
 
-    // Return the IDs ordered by most recent
-    return Chats.find({_id: chatId}, options);
+  // Return the IDs ordered by most recent
+  return Chats.find({ _id: chatId }, options);
 };
 
 /**
@@ -238,8 +269,8 @@ Chats.findOneForUser = function(userId, chatId, options) {
  * @param {String} chatId
  */
 Chats.removeFull = function(chatId) {
-    var chat = Chats.findOneOrFail(chatId);
+  let chat = Chats.findOneOrFail(chatId);
 
-    ChatMessages.remove({chat_id: chatId})
-    Chats.remove({_id: chatId});
+  ChatMessages.remove({ chat_id: chatId });
+  Chats.remove({ _id: chatId });
 };

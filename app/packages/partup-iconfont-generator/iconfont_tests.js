@@ -6,6 +6,6 @@
  *
  */
 
-Tinytest.add('iconfont - main test', function (test) {
+Tinytest.add('iconfont - main test', function(test) {
   test.ok();
 });

@@ -3,9 +3,9 @@
  *
  */
 Meteor.publishComposite('sectors.all', function() {
-    return {
-        find: function() {
-            return Sectors.find();
-        }
-    };
+  return {
+    find: function() {
+      return Sectors.find();
+    },
+  };
 });

@@ -1,5 +1,4 @@
 module.exports = function() {
-  
   this.Given(/^I navigate to "([^"]*)"$/, function(relativePath) {
     browser.url(process.env.ROOT_URL + relativePath);
   });
@@ -12,13 +11,11 @@ module.exports = function() {
   });
 
   this.Then(/^I should see my username "([^"]*)"$/, function(expectedUsername) {
-    var element = browser.element('.pu-button-header-profiledropdown');
+    let element = browser.element('.pu-button-header-profiledropdown');
     element.waitForExist();
 
     expect(element.getText()).toBe(expectedUsername);
   });
-
-
 
   this.When(/^I enter wrong login information$/, function() {
     browser.element('[name="email"]').setValue('user@example.com');
@@ -27,7 +24,7 @@ module.exports = function() {
   });
 
   this.Then(/^I should see an error$/, function() {
-    var element = browser.element('.pu-state-invalid .pu-sub-error');
+    let element = browser.element('.pu-state-invalid .pu-sub-error');
     element.waitForExist();
     expect(element.getText()).toBe('This password is incorrect');
   });

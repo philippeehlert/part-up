@@ -8,12 +8,12 @@ Ratings = new Mongo.Collection('ratings');
 
 // Add indices
 if (Meteor.isServer) {
-    Ratings._ensureIndex('rating');
-    Ratings._ensureIndex('partup_id');
-    Ratings._ensureIndex('activity_id');
-    Ratings._ensureIndex('contribution_id');
-    Ratings._ensureIndex('upper_id');
-    Ratings._ensureIndex('rated_upper_id');
+  Ratings._ensureIndex('rating');
+  Ratings._ensureIndex('partup_id');
+  Ratings._ensureIndex('activity_id');
+  Ratings._ensureIndex('contribution_id');
+  Ratings._ensureIndex('upper_id');
+  Ratings._ensureIndex('rated_upper_id');
 }
 
 /**
@@ -24,5 +24,5 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor}
  */
 Ratings.findForContribution = function(contribution) {
-    return Ratings.find({contribution_id: contribution._id});
+  return Ratings.find({ contribution_id: contribution._id });
 };

@@ -1,58 +1,62 @@
 Meteor.routeComposite = function(route, callback) {
-    Router.route(route, {where: 'server'}).get(function() {
-        var request = this.request;
-        var response = this.response;
-        var params = this.params;
+  Router.route(route, { where: 'server' }).get(function() {
+    let request = this.request;
+    let response = this.response;
+    let params = this.params;
 
-        var userId = request.user ? request.user._id : null;
-        delete params.query.token;
+    let userId = request.user ? request.user._id : null;
+    delete params.query.token;
 
-        var composition = callback(request, _.extend({}, params));
-        var result = compositionToResult(userId, composition.find.bind({userId: userId}), composition.children);
+    let composition = callback(request, _.extend({}, params));
+    let result = compositionToResult(
+      userId,
+      composition.find.bind({ userId: userId }),
+      composition.children
+    );
 
-        // We are going to respond in JSON format
-        response.setHeader('Content-Type', 'application/json');
-        response.setHeader('Access-Control-Allow-Origin', '*');
+    // We are going to respond in JSON format
+    response.setHeader('Content-Type', 'application/json');
+    response.setHeader('Access-Control-Allow-Origin', '*');
 
-        return response.end(JSON.stringify(result));
-    });
+    return response.end(JSON.stringify(result));
+  });
 };
 
 var compositionToResult = function(userId, find, children) {
-    var result = {};
+  let result = {};
 
-    var cursor = find();
-    if (!cursor) return;
+  let cursor = find();
+  if (!cursor) return;
 
-    var documents = cursor.fetch();
-    var collectionName = cursor._cursorDescription.collectionName;
+  let documents = cursor.fetch();
+  let collectionName = cursor._cursorDescription.collectionName;
 
-    documents.forEach(function(document) {
-        result[collectionName] = result[collectionName] || [];
-        result[collectionName].push(document);
+  documents.forEach(function(document) {
+    result[collectionName] = result[collectionName] || [];
+    result[collectionName].push(document);
 
-        if (children) {
-            children.forEach(function(childComposition) {
-                var r = compositionToResult(
-                    userId,
-                    childComposition.find.bind({userId: userId}, document),
-                    childComposition.children
-                );
+    if (children) {
+      children.forEach(function(childComposition) {
+        let r = compositionToResult(
+          userId,
+          childComposition.find.bind({ userId: userId }, document),
+          childComposition.children
+        );
 
-                if (r) {
-                    Object.keys(r).forEach(function(collectionName) {
-                        result[collectionName] = result[collectionName] || [];
+        if (r) {
+          Object.keys(r).forEach(function(collectionName) {
+            result[collectionName] = result[collectionName] || [];
 
-                        var documents = r[collectionName];
+            let documents = r[collectionName];
 
-                        documents.forEach(function(document) {
-                            result[collectionName].push(document);
-                        });
-                    });
-                }
+            documents.forEach(function(document) {
+              result[collectionName].push(document);
             });
+          });
         }
-    });
+      });
+    }
+  });
 
-    return result;
-}
+  return result;
+};

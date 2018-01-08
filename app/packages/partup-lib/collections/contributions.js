@@ -7,10 +7,10 @@ Contributions = new Meteor.Collection('contributions');
 
 // Add indices
 if (Meteor.isServer) {
-    Contributions._ensureIndex('activity_id');
-    Contributions._ensureIndex('upper_id');
-    Contributions._ensureIndex('partup_id');
-    Contributions._ensureIndex('update_id');
+  Contributions._ensureIndex('activity_id');
+  Contributions._ensureIndex('upper_id');
+  Contributions._ensureIndex('partup_id');
+  Contributions._ensureIndex('update_id');
 }
 
 /**
@@ -21,9 +21,12 @@ if (Meteor.isServer) {
  * @return {Mongo.Cursor|Void}
  */
 Contributions.findForUpdate = function(update) {
-    if (!update.isContributionUpdate()) return;
+  if (!update.isContributionUpdate()) return;
 
-    return Contributions.find({_id: update.type_data.contribution_id}, {limit: 1});
+  return Contributions.find(
+    { _id: update.type_data.contribution_id },
+    { limit: 1 }
+  );
 };
 
 /**
@@ -35,13 +38,13 @@ Contributions.findForUpdate = function(update) {
  * @return {Mongo.Cursor}
  */
 Contributions.findForActivity = function(activity, parameters) {
-    parameters = parameters || {};
+  parameters = parameters || {};
 
-    var selector = {activity_id: activity._id};
+  let selector = { activity_id: activity._id };
 
-    if (parameters.archived !== undefined) {
-        selector.archived = parameters.archived ? true : {$ne: true};
-    }
+  if (parameters.archived !== undefined) {
+    selector.archived = parameters.archived ? true : { $ne: true };
+  }
 
-    return Contributions.find(selector);
+  return Contributions.find(selector);
 };

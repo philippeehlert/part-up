@@ -1,5 +1,5 @@
-var MetaInspector = Npm.require('node-metainspector');
-var d = Debug('services:scrape');
+let MetaInspector = Npm.require('node-metainspector');
+let d = Debug('services:scrape');
 
 /**
  @namespace Partup server scrape service
@@ -7,26 +7,29 @@ var d = Debug('services:scrape');
  @memberof Partup.server.services
  */
 Partup.server.services.scrape = {
-    /**
-     * Get scraped data from a URL
-     * @param {String} url
-     * @return {Object}
-     */
-    website: function(url) {
-        var scraper = Meteor.wrapAsync(function(url, callback) {
-            var client = new MetaInspector(url, {timeout: 5000, limit: 200000});
+  /**
+   * Get scraped data from a URL
+   * @param {String} url
+   * @return {Object}
+   */
+  website: function(url) {
+    let scraper = Meteor.wrapAsync(function(url, callback) {
+      let client = new MetaInspector(url, {
+        timeout: 5000,
+        limit: 200000,
+      });
 
-            client.on('fetch', function() {
-                return callback(null, client);
-            });
+      client.on('fetch', function() {
+        return callback(null, client);
+      });
 
-            client.on('error', function(error) {
-                return callback(Log.error(error));
-            });
+      client.on('error', function(error) {
+        return callback(Log.error(error));
+      });
 
-            client.fetch();
-        });
+      client.fetch();
+    });
 
-        return scraper(url);
-    }
+    return scraper(url);
+  },
 };

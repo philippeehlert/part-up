@@ -1,24 +1,15 @@
 Package.describe({
-    name: 'partup-client-resetpassword',
-    version: '0.0.1',
-    summary: 'The reset password module',
-    documentation: null
+  name: 'partup-client-resetpassword',
+  version: '0.0.1',
+  summary: 'The reset password module',
+  documentation: null,
 });
 
 Package.onUse(function(api) {
+  api.use(
+    ['templating', 'partup-lib', 'aldeed:autoform', 'ecmascript'],
+    ['client']
+  );
 
-    api.use([
-        'templating',
-        'partup-lib',
-        'aldeed:autoform',
-        'ecmascript',
-    ], ['client']);
-
-    api.addFiles([
-
-        'Resetpassword.html',
-        'Resetpassword.js'
-
-    ], 'client');
-
+  api.addFiles(['Resetpassword.html', 'Resetpassword.js'], 'client');
 });

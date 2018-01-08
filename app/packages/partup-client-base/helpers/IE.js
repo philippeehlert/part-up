@@ -1,13 +1,13 @@
 Template.registerHelper('partupIE9', function() {
-    if (Partup.client.browser.isIE()) {
-        var version = Partup.client.browser.msieversion();
-        if (version && version < 10) {
-            return true;
-        }
+  if (Partup.client.browser.isIE()) {
+    let version = Partup.client.browser.msieversion();
+    if (version && version < 10) {
+      return true;
     }
-    return false;
+  }
+  return false;
 });
 
 Template.registerHelper('partupIE', function() {
-    return Partup.client.browser.isIE();
+  return Partup.client.browser.isIE();
 });
