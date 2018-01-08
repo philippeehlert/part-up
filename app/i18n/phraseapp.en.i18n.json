@@ -1977,5 +1977,9 @@
   "widgetcommentfield-comment-systemmessage-show": "Show system messages",
   "widgetcommentfield-comment-totalcomments": "__count__ comment",
   "widgetcommentfield-comment-totalcomments_plural": "__count__ comments",
-  "widgetcommentfield-comment-viewall-button": "View all %s comments"
+  "widgetcommentfield-comment-viewall-button": "View all %s comments",
+  "star": "Star",
+  "unstar": "Unstar",
+  "pur-partup-start-starred-updates_title": "Starred Updates",
+  "pur-partup-start-starred-updates_no-starred": "There are no starred updates yet"
 }

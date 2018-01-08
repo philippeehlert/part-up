@@ -216,43 +216,40 @@
 
 <template name="activityActionsDropdown">
     <ul class="pu-list-dropdown ignore-drag">
-        {{#if isUpper }}
-        <ul>
-            <li class="pu-dropdown-item">
-                <a data-edit>{{_ 'edit' }}</a>
-            </li>
-            
-            <li class="pu-dropdown-item">
-                {{#if activity.archived }}
-                <a data-unarchive>{{_ 'unarchive' }}</a>
-                {{ else }}
-                <a data-archive>{{_ 'archive' }}</a>
-                {{/if }}
-            </li>
-            {{#if updateIsStarred }}
-                <li class="pu-dropdown-item">
-                    <a data-unstar-activity>Unstar</a>
-                </li>
-            {{ else }}
-                <li class="pu-dropdown-item">
-                    <a data-star-activity>Star</a>
-                </li>
-            {{/if}}
-        </ul>
+      {{#unless isContributing }}
+      <li class="pu-dropdown-item">
+        <a data-contribute>
+          {{_ 'activity-contribute-short' }}
+        </a>
+      </li>
+      {{/unless }}
+      {{#if isUpper }}
+      <li class="pu-dropdown-item">
+        {{#if activity.archived }}
+        <a data-unarchive>{{_ 'unarchive' }}</a>
+        {{ else }}
+        <a data-archive>{{_ 'archive' }}</a>
         {{/if }}
-        <ul>
-            {{#unless isContributing }}
-                <li class="pu-dropdown-item">
-                    <a data-contribute>
-                        {{_ 'activity-contribute-short' }}
-                    </a>
-                </li>
-            {{/unless }}
-            <li class="pu-dropdown-item">
-                <a data-invite>
-                    {{_ 'activity-invite-short' }}
-                </a>
-            </li>
-        </ul>
+      </li>
+      {{/if }}
+      <li class="pu-dropdown-item">
+        <a data-invite>
+          {{_ 'activity-invite-short' }}
+        </a>
+      </li>
+      {{#if isUpper }}
+      {{#if updateIsStarred }}
+      <li class="pu-dropdown-item">
+        <a data-unstar-activity>{{_ 'unstar'}}</a>
+      </li>
+      {{ else }}
+      <li class="pu-dropdown-item">
+        <a data-star-activity>{{_ 'star'}}</a>
+      </li>
+      {{/if}}
+      <li class="pu-dropdown-item">
+        <a data-edit>{{_ 'edit' }}</a>
+      </li>
+      {{/if }}
     </ul>
 </template>
