@@ -32,6 +32,15 @@
                                 <i class="picon-person-plus"></i> {{_ 'pages-app-partup-become_partner-pending' }}
                             </button>
                         </li>
+                        {{ else }}
+                        {{#if isSupporter }}
+                        <li>
+                          <a class="pu-button" data-open-takepart-popup>
+                            <i class="picon-person-plus"></i>
+                            {{_ 'pages-app-partup-become_partner' }}
+                          </a>
+                        </li>
+                        {{/if }}
                     {{/if}}
 
                     {{#if partupIsPopupActive 'take-part' }}
