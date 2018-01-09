@@ -38,14 +38,21 @@ Router.route('', {
 /** ***********************************************************/
 /* Dashboard */
 /** ***********************************************************/
-// Router.route('/home', {
-//     name: 'dashboard',
-//     where: 'client',
-//     yieldRegions: {
-//         'app': { to: 'main' },
-//         'app_dashboard': { to: 'app' },
-//     },
-// });
+Router.route('/home', {
+    name: 'dashboard',
+    where: 'client',
+    yieldRegions: {
+        app: { to: 'main' },
+        app_dashboard: { to: 'app' },
+    },
+    onBeforeAction: function() {
+        if (Meteor.settings.public.FEATURE_FLAG > 0) {
+            this.next();
+        } else {
+            this.redirect('/');
+        }
+    },
+});
 
 /** ***********************************************************/
 /* Discover */

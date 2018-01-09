@@ -1,21 +1,22 @@
 {
-    "public": {
-        "development": false,
-        "aws": {
-            "bucket": "partup-production",
-            "region": "eu-west-1"
-        },
-        "facebookAppId": "",
-        "analyticsSettings": {
-            "Google Analytics": {
-                "trackingId": "UA-34557675-15"
-            },
-            "autorun": false
-        },
-        "secondGATracker": "UA-34557675-17",
-        "intercom": {
-            "id": "",
-            "allowAnonymous": true
-        }
-    }
+  "public": {
+    "development": false,
+    "aws": {
+      "bucket": "partup-production",
+      "region": "eu-west-1"
+    },
+    "facebookAppId": "",
+    "analyticsSettings": {
+      "Google Analytics": {
+        "trackingId": "UA-34557675-15"
+      },
+      "autorun": false
+    },
+    "secondGATracker": "UA-34557675-17",
+    "intercom": {
+      "id": "",
+      "allowAnonymous": true
+    },
+    "FEATURE_FLAG": 1
+  }
 }
