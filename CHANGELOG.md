@@ -1,3 +1,14 @@
+<a name="3.2.1"></a>
+## [3.2.1](https://github.com/part-up/part-up/compare/3.2.0...3.2.1) (2018-01-06)
+
+
+### Bug Fixes
+
+* **client:** Add ready states to subscriptions ([4ca025e](https://github.com/part-up/part-up/commit/4ca025e))
+* **client:** Hide dashboard route ([8baf6d1](https://github.com/part-up/part-up/commit/8baf6d1))
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/part-up/part-up/compare/3.1.0...3.2.0) (2018-01-05)
 
