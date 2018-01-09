@@ -1,3 +1,5 @@
+const Autolinker = require('autolinker');
+
 /**
  * Generate a Partup update when an activity is inserted
  */
@@ -15,6 +17,24 @@ Event.on('partups.activities.inserted', function(userId, activity) {
         updateType,
         updateTypeData
     );
+
+    if (
+        _.get(activity, 'files.images', []).length ||
+        _.get(activity, 'files.documents', []).length
+    ) {
+        update.has_documents = true;
+    }
+    let hasLink = false;
+    Autolinker.link(activity.description, {
+        replaceFn(match) {
+            if (match) {
+                hasLink = true;
+            }
+        },
+    });
+    if (hasLink) {
+        update.has_links = true;
+    }
     let updateId = Updates.insert(update);
 
     Activities.update({ _id: activity._id }, { $set: { update_id: updateId } });

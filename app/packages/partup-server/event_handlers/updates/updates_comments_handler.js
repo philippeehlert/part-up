@@ -1,3 +1,5 @@
+const Autolinker = require('autolinker');
+
 let d = Debug('event_handlers:updates_comments_handler');
 
 /**
@@ -105,6 +107,18 @@ Event.on('updates.comments.inserted', function(upper, partup, update, comment) {
 
     // Check if a new comment notification needs to be created
     if (comment.type === 'motivation') return; // Nope
+
+    let hasLink = false;
+    Autolinker.link(comment.content, {
+        replaceFn(match) {
+            if (match) {
+                hasLink = true;
+            }
+        },
+    });
+    if (hasLink) {
+        Updates.update({ _id: update._id }, { $set: { has_links: true } });
+    }
 
     // Collect all uppers that should receive a new comment notification
     let involvedUppers = update.getInvolvedUppers();
