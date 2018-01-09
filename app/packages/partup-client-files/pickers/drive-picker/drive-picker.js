@@ -5,7 +5,7 @@ const drivePickerConfig = {
     clientId:
         '963161275015-ktpmjsjtr570htbmbkuepthb1st8o99o.apps.googleusercontent.com',
     scope: [
-        'https://www.googleapis.com/auth/drive',
+        'https://www.googleapis.com/auth/drive.readonly',
         'https://www.googleapis.com/auth/drive.file',
     ],
 };
