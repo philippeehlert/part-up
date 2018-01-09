@@ -38,21 +38,16 @@ Router.route('', {
 /** ***********************************************************/
 /* Dashboard */
 /** ***********************************************************/
-Router.route('/home', {
-    name: 'dashboard',
-    where: 'client',
-    yieldRegions: {
-        app: { to: 'main' },
-        app_dashboard: { to: 'app' },
-    },
-    onBeforeAction: function() {
-        if (Meteor.settings.public.FEATURE_FLAG > 0) {
-            this.next();
-        } else {
-            this.redirect('/');
-        }
-    },
-});
+if (Meteor.settings.public.FEATURE_FLAG_HOME) {
+    Router.route('/home', {
+        name: 'dashboard',
+        where: 'client',
+        yieldRegions: {
+            app: { to: 'main' },
+            app_dashboard: { to: 'app' },
+        },
+    });
+}
 
 /** ***********************************************************/
 /* Discover */
@@ -1096,11 +1091,9 @@ Router.route('/:slug', {
                 // redirect to the network detail if it isn't a swarm but is a network
             } else if (result.is_network) {
                 self.redirect(
-                    'network',
-                    {
+                    'network', {
                         slug: self.params.slug,
-                    },
-                    {
+                    }, {
                         query: self.params.query,
                     }
                 );
@@ -1194,8 +1187,7 @@ Router.onBeforeAction(
         } else {
             next();
         }
-    },
-    {
+    }, {
         where: 'client',
         only: [
             'create',
@@ -1229,8 +1221,7 @@ Router.onBeforeAction(
         } else {
             Router.pageNotFound();
         }
-    },
-    {
+    }, {
         where: 'client',
         only: ['admin-overview', 'admin-featured-partups', 'admin-createtribe'],
     }
@@ -1243,8 +1234,7 @@ Router.onBeforeAction(
             Session.set('partials.create-partup.current-partup', undefined);
         }
         next();
-    },
-    {
+    }, {
         where: 'client',
         except: [
             'create-details',

@@ -17,6 +17,6 @@
       "id": "",
       "allowAnonymous": true
     },
-    "FEATURE_FLAG": 1
+    "FEATURE_FLAG_HOME": 1
   }
 }
