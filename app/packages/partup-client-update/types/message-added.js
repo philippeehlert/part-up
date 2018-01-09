@@ -31,6 +31,9 @@ Template.update_partups_message_added.helpers({
     dropdownData() {
         const instance = Template.instance();
         return {
+            updateIsFromCurrentUser() {
+                return instance.data.upper_id === Meteor.userId();
+            },
             updateIsStarred() {
                 return instance.updateIsStarred.get();
             },
@@ -40,6 +43,9 @@ Template.update_partups_message_added.helpers({
                 } else {
                     return true;
                 }
+            },
+            mayRemove() {
+                return this.hasNoComments() && this.updateIsFromCurrentUser();
             },
             editMessagePopupId: function() {
                 return 'edit-message-' + instance.data._id;

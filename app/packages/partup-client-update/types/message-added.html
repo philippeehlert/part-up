@@ -25,7 +25,7 @@
             {{/if }}
 
             {{> dangerouslyRenderHTML HTML=messageContent transform=format access="MARKUP" }}
-            
+
             {{# if type_data.images }}
                 {{> ImageGallery images=type_data.images updateId=_id}}
             {{/ if}}
@@ -46,9 +46,11 @@
 
 <template name="messageAddedActionsDropdown">
     <ul class="pu-list-dropdown ignore-drag">
+        {{#if updateIsFromCurrentUser }}
         <li class="pu-dropdown-item">
             <a data-edit-message>{{_ 'update-editmessage-edit'}}</a>
         </li>
+        {{/if }}
         {{#if updateIsStarred }}
             <li class="pu-dropdown-item">
                 <a data-unstar-message>Unstar</a>
@@ -58,8 +60,8 @@
                 <a data-star-message>Star</a>
             </li>
         {{/if}}
-        {{#if hasNoComments}}
-            <li class="pu-dropdown-item">        
+        {{#if mayRemove }}
+            <li class="pu-dropdown-item">
                 <a  data-remove-message>{{_ 'update-editmessage-remove'}}</a>
             </li>
         {{/if}}
