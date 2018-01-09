@@ -14,19 +14,23 @@
  */
 // jscs:enable
 
-/*************************************************************/
+/** ***********************************************************/
 /* Widget created */
-/*************************************************************/
+/** ***********************************************************/
 Template.Update.onCreated(function() {
-    var template = this;
-    var updateId = template.data.updateId;
-    var update = Updates.findOne({_id: updateId});
+    let template = this;
+    let updateId = template.data.updateId;
+    let update = Updates.findOne({ _id: updateId });
 
     if (update) {
-        var partup = Partups.findOne({_id: update.partup_id});
+        let partup = Partups.findOne({ _id: update.partup_id });
 
         if (partup) {
-            template.updateIsStarred = new ReactiveVar(partup && partup.starred_updates && partup.starred_updates.includes(updateId));
+            template.updateIsStarred = new ReactiveVar(
+                partup &&
+                    partup.starred_updates &&
+                    partup.starred_updates.includes(updateId)
+            );
         }
     }
 
@@ -38,32 +42,35 @@ Template.Update.onCreated(function() {
     });
 });
 
-/*************************************************************/
+/** ***********************************************************/
 /* Widget helpers */
-/*************************************************************/
+/** ***********************************************************/
 Template.Update.helpers({
     update: function() {
-
         const templateInstance = Template.instance();
-        var self = this;
+        let self = this;
 
         // This causes new comments on updates not to be re-rendered!!
         // // Cache for not hitting to mini mongo as often
         // if (self._update) return self._update;
 
-        var template = Template.instance();
-        var updateId = template.data.updateId;
+        let template = Template.instance();
+        let updateId = template.data.updateId;
         if (!updateId) return; // no updateId found, return
-        var update = Updates.findOne({_id: updateId});
+        let update = Updates.findOne({ _id: updateId });
         if (!update) return; // no update found, return
-        var partup = Partups.findOne({_id: update.partup_id});
-        var activity = Activities.findOne({_id: update.type_data.activity_id});
-        var contribution = Contributions.findOne({_id: update.type_data.contribution_id});
-        var contributor;
+        let partup = Partups.findOne({ _id: update.partup_id });
+        let activity = Activities.findOne({
+            _id: update.type_data.activity_id,
+        });
+        let contribution = Contributions.findOne({
+            _id: update.type_data.contribution_id,
+        });
+        let contributor;
         if (contribution) {
             contributor = Meteor.users.findOne(contribution.upper_id);
         }
-        var user = Meteor.user();
+        let user = Meteor.user();
         return {
             data: function() {
                 return update;
@@ -75,9 +82,9 @@ Template.Update.helpers({
                 return activity;
             },
             showCommentButton: function() {
-                if (template.data.IS_DETAIL) return false;   // check if this is the detail view
-                if (update.comments_count) return false;                // check total comments
-                if (self.metadata.is_system) return false;              // check if contribution or systemmessage
+                if (template.data.IS_DETAIL) return false; // check if this is the detail view
+                if (update.comments_count) return false; // check total comments
+                if (self.metadata.is_system) return false; // check if contribution or systemmessage
 
                 return true;
             },
@@ -88,12 +95,15 @@ Template.Update.helpers({
                 return template.data.IS_DETAIL ? false : true;
             },
             title: function() {
-                var titleKey = 'update-type-' + self.metadata.update_type + '-title';
-                var params = {};
+                let titleKey =
+                    'update-type-' + self.metadata.update_type + '-title';
+                let params = {};
 
                 // Initiator name
                 if (get(self, 'metadata.updateUpper')) {
-                    params.name = User(self.metadata.updateUpper).getFirstname();
+                    params.name = User(
+                        self.metadata.updateUpper
+                    ).getFirstname();
                 } else if (self.metadata.is_system) {
                     params.name = 'Part-up';
                 }
@@ -101,13 +111,21 @@ Template.Update.helpers({
                 if (get(self, 'metadata.invitee_names')) {
                     // This method was needed, since a simpler pop() and join(', ) to create the sentence was glitching,
                     // because the update updates every now and then, so it was skipping names because of the pop
-                    var nameListCount = self.metadata.invitee_names.length;
-                    var nameSentence = self.metadata.invitee_names[0];
+                    let nameListCount = self.metadata.invitee_names.length;
+                    let nameSentence = self.metadata.invitee_names[0];
                     if (nameListCount > 1) {
-                        self.metadata.invitee_names.forEach(function(name, index) {
+                        self.metadata.invitee_names.forEach(function(
+                            name,
+                            index
+                        ) {
                             if (index === 0) return; // Already in sentence
                             if (index === nameListCount - 1) {
-                                nameSentence = nameSentence + ' ' + TAPi18n.__('update-general-and') + ' ' + name; // Last name of the list
+                                nameSentence =
+                                    nameSentence +
+                                    ' ' +
+                                    TAPi18n.__('update-general-and') +
+                                    ' ' +
+                                    name; // Last name of the list
                             } else {
                                 nameSentence = nameSentence + ', ' + name; // Just add it up
                             }
@@ -150,11 +168,19 @@ Template.Update.helpers({
             },
 
             systemMessageContent: function() {
-                return Partup.client.strings.newlineToBreak(TAPi18n.__('update-type-partups_message_added-system-' + self.type + '-content'));
+                return Partup.client.strings.newlineToBreak(
+                    TAPi18n.__(
+                        'update-type-partups_message_added-system-' +
+                            self.type +
+                            '-content'
+                    )
+                );
             },
 
             commentable: function() {
-                return !self.metadata.is_contribution && !self.metadata.is_system;
+                return (
+                    !self.metadata.is_contribution && !self.metadata.is_system
+                );
             },
             hasNoComments: function() {
                 if (update.comments) {
@@ -165,36 +191,38 @@ Template.Update.helpers({
             },
             FILES_EXPANDED() {
                 return templateInstance.data.FILES_EXPANDED;
-            }
+            },
         };
     },
     format() {
-        return function (content) {
+        return function(content) {
             return new Partup.client.message(content)
                 .sanitize()
                 .autoLink()
                 .getContent();
-        }
+        };
     },
     commentsExpanded() {
         return Template.instance().commentsExpanded;
     },
 });
 
-/*************************************************************/
+/** ***********************************************************/
 /* Widget events */
-/*************************************************************/
+/** ***********************************************************/
 Template.Update.events({
     'click [data-expand-comment-field]': function(event, template) {
         event.preventDefault();
 
-        var updateId = this.updateId;
-        var proceed = function() {
+        let updateId = this.updateId;
+        let proceed = function() {
             template.commentsExpanded.set(true);
 
             Meteor.defer(function() {
-                var commentForm = template.find('[id$=commentForm-' + updateId + ']');
-                var field = lodash.find(commentForm, { name: 'content' });
+                let commentForm = template.find(
+                    '[id$=commentForm-' + updateId + ']'
+                );
+                let field = lodash.find(commentForm, { name: 'content' });
                 if (field) field.focus();
             });
         };
@@ -202,7 +230,7 @@ Template.Update.events({
         if (Meteor.user()) {
             proceed();
         } else {
-            Intent.go({route: 'login'}, function() {
+            Intent.go({ route: 'login' }, function() {
                 if (Meteor.user()) {
                     proceed();
                 } else {
@@ -212,20 +240,23 @@ Template.Update.events({
         }
     },
     'click [data-edit-message]': function(event, template) {
-        console.log('clicked', template);
         event.preventDefault();
         Partup.client.popup.open({
-            id: 'edit-message-' + template.data.updateId
+            id: 'edit-message-' + template.data.updateId,
         });
     },
     'click [data-remove-message]': function(event, template) {
         event.preventDefault();
-        var updateId = template.data.updateId;
+        let updateId = template.data.updateId;
         Partup.client.prompt.confirm({
             title: 'Please confirm',
-            message: 'Do you really want to remove this message? This action cannot be undone.',
+            message:
+                'Do you really want to remove this message? This action cannot be undone.',
             onConfirm: function() {
-                Meteor.call('updates.messages.remove', updateId, function(error, result) {
+                Meteor.call('updates.messages.remove', updateId, function(
+                    error,
+                    result
+                ) {
                     if (error) {
                         Partup.client.notify.error(error.reason);
                         return;
@@ -234,7 +265,7 @@ Template.Update.events({
                     if (template.view) Blaze.remove(template.view);
                     Partup.client.notify.success('Message removed');
                 });
-            }
+            },
         });
-    }
+    },
 });

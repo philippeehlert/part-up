@@ -1,7 +1,7 @@
 <template name="update_partups_message_added">
     <!-- messageForm popup -->
     {{#if partupEquals upper_id currentUserId }}
-        {{#if partupIsPopupActive editMessagePopupId }}
+        {{#if partupIsPopupActive dropdownData.editMessagePopupId }}
             {{#contentFor "PopupTitle"}}
                 {{_ 'update-editmessage-title'}}
             {{/contentFor}}
@@ -53,11 +53,11 @@
         {{/if }}
         {{#if updateIsStarred }}
             <li class="pu-dropdown-item">
-                <a data-unstar-message>Unstar</a>
+                <a data-unstar-message>{{_ 'unstar'}}</a>
             </li>
         {{ else }}
             <li class="pu-dropdown-item">
-                <a data-star-message>Star</a>
+                <a data-star-message>{{_ 'star'}}</a>
             </li>
         {{/if}}
         {{#if mayRemove }}
