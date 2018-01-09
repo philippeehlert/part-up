@@ -240,7 +240,6 @@ Template.Update.events({
         }
     },
     'click [data-edit-message]': function(event, template) {
-        console.log('clicked', template);
         event.preventDefault();
         Partup.client.popup.open({
             id: 'edit-message-' + template.data.updateId,
