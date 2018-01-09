@@ -12,26 +12,6 @@ const drivePickerConfig = {
 
 drivePicker = drivePicker || {};
 
-drivePicker.setDefaultPermission = (file) => {
-    const request = window.gapi.client.drive.permissions.create({
-        fileId: file.id,
-        sendNotificationEmail: false,
-        transferOwnerShip: false,
-        role: 'reader',
-        type: 'anyone',
-    });
-
-    return new Promise((resolve, reject) => {
-        request.execute((response) => {
-            if (response.error) {
-                reject(response.error);
-            } else {
-                resolve(response);
-            }
-        });
-    });
-};
-
 Template.drivePicker.onRendered(function() {
     const template = this;
     let accessToken;
@@ -50,7 +30,6 @@ Template.drivePicker.onRendered(function() {
 
     function pickerCallback(data) {
         const uploadPromises = [];
-        const settingPromises = [];
 
         if (
             data[google.picker.Response.ACTION] === google.picker.Action.PICKED
@@ -76,36 +55,25 @@ Template.drivePicker.onRendered(function() {
                 }
             );
 
-            // We need the original docs to set permissions for the ids.
-            _.each(data.docs, (file) =>
-                settingPromises.push(drivePicker.setDefaultPermission(file))
-            );
+            template.controller.uploading.set(true);
 
-            Promise.all(settingPromises)
-                .then(() => {
-                    template.controller.uploading.set(true);
-
-                    _.each(files, (file) => {
-                        const uploadPromise = template.controller
-                            .insertFileToCollection(file)
-                            .then((inserted) =>
-                                template.controller.addFilesToCache(inserted)
-                            )
-                            .catch((error) => {
-                                Partup.client.notify.error(
-                                    TAPi18n.__(`upload-error-${error.code}`)
-                                );
-                            });
-
-                        uploadPromises.push(uploadPromise);
+            _.each(files, (file) => {
+                const uploadPromise = template.controller
+                    .insertFileToCollection(file)
+                    .then((inserted) =>
+                        template.controller.addFilesToCache(inserted)
+                    )
+                    .catch((error) => {
+                        Partup.client.notify.error(
+                            TAPi18n.__(`upload-error-${error.code}`)
+                        );
                     });
 
-                    Promise.all(uploadPromises)
-                        .then(() => template.controller.uploading.set(false))
-                        .catch((error) => {
-                            throw error;
-                        });
-                })
+                uploadPromises.push(uploadPromise);
+            });
+
+            Promise.all(uploadPromises)
+                .then(() => template.controller.uploading.set(false))
                 .catch((error) => {
                     throw error;
                 });
