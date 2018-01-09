@@ -1,15 +1,19 @@
-import {strings} from 'meteor/partup-client-base';
+import { strings } from 'meteor/partup-client-base';
 
 Template.update_partups_message_added.onCreated(function() {
-    var template = this;
+    let template = this;
 
     template.dropdownOpen = new ReactiveVar(false);
 
     const updateId = template.data._id;
-    const partup = Partups.findOne({_id: template.data.partup_id});
+    const partup = Partups.findOne({ _id: template.data.partup_id });
 
     if (partup) {
-        template.updateIsStarred = new ReactiveVar(partup && partup.starred_updates && partup.starred_updates.includes(updateId));
+        template.updateIsStarred = new ReactiveVar(
+            partup &&
+                partup.starred_updates &&
+                partup.starred_updates.includes(updateId)
+        );
     } else {
         template.updateIsStarred = new ReactiveVar(false);
     }
@@ -20,7 +24,9 @@ Template.update_partups_message_added.helpers({
         return Template.instance().dropdownOpen;
     },
     isUpper() {
-        return User(Meteor.user()).isPartnerInPartup(Template.instance().data.partup_id);
+        return User(Meteor.user()).isPartnerInPartup(
+            Template.instance().data.partup_id
+        );
     },
     dropdownData() {
         const instance = Template.instance();
@@ -28,25 +34,25 @@ Template.update_partups_message_added.helpers({
             updateIsStarred() {
                 return instance.updateIsStarred.get();
             },
-            hasNoComments: function () {
+            hasNoComments: function() {
                 if (instance.data.comments) {
                     return instance.data.comments.length <= 0;
                 } else {
                     return true;
                 }
             },
-            editMessagePopupId: function () {
+            editMessagePopupId: function() {
                 return 'edit-message-' + instance.data._id;
             },
         };
     },
-    messageContent: function () {
-        var self = this;
-        var rawNewValue = self.type_data.new_value;
+    messageContent: function() {
+        let self = this;
+        let rawNewValue = self.type_data.new_value;
         return strings.renderToMarkdownWithEmoji(rawNewValue);
     },
     areDocumentIds(documents) {
-        return (documents || []).filter(doc => typeof doc === 'string');
+        return (documents || []).filter((doc) => typeof doc === 'string');
     },
 });
 
@@ -64,7 +70,11 @@ Template.update_partups_message_added.events({
             if (error) {
                 template.updateIsStarred.set(false);
                 if (error.reason === 'partup_message_too_many_stars') {
-                    Partup.client.notify.error(TAPi18n.__('pur-partup-start-error-too_many_starred_updates'));
+                    Partup.client.notify.error(
+                        TAPi18n.__(
+                            'pur-partup-start-error-too_many_starred_updates'
+                        )
+                    );
                 } else {
                     Partup.client.notify.error('Could not star update');
                 }
@@ -83,7 +93,10 @@ Template.update_partups_message_added.events({
         const updateId = template.data._id;
         template.updateIsStarred.set(false);
 
-        Meteor.call('updates.messages.unstar', updateId, function(error, result) {
+        Meteor.call('updates.messages.unstar', updateId, function(
+            error,
+            result
+        ) {
             if (error) {
                 template.updateIsStarred.set(true);
                 Partup.client.notify.error('Could not unstar update');
