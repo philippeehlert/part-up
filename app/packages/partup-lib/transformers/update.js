@@ -16,12 +16,11 @@ Partup.transformers.update = {
         let hasUrl = fields.text.match(
             /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
         );
-        hasUrl = hasUrl && hasUrl.length > 0 ? true : false;
+        hasUrl = hasUrl && hasUrl.length > 0;
         let hasDocuments =
             (fields.documents && fields.documents.length > 0) ||
-            (fields.files && fields.files.length > 0)
-                ? true
-                : false;
+            (fields.images && fields.images.length > 0) ||
+            (fields.files && fields.files.length > 0);
 
         return {
             partup_id: partupId,
