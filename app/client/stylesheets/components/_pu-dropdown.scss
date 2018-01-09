@@ -459,7 +459,8 @@
             width: auto;
             bottom: auto;
             min-height: inherit;
-            max-height: inherit;
+            max-height: calc(100vh - 55px);
+            overflow-y: auto;
             right: auto;
             transform: translateY(5px);
         }
