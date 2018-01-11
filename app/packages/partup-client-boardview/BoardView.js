@@ -221,7 +221,7 @@ Template.BoardView.onCreated(function() {
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.ignore-drag',
-                forceFallback: true,
+                forceFallback: Partup.client.browser.isChromeOrSafari(),
                 preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
