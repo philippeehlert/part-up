@@ -39,13 +39,7 @@ Partup.client.browser = {
         let is_chrome = ua.indexOf('Chrome') > -1;
         let is_safari = ua.indexOf('Safari') > -1;
 
-        // Chrome has both "Chrome" and "Safari" in the string.
-        // Safari only has "Safari".
-        if (is_chrome && is_safari) {
-            is_safari = false;
-        }
-
-        return is_safari;
+        return is_chrome || is_safari;
     },
 
     getMobileOperatingSystem() {
