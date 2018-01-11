@@ -199,6 +199,9 @@ Template.BoardView.onCreated(function() {
 
         const evt = touchEvt || originalEvent;
 
+        console.log('originalEvent: ', originalEvent);
+        console.log('touchEvt: ', touchEvt);
+
         if (evt.clientX <= boardWrapEdges.left + scrollOffsetMargin) {
             $boardWrap.scrollLeft(currentScrollLeft - 10);
         } else if (evt.clientX >= boardWrapEdges.right - scrollOffsetMargin) {
