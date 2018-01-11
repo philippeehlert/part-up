@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-// Modified line 171 & 474!
+// Modified line 171 & 474 & 958!
 // If you want to update Sortable please ensure to include the modifications!
 
 (function sortableModule(factory) {
@@ -485,6 +485,7 @@
 		_disableDelayedDrag: function (event) {
       var ownerDocument = this.el.ownerDocument;
 
+      console.log('triggered _disableDelayedDrag');
       /* EDIT */
       if (event && Partup.client.isMobile.Android()) {
         const offset = 10;
@@ -497,6 +498,7 @@
             !(event.x >= (this._previousPos.x + offset) || event.x <= (this._previousPos.x - offset)) &&
             !(event.y >= (this._previousPos.y + offset) || event.y <= (this._previousPos.y - offset))
             ) {
+            console.log('should not disable drag!');
             return;
         }
 
@@ -550,7 +552,7 @@
 
 		_dragStarted: function () {
 			if (rootEl && dragEl) {
-				var options = this.options;
+        var options = this.options;
 
 				// Apply effect
 				_toggleClass(dragEl, options.ghostClass, true);
@@ -952,7 +954,8 @@
 
 			clearInterval(this._loopId);
 			clearInterval(autoScroll.pid);
-			clearTimeout(this._dragStartTimer);
+      clearTimeout(this._dragStartTimer);
+      this._previousPos.set(null, null);
 
 			_cancelNextTick(this._cloneId);
 			_cancelNextTick(this._dragStartId);
