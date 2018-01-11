@@ -482,7 +482,7 @@
     },
     /* END EDIT */
 
-		_disableDelayedDrag: function () {
+		_disableDelayedDrag: function (event) {
       var ownerDocument = this.el.ownerDocument;
 
       /* EDIT */
