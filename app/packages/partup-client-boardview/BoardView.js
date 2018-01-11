@@ -221,6 +221,7 @@ Template.BoardView.onCreated(function() {
                 animation: 50,
                 draggable: '.pu-js-sortable-card',
                 filter: '.ignore-drag',
+                forceFallback: true,
                 preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
