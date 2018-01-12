@@ -16,7 +16,7 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
-    "react-web-meteor": "^0.2.3",
+    "react-web-meteor": "https://github.com/andreleon/react-web-meteor.git",
     "showdown": "^1.8.4",
     "spin": "^0.0.1"
   },

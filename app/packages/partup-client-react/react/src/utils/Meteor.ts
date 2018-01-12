@@ -91,9 +91,6 @@ export function loginWithMeteorToken() {
 }
 
 export function getLoginToken() {
-    if (process.env.REACT_APP_DEV) {
-        return window.localStorage.getItem('reactnativemeteor_usertoken');
-    }
 
     return window.localStorage.getItem('Meteor.loginToken');
 }
@@ -106,7 +103,7 @@ export function onLogin(cb: Function) {
 }
 
 export function onLogout() {
-    window.localStorage.removeItem('reactnativemeteor_usertoken')
+    window.localStorage.removeItem('Meteor.loginToken');
 }
 
 export function onLoginFailure(cb: Function) {
