@@ -9,3 +9,5 @@ declare module '*.json' {
 
     export default value;
 }
+
+declare var Router: any;

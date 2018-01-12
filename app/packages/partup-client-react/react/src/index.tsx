@@ -5,6 +5,7 @@ declare global {
         TAPi18n: any;
         i18next: any;
         Meteor: any;
+        Router: any;
         RENDER_REACT: any;
         UNRENDER_REACT: any;
         REACT_USER_LOGIN: any;

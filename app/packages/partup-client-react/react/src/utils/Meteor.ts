@@ -104,6 +104,10 @@ export function onLogin(cb: Function) {
 
 export function onLogout() {
     window.localStorage.removeItem('Meteor.loginToken');
+
+    if (Router) {
+        Router.go('home');
+    }
 }
 
 export function onLoginFailure(cb: Function) {

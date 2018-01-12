@@ -118,7 +118,7 @@ Template.Login.events({
 /*************************************************************/
 /* Widget functions */
 /*************************************************************/
-var continueLogin = function() {
+const continueLogin = function() {
     var user = Meteor.user();
     if (!user) return;
 
