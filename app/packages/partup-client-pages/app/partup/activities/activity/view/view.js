@@ -193,6 +193,9 @@ Template.ActivityView.helpers({
             updateIsStarred() {
                 return instance.updateIsStarred.get();
             },
+            isOwnActivity() {
+              return instance.update.upper_id === Meteor.userId();
+            },
         };
     },
 });
