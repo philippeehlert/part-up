@@ -38,16 +38,15 @@ Router.route('', {
 /** ***********************************************************/
 /* Dashboard */
 /** ***********************************************************/
-if (Meteor.settings.public.FEATURE_FLAG_HOME) {
-    Router.route('/home', {
-        name: 'dashboard',
-        where: 'client',
-        yieldRegions: {
-            app: { to: 'main' },
-            app_dashboard: { to: 'app' },
-        },
-    });
-}
+
+Router.route('/home', {
+    name: 'dashboard',
+    where: 'client',
+    yieldRegions: {
+        app: { to: 'main' },
+        app_dashboard: { to: 'app' },
+    },
+});
 
 /** ***********************************************************/
 /* Discover */
