@@ -1,5 +1,7 @@
 declare module 'moment/locale/nl';
 
+declare module 'marked';
+
 declare module '*.json' {
     type jsonImport = {
         [key: string]: any
