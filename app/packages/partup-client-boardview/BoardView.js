@@ -168,6 +168,7 @@ Template.BoardView.onCreated(function() {
                 put: false,
             },
             delay: touchDelay,
+            forceFallback: Partup.client.browser.isChromeOrSafari(),
             animation: 150,
             draggable: '.pu-js-sortable-lane',
             handle: '.pu-boardview-lane__header',
@@ -225,14 +226,17 @@ Template.BoardView.onCreated(function() {
                 preventOnFilter: false,
                 ghostClass: 'pu-boardview-card--is-ghost',
                 dragClass: 'pu-boardview-card--is-dragging',
-                onStart: () => {
+                onStart: async () => {
                     template.startDrag();
+                    // console.log('start drag');
                 },
-                onEnd: () => {
+                onEnd: async () => {
                     template.endDrag();
+                    // console.log('end drag');
                 },
-                onSort: function(event) {
+                onSort: async function(event) {
                     template.updateLane(event.from, event.to, event.item);
+                    // console.log('sort');
                 },
                 scroll: true,
                 scrollFn: horizontalScrollHandler,
