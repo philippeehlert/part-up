@@ -444,6 +444,14 @@ Router.route('/partups/:slug', {
         let partupId = this.data().partupId;
         let accessToken = this.data().accessToken;
 
+        const lastRoute = localStorage.getItem('lastRoute');
+        const currentRoute = Router.current().route.getName();
+
+        if (currentRoute === lastRoute) {
+            this.next();
+            return;
+        }
+
         if (partupId && accessToken) {
             Session.set('partup_access_token', accessToken);
             Session.set('partup_access_token_for_partup', partupId);
