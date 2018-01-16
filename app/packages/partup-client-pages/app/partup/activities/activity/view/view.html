@@ -165,7 +165,7 @@
                         {{#with contributions }}
                             <ul class="pu-avatar-stack pu-avatar-stack">
                                 {{# each . }}
-                                    <li class="pu-avatar pu-avatar-small" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
+                                    <li class="pu-avatar pu-avatar-small {{#unless verified}}unverified{{/unless }}" style="{{#with upper.profile.image }}background-image: url('{{ partupImageUrl id=. store='80x80' }}');{{/with }}}"></li>
                                 {{/ each }}
                             </ul>
                         {{/with}}

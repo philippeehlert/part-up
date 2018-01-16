@@ -237,6 +237,12 @@
 
             .pu-avatar-stack {
                 height: em(35);
+
+                .unverified {
+                  -webkit-filter: grayscale(80%);
+                  filter: grayscale(80%);
+                }
+
                 > li {
                     width: em(35);
                     height: em(35);
@@ -252,6 +258,15 @@
 
         .pu-contribution {
             padding: em(5) em(0);
+
+            &.unverified {
+              .pu-ratings {
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+                margin: 0;
+              }
+            }
         }
 
         &-comments {

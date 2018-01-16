@@ -4,8 +4,16 @@
 
     &.unverified {
         img {
-            -webkit-filter: grayscale(50%);
-            filter: grayscale(50%);
+            -webkit-filter: grayscale(80%);
+            filter: grayscale(80%);
+        }
+        figure {
+          -webkit-filter: grayscale(80%);
+          filter: grayscale(80%);
+        }
+
+        p {
+          color: grey;
         }
     }
 
