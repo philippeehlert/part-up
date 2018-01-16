@@ -85,7 +85,8 @@
         {{/unless }}
 
         <footer class="pu-form-footer">
-          <ul class="left {{#unless isExistingActivity}}pu-clear{{/unless }}">
+            <!-- {{#unless isExistingActivity}}pu-clear{{/unless }} -->
+          <ul class="left">
               {{#if isExistingActivity }}
                   <li>
                       {{#if isArchived }}
@@ -109,7 +110,11 @@
                       <div>
                           <div type="button" class="pu-button pu-button-checkmark pu-button-checkmark-confirm"> <i class="picon-check"></i> </div>
                       </div>
+                      {{#if screenWidthEqualOrAbove '520' }}
                         <span>{{_ 'activity-contribute' }}</span>
+                      {{ else }}
+                        <span>{{_ 'activity-contribute-short' }}</span>
+                      {{/if }}
                     </div>
                   </li>
               {{/if }}
@@ -126,7 +131,11 @@
                             {{#if isExistingActivity }}
                                 {{_ 'activity-form-save' }}
                             {{ else }}
+                              {{#if screenWidthEqualOrAbove '465' }}
                                 {{_ 'activity-form-submit' }}
+                              {{ else }}
+                                {{_ 'activity-form-submit-short' }}
+                              {{/if }}
                             {{/if }}
                             {{#if isSubmitting }}
                                 {{> Spinner type='small' }}
