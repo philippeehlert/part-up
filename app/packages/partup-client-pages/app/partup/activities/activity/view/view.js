@@ -195,7 +195,10 @@ Template.ActivityView.helpers({
                 return instance.updateIsStarred.get();
             },
             isOwnActivity() {
-              return instance.update.upper_id === Meteor.userId();
+              // Check update or activity
+                const updateUpper = _.get(instance, 'update.upper_id', undefined);
+                const activityCreator = _.get(self, 'activity.creator_id', undefined);
+                return (updateUpper || activityCreator) === Meteor.userId();
             },
         };
     },
