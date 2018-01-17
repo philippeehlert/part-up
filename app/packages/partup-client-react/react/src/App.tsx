@@ -62,7 +62,7 @@ interface State {
 
 export interface AppContext {
     user?: UserDocument;
-    refetchUser: Function;
+    refreshUser: Function;
 }
 
 export type renderInstanceType = 'home' | 'partup-start';
@@ -76,7 +76,7 @@ export class App extends React.Component<AppProps, State> {
 
     public static childContextTypes = {
         user: PropTypes.object,
-        refetchUser: PropTypes.func,
+        refreshUser: PropTypes.func,
     };
 
     public state: State = {
@@ -84,11 +84,13 @@ export class App extends React.Component<AppProps, State> {
         loginFailed: false,
     };
 
+    // current user subscription (not yet active)
     private userSubscription = new Subscriber({
         subscription: 'users.loggedin',
         onStateChange: () => this.forceUpdate(),
     });
 
+    // current user tracker, triggers re-render when current user changes
     private currentUserTracker = new Tracker<UserDocument>({
         collection: 'users',
         onChange: (event) => {
@@ -105,19 +107,28 @@ export class App extends React.Component<AppProps, State> {
 
         return {
             user,
-            refetchUser: this.refetchUser,
+            refreshUser: this.refreshUser,
         };
     }
 
-    public loadData = async () => {
-        await this.userSubscription.subscribe();
-        this.refetchUser();
+    // load user data, activates user subscription
+    public loadUserData = async () => {
 
+        // activate user subscription
+        await this.userSubscription.subscribe();
+
+        // Gets current user from minimongo and sets it on this.state
+        this.refreshUser();
+
+        // onLogin handler (same as Accounts.onLogin)
         onLogin(async () => {
             this.setState({ loginFailed: false });
-            this.refetchUser();
-            const user = Meteor.user();
 
+            // refresh user on state
+            this.refreshUser();
+
+            // set app locale based on user
+            const user = Meteor.user();
             const locale = get(user, 'profile.settings.locale') || 'en';
 
             moment.locale(locale);
@@ -129,7 +140,7 @@ export class App extends React.Component<AppProps, State> {
     }
 
     public componentWillMount() {
-        this.loadData();
+        this.loadUserData();
 
         loginWithMeteorToken();
 
@@ -139,6 +150,9 @@ export class App extends React.Component<AppProps, State> {
 
     public componentWillUnmount() {
         this.currentUserTracker.destroy();
+
+        this.userSubscription.unsubscribe();
+
         userDispatcher.unsubscribe('login', this.userLoginHandler);
         userDispatcher.unsubscribe('logout', this.userLogoutHandler);
     }
@@ -199,7 +213,7 @@ export class App extends React.Component<AppProps, State> {
         return undefined;
     }
 
-    private refetchUser = () => {
+    private refreshUser = () => {
         this.setState({
             user: Meteor.user(),
         });
